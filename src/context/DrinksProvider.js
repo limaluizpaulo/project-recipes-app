@@ -1,12 +1,16 @@
-import React from 'react'
-import Context from './Context';
+import React, { createContext } from 'react';
+import PropTypes from 'prop-types';
 
-const DrinksProvider = ({ children }) => {
-  return (
-    <Context.Provider value={ store }>
-      { children }
-    </Context.Provider>
-  )
-}
+const DrinksContext = createContext();
 
-export default DrinksProvider;
+const DrinksProvider = ({ children }) => (
+  <DrinksContext.Provider value={ {} }>
+    { children }
+  </DrinksContext.Provider>
+);
+
+DrinksProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export { DrinksContext, DrinksProvider };
