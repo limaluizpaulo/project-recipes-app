@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 
 const Login = () => {
   const [user, setUser] = React.useState(
@@ -7,23 +8,34 @@ const Login = () => {
       password: '',
     },
   );
+
+  // Essa chave é responsável por redirecionar a página. Default é false
+  const [isRedirect, setIsRedirect] = React.useState(false);
+
   const numberPassword = 6;
   function handlechange({ target: { name, value } }) {
     const format = RegExp(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]{2,3}(\.[a-z0-9]+)?$/);
     if (name === 'email' && format.test(value)) {
-      setUser({ ...user,
+      setUser({
+        ...user,
         email: value,
       });
     } else if (name === 'password' && value.length > numberPassword) {
-      setUser({ ...user,
+      setUser({
+        ...user,
         password: value,
       });
     }
   }
 
-  // React.useEffect(handlechange, [user]);
+  function setTokensNEmail() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+    setIsRedirect(true);
+  }
 
-  return (
+  return isRedirect ? <Redirect to="/comidas" /> : (
     <form>
       <label htmlFor="email">
         <span>E-mail:</span>
@@ -48,6 +60,7 @@ const Login = () => {
         />
       </label>
       <button
+        onClick={ setTokensNEmail }
         disabled={ !(user.email && user.password) }
         type="submit"
         data-testid="login-submit-btn"
