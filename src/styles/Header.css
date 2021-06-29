@@ -1,7 +1,13 @@
 .header-container {
-  align-items: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+}
+
+.header-container div {
+  padding-right: 20px;
 }
 
 .header-container > button {
