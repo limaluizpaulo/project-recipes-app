@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
 function SearchBar() {
-  const [selectedRadio, setSelectedRadio] = useState();
+  const [selectedRadio, setSelectedRadio] = useState('ingrediente');
+  const [inputValue, setInputValue ] = useState('');
 
-  handleChange = ({ target }) => {
-
+  const handleChange = ({ target }) => {
+    if (target.type === 'radio') {
+      setSelectedRadio(target.value);
+    } else {
+      setInputValue(target.value);
+    }
   };
 
   return (
@@ -13,29 +18,42 @@ function SearchBar() {
         <input
           data-testid="search-input"
           type="text"
-          onChange={ () => handleChange(e) }
+          onChange={ (e) => handleChange(e) }
         />
-        <label htmlFor="radio-search">
+        <label htmlFor="ingredient-radio">
           Ingrediente
           <input
+            checked={ selectedRadio === 'ingrediente' }
+            id="ingredient-radio"
             type="radio"
             name="radio-search"
             data-testid="ingredient-search-radio"
-            onClick={ () => handleChange(e) }
+            value="ingrediente"
+            onChange={ (e) => handleChange(e) }
           />
+        </label>
+        <label htmlFor="name-radio">
           Nome
           <input
+            checked={ selectedRadio === 'nome' }
+            id="name-radio"
             type="radio"
             name="radio-search"
             data-testid="name-search-radio"
-            onClick={ () => handleChange(e) }
+            value="nome"
+            onChange={ (e) => handleChange(e) }
           />
+        </label>
+        <label htmlFor="first-letter-radio">
           Primeira letra
           <input
+            checked={ selectedRadio === 'letra' }
+            id="first-letter-radio"
             type="radio"
             name="radio-search"
             data-testid="first-letter-search-radio"
-            onClick={ () => handleChange(e) }
+            value="letra"
+            onChange={ (e) => handleChange(e) }
           />
         </label>
         <section>
