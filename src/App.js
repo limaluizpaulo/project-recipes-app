@@ -1,25 +1,23 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router';
-import DrinksProvider from './context/DrinksProvider';
-import MealsProvider from './context/MealsProvider';
+import Provider from './context';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
   return (
     <Switch>
-      <DrinksProvider>
-        <MealsProvider>
-          <Route exact path="/" components={} />
-          <Route path="/comidas" components={} />
-          <Route path="/bebidas" components={} />
-          <Route path="/explorar" components={} />
-          <Route path="/perfl" components={} />
-          <Route path="/receitas-feitas" components={} />
-          <Route path="/receitas-favoritas" components={} />
-        </MealsProvider>
-      </DrinksProvider>
+      <Provider>
+        <Route exact path="/" component={ Login } />
+        {/* <Route path="/comidas" component={} />
+        <Route path="/bebidas" component={} />
+        <Route path="/explorar" component={} />
+        <Route path="/perfil" component={} />
+        <Route path="/receitas-feitas" component={} />
+        <Route path="/receitas-favoritas" component={} /> */}
+      </Provider>
     </Switch>
   );
 }
