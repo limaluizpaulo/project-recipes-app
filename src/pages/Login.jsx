@@ -13,7 +13,7 @@ const Login = ({ history }) => {
     setter(value);
     checker(value);
   };
-  // Função que cuida do submit, adiciona tokens no localStorage até então
+  // Função que cuida do submit, adiciona tokens no localStorage e redireciona para a rota /comidas
   const handleSubmit = () => {
     setOnLocalStorage('mealsToken', '1');
     setOnLocalStorage('cocktailsToken', '1');
