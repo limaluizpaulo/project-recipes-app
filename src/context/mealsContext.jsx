@@ -1,14 +1,14 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { node } from 'prop-types';
 
 const MealsContext = createContext();
 
 export default function MealsContextProvider({ children }) {
-  // const [mealsFiltered, setMealsFiltered] = useState([]);
+  const [mealsFiltered, setMealsFiltered] = useState([]);
 
   return (
     <MealsContext.Provider
-      value={ { setMealsFiltered } }
+      value={ { mealsFiltered, setMealsFiltered } }
     >
       {children}
     </MealsContext.Provider>
@@ -18,8 +18,9 @@ export default function MealsContextProvider({ children }) {
 export function useMealsContext() {
   const context = useContext(MealsContext);
 
-  const { setMealsFiltered } = context;
-  return { setMealsFiltered };
+  const { mealsFiltered, setMealsFiltered } = context;
+
+  return { mealsFiltered, setMealsFiltered };
 }
 
 MealsContextProvider.propTypes = {
