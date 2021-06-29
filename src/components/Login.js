@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import Context from '../Provider/context';
 
 function Login() {
-  const sizePass = 6;
-  const { user,
+  const {
+    user,
     user: { userEmail, password },
-    setUser } = useContext(Context);
+    setUser,
+  } = useContext(Context);
+
+  const sizePass = 6;
   const passwordCheck = password.length > sizePass;
   const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(userEmail);
 
