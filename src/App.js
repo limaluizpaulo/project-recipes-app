@@ -3,15 +3,29 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
-import Login from './Pages/Login';
-import Test from './Pages/Test';
+
+import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
+  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil } from './Pages';
 
 function App() {
   return (
     <Provider>
       <Switch>
-        <Route path="/comidas" component={ Test } />
-        <Route path="/perfil" component={ Test } />
+        <Route path="/comidas" component={ Comidas } />
+        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/perfil" component={ Perfil } />
+        <Route path="/explorar" component={ Explorar } />
+        <Route path="/explorar/comidas" component={ ExpComidas } />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          component={ ExpComidasIngredientes }
+        />
+        <Route path="/explorar/comidas/area" component={ ExpComidasArea } />
+        <Route path="/explorar/bebidas" component={ ExpBebidas } />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          component={ ExpBebidasIngredientes }
+        />
         <Route path="/" component={ Login } />
       </Switch>
     </Provider>

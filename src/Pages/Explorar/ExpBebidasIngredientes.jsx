@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import Context from '../context/Context';
+import Context from '../../context/Context';
 
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
 
-export default function Test() {
+export default function ExpBebidasIngredientes() {
   const { openSearchBar } = useContext(Context);
 
   return (
