@@ -11,13 +11,13 @@ function App() {
     <Switch>
       <DrinksProvider>
         <MealsProvider>
-          <Route exact path="/" components={} />
-          <Route path="/comidas" components={} />
-          <Route path="/bebidas" components={} />
-          <Route path="/explorar" components={} />
-          <Route path="/perfl" components={} />
-          <Route path="/receitas-feitas" components={} />
-          <Route path="/receitas-favoritas" components={} />
+          {/* <Route exact path="/" component={Login} /> */}
+          {/* <Route path="/comidas" component={} />
+          <Route path="/bebidas" component={} />
+          <Route path="/explorar" component={} />
+          <Route path="/perfl" component={} />
+          <Route path="/receitas-feitas" component={} />
+          <Route path="/receitas-favoritas" component={} /> */}
         </MealsProvider>
       </DrinksProvider>
     </Switch>
