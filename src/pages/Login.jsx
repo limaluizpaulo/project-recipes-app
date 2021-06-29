@@ -12,7 +12,7 @@ function Login() {
 
   const validate = () => {
     const { email, password } = loginInfo;
-    const PASSWORD_LENGTH = 5;
+    const PASSWORD_LENGTH = 6;
     const emailTester = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i;
     if (emailTester.test(email) && password.length >= PASSWORD_LENGTH) {
       return true;
@@ -38,7 +38,14 @@ function Login() {
 
   const handleLogin = () => {
     const { email } = loginInfo;
-    localStorage.setItem('user', JSON.stringify(email));
+    const userFormat = {
+      email,
+    };
+    const mealToken = 1;
+    const cockTailsToken = 1;
+    localStorage.setItem('user', JSON.stringify(userFormat));
+    localStorage.setItem('mealsToken', JSON.stringify(mealToken));
+    localStorage.setItem('cocktailsToken', JSON.stringify(cockTailsToken));
     setRedirect(true);
   };
 
