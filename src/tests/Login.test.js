@@ -16,4 +16,11 @@ describe('Renderiza a Pagina Login', () => {
     const input = getByTestId('password-input');
     expect(input).toBeInTheDocument();
   });
+
+  it('Renderiza o botão', () => {
+    const { getByTestId } = renderWithRoute(<App />);
+
+    const button = getByTestId('login-submit-btn');
+    expect(button).toBeInTheDocument();
+  });
 });
