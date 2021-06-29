@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import requestMeal from '../../functions/requests';
+import Header from '../Header/Header';
 import './Food.css';
 
 function Food() {
@@ -33,6 +34,7 @@ function Food() {
 
   return (
     <div className="card-meals">
+      <Header title="Comidas" />
       {
         loading
           ? 'Carregando...'
