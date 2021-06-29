@@ -1,25 +1,29 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import LoginContext from '../context/LoginContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { successLogin } = useContext(LoginContext);
+  const history = useHistory();
 
   function handleSumit(event) {
     event.preventDefault();
     successLogin(email);
 
-    localStorage.setItem('user:', JSON.stringify({ email }));
+    localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+
+    history.push('/comidas');
   }
 
   function validateLogin() {
     const validator = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     const PASSWORD_MIN_LENGHT = 6;
-    if (password.length >= PASSWORD_MIN_LENGHT && validator.test(email)) {
+    if (password.length > PASSWORD_MIN_LENGHT && validator.test(email)) {
       return true;
     }
     return false;
