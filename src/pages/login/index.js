@@ -1,33 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Login() {
-  const [user, setUser] = useState();
-  const [disabledButton, setDisabledButton] = useState(false);
+  const [user, setUser] = useState({ email: '', password: '' });
+  const [disabledButton, setDisabledButton] = useState(true);
 
   function handleChange({ target }) {
     const { name, value } = target;
     setUser((prevState) => ({
       ...prevState, [name]: value,
     }));
+  }
 
+  useEffect(() => {
     const re = /\S+@\S+\.\S+/;
     const MIN_PASSWORD_LENGTH = 6;
     const email = user.email || '';
-    const password = user.senha || '';
+    const password = user.password || '';
 
     if (re.test(email) && password.length >= MIN_PASSWORD_LENGTH) {
+      console.log(password);
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }
+  }, [user]);
 
   return (
     <div>
       <label className="email" htmlFor="email-input">
-        <span>
-          Email
-        </span>
+        <span>Email</span>
         <input
           onChange={ handleChange }
           data-testid="email-input"
@@ -39,9 +40,7 @@ function Login() {
         />
       </label>
       <label className="senha" htmlFor="password-input">
-        <span>
-          Senha
-        </span>
+        <span>Senha</span>
         <input
           onChange={ handleChange }
           data-testid="password-input"
@@ -53,6 +52,7 @@ function Login() {
         />
       </label>
       <button
+        type="submit"
         disabled={ disabledButton }
         onClick={ () => console.log('cliquei') }
       >
