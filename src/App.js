@@ -13,6 +13,7 @@ function App() {
       <Provider>
         <Route exact path="/" component={ Login } />
         <Route path="/comidas" component={ Meals } />
+        <Route path="/perfil" component={ Perfil } />
         {/* <Route path="/bebidas" component={} />
         <Route path="/explorar" component={} />
         <Route path="/perfil" component={} />
