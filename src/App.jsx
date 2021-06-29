@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           Glass
         </object>
       </div>
+      <Footer />
     </Provider>
   );
 }
