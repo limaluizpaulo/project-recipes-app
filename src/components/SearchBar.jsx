@@ -15,6 +15,7 @@ export default function SearchBar() {
   const { pathname } = useHistory().location;
   const { setMealsFiltered } = useMealsContext();
   const { setDrinksFiltered } = useDrinksContext();
+  const customAlert = alert;
 
   const NUM = 12;
 
@@ -38,7 +39,7 @@ export default function SearchBar() {
       fetchDrinks = await fetchDrinkByFirstLetter(searchText);
     }
     if (filter === 'firstLetter' && searchText.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      customAlert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     if (fetchDrinks) {
@@ -61,7 +62,7 @@ export default function SearchBar() {
         fetchMealsRes = await fetchMealsByFirstLetter(searchText);
       }
       if (filter === 'firstLetter' && searchText.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+        customAlert('Sua busca deve conter somente 1 (um) caracter');
       }
     } else {
       handleDrinkFetch();
