@@ -3,11 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
 
 const Login = () => {
-  const { disable, verifyEmail, verifyPassword,
-    handleLogin, verifyLogin } = useContext(UserContext);
+  const { disable, verifyEmail, verifyPassword, handleLogin, verifyLogin } = useContext(UserContext);
 
-  if (verifyLogin) return <Redirect to="/meals" />;
-
+  if (verifyLogin) return <Redirect to="/comidas" />;
   return (
     <>
       <h1>login</h1>

@@ -22,16 +22,28 @@ const UserProvider = ({ children }) => {
     const passwordMinLength = 6;
     if (target.value.length >= passwordMinLength) setPassword(target.value);
     else setPassword('');
-    console.log();
     setDisable(!(email.length > 0 && password.length > 0));
   };
 
   const handleLogin = () => {
-    setOnLocalStorage('user', email);
     setOnLocalStorage('mealsToken', 1);
     setOnLocalStorage('cocktailsToken', 1);
+    setOnLocalStorage('user', {
+      email,
+    });
     setVerifyLogin(true);
   };
+
+  // const validateInput = (a, b) => {
+  //   setPassword(a.target.value);
+  //   setEmail(b.target.value);
+  //   const validateEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(email);
+  //   const validatePassword = password;
+  //   const cinco = 5;
+  //   if (validateEmail && (validatePassword.length > cinco)) {
+  //     setVerifyLogin(false);
+  //   }
+  // };
 
   const context = {
     email,
