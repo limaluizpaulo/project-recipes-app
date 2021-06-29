@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [disabledButton, setDisabledButton] = useState(true);
+  const history = useHistory();
 
   function handleChange({ target }) {
     const { name, value } = target;
@@ -17,6 +19,8 @@ function Login() {
     localStorage.setItem('user', {
       email: user.email
     });  
+
+    history.push('/comidas');
   }
 
   useEffect(() => {
