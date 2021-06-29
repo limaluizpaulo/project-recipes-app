@@ -17,7 +17,15 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { email } = state;
+    const { email } = state;
+    const user = {
+      email,
+    };
+
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify(user));
+    setState({ ...state, redirect: true });
   };
 
   const { email, password } = state;
@@ -52,7 +60,7 @@ export default function Login() {
         <button
           data-testid="login-submit-btn"
           disabled={ password.length <= NUM || (!handleEmailverify()) }
-          type="button"
+          type="submit"
         >
           Entrar
         </button>
