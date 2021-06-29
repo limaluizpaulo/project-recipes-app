@@ -5,7 +5,7 @@ class Foods extends Component {
   render() {
     return (
       <section>
-        <Header title="Comida" />
+        <Header title="Comidas" />
       </section>
     );
   }

@@ -6,26 +6,27 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
+import Perfil from './pages/Perfil';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Foods } />
-      <Route path="/bebidas" component={ Drinks } />
+      <Route exact path="/comidas" component={ Foods } />
+      <Route exact path="/bebidas" component={ Drinks } />
       <Route path="/comidas/:comidaId" />
       <Route path="/bebidas/:bebidaId" />
       <Route path="/comidas/:comidaId/in-progress" />
       <Route path="/comidas/:bebidaId/in-progress" />
-      <Route path="/explorar" />
-      <Route path="/explorar/comidas" />
-      <Route path="/explorar/bebidas" />
-      <Route path="/explorar/comidas/ingredientes" />
-      <Route path="/explorar/bebidas/ingredientes" />
-      <Route path="/explorar/comidas/area" />
-      <Route path="/perfil" />
-      <Route path="/receitas-feitas" />
-      <Route path="/receitas-favoritas" />
+      <Route exact path="/explorar" />
+      <Route exact path="/explorar/comidas" />
+      <Route exact path="/explorar/bebidas" />
+      <Route exact path="/explorar/comidas/ingredientes" />
+      <Route exact path="/explorar/bebidas/ingredientes" />
+      <Route exact path="/explorar/comidas/area" />
+      <Route exact path="/perfil" component={ Perfil } />
+      <Route exact path="/receitas-feitas" />
+      <Route exact path="/receitas-favoritas" />
     </Switch>
   );
 }

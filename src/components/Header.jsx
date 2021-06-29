@@ -10,9 +10,17 @@ class Header extends Component {
 
     this.state = {
       redirect: false,
+      hydeInput: false,
     };
 
     this.changeRoute = this.changeRoute.bind(this);
+    this.showInput = this.showInput.bind(this);
+  }
+
+  showInput() {
+    const { hydeInput } = this.state;
+    this.setState(() => ({
+      hydeInput: !hydeInput }));
   }
 
   changeRoute() {
@@ -21,7 +29,7 @@ class Header extends Component {
 
   render() {
     const { title } = this.props;
-    const { redirect } = this.state;
+    const { redirect, hydeInput } = this.state;
     if (redirect) return <Redirect to="/perfil" />;
     return (
       <header>
@@ -30,13 +38,30 @@ class Header extends Component {
             type="button"
             data-testid="profile-top-btn"
             onClick={ this.changeRoute }
+            src={ profile }
           >
             <img src={ profile } alt="profile-icon" />
           </button>
           <h2 data-testid="page-title">{title}</h2>
-          <button type="button" page-title="search-top-btn">
+          <button
+            onClick={ this.showInput }
+            type="button"
+            page-title="search-top-btn"
+            data-testid="search-top-btn"
+            src={ search }
+          >
             <img src={ search } alt="search-icon" />
           </button>
+          { !hydeInput
+            ? (
+              <input
+                type="hidden"
+              />)
+            : (
+              <input
+                data-testid="search-input"
+              />
+            )}
         </div>
       </header>
     );
