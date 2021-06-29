@@ -18,7 +18,7 @@ export default function Login() {
   const validLoginPassword = () => {
     const { password } = user;
     console.log(password);
-    const minCharacters = 6;
+    const minCharacters = 7;
     if (password.length >= minCharacters) {
       return true;
     }
