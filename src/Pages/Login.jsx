@@ -1,24 +1,29 @@
-import React, { useContext } from 'react'
+import React from 'react';
 
 const Login = () => {
-  const [ user, setUser] = useContext({
-    email:'',
-  password:'',
-})
-  handlechange({ target: { value, name } }) {
+  const [user, setUser] = React.useState(
+    {
+      email: '',
+      password: '',
+    },
+  );
+  const numberPassword = 6;
+  function handlechange({ target: { name, value } }) {
     const format = RegExp(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]{2,3}(\.[a-z0-9]+)?$/);
     if (name === 'email' && format.test(value)) {
       setUser({ ...user,
         email: value,
       });
-    } else if (name === 'password' && value.length >= 6) {
+    } else if (name === 'password' && value.length > numberPassword) {
       setUser({ ...user,
         password: value,
-      });;
+      });
     }
   }
+
+  // React.useEffect(handlechange, [user]);
+
   return (
-    <div>
     <form>
       <label htmlFor="email">
         <span>E-mail:</span>
@@ -28,7 +33,7 @@ const Login = () => {
           name="email"
           id="email"
           data-testid="email-input"
-          onChange={ this.handlechange }
+          onChange={ handlechange }
         />
       </label>
       <label htmlFor="password">
@@ -39,21 +44,18 @@ const Login = () => {
           name="password"
           id="password"
           data-testid="password-input"
-          onChange={ this.handlechange }
+          onChange={ handlechange }
         />
-      
-          <button
-            onClick={ userToken }
-            disabled={ !(email && password) }
-            type="submit"
-            data-testid="login-submit-btn"
-          >
-            Entrar
-          </button>
-      
+      </label>
+      <button
+        disabled={ !(user.email && user.password) }
+        type="submit"
+        data-testid="login-submit-btn"
+      >
+        Entrar
+      </button>
     </form>
-    </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

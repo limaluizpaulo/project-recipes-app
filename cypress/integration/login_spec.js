@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('2 - Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login', () => {
+describe.only('2 - Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login', () => {
   it('Tem os data-testids email-input, password-input e login-submit-btn', () => {
     cy.visit('http://localhost:3000/');
 
@@ -10,7 +10,7 @@ describe('2 - Crie todos os elementos que devem respeitar os atributos descritos
   });
 });
 
-describe('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever seu email no input de email', () => {
+describe.only('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever seu email no input de email', () => {
   it('É possível escrever o email', () => {
     cy.visit('http://localhost:3000/');
 
@@ -19,7 +19,7 @@ describe('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever 
   });
 });
 
-describe('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever sua senha no input de senha', () => {
+describe.only('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever sua senha no input de senha', () => {
   it('É possível escrever a senha', () => {
     cy.visit('http://localhost:3000/');
 
@@ -28,7 +28,7 @@ describe('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever 
   });
 });
 
-describe('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
+describe.only('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
   it('O botão deve estar desativado se o email for inválido', () => {
     cy.visit('http://localhost:3000/');
 
