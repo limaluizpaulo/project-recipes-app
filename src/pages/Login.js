@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -6,24 +6,31 @@ const Login = () => {
 
   return (
     <div>
-      
-      <label><label htmlFor="email"></label>
-      <input 
-      value={email} 
-      type="email" 
-      data-testid="email-input" 
-      onChange={(e) => setEmail(e.target.value)}>
-      </input>
+      <label htmlFor="email">
+        Email:
+        <input
+          value={ email }
+          type="email"
+          data-testid="email-input"
+          onChange={ (e) => setEmail(e.target.value) }
+        />
       </label>
       <label htmlFor="password">
-      <input 
-      id="password"
-      value={password} 
-      type="password" 
-      data-testid="password-input" 
-      onChange={(e) => setPassoword(e.target.value)}></input>
+        Senha:
+        <input
+          id="password"
+          value={ password }
+          type="password"
+          data-testid="password-input"
+          onChange={ (e) => setPassoword(e.target.value) }
+        />
       </label>
-      <button data-testid="login-submit-btn">Login</button>
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+      >
+        Login
+      </button>
     </div>
   );
 };
