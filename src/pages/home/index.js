@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-function Principal () {
+function Principal() {
   return (
     <p>Principal</p>
-  )
+  );
 }
 
 export default Principal;

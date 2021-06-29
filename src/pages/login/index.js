@@ -17,8 +17,8 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', {
-      email: user.email
-    });  
+      email: user.email,
+    });
 
     history.push('/comidas');
   }
