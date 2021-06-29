@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -7,30 +7,66 @@ export default function Login() {
     password: '',
   });
 
+  const validLoginEmail = () => {
+    const regex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+    const { email } = user;
+    return regex.test(email);
+  };
+
+  const validLoginPassword = () => {
+    const { password } = user;
+    console.log(password);
+    const minCharacters = 6;
+    if (password.length >= minCharacters) {
+      return true;
+    }
+  };
+
   const handleChange = ({ target: { value, id } }) => {
     setUser({
       ...user,
       [id]: value,
     });
+    console.log(user);
   };
 
+  const disabledButton = validLoginEmail() && validLoginPassword();
+
   return (
-    <main>
-      <label htmlFor="email">
-        Email
-        <input
-          type="text"
+
+    <Form>
+      <Form.Group>
+        <Form.Label>
+          Email
+        </Form.Label>
+        <Form.Control
+          type="email"
           id="email"
           data-testid="email-input"
-          onChange={ handleChange }
+          onChange={ (event) => handleChange(event) }
         />
-      </label>
-      <label htmlFor="password">
-        Password
-        <input type="text" id="password" data-testid="password-input" />
-      </label>
-      <button type="submit" data-testid="login-submit-btn">Entrar</button>
-      <Button variant="secondary">Entrar</Button>
-    </main>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label htmlFor="password">
+          Password
+        </Form.Label>
+        <Form.Control
+          type="password"
+          id="password"
+          data-testid="password-input"
+          onChange={ (event) => handleChange(event) }
+        />
+      </Form.Group>
+
+      <Button
+        disabled={ !disabledButton }
+        variant="secondary"
+        type="submit"
+        data-testid="login-submit-btn"
+      >
+        Entrar
+      </Button>
+
+    </Form>
   );
 }
