@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 
 function SearchBar() {
   const [selectedRadio, setSelectedRadio] = useState('ingrediente');
-  const [inputValue, setInputValue ] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const handleChange = ({ target }) => {
     if (target.type === 'radio') {
       setSelectedRadio(target.value);
     } else {
       setInputValue(target.value);
+    }
+  };
+
+  const handleBtnClick = () => {
+    if (selectedRadio === 'letra'
+    && inputValue.length !== 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      
     }
   };
 
@@ -60,7 +69,7 @@ function SearchBar() {
           <button
             type="button"
             data-testid="exec-search-btn"
-            onClick={ () => console.log('click') }
+            onClick={ () => handleBtnClick() }
           >
             Buscar
           </button>
