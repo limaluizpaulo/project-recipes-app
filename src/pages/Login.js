@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const REGEX_EMAIL = /^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$/i;
+const REGEX_EMAIL = /\S+@\S+\.\S+/;
 
 export default function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -9,7 +9,7 @@ export default function Login() {
   useEffect(() => {
     const passMin = 6;
     const { email, password } = user;
-    setValidation((email.match(REGEX_EMAIL) && password.length >= passMin));
+    setValidation((email.match(REGEX_EMAIL) && password.length > passMin));
   }, [user]);
 
   function handleInputChange({ target: { name, value } }) {
