@@ -3,7 +3,8 @@ import React from 'react';
 const Header = () => (
   <div>
     <h1 data-testid="page-title">Header</h1>
-    <button data-testid="page-title">Profile</button>
+    <button type="button" data-testid="profile-top-btn">Profile</button>
+    <button type="button" data-testid="search-top-btn">Search</button>
   </div>
 );
 
