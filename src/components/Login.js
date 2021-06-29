@@ -45,7 +45,7 @@ function Login() {
           <button
             data-testid="login-submit-btn"
             disabled={ !passwordCheck || !emailCheck }
-            // onClick={ () => { login(email); } }
+            onClick={ localStorage.setItem('mealsToken', JSON.stringify({})) }
             type="button"
           >
             Entrar
