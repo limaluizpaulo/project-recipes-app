@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Redirect } from 'react-router';
 
 function Login() {
   const [passwordInvalid, setPasswordInvalid] = useState(true);
   const [emailInvalid, setEmailInvalid] = useState(true);
+  const [userEmail, setUserEmail] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleEmail = (event) => {
     const re = /\S+@\S+\.\S+/;
     if (re.test(event.target.value)) {
       setEmailInvalid(false);
-      console.log(emailInvalid);
+      setUserEmail(event.target.value);
     }
   };
 
@@ -21,6 +24,15 @@ function Login() {
       setPasswordInvalid(false);
     }
   };
+
+  const handleClick = () => {
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
+    setRedirect(true);
+  };
+
+  if (redirect) return <Redirect to="/comidas" />;
 
   return (
     <div>
@@ -49,6 +61,7 @@ function Login() {
           variant="primary"
           type="submit"
           disabled={ emailInvalid || passwordInvalid }
+          onClick={ handleClick }
         >
           Submit
         </Button>
