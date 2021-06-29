@@ -28,7 +28,7 @@ describe('Renderiza a Pagina Login', () => {
 
 describe('Interage com a pagina de login', () => {
   it('Renderiza o input de email', () => {
-    const { getByTestId, getByText, history } = renderWithRoute(<App />);
+    const { getByTestId, getByText } = renderWithRoute(<App />);
 
     const email = getByTestId('email-input');
     const pass = getByTestId('password-input');
