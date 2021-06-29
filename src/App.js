@@ -7,12 +7,14 @@ import {
 import Food from './components/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './components/Drinks/Drinks';
+import Login from './components/Login';
 
 function App() {
   return (
     <Provider>
       <Router>
         <Switch>
+          <Route path="/" exact component={ Login } />
           <Route path="/comidas" exact component={ Food } />
           <Route path="/bebidas" exact component={ Drinks } />
         </Switch>
