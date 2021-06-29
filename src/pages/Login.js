@@ -4,6 +4,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassoword] = useState('');
 
+  const maxLength = 6;
+  const isValid = email.match(/((\w+)@(\w+)\.(\w+))/i) && password.length > maxLength;
   return (
     <div>
       <label htmlFor="email">
@@ -28,6 +30,7 @@ const Login = () => {
       <button
         type="button"
         data-testid="login-submit-btn"
+        disabled={ !isValid }
       >
         Login
       </button>
