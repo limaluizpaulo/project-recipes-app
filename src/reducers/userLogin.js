@@ -1,4 +1,5 @@
 import { USER_EMAIL } from '../action';
+
 const INITIAL_STATE = {
   email: '',
 };
