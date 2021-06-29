@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route } from 'react-router-dom';
-import Food from './components/Food';
+import Food from './components/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './components/Drinks';
 
