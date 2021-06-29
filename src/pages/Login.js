@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { setToken } from '../services/localStorage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ const Login = () => {
         type="button"
         data-testid="login-submit-btn"
         disabled={ !isValid }
+        onClick={ () => setToken(email) }
       >
         Login
       </button>
