@@ -5,11 +5,10 @@ import Context from '../Provider/context';
 function Login() {
   const sizePass = 6;
   const { user,
-    user: { email, password },
+    user: { userEmail, password },
     setUser } = useContext(Context);
-  // const { login } = this.props;
   const passwordCheck = password.length > sizePass;
-  const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(email);
+  const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(userEmail);
 
   function handleChange({ target: { value, name } }) {
     setUser({
@@ -18,9 +17,10 @@ function Login() {
     });
   }
 
-  function saveTokens() {
+  function saveToLocalStorage() {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
   }
 
   return (
@@ -31,9 +31,9 @@ function Login() {
           <input
             data-testid="email-input"
             type="email"
-            name="email"
+            name="userEmail"
             placeholder="Email"
-            value={ email }
+            value={ userEmail }
             onChange={ handleChange }
           />
         </label>
@@ -51,7 +51,7 @@ function Login() {
           <button
             data-testid="login-submit-btn"
             disabled={ !passwordCheck || !emailCheck }
-            onClick={ saveTokens }
+            onClick={ saveToLocalStorage }
             type="button"
           >
             Entrar

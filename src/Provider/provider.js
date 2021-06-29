@@ -4,7 +4,7 @@ import Context from './context';
 
 function Provider({ children }) {
   const [user, setUser] = useState({
-    email: '',
+    userEmail: '',
     password: '',
   });
 
