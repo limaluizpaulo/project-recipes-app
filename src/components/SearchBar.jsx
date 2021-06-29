@@ -14,7 +14,7 @@ function SearchBar() {
           <input
             type="radio"
             name="radio-search"
-            testid="ingredient-search-radio"
+            data-testid="ingredient-search-radio"
           />
           Nome
           <input
@@ -26,16 +26,16 @@ function SearchBar() {
           <input
             type="radio"
             name="radio-search"
-            testid="first-letter-search-radio"
+            data-testid="first-letter-search-radio"
           />
         </label>
         <section>
           <button
+          type="button"
             data-testid="exec-search-btn"
             onClick={ () => console.log('click') }
-            
           >
-
+            Buscar
           </button>
         </section>
       </form>
