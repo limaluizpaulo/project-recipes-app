@@ -11,6 +11,7 @@ function App() {
     <Switch>
       <DrinksProvider>
         <MealsProvider>
+          <Route path="/perfil" component={ Perfil } />
           {/* <Route exact path="/" component={Login} /> */}
           {/* <Route path="/comidas" component={} />
           <Route path="/bebidas" component={} />
