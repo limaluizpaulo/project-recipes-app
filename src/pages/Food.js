@@ -4,7 +4,7 @@ import Header from '../components/Header';
 const Food = () => (
   <div>
     <Header />
-    <h1>Food</h1>
+    <h1>Foods</h1>
   </div>
 );
 
