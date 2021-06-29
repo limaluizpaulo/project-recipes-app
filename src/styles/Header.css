@@ -1,0 +1,15 @@
+.header-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-container > button {
+  background-color: inherit;
+  border: none;
+}
+
+.header-container > h1 {
+  max-width: 180px;
+  text-align: center;
+}
