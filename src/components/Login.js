@@ -17,6 +17,12 @@ function Login() {
       [name]: value,
     });
   }
+
+  function saveTokens() {
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+  }
+
   return (
     <div>
       <h1>Login</h1>
@@ -45,7 +51,7 @@ function Login() {
           <button
             data-testid="login-submit-btn"
             disabled={ !passwordCheck || !emailCheck }
-            onClick={ localStorage.setItem('mealsToken', JSON.stringify({})) }
+            onClick={ saveTokens }
             type="button"
           >
             Entrar
