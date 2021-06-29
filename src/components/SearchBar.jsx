@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function SearchBar() {
+  const [selectedRadio, setSelectedRadio] = useState();
+
+  handleChange = ({ target }) => {
+
+  };
+
   return (
     <section>
       <form>
         <input
           data-testid="search-input"
           type="text"
-          onChange={ console.log('oi') }
+          onChange={ () => handleChange(e) }
         />
         <label htmlFor="radio-search">
           Ingrediente
@@ -15,23 +21,26 @@ function SearchBar() {
             type="radio"
             name="radio-search"
             data-testid="ingredient-search-radio"
+            onClick={ () => handleChange(e) }
           />
           Nome
           <input
             type="radio"
             name="radio-search"
             data-testid="name-search-radio"
+            onClick={ () => handleChange(e) }
           />
           Primeira letra
           <input
             type="radio"
             name="radio-search"
             data-testid="first-letter-search-radio"
+            onClick={ () => handleChange(e) }
           />
         </label>
         <section>
           <button
-          type="button"
+            type="button"
             data-testid="exec-search-btn"
             onClick={ () => console.log('click') }
           >
