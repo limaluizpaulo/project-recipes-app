@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Button, Form } from 'react-bootstrap';
 
 export default function Login() {
+  const history = useHistory();
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -28,6 +30,16 @@ export default function Login() {
       [id]: value,
     });
     console.log(user);
+  };
+
+  const handleSubmit = () => {
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('doneRecipes', JSON.stringify([{}]));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([{}]));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    history.push('/comidas');
   };
 
   const disabledButton = validLoginEmail() && validLoginPassword();
@@ -61,8 +73,10 @@ export default function Login() {
       <Button
         disabled={ !disabledButton }
         variant="secondary"
-        type="submit"
+        type="button"
         data-testid="login-submit-btn"
+        onClick={ handleSubmit }
+        block
       >
         Entrar
       </Button>
