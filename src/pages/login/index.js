@@ -11,6 +11,14 @@ function Login() {
     }));
   }
 
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', {
+      email: user.email
+    });  
+  }
+
   useEffect(() => {
     const re = /\S+@\S+\.\S+/;
     const MIN_PASSWORD_LENGTH = 7;
@@ -55,7 +63,7 @@ function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ disabledButton }
-        onClick={ () => console.log('cliquei') }
+        onClick={ () => handleClick() }
       >
         Login
       </button>

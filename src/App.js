@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/login';
+import Principal from './pages/home';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact paht="/" component={ Login } />
-          {/* <Route paht="/comidas" component={ Comidas } /> */}
+          <Route paht="/comidas" component={ Principal } />
           {/* <Route paht="/bebidas" component={ Bebidas } /> */}
           {/* <Route paht="/explorar" component={ Explorar } /> */}
           {/* <Route paht="/perfil" component={ Perfil } /> */}
