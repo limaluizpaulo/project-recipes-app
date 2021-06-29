@@ -16,6 +16,15 @@ function Login() {
     localStorage.setItem('cocktailsToken', 1);
   }
 
+  function validateLogin() {
+    const validator = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const PASSWORD_MIN_LENGHT = 6;
+    if (password.length >= PASSWORD_MIN_LENGHT && validator.test(email)) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <section>
       <h1>Login</h1>
@@ -42,6 +51,7 @@ function Login() {
           data-testid="login-submit-btn"
           variant="primary"
           type="submit"
+          disabled={ !validateLogin() }
         >
           Entrar
         </Button>
