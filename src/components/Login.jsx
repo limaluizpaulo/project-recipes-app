@@ -6,13 +6,13 @@ function Login() {
   const [passwordInvalid, setPasswordInvalid] = useState(true);
   const [emailInvalid, setEmailInvalid] = useState(true);
 
-  const handleEmail = (event)  =>  {
+  const handleEmail = (event) => {
     const re = /\S+@\S+\.\S+/;
     if (re.test(event.target.value)) {
       setEmailInvalid(false);
-      console.log(emailInvalid)
+      console.log(emailInvalid);
     }
-  }
+  };
 
   const handlePassword = (event) => {
     const password = event.target.value;
@@ -20,7 +20,7 @@ function Login() {
     if (password.length > LENGTH_PASSWORD) {
       setPasswordInvalid(false);
     }
-  }
+  };
 
   return (
     <div>
