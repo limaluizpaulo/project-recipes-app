@@ -1,9 +1,15 @@
 import React from 'react';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
 
-export default function Main() {
+function Comidas() {
   return (
-    <h1>
+    <div className="foodScreen">
+      <Header title="Comidas" />
       tela principal de receitas de comidas
-    </h1>
+      <Footer />
+    </div>
   );
 }
+
+export default Comidas;
