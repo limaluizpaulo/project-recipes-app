@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
-import Login from './Componentes/Login';
+import { Switch, Route } from 'react-router-dom';
+import Login from './Pages/Login';
+import Comidas from './Pages/Comidas';
 
 function App() {
   return (
-    <Login />
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route exact path="/comidas" component={ Comidas } />
+    </Switch>
   );
 }
 
