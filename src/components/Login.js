@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../Provider/context';
 
 function Login() {
-  // const sizePass = 6;
-  // const { email, password } = this.state;
+  const sizePass = 6;
+  const { user,
+    user: { email, password },
+    setUser } = useContext(Context);
   // const { login } = this.props;
-  // const passwordCheck = password.length >= sizePass;
-  // const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(email);
+  const passwordCheck = password.length > sizePass;
+  const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(email);
 
-  // function handleChange({ target: { value, name } }) {
-  //   // this.setState({
-  //   //   [name]: value,
-  //   // });
-  // }
+  function handleChange({ target: { value, name } }) {
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  }
   return (
     <div>
       <h1>Login</h1>
@@ -23,10 +27,8 @@ function Login() {
             type="email"
             name="email"
             placeholder="Email"
-            // value={ email }
-            // onChange={ (event) => {
-            //   handleChange(event);
-            // } }
+            value={ email }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="password-input">
@@ -34,17 +36,15 @@ function Login() {
             data-testid="password-input"
             name="password"
             placeholder="Senha"
-            // value={ password }
+            value={ password }
             type="password"
-            // onChange={ (event) => {
-            //   handleChange(event);
-            // } }
+            onChange={ handleChange }
           />
         </label>
-        <Link to="/">
+        <Link to="/comidas">
           <button
             data-testid="login-submit-btn"
-            // disabled={ !passwordCheck || !emailCheck }
+            disabled={ !passwordCheck || !emailCheck }
             // onClick={ () => { login(email); } }
             type="button"
           >
