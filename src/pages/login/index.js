@@ -13,7 +13,7 @@ function Login() {
 
   useEffect(() => {
     const re = /\S+@\S+\.\S+/;
-    const MIN_PASSWORD_LENGTH = 6;
+    const MIN_PASSWORD_LENGTH = 7;
     const email = user.email || '';
     const password = user.password || '';
 
@@ -53,6 +53,7 @@ function Login() {
       </label>
       <button
         type="submit"
+        data-testid="login-submit-btn"
         disabled={ disabledButton }
         onClick={ () => console.log('cliquei') }
       >
