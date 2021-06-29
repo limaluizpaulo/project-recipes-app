@@ -1,20 +1,26 @@
 import React from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import { Switch, Route } from 'react-router';
+import DrinksProvider from './context/DrinksProvider';
+import MealsProvider from './context/MealsProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import rockGlass from './images/rockGlass.svg';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <Switch>
+      <DrinksProvider>
+        <MealsProvider>
+          <Route exact path="/" components={} />
+          <Route path="/comidas" components={} />
+          <Route path="/bebidas" components={} />
+          <Route path="/explorar" components={} />
+          <Route path="/perfl" components={} />
+          <Route path="/receitas-feitas" components={} />
+          <Route path="/receitas-favoritas" components={} />
+        </MealsProvider>
+      </DrinksProvider>
+    </Switch>
   );
 }
 
