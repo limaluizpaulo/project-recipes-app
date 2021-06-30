@@ -24,7 +24,7 @@ export default function Recipes() {
       setTitle('Bebidas');
       fetchDrinkByName().then((data) => setDrinksFiltered(data.slice(0, TWELVE)));
     }
-  }, [pathname]);
+  }, [pathname, setMealsFiltered, setDrinksFiltered]);
 
   if (mealsFiltered.length === 1) {
     return <Redirect to={ `/comidas/${mealsFiltered[0].idMeal}` } />;
