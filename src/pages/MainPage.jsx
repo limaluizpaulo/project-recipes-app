@@ -27,14 +27,14 @@ function MainPage({ history }) {
   // fetch API
   useEffect(() => {
     const getCatergories = async () => {
-      const resp = pathname === '/comidas'
+      const resp = pathname.includes('/comidas')
         ? await getFoodCategories()
         : await getDrinkCategories();
       setCategories(resp.slice(0, FIVE));
     };
 
     const getRecipes = async () => {
-      const resp = pathname === '/comidas'
+      const resp = pathname.includes('/comidas')
         ? await getFoodRecipes()
         : await getDrinkRecipes();
       setRecipes(resp.slice(0, TWELVE));
@@ -48,7 +48,7 @@ function MainPage({ history }) {
   const filterByCategory = async (category) => {
     if (filteredBy !== category) {
       setFilteredBy(category);
-      const response = pathname === '/comidas'
+      const response = pathname.includes('/comidas')
         ? await getRecipeByCategory(category)
         : await getDrinkByCategory(category);
       setShowFiltered(true);
