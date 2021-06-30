@@ -7,10 +7,12 @@ import search from '../images/searchIcon.svg';
 class Header extends Component {
   constructor(props) {
     super(props);
+    const { searchIcon } = this.props;
 
     this.state = {
       redirect: false,
       hydeInput: false,
+      hydeSearch: searchIcon,
     };
 
     this.changeRoute = this.changeRoute.bind(this);
@@ -29,7 +31,7 @@ class Header extends Component {
 
   render() {
     const { title } = this.props;
-    const { redirect, hydeInput } = this.state;
+    const { redirect, hydeInput, hydeSearch } = this.state;
     if (redirect) return <Redirect to="/perfil" />;
     return (
       <header>
@@ -43,15 +45,18 @@ class Header extends Component {
             <img src={ profile } alt="profile-icon" />
           </button>
           <h2 data-testid="page-title">{title}</h2>
-          <button
-            onClick={ this.showInput }
-            type="button"
-            page-title="search-top-btn"
-            data-testid="search-top-btn"
-            src={ search }
-          >
-            <img src={ search } alt="search-icon" />
-          </button>
+          { !hydeSearch ? (
+            <button
+              onClick={ this.showInput }
+              type="button"
+              page-title="search-top-btn"
+              data-testid="search-top-btn"
+              src={ search }
+            >
+              <img src={ search } alt="search-icon" />
+            </button>)
+            : null}
+
           { !hydeInput
             ? (
               <input
@@ -70,6 +75,7 @@ class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  searchIcon: PropTypes.bool.isRequired,
 };
 
 export default Header;
