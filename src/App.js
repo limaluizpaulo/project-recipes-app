@@ -7,6 +7,7 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FoodList from './pages/FoodList';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ FoodList } />
-        {/* <Route exact path="/carteira" component={ Wallet } /> */}
       </Switch>
+      <Footer />
     </RecipesProvider>
   );
 }
