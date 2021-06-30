@@ -4,7 +4,7 @@ const Food = () => {
   console.log('.');
   return (
     <div>
-      <h1>Food</h1>
+      <h1>FoodOne</h1>
     </div>
   );
 };

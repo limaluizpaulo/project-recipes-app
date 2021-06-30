@@ -4,7 +4,7 @@ const Drink = () => {
   console.log('.');
   return (
     <div>
-      <h1>Drink</h1>
+      <h1>DrinkOne</h1>
     </div>
   );
 };
