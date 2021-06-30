@@ -35,7 +35,6 @@ function SearchBar({ title }) {
   };
 
   const mealsConditionals = ({ meals }) => {
-    console.log(meals);
     if (meals === null) {
       return makeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -44,21 +43,29 @@ function SearchBar({ title }) {
       // ACTION PARA MANDAR AS RECEITAS PARA O REDUX
     }
     if (meals.length === 1) {
-      /* setRedirectTo(`/comidas/`) */
+      setRedirectTo(`/comidas/${meals[0].idMeal}`);
     }
-
   };
 
   const drinksConditionals = ({ drinks }) => {
-
+    console.log(drinks);
+    if (drinks === null) {
+      return makeAlert(alert,
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (drinks.length > 1) {
+      // ACTION PARA MANDAR AS RECEITAS PARA O REDUX
+    }
+    if (drinks.length === 1) {
+      setRedirectTo(`/bebidas/${drinks[0].idDrink}`);
+    }
   };
 
   const redirectToConditionals = (data) => {
     if (title === 'Comidas') {
       return mealsConditionals(data);
-    } else {
-      return drinksConditionals(data);
     }
+    return drinksConditionals(data);
   };
 
   const handleApiUrl = async () => {
