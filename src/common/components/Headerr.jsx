@@ -7,7 +7,14 @@ export default function Headerr() {
   return (
     <>
       <div>
-        <button type="button" onClick={ () => setBtn(!btn) }>toggle</button>
+        <button
+          type="button"
+          data-testid="search-top-btn"
+          onClick={ () => setBtn(!btn) }
+        >
+          toggle
+
+        </button>
       </div>
 
       { !btn ? '' : <SearchBar />}

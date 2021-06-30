@@ -27,7 +27,13 @@ export default function SearchBar() {
         Ingrediente
       </label>
       <label htmlFor="r2">
-        <input type="radio" id="r2" name="rate" value="name" />
+        <input
+          type="radio"
+          data-testid="name-search-radio"
+          id="r2"
+          name="rate"
+          value="name"
+        />
         Nome
       </label>
       <label htmlFor="r3">
