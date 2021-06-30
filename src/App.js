@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './pages/Home';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component="a" />
+      <Route exact path="/" component={ Home } />
       <Route exact path="/comidas" component="a" />
       <Route exact path="/bebidas" component="a" />
       <Route exact path="/comidas/{id-da-receita}" component="a" />
