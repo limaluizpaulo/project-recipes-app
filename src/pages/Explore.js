@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class Explore extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Explorar' />
+        <Header title="Explorar" />
       </section>
     );
-  };
+  }
 }
 
 export default Explore;

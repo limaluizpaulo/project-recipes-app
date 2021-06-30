@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class BeverageIngredients extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Explorar Ingredientes' />
+        <Header title="Explorar Ingredientes" />
       </section>
     );
-  };
+  }
 }
 
 export default BeverageIngredients;

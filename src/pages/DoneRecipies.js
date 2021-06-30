@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class DoneRecipies extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Receitas Feitas' />
+        <Header title="Receitas Feitas" />
       </section>
     );
-  };
+  }
 }
 
 export default DoneRecipies;

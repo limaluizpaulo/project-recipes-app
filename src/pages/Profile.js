@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class Profile extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Perfil' />
+        <Header title="Perfil" />
       </section>
     );
-  };
+  }
 }
 
 export default Profile;

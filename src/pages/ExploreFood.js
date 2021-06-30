@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class ExploreFood extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Explorar Comidas' />
+        <Header title="Explorar Comidas" />
       </section>
     );
-  };
+  }
 }
 
 export default ExploreFood;

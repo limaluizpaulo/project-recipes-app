@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class FoodByOrigin extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Explorar Origem' />
+        <Header title="Explorar Origem" />
       </section>
     );
-  };
+  }
 }
 
 export default FoodByOrigin;

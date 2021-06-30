@@ -19,7 +19,6 @@ import Profile from './pages/Profile';
 import DoneRecipies from './pages/DoneRecipies';
 import FavoriteRecipies from './pages/FavoriteRecipies';
 
-
 function App() {
   return (
     <Switch>
@@ -39,8 +38,6 @@ function App() {
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneRecipies } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipies } />
-
-
     </Switch>
   );
 }

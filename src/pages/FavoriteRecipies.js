@@ -3,12 +3,12 @@ import Header from '../components/Header';
 
 class FavoriteRecipies extends React.Component {
   render() {
-    return(
+    return (
       <section>
-        <Header title='Receitas Favoritas' />
+        <Header title="Receitas Favoritas" />
       </section>
     );
-  };
+  }
 }
 
 export default FavoriteRecipies;
