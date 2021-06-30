@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { requestDrink } from '../../functions/requests';
-import Header from '../Header/Header';
+import { requestDrink } from '../../helpers/requests';
+import Header from '../../components/Header/Header';
 import './Drinks.css';
 
 function Drinks() {
