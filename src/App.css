@@ -5,10 +5,10 @@
   flex-direction: column;
   font-size: 0.8rem;
   font-weight: 700;
-  text-align: center;
   height: 200px;
   margin: 2rem 40px;
   overflow: hidden;
+  text-align: center;
   width: 150px;
 }
 
