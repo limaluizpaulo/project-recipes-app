@@ -6,12 +6,15 @@ import store from './redux/store';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import RecipeProvider from './Context/RecipesProvider';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={ store }>
-      <App />
-    </Provider>
+    <RecipeProvider>
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    </RecipeProvider>
   </BrowserRouter>, document.getElementById('root'),
 );
 
