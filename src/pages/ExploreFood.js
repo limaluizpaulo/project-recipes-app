@@ -7,6 +7,7 @@ function ExploreFood() {
   const { getRandomRacipes,
     recipeDetail, goDetail, setGoDetail } = useContext(RecipesContext);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => setGoDetail(false), []);
   return (
     <div>
