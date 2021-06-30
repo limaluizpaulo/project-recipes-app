@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function MealsByIngre() {
@@ -6,6 +7,7 @@ export default function MealsByIngre() {
     <div>
       <Header title="Explorar Ingredientes" />
       <h1>comida por ingre</h1>
+      <Footer />
     </div>
   );
 }
