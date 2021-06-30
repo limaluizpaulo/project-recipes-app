@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { setItemLocalStorage } from '../services/localStorage';
 
 function Login() {
   const [disableBtn, setDisableBtn] = useState(true);
@@ -27,6 +28,16 @@ function Login() {
       [name]: value,
     });
   };
+
+  const handleClick = () => {
+    const { email } = login;
+
+    setItemLocalStorage('mealsToken', 1);
+    setItemLocalStorage('cocktailsToken', 1);
+    setItemLocalStorage('user', { email });
+  };
+
+  console.log(localStorage);
 
   useEffect(() => {
     validateFields(login);
@@ -57,6 +68,7 @@ function Login() {
           type="button"
           data-testid="login-submit-btn"
           disabled={ disableBtn }
+          onClick={ handleClick }
         >
           Entrar
         </button>

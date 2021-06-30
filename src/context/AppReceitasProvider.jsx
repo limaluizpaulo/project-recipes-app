@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import AppReceitasContext from './AppReceitasContext';
 
-export default function AppReceitasProvider(children) {
+export default function AppReceitasProvider({ children }) {
   const [login, setLogin] = useState({});
 
   const contextValue = {
@@ -9,8 +11,12 @@ export default function AppReceitasProvider(children) {
   };
 
   return (
-    <AppReceitasProvider.Provider value={ contextValue }>
+    <AppReceitasContext.Provider value={ contextValue }>
       { children }
-    </AppReceitasProvider.Provider>
+    </AppReceitasContext.Provider>
   );
 }
+
+AppReceitasProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
