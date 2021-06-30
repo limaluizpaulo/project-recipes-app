@@ -2,7 +2,7 @@ import React from 'react';
 import Headerr from '../components/Headerr';
 import SearchBar from '../components/SearchBar';
 
-export default function Recipes() {
+function Recipes() {
   return (
     <div>
       <Headerr />
@@ -10,3 +10,5 @@ export default function Recipes() {
     </div>
   );
 }
+
+export default Recipes;
