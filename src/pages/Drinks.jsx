@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import CategoryCard from '../components/CategoryCard';
 import FoodCard from '../components/FoodCard';
 import DrinksContext from '../context/DrinksContext';
 
-import { fetchAllDrinks } from '../services/api';
+import { fetchAllDrinks, fetchCatDrinks } from '../services/api';
 
 function Drinks() {
-  const { drinks, setDrinks } = useContext(DrinksContext);
+  const { drinks, setDrinks, categories, setCategories } = useContext(DrinksContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -16,9 +18,22 @@ function Drinks() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      const FIVE_CATEGORIES = 5;
+      const categoriesFromApi = await fetchCatDrinks();
+      setCategories(categoriesFromApi.drinks.slice(0, FIVE_CATEGORIES));
+    }
+    fetchData();
+  }, []);
+
   return (
     <section>
-      <h1>Drinks</h1>
+      <Button>All</Button>
+      {categories.map(({ strCategory }, index) => (<CategoryCard
+        key={ index }
+        name={ strCategory }
+      />))}
       {drinks.map((recipe, index) => (<FoodCard
         index={ index }
         key={ recipe.idDrink }

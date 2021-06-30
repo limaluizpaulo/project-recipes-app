@@ -5,9 +5,17 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   return (
-    <RecipesContext.Provider value={ { recipes, setRecipes } }>
+    <RecipesContext.Provider
+      value={ {
+        recipes,
+        setRecipes,
+        categories,
+        setCategories,
+      } }
+    >
       { children }
     </RecipesContext.Provider>
   );
