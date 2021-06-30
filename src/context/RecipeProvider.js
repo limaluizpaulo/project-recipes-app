@@ -1,31 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import RecipeContext from '.';
 import {
   searchByFirstLetterApi,
   searchByIngredientsApi,
   searchByNameApi,
+  recipesListApi,
+  categoriesListApi,
+  filterCategoryApi,
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
-  const lengthNumRecipes = 12;
+  const NUM_TWELVE = 12;
+  const NUM_FIVE = 5;
   const textAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
+  const { pathname } = useLocation();
   const [routeFromSearch, setRouteFromSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [checkedRadio, setCheckedRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
+  // Render all recipes
+  useEffect(() => {
+    async function requestAllRecipes() {
+      const returnInitialRecipes = await recipesListApi(pathname);
+      const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
+      setRecipes(limitedRecipes);
+    }
+    requestAllRecipes();
+  }, [pathname]);
+
+  // Render Categories
+  useEffect(() => {
+    async function requestCategories() {
+      const returnCategories = await categoriesListApi(pathname);
+      const limitedCategories = returnCategories.slice(0, NUM_FIVE);
+      setCategories(limitedCategories);
+    }
+    requestCategories();
+  }, [pathname]);
+
+  // Render filter by category
+  useEffect(() => {
+    async function requestFilterByCategory() {
+      const returnCategory = await filterCategoryApi(selectedCategory, pathname);
+      if (returnCategory !== null) {
+        const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
+        setRecipes(limitedRecipes);
+      }
+    }
+    requestFilterByCategory();
+  }, [selectedCategory]);
+
+  // Render search recipes
   useEffect(() => {
     async function requestByIngredients() {
       const returnIngredients = await searchByIngredientsApi(inputValue, routeFromSearch);
       if (returnIngredients === null) {
         return alert(textAlert);
       }
-      const limitedRecipes = returnIngredients.slice(0, lengthNumRecipes);
+      const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
     }
     const requestByName = async () => {
@@ -33,7 +74,7 @@ export default function RecipeProvider({ children }) {
       if (returnName === null) {
         return alert(textAlert);
       }
-      const limitedRecipes = returnName.slice(0, lengthNumRecipes);
+      const limitedRecipes = returnName.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
     };
     const requestByLetter = async () => {
@@ -41,16 +82,19 @@ export default function RecipeProvider({ children }) {
       if (returnLetter === null) {
         return alert(textAlert);
       }
-      const limitedRecipes = returnLetter.slice(0, lengthNumRecipes);
+      const limitedRecipes = returnLetter.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
     };
     if (redirectSearchBar) {
       if (checkedRadio === 'Ingredientes') {
         requestByIngredients();
+        setRedirectSearchBar(false);
       } else if (checkedRadio === 'Nome') {
         requestByName();
+        setRedirectSearchBar(false);
       } else if (checkedRadio === 'Primeira letra') {
         requestByLetter();
+        setRedirectSearchBar(false);
       }
     }
   }, [redirectSearchBar]);
@@ -75,9 +119,10 @@ export default function RecipeProvider({ children }) {
         setRouteFromSearch,
         routeFromSearch,
         recipes,
+        categories,
+        setSelectedCategory,
       } }
     >
-      {console.log(recipes)}
       {recipes.length === 1 && redirectDetailPage()}
       { children }
     </RecipeContext.Provider>
