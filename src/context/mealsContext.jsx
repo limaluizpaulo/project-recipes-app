@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { node } from 'prop-types';
-import { fetchMealsByCategory } from '../services/mealsApi';
+import { fetchMealsByCategory, fetchMealsByName } from '../services/mealsApi';
 
 const MealsContext = createContext();
 
@@ -13,6 +13,10 @@ export default function MealsContextProvider({ children }) {
     const NUM = 12;
     if (valueMealsInput) {
       fetchMealsByCategory(valueMealsInput)
+        .then((res) => setMealsFiltered(res.slice(0, NUM)));
+    }
+    if (!valueMealsInput) {
+      fetchMealsByName(valueMealsInput)
         .then((res) => setMealsFiltered(res.slice(0, NUM)));
     }
   }, [valueMealsInput]);
