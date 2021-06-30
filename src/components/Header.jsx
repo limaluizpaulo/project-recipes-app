@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 class Header extends Component {
   constructor(props) {
@@ -63,9 +64,7 @@ class Header extends Component {
                 type="hidden"
               />)
             : (
-              <input
-                data-testid="search-input"
-              />
+              <SearchBar />
             )}
         </div>
       </header>
