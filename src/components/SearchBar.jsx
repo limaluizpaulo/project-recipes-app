@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 import Context from '../context/Context';
 
 export default function SearchBar() {
@@ -11,7 +11,7 @@ export default function SearchBar() {
     }; 
 
   return (
-    <main>
+    <Container>
       <input
       type="text"
       data-testid="search-input"
@@ -54,6 +54,6 @@ export default function SearchBar() {
           <Button type="button" onClick={ () => findByFilter(filter) }>Pesquisar</Button>
         </Col>
       </Form.Group>
-    </main>
+    </Container>
   );
 }

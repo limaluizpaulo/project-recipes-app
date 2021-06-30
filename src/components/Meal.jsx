@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
-import { Container, Col, Image } from 'react-bootstrap';
-import Context from '../context/Context';
+import React from 'react';
+import { Card } from 'react-bootstrap';
 
 export default function Meal({ meal : { strMeal, strMealThumb } }) {
   return (
