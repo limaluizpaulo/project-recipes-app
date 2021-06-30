@@ -13,7 +13,7 @@ function App() {
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={Comidas} />
+        <Route path="/comidas" component={ Comidas } />
         {/* <Route path="/bebidas" component={Bebidas} /> */}
         {/* <Route path="/comidas/:id" component={ReceitaDetalhes} /> */}
         {/* <Route path="/bebidas/:id" component={ReceitaDetalhes} /> */}
