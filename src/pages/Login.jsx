@@ -39,7 +39,7 @@ export default function Login() {
     setPassword(value);
     if (value.length > minPasswordLength) {
       setValidPassword(true);
-    }
+    } else { setValidPassword(false); }
   };
 
   useEffect(() => {
