@@ -56,14 +56,11 @@ class Header extends Component {
 
   render() {
     // const { isSearchBar } = this.state;
-    const { location: { pathname } } = this.props;
-    const title = pathname.substring(1);
-
+    const { location } = this.props;
     const { searchBarOn } = this.props;
-    console.log(searchBarOn);
     return (
       <div>
-        { this.header(title, searchBarOn)}
+        { location !== undefined && this.header(location.pathname.substring(1), searchBarOn)}
         {/* {isSearchBar === true && } //meu Componente de searchbar */}
       </div>
     );
