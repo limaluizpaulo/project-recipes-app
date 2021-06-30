@@ -6,21 +6,21 @@ import { fetchRecipesByIngredient,
   fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState({ filteredRecipes: [] });
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
-    setFilteredRecipes(recipesFilteredByIngredient);
+    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
   }
 
   async function filterRecipesByName(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByName(ingredient);
-    setFilteredRecipes(recipesFilteredByIngredient);
+    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
   }
 
   async function filterRecipesByFirstLetter(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByFirstLetter(ingredient);
-    setFilteredRecipes(recipesFilteredByIngredient);
+    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
   }
 
   return (
