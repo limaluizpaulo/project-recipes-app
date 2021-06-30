@@ -45,8 +45,13 @@ class SearchBar extends Component {
     const { resultFood, resultDrink, title } = this.props;
     if (resultFood && title === 'Comidas' && resultFood.length === 1) {
       return <Redirect to={ `/comidas/${resultFood[0].idMeal}` } />;
-    } if (resultDrink && title === 'Bebidas' && resultDrink.length === 1) {
+    }
+    if (resultDrink && title === 'Bebidas' && resultDrink.length === 1) {
       return <Redirect to={ `/bebidas/${resultDrink[0].idDrink}` } />;
+    }
+    if (!resultFood || !resultDrink) {
+      this.invokeAlert(alert,
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
     return (
