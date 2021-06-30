@@ -19,24 +19,36 @@ function Footer() {
     <footer data-testid="footer">
       <button
         type="button"
-        data-testid="drinks-bottom-btn"
         onClick={ (event) => teste2(event) }
       >
-        <img src={ Drink } alt="drink" name="bebidas" />
+        <img
+          src={ Drink }
+          alt="drink"
+          name="bebidas"
+          data-testid="drinks-bottom-btn"
+        />
       </button>
       <button
         type="button"
-        data-testid="explore-bottom-btn"
         onClick={ (event) => teste2(event) }
       >
-        <img src={ Explore } alt="explore" name="explorar" />
+        <img
+          src={ Explore }
+          alt="explore"
+          name="explorar"
+          data-testid="explore-bottom-btn"
+        />
       </button>
       <button
         type="button"
-        data-testid="food-bottom-btn"
         onClick={ (event) => teste2(event) }
       >
-        <img src={ teste } alt="food" name="comidas" />
+        <img
+          src={ teste }
+          alt="food"
+          name="comidas"
+          data-testid="food-bottom-btn"
+        />
       </button>
     </footer>
   );
