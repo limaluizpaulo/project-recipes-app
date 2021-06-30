@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import RecipesContext from '../context/RecipesContext';
 
 function SearchBar() {
   const [textFilter, setTextFilter] = useState('');
   const [typeOfFilter, setTypeOfFilter] = useState('null');
+  const { filterRecipesByIngredient,
+    filterRecipesByName, filterRecipesByFirstLetter } = useContext(RecipesContext);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (textFilter && typeOfFilter === 'ingredient') {
+      filterRecipesByIngredient(textFilter);
+    }
+    if (textFilter && typeOfFilter === 'name') {
+      filterRecipesByName(textFilter);
+    }
+    if (textFilter && typeOfFilter === 'first-letter') {
+      filterRecipesByFirstLetter(textFilter);
+    }
+  }
 
   return (
-    <Form>
+    <Form onSubmit={ handleSubmit }>
       {['radio'].map((type) => (
         <div key={ `inline-${type}` } className="mb-3">
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -56,7 +72,7 @@ function SearchBar() {
       ))}
       <Button
         data-testid="exec-search-btn"
-        type="button"
+        type="submit"
       >
         Buscar
       </Button>
