@@ -6,9 +6,18 @@ import { GlobalContext } from '../context/Provider';
 const SearchBar = ({ food }) => {
   const [option, setOption] = useState('');
   const [inputSearch, setInputSearch] = useState('');
-  const { setSearchOp, recipes: { meals = [], drinks = [] } } = useContext(GlobalContext);
+  let { recipes: { meals = [], drinks = [] } } = useContext(GlobalContext);
+  const { setSearchOp } = useContext(GlobalContext);
 
-  if (meals.length === 1) {
+  if (!meals) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    meals = [];
+  }
+  if (!drinks) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    drinks = [];
+  }
+  if (meals.length === 1 && meals) {
     const id = meals[0].idMeal;
     return <Redirect to={ `/comidas/${id}` } />;
   }

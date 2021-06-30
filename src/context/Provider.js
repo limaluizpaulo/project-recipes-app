@@ -29,7 +29,6 @@ const checkOption = ({ inputSearch, option, food }) => {
 const Provider = ({ children }) => {
   const [searchOp, setSearchOp] = useState({});
   const [recipes, setRecipes] = useState({});
-  console.log(recipes);
 
   useEffect(() => {
     const endPoint = checkOption(searchOp);
@@ -38,6 +37,11 @@ const Provider = ({ children }) => {
       .then(setRecipes);
   }, [searchOp]);
 
+  // const notFound = () => {
+  //   const { meals, drinks } = recipes;
+  //   if (!drinks.length || !meals.length) {
+  //     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  //   }
   const value = {
     setSearchOp,
     recipes,

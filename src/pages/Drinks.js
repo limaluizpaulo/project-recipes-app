@@ -1,12 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
+// import { GlobalContext } from '../context/Provider';
 
 const Drinks = () => {
-  console.log('.');
+  // const { recipes: { drinks = [] } } = useContext(GlobalContext);
+
   return (
     <div>
       <Header title="Bebidas" search />
-      <h1>Drinks</h1>
+      {/* {drinks.length < 12 } */}
     </div>
   );
 };
