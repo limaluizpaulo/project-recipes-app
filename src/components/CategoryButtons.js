@@ -8,25 +8,27 @@ function CategoryButtons() {
   const { filter: filterMeals } = useContext(MealsContext);
   const history = useHistory();
   const { pathname } = history.location;
+  console.log('buttons', filterMeals);
+
+  function renderButtons(categories) {
+    return categories.map((item, index) => (
+      <button
+        data-testid={ `${item.strCategory}-category-filter` }
+        key={ index }
+        type="button"
+      >
+        {item.strCategory}
+      </button>
+    ));
+  }
 
   return (
-    <>
-      <button type="button"> ALL </button>
-      {filterDrinks.map((item, index) => {
-        if (pathname.includes('bebidas')) {
-          return (
-            <button key={ index } type="button">
-              {item.strCategory}
-            </button>
-          );
-        }
-        return (
-          <button key={ index } type="button">
-            {filterMeals.strCategory}
-          </button>
-        );
-      })}
-    </>
+    <div>
+      <button type="button">ALL</button>
+      {pathname.includes('bebidas')
+        ? renderButtons(filterDrinks)
+        : renderButtons(filterMeals)}
+    </div>
   );
 }
 

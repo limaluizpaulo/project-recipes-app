@@ -23,6 +23,7 @@ function MealsProvider({ children }) {
     const MAX_ITEM = 5;
     const { meals: listCategories } = await fetchCategoriesMeals();
     const categories = listCategories.filter((meal, index) => index < MAX_ITEM && meal);
+    console.log(categories);
     setFilter(categories);
   }
 
