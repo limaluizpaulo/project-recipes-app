@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../Components/Header';
+import HeadBar from '../Components/HeadBar';
 
 function Explore() {
   return (
     <div className="foodScreen">
-      <Header title="Explore" />
+      <HeadBar title="Explore" />
       Explore
     </div>
   );
