@@ -34,7 +34,7 @@ function SearchBar() {
     <Form onSubmit={ handleSubmit }>
       {['radio'].map((type) => (
         <div key={ `inline-${type}` } className="mb-3">
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasic">
             <Form.Control
               value={ textFilter }
               data-testid="search-input"
@@ -44,7 +44,7 @@ function SearchBar() {
               onChange={ (event) => setTextFilter(event.target.value) }
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasic">
 
             <Form.Check
               value={ typeOfFilter }

@@ -13,14 +13,14 @@ function RecipesProvider({ children }) {
     setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
   }
 
-  async function filterRecipesByName(ingredient) {
-    const recipesFilteredByIngredient = await fetchRecipesByName(ingredient);
-    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
+  async function filterRecipesByName(name) {
+    const recipesFilteredByName = await fetchRecipesByName(name);
+    setFilteredRecipes({ filteredRecipes: recipesFilteredByName });
   }
 
-  async function filterRecipesByFirstLetter(ingredient) {
-    const recipesFilteredByIngredient = await fetchRecipesByFirstLetter(ingredient);
-    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
+  async function filterRecipesByFirstLetter(firstLetter) {
+    const recipesFilteredByFirstLetter = await fetchRecipesByFirstLetter(firstLetter);
+    setFilteredRecipes({ filteredRecipes: recipesFilteredByFirstLetter });
   }
 
   return (
