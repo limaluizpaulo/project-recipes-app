@@ -1,3 +1,5 @@
+export const REQUEST_INGREDIENT = 'REQUEST_INGREDIENT';
+
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const response = await result.json();
@@ -16,10 +18,20 @@ export const fetchFirstLetter = async (primeiraLetra) => {
   return response;
 };
 
-export const fetchIngrentAction = (ingredient) => (dispatch) => {
-  const result = fetchIngrediente(ingredient);
+export const fetchIngrentAction = (searchInput, searchFilter) => async (dispatch) => {
+  console.log(searchInput);
+  console.log(searchFilter);
+  let result = {};
+  if (searchFilter === 'ingrediente') {
+    result = await fetchIngrediente(searchInput);
+    console.log(result);
+  } else if (searchFilter === 'nome') {
+    result = await fetchName(searchInput);
+  } else {
+    result = await fetchFirstLetter(searchInput);
+  }
   dispatch({
-    type: 'REQUEST_INGREDIENT',
+    type: REQUEST_INGREDIENT,
     payload: {
       result,
     },

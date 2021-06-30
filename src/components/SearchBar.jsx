@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import '../css/SearchBar.css';
 
+import { fetchIngrentAction } from '../actions';
+import { connect } from 'react-redux';
+
 class SearchBar extends Component {
   constructor() {
     super();
@@ -19,6 +22,8 @@ class SearchBar extends Component {
   }
 
   render() {
+    const { requestRecipes } = this.props;
+    const { searchInput, searchFilter } = this.state;
     return (
       <div className="search">
         <div className="search-container">
@@ -72,6 +77,7 @@ class SearchBar extends Component {
             data-testid="exec-search-btn"
             className="btt-search"
             type="button"
+            onClick={ () => requestRecipes(searchInput, searchFilter) }
           >
             Buscar
           </button>
@@ -81,4 +87,8 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+const mapDispatchToProps = (dispatch) => ({
+  requestRecipes: (searchInput, searchFilter) => dispatch(fetchIngrentAction(searchInput, searchFilter)),
+});
+
+export default connect(null, mapDispatchToProps)(SearchBar);
