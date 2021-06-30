@@ -4,26 +4,29 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Switch>
+
+      <Route path="/explorar/comidas/area" component="a" />
+      <Route path="/explorar/bebidas/ingredientes" component="a" />
+      <Route path="/explorar/comidas/ingredientes" component="a" />
+      <Route path="/comidas/:id/in-progress" component="a" />
+      <Route path="/bebidas/:id/in-progress" component="a" />
+      <Route path="/explorar/comidas" component="a" />
+      <Route path="/explorar/bebidas" component="a" />
+      <Route path="/comidas/:id" component="a" />
+      <Route path="/bebidas/:id" component="a" />
+      <Route path="/receitas-feitas" component="a" />
+      <Route path="/receitas-favoritas" component="a" />
+      <Route path="/explorar" component="a" />
+      <Route path="/perfil" component="a" />
+      <Route path="/comidas" component="a" />
+      <Route path="/bebidas" component="a" />
       <Route exact path="/" component={ Home } />
-      <Route exact path="/comidas" component="a" />
-      <Route exact path="/bebidas" component="a" />
-      <Route exact path="/comidas/{id-da-receita}" component="a" />
-      <Route exact path="/bebidas/{id-da-receita}" component="a" />
-      <Route exact path="/comidas/{id-da-receita}/in-progress" component="a" />
-      <Route exact path="/bebidas/{id-da-receita}/in-progress" component="a" />
-      <Route exact path="/explorar" component="a" />
-      <Route exact path="/explorar/comidas" component="a" />
-      <Route exact path="/explorar/bebidas" component="a" />
-      <Route exact path="/explorar/comidas/ingredientes" component="a" />
-      <Route exact path="/explorar/bebidas/ingredientes" component="a" />
-      <Route exact path="/explorar/comidas/area" component="a" />
-      <Route exact path="/perfil" component="a" />
-      <Route exact path="/receitas-feitas" component="a" />
-      <Route exact path="/receitas-favoritas" component="a" />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
