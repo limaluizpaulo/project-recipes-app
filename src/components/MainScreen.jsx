@@ -13,6 +13,7 @@ class MainScreen extends Component {
 
   render() {
     const { foodCategories, meals } = this.props;
+    console.log(foodCategories);
     return (
       <section>
         <section>
