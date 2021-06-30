@@ -23,4 +23,11 @@ describe('Renders the Search', () => {
     const checkbox = getByTestId('name-search-radio');
     expect(checkbox).toBeInTheDocument();
   });
+
+  it('should render the input type checkbox for first leter ', () => {
+    const { getByTestId } = renderWithRoute(<Search />);
+
+    const checkbox = getByTestId('first-letter-search-radio');
+    expect(checkbox).toBeInTheDocument();
+  });
 });
