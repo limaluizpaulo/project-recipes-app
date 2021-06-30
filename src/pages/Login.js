@@ -1,54 +1,56 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
 function Login() {
   const { login } = useContext(RecipesContext);
-  const [inputedUser, setInputedUser] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [redirect, setRedirect] = useState(false);
-  const [buttonDisable, setButtonDisable] = useState(false);
+  const [redirectToComidas, setRedirect] = useState(false);
+  const [buttonAbled, setButtonDisabled] = useState(false);
 
-  const verifyEmailAndPass = () => {
-    const minLength = 5;
-    // local que tirei o regex: https://ui.dev/validate-email-address-javascript/
+  useEffect(() => {
+    const minPasswordLength = 7;
     const regex = /\S+@\S+\.\S+/;
-    setButtonDisable(inputedUser.match(regex)
-      && password.length > minLength);
+    setButtonDisabled(email.match(regex)
+        && password.length >= minPasswordLength);
+  }, [email, password]);
+
+  const handleChange = ({ target: { value } }, callBack) => {
+    callBack(value);
   };
 
-  const handle = ({ target: { value } }, callBack) => {
-    callBack(value);
-    verifyEmailAndPass();
+  const setLocalStorage = () => {
+    const emailObj = { email };
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify(emailObj));
   };
 
   const buttonLogin = () => {
-    login({ inputedUser, password });
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    const emailObj = { email: inputedUser };
-    localStorage.setItem('user', JSON.stringify(emailObj));
+    login({ email, password });
+    setLocalStorage();
     setRedirect(true);
   };
 
   return (
     <div>
-      { redirect && <Redirect to="/comidas" /> }
+      { redirectToComidas && <Redirect to="/comidas" /> }
       <input
-        onChange={ (e) => handle(e, setInputedUser) }
+        onChange={ (event) => handleChange(event, setEmail) }
         type="email"
         data-testid="email-input"
       />
       <input
         type="password"
         data-testid="password-input"
-        onChange={ (e) => handle(e, setPassword) }
+        onChange={ (e) => handleChange(e, setPassword) }
       />
       <button
         type="button"
         onClick={ buttonLogin }
         data-testid="login-submit-btn"
-        disabled={ !buttonDisable }
+        disabled={ !buttonAbled }
       >
         Entrar
       </button>
