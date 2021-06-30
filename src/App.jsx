@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
+import MainPageFood from './pages/MainPageFood';
 import store from './store';
 import Footer from './components/Footer';
+import AppRecipeProvider from './context/AppRecipeProvider';
 
 function App() {
   return (
@@ -21,6 +24,14 @@ function App() {
         </object>
       </div>
       <Footer />
+      <AppRecipeProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route path="/comidas" component={ MainPageFood } />
+          </Switch>
+        </BrowserRouter>
+      </AppRecipeProvider>
     </Provider>
   );
 }
