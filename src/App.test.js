@@ -26,19 +26,35 @@ describe('testa tela de login', () => {
     expect(btnEntrar).toBeInTheDocument();
   });
 
-  test('verifica se o texto digitado no input-email é um email válido', () => {
+  test('verifica se o botão Entrar habilita ao digitar valores válidos', () => {
     const { getByPlaceholderText, getByRole } = render(<Login />);
     const inputEmail = getByPlaceholderText(/email/i);
     userEvent.type(inputEmail, 'user@email.com');
-    expect(inputEmail).toHaveValue('user@email.com');;
+    expect(inputEmail).toHaveValue('user@email.com');
 
     const inputPassword = getByPlaceholderText(/senha/i);
-    userEvent.type(inputPassword, '123456');
-    expect(inputPassword).toHaveValue('123456');
+    userEvent.type(inputPassword, '1234567');
+    expect(inputPassword).toHaveValue('1234567');
 
     const btnEntrar = getByRole('button', {
       name: /entrar/i,
     });
     expect(btnEntrar).not.toBeDisabled();
+  });
+
+  test('verifica se o botão Entrar desabilita ao digitar valores inválidos', () => {
+    const { getByPlaceholderText, getByRole } = render(<Login />);
+    const inputEmail = getByPlaceholderText(/email/i);
+    userEvent.type(inputEmail, 'user');
+    expect(inputEmail).toHaveValue('user');
+
+    const inputPassword = getByPlaceholderText(/senha/i);
+    userEvent.type(inputPassword, '123');
+    expect(inputPassword).toHaveValue('123');
+
+    const btnEntrar = getByRole('button', {
+      name: /entrar/i,
+    });
+    expect(btnEntrar).toBeDisabled();
   });
 });
