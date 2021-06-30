@@ -1,7 +1,6 @@
-
 .header {
   background-color: #c4c4c4;
   display: flex;
-  justify-content: space-around;
   height: 3.6rem;
+  justify-content: space-around;
 }
