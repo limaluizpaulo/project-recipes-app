@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import doneRecipes from '../doneRecipes';
 // O array acima é apenas ilustrativo para passar nos testes. Conforme a evolução do projeto iremos substituí-los pelos dados corretos posteriormente
 
@@ -7,12 +8,15 @@ export default class ReceitasFeitas extends Component {
     super();
 
     this.state = {
+      doneRecipes,
+      filtered: [],
       linkCopied: false,
       intervalId: '',
       count: 2,
     };
 
     this.renderDoneRecipes = this.renderDoneRecipes.bind(this);
+    this.filterByType = this.filterByType.bind(this);
     this.copyToClipboardAndAlert = this.copyToClipboardAndAlert.bind(this);
     this.setIntervalState = this.setIntervalState.bind(this);
     this.timer = this.timer.bind(this);
@@ -60,15 +64,43 @@ export default class ReceitasFeitas extends Component {
     }
   }
 
-  renderDoneRecipes() {
+  filterByType({ target }) {
+    const { doneRecipes: AllRecipes } = this.state;
+    switch (target.textContent) {
+    case 'Food':
+      this.setState({
+        filtered: AllRecipes.filter(({ type }) => type === 'comida'),
+      });
+      break;
+    case 'Drinks':
+      this.setState({
+        filtered: AllRecipes.filter(({ type }) => type === 'bebida'),
+      });
+      break;
+    default:
+      this.setState({
+        filtered: [],
+      });
+    }
+  }
+
+  renderDoneRecipes(recipesToRender) {
     const { linkCopied } = this.state;
-    const recipes = doneRecipes
+    const recipes = recipesToRender
       .map(({ id, type, area, alcoholicOrNot, image,
         name, category, doneDate, tags }, index) => {
         const bothTypes = () => (
           <section>
-            <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
-            <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+            <Link to={ `/${type}s/${id}` }>
+              <img
+                src={ image }
+                alt={ name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
+            <Link to={ `/${type}s/${id}` }>
+              <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+            </Link>
             <span data-testid={ `${index}-horizontal-done-date` }>{doneDate}</span>
             <button
               type="button"
@@ -119,19 +151,33 @@ export default class ReceitasFeitas extends Component {
   }
 
   render() {
+    const { doneRecipes: AllRecipes, filtered } = this.state;
     return (
       <div>
         <main>
-          <button type="button" data-testid="filter-by-all-btn">
+          <button
+            type="button"
+            onClick={ (e) => this.filterByType(e) }
+            data-testid="filter-by-all-btn"
+          >
             All
           </button>
-          <button type="button" data-testid="filter-by-food-btn">
+          <button
+            type="button"
+            onClick={ (e) => this.filterByType(e) }
+            data-testid="filter-by-food-btn"
+          >
             Food
           </button>
-          <button type="button" data-testid="filter-by-drink-btn">
+          <button
+            type="button"
+            onClick={ (e) => this.filterByType(e) }
+            data-testid="filter-by-drink-btn"
+          >
             Drinks
           </button>
-          { this.renderDoneRecipes() }
+          { filtered.length === 0 ? this.renderDoneRecipes(AllRecipes)
+            : this.renderDoneRecipes(filtered) }
         </main>
       </div>
     );
