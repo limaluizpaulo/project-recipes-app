@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import '../Style/Login.css';
+import { connect } from 'react-redux';
+import { actionSaveUser } from '../actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -39,17 +43,19 @@ class Login extends Component {
 
   handleClick() {
     const { email } = this.state;
+    const { saveUser } = this.props;
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     localStorage.setItem('user', JSON.stringify({ email }));
     this.setState({ redirect: true });
+    saveUser(email);
   }
 
   render() {
     const { active, redirect } = this.state;
     if (redirect) return <Redirect to="/comidas" />;
     return (
-      <div>
+      <div className="container-login">
         <h2>Login</h2>
         <label htmlFor="email">
           <input
@@ -78,4 +84,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveUser: (email) => dispatch(actionSaveUser(email)),
+});
+
+Login.propTypes = {
+  saveUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
+import DownMenu from '../components/DownMenu';
 
 class Drinks extends Component {
   render() {
     return (
       <div>
-        <h2>Drinks</h2>
+        <Header header="Bebidas" explorer />
+        <h2> vodK </h2>
+        <DownMenu />
       </div>
     );
   }
