@@ -1,0 +1,14 @@
+.footer {
+  background-color: #c4c4c4;
+  bottom: 0px;
+  display: flex;
+  height: 3.6rem;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
+
+button {
+  background-color: #c4c4c4;
+  border: 0px;
+}
