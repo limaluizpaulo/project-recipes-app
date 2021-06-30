@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SearchBar() {
+  const [searchbar, setSearchBar] = useState('');
+
   return (
 
     <div>
       <div>
-        <input type="text" data-testid="search-input" placeholder="Buscar Receitas" />
+        <input
+          type="text"
+          value={ searchbar }
+          data-testid="search-input"
+          onChange={ ({ target: { value } }) => setSearchBar(value) }
+          placeholder="Buscar Receitas"
+        />
       </div>
       <label htmlFor="r1">
         <input
           type="radio"
+          on
           data-testid="ingredient-search-radio"
           id="r1"
           name="rate"
