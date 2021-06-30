@@ -1,13 +1,11 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Comidas() {
+export default function Perfil() {
   return (
     <section>
       <Header />
-      Comidas
+      Perfil
     </section>
   );
 }
-
-export default Comidas;
