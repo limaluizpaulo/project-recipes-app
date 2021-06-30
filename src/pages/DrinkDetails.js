@@ -1,9 +1,9 @@
 import React from 'react';
 
-function FoodRecipes() {
+function DrinkDetails() {
   return (
     <div />
   );
 }
 
-export default FoodRecipes;
+export default DrinkDetails;
