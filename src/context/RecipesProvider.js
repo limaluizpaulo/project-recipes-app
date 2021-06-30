@@ -6,26 +6,26 @@ import { fetchRecipesByIngredient,
   fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
-  const [filteredRecipes, setFilteredRecipes] = useState({ filteredRecipes: [] });
+  const [recipesFilter, setRecipesFilter] = useState({ filteredRecipes: [] });
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
-    setFilteredRecipes({ filteredRecipes: recipesFilteredByIngredient });
+    setRecipesFilter({ filteredRecipes: recipesFilteredByIngredient });
   }
 
   async function filterRecipesByName(name) {
     const recipesFilteredByName = await fetchRecipesByName(name);
-    setFilteredRecipes({ filteredRecipes: recipesFilteredByName });
+    setRecipesFilter({ filteredRecipes: recipesFilteredByName });
   }
 
   async function filterRecipesByFirstLetter(firstLetter) {
     const recipesFilteredByFirstLetter = await fetchRecipesByFirstLetter(firstLetter);
-    setFilteredRecipes({ filteredRecipes: recipesFilteredByFirstLetter });
+    setRecipesFilter({ filteredRecipes: recipesFilteredByFirstLetter });
   }
 
   return (
     <RecipesContext.Provider
-      value={ { filteredRecipes,
+      value={ { recipesFilter,
         filterRecipesByIngredient,
         filterRecipesByName,
         filterRecipesByFirstLetter } }
