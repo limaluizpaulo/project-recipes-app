@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
-
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
@@ -15,6 +14,7 @@ import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreByArea from './pages/ExploreByArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
@@ -43,6 +43,7 @@ function App() {
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route path="/teste" component={ SearchBar } />
     </Switch>
   );
 }
