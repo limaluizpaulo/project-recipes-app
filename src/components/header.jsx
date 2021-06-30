@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
-// import mealIcon from '../images/mealIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../css/header.css';
 
 class Header extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class Header extends Component {
   header(title = 'Comidas', searchBar = true) {
     return (
       <div>
-        <header>
+        <header className="header">
           <Link to="/">
             <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profileImagem" />
           </Link>
