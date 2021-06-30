@@ -10,7 +10,7 @@ const Header = ({ name, search }) => {
       <Link to="/perfil">
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </Link>
-      <h1 data-testid="profile-title">{ name }</h1>
+      <h1 data-testid="page-title">{ name }</h1>
       { search && (
         <Link to="/explorar">
         <img src={ searchIcon } alt="profileIcon" data-testid="search-top-btn" />
