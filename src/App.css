@@ -66,8 +66,3 @@
     transform: rotate(-10deg);
   }
 }
-
-.containerHeader {
-  display: flex;
-  flex-direction: row;
-}
