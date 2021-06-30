@@ -3,8 +3,7 @@ import './App.css';
 import { Switch, Route } from 'react-router';
 import Provider from './context';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/Login';
-import Meals from './pages/Meals';
+import { Login, Meals } from './pages';
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
