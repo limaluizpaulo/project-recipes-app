@@ -19,17 +19,17 @@ class Comidas extends Component {
 
   async componentDidMount() {
     const { apiFoodCategories } = this.props;
-    await apiFoodCategories();
+    apiFoodCategories();
+    // await apiFoodCategories().then((data) => console.log(data));
   }
 
   categories() {
     const { getFoodCategories } = this.props;
-    const teste = getFoodCategories.map((elem) => elem);
-    console.log(teste);
+    // const teste = getFoodCategories.map((elem) => elem);
+    console.log(getFoodCategories);
     return (
-
       <div>
-        { teste.map((elem, index) => (
+        { getFoodCategories.map((elem, index) => (
           <p key={ index }>{ elem.strCategory }</p>)) }
       </div>
     );
@@ -46,7 +46,7 @@ class Comidas extends Component {
           {/* <MainScreen /> */}
         </main>
         <p>qualquer coisa</p>
-        { this.categories }
+        { this.categories() }
         <Fooder />
       </div>
     );
@@ -54,7 +54,7 @@ class Comidas extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  apiFoodCategories: dispatch(fetchApiFoodCategories()),
+  apiFoodCategories: () => dispatch(fetchApiFoodCategories()), // apagar
 });
 
 const mapStateToProps = (state) => ({
