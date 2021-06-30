@@ -6,7 +6,7 @@ class RecipesByOrigin extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header header="Explorar Origem" explorer />
         <h2> Recipes By Origin</h2>
         <DownMenu />
       </div>

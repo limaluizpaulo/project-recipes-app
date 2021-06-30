@@ -9,16 +9,16 @@ class DownMenu extends Component {
   render() {
     return (
       <footer data-testid="footer">
-        <Link to="/bebidas" data-testid="drinks-bottom-btn">
-          <img src={ drinkIcon } alt="drinkIcon" />
+        <Link to="/bebidas">
+          <img src={ drinkIcon } alt="drinkIcon" data-testid="drinks-bottom-btn" />
         </Link>
 
-        <Link to="/explorar" data-testid="explore-bottom-btn">
-          <img src={ exploreIcon } alt="exploreIcon" />
+        <Link to="/explorar">
+          <img src={ exploreIcon } alt="exploreIcon" data-testid="explore-bottom-btn" />
         </Link>
 
-        <Link to="/comidas" data-testid="food-bottom-btn">
-          <img src={ mealIcon } alt="mealIcon" />
+        <Link to="/comidas">
+          <img src={ mealIcon } alt="mealIcon" data-testid="food-bottom-btn" />
         </Link>
       </footer>
     );

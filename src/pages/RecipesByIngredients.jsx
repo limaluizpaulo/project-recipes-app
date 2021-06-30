@@ -6,7 +6,7 @@ class RecipesByIngredients extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header header="Explorar Ingredientes" />
         <h2> Recipes By Ingredients</h2>
         <DownMenu />
       </div>
