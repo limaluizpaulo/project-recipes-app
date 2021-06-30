@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Drink = () => {
-  console.log('.');
+  console.log('i');
   return (
     <div>
       <h1>DrinkOne</h1>

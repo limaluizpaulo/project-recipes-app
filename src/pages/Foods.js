@@ -3,8 +3,8 @@ import Header from '../components/Header';
 
 const Foods = () => (
   <div>
-    <Header />
-    <h1>Foods</h1>
+    <Header title="Comidas" search />
+    <h1>Comidas</h1>
   </div>
 );
 

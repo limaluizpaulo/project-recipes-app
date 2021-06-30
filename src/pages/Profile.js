@@ -1,10 +1,13 @@
 import React from 'react';
+import iconProfile from '../images/profileIcon.svg';
+import Header from '../components/Header';
 
 const Profile = () => {
   console.log('');
   return (
     <div>
-      <h1>Profile</h1>
+      <Header title="Perfil" />
+      <img src={ iconProfile } alt="profile" />
     </div>
   );
 };
