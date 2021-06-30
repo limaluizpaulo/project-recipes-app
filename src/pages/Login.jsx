@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router';
+import '../login.css';
 
 function Login() {
   const [passwordInvalid, setPasswordInvalid] = useState(true);
@@ -35,7 +36,7 @@ function Login() {
   if (redirect) return <Redirect to="/comidas" />;
 
   return (
-    <div>
+    <div className="login-page">
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -58,7 +59,7 @@ function Login() {
         </Form.Group>
         <Button
           data-testid="login-submit-btn"
-          variant="primary"
+          variant="success btn-block"
           type="submit"
           disabled={ emailInvalid || passwordInvalid }
           onClick={ handleClick }
