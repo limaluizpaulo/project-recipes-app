@@ -11,6 +11,7 @@ function SearchBar() {
   function invokeAlert(fn, message) {
     fn(message);
   }
+
   function handleSubmit(event) {
     event.preventDefault();
 
