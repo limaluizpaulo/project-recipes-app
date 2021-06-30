@@ -11,7 +11,7 @@ function SearchBar() {
   const [typeOfFilter, setTypeOfFilter] = useState('null');
   const { location: { pathname } } = useHistory();
 
-  const { filteredRecipes, filterRecipesByIngredient,
+  const { filterRecipesByIngredient,
     filterRecipesByName, filterRecipesByFirstLetter } = useContext(RecipesContext);
 
   const { filterDrinksByIngredient,
@@ -34,7 +34,7 @@ function SearchBar() {
       if (textFilter.length === 1 && typeOfFilter === FIRST_LETTER) {
         filterDrinksByFirstLetter(textFilter);
       } else if (textFilter.length > 1 && typeOfFilter === FIRST_LETTER) {
-        invokeAlert(alert, 'Digite apenas uma letra');
+        invokeAlert(alert, 'Por favaor, digite apenas uma letra');
       }
     }
   }
