@@ -1,11 +1,21 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import { GlobalContext } from '../context/Provider';
 
 const SearchBar = ({ food }) => {
   const [option, setOption] = useState('');
   const [inputSearch, setInputSearch] = useState('');
-  const { setSearchOp } = useContext(GlobalContext);
+  const { setSearchOp, recipes: { meals = [], drinks = [] } } = useContext(GlobalContext);
+
+  if (meals.length === 1) {
+    const id = meals[0].idMeal;
+    return <Redirect to={ `/comidas/${id}` } />;
+  }
+  if (drinks.length === 1) {
+    const id = drinks[0].idDrink;
+    return <Redirect to={ `/bebidas/${id}` } />;
+  }
 
   return (
     <div>

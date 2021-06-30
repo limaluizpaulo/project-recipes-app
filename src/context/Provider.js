@@ -26,17 +26,9 @@ const checkOption = ({ inputSearch, option, food }) => {
   return `https://www.${db}.com/api/json/v1/1/${query}`;
 };
 
-// https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingrediente}
-// https://www.thecocktaildb.com/api/json/v1/1/search.php?s={nome}
-// https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}
-
-// 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken'
-// https://www.themealdb.com/api/json/v1/1/search.php?s=soup'
-// 'https://www.themealdb.com/api/json/v1/1/search.php?f=a'
-
 const Provider = ({ children }) => {
   const [searchOp, setSearchOp] = useState({});
-  const [recipes, setRecipes] = useState();
+  const [recipes, setRecipes] = useState({});
   console.log(recipes);
 
   useEffect(() => {
