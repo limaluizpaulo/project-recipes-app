@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Context from './Context';
+import RecipeContext from './Context';
+import firstMeal from '../mocks/mockOneMeal';
 
 const RecipeProvider = ({ children }) => {
-  const context = { teste: 'teste' };
+  const context = { selectedFood: firstMeal };
   return (
-    <Context.Provider value={ context }>
+    <RecipeContext.Provider value={ context }>
       {children}
-    </Context.Provider>
+    </RecipeContext.Provider>
   );
 };
 

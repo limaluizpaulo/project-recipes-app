@@ -49,7 +49,7 @@ function App() {
         component={ ExploreDrinks }
       />
       <Route
-        path="/explorar/comidas/ingredientes"
+        path="/explorar/comidas/:recipeId"
         component={ FoodIngredients }
       />
       <Route
