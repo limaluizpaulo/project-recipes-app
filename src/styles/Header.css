@@ -1,0 +1,29 @@
+.header-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+}
+
+.header-container div {
+  padding-right: 20px;
+}
+
+.header-container > button {
+  background-color: inherit;
+  border: none;
+}
+
+.header-container > h1 {
+  max-width: 180px;
+  text-align: center;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: none;
+}
