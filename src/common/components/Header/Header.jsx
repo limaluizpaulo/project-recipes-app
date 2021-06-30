@@ -6,6 +6,7 @@ import './header.css';
 
 export default function Header() {
   const [isRedirect, setIsRedirect] = useState(false);
+  const [showSearchBar, setBar] = useState(true);
 
   if (isRedirect) return <Redirect to="/perfil" />;
 
@@ -15,12 +16,36 @@ export default function Header() {
         type="button"
         onClick={ () => setIsRedirect(true) }
       >
-        <img src={ profileIcon } alt="perfil" data-testid="profile-top-btn" />
+        <img
+          src={ profileIcon }
+          alt="perfil"
+          data-testid="profile-top-btn"
+        />
       </button>
-      <h1 data-testid="page-title">Comida</h1>
-      <button type="button">
-        <img src={ searchIcon } alt="busca" data-testid="search-top-btn" />
-      </button>
+      <h1
+        data-testid="page-title"
+      >
+        Comida
+      </h1>
+      <div>
+        <button
+          type="button"
+          onClick={ () => setBar(!showSearchBar) }
+        >
+          <img
+            src={ searchIcon }
+            alt="busca"
+            data-testid="search-top-btn"
+          />
+        </button>
+        { showSearchBar
+          || <input
+            type="text"
+            name="search"
+            id="search-bar"
+            placeholder="Pesquise uma receita..."
+          /> }
+      </div>
     </header>
   );
 }
