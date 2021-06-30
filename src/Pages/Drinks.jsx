@@ -1,11 +1,12 @@
 import React from 'react';
+import HeadBar from '../Components/HeadBar';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
 
 function Bebidas() {
   return (
-    <div>
-      <Header title="Bebidas" />
+    <div className="foodScreen">
+      <HeadBar title="Bebidas" />
       Bebidas
       <Footer />
     </div>
