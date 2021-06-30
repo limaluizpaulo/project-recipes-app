@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ProfileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../css/header.css';
@@ -54,12 +56,27 @@ class Header extends Component {
 
   render() {
     // const { isSearchBar } = this.state;
+    const { location: { pathname } } = this.props;
+    const title = pathname.substring(1);
+
+    const { searchBarOn } = this.props;
+    console.log(searchBarOn);
     return (
       <div>
-        { this.header()}
+        { this.header(title, searchBarOn)}
         {/* {isSearchBar === true && } //meu Componente de searchbar */}
       </div>
     );
   }
 }
-export default Header;
+
+const mapStateToProps = (state) => ({
+  searchBarOn: state.searchBarOn,
+});
+
+Header.propTypes = {
+  searchBar: PropTypes.shape.isRequired,
+  location: PropTypes.shape.isRequired,
+}.isRequired;
+
+export default connect(mapStateToProps)(Header);
