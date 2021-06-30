@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Context } from '../context/ContextForm';
 
 function FoodRecipes() {
   // const [Meals, setMeals] = useState([]);
-  const [firstMeals, setFirstMeals] = useState([]);
+  const { setFirstMeals, firstMeals } = useContext(Context);
   // const [categories, setCategories] = useState([]);
   const [firstCategories, setFirstCategories] = useState([]);
   const numOfMeals = 12;

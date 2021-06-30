@@ -5,7 +5,11 @@ import searchByNameFood,
   searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';
 
 function Search() {
-  const { radio, setRadio, inputSearch, setInputSearch } = useContext(Context);
+  const { radio,
+    setRadio,
+    inputSearch,
+    setInputSearch,
+    setFirstMeals } = useContext(Context);
 
   function invokeAlert(fn, message) {
     return fn(message);
@@ -14,8 +18,9 @@ function Search() {
   console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
 
   const ONE = 1;
+  const DOZE = 12;
 
-  function submit(ev) {
+  async function submit(ev) {
     ev.preventDefault();
 
     if (radio === 'Ingrediente') {
@@ -25,9 +30,13 @@ function Search() {
       searchByNameFood(inputSearch);
     }
     if (radio === 'Primeira letra') {
-      inputSearch.length = ONE ? (
-        searchByFirstLetterFood(inputSearch)
-      ) : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      const object = await inputSearch.length === ONE
+        ? searchByFirstLetterFood(inputSearch)
+        : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      const { meals } = await object.then((resolve) => resolve);
+      if (meals.length > DOZE) {
+        return setFirstMeals(meals.slice(0, DOZE));
+      }
     }
   }
   return (
