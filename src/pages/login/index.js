@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [disabledButton, setDisabledButton] = useState(true);
+  const history = useHistory();
 
   function handleChange({ target }) {
     const { name, value } = target;
     setUser((prevState) => ({
       ...prevState, [name]: value,
     }));
+  }
+
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+
+    history.push('/comidas');
   }
 
   useEffect(() => {
@@ -55,7 +65,7 @@ function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ disabledButton }
-        onClick={ () => console.log('cliquei') }
+        onClick={ () => handleClick() }
       >
         Login
       </button>
