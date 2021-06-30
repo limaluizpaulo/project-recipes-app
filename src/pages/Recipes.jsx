@@ -31,7 +31,7 @@ function Recipes() {
       }
     }
     fetchData();
-  }, [recipeCategory]);
+  }, [recipeCategory, setRecipes]);
 
   useEffect(() => {
     async function fetchData() {
@@ -40,7 +40,7 @@ function Recipes() {
       setCategories(categoriesFromApi.meals.slice(0, FIVE_CATEGORIES));
     }
     fetchData();
-  }, []);
+  }, [setCategories]);
 
   return (
     <>

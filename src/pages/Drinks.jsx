@@ -28,7 +28,7 @@ function Drinks() {
       }
     }
     fetchData();
-  }, [drinkCategory]);
+  }, [drinkCategory, setDrinks]);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,7 +37,7 @@ function Drinks() {
       setCategories(categoriesFromApi.drinks.slice(0, FIVE_CATEGORIES));
     }
     fetchData();
-  }, []);
+  }, [setCategories]);
 
   return (
     <>
