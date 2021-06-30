@@ -1,16 +1,28 @@
-/* header {
+header {
   background-color: orangered;
   padding: 10px;
 }
 
-header > div:first-child {
+header > div:nth-of-type(1) {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-header > div:last-child {
+header > div:nth-of-type(2) {
   align-items: center;
   display: flex;
   flex-direction: column;
-} */
+}
+
+header label {
+  margin-right: 10px;
+}
+
+header input {
+  margin-bottom: 10px;
+}
+
+header input[type='radio'] {
+  margin-right: 2px;
+}

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import invokeAlert from '../helpers';
+import DrinksContext from '../context/drinks.context';
+import MealsContext from '../context/meals.context';
 import {
   fetchByIngredient,
   fetchByName,
@@ -17,32 +19,50 @@ function Header({ title, show = true }) {
   const [showSearch, setShowSearch] = useState();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('ingredient');
+  const { setDrinks } = useContext(DrinksContext);
+  const { setMeals } = useContext(MealsContext);
 
   function handleChange({ target }) {
     const { value } = target;
     setSearch(value);
   }
 
+  function setData(result) {
+    if (pathname.includes('bebidas')) {
+      setDrinks(result);
+    } else {
+      setMeals(result);
+    }
+
+    if (result.length === 1) {
+      if (pathname.includes('bebidas')) {
+        history.push(`/bebidas/${result[0].idDrink}`);
+      } else {
+        history.push(`/comidas/${result[0].idMeal}`);
+      }
+    }
+  }
+
   async function getData() {
-    const result = { drinks: [], meals: [] };
     const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
+    let result;
 
     if (filter === 'ingredient') {
-      result[type] = await fetchByIngredient(type, search);
+      result = await fetchByIngredient(type, search);
     } else if (filter === 'name') {
-      result[type] = await fetchByName(type, search);
+      result = await fetchByName(type, search);
     } else if (search.length === 1) {
-      result[type] = await fetchByFirstLetter(type, search);
+      result = await fetchByFirstLetter(type, search);
     } else {
       invokeAlert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     console.log(result);
 
-    if (result.drinks.length === 1) {
-      history.push(`/bebidas/${result.drinks[0].idDrink}`);
-    } else if (result.meals.length === 1) {
-      history.push(`/comidas/${result.meals[0].idMeal}`);
+    if (result) {
+      setData(result);
+    } else {
+      invokeAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
 
@@ -67,7 +87,6 @@ function Header({ title, show = true }) {
               data-testid="search-input"
               id="search-input"
               name="search-input"
-              defaultValue={ search }
               placeholder="Pesquisar"
               onChange={ handleChange }
             />
@@ -106,7 +125,11 @@ function Header({ title, show = true }) {
             </label>
           </div>
           <div>
-            <button data-testid="exec-search-btn" type="button" onClick={ getData }>
+            <button
+              data-testid="exec-search-btn"
+              type="button"
+              onClick={ getData }
+            >
               Buscar
             </button>
           </div>

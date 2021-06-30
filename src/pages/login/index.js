@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import UserContext from '../../context/user.context';
 
 function Login() {
-  const [user, setUser] = useState({ email: '', password: '' });
   const [disabledButton, setDisabledButton] = useState(true);
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext);
 
   function handleChange({ target }) {
     const { name, value } = target;
