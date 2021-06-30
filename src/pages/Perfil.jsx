@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Perfil() {
+  Perfil.displayName = 'Perfil';
   return (
-    <h1>Perfil</h1>
+    <div>
+      <Header title={ Perfil.displayName } />
+    </div>
   );
 }
 

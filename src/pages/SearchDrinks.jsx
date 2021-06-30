@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function SearchDrinks() {
+  SearchDrinks.displayName = 'Explorar Bebidas';
   return (
-    <h1>SearchDrinks</h1>
+    <div>
+      <Header title={ SearchDrinks.displayName } />
+    </div>
   );
 }
 
