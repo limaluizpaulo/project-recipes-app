@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Recipes() {
+function FinishedRecipes() {
   return (
     <p>Comidas</p>
   );
 }
 
-export default Recipes;
+export default FinishedRecipes;
