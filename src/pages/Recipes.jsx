@@ -30,12 +30,15 @@ export default function Recipes() {
   }, [pathname, setMealsFiltered, setFiltersBtnsMeals, setDrinksFiltered]);
 
   useEffect(() => {
+    const all = { strCategory: 'All' };
     const FIVE = 5;
     if (title === 'Comidas') {
-      fetchCategoryMeals().then((res) => setFiltersBtnsMeals(res.slice(0, FIVE)));
+      fetchCategoryMeals()
+        .then((res) => setFiltersBtnsMeals([...res.slice(0, FIVE), all]));
     }
     if (title === 'Bebidas') {
-      fetchCategoryDrinks().then((res) => setFiltersBtnsDrinks(res.slice(0, FIVE)));
+      fetchCategoryDrinks()
+        .then((res) => setFiltersBtnsDrinks([...res.slice(0, FIVE), all]));
     }
   }, [setFiltersBtnsDrinks, setFiltersBtnsMeals, title]);
 

@@ -10,14 +10,14 @@ export default function BtnsCategory({ label, title }) {
 
   const handleFilterByCategory = ({ target: { value } }) => {
     if (title === 'Comidas') {
-      if (valueMealsInput !== value) {
+      if (valueMealsInput !== value && value !== 'All') {
         serValueMealsInput(value);
       } else {
         serValueMealsInput('');
       }
     }
     if (title === 'Bebidas') {
-      if (valueDrinksInput !== value) {
+      if (valueDrinksInput !== value && value !== 'All') {
         serValueDrinksInput(value);
       } else {
         serValueDrinksInput('');
