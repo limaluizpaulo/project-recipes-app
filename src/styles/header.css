@@ -1,0 +1,14 @@
+.header-bar {
+  background-color: rgb(223, 219, 219);
+  border: 1px black solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-bar {
+  width: 100%;
+}
+
+.profile-btn {
+  height: 100%;
+}

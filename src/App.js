@@ -4,12 +4,14 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Comidas from './pages/Comidas';
+
 function App() {
   return (
     <Switch>
-      {/* <Route path="/" component={Login} />
-      <Route path="/comidas" component={Comidas} />
-      <Route path="/bebidas" component={Bebidas} />
+      {/* <Route path="/" component={} /> */}
+      <Route path="/comidas" component={ Comidas } />
+      {/* <Route path="/bebidas" component={Bebidas} />
       <Route path="/comidas/:id" component={ReceitaDetalhes} />
       <Route path="/bebidas/:id" component={ReceitaDetalhes} />
       <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} />
@@ -24,16 +26,6 @@ function App() {
       <Route path="/receitas-feitas" component={ReceitasFeitas} />
       <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
     </Switch>
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
   );
 }
 
