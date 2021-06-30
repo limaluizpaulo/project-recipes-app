@@ -13,6 +13,8 @@ import FoodIngredients from './pages/FoodIngredients';
 import Profile from './pages/Profile';
 import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
+import DoneRecipes from './pages/DoneRecepies';
+import FavouritesRecipes from './pages/FavouritesRecepes';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
+        <Route path="/receitas-favoritas" component={ FavouritesRecipes } />
         <Route
           path="/explorar/comidas/ingredientes"
           component={ FoodIngredients }
