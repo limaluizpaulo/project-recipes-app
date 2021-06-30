@@ -7,13 +7,13 @@ import Card from './Card';
 export default function MainCards(props) {
   const { title, data } = props;
   // const card = data !== undefined ? data : [];
-  console.log(data[0]);
+  console.log(data);
   return (
     <main>
       <Header title={ title } searchBar />
       <aside>Categories</aside>
       <section>
-        {data && (<Card thumbnail={ data[0].strMealThumb } />)}
+        {data.length && (<Card data={ data[0] } />)}
       </section>
       <Footer />
     </main>

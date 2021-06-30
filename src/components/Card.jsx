@@ -1,12 +1,16 @@
 import React from 'react';
 
 export default function Card(props) {
-  const { thumbnail } = props;
-  console.log(thumbnail);
+  const { data } = props;
+  // console.log(thumbnail);
   return (
     <div>
-      <img src={ thumbnail } alt="thumbnail" />
-      <span>asfd</span>
+      <img src={ data.strMealThumb } alt="thumbnail" />
+      <span>{data.strMeal}</span>
     </div>
   );
 }
+
+Card.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
