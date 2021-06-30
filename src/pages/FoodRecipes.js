@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/global.css';
+import Header from '../components/Header';
 
 function FoodRecipes() {
   // const [Meals, setMeals] = useState([]);
@@ -31,6 +32,7 @@ function FoodRecipes() {
 
   return (
     <div>
+      <Header title="Comidas" />
       <div className="btn-container">
         {firstCategories.map((category, index) => (
           <button

@@ -1,8 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function FoodByCountry() {
   return (
-    <div />
+    <div>
+      <Header title="Explorar Origem" />
+    </div>
   );
 }
 
