@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Header, Card, Footer } from '../components';
+import { Header, Categories, Card, Footer } from '../components';
 import { DrinksContext } from '../context/DrinksProvider';
 
 const Drinks = () => {
@@ -9,6 +9,7 @@ const Drinks = () => {
   return (
     <div>
       <Header />
+      {/* <Categories /> */}
       {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => {
         if (index < recipesShow) {
           return (

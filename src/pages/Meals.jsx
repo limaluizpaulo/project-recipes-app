@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Header, Card, Footer } from '../components';
+import { Header, Categories, Card, Footer } from '../components';
 import { MealsContext } from '../context/MealsProvider';
 
 const Meals = () => {
@@ -9,6 +9,7 @@ const Meals = () => {
   return (
     <div>
       <Header />
+      <Categories />
       {meals.map(({ strMeal, strMealThumb, idMeal }, index) => {
         if (index < recipesShow) {
           return (

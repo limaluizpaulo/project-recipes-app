@@ -13,7 +13,7 @@ const Card = ({ img, title, index }) => (
 Card.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Card;
