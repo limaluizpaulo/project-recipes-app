@@ -6,12 +6,18 @@ export const Context = createContext();
 function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [inputSearch, setInputSearch] = useState('');
+  const [radio, setRadio] = useState('Nome');
 
   const object = {
     email,
     setEmail,
     pass,
     setPass,
+    inputSearch,
+    setInputSearch,
+    radio,
+    setRadio,
   };
 
   return (
