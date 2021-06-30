@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
 const REGEX_EMAIL = /\S+@\S+\.\S+/;
 
 export default function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [validation, setValidation] = useState(false);
+  const history = useHistory();
+  const { setInfo, userInfo } = useContext(RecipesContext);
 
   useEffect(() => {
     const passMin = 6;
@@ -14,6 +18,12 @@ export default function Login() {
 
   function handleInputChange({ target: { name, value } }) {
     setUser({ ...user, [name]: value });
+  }
+
+  function handleLoginClick() {
+    const { email } = user;
+    setInfo({ ...userInfo, email });
+    history.push('/comidas');
   }
 
   return (
@@ -36,6 +46,7 @@ export default function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ !validation }
+        onClick={ handleLoginClick }
       >
         Entrar
       </button>
