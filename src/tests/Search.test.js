@@ -9,4 +9,11 @@ describe('Renders the Search', () => {
     const search = getByTestId('search-input');
     expect(search).toBeInTheDocument();
   });
+
+  it('should render the input type checkbox for ingredients ', () => {
+    const { getByTestId } = renderWithRoute(<Search />);
+
+    const checkbox = getByTestId('ingredient-search-radio');
+    expect(checkbox).toBeInTheDocument();
+  });
 });
