@@ -26,3 +26,15 @@ export const fetchCatDrinks = async () => {
   const drinksCategories = response.json();
   return drinksCategories;
 };
+
+export const fetchRecipesByCategory = async (type) => {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${type}`);
+  const recipesByCategory = response.json();
+  return recipesByCategory;
+};
+
+export const fetchDrinksByCategory = async (type) => {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${type}`);
+  const drinksByCategory = response.json();
+  return drinksByCategory;
+};

@@ -6,13 +6,17 @@ import DrinksContext from './DrinksContext';
 function DrinksProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [drinkCategory, setDrinkCategory] = useState('All');
 
   return (
     <DrinksContext.Provider
-      value={ { drinks,
+      value={ {
+        drinks,
         setDrinks,
         categories,
         setCategories,
+        drinkCategory,
+        setDrinkCategory,
       } }
     >
       { children }

@@ -4,19 +4,33 @@ import CategoryCard from '../components/CategoryCard';
 import FoodCard from '../components/FoodCard';
 import RecipesContext from '../context/RecipesContext';
 
-import { fetchAllRecipes, fetchCatRecipes } from '../services/api';
+import { fetchAllRecipes,
+  fetchCatRecipes,
+  fetchRecipesByCategory } from '../services/api';
 
 function Recipes() {
-  const { recipes, setRecipes, setCategories, categories } = useContext(RecipesContext);
+  const {
+    recipes,
+    setRecipes,
+    setCategories,
+    categories,
+    recipeCategory,
+    setRecipeCategory,
+  } = useContext(RecipesContext);
 
   useEffect(() => {
+    const TWELVE_RECIPES = 12;
     async function fetchData() {
-      const TWELVE_RECIPES = 12;
-      const recipesFromApi = await fetchAllRecipes();
-      setRecipes(recipesFromApi.meals.slice(0, TWELVE_RECIPES));
+      if (recipeCategory === 'All') {
+        const recipesFromApi = await fetchAllRecipes();
+        setRecipes(recipesFromApi.meals.slice(0, TWELVE_RECIPES));
+      } else {
+        const recipesFromApi = await fetchRecipesByCategory(recipeCategory);
+        setRecipes(recipesFromApi.meals.slice(0, TWELVE_RECIPES));
+      }
     }
     fetchData();
-  }, []);
+  }, [recipeCategory]);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,10 +43,11 @@ function Recipes() {
 
   return (
     <section>
-      <Button>All</Button>
-      {categories.map(({ strCategory }, index) => (<CategoryCard
+      <Button onClick={ (ev) => { setRecipeCategory(ev.target.innerText); } }>All</Button>
+      {categories.map((category, index) => (<CategoryCard
         key={ index }
-        name={ strCategory }
+        food
+        name={ category.strCategory }
       />))}
       {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (<FoodCard
         key={ idMeal }

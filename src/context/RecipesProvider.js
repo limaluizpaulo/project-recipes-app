@@ -6,6 +6,7 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [recipeCategory, setRecipeCategory] = useState('All');
 
   return (
     <RecipesContext.Provider
@@ -14,6 +15,8 @@ function RecipesProvider({ children }) {
         setRecipes,
         categories,
         setCategories,
+        recipeCategory,
+        setRecipeCategory,
       } }
     >
       { children }
