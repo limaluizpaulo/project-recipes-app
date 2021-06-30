@@ -8,8 +8,8 @@ function RecipesProvider({ children }) {
   const [recipeDetail, setRecipeDetail] = useState(false);
   const [goDetail, setGoDetail] = useState(false);
 
-  const login = ({ inputedUser, password }) => {
-    setUser({ user: inputedUser, password });
+  const login = ({ email, password }) => {
+    setUser({ user: email, password });
   };
 
   const getRandomRacipes = async (recipe) => {
