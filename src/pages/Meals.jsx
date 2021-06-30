@@ -1,10 +1,14 @@
 import React, { useContext } from 'react';
 import { Header, Categories, Card, Footer } from '../components';
 import { MealsContext } from '../context/MealsProvider';
-import fetchFilteredByCategory from '../services/api/fetchFilteredByCategory';
 
 const Meals = () => {
-  const { meals, setMeals, categories } = useContext(MealsContext);
+  const {
+    meals,
+    categories,
+
+    setFilterCategory,
+  } = useContext(MealsContext);
 
   const recipesShow = 12;
   return (
@@ -12,10 +16,7 @@ const Meals = () => {
       <Header />
       <Categories
         categories={ categories }
-        onClick={ async ({ target: { id } }) => {
-          const filtered = await fetchFilteredByCategory('meals', id);
-          setMeals(filtered);
-        } }
+        onClick={ setFilterCategory }
       />
       {meals.map(({ strMeal, strMealThumb, idMeal }, index) => {
         if (index < recipesShow) {
