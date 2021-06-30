@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 
 class Login extends React.Component {
@@ -13,6 +13,7 @@ class Login extends React.Component {
 
     this.validateForm = this.validateForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -23,6 +24,15 @@ class Login extends React.Component {
     if (name === 'password') {
       this.setState({ password: value }, this.validateForm);
     }
+  }
+
+  onClickSubmit() {
+    const { history } = this.props;
+    const { email } = this.state;
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
   }
 
   validateForm() {
@@ -65,10 +75,10 @@ class Login extends React.Component {
         </Form.Group>
         <Button
           variant="primary"
-          type="submit"
+          type="button"
           data-testid="login-submit-btn"
           disabled={ disabled }
-          // onClick={ () => adicionarUsuarioState(email)}
+          onClick={ this.onClickSubmit }
         >
           Entrar
         </Button>
@@ -81,8 +91,11 @@ class Login extends React.Component {
 //   adicionarUsuarioState: (email) => dispatch(adicionarUsuario(email)),
 // });
 
-// Login.propTypes = {
-//   adicionarUsuarioState: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  // adicionarUsuarioState: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
