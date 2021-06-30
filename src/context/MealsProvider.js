@@ -19,7 +19,7 @@ const MealsProvider = ({ children }) => {
     loadMeals();
   }, []);
 
-  const context = { meals, categories };
+  const context = { meals, setMeals, categories };
 
   return <MealsContext.Provider value={ context }>{children}</MealsContext.Provider>;
 };

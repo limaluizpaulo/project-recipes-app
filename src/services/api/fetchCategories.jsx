@@ -1,4 +1,4 @@
-const fetchCategories = (type) => {
+const fetchCategories = (type = 'meals') => {
   const search = (type === 'meals') ? 'meal' : 'cocktail';
   const MEALS_URL = `https://www.the${search}db.com/api/json/v1/1/list.php?c=list`;
   return fetch(MEALS_URL)

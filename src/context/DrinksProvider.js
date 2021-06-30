@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchDrinks from '../services/api/fetchDrinks';
-import fetchCategories from '../services/api/fetchCategories.jsx';
+import fetchCategories from '../services/api/fetchCategories';
 
 const DrinksContext = createContext();
 
@@ -19,7 +19,7 @@ const DrinksProvider = ({ children }) => {
     loadDrinks();
   }, []);
 
-  const context = { drinks, categories };
+  const context = { drinks, setDrinks, categories };
   return (
     <DrinksContext.Provider value={ context }>
       { children }
