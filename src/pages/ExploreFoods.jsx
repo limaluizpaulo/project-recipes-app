@@ -1,11 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
-// import Header from '../components/Header';
+import HeaderSearch from '../components/HeaderSearch';
 
 export default function ExploreFoods() {
   return (
     <div>
-      {/* <Header /> */}
+      <HeaderSearch title="Explorar Comidas" />
       <Footer />
     </div>
   );

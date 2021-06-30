@@ -14,7 +14,7 @@ import Profile from './pages/Profile';
 import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
 import DoneRecipes from './pages/DoneRecepies';
-import FavouritesRecipes from './pages/FavouritesRecepes';
+import FavouritesRecipes from './pages/FavouritesRecipes';
 
 function App() {
   return (
