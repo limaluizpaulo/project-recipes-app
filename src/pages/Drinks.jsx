@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import DrinksContext from '../context/DrinksContext';
+import FilteredList from '../components/FilteredList';
 
 function Drinks() {
   const { drinksFilter: { filteredDrinks } } = useContext(DrinksContext);
@@ -17,6 +18,7 @@ function Drinks() {
     <>
       <h1>Bebidas</h1>
       <SearchBar />
+      <FilteredList filteredDrinks={ filteredDrinks } />
     </>
   );
 }

@@ -33,8 +33,10 @@ function SearchBar() {
 
       if (textFilter.length === 1 && typeOfFilter === FIRST_LETTER) {
         filterDrinksByFirstLetter(textFilter);
-      } else if (textFilter.length > 1 && typeOfFilter === FIRST_LETTER) {
-        invokeAlert(alert, 'Por favaor, digite apenas uma letra');
+      }
+
+      if (textFilter.length > 1 && typeOfFilter === FIRST_LETTER) {
+        invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       }
     }
   }
@@ -53,7 +55,7 @@ function SearchBar() {
       if (textFilter.length === 1 && typeOfFilter === FIRST_LETTER) {
         filterRecipesByFirstLetter(textFilter);
       } else if (textFilter.length > 1 && typeOfFilter === FIRST_LETTER) {
-        invokeAlert(alert, 'Digite apenas uma letra');
+        invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       }
     } else {
       submitDrinks();
