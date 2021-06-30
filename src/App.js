@@ -4,15 +4,12 @@ import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 
 import './App.css';
-// import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route exact path="/carteira" component={ Wallet } /> */}
       </Switch>
     </RecipesProvider>
   );

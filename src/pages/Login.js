@@ -6,7 +6,7 @@ function Login() {
   const { login } = useContext(RecipesContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [redirectToComidas, setRedirect] = useState(false);
+  const [redirectToComidas, setRedirectToComidas] = useState(false);
   const [buttonAbled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Login() {
   const buttonLogin = () => {
     login({ email, password });
     setLocalStorage();
-    setRedirect(true);
+    setRedirectToComidas(true);
   };
 
   return (
