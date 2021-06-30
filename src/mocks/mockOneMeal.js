@@ -1,7 +1,7 @@
 const firstMeal = {
   idMeal: '52977',
   strMeal: 'Corba',
-  strDrinkAlternate: null,
+  strDrinkAlternate: ['beb1', 'bed2'],
   strCategory: 'Side',
   strArea: 'Turkish',
   strInstructions: `Pick through your lentils for any foreign debris, 
