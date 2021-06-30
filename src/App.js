@@ -11,7 +11,6 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/comidas" component={ Recipes } />
       </Switch>
-
     </Provider>
   );
 }
