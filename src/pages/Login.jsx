@@ -3,40 +3,38 @@ import { Redirect } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
 
 const Login = () => {
-  const {
-    disable,
-    verifyEmail,
-    verifyPassword,
+  const { handleChange,
+    validationUser,
     handleLogin,
     verifyLogin } = useContext(UserContext);
 
   if (verifyLogin) return <Redirect to="/comidas" />;
   return (
-    <>
+    <section>
       <h1>login</h1>
       <input
         type="email"
         placeholder="Email"
-        onChange={ verifyEmail }
+        onChange={ handleChange }
         data-testid="email-input"
       />
 
       <input
         type="password"
         data-testid="password-input"
-        onChange={ verifyPassword }
+        onChange={ handleChange }
         placeholder="Password"
       />
 
       <button
         type="button"
         data-testid="login-submit-btn"
-        disabled={ disable }
+        disabled={ validationUser() }
         onClick={ handleLogin }
       >
         Entrar
       </button>
-    </>
+    </section>
   );
 };
 
