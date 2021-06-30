@@ -7,3 +7,8 @@
   height: 3.6rem;
   justify-content: space-around;
 }
+
+button {
+  border: 0px;
+  background-color: #c4c4c4;
+}
