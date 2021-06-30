@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { getFoodByCategory, getFoodCategories, getFoodRecipes } from '../services';
+import '../main.css';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
@@ -6,47 +8,56 @@ const TWELVE = 12; // number of recipes to render
 function MainFood() {
   const [categories, setCategories] = useState([]);
   const [foodRecipes, setFoodRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [showFiltered, setShowFiltered] = useState(false);
+  const [filteredBy, setFilteredBy] = useState('');
 
+  // fetch API
   useEffect(() => {
     const getCatergories = async () => {
-      const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-      const { meals } = await fetch(endpoint).then((data) => data.json());
+      const meals = await getFoodCategories();
       setCategories(meals.slice(0, FIVE));
     };
 
     const getRecipes = async () => {
-      const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-      const { meals } = await fetch(endpoint).then((data) => data.json());
+      const meals = await getFoodRecipes();
       setFoodRecipes(meals.slice(0, TWELVE));
     };
-
     getCatergories();
     getRecipes();
   }, []);
 
   const filterByCategory = async (category) => {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-    const { meals } = await fetch(endpoint).then((data) => data.json());
-    setFoodRecipes(meals.slice(0, TWELVE));
+    if (filteredBy !== category) {
+      setFilteredBy(category);
+      const meals = await getFoodByCategory(category);
+      setShowFiltered(true);
+      setFilteredRecipes(meals.slice(0, TWELVE));
+    } else {
+      setShowFiltered(false);
+      setFilteredBy('');
+    }
   };
+
+  const recipesToRender = showFiltered ? filteredRecipes : foodRecipes;
 
   return (
     <main>
       <section>
-        {categories.map((el, idx) => (
+        {categories.map(({ strCategory }, idx) => (
           <button
             type="button"
             key={ idx }
-            data-testid={ `${el.strCategory}-category-filter` }
-            onClick={ () => { filterByCategory(el.strCategory); } }
+            data-testid={ `${strCategory}-category-filter` }
+            onClick={ () => { filterByCategory(strCategory); } }
           >
-            {el.strCategory}
+            {strCategory}
           </button>
         ))}
       </section>
 
       <section>
-        {foodRecipes.map(({ strMealThumb, strMeal }, idx) => (
+        {recipesToRender.map(({ strMealThumb, strMeal }, idx) => (
           <div key={ idx } data-testid={ `${idx}-recipe-card` }>
             <img
               src={ strMealThumb }

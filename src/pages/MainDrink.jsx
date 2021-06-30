@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { getDrinkByCategory, getDrinkCategories, getDrinkRecipes } from '../services';
+import '../main.css';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
@@ -6,17 +8,19 @@ const TWELVE = 12; // number of recipes to render
 function MainDrink() {
   const [categories, setCategories] = useState([]);
   const [drinkRecipes, setDrinkRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [showFiltered, setShowFiltered] = useState(false);
+  const [filteredBy, setFilteredBy] = useState('');
 
+  // fetch API
   useEffect(() => {
     const getCatergories = async () => {
-      const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-      const { drinks } = await fetch(endpoint).then((data) => data.json());
+      const drinks = await getDrinkCategories();
       setCategories(drinks.slice(0, FIVE));
     };
 
     const getRecipes = async () => {
-      const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      const { drinks } = await fetch(endpoint).then((data) => data.json());
+      const drinks = await getDrinkRecipes();
       setDrinkRecipes(drinks.slice(0, TWELVE));
     };
 
@@ -25,11 +29,18 @@ function MainDrink() {
   }, []);
 
   const filterByCategory = async (category) => {
-    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-    const { drinks } = await fetch(endpoint).then((data) => data.json());
-    console.log(drinks);
-    setDrinkRecipes(drinks.slice(0, TWELVE));
+    if (filteredBy !== category) {
+      setFilteredBy(category);
+      const drinks = await getDrinkByCategory(category);
+      setShowFiltered(true);
+      setFilteredRecipes(drinks.slice(0, TWELVE));
+    } else {
+      setShowFiltered(false);
+      setFilteredBy('');
+    }
   };
+
+  const recipesToRender = showFiltered ? filteredRecipes : drinkRecipes;
 
   return (
     <main>
@@ -47,7 +58,7 @@ function MainDrink() {
       </section>
 
       <section>
-        {drinkRecipes.map(({ strDrinkThumb, strDrink }, idx) => (
+        {recipesToRender.map(({ strDrinkThumb, strDrink }, idx) => (
           <div key={ idx } data-testid={ `${idx}-recipe-card` }>
             <img
               src={ strDrinkThumb }
