@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 const initialState = {
   email: '',
@@ -7,17 +9,26 @@ const initialState = {
 
 export default function Login() {
   const [loginState, setLoginState] = useState(initialState);
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isRedirect, setIsRedirect] = useState(false);
   useEffect(() => {
     const { email, password } = loginState;
     const regex = /\S+@\S+\.\S+/;
     const min = 6;
     if (regex.test(email) && password.length > min) {
-      setIsDisable(false);
-    } else setIsDisable(true);
+      setIsDisabled(false);
+    } else setIsDisabled(true);
   }, [loginState]);
 
-  return (
+  const submit = () => {
+    const { email } = loginState;
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    setIsRedirect(true);
+  };
+
+  return isRedirect ? <Redirect to="/comidas" /> : (
     <form>
       <input
         data-testid="email-input"
@@ -33,13 +44,15 @@ export default function Login() {
           ({ target: { value } }) => setLoginState({ ...loginState, password: value })
         }
       />
-      <button
+      <Button
+        variant={ isDisabled ? 'danger' : 'success' }
         data-testid="login-submit-btn"
         type="button"
-        disabled={ isDisable }
+        disabled={ isDisabled }
+        onClick={ submit }
       >
         Entrar
-      </button>
+      </Button>
     </form>
   );
 }
