@@ -63,11 +63,13 @@ function Header() {
 
   return (
     <header className="containerHeader">
-      <Link to="/perfil">
-        <img alt="Profile" data-testid="profile-top-btn" src={ profileIcon } />
-      </Link>
-      <h1 data-testid="page-title">{ titleHeader() }</h1>
-      { searchIconFun() }
+      <section className="headerSection">
+        <Link to="/perfil">
+          <img alt="Profile" data-testid="profile-top-btn" src={ profileIcon } />
+        </Link>
+        <h1 data-testid="page-title">{ titleHeader() }</h1>
+        { searchIconFun() }
+      </section>
       { searchInput ? <SearchInput /> : false }
     </header>
   );

@@ -7,3 +7,15 @@
   position: fixed;
   width: 100%;
 }
+
+.headerSection {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.headerSection button {
+  background: transparent;
+  border: none;
+}
