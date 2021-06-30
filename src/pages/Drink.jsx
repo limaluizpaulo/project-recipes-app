@@ -10,19 +10,36 @@ function Drink() {
     showSearch,
     categories,
     setSelectedCategory,
+    selectedCategory,
     setToggleBtnCategories,
-    toggleBtnCategories,
   } = useContext(RecipeContext);
 
   function handleClick(category) {
-    setSelectedCategory(category);
-    setToggleBtnCategories(!toggleBtnCategories);
+    if (selectedCategory === category) {
+      setToggleBtnCategories(false);
+      setSelectedCategory('');
+    } else {
+      setToggleBtnCategories(true);
+      setSelectedCategory(category);
+    }
+  }
+
+  function handleAll() {
+    setToggleBtnCategories(false);
+    setSelectedCategory('');
   }
 
   return (
     <div>
       <Header title="Bebidas" />
       { showSearch && <SearchBar /> }
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => handleAll() }
+      >
+        All
+      </button>
       {categories.map(({ strCategory }) => (
         <button
           type="button"

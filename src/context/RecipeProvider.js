@@ -24,9 +24,9 @@ export default function RecipeProvider({ children }) {
   const [inputValue, setInputValue] = useState('');
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
 
   // Render all recipes
   useEffect(() => {
@@ -132,6 +132,7 @@ export default function RecipeProvider({ children }) {
         recipes,
         categories,
         setSelectedCategory,
+        selectedCategory,
         setToggleBtnCategories,
         toggleBtnCategories,
       } }
