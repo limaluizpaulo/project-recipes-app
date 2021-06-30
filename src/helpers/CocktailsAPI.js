@@ -19,4 +19,5 @@ export const getCocktailsAlcoholicFilters = () => (
 );
 
 // https://www.themealdb.com/api/json/v1/1/list.php?c=list
-// www.thecocktaildb.com/api/json/v1/1/list.php?c=list
+// https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list
+// https://www.thecocktaildb.com/api/json/v1/1/search.php?s=

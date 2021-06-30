@@ -1,11 +1,12 @@
 import React from 'react';
 
-export default function Card(/* props */) {
-  // const { data } = props;
+export default function Card(props) {
+  const { thumbnail } = props;
+  console.log(thumbnail);
   return (
     <div>
-      <img src="blabla" alt="thumbnail" />
-      <span>{ }</span>
+      <img src={ thumbnail } alt="thumbnail" />
+      <span>asfd</span>
     </div>
   );
 }
