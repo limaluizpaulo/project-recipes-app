@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function SearchBar() {
   const [, setSearchText] = useState('');
-  const [, setRadioButton] = useState('ingredients');
+  const [, setRadioButton] = useState(' ingredients');
 
   return (
     <form>
