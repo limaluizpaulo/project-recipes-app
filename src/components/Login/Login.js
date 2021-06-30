@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Context from '../Provider/context';
+import Context from '../../Provider/context';
+import './Login.css';
 
 function Login() {
   const {
@@ -27,7 +28,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="login">
       <h1>Login</h1>
       <form>
         <label htmlFor="email-input">
@@ -52,6 +53,7 @@ function Login() {
         </label>
         <Link to="/comidas">
           <button
+            className="btn btn-success"
             data-testid="login-submit-btn"
             disabled={ !passwordCheck || !emailCheck }
             onClick={ saveToLocalStorage }
