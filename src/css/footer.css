@@ -1,14 +1,14 @@
 .footer {
-  position:fixed;
-  bottom:0;
-  width:100%;
   background-color: #c4c4c4;
+  bottom: 0px;
   display: flex;
   height: 3.6rem;
   justify-content: space-around;
+  position: fixed;
+  width: 100%;
 }
 
 button {
-  border: 0px;
   background-color: #c4c4c4;
+  border: 0px;
 }
