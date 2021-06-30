@@ -15,9 +15,9 @@ export default function Header() {
     case '/comidas':
       return (
         <>
-          <img src={ profileIcon } alt="" />
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
           <h1 data-testid="page-title">Page Title</h1>
-          <img src={ searchIcon } alt="" />
+          <img data-testid="search-top-btn" src={ searchIcon } alt="" />
         </>);
     case '/explorar/comidas':
     case '/explorar/comidas/area':
@@ -27,12 +27,16 @@ export default function Header() {
     case '/perfil':
       return (
         <>
-          <img src={ profileIcon } alt="" />
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
           <h1 data-testid="page-title">Page Title</h1>
         </>);
     default:
       return (
-        <h1 data-testid="page-title">Login</h1>);
+        <h1 data-testid="page-title">
+          `
+          0.0
+          `
+        </h1>);
     }
   }
 

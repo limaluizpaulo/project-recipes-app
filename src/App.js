@@ -9,6 +9,7 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import Pages from './pages/index';
+import TesteDeRotas from './components/TesteDeRotas';
 
 // Source: https://reactrouter.com/web/example/nesting
 
@@ -26,12 +27,12 @@ export default function App() {
     return (
       <>
         <Pages.Foods />
-        <Link to="comidas/:recipeId"> FoodId </Link>
-        <Link to="comidas/:recipeId/status"> FoodId/Status </Link>
+        <Link to="/comidas/:recipeId"> FoodId </Link>
+        <Link to="/comidas/:recipeId/in-progress"> FoodId/Status </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Route exact path={ `${path}/comidas/:recipeId` } />
-          <Route path={ `${path}/comidas/:recipeId/status` } />
+          <Route path="/comidas" />
+          <Route path="/comidas/:recipeId" />
+          <Route path="/comidas/:recipeId/in-progress" />
         </Switch>
       </>
     );
@@ -42,11 +43,12 @@ export default function App() {
       <>
         <Pages.Drinks />
         <Link to="/bebidas/:drinkId"> DrinkId </Link>
-        <Link to="/bebidas/:drinkId/status"> DrinkId/Status </Link>
+        <Link to="/bebidas/:drinkId/in-progress"> DrinkId/Status </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Route exact path={ `${path}/bebidas/:drinkId` } />
-          <Route path={ `${path}/bebidas/:drinkId/status` } />
+          <Route path="/bebidas" />
+          <Route path="/bebidas/:drinkId" />
+          <TesteDeRotas />
+          <Route path="/bebidas/:drinkId/in-progress" />
         </Switch>
       </>
     );
@@ -62,12 +64,12 @@ export default function App() {
         <Link to="/explorar/bebidas/"> Explore Drinks </Link>
         <Link to="/explorar/bebidas/ingredientes"> Drinks Ingridients </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Route exact path={ `${path}/comidas` } />
-          <Route exact path={ `${path}/comidas/area` } />
-          <Route exact path={ `${path}/comidas/ingredientes` } />
-          <Route exact path={ `${path}/bebidas` } />
-          <Route exact path={ `${path}/bebidas/ingredientes` } />
+          <Route path={ path } />
+          <Route path={ `${path}/comidas` } />
+          <Route path={ `${path}/comidas/area` } />
+          <Route path={ `${path}/comidas/ingredientes` } />
+          <Route path={ `${path}/bebidas` } />
+          <Route path={ `${path}/bebidas/ingredientes` } />
         </Switch>
       </>
     );
