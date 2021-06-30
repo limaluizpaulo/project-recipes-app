@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-// import rockGlass from './images/rockGlass.svg';
+import RecipesMade from './pages/RecipesMade';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -20,20 +20,10 @@ function App() {
       <Route path="/explorar/comidas/ingredientes" component={ComidasIngredientes} />
       <Route path="/explorar/bebidas/ingredientes" component={BebidasIngredientes} />
       <Route path="/explorar/comidas/area" component={ComidasArea} />
-      <Route path="/perfil" component={Perfil} />
-      <Route path="/receitas-feitas" component={ReceitasFeitas} />
-      <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
+      <Route path="/perfil" component={Perfil} /> */}
+      <Route path="/receitas-feitas" component={ RecipesMade } />
+      {/* <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
     </Switch>
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
   );
 }
 
