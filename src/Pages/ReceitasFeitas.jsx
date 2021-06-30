@@ -8,10 +8,35 @@ export default class ReceitasFeitas extends Component {
 
     this.state = {
       linkCopied: false,
-      count: 3,
+      intervalId: '',
+      count: 2,
     };
 
+    this.renderDoneRecipes = this.renderDoneRecipes.bind(this);
     this.copyToClipboardAndAlert = this.copyToClipboardAndAlert.bind(this);
+    this.setIntervalState = this.setIntervalState.bind(this);
+    this.timer = this.timer.bind(this);
+  }
+
+  setIntervalState() {
+    const ONE_SECOND = 1000;
+    const intervalId = setInterval(this.timer, ONE_SECOND);
+    this.setState({ intervalId });
+  }
+
+  timer() {
+    const { count, intervalId } = this.state;
+    const newCount = count - 1;
+    if (newCount >= 0) {
+      this.setState({ count: newCount });
+    } else {
+      clearInterval(intervalId);
+      this.setState({
+        linkCopied: false,
+        intervalId: '',
+        count: 2,
+      });
+    }
   }
 
   copyToClipboardAndAlert(type, id) {
@@ -21,12 +46,14 @@ export default class ReceitasFeitas extends Component {
       this.setState({
         linkCopied: true,
       });
+      this.setIntervalState();
       break;
     case 'bebida':
       navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
       this.setState({
         linkCopied: true,
       });
+      this.setIntervalState();
       break;
     default:
       return null;
@@ -34,6 +61,7 @@ export default class ReceitasFeitas extends Component {
   }
 
   renderDoneRecipes() {
+    const { linkCopied } = this.state;
     const recipes = doneRecipes
       .map(({ id, type, area, alcoholicOrNot, image,
         name, category, doneDate, tags }, index) => {
@@ -53,6 +81,7 @@ export default class ReceitasFeitas extends Component {
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
+            { linkCopied && <span>Link copiado!</span> }
           </section>
         );
         const mapTags = tags.map((tag, indexTag) => {
