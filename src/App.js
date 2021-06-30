@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import Explore from './pages/Explore';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +18,7 @@ function App() {
         {/* <Route path="/bebidas/:id" component={ReceitaDetalhes} /> */}
         {/* <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
         {/* <Route path="/bebidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
-        {/* <Route path="/explorar" component={Explorar} /> */}
+        <Route path="/explorar" component={ Explore } />
         {/* <Route path="/explorar/comidas" component={ExplorarComidas} /> */}
         {/* <Route path="/explorar/bebidas" component={ExplorarBebidas} /> */}
         {/* <Route path="/explorar/comidas/ingredientes"
