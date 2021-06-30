@@ -7,8 +7,8 @@ class login extends Component {
   constructor() {
     super();
     this.state = {
-      userEmail: '',
-      userPassword: '',
+      userEmail: 'trybe@trybe.com',
+      userPassword: '1234567',
       errors: {},
       btnDisable: true,
     };
