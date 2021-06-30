@@ -25,14 +25,13 @@ export default function App() {
   function renderFoodsRote() {
     return (
       <>
-        <Link to="/:recipeId"> FoodId </Link>
-        <Link to="/:recipeId/status"> FoodId/Status </Link>
+        <Pages.Foods />
+        <Link to="/comidas/:recipeId"> FoodId </Link>
+        <Link to="/comidas/:recipeId/status"> FoodId/Status </Link>
         <Switch>
-          <Route exact path={ path }>
-            <Pages.Foods />
-          </Route>
-          <Route exact path={ `${path}/:recipeId` } />
-          <Route path={ `${path}/:recipeId/status` } />
+          <Route exact path={ path } />
+          <Route path={ `${path}/comidas/:recipeId/status` } />
+          <Route path={ `${path}/comidas/:recipeId` } />
         </Switch>
       </>
     );
@@ -41,14 +40,13 @@ export default function App() {
   function renderDrinksRote() {
     return (
       <>
-        <Link to="/:drinkId"> DrinkId </Link>
-        <Link to="/:drinkId/status"> DrinkId/Status </Link>
+        <Pages.Drinks />
+        <Link to="/bebidas/:drinkId"> DrinkId </Link>
+        <Link to="/bebidas/:drinkId/status"> DrinkId/Status </Link>
         <Switch>
-          <Route exact path={ path }>
-            <Pages.Drinks />
-          </Route>
-          <Route exact path={ `${path}/:drinkId` } />
+          <Route exact path={ path } />
           <Route path={ `${path}/:drinkId/status` } />
+          <Route path={ `${path}/:drinkId` } />
         </Switch>
       </>
     );
@@ -57,15 +55,14 @@ export default function App() {
   function renderExploreRotes() {
     return (
       <>
+        <Pages.Explore />
         <Link to="/explorar/comidas"> Explore Food </Link>
         <Link to="explorar/comidas/area"> Explore Food Area </Link>
         <Link to="/explorar/comidas/ingredientes"> Food Ingredients </Link>
         <Link to="/explorar/bebidas/"> Explore Drinks </Link>
         <Link to="/explorar/bebidas/ingredientes"> Drinks Ingridients </Link>
         <Switch>
-          <Route exact path={ path }>
-            <Pages.Explore />
-          </Route>
+          <Route exact path={ path } />
           <Route exact path={ `${path}/comidas` } />
           <Route exact path={ `${path}/comidas/area` } />
           <Route exact path={ `${path}/comidas/ingredientes` } />
@@ -104,22 +101,14 @@ export default function App() {
     return (
       <Switch>
         <Route
-          exact
-          path="/"
-          render={ renderLoginPage }
-        />
-        <Route
-          exact
           path="/comidas"
           render={ renderFoodsRote }
         />
         <Route
-          exact
           path="/bebidas"
           render={ renderDrinksRote }
         />
         <Route
-          exact
           path="/explorar"
           render={ renderExploreRotes }
         />
@@ -136,6 +125,12 @@ export default function App() {
           render={ renderFavoriteRecipes }
         />
         <Route
+          exact
+          path="/"
+          render={ renderLoginPage }
+        />
+        <Route
+          path="*"
           render={ renderNotFoundPage }
         />
       </Switch>
