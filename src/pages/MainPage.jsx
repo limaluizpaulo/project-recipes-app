@@ -1,47 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFoodByCategory, getFoodCategories, getFoodRecipes } from '../services';
+import {
+  getRecipeByCategory,
+  getFoodCategories,
+  getFoodRecipes,
+  getDrinkCategories,
+  getDrinkRecipes,
+  getDrinkByCategory,
+} from '../services';
+
 import '../main.css';
+import RecipeCards from '../components/RecipeCards';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
 
-function MainFood({ history }) {
+function MainPage({ history }) {
   const [categories, setCategories] = useState([]);
-  const [foodRecipes, setFoodRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [showFiltered, setShowFiltered] = useState(false);
   const [filteredBy, setFilteredBy] = useState('');
 
+  const { pathname } = history.location;
+
   // fetch API
   useEffect(() => {
     const getCatergories = async () => {
-      const meals = await getFoodCategories();
-      setCategories(meals.slice(0, FIVE));
+      const resp = pathname === '/comidas'
+        ? await getFoodCategories()
+        : await getDrinkCategories();
+      setCategories(resp.slice(0, FIVE));
     };
 
     const getRecipes = async () => {
-      const meals = await getFoodRecipes();
-      setFoodRecipes(meals.slice(0, TWELVE));
+      const resp = pathname === '/comidas'
+        ? await getFoodRecipes()
+        : await getDrinkRecipes();
+      setRecipes(resp.slice(0, TWELVE));
     };
+
     getCatergories();
     getRecipes();
-  }, []);
+  }, [pathname]);
 
   // filter results by category button
   const filterByCategory = async (category) => {
     if (filteredBy !== category) {
       setFilteredBy(category);
-      const meals = await getFoodByCategory(category);
+      const response = pathname === '/comidas'
+        ? await getRecipeByCategory(category)
+        : await getDrinkByCategory(category);
       setShowFiltered(true);
-      setFilteredRecipes(meals.slice(0, TWELVE));
+      setFilteredRecipes(response.slice(0, TWELVE));
     } else {
       setShowFiltered(false);
       setFilteredBy('');
     }
   };
 
-  const recipesToRender = showFiltered ? filteredRecipes : foodRecipes;
+  const recipesToRender = showFiltered ? filteredRecipes : recipes;
 
   return (
     <main>
@@ -64,31 +82,13 @@ function MainFood({ history }) {
           </button>
         ))}
       </section>
-      <section>
-        {recipesToRender.map(({ strMealThumb, strMeal, idMeal }, idx) => (
-          <section
-            key={ idx }
-            data-testid={ `${idx}-recipe-card` }
-            onClick={ () => history.push(`/comidas/${idMeal}`) }
-            onKeyDown={ () => history.push(`/comidas/${idMeal}`) }
-            role="button"
-            tabIndex={ 0 }
-          >
-            <img
-              src={ strMealThumb }
-              alt={ `Imagem do prato ${strMeal}` }
-              data-testid={ `${idx}-card-img` }
-            />
-            <span data-testid={ `${idx}-card-name` }>{strMeal}</span>
-          </section>
-        ))}
-      </section>
+      <RecipeCards history={ history } recipes={ recipesToRender } />
     </main>
   );
 }
 
-MainFood.propTypes = {
+MainPage.propTypes = {
   history: PropTypes.object,
 }.isRequired;
 
-export default MainFood;
+export default MainPage;

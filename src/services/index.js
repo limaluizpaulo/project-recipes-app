@@ -9,7 +9,7 @@ export async function getFoodRecipes() {
   const { meals } = await fetch(endpoint).then((data) => data.json());
   return meals;
 }
-export async function getFoodByCategory(category) {
+export async function getRecipeByCategory(category) {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
   const { meals } = await fetch(endpoint).then((data) => data.json());
   return meals;
