@@ -12,6 +12,9 @@ function Search() {
       <label htmlFor="name">
         <input type="checkbox" id="name" data-testid="name-search-radio" />
       </label>
+      <label htmlFor="search">
+        <input type="text" id="search" data-testid="first-letter-search-radio" />
+      </label>
     </form>
   );
 }
