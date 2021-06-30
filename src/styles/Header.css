@@ -1,10 +1,15 @@
 .header-container {
+<<<<<<< HEAD
   align-items: center;
   display: flex;
 <<<<<<< HEAD
   align-items: center;
 =======
 >>>>>>> 2da4a2a9a64f2eaf7d472d77cbcdb64a18c05b72
+=======
+  align-items: center;
+  display: flex;
+>>>>>>> 4ef05975b7689a10a63a2103b325ad48b72258db
   justify-content: space-between;
   position: absolute;
   top: 0;
