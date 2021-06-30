@@ -29,26 +29,21 @@ function Header({ title, show = true }) {
     switch (filter) {
     case 'ingredient':
       result = await fetchDrinksByIngredient(search);
-      if (result.drinks.length === 1) {
-        history.push(`/bebidas/${result.drinks[0].idDrink}`);
-      }
       break;
     case 'name':
       result = await fetchDrinksByName(search);
-      if (result.drinks.length === 1) {
-        history.push(`/bebidas/${result.drinks[0].idDrink}`);
-      }
       break;
     default:
       if (search.length < 2) {
         result = await fetchDrinksByFirstLetter(search);
-        if (result.drinks.length === 1) {
-          history.push(`/bebidas/${result.drinks[0].idDrink}`);
-        }
       } else {
         window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
       break;
+    }
+
+    if (result.drinks.length === 1) {
+      history.push(`/bebidas/${result.drinks[0].idDrink}`);
     }
   }
 
@@ -57,26 +52,21 @@ function Header({ title, show = true }) {
     switch (filter) {
     case 'ingredient':
       result = await fetchFoodByIngredient(search);
-      if (result.meals.length === 1) {
-        history.push(`/comidas/${result.meals[0].idMeal}`);
-      }
       break;
     case 'name':
       result = await fetchFoodByName(search);
-      if (result.meals.length === 1) {
-        history.push(`/comidas/${result.meals[0].idMeal}`);
-      }
       break;
     default:
       if (search.length < 2) {
         result = await fetchFoodByFirstLetter(search);
-        if (result.meals.length === 1) {
-          history.push(`/comidas/${result.meals[0].idMeal}`);
-        }
       } else {
         window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
       break;
+    }
+
+    if (result.meals.length === 1) {
+      history.push(`/comidas/${result.meals[0].idMeal}`);
     }
   }
 
