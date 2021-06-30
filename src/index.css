@@ -11,3 +11,95 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'PoetsenOne';
+  src: url('./fonts/PoetsenOne.ttf');
+}
+/*========== VARIABLES CSS ==========*/
+:root {
+  /*========== Colors ==========*/
+  --first-color: #4D49BF;
+  /* --second-color: #05DBF2; */
+  /* --white-color: #E9EAEC; */
+  /* --dark-color: #272d40; */
+  --dark-color: #314279;
+  /* --dark-color-lighten: #F2F5FF; */
+  --title-color: #F2A20C;
+
+  /*========== Font and typography ==========*/
+  --body-font: 'PoetsenOne', sans-serif;
+  --normal-font-size: .938rem;
+  --h1-font-size: 1.5rem;
+  --h3-font-size: 1.125rem;
+  --small-font-size: .75rem;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+
+.Cards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recipes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.recipe {
+  width: 200px;
+  height: 230px;
+  background-color: var(--dark-color);
+  border-radius: 1rem;
+  padding: 4rem 2rem 0;
+  overflow-y: hidden;
+  cursor: pointer;
+  margin: 15px 5px 0 5px;
+}
+
+.recipe:hover {
+  box-shadow: 1px 2px 8px 2px var(--first-color);
+}
+
+.recipe img {
+  position: absolute;
+  margin-left: 25px;
+  width: 150px;
+  border-radius: 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+}
+
+.recipeData {
+  transform: translateY(9.2rem);
+  text-align: center;
+}
+
+.recipeTitle {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+  margin-bottom: .5rem;
+}
+
+.recipeImg, 
+.recipeData, 
+.recipeTitle {
+  transition: .5s;
+}
+
+.recipe:hover .recipeImg {
+  transform: translateY(-4.5rem);
+}
+
+.recipe:hover .recipeData {
+  transform: translateY(4.8rem);
+}
