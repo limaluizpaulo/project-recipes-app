@@ -44,7 +44,7 @@ export default function FoodIngredients({ history }) {
           <IngredientList />
         </FoodDetails>
         <FoodVideoAndRecomendation />
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <button className="foodDetails__startBtn" type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
       <Footer />
     </div>

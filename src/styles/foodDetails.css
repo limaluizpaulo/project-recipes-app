@@ -13,3 +13,9 @@
   min-width: 40%;
 
 }
+
+.foodDetails__startBtn {
+  bottom: 0%;
+  left: 40%;
+  position: fixed;
+}
