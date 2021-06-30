@@ -5,6 +5,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import Comidas from './pages/Comidas';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route path="/receitas-favoritas" component="a" />
       <Route path="/explorar" component="a" />
       <Route path="/perfil" component="a" />
-      <Route path="/comidas" component="a" />
+      <Route path="/comidas" component={ Comidas } />
       <Route path="/bebidas" component="a" />
       <Route exact path="/" component={ Home } />
       <Route component={ NotFound } />

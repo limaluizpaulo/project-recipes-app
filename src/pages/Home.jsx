@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import RecipesContext from '../Context/RecipesContext';
 
 function Home() {
+  const { setLogin, login } = useContext(RecipesContext);
   const [checkLogin, setCheckLogin] = useState({
     email: '',
     password: '',
@@ -16,9 +19,9 @@ function Home() {
 
   const passwordValidation = () => {
     const { password } = checkLogin;
-    const FIVE = 5;
+    const SIX = 6;
 
-    setCheckLogin({ ...checkLogin, checkPassword: password.length > FIVE });
+    setCheckLogin({ ...checkLogin, checkPassword: password.length > SIX });
   };
 
   useEffect(() => {
@@ -31,6 +34,17 @@ function Home() {
 
   const handleChange = ({ target: { name, value } }) => {
     setCheckLogin({ ...checkLogin, [name]: value });
+  };
+
+  const handleClick = () => {
+    setLogin([...login, checkLogin.email]);
+    const userLocalStorage = {
+      email: checkLogin.email,
+    };
+
+    localStorage.setItem('user', JSON.stringify(userLocalStorage));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
   };
   const { checkPassword, checkEmail } = checkLogin;
   return (
@@ -55,13 +69,17 @@ function Home() {
           onChange={ handleChange }
         />
       </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !(checkPassword && checkEmail) }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          disabled={ !(checkPassword && checkEmail) }
+          onClick={ handleClick }
+          data-testid="login-submit-btn"
+
+        >
+          Entrar
+        </button>
+      </Link>
     </main>
   );
 }
