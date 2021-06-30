@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Recipes() {
@@ -12,6 +13,7 @@ export default function Recipes() {
   return (
     <div>
       <Header title={ title } search />
+      <Footer />
       <h1>receita</h1>
     </div>
   );

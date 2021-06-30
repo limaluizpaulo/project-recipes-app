@@ -6,8 +6,8 @@ export default function ExploreByArea() {
   return (
     <div>
       <Header title="Explorar Origem" search />
-      <Footer />
       <h1>explorar por area</h1>
+      <Footer />
     </div>
   );
 }
