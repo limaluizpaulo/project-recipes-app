@@ -9,6 +9,9 @@ function Search() {
       <label htmlFor="ingredients">
         <input type="checkbox" id="ingredients" data-testid="ingredient-search-radio" />
       </label>
+      <label htmlFor="name">
+        <input type="checkbox" id="name" data-testid="name-search-radio" />
+      </label>
     </form>
   );
 }
