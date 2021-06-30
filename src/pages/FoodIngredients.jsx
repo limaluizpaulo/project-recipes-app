@@ -16,11 +16,22 @@ export default function FoodIngredients({ history }) {
       const params = history.location.pathname.split('/');
       params.shift();
       const [location, id] = params;
-      const res = await getFoodFromUrlParams(id, location);
+      const res = await getFoodFromUrlParams(location, id);
+      const SIX = 6;
       if (location === 'comidas') {
-        setSelectedFood(res.meals[0]);
+        const alternativas = await getFoodFromUrlParams('bebidasAlternativas');
+        const sixAlternatives = alternativas.drinks.slice(0, SIX);
+        const meal = res.meals[0];
+        meal.alternatives = sixAlternatives;
+        console.log(meal);
+        setSelectedFood(meal);
       } else {
-        setSelectedFood(res.drinks[0]);
+        const alternativas = await getFoodFromUrlParams('comidasAlternativas');
+        const sixAlternatives = alternativas.meals.slice(0, SIX);
+        const drink = res.drinks[0];
+        drink.alternatives = sixAlternatives;
+        console.log(drink);
+        setSelectedFood(drink);
       }
     };
     getFood();

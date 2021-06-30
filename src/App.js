@@ -10,7 +10,6 @@ import Profile from './pages/Profile';
 import ExploreFoods from './pages/ExploreFoods';
 import FoodIngredients from './pages/FoodIngredients';
 import ExploreDrinks from './pages/ExploreDrinks';
-import DrinkIngredients from './pages/DrinkIngredients';
 import FoodArea from './pages/FoodArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';

@@ -22,7 +22,6 @@ const IngredientList = () => {
           };
         }
       });
-      console.log(mappedIngredients);
       setIngredients(mappedIngredients);
     };
 
