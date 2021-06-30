@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../../components/Header';
 
-function Comidas() {
+function Perfil() {
   return (
     <div>
-      <Header />
-      <p>Principal</p>
+      <Header title="Perfil" show={ false } />
+      <p>Perfil</p>
     </div>
   );
 }
 
-export default Comidas;
+export default Perfil;
