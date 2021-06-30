@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// images
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-// css
 import './style/Footer.css';
 
-// data
 import { allowedFooterPathRender } from '../data/pathLocationNames';
 
 function Footer() {
@@ -43,10 +40,6 @@ function Footer() {
 
     return null;
   };
-
-  useEffect(() => {
-    console.log(location.pathname);
-  }, [location]);
 
   return verifyAllowance();
 }
