@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/global.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function FoodRecipes() {
   // const [Meals, setMeals] = useState([]);
@@ -61,6 +62,7 @@ function FoodRecipes() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
