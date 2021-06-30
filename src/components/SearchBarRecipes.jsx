@@ -8,16 +8,24 @@ function SearchBar() {
   const { filterRecipesByIngredient,
     filterRecipesByName, filterRecipesByFirstLetter } = useContext(RecipesContext);
 
+  function invokeAlert(fn, message) {
+    fn(message);
+  }
   function handleSubmit(event) {
     event.preventDefault();
+
     if (textFilter && typeOfFilter === 'ingredient') {
       filterRecipesByIngredient(textFilter);
     }
+
     if (textFilter && typeOfFilter === 'name') {
       filterRecipesByName(textFilter);
     }
-    if (textFilter && typeOfFilter === 'first-letter') {
+
+    if (textFilter.length === 1 && typeOfFilter === 'first-letter') {
       filterRecipesByFirstLetter(textFilter);
+    } else if (textFilter.length > 1 && typeOfFilter === 'first-letter') {
+      invokeAlert(alert, 'Digite apenas uma letra');
     }
   }
 
