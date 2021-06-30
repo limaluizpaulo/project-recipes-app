@@ -1,35 +1,49 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Alert, Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
-import Meal from './Meal'
+import Meal from './Meal';
 
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
   const { mealsRecipes } = useContext(Context);
   const history = useHistory();
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    setShowMeals(true);
-  },[mealsRecipes])
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setShowMeals(true);
+    }
+  }, [mealsRecipes]);
 
   const renderCards = () => {
-    if (!mealsRecipes) {
-      return <Alert variant="danger">Sinto muito, não encontramos nenhuma receita para esses filtros.</Alert>
+    if (!mealsRecipes.length) {
+      return null;
+      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
-    if (mealsRecipes.length > 1) {
-      return mealsRecipes.map((meal) => {
-        return (<Meal meal={ meal } />)
-      })
-    };
+    if (mealsRecipes && mealsRecipes.length > 1) {
+      console.log('1');
+      return mealsRecipes.map((meal, index) => {
+        if (index < 12) {
+          return (<Meal key={ index } meal={ meal } index={ index } />);
+        };
+        return null;
+      });
+    }
 
-    return history.push(`/comidas/${ mealsRecipes[0].idMeal} `);
-  }
+    if (mealsRecipes && mealsRecipes.length === 1) {
+      console.log('3');
+      return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
+    }
+    
+  };
 
   return (
     <Container>
-      { showMeals ? renderCards() : <h1>ferrou</h1> }
+      { showMeals ? renderCards() : <Spinner animation="border" /> }
     </Container>
   );
 }
