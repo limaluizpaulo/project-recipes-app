@@ -4,17 +4,25 @@ import RecipeContext from '../context/Context';
 
 const FoodVideoAndRecomendation = () => {
   const { selectedFood } = useContext(RecipeContext);
-  const { strYoutube, strDrinkAlternate } = selectedFood;
-  const URL = strYoutube.replace('watch?v=', 'embed/');
+  if (!selectedFood) {
+    return (
+      <p>loading</p>
+    );
+  }
+
   const renderCaroussel = () => {
-    strDrinkAlternate.map((beb, index) => (
+    const alternatives = ['beb', 'beb1'];
+    return alternatives.map((beb, index) => (
       <span key={ index } data-testid={ `${index}-recomendation-card` }>
         {beb}
       </span>
     ));
   };
-  return (
-    <>
+  const renderYoutubeVideo = () => {
+    const { strYoutube } = selectedFood;
+    if (!strYoutube) return;
+    const URL = strYoutube.replace('watch?v=', 'embed/');
+    return (
       <iframe
         data-testid="video"
         width="360"
@@ -24,7 +32,12 @@ const FoodVideoAndRecomendation = () => {
         frameBorder="0"
         allowFullScreen
       />
-      <p data>{renderCaroussel}</p>
+    );
+  };
+  return (
+    <>
+      {renderYoutubeVideo()}
+      {renderCaroussel()}
     </>
   );
 };

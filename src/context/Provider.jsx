@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from './Context';
-import firstMeal from '../mocks/mockOneMeal';
 
 const RecipeProvider = ({ children }) => {
-  const context = { selectedFood: firstMeal };
+  const [selectedFood, setSelectedFood] = useState();
+  const context = { selectedFood, setSelectedFood };
   return (
     <RecipeContext.Provider value={ context }>
       {children}

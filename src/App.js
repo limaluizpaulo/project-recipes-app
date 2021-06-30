@@ -49,8 +49,8 @@ function App() {
         component={ ExploreDrinks }
       />
       <Route
-        path="/explorar/bebidas/ingredientes"
-        component={ DrinkIngredients }
+        path="/bebidas/:recipeId"
+        component={ FoodIngredients }
       />
       <Route
         exact
@@ -58,7 +58,7 @@ function App() {
         component={ FoodArea }
       />
       <Route
-        path="/explorar/comidas/:recipeId"
+        path="/comidas/:recipeId"
         component={ FoodIngredients }
       />
       <Route
