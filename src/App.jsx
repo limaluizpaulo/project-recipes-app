@@ -13,9 +13,9 @@ function App() {
       <AppRecipeProvider>
         <BrowserRouter>
           <Switch>
+            <Route exact path="/comidas" component={ MainPage } />
+            <Route exact path="/bebidas" component={ MainPage } />
             <Route exact path="/" component={ Login } />
-            <Route path="/comidas" component={ MainPage } />
-            <Route path="/bebidas" component={ MainPage } />
           </Switch>
         </BrowserRouter>
       </AppRecipeProvider>

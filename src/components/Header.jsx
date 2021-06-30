@@ -13,8 +13,8 @@ function Header({ pathname }) {
   useEffect(() => {
     let title = '';
     const arrangeTitle = () => {
-      const withoutSlash = pathname.split('/')[1];
-      title = `${withoutSlash[0].toUpperCase()}${withoutSlash.slice(1)}`;
+      if (pathname.includes('comidas')) title = 'Comidas';
+      if (pathname.includes('bebidas')) title = 'Bebidas';
       setPageTitle(title);
     };
 
@@ -55,7 +55,7 @@ function Header({ pathname }) {
 }
 
 Header.propTypes = {
-  pathname: PropTypes.objectOf().isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default Header;

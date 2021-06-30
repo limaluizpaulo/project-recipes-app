@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRecipeSearch } from '../services';
 
@@ -6,6 +7,7 @@ function SearchBar({ title }) {
   const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');
   const [inputValue, setInputValue] = useState('');
   const [endpointSearch, setEndpointSearch] = useState('');
+  const [redirectTo, setRedirectTo] = useState(false);
 
   useEffect(() => {
     const arrangeURL = () => {
@@ -28,13 +30,41 @@ function SearchBar({ title }) {
     }
   };
 
-  const handleApiUrl = async () => {
-    const newURL = `${endpointSearch}${selectedRadio}${inputValue}`;
-    getRecipeSearch(newURL);
-  };
-
   const makeAlert = (func, message) => {
     func(message);
+  };
+
+  const mealsConditionals = ({ meals }) => {
+    console.log(meals);
+    if (meals === null) {
+      return makeAlert(alert,
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (meals.length > 1) {
+      // ACTION PARA MANDAR AS RECEITAS PARA O REDUX
+    }
+    if (meals.length === 1) {
+      /* setRedirectTo(`/comidas/`) */
+    }
+
+  };
+
+  const drinksConditionals = ({ drinks }) => {
+
+  };
+
+  const redirectToConditionals = (data) => {
+    if (title === 'Comidas') {
+      return mealsConditionals(data);
+    } else {
+      return drinksConditionals(data);
+    }
+  };
+
+  const handleApiUrl = async () => {
+    const newURL = `${endpointSearch}${selectedRadio}${inputValue}`;
+    const data = await getRecipeSearch(newURL);
+    redirectToConditionals(data);
   };
 
   const handleBtnClick = () => {
@@ -100,6 +130,7 @@ function SearchBar({ title }) {
           </button>
         </section>
       </form>
+      { redirectTo && <Redirect to={ redirectTo } /> }
     </section>
   );
 }
