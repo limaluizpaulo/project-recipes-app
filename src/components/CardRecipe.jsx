@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 export default function CardRecipe({ data, index }) {
   const { strMealThumb, strMeal, strDrink, strDrinkThumb } = data;
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-recipe-card` } className="recipe-card">
       <img
+        className="card_image"
         src={ strMealThumb || strDrinkThumb }
         alt={ strMeal || strDrink }
         data-testid={ `${index}-card-img` }

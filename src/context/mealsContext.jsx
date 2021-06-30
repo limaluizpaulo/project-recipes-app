@@ -5,10 +5,11 @@ const MealsContext = createContext();
 
 export default function MealsContextProvider({ children }) {
   const [mealsFiltered, setMealsFiltered] = useState([]);
+  const [filtersBtnsMeals, setFiltersBtnsMeals] = useState([]);
 
   return (
     <MealsContext.Provider
-      value={ { mealsFiltered, setMealsFiltered } }
+      value={ { mealsFiltered, setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals } }
     >
       {children}
     </MealsContext.Provider>
@@ -18,9 +19,9 @@ export default function MealsContextProvider({ children }) {
 export function useMealsContext() {
   const context = useContext(MealsContext);
 
-  const { mealsFiltered, setMealsFiltered } = context;
-
-  return { mealsFiltered, setMealsFiltered };
+  const { mealsFiltered,
+    setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals } = context;
+  return { mealsFiltered, setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals };
 }
 
 MealsContextProvider.propTypes = {
