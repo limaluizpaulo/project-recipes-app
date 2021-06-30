@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const FIVE = 5; // number of categories to render
-const TWELVE = 12;
+const TWELVE = 12; // number of recipes to render
 
 function MainFood() {
   const [categories, setCategories] = useState([]);
@@ -24,6 +24,12 @@ function MainFood() {
     getRecipes();
   }, []);
 
+  const filterByCategory = async (category) => {
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+    const { meals } = await fetch(endpoint).then((data) => data.json());
+    setFoodRecipes(meals.slice(0, TWELVE));
+  };
+
   return (
     <main>
       <section>
@@ -32,6 +38,7 @@ function MainFood() {
             type="button"
             key={ idx }
             data-testid={ `${el.strCategory}-category-filter` }
+            onClick={ () => { filterByCategory(el.strCategory); } }
           >
             {el.strCategory}
           </button>
