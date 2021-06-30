@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import profileIcon from '../../../images/profileIcon.svg';
 import searchIcon from '../../../images/searchIcon.svg';
 import './header.css';
 
-export default function Header() {
+export default function Header({ pageName }) { // Desestruturação de props
   const [isRedirect, setIsRedirect] = useState(false);
   const [showSearchBar, setBar] = useState(true);
 
@@ -12,40 +14,39 @@ export default function Header() {
 
   return (
     <header>
-      <button
-        type="button"
+      <input
+        type="image"
         onClick={ () => setIsRedirect(true) }
-      >
-        <img
-          src={ profileIcon }
-          alt="perfil"
-          data-testid="profile-top-btn"
-        />
-      </button>
+        data-testid="profile-top-btn"
+        src={ profileIcon }
+        alt="perfil"
+      />
       <h1
         data-testid="page-title"
       >
-        Comida
+        { pageName }
       </h1>
       <div>
-        <button
-          type="button"
+        <input
+          type="image"
           onClick={ () => setBar(!showSearchBar) }
-        >
-          <img
-            src={ searchIcon }
-            alt="busca"
-            data-testid="search-top-btn"
-          />
-        </button>
+          data-testid="search-top-btn"
+          src={ searchIcon }
+          alt="search"
+        />
         { showSearchBar
           || <input
             type="text"
             name="search"
             id="search-bar"
             placeholder="Pesquise uma receita..."
+            data-testid="search-input"
           /> }
       </div>
     </header>
   );
 }
+
+Header.propTypes = {
+  pageName: PropTypes.string.isRequired,
+};

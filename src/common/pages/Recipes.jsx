@@ -30,9 +30,8 @@ export default function Recipes() {
   }
   return (
     <main className="Cards">
-      <Header />
+      <Header pageName="Comidas" />
       <RecipeCard />
-
     </main>
   );
 }
