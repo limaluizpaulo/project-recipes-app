@@ -27,7 +27,7 @@ const SearchBar = () => {
             value="name"
             name="radiobutton"
             type="radio"
-            data-testid="ingredient-search-radio"
+            data-testid="name-search-radio"
           />
         </label>
         <label htmlFor="radioFirstLetter">
@@ -40,7 +40,7 @@ const SearchBar = () => {
             data-testid="first-letter-search-radio"
           />
         </label>
-        <button></button>
+        <button type="button" data-testid="exec-search-btn">Enviar</button>
       </div>
     </div>
   );
