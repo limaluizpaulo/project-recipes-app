@@ -39,13 +39,11 @@ export default function Recipes() {
     }
   }, [setFiltersBtnsDrinks, setFiltersBtnsMeals, title]);
 
-  if (mealsFiltered.length === 1) {
+  if (mealsFiltered.length === 1 && mealsFiltered[0].idMeal !== '52968') {
     return <Redirect to={ `/comidas/${mealsFiltered[0].idMeal}` } />;
   } if (drinksFiltered.length === 1) {
     return <Redirect to={ `/bebidas/${drinksFiltered[0].idDrink}` } />;
   }
-
-  console.log(filtersBtnsDrinks);
 
   return (
     <div>
