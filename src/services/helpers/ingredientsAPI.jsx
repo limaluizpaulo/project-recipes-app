@@ -5,5 +5,4 @@ const ingredientsAPI = async (type, search) => {
   const ingredients = await fetchAPI.json();
   return (ingredients.meals);
 };
-console.log(ingredientsAPI());
 export default ingredientsAPI;
