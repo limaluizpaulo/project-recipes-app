@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMealDetails, getDrinkDetails } from '../services';
 
-import { IndicatedRecipes } from '../components';
+import { IndicatedRecipes, MealClip } from '../components';
 
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
@@ -24,9 +24,7 @@ function FoodDetails({ match, history }) {
     fetchDetails();
   }, [pathname, id]);
 
-  const { strCategory } = details[0];
-
-  console.log(strCategory);
+  const { strCategory, strVideo, strAlcoholic, strMeal, strDrink } = details[0];
 
   return (
     <>
@@ -35,7 +33,7 @@ function FoodDetails({ match, history }) {
         src="https://saude.abril.com.br/wp-content/uploads/2021/03/bichos-foto-vauvau-Getty-Images.png?quality=85&strip=info&resize=680,453"
         alt="nome da comida"
       />
-      <h3 data-testid="recipe-title"> oi {strCategory}</h3>
+      <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
       <button
         type="button"
         data-testid="share-btn"
@@ -49,9 +47,13 @@ function FoodDetails({ match, history }) {
         Favoritar receita
       </button>
       <div>
-        <h4 data-testid="recipe-category">Categoria da Receita</h4>
+        <h4 data-testid="recipe-category">{strCategory}</h4>
         <p data-testid="instructions">Passo a passo</p>
-        <div data-testid="video">Video</div>
+        <div>
+          {strVideo === null
+            ? <span>Não temos vídeo para essa receita</span>
+            : <MealClip strVideo={ strVideo } />}
+        </div>
         <IndicatedRecipes data-testid={ `${1}-recomendation-card` } />
       </div>
       <button
