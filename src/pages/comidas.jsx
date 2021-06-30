@@ -19,9 +19,7 @@ class Comidas extends Component {
 
   async componentDidMount() {
     const { apiFoodCategories } = this.props;
-    console.log(apiFoodCategories);
-    // await apiFoodCategories()
-    // .then((data) => this.setState({ foodCategories: data}))
+    await apiFoodCategories();
   }
 
   categories() {
@@ -32,7 +30,7 @@ class Comidas extends Component {
 
       <div>
         { teste.map((elem, index) => (
-          <p key={ index }>{ elem }</p>)) }
+          <p key={ index }>{ elem.strCategory }</p>)) }
       </div>
     );
   }
@@ -45,7 +43,7 @@ class Comidas extends Component {
       <div>
         <Header location={ location } />
         <main>
-          <MainScreen />
+          {/* <MainScreen /> */}
         </main>
         <p>qualquer coisa</p>
         { this.categories }
