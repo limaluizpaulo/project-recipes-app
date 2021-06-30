@@ -1,10 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipeCard({ recipe, index }) {
   const history = useHistory();
-  const { image, category, name, doneDate, tags, id, area, alcoholicOrNot, type } = recipe;
+  const {
+    image,
+    category,
+    name,
+    doneDate,
+    tags,
+    id,
+    area,
+    alcoholicOrNot,
+    type,
+  } = recipe;
 
   return (
     <div>
@@ -57,3 +68,17 @@ function DoneRecipeCard({ recipe, index }) {
 }
 
 export default DoneRecipeCard;
+
+DoneRecipeCard.propTypes = {
+  recipe: PropTypes.objectOf.isRequired,
+  index: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  doneDate: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  area: PropTypes.string.isRequired,
+  alcoholicOrNot: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};

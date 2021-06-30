@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipeContext from '.';
 import {
@@ -8,6 +9,7 @@ import {
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
+  const [routeFromSearch, setRouteFromSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [checkedRadio, setCheckedRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -15,24 +17,37 @@ export default function RecipeProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    const requestByIngredients = async () => {
-      await searchByIngredientsApi(inputValue);
-    };
+    async function requestByIngredients() {
+      const returnIngredients = await searchByIngredientsApi(inputValue, routeFromSearch);
+      setRecipes(returnIngredients);
+    }
     const requestByName = async () => {
-      await searchByNameApi(inputValue);
+      const returnName = await searchByNameApi(inputValue, routeFromSearch);
+      setRecipes(returnName);
     };
     const requestByLetter = async () => {
-      await searchByFirstLetterApi(inputValue);
+      const returnLetter = await searchByFirstLetterApi(inputValue, routeFromSearch);
+      setRecipes(returnLetter);
     };
-
-    if (checkedRadio === 'Ingredientes') {
-      setRecipes(requestByIngredients());
-    } else if (checkedRadio === 'Nome') {
-      setRecipes(requestByName());
-    } else if (checkedRadio === 'Primeira letra') {
-      setRecipes(requestByLetter());
+    if (redirectSearchBar) {
+      if (checkedRadio === 'Ingredientes') {
+        requestByIngredients();
+      } else if (checkedRadio === 'Nome') {
+        requestByName();
+      } else if (checkedRadio === 'Primeira letra') {
+        requestByLetter();
+      }
     }
-  });
+  }, [redirectSearchBar]);
+
+  function redirectDetailPage() {
+    if (routeFromSearch === '/comidas') {
+      return <Redirect to={ `${routeFromSearch}/${recipes[0].idMeal}` } />;
+    }
+    if (routeFromSearch === '/bebidas') {
+      return <Redirect to={ `${routeFromSearch}/${recipes[0].idDrinks}` } />;
+    }
+  }
 
   return (
     <RecipeContext.Provider
@@ -42,9 +57,13 @@ export default function RecipeProvider({ children }) {
         setCheckedRadio,
         setInputValue,
         setRedirectSearchBar,
+        setRouteFromSearch,
+        routeFromSearch,
+        recipes,
       } }
     >
-      console.log(recipes);
+      {console.log(recipes)}
+      {recipes.length === 1 && redirectDetailPage()}
       { children }
     </RecipeContext.Provider>
   );

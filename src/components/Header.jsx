@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import RecipeContext from '../context';
@@ -38,3 +39,7 @@ function Header({ title }) {
 }
 
 export default Header;
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
