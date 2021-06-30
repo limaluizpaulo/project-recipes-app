@@ -4,6 +4,7 @@ import AppReceitasProvider from './context/AppReceitasProvider';
 
 import Login from './pages/Login';
 import Erro404 from './pages/Page404';
+import Comidas from './pages/Comidas';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ Erro404 } />
+          <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Erro404 } />
           <Route path="/comidas/{id-da-receita}" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}" component={ Erro404 } />
