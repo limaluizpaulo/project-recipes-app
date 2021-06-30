@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { node } from 'prop-types';
-import { fetchDrinksByCategory } from '../services/drinksApi';
+import { fetchDrinksByCategory, fetchDrinkByName } from '../services/drinksApi';
 
 const DrinksContext = createContext();
 
@@ -13,6 +13,10 @@ export default function DrinksContextProvider({ children }) {
     const NUM = 12;
     if (valueDrinksInput) {
       fetchDrinksByCategory(valueDrinksInput)
+        .then((res) => setDrinksFiltered(res.slice(0, NUM)));
+    }
+    if (!valueDrinksInput) {
+      fetchDrinkByName(valueDrinksInput)
         .then((res) => setDrinksFiltered(res.slice(0, NUM)));
     }
   }, [valueDrinksInput]);

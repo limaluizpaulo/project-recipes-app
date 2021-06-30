@@ -5,15 +5,23 @@ import { useDrinksContext } from '../context/drinksContext';
 
 export default function BtnsCategory({ label, title }) {
   const { strCategory } = label;
-  const { serValueMealsInput } = useMealsContext();
-  const { serValueDrinksInput } = useDrinksContext();
+  const { serValueMealsInput, valueMealsInput } = useMealsContext();
+  const { serValueDrinksInput, valueDrinksInput } = useDrinksContext();
 
   const handleFilterByCategory = ({ target: { value } }) => {
     if (title === 'Comidas') {
-      serValueMealsInput(value);
+      if (valueMealsInput !== value && value !== 'All') {
+        serValueMealsInput(value);
+      } else {
+        serValueMealsInput('');
+      }
     }
     if (title === 'Bebidas') {
-      serValueDrinksInput(value);
+      if (valueDrinksInput !== value && value !== 'All') {
+        serValueDrinksInput(value);
+      } else {
+        serValueDrinksInput('');
+      }
     }
   };
 
@@ -30,7 +38,6 @@ export default function BtnsCategory({ label, title }) {
     </div>
   );
 }
-// console.log(strCategory);
 
 BtnsCategory.propTypes = {
   label: PropTypes.shape().isRequired,
