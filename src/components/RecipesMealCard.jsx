@@ -5,7 +5,7 @@ function RecipesMealCard({ recipe, index }) {
   const { strMealThumb, strMeal } = recipe;
 
   return (
-    <div>
+    <div data-testid={ `${index}-recipe-card` }>
       <img src={ strMealThumb } alt={ strMeal } data-testid={ `${index}-card-img` } />
       <p data-testid={ `${index}-card-name` }>{strMeal}</p>
     </div>

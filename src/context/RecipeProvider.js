@@ -9,6 +9,9 @@ import {
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
+  const lengthNumRecipes = 12;
+  const textAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
   const [routeFromSearch, setRouteFromSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [checkedRadio, setCheckedRadio] = useState('');
@@ -19,15 +22,27 @@ export default function RecipeProvider({ children }) {
   useEffect(() => {
     async function requestByIngredients() {
       const returnIngredients = await searchByIngredientsApi(inputValue, routeFromSearch);
-      setRecipes(returnIngredients);
+      if (returnIngredients === null) {
+        return alert(textAlert);
+      }
+      const limitedRecipes = returnIngredients.slice(0, lengthNumRecipes);
+      setRecipes(limitedRecipes);
     }
     const requestByName = async () => {
       const returnName = await searchByNameApi(inputValue, routeFromSearch);
-      setRecipes(returnName);
+      if (returnName === null) {
+        return alert(textAlert);
+      }
+      const limitedRecipes = returnName.slice(0, lengthNumRecipes);
+      setRecipes(limitedRecipes);
     };
     const requestByLetter = async () => {
       const returnLetter = await searchByFirstLetterApi(inputValue, routeFromSearch);
-      setRecipes(returnLetter);
+      if (returnLetter === null) {
+        return alert(textAlert);
+      }
+      const limitedRecipes = returnLetter.slice(0, lengthNumRecipes);
+      setRecipes(limitedRecipes);
     };
     if (redirectSearchBar) {
       if (checkedRadio === 'Ingredientes') {

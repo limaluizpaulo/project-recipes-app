@@ -5,7 +5,7 @@ function RecipesDrinksCard({ recipe, index }) {
   const { strDrinkThumb, strDrink } = recipe;
 
   return (
-    <div>
+    <div data-testid={ `${index}-recipe-card` }>
       <img src={ strDrinkThumb } alt={ strDrink } data-testid={ `${index}-card-img` } />
       <p data-testid={ `${index}-card-name` }>{strDrink}</p>
     </div>

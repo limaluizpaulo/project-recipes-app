@@ -7,10 +7,12 @@ export default function RecipesDrinksList() {
   return (
     <div>
       {recipes.map((recipe, index) => (
-        <RecipesDrinksCard key={ index } index={ index } recipe={ recipe } />
+        <RecipesDrinksCard
+          key={ index }
+          index={ index }
+          recipe={ recipe }
+        />
       ))}
-      {}
-      {console.log(recipes)}
     </div>
   );
 }

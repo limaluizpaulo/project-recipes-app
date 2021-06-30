@@ -16,6 +16,9 @@ export default function SearchBar() {
   // source https://surajsharma.net/blog/current-url-in-react
 
   function handleClick() {
+    if (radioValue === 'Primeira letra' && searchInputValue.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
     setInputValue(searchInputValue);
     setCheckedRadio(radioValue);
     setRouteFromSearch(pathname);
@@ -64,7 +67,7 @@ export default function SearchBar() {
         data-testid="exec-search-btn"
         onClick={ (() => handleClick()) }
       >
-        Pesquisar
+        Buscar
       </button>
     </div>
   );

@@ -4,13 +4,16 @@ import RecipesMealCard from './RecipesMealCard';
 
 export default function RecipesMealList() {
   const { recipes } = useContext(RecipeContext);
+
   return (
     <div>
       {recipes.map((recipe, index) => (
-        <RecipesMealCard key={ index } index={ index } recipe={ recipe } />
+        <RecipesMealCard
+          key={ index }
+          index={ index }
+          recipe={ recipe }
+        />
       ))}
-      {}
-      {console.log(recipes)}
     </div>
   );
 }
