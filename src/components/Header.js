@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import iconProfile from '../images/profileIcon.svg';
 import iconSearch from '../images/searchIcon.svg';
 
-const Header = ({ search, title }) => (
-  <div>
-    <h1 data-testid="page-title">{title}</h1>
-    <img src={ iconProfile } alt="profile" type="button" data-testid="profile-top-btn" />
-    { search && <img
-      src={ iconSearch }
-      alt="search"
-      type="button"
-      data-testid="search-top-btn"
-    /> }
-  </div>
-);
+const Header = ({ search, title }) => {
+  const [searchInput, toggleSearch] = useState();
+
+  return (
+    <div>
+      <h1 data-testid="page-title">{title}</h1>
+      <Link to="/perfil">
+        <img
+          src={ iconProfile }
+          alt="profile"
+          type="button"
+          data-testid="profile-top-btn"
+        />
+      </Link>
+      {search && (
+        <button type="button" onClick={ () => toggleSearch(!searchInput) }>
+          <img
+            src={ iconSearch }
+            alt="search"
+            type="button"
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
+      { searchInput && (
+        (
+          <label htmlFor="search">
+            Explorar:
+            <input id="search" type="text" data-testid="search-input" />
+          </label>
+        )
+      )}
+    </div>
+  );
+};
 
 Header.defaultProps = {
   search: false,
