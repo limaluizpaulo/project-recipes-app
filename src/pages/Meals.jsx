@@ -6,7 +6,6 @@ const Meals = () => {
   const {
     meals,
     categories,
-
     setFilterCategory,
   } = useContext(MealsContext);
 

@@ -5,6 +5,15 @@ const Categories = ({ categories, onClick }) => {
   const categoriesShow = 5;
   return (
     <div>
+      <button
+        id="All"
+        key="All"
+        type="button"
+        onClick={ onClick }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {categories.map((category, index) => (index < categoriesShow ? (
         <button
           id={ category }

@@ -9,7 +9,7 @@ const MealsContext = createContext();
 const MealsProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
     const loadMeals = async () => {
@@ -23,9 +23,10 @@ const MealsProvider = ({ children }) => {
 
   const setFilterCategory = async ({ target: { id } }) => {
     let filtered;
-    if (selectedCategory === id) {
+
+    if (selectedCategory === id || id === 'All') {
       filtered = await fetchRecipes('meals');
-      setSelectedCategory('');
+      setSelectedCategory('All');
     } else {
       filtered = await fetchFilteredByCategory('meals', id);
       setSelectedCategory(id);
@@ -35,6 +36,7 @@ const MealsProvider = ({ children }) => {
 
   const context = {
     meals,
+    setMeals,
     categories,
     setFilterCategory,
   };

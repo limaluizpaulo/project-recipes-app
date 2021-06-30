@@ -23,7 +23,7 @@ const DrinksProvider = ({ children }) => {
 
   const setFilterCategory = async ({ target: { id } }) => {
     let filtered;
-    if (selectedCategory === id) {
+    if (selectedCategory === id || id === 'All') {
       filtered = await fetchRecipes('drinks');
       setSelectedCategory('');
     } else {
