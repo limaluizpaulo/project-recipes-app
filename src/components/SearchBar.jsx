@@ -19,36 +19,39 @@ function SearchBar() {
               onChange={ (event) => setTextFilter(event.target.value) }
             />
           </Form.Group>
-          <Form.Check
-            value={ typeOfFilter }
-            data-testid="ingredient-search-radio"
-            onChange={ (event) => setTypeOfFilter(event.target.id) }
-            inline
-            id="ingrediente"
-            label="Ingrediente"
-            name="checkbox"
-            type={ type }
-          />
-          <Form.Check
-            value={ typeOfFilter }
-            data-testid="name-search-radio"
-            inline
-            id="nome"
-            label="Nome"
-            onChange={ (event) => setTypeOfFilter(event.target.id) }
-            name="checkbox"
-            type={ type }
-          />
-          <Form.Check
-            value={ typeOfFilter }
-            data-testid="first-letter-search-radio"
-            inline
-            id="first-letter"
-            label="Primeira letra"
-            onChange={ (event) => setTypeOfFilter(event.target.id) }
-            name="checkbox"
-            type={ type }
-          />
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+
+            <Form.Check
+              value={ typeOfFilter }
+              data-testid="ingredient-search-radio"
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              inline
+              id="ingredient"
+              label="Ingrediente"
+              name="checkbox"
+              type={ type }
+            />
+            <Form.Check
+              value={ typeOfFilter }
+              data-testid="name-search-radio"
+              inline
+              id="name"
+              label="Nome"
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              name="checkbox"
+              type={ type }
+            />
+            <Form.Check
+              value={ typeOfFilter }
+              data-testid="first-letter-search-radio"
+              inline
+              id="first-letter"
+              label="Primeira letra"
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              name="checkbox"
+              type={ type }
+            />
+          </Form.Group>
         </div>
       ))}
       <Button
