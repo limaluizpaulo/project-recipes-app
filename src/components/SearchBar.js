@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { GlobalContext } from '../context/Provider';
 
 const SearchBar = () => {
   const [option, setOption] = useState('');
-  console.log(option);
+  const [inputSearch, setInputSearch] = useState('');
+  const { setSearchOp } = useContext(GlobalContext);
   return (
     <div>
       <label htmlFor="search">
+        <input
+          value={ inputSearch }
+          onChange={ ({ target: { value } }) => setInputSearch(value) }
+          id="search"
+          type="text"
+          data-testid="search-input"
+        />
         Explorar:
-        <input id="search" type="text" data-testid="search-input" />
       </label>
       <div onChange={ ({ target: { value } }) => setOption(value) }>
         <label htmlFor="radioIngredient">
-          Ingredient
           <input
             id="radioIngredient"
             value="ingredient"
@@ -19,9 +26,9 @@ const SearchBar = () => {
             type="radio"
             data-testid="ingredient-search-radio"
           />
+          Ingredient
         </label>
         <label htmlFor="radioName">
-          Nome
           <input
             id="radioName"
             value="name"
@@ -29,9 +36,9 @@ const SearchBar = () => {
             type="radio"
             data-testid="name-search-radio"
           />
+          Nome
         </label>
         <label htmlFor="radioFirstLetter">
-          Primeira letra
           <input
             id="radioFirstLetter"
             value="firstLetter"
@@ -39,8 +46,15 @@ const SearchBar = () => {
             type="radio"
             data-testid="first-letter-search-radio"
           />
+          Primeira letra
         </label>
-        <button type="button" data-testid="exec-search-btn">Enviar</button>
+        <button
+          onClick={ () => setSearchOp({ option, inputSearch }) }
+          type="button"
+          data-testid="exec-search-btn"
+        >
+          Enviar
+        </button>
       </div>
     </div>
   );
