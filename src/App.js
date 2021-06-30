@@ -3,11 +3,13 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
+import Food from './pages/Food';
 
 function App() {
   return (
     <Switch>
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
+      <Route path="/comidas" component={ Food } />
     </Switch>
   );
 }
