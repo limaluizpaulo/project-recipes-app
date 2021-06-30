@@ -24,6 +24,7 @@ export default function RecipeProvider({ children }) {
   const [inputValue, setInputValue] = useState('');
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [toggleBtnCategories, setToggleBtnCategories] = useState(false)
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -32,10 +33,14 @@ export default function RecipeProvider({ children }) {
     async function requestAllRecipes() {
       const returnInitialRecipes = await recipesListApi(pathname);
       const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
-      setRecipes(limitedRecipes);
+      if (!toggleBtnCategories) {
+        setRecipes(limitedRecipes);
+      }
     }
-    requestAllRecipes();
-  }, [pathname]);
+    if (pathname === '/comidas' || pathname === '/bebidas') {
+      requestAllRecipes();
+    }
+  }, [pathname, toggleBtnCategories]);
 
   // Render Categories
   useEffect(() => {
@@ -44,7 +49,9 @@ export default function RecipeProvider({ children }) {
       const limitedCategories = returnCategories.slice(0, NUM_FIVE);
       setCategories(limitedCategories);
     }
-    requestCategories();
+    if (pathname === '/comidas' || pathname === '/bebidas') {
+      requestCategories();
+    }
   }, [pathname]);
 
   // Render filter by category
@@ -53,11 +60,15 @@ export default function RecipeProvider({ children }) {
       const returnCategory = await filterCategoryApi(selectedCategory, pathname);
       if (returnCategory !== null) {
         const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
-        setRecipes(limitedRecipes);
+        if (toggleBtnCategories) {
+          setRecipes(limitedRecipes);
+        }
       }
     }
-    requestFilterByCategory();
-  }, [selectedCategory]);
+    if (pathname === '/comidas' || pathname === '/bebidas') {
+      requestFilterByCategory();
+    }
+  }, [selectedCategory, toggleBtnCategories]);
 
   // Render search recipes
   useEffect(() => {
@@ -121,6 +132,8 @@ export default function RecipeProvider({ children }) {
         recipes,
         categories,
         setSelectedCategory,
+        setToggleBtnCategories,
+        toggleBtnCategories,
       } }
     >
       {recipes.length === 1 && redirectDetailPage()}

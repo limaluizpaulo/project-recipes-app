@@ -6,7 +6,18 @@ import SearchBar from '../components/SearchBar';
 import RecipesDrinkList from '../components/RecipesDrinksList';
 
 function Drink() {
-  const { showSearch, categories, setSelectedCategory } = useContext(RecipeContext);
+  const {
+    showSearch,
+    categories,
+    setSelectedCategory,
+    setToggleBtnCategories,
+    toggleBtnCategories,
+  } = useContext(RecipeContext);
+
+  function handleClick(category) {
+    setSelectedCategory(category);
+    setToggleBtnCategories(!toggleBtnCategories);
+  }
 
   return (
     <div>
@@ -17,7 +28,7 @@ function Drink() {
           type="button"
           data-testid={ `${strCategory}-category-filter` }
           key={ strCategory }
-          onClick={ () => setSelectedCategory(strCategory) }
+          onClick={ () => handleClick(strCategory) }
         >
           { strCategory }
         </button>
