@@ -3,10 +3,18 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { fetchByName, fetchByFirstLetter, fetchByIngredient } from '../service';
+import {
+  fetchFoodByIngredient,
+  fetchFoodByName,
+  fetchFoodByFirstLetter,
+  fetchDrinksByIngredient,
+  fetchDrinksByName,
+  fetchDrinksByFirstLetter,
+} from '../service';
 
 function Header({ title, show = true }) {
   const history = useHistory();
+  const { pathname } = history.location;
   const [showSearch, setShowSearch] = useState();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('ingredient');
@@ -16,21 +24,55 @@ function Header({ title, show = true }) {
     setSearch(value);
   }
 
-  async function fetchData() {
+  async function findDrinks() {
     let result;
     switch (filter) {
     case 'ingredient':
-      result = await fetchByIngredient(search);
-      console.log(result);
+      result = await fetchDrinksByIngredient(search);
+      if (result.drinks.length === 1) {
+        history.push(`/bebidas/${result.drinks[0].idDrink}`);
+      }
       break;
     case 'name':
-      result = await fetchByName(search);
-      console.log(result);
+      result = await fetchDrinksByName(search);
+      if (result.drinks.length === 1) {
+        history.push(`/bebidas/${result.drinks[0].idDrink}`);
+      }
       break;
     default:
       if (search.length < 2) {
-        result = await fetchByFirstLetter(search);
-        console.log(result);
+        result = await fetchDrinksByFirstLetter(search);
+        if (result.drinks.length === 1) {
+          history.push(`/bebidas/${result.drinks[0].idDrink}`);
+        }
+      } else {
+        window.alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      break;
+    }
+  }
+
+  async function findMeals() {
+    let result;
+    switch (filter) {
+    case 'ingredient':
+      result = await fetchFoodByIngredient(search);
+      if (result.meals.length === 1) {
+        history.push(`/comidas/${result.meals[0].idMeal}`);
+      }
+      break;
+    case 'name':
+      result = await fetchFoodByName(search);
+      if (result.meals.length === 1) {
+        history.push(`/comidas/${result.meals[0].idMeal}`);
+      }
+      break;
+    default:
+      if (search.length < 2) {
+        result = await fetchFoodByFirstLetter(search);
+        if (result.meals.length === 1) {
+          history.push(`/comidas/${result.meals[0].idMeal}`);
+        }
       } else {
         window.alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -101,7 +143,7 @@ function Header({ title, show = true }) {
             <button
               data-testid="exec-search-btn"
               type="button"
-              onClick={ () => { fetchData(); } }
+              onClick={ pathname.includes('comidas') ? findMeals : findDrinks }
             >
               <span>Buscar</span>
             </button>
