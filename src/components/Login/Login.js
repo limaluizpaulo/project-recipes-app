@@ -30,9 +30,10 @@ function Login() {
   return (
     <div className="login">
       <h1>Login</h1>
-      <form>
+      <form className="mb-3">
         <label htmlFor="email-input">
           <input
+            className="form-control"
             data-testid="email-input"
             type="email"
             name="userEmail"
@@ -43,6 +44,7 @@ function Login() {
         </label>
         <label htmlFor="password-input">
           <input
+            className="form-control"
             data-testid="password-input"
             name="password"
             placeholder="Senha"
