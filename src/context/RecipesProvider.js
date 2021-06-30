@@ -5,8 +5,8 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [user, setUser] = useState({ user: '', password: '' });
 
-  const login = ({ inputedUser, password }) => {
-    setUser({ user: inputedUser, password });
+  const login = ({ email, password }) => {
+    setUser({ user: email, password });
   };
 
   return (
