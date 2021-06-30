@@ -14,7 +14,7 @@ export default function Recipes() {
   const { drinksFiltered, setDrinksFiltered } = useDrinksContext();
   const [title, setTitle] = useState('');
   const TWELVE = 12;
- 
+
   useEffect(() => {
     if (pathname.includes('comidas')) {
       setTitle('Comidas');
