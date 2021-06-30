@@ -9,13 +9,13 @@ const Drinks = () => {
   return (
     <div>
       <Header />
-      {drinks.map(({ strMeal, strMealThumb, idMeal }, index) => {
+      {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => {
         if (index < recipesShow) {
           return (
             <Card
-              key={ idMeal }
-              title={ strMeal }
-              img={ strMealThumb }
+              key={ idDrink }
+              title={ strDrink }
+              img={ strDrinkThumb }
               index={ index }
             />
           );
