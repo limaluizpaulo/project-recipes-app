@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import doneRecipes from '../doneRecipes';
 import shareIcon from '../images/shareIcon.svg';
+import doneRecipes from '../doneRecipes';
 // O array acima é apenas ilustrativo para passar nos testes. Conforme a evolução do projeto iremos substituí-los pelos dados corretos posteriormente
 
 export default class ReceitasFeitas extends Component {
@@ -110,7 +110,6 @@ export default class ReceitasFeitas extends Component {
             >
               <img
                 src={ shareIcon }
-                // Não está renderizando na tela a imagem (ver isso posteriormente)
                 alt="share-button"
                 data-testid={ `${index}-horizontal-share-btn` }
               />
