@@ -6,12 +6,12 @@ function FoodCard(props) {
   const { food, thumb, index, id, comida } = props;
 
   return (
-    <Link to={ comida ? `/comidas/${id}` : `/bebidas/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
-        <img data-testid={ `${index}-card-img` } src={ thumb } alt="rcp" width="150px" />
-        <h1 data-testid={ `${index}-card-name` }>{food}</h1>
-      </div>
-    </Link>
+    <div className="card-field" data-testid={ `${index}-recipe-card` }>
+      <Link to={ comida ? `/comidas/${id}` : `/bebidas/${id}` }>
+        <img data-testid={ `${index}-card-img` } src={ thumb } alt="rcp" width="200px" />
+        <h5 data-testid={ `${index}-card-name` }>{food}</h5>
+      </Link>
+    </div>
   );
 }
 

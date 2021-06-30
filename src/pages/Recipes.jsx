@@ -4,6 +4,7 @@ import CategoryCard from '../components/CategoryCard';
 import FoodCard from '../components/FoodCard';
 import RecipesContext from '../context/RecipesContext';
 
+import '../styles/Card.css';
 import { fetchAllRecipes,
   fetchCatRecipes,
   fetchRecipesByCategory } from '../services/api';
@@ -42,27 +43,32 @@ function Recipes() {
   }, []);
 
   return (
-    <section>
-      <Button
-        data-testid="All-category-filter"
-        onClick={ (ev) => { setRecipeCategory(ev.target.innerText); } }
-      >
-        All
-      </Button>
-      {categories.map((category, index) => (<CategoryCard
-        key={ index }
-        comida
-        name={ category.strCategory }
-      />))}
-      {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (<FoodCard
-        key={ idMeal }
-        id={ idMeal }
-        index={ index }
-        food={ strMeal }
-        thumb={ strMealThumb }
-        comida
-      />))}
-    </section>
+    <>
+      <section className="category-field">
+        <Button
+          className="btn-category"
+          data-testid="All-category-filter"
+          onClick={ (ev) => { setRecipeCategory(ev.target.innerText); } }
+        >
+          All
+        </Button>
+        {categories.map((category, index) => (<CategoryCard
+          key={ index }
+          comida
+          name={ category.strCategory }
+        />))}
+      </section>
+      <section className="cards-field">
+        {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (<FoodCard
+          key={ idMeal }
+          id={ idMeal }
+          index={ index }
+          food={ strMeal }
+          thumb={ strMealThumb }
+          comida
+        />))}
+      </section>
+    </>
   );
 }
 

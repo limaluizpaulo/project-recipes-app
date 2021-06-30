@@ -1,0 +1,21 @@
+.category-field {
+  display: flex;
+  margin: 10px;
+}
+
+.btn-category {
+  margin-right: 3px;
+}
+
+.cards-field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 100vh;
+}
+
+.card-field {
+  display: flex;
+  margin-right: 15px;
+  max-width: 200px;
+}

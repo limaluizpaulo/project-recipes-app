@@ -24,6 +24,7 @@ function CategoryCard(props) {
   return (
     <section>
       <Button
+        className="btn-category"
         data-testid={ `${name}-category-filter` }
         onClick={
           comida

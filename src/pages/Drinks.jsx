@@ -40,7 +40,7 @@ function Drinks() {
   }, []);
 
   return (
-    <section>
+    <>
       <Button
         data-testid="All-category-filter"
         onClick={ (ev) => { setDrinkCategory(ev.target.innerText); } }
@@ -60,7 +60,7 @@ function Drinks() {
         thumb={ strDrinkThumb }
         comida={ false }
       />))}
-    </section>
+    </>
 
   );
 }
