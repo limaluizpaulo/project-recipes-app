@@ -49,7 +49,7 @@ class Login extends React.Component {
   render() {
     // const { disabled, email } = this.state;
     const { disabled } = this.state;
-    // const { adicionarUsuarioState } = this.props;
+    // const { adicionarUsuarioState } = this.props
     return (
       <Form>
         <Form.Group controlId="formBasicEmail">
