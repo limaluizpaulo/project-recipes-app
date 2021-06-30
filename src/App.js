@@ -10,6 +10,11 @@ import Perfil from './pages/Perfil';
 import Explore from './pages/Explore';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
+import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
+import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreByArea from './pages/ExploreByArea';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -24,12 +29,20 @@ function App() {
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoods } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-      <Route exact path="/explorar/comidas/ingredientes" />
-      <Route exact path="/explorar/bebidas/ingredientes" />
-      <Route exact path="/explorar/comidas/area" />
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        component={ ExploreFoodsIngredients }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ ExploreDrinksIngredients }
+      />
+      <Route exact path="/explorar/comidas/area" component={ ExploreByArea } />
       <Route exact path="/perfil" component={ Perfil } />
-      <Route exact path="/receitas-feitas" />
-      <Route exact path="/receitas-favoritas" />
+      <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>
   );
 }
