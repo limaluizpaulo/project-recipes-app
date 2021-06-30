@@ -2,6 +2,7 @@ export const MealServiceIngredientsAPI = async (ingredient) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const response = await fetch(endpoint);
   const responseObject = await response.json();
+  console.log(responseObject);
   return responseObject.meals;
 };
 
