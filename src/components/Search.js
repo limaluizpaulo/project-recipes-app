@@ -6,14 +6,22 @@ function Search() {
   return (
     <form>
       <label htmlFor="search">
-        <input type="text" id="search" data-testid="search-input" />
+        <input
+          type="text"
+          id="search"
+          value={ inputSearch }
+          onChange={ ({ target }) => setInputSearch(target.value) }
+          data-testid="search-input"
+        />
       </label>
       <label htmlFor="ingredients">
         Ingrediente
         <input
           name="radio"
           type="radio"
+          value="Ingrediente"
           id="ingredients"
+          onChange={ ({ target }) => setRadio(target.value) }
           data-testid="ingredient-search-radio"
         />
       </label>
@@ -22,8 +30,10 @@ function Search() {
         <input
           name="radio"
           type="radio"
+          value="Nome"
           id="name"
           checked
+          onChange={ ({ target }) => setRadio(target.value) }
           data-testid="name-search-radio"
         />
       </label>
@@ -32,7 +42,9 @@ function Search() {
         <input
           name="radio"
           type="radio"
+          value="Primeira letra"
           id="first-letter"
+          onChange={ ({ target }) => setRadio(target.value) }
           data-testid="first-letter-search-radio"
         />
       </label>
