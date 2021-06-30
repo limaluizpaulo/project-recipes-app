@@ -13,7 +13,6 @@ function RecipesProvider({ children }) {
 
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', `{ email: ${email} }`);
   };
 
   const context = { email, password, successLogin };

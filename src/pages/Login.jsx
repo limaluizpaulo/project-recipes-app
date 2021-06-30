@@ -18,6 +18,7 @@ export default function Login() {
     event.preventDefault();
 
     successLogin(email, password);
+    localStorage.setItem('user', `{ email: ${email} }`);
     history.push('/comidas');
   }
 
