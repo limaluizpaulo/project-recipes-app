@@ -17,7 +17,7 @@ function Header({ title }) {
   );
 
   const pageTitle = () => (
-    <h1 data-testid="page-title">{title}</h1>
+    <h1 data-testid="page-title">{ title }</h1>
   );
 
   return (

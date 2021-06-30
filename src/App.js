@@ -4,10 +4,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route } from 'react-router-dom';
-import Food from './components/Food/Food';
+import Food from './pages/Food/Food';
 import Provider from './Provider/provider';
-import Drinks from './components/Drinks/Drinks';
-import Login from './components/Login/Login';
+import Drinks from './pages/Drinks/Drinks';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
