@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { Header, Card, Footer } from '../components';
-import { MealsContext } from '../context/MealsProvider';
+import { DrinksContext } from '../context/DrinksProvider';
 
-const Meals = () => {
-  const { meals } = useContext(MealsContext);
+const Drinks = () => {
+  const { drinks } = useContext(DrinksContext);
 
   const recipesShow = 12;
   return (
     <div>
       <Header />
-      {meals.map(({ strMeal, strMealThumb, idMeal }, index) => {
+      {drinks.map(({ strMeal, strMealThumb, idMeal }, index) => {
         if (index < recipesShow) {
           return (
             <Card
@@ -27,4 +27,4 @@ const Meals = () => {
   );
 };
 
-export default Meals;
+export default Drinks;
