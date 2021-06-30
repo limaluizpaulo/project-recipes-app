@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
-import Comidas from './Pages/Comidas';
-import Bebidas from './Pages/Bebidas';
+import Foods from './Pages/Foods';
+import Drinks from './Pages/Drinks';
 import Explore from './Pages/Explore';
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Comidas } />
-        <Route path="/bebidas" component={ Bebidas } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />
       </Switch>
 

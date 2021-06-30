@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search() {
+function SearchBar() {
   return (
     <form>
       <label htmlFor="search">
@@ -48,4 +48,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default SearchBar;

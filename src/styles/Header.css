@@ -19,3 +19,11 @@
   max-width: 180px;
   text-align: center;
 }
+
+.show {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
