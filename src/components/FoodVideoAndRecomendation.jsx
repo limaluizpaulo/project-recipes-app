@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import RecipeContext from '../context/Context';
+import AlternativesCaroussel from './AlternativesCaroussel';
 
 const FoodVideoAndRecomendation = () => {
   const { selectedFood } = useContext(RecipeContext);
@@ -10,14 +11,6 @@ const FoodVideoAndRecomendation = () => {
     );
   }
 
-  const renderCaroussel = () => {
-    const alternatives = ['beb', 'beb1'];
-    return alternatives.map((beb, index) => (
-      <span key={ index } data-testid={ `${index}-recomendation-card` }>
-        {beb}
-      </span>
-    ));
-  };
   const renderYoutubeVideo = () => {
     const { strYoutube } = selectedFood;
     if (!strYoutube) return;
@@ -37,10 +30,9 @@ const FoodVideoAndRecomendation = () => {
   return (
     <>
       {renderYoutubeVideo()}
-      {renderCaroussel()}
+      <AlternativesCaroussel />
     </>
   );
 };
 
 export default FoodVideoAndRecomendation;
-// https://www.youtube.com/embed/VVnZd8A84z4"
