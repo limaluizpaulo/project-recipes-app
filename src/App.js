@@ -5,6 +5,16 @@ import AppReceitasProvider from './context/AppReceitasProvider';
 import Login from './pages/Login';
 import Erro404 from './pages/Page404';
 import Comidas from './pages/Comidas';
+import Bebidas from './pages/Bebidas';
+import Explorar from './pages/Explorar';
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
+import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
+import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
+import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Perfil from './pages/Perfil';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,20 +26,26 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Comidas } />
-          <Route exact path="/bebidas" component={ Erro404 } />
+          <Route exact path="/bebidas" component={ Bebidas } />
           <Route path="/comidas/{id-da-receita}" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}" component={ Erro404 } />
           <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}/in-progress" component={ Erro404 } />
-          <Route exect path="/explorar" component={ Erro404 } />
-          <Route exect path="/explorar/comidas" component={ Erro404 } />
-          <Route exect path="/explorar/bebidas" component={ Erro404 } />
-          <Route path="/explorar/comidas/ingredientes" component={ Erro404 } />
-          <Route path="/explorar/bebidas/ingredientes" component={ Erro404 } />
-          <Route path="/explorar/comidas/area" component={ Erro404 } />
-          <Route exect path="/perfil" component={ Erro404 } />
-          <Route exect path="/receitas-feitas" component={ Erro404 } />
-          <Route exect path="/receitas-favoritas" component={ Erro404 } />
+          <Route exect path="/explorar" component={ Explorar } />
+          <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
+          <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route
+            path="/explorar/comidas/ingredientes"
+            component={ ExplorarComidasPorIngredientes }
+          />
+          <Route
+            path="/explorar/bebidas/ingredientes"
+            component={ ExplorarBebidasPorIngredientes }
+          />
+          <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
+          <Route exect path="/perfil" component={ Perfil } />
+          <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>

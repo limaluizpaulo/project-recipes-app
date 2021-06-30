@@ -1,15 +1,11 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Comidas() {
+export default function ReceitasFeitas() {
   return (
     <section>
       <Header />
-      Comidas
-      <Footer />
+      ReceitasFeitas
     </section>
   );
 }
-
-export default Comidas;

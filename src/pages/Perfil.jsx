@@ -1,15 +1,11 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Comidas() {
+export default function Perfil() {
   return (
     <section>
       <Header />
-      Comidas
-      <Footer />
+      Perfil
     </section>
   );
 }
-
-export default Comidas;
