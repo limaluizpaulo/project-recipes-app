@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '../css/SearchBar.css';
 
 import { connect } from 'react-redux';
-import { fetchIngrentAction } from '../actions';
+import { fetchIngrentAction, fetchDrinksAction } from '../actions';
 
 class SearchBar extends Component {
   constructor() {
@@ -26,12 +26,12 @@ class SearchBar extends Component {
 
   buscaReceita() {
     const { searchInput, searchFilter } = this.state;
-    const { requestRecipes } = this.props;
+    const { requestFoodRecipes, title, requestDrinkRecipes } = this.props;
     if (searchFilter === 'primeira-letra' && searchInput.length > 1) {
       this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-      requestRecipes(searchInput, searchFilter);
-    } else {
-      requestRecipes(searchInput, searchFilter);
+    } else if (title === 'Comidas') requestFoodRecipes(searchInput, searchFilter);
+    else {
+      requestDrinkRecipes(searchInput, searchFilter);
     }
   }
 
@@ -105,12 +105,17 @@ class SearchBar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  requestRecipes: (searchInput, searchFilter) => (
+  requestFoodRecipes: (searchInput, searchFilter) => (
     dispatch(fetchIngrentAction(searchInput, searchFilter))),
+  requestDrinkRecipes: (searchInput, searchFilter) => (
+    dispatch(fetchDrinksAction(searchInput, searchFilter))
+  ),
 });
 
 SearchBar.propTypes = {
-  requestRecipes: PropTypes.func.isRequired,
+  requestFoodRecipes: PropTypes.func.isRequired,
+  requestDrinkRecipes: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(SearchBar);

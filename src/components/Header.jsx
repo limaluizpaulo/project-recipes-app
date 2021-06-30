@@ -64,7 +64,7 @@ class Header extends Component {
                 type="hidden"
               />)
             : (
-              <SearchBar />
+              <SearchBar title={ title } />
             )}
         </div>
       </header>

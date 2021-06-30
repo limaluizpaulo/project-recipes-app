@@ -1,12 +1,12 @@
-import { REQUEST_INGREDIENT_FOOD } from '../actions';
+import { REQUEST_INGREDIENT_DRINK } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
 };
 
-const foodReducer = (state = INITIAL_STATE, action) => {
+const drinkReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST_INGREDIENT_FOOD:
+  case REQUEST_INGREDIENT_DRINK:
     return {
       ...state,
       recipes: action.payload.result,
@@ -16,4 +16,4 @@ const foodReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default foodReducer;
+export default drinkReducer;
