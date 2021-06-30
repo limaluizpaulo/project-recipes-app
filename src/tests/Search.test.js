@@ -30,4 +30,11 @@ describe('Renders the Search', () => {
     const checkbox = getByTestId('first-letter-search-radio');
     expect(checkbox).toBeInTheDocument();
   });
+
+  it('should render the button ', () => {
+    const { getByTestId } = renderWithRoute(<Search />);
+
+    const checkbox = getByTestId('exec-search-btn');
+    expect(checkbox).toBeInTheDocument();
+  });
 });
