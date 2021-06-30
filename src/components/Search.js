@@ -1,10 +1,35 @@
 import React, { useContext } from 'react';
-import { SearchContext } from '../context/ContextSearch';
+import { Context } from '../context/ContextForm';
+import searchByNameFood,
+{ searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
+  searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';
 
 function Search() {
-  const { radio, setRadio, inputSearch, setInputSearch } = useContext(SearchContext);
+  const { radio, setRadio, inputSearch, setInputSearch } = useContext(Context);
+
+  function invokeAlert(fn, message) {
+    return fn(message);
+  }
+
+  const ONE = 1;
+
+  function submit(ev) {
+    ev.preventDefault();
+
+    if (radio === 'Ingrediente') {
+      searchByIngredientsFood(inputSearch);
+    }
+    if (radio === 'Nome') {
+      searchByNameFood(inputSearch);
+    }
+    if (radio === 'Primeira letra') {
+      inputSearch.length = ONE ? (
+        searchByFirstLetterFood(inputSearch)
+      ) : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+    }
+  }
   return (
-    <form>
+    <form onSubmit={ submit }>
       <label htmlFor="search">
         <input
           type="text"

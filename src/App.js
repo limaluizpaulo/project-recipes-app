@@ -21,40 +21,37 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import StarRecipes from './pages/StarRecipes';
 import FoodRecipes from './pages/FoodRecipes';
-import SearchProvider from './context/ContextSearch';
 
 function App() {
   return (
     <BrowserRouter>
       <Provider>
-        <SearchProvider>
-          <Switch>
-            <Route exact path="/" component={ Login } />
-            <Route exact path="/comidas" component={ FoodRecipes } />
-            <Route exact path="/bebidas" component={ DrinkRecipes } />
-            <Route exact path="/comidas/:id" component={ FoodDetails } />
-            <Route exact path="/bebidas/:id" component={ DrinkDetails } />
-            <Route exact path="/comidas/:id/in-progress" component={ FoodProcess } />
-            <Route exact path="/bebidas/:id/in-progress" component={ DrinkProcess } />
-            <Route exact path="/explorar" component={ Explore } />
-            <Route exact path="/explorar/comidas" component={ FoodExplore } />
-            <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
-            <Route
-              exact
-              path="/explorar/comidas/ingredientes"
-              component={ ExploreFoodIngredient }
-            />
-            <Route
-              exact
-              path="/explorar/bebidas/ingredientes"
-              component={ ExploreDrinkIngredient }
-            />
-            <Route exact path="/explorar/comidas/area" component={ FoodByCountry } />
-            <Route exact path="/perfil" component={ Profile } />
-            <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-            <Route exact path="/receitas-favoritas" component={ StarRecipes } />
-          </Switch>
-        </SearchProvider>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ FoodRecipes } />
+          <Route exact path="/bebidas" component={ DrinkRecipes } />
+          <Route exact path="/comidas/:id" component={ FoodDetails } />
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+          <Route exact path="/comidas/:id/in-progress" component={ FoodProcess } />
+          <Route exact path="/bebidas/:id/in-progress" component={ DrinkProcess } />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ FoodExplore } />
+          <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreFoodIngredient }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreDrinkIngredient }
+          />
+          <Route exact path="/explorar/comidas/area" component={ FoodByCountry } />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+          <Route exact path="/receitas-favoritas" component={ StarRecipes } />
+        </Switch>
       </Provider>
     </BrowserRouter>
   );
