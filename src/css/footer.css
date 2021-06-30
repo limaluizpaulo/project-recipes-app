@@ -1,9 +1,9 @@
 .footer {
+  bottom: 0;
   display: flex;
-  position: fixed;
-  bottom: 0px;
   flex-direction: row;
-  width: 100%;
   justify-content: space-between;
   padding: 10px;
+  position: fixed;
+  width: 100%;
 }
