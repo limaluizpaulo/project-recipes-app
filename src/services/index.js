@@ -10,9 +10,7 @@ export async function fetchByIngredient(type, query) {
   }
 
   const data = await fetch(`${API_URL}${query}`);
-  console.log(data);
   const result = await data.json();
-  console.log(result);
   return result[type];
 }
 
@@ -21,9 +19,7 @@ export async function fetchByName(type, query) {
     ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
     : API_DRINKS;
   const data = await fetch(`${API_URL}${query}`);
-  console.log(data);
   const result = await data.json();
-  console.log(result);
   return result[type];
 }
 
@@ -32,9 +28,7 @@ export async function fetchByFirstLetter(type, query) {
     ? 'https://www.themealdb.com/api/json/v1/1/search.php?f='
     : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
   const data = await fetch(`${API_URL}${query}`);
-  console.log(data);
   const result = await data.json();
-  console.log(result);
   return result[type];
 }
 export async function fetchInit(type) {
@@ -44,4 +38,17 @@ export async function fetchInit(type) {
   const data = await fetch(API_URL);
   const result = await data.json();
   return result[type];
+}
+
+export async function fetchCategoriesDrinks() {
+  const API_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const data = await fetch(API_URL);
+  const result = await data.json();
+  return result;
+}
+export async function fetchCategoriesMeals() {
+  const API_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const data = await fetch(API_URL);
+  const result = await data.json();
+  return result;
 }

@@ -7,3 +7,26 @@
 body {
   background-color: orange;
 }
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.card {
+  background-color: white;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.card p {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.card-image {
+  height: 150px;
+  width: 150px;
+}

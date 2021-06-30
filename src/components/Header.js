@@ -57,8 +57,6 @@ function Header({ title, show = true }) {
       invokeAlert('Sua busca deve conter somente 1 (um) caracter');
     }
 
-    console.log(result);
-
     if (result) {
       setData(result);
     } else {
