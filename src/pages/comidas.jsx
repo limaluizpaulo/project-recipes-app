@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/header';
-import Fooder from '../components/fooder';
+import Fooder from '../components/footer';
 
 class Comidas extends Component {
   render() {
