@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import store, { addLogin } from '../../context/store';
 import { setStorage } from '../../functions';
 
@@ -12,7 +12,7 @@ export default function Login() {
     const regex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const Email = regex.test(email);
     const Pwd = password.length;
-    const minPwd = 6;
+    const minPwd = 7;
 
     if (Email && Pwd >= minPwd) {
       setDisabledBtn(false);
@@ -48,16 +48,16 @@ export default function Login() {
         data-testid="password-input"
         onChange={ (e) => setUser(addLogin(e)) }
       />
-      {/* <Link to="/recipes"> */}
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ disabledBtn }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
-      {/* </Link> */}
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ disabledBtn }
+          onClick={ handleClick }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
