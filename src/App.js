@@ -5,7 +5,6 @@ import Login from './pages/Login';
 import Explore from './pages/Explore';
 import ExploreFood from './pages/ExploreFood';
 import ExploreDrinks from './pages/ExploreDrinks';
-
 import RecipesProvider from './context/RecipesProvider';
 
 import './App.css';
