@@ -5,6 +5,7 @@ import FavoritesRecipes from './FavoriteRecipes';
 import Foods from './Foods';
 import Login from './Login';
 import Profile from './Profile';
+import NotFound from './NotFound';
 
 export default {
   CookedRecipes,
@@ -14,4 +15,5 @@ export default {
   Foods,
   Login,
   Profile,
+  NotFound,
 };

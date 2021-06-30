@@ -28,10 +28,11 @@ export default function App() {
         <Link to="/:recipeId"> FoodId </Link>
         <Link to="/:recipeId/status"> FoodId/Status </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Pages.Foods />
-          <Route exact path={ `${path}/:foodId` } />
-          <Route path={ `${path}/:foodId/status` } />
+          <Route exact path={ path }>
+            <Pages.Foods />
+          </Route>
+          <Route exact path={ `${path}/:recipeId` } />
+          <Route path={ `${path}/:recipeId/status` } />
         </Switch>
       </>
     );
@@ -43,8 +44,9 @@ export default function App() {
         <Link to="/:drinkId"> DrinkId </Link>
         <Link to="/:drinkId/status"> DrinkId/Status </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Pages.Drinks />
+          <Route exact path={ path }>
+            <Pages.Drinks />
+          </Route>
           <Route exact path={ `${path}/:drinkId` } />
           <Route path={ `${path}/:drinkId/status` } />
         </Switch>
@@ -61,8 +63,9 @@ export default function App() {
         <Link to="/explorar/bebidas/"> Explore Drinks </Link>
         <Link to="/explorar/bebidas/ingredientes"> Drinks Ingridients </Link>
         <Switch>
-          <Route exact path={ path } />
-          <Pages.Explore />
+          <Route exact path={ path }>
+            <Pages.Explore />
+          </Route>
           <Route exact path={ `${path}/comidas` } />
           <Route exact path={ `${path}/comidas/area` } />
           <Route exact path={ `${path}/comidas/ingredientes` } />
@@ -88,6 +91,12 @@ export default function App() {
   function renderFavoriteRecipes() {
     return (
       <Pages.FavoritesRecipes />
+    );
+  }
+
+  function renderNotFoundPage() {
+    return (
+      <Pages.NotFound />
     );
   }
 
@@ -125,6 +134,9 @@ export default function App() {
         <Route
           path="/receitas-favoritas"
           render={ renderFavoriteRecipes }
+        />
+        <Route
+          render={ renderNotFoundPage }
         />
       </Switch>
     );
