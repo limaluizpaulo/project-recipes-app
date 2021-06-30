@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const FIVE = 5; // number of categories to render
 const TWELVE = 12;
 
-function MainPageFood() {
+function MainFood() {
   const [categories, setCategories] = useState([]);
   const [foodRecipes, setFoodRecipes] = useState([]);
 
@@ -42,16 +42,15 @@ function MainPageFood() {
           <div key={ idx } data-testid={ `${idx}-recipe-card` }>
             <img
               src={ strMealThumb }
-              alt="Foto do prato"
+              alt={ `Imagem do prato ${strMeal}` }
               data-testid={ `${idx}-card-img` }
             />
             <span data-testid={ `${idx}-card-name` }>{strMeal}</span>
           </div>
         ))}
-
       </section>
     </main>
   );
 }
 
-export default MainPageFood;
+export default MainFood;
