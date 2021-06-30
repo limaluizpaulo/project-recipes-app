@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { getRecipeSearch } from '../services';
 
-function SearchBar() {
-  const [selectedRadio, setSelectedRadio] = useState('ingrediente');
+function SearchBar({ title }) {
+  const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');
   const [inputValue, setInputValue] = useState('');
+  const [endpointSearch, setEndpointSearch] = useState('');
+
+  useEffect(() => {
+    const arrangeURL = () => {
+      let URL = '';
+      if (title === 'Comidas') {
+        URL = 'https://www.themealdb.com/api/json/v1/1';
+      } else {
+        URL = 'https://www.thecocktaildb.com/api/json/v1/1';
+      }
+      setEndpointSearch(URL);
+    };
+    arrangeURL();
+  }, [title]);
 
   const handleChange = ({ target }) => {
     if (target.type === 'radio') {
@@ -12,12 +28,21 @@ function SearchBar() {
     }
   };
 
+  const handleApiUrl = async () => {
+    const newURL = `${endpointSearch}${selectedRadio}${inputValue}`;
+    getRecipeSearch(newURL);
+  };
+
+  const makeAlert = (func, message) => {
+    func(message);
+  };
+
   const handleBtnClick = () => {
-    if (selectedRadio === 'letra'
+    if (selectedRadio === '/search.php?f='
     && inputValue.length !== 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      makeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
     } else {
-      
+      handleApiUrl();
     }
   };
 
@@ -32,36 +57,36 @@ function SearchBar() {
         <label htmlFor="ingredient-radio">
           Ingrediente
           <input
-            checked={ selectedRadio === 'ingrediente' }
+            checked={ selectedRadio === '/filter.php?i=' }
             id="ingredient-radio"
             type="radio"
             name="radio-search"
             data-testid="ingredient-search-radio"
-            value="ingrediente"
+            value="/filter.php?i="
             onChange={ (e) => handleChange(e) }
           />
         </label>
         <label htmlFor="name-radio">
           Nome
           <input
-            checked={ selectedRadio === 'nome' }
+            checked={ selectedRadio === '/search.php?s=' }
             id="name-radio"
             type="radio"
             name="radio-search"
             data-testid="name-search-radio"
-            value="nome"
+            value="/search.php?s="
             onChange={ (e) => handleChange(e) }
           />
         </label>
         <label htmlFor="first-letter-radio">
           Primeira letra
           <input
-            checked={ selectedRadio === 'letra' }
+            checked={ selectedRadio === '/search.php?f=' }
             id="first-letter-radio"
             type="radio"
             name="radio-search"
             data-testid="first-letter-search-radio"
-            value="letra"
+            value="/search.php?f="
             onChange={ (e) => handleChange(e) }
           />
         </label>
@@ -78,5 +103,9 @@ function SearchBar() {
     </section>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;

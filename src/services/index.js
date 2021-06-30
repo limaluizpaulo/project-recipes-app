@@ -32,3 +32,8 @@ export async function getDrinkByCategory(category) {
   const { drinks } = await fetch(endpoint).then((data) => data.json());
   return drinks;
 }
+
+export async function getRecipeSearch(endpoint) {
+  const result = await fetch(endpoint).then((data) => data.json());
+  return result;
+}
