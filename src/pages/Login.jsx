@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+/* import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { saveCockTailsToken,
@@ -57,4 +57,10 @@ export default function Login() {
       </button>
     </div>
   );
+}
+ */
+import React from 'react';
+
+export default function Login() {
+  return (<h1>Deu certo!!</h1>);
 }
