@@ -13,10 +13,11 @@ const Drinks = () => {
         categories={ categories }
         onClick={ setFilterCategory }
       />
-      {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => {
+      {drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => {
         if (index < recipesShow) {
           return (
             <Card
+              id={ idDrink }
               key={ idDrink }
               title={ strDrink }
               img={ strDrinkThumb }

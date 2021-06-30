@@ -17,10 +17,11 @@ const Meals = () => {
         categories={ categories }
         onClick={ setFilterCategory }
       />
-      {meals.map(({ strMeal, strMealThumb, idMeal }, index) => {
+      {meals.map(({ idMeal, strMeal, strMealThumb }, index) => {
         if (index < recipesShow) {
           return (
             <Card
+              id={ idMeal }
               key={ idMeal }
               title={ strMeal }
               img={ strMealThumb }
