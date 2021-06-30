@@ -10,7 +10,7 @@ import {
 } from '../services';
 
 import '../main.css';
-import RecipeCards from '../components/RecipeCards';
+import { RecipeCards, Footer } from '../components';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
@@ -62,28 +62,31 @@ function MainPage({ history }) {
   const recipesToRender = showFiltered ? filteredRecipes : recipes;
 
   return (
-    <main>
-      <section>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => setShowFiltered(false) }
-        >
-          All
-        </button>
-        {categories.map(({ strCategory }, idx) => (
+    <>
+      <main>
+        <section>
           <button
             type="button"
-            key={ idx }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => { filterByCategory(strCategory); } }
+            data-testid="All-category-filter"
+            onClick={ () => setShowFiltered(false) }
           >
-            {strCategory}
+            All
           </button>
-        ))}
-      </section>
-      <RecipeCards history={ history } recipes={ recipesToRender } />
-    </main>
+          {categories.map(({ strCategory }, idx) => (
+            <button
+              type="button"
+              key={ idx }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => { filterByCategory(strCategory); } }
+            >
+              {strCategory}
+            </button>
+          ))}
+        </section>
+        <RecipeCards history={ history } recipes={ recipesToRender } />
+      </main>
+      <Footer />
+    </>
   );
 }
 
