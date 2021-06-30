@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import drinkImg from './images/drinkIcon.svg';
-import exploreImg from './images/exploreIcon.svg';
-import mealImg from './images/mealIcon.svg';
+import drinkImage from './images/drinkIcon.svg';
+import exploreImage from './images/exploreIcon.svg';
+import mealImage from './images/mealIcon.svg';
 
 class Footer extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class Footer extends React.Component {
               type="button"
               data-testid="drinks-bottom-btn"
             >
-              <img src={ drinkImg } alt="drinks" />
+              <img src={ drinkImage } alt="drinks" />
             </button>
           </Link>
         </div>
@@ -25,7 +25,7 @@ class Footer extends React.Component {
               type="button"
               data-testid="explore-bottom-btn"
             >
-              <img src={ exploreImg } alt="explore" />
+              <img src={ exploreImage } alt="explore" />
             </button>
           </Link>
         </div>
@@ -35,7 +35,7 @@ class Footer extends React.Component {
               type="button"
               data-testid="food-bottom-btn"
             >
-              <img src={ mealImg } alt="food" />
+              <img src={ mealImage } alt="food" />
             </button>
           </Link>
         </div>
