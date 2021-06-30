@@ -45,7 +45,7 @@ export default function RecipeProvider({ children }) {
       return <Redirect to={ `${routeFromSearch}/${recipes[0].idMeal}` } />;
     }
     if (routeFromSearch === '/bebidas') {
-      return <Redirect to={ `${routeFromSearch}/${recipes[0].idDrinks}` } />;
+      return <Redirect to={ `${routeFromSearch}/${recipes[0].idDrink}` } />;
     }
   }
 

@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
-import RecipeContext from '../context';
 
 function Header({ title }) {
   const history = useHistory();
-  const { showSearch, setShowSearch } = useContext(RecipeContext);
 
   const handleClick = () => {
     history.push('/perfil');
@@ -25,15 +22,6 @@ function Header({ title }) {
       </button>
 
       <h2 data-testid="page-title">{title}</h2>
-
-      <button
-        type="button"
-        src={ searchIcon }
-        data-testid="search-top-btn"
-        onClick={ () => setShowSearch(!showSearch) }
-      >
-        <img src={ searchIcon } alt="search icon" />
-      </button>
     </header>
   );
 }

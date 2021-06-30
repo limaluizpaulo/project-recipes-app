@@ -11,7 +11,7 @@ function Login() {
   const loginValidation = () => {
     const emailValidation = (/[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{3,}/i);
     const passwordValidation = 6; // não sei pq não pega com 6
-    if (emailValidation.test(email) && password.length >= passwordValidation) {
+    if (emailValidation.test(email) && password.length > passwordValidation) {
       setIsDisable(false);
     } else setIsDisable(true);
   };

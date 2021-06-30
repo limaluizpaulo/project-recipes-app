@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import HeaderExplore from '../components/HeaderExplore';
 
 function FavouritesRecipes() {
   return (
     <div>
-      <Header />
+      <HeaderExplore title="Receitas Favoritas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"

@@ -1,12 +1,12 @@
 import React from 'react';
 import DoneRecipesList from '../components/DoneRecipesList';
-import Header from '../components/Header';
+import HeaderExplore from '../components/HeaderExplore';
 
 function DoneRecipes() {
   return (
     <div>
       RECEITAS FEITAS
-      <Header />
+      <HeaderExplore title="Receitas Feitas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"
