@@ -6,23 +6,51 @@ import doneRecipes from '../doneRecipes';
 export default class ReceitasFeitas extends Component {
   renderDoneRecipes() {
     const recipes = doneRecipes
-      .map(({ id, image, name, category, doneDate, tags }, index) => {
-        const mapTags = tags.map((tag) => (
-          <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</span>
-        ));
-        return (
-          <section key={ id }>
+      .map(({ id, type, area, alcoholicOrNot, image,
+        name, category, doneDate, tags }, index) => {
+        const bothTypes = () => (
+          <section>
             <img src={ image } alt={ name } data-testid={ `${index}-horizontal-image` } />
-            <span data-testid={ `${index}-horizontal-top-text` }>
-              { category }
-            </span>
             <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
             <span data-testid={ `${index}-horizontal-done-date` }>{doneDate}</span>
-            <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
-              Compartilhar a receita // será trocado posteriormente
+            <button type="button">
+              <img
+                src="../images/shareIcon.svg"
+                alt="share-button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
             </button>
+          </section>
+        );
+        const mapTags = tags.map((tag, indexTag) => {
+          if (indexTag < 2) {
+            return (
+              <span
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            );
+          }
+          return null;
+        });
+        const renderFood = () => (
+          <section>
+            <span data-testid={ `${index}-horizontal-top-text` }>
+              { `${area} - ${category}` }
+            </span>
             { mapTags }
           </section>
+        );
+        const renderDrink = () => (
+          <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
+        );
+        return (
+          <div key={ id }>
+            { bothTypes() }
+            { type === 'comida' ? renderFood() : renderDrink() }
+          </div>
         );
       });
     return recipes;
