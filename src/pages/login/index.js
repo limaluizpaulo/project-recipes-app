@@ -62,7 +62,7 @@ function Login() {
         />
       </label>
       <button
-        type="submit"
+        type="button"
         data-testid="login-submit-btn"
         disabled={ disabledButton }
         onClick={ () => handleClick() }
