@@ -4,7 +4,7 @@ import SearchBarDrinks from '../components/SearchBarDrinks';
 function Drinks() {
   return (
     <>
-      <p>Comidas</p>
+      <h1>Bebidas</h1>
       <SearchBarDrinks />
     </>
   );

@@ -22,6 +22,7 @@ function DrinksProvider({ children }) {
     const drinksFilteredByFirstLetter = await fetchDrinksByFirstLetter(firstLetter);
     setFilteredDrinks({ filteredDrinks: drinksFilteredByFirstLetter });
   }
+
   return (
     <DrinksContext.Provider
       value={ {
