@@ -9,7 +9,7 @@ const drinkReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_INGREDIENT_DRINK:
     return {
       ...state,
-      recipes: action.payload.result,
+      recipes: action.payload.result.drinks,
     };
   default:
     return state;

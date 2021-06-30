@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import '../css/SearchBar.css';
 
@@ -41,6 +42,13 @@ class SearchBar extends Component {
   }
 
   render() {
+    const { resultFood, resultDrink, title } = this.props;
+    if (resultFood && title === 'Comidas' && resultFood.length === 1) {
+      return <Redirect to={ `/comidas/${resultFood[0].idMeal}` } />;
+    } if (resultDrink && title === 'Bebidas' && resultDrink.length === 1) {
+      return <Redirect to={ `/bebidas/${resultDrink[0].idDrink}` } />;
+    }
+
     return (
       <div className="search">
         <div className="search-container">
@@ -104,6 +112,11 @@ class SearchBar extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  resultFood: state.food.recipes,
+  resultDrink: state.drink.recipes,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   requestFoodRecipes: (searchInput, searchFilter) => (
     dispatch(fetchIngrentAction(searchInput, searchFilter))),
@@ -116,6 +129,8 @@ SearchBar.propTypes = {
   requestFoodRecipes: PropTypes.func.isRequired,
   requestDrinkRecipes: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  resultFood: PropTypes.number.isRequired,
+  resultDrink: PropTypes.number.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

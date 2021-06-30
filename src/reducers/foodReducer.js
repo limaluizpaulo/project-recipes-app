@@ -9,7 +9,7 @@ const foodReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_INGREDIENT_FOOD:
     return {
       ...state,
-      recipes: action.payload.result,
+      recipes: action.payload.result.meals,
     };
   default:
     return state;

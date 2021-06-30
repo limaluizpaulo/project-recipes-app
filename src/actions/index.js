@@ -28,8 +28,6 @@ export const fetchIngrentAction = (searchInput, searchFilter) => async (dispatch
   } else {
     result = await fetchFirstLetter(searchInput);
   }
-  console.log('COMIDA');
-  console.log(result);
   dispatch({
     type: REQUEST_INGREDIENT_FOOD,
     payload: {
@@ -65,8 +63,6 @@ export const fetchDrinksAction = (searchInput, searchFilter) => async (dispatch)
   } else {
     result = await fetchFirstLetterDrink(searchInput);
   }
-  console.log('Bebida');
-  console.log(result);
   dispatch({
     type: REQUEST_INGREDIENT_DRINK,
     payload: {
