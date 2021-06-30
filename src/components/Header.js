@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import {
-  fetchFoodByIngredient,
-  fetchFoodByName,
-  fetchFoodByFirstLetter,
-  fetchDrinksByIngredient,
-  fetchDrinksByName,
-  fetchDrinksByFirstLetter,
-} from '../service';
+  fetchByIngredient,
+  fetchByName,
+  fetchByFirstLetter,
+} from '../services';
 
 function Header({ title, show = true }) {
   const history = useHistory();
@@ -24,48 +21,30 @@ function Header({ title, show = true }) {
     setSearch(value);
   }
 
-  async function findDrinks() {
-    let result;
-    switch (filter) {
-    case 'ingredient':
-      result = await fetchDrinksByIngredient(search);
-      break;
-    case 'name':
-      result = await fetchDrinksByName(search);
-      break;
-    default:
-      if (search.length < 2) {
-        result = await fetchDrinksByFirstLetter(search);
-      } else {
-        window.alert('Sua busca deve conter somente 1 (um) caracter');
-      }
-      break;
+  // Créditos à Lucas Martins - Turma 10 - Tribo B
+  function invokeAlert(fn, message) {
+    fn(message);
+  }
+
+  async function getData() {
+    let result = { drinks: [], meals: [] };
+    const type = pathname.includes('comidas') ? 'meals' : 'drinks';
+
+    if (filter === 'ingredient') {
+      result = { ...result, ...await fetchByIngredient(type, search) };
+    } else if (filter === 'name') {
+      result = { ...result, ...await fetchByName(type, search) };
+    } else if (search.length < 2) {
+      result = { ...result, ...await fetchByFirstLetter(type, search) };
+    } else {
+      invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
+
+    console.log(result);
 
     if (result.drinks.length === 1) {
       history.push(`/bebidas/${result.drinks[0].idDrink}`);
-    }
-  }
-
-  async function findMeals() {
-    let result;
-    switch (filter) {
-    case 'ingredient':
-      result = await fetchFoodByIngredient(search);
-      break;
-    case 'name':
-      result = await fetchFoodByName(search);
-      break;
-    default:
-      if (search.length < 2) {
-        result = await fetchFoodByFirstLetter(search);
-      } else {
-        window.alert('Sua busca deve conter somente 1 (um) caracter');
-      }
-      break;
-    }
-
-    if (result.meals.length === 1) {
+    } else if (result.meals.length === 1) {
       history.push(`/comidas/${result.meals[0].idMeal}`);
     }
   }
@@ -133,7 +112,7 @@ function Header({ title, show = true }) {
             <button
               data-testid="exec-search-btn"
               type="button"
-              onClick={ pathname.includes('comidas') ? findMeals : findDrinks }
+              onClick={ getData }
             >
               <span>Buscar</span>
             </button>
