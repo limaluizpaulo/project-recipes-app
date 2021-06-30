@@ -5,7 +5,7 @@ class RecipesDone extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header header="Receitas Feitas" />
         <h2> Recipes Done</h2>
       </div>
     );
