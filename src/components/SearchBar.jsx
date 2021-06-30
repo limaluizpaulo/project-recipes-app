@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import FoodCard from './FoodCard';
+import DrinkCard from './DrinkCard';
 
 import '../css/SearchBar.css';
 
-import { connect } from 'react-redux';
 import { fetchIngrentAction, fetchDrinksAction } from '../actions';
 
 class SearchBar extends Component {
@@ -53,7 +55,12 @@ class SearchBar extends Component {
       this.invokeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-
+    // if (resultFood && title === 'Comidas' && resultFood.length > 1) {
+    //   return <FoodCard />;
+    // }
+    // if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
+    //   return <DrinkCard />;
+    // }
     return (
       <div className="search">
         <div className="search-container">
