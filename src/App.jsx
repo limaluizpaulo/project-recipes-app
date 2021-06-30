@@ -10,7 +10,6 @@ import './App.css';
 function App() {
   return (
     <Provider store={ store }>
-      <Footer />
       <AppRecipeProvider>
         <BrowserRouter>
           <Switch>
