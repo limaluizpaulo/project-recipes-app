@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './header.css';
 
-function Header(props) {
+function Header({ title }) {
   const [searchField, setSearchField] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
-
-  console.log(props);
 
   const search = () => (
     <input
@@ -18,7 +17,7 @@ function Header(props) {
   );
 
   const pageTitle = () => (
-    <h1 data-testid="page-title">page title</h1>
+    <h1 data-testid="page-title">{title}</h1>
   );
 
   return (
@@ -39,5 +38,9 @@ function Header(props) {
     </header>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;

@@ -21,13 +21,19 @@ function Food() {
     return meals
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
-        <div key={ index } className="card-meals-items">
+        <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
           <img
             data-testid={ `${index}-card-img` }
             src={ item.strMealThumb }
+            className="card-img-top"
             alt={ `imagem de ${item}` }
           />
-          <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+          <h5
+            data-testid={ `${index}-card-name` }
+            className="card-title"
+          >
+            {item.strMeal}
+          </h5>
         </div>
       ));
   }
