@@ -7,7 +7,7 @@ import mealIcon from '../images/mealIcon.svg';
 import '../styles/Footer.css';
 
 const Footer = () => (
-  <div data-testid="footer" className="footer">
+  <footer data-testid="footer" className="footer">
     <Link
       to="/bebidas"
     >
@@ -35,6 +35,6 @@ const Footer = () => (
         data-testid="food-bottom-btn"
       />
     </Link>
-  </div>
+  </footer>
 );
 export default Footer;
