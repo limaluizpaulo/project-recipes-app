@@ -3,11 +3,10 @@ import { ADD_LOGIN } from '../store';
 const userReducer = (state, action) => {
   switch (action.type) {
   case ADD_LOGIN: {
-    const { payload: { email, password } } = action;
+    const { payload: { name, value } } = action;
     return {
       ...state,
-      email,
-      password,
+      [name]: value,
     };
   }
   default:

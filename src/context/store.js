@@ -30,6 +30,6 @@ export default store;
 
 // USER
 export const ADD_LOGIN = 'ADD_LOGIN'; // ACTION -> ADD_LOGIN
-export const addLogin = (email, password) => ({ // ACTION-CREATOR -> ADD_LOGIN
-  type: ADD_LOGIN, payload: { email, password },
+export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR -> ADD_LOGIN
+  type: ADD_LOGIN, payload: { name, value },
 });

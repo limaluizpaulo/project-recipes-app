@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
-import store from '../../context/store';
+import store, { addLogin } from '../../context/store';
 import { setStorage } from '../../functions';
 
 export default function Login() {
   const [disabledBtn, setDisabledBtn] = useState(true);
-  const { user /* setUser */ } = useContext(store);
+  const { user, setUser } = useContext(store);
   const { email, password } = user;
 
   const validationEmailPwd = () => {
@@ -30,7 +30,7 @@ export default function Login() {
 
   // CICLOS DE VIDA --------------------------------------------------------------------------
 
-  useEffect(validationEmailPwd, [user]);
+  useEffect(validationEmailPwd, [email, password.length, user]);
 
   // ------------------------------------------------------------------------------------------
   return (
@@ -38,15 +38,20 @@ export default function Login() {
       <input
         name="email"
         placeholder="Insira seu e-mail"
+        data-testid="email-input"
+        onChange={ (e) => setUser(addLogin(e)) }
       />
       <input
         type="password"
         name="password"
         placeholder="Insira sua senha de 6 dígitos"
+        data-testid="password-input"
+        onChange={ (e) => setUser(addLogin(e)) }
       />
       {/* <Link to="/recipes"> */}
       <button
         type="button"
+        data-testid="login-submit-btn"
         disabled={ disabledBtn }
         onClick={ handleClick }
       >
