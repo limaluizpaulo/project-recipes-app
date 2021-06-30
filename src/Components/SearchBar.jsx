@@ -1,28 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFoods } from '../redux/actions/index';
+import MealsAPI from '../services/MealRecipesAPI';
 
 function SearchBar(props) {
   const inputText = React.useRef();
   const ingredientRadio = React.useRef();
   const letterRadio = React.useRef();
   const nameRadio = React.useRef();
-
   const { getFoodsApi } = props;
+
   const handleClick = (e) => {
     e.preventDefault();
-    switch (true) {
-    case ingredientRadio.current.checked:
-      getFoodsApi(inputText.current.value, ingredientRadio.current.id);
-      break;
-    case letterRadio.current.checked:
-      getFoodsApi(inputText.current.value, letterRadio.current.id);
-      break;
-    case nameRadio.current.checked:
-      getFoodsApi(inputText.current.value, nameRadio.current.id);
-      break;
-    default: getFoodsApi(inputText.current.value, nameRadio.current.id);
-    }
+    const radioInputRefs = [ingredientRadio, letterRadio, nameRadio];
+    const radioRef = radioInputRefs.find((radio) => radio.current.checked);
+    getFoodsApi(inputText.current.value, MealsAPI[radioRef.current.id]);
   };
   return (
     <form>
@@ -54,7 +47,6 @@ function SearchBar(props) {
           checked
           type="radio"
           ref={ nameRadio }
-
           name="radioFilter"
           data-testid="name-search-radio"
         />
@@ -83,7 +75,8 @@ function SearchBar(props) {
   );
 }
 const mapDispatchToProps = ((dispatch) => ({
-  getFoodsApi: (ingredients) => dispatch(getFoods(ingredients)),
+  getFoodsApi: (value, callback) => dispatch(getFoods(value, callback)),
 }));
 
+SearchBar.propTypes = PropTypes.func.isRequired;
 export default connect(null, mapDispatchToProps)(SearchBar);
