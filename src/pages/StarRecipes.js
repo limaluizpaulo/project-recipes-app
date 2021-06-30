@@ -1,8 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function StarRecipes() {
   return (
-    <div />
+    <div>
+      <Header title="Receitas Favoritas" />
+    </div>
   );
 }
 
