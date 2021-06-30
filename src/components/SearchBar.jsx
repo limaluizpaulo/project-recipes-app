@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function SearchBar() {
+  const [, setSearchText] = useState('');
+  const [, setRadioButton] = useState('ingredients');
+
   return (
     <form>
       <input
         type="text"
-        name="ingrendients"
+        name="searchText"
         data-testid="search-input"
+        onChange={ ({ target: { value } }) => setSearchText(value) }
       />
       <label htmlFor="ingrendients">
         <input
           type="radio"
           id="ingredients"
-          name="ingrendients"
+          value="ingredients"
+          name="searchType"
           data-testid="ingredients-search-radio"
+          onChange={ ({ target: { value } }) => setRadioButton(value) }
         />
         Ingrediente
       </label>
       <label htmlFor="nome">
         <input
           type="radio"
-          name="ingrendients"
+          id="nome"
+          value="nome"
+          name="searchType"
           data-testid="name-search-radio"
+          onChange={ ({ target: { value } }) => setRadioButton(value) }
         />
         Nome
       </label>
@@ -30,8 +39,9 @@ function SearchBar() {
           type="radio"
           id="primeiraLetra"
           value="primeiraLetra"
-          name="ingrendients"
+          name="searchType"
           data-testid="first-letter-search-radio"
+          onChange={ ({ target: { value } }) => setRadioButton(value) }
         />
         Primeira Letra
       </label>
@@ -44,5 +54,4 @@ function SearchBar() {
     </form>
   );
 }
-
 export default SearchBar;
