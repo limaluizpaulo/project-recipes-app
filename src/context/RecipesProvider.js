@@ -13,9 +13,10 @@ function RecipesProvider({ children }) {
   };
 
   const getRandomRacipes = async (recipe) => {
-    const { drinks } = await RandomRacipe(recipe);
-    console.log('Surpreenda', drinks[0]);
-    setRecipeDetail(drinks[0]);
+    const result = await RandomRacipe(recipe);
+    // console.log(result);
+    console.log('Surpreenda', result[recipe][0]);
+    setRecipeDetail(result[recipe][0]);
     setGoDetail(true);
   };
 
@@ -27,6 +28,7 @@ function RecipesProvider({ children }) {
         getRandomRacipes,
         recipeDetail,
         goDetail,
+        setGoDetail,
       } }
     >
       { children }

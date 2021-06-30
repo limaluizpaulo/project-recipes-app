@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
 function ExploreDrinks() {
-  const { getRandomRacipes, recipeDetail, goDetail } = useContext(RecipesContext);
+  const { getRandomRacipes,
+    recipeDetail, goDetail, setGoDetail } = useContext(RecipesContext);
+
+  useEffect(() => () => setGoDetail(false), []);
+
   return (
     <div>
       { goDetail && <Redirect to={ `/bebidas/${recipeDetail.idDrink}` } /> }
