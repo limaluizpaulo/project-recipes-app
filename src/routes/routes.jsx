@@ -22,12 +22,12 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Recipes } />
-      <Route path="/bebidas" component={ Drinks } />
-      <Route path="/comidas/{id-da-receita}" component={ FoodDetail } />
-      <Route path="/bebidas/{id-da-receita}" component={ DrinkDetail } />
-      <Route path="/comidas/{id-da-receita}/in-progress" component={ FoodProgress } />
-      <Route path="/bebidas/{id-da-receita}/in-progress" component={ DrinkProgress } />
+      <Route exact path="/comidas" component={ Recipes } />
+      <Route exact path="/bebidas" component={ Drinks } />
+      <Route path="/comidas/:id-da-receita" component={ FoodDetail } />
+      <Route path="/bebidas/:id-da-receita" component={ DrinkDetail } />
+      <Route path="/comidas/:id-da-receita/in-progress" component={ FoodProgress } />
+      <Route path="/bebidas/:id-da-receita/in-progress" component={ DrinkProgress } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/explorar/comidas" component={ ExploreFoods } />
       <Route path="/explorar/bebidas" component={ ExploreDrinks } />

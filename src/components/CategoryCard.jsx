@@ -7,7 +7,7 @@ import DrinksContext from '../context/DrinksContext';
 function CategoryCard(props) {
   const { recipeCategory, setRecipeCategory } = useContext(RecipesContext);
   const { drinkCategory, setDrinkCategory } = useContext(DrinksContext);
-  const { food, name } = props;
+  const { comida, name } = props;
 
   function toogleRecipeCategory(ev) {
     if (recipeCategory === ev.target.innerText) {
@@ -26,7 +26,7 @@ function CategoryCard(props) {
       <Button
         data-testid={ `${name}-category-filter` }
         onClick={
-          food
+          comida
             ? toogleRecipeCategory
             : toogleDrinkCategory
         }
@@ -39,7 +39,7 @@ function CategoryCard(props) {
 }
 
 CategoryCard.propTypes = {
-  food: PropTypes.bool.isRequired,
+  comida: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
 };
 

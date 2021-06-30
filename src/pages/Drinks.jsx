@@ -49,14 +49,16 @@ function Drinks() {
       </Button>
       {categories.map((category, index) => (<CategoryCard
         key={ index }
-        food={ false }
+        comida={ false }
         name={ category.strCategory }
       />))}
-      {drinks.map((recipe, index) => (<FoodCard
+      {drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => (<FoodCard
         index={ index }
-        key={ recipe.idDrink }
-        food={ recipe.strDrink }
-        thumb={ recipe.strDrinkThumb }
+        key={ idDrink }
+        id={ idDrink }
+        food={ strDrink }
+        thumb={ strDrinkThumb }
+        comida={ false }
       />))}
     </section>
 
