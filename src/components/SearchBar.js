@@ -40,6 +40,7 @@ const SearchBar = () => {
             data-testid="first-letter-search-radio"
           />
         </label>
+        <button></button>
       </div>
     </div>
   );
