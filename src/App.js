@@ -1,20 +1,34 @@
 import React from 'react';
+import { Switch, Route } from 'react-router';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Comidas from './pages/Comidas';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <Switch>
+
+      <Route path="/explorar/comidas/area" component="a" />
+      <Route path="/explorar/bebidas/ingredientes" component="a" />
+      <Route path="/explorar/comidas/ingredientes" component="a" />
+      <Route path="/comidas/:id/in-progress" component="a" />
+      <Route path="/bebidas/:id/in-progress" component="a" />
+      <Route path="/explorar/comidas" component="a" />
+      <Route path="/explorar/bebidas" component="a" />
+      <Route path="/comidas/:id" component="a" />
+      <Route path="/bebidas/:id" component="a" />
+      <Route path="/receitas-feitas" component="a" />
+      <Route path="/receitas-favoritas" component="a" />
+      <Route path="/explorar" component="a" />
+      <Route path="/perfil" component="a" />
+      <Route path="/comidas" component={ Comidas } />
+      <Route path="/bebidas" component="a" />
+      <Route exact path="/" component={ Home } />
+      <Route component={ NotFound } />
+    </Switch>
   );
 }
 
