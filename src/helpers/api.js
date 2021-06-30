@@ -13,7 +13,7 @@ const fetchAPI = async (url) => {
 };
 
 const getAPI = async (url, type, key) => {
-  const endpoint = `${url}${type}=list`;
+  const endpoint = `${url}${type}`;
   console.log(endpoint);
   try {
     const results = await fetchAPI(endpoint);

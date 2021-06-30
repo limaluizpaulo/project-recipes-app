@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useContext } from 'react';
+import MainCards from '../components/MainCards';
+import MealsContext from '../contexts/MealsContext';
 
-function Comidas() {
-  return (
-    <Header />
+export default function Comidas() {
+  const { mealsRecipes, isFetching } = useContext(MealsContext);
+  return isFetching ? <p>Loading...</p> : (
+    <MainCards title="Comidas" data={ mealsRecipes } searchBar />
   );
 }
-
-export default Comidas;
