@@ -25,8 +25,10 @@ function DrinksProvider({ children }) {
 
   return (
     <DrinksContext.Provider
-      value={ {
-        filterDrinksByIngredient, filterDrinksByName, filterDrinksByFirstLetter } }
+      value={ { filteredDrinks,
+        filterDrinksByIngredient,
+        filterDrinksByName,
+        filterDrinksByFirstLetter } }
     >
       { children }
     </DrinksContext.Provider>

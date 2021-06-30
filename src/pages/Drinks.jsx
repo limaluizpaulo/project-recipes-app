@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchBarDrinks from '../components/SearchBarDrinks';
+import SearchBar from '../components/SearchBar';
 
 function Drinks() {
   return (
     <>
       <h1>Bebidas</h1>
-      <SearchBarDrinks />
+      <SearchBar />
     </>
   );
 }

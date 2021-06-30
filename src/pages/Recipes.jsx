@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchBarRecipes from '../components/SearchBarRecipes';
+import SearchBar from '../components/SearchBar';
 
 function Recipes() {
   return (
     <>
       <h1>Receitas</h1>
-      <SearchBarRecipes />
+      <SearchBar />
     </>
   );
 }

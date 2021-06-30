@@ -25,8 +25,10 @@ function RecipesProvider({ children }) {
 
   return (
     <RecipesContext.Provider
-      value={ {
-        filterRecipesByIngredient, filterRecipesByName, filterRecipesByFirstLetter } }
+      value={ { filteredRecipes,
+        filterRecipesByIngredient,
+        filterRecipesByName,
+        filterRecipesByFirstLetter } }
     >
       { children }
     </RecipesContext.Provider>
