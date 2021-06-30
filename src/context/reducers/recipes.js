@@ -1,13 +1,15 @@
 import { ADD_RECIPES } from '../store';
 
-const recipesReducer = (state, action) => {
-  switch (action.type) {
+const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action
+  switch (type) {
   case ADD_RECIPES: {
-    const { payload: { meals, drinks } } = action;
+    const { meals, drinks, categoriesMeals, categoriesDrinks } = payload;
     return {
       ...state,
       meals,
       drinks,
+      categoriesMeals,
+      categoriesDrinks,
     };
   }
   default:

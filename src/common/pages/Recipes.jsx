@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import store, { addRecipes } from '../../context/store';
-import { DRINKS, fetchAPI, MEALS } from '../../services';
+import { CATEG_DRINKS, CATEG_MEALS, DRINKS, fetchAPI, MEALS } from '../../services';
 import RecipeCard from '../components/RecipeCard';
 
 export default function Recipes() {
@@ -13,8 +13,12 @@ export default function Recipes() {
   useEffect(() => {
     const getRecipes = async () => {
       const meals = await fetchAPI(MEALS);
+      const catMeals = await fetchAPI(CATEG_MEALS);
       const drinks = await fetchAPI(DRINKS);
-      setRecipes(addRecipes(meals.meals, drinks.drinks));
+      const catDrinks = await fetchAPI(CATEG_DRINKS);
+      setRecipes(
+        addRecipes(meals.meals, drinks.drinks, catMeals.meals, catDrinks.drinks),
+      );
       setLoading(false);
     };
     getRecipes();
