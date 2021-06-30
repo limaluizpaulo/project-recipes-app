@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { fetchMealsByName } from '../services/mealsApi';
@@ -14,6 +14,7 @@ export default function Recipes() {
   const { drinksFiltered, setDrinksFiltered } = useDrinksContext();
   const [title, setTitle] = useState('');
   const TWELVE = 12;
+ 
   useEffect(() => {
     if (pathname.includes('comidas')) {
       setTitle('Comidas');
@@ -23,7 +24,14 @@ export default function Recipes() {
       setTitle('Bebidas');
       fetchDrinkByName().then((data) => setDrinksFiltered(data.slice(0, TWELVE)));
     }
-  }, [pathname, setMealsFiltered, setDrinksFiltered]);
+  }, [pathname]);
+
+  if (mealsFiltered.length === 1) {
+    return <Redirect to={ `/comidas/${mealsFiltered[0].idMeal}` } />;
+  } if (drinksFiltered.length === 1) {
+    return <Redirect to={ `/bebidas/${drinksFiltered[0].idDrink}` } />;
+  }
+
   return (
     <div>
       <Header title={ title } search />
