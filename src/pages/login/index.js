@@ -17,7 +17,6 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email: user.email }));
-
     history.push('/comidas');
   }
 
@@ -28,7 +27,6 @@ function Login() {
     const password = user.password || '';
 
     if (re.test(email) && password.length >= MIN_PASSWORD_LENGTH) {
-      console.log(password);
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
@@ -62,7 +60,7 @@ function Login() {
         />
       </label>
       <button
-        type="submit"
+        type="button"
         data-testid="login-submit-btn"
         disabled={ disabledButton }
         onClick={ () => handleClick() }
