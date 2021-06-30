@@ -24,7 +24,7 @@ export default function RecipeProvider({ children }) {
   const [inputValue, setInputValue] = useState('');
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [toggleBtnCategories, setToggleBtnCategories] = useState(false)
+  const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
