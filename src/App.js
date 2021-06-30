@@ -4,12 +4,61 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
+import Explorar from './pages/Explorar';
+import Perfil from './pages/Perfil';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import DetalhesComidas from './pages/DetalhesComidas';
+import DetalhesBebidas from './pages/DetalhesBebidas';
+import InProgressFoods from './pages/InProgressFoods';
+import InProgressDrinks from './pages/InProgressDrinks';
+import SearchFoods from './pages/SearchFoods';
+import SearchDrinks from './pages/SearchDrinks';
+import SearchFoodsIngredients from './pages/SearchFoodsIngredients';
+import SearchDrinksIngredients from './pages/SearchDrinksIngredients';
+import OrigensFoods from './pages/OrigensFoods';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route path="/comidas" component={ Foods } />
+      <Route path="/bebidas" component={ Drinks } />
+      <Route path="/explorar" component={ Explorar } />
+      <Route path="/perfil" component={ Perfil } />
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route path="/receitas-favoritas" componet={ ReceitasFavoritas } />
+      <Route path="/comidas/:id" component={ DetalhesComidas } />
+      <Route path="/bebidas/:id" component={ DetalhesBebidas } />
+      <Route
+        path="/comidas/:id/in-progress"
+        component={ InProgressFoods }
+      />
+      <Route
+        path="/bebidas/:id/in-progress"
+        component={ InProgressDrinks }
+      />
+      <Route
+        path="/explorar/comidas"
+        component={ SearchFoods }
+      />
+      <Route
+        path="/explorar/bebidas"
+        component={ SearchDrinks }
+      />
+      <Route
+        path="/explorar/comidas/ingredientes"
+        component={ SearchFoodsIngredients }
+      />
+      <Route
+        path="/explorar/bebidas/ingredientes"
+        component={ SearchDrinksIngredients }
+      />
+      <Route
+        path="/explorar/comidas/area"
+        component={ OrigensFoods }
+      />
     </Switch>
   );
 }
