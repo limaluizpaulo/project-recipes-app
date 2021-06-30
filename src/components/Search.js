@@ -11,6 +11,8 @@ function Search() {
     return fn(message);
   }
 
+  console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
+
   const ONE = 1;
 
   function submit(ev) {
