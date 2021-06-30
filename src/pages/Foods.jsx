@@ -2,9 +2,10 @@ import React from 'react';
 import Header from '../components/Header';
 
 function Foods() {
+  Foods.displayName = 'Comidas';
   return (
     <div>
-      <Header />
+      <Header title={ Foods.displayName } />
     </div>
   );
 }

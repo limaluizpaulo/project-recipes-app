@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Explorar() {
+  Explorar.displayName = 'Explorar';
   return (
-    <h1>Explorar</h1>
+    <div>
+      <Header title={ Explorar.displayName } />
+    </div>
   );
 }
 

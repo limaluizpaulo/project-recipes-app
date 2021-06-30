@@ -23,15 +23,16 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ Foods } />
-      <Route path="/bebidas" component={ Drinks } />
-      <Route path="/explorar" component={ Explorar } />
+      <Route exact path="/comidas" component={ Foods } />
+      <Route exact path="/bebidas" component={ Drinks } />
+      <Route exact path="/explorar" component={ Explorar } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" componet={ ReceitasFavoritas } />
-      <Route path="/comidas/:id" component={ DetalhesComidas } />
-      <Route path="/bebidas/:id" component={ DetalhesBebidas } />
+      <Route exact path="/comidas/:id" component={ DetalhesComidas } />
+      <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
       <Route
+        exact
         path="/comidas/:id/in-progress"
         component={ InProgressFoods }
       />
@@ -40,10 +41,12 @@ function App() {
         component={ InProgressDrinks }
       />
       <Route
+        exact
         path="/explorar/comidas"
         component={ SearchFoods }
       />
       <Route
+        exact
         path="/explorar/bebidas"
         component={ SearchDrinks }
       />

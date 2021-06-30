@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ReceitasFavoritas() {
+  ReceitasFavoritas.displayName = 'Receitas Favoritas';
   return (
-    <h1>ReceitasFavoritas</h1>
+    <div>
+      <Header title={ ReceitasFavoritas.displayName } />
+    </div>
   );
 }
 

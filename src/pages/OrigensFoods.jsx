@@ -1,8 +1,12 @@
 import React from 'react';
+import HeaderSearch from '../components/Header';
 
 function OrigensFoods() {
+  OrigensFoods.displayName = 'Explorar Origem';
   return (
-    <h1>OrigensFoods</h1>
+    <div>
+      <HeaderSearch title={ OrigensFoods.displayName } />
+    </div>
   );
 }
 
