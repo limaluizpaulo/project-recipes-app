@@ -1,4 +1,5 @@
 import { SAVE_USER } from './types';
+import { getRecipes, getDrinks } from '../services/api';
 
 export const actionSaveUser = (email) => ({
   type: SAVE_USER,
@@ -14,12 +15,22 @@ export const actionGetUser = (email) => ({
   },
 });
 
-// export const actionModelThunk = () => (dispatch) => (
-//   // //apiQuestionsRequest()
-//   //   .then((data) => dispatch({
-//   //     type: 'FETCH_GAME_DATA',
-//   //     payload: {
-//   //       data,
-//   //     },
-//     // }))
-// );
+export const actionRecipes = () => (dispatch) => (
+  getRecipes()
+    .then((data) => dispatch({
+      type: 'GET_RECIPES',
+      payload: {
+        data,
+      },
+    }))
+);
+
+export const actionDrinks = () => (dispatch) => (
+  getDrinks()
+    .then((data) => dispatch({
+      type: 'GET_DRINKS',
+      payload: {
+        data,
+      },
+    }))
+);
