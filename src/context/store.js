@@ -8,6 +8,8 @@ export const USER = {
 };
 
 export const RECIPES = {
+  foods: true,
+  cardsLimit: 12,
   meals: [],
   categoryMeals: [],
   drinks: [],
@@ -32,4 +34,11 @@ export default store;
 export const ADD_LOGIN = 'ADD_LOGIN'; // ACTION -> ADD_LOGIN
 export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR -> ADD_LOGIN
   type: ADD_LOGIN, payload: { name, value },
+});
+
+// RECIPES
+
+export const ADD_RECIPES = 'ADD_RECIPES';
+export const addRecipes = (meals, drinks) => ({
+  type: ADD_RECIPES, payload: { meals, drinks },
 });
