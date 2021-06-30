@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-// Tela de explorar: /explorar;
-export default function Explore({ history }) {
+// Tela principal de receitas de bebidas: /bebidas;
+export default function MainDrink({ history }) {
   return (
     <div>
-      <h4>Explore</h4>
-      <Header history={ history } title="Explorar" />
+      <h4>Drinks</h4>
+      <Header history={ history } title="Bebidas" />
       <Footer />
     </div>
   );
 }
 
-Explore.propTypes = {
+MainDrink.propTypes = {
   history: PropTypes.shape().isRequired,
 };
