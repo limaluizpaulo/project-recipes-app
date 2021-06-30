@@ -1,8 +1,8 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/login';
 import PricipalComidas from './pages/principal/PrincipalComidas';
 import PrincipalBebidas from './pages/principal/PrincipalBebidas';
@@ -19,6 +19,7 @@ import ComidasPorArea from './pages/explorar/comidas/ComidasPorArea';
 import Perfil from './pages/perfil';
 import ReceitasFeitas from './pages/receitas-feitas';
 import ReceitasFavoritas from './pages/receitas-favoritas';
+import './App.css';
 
 function App() {
   return (

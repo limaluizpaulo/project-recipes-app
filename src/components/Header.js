@@ -3,11 +3,13 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import invokeAlert from '../helpers';
 import {
   fetchByIngredient,
   fetchByName,
   fetchByFirstLetter,
 } from '../services';
+import './Header.css';
 
 function Header({ title, show = true }) {
   const history = useHistory();
@@ -21,23 +23,18 @@ function Header({ title, show = true }) {
     setSearch(value);
   }
 
-  // Créditos à Lucas Martins - Turma 10 - Tribo B
-  function invokeAlert(fn, message) {
-    fn(message);
-  }
-
   async function getData() {
-    let result = { drinks: [], meals: [] };
-    const type = pathname.includes('comidas') ? 'meals' : 'drinks';
+    const result = { drinks: [], meals: [] };
+    const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
 
     if (filter === 'ingredient') {
-      result = { ...result, ...await fetchByIngredient(type, search) };
+      result[type] = await fetchByIngredient(type, search);
     } else if (filter === 'name') {
-      result = { ...result, ...await fetchByName(type, search) };
-    } else if (search.length < 2) {
-      result = { ...result, ...await fetchByFirstLetter(type, search) };
+      result[type] = await fetchByName(type, search);
+    } else if (search.length === 1) {
+      result[type] = await fetchByFirstLetter(type, search);
     } else {
-      invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      invokeAlert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     console.log(result);
@@ -55,9 +52,7 @@ function Header({ title, show = true }) {
         <button type="button" onClick={ () => history.push('/perfil') }>
           <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile" />
         </button>
-      </div>
-      <div data-testid="page-title">{title}</div>
-      <div>
+        <h2 data-testid="page-title">{title}</h2>
         {show && (
           <button type="button" onClick={ () => setShowSearch(!showSearch) }>
             <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
@@ -65,7 +60,7 @@ function Header({ title, show = true }) {
         )}
       </div>
       {showSearch && (
-        <>
+        <div>
           <div>
             <input
               type="text"
@@ -109,15 +104,13 @@ function Header({ title, show = true }) {
               />
               Primeira letra
             </label>
-            <button
-              data-testid="exec-search-btn"
-              type="button"
-              onClick={ getData }
-            >
-              <span>Buscar</span>
+          </div>
+          <div>
+            <button data-testid="exec-search-btn" type="button" onClick={ getData }>
+              Buscar
             </button>
           </div>
-        </>
+        </div>
       )}
     </header>
   );

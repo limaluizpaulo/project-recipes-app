@@ -1,0 +1,16 @@
+/* header {
+  background-color: orangered;
+  padding: 10px;
+}
+
+header > div:first-child {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+header > div:last-child {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+} */
