@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import '../css/SearchBar.css';
 
-import { fetchIngrentAction } from '../actions';
 import { connect } from 'react-redux';
+import { fetchIngrentAction } from '../actions';
 
 class SearchBar extends Component {
   constructor() {
@@ -15,15 +16,31 @@ class SearchBar extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.buscaReceita = this.buscaReceita.bind(this);
+    this.invokeAlert = this.invokeAlert.bind(this);
   }
 
   handleChange({ target }) {
     this.setState({ [target.name]: target.value });
   }
 
-  render() {
-    const { requestRecipes } = this.props;
+  buscaReceita() {
     const { searchInput, searchFilter } = this.state;
+    const { requestRecipes } = this.props;
+    if (searchFilter === 'primeira-letra' && searchInput.length > 1) {
+      this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      requestRecipes(searchInput, searchFilter);
+    } else {
+      requestRecipes(searchInput, searchFilter);
+    }
+  }
+
+  // Source https://trybecourse.slack.com/archives/C01LCSLCZ8D/p1625054932179900
+  invokeAlert(fn, message) {
+    fn(message);
+  }
+
+  render() {
     return (
       <div className="search">
         <div className="search-container">
@@ -77,7 +94,7 @@ class SearchBar extends Component {
             data-testid="exec-search-btn"
             className="btt-search"
             type="button"
-            onClick={ () => requestRecipes(searchInput, searchFilter) }
+            onClick={ () => this.buscaReceita() }
           >
             Buscar
           </button>
@@ -88,7 +105,12 @@ class SearchBar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  requestRecipes: (searchInput, searchFilter) => dispatch(fetchIngrentAction(searchInput, searchFilter)),
+  requestRecipes: (searchInput, searchFilter) => (
+    dispatch(fetchIngrentAction(searchInput, searchFilter))),
 });
+
+SearchBar.propTypes = {
+  requestRecipes: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(SearchBar);

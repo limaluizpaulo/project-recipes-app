@@ -19,12 +19,9 @@ export const fetchFirstLetter = async (primeiraLetra) => {
 };
 
 export const fetchIngrentAction = (searchInput, searchFilter) => async (dispatch) => {
-  console.log(searchInput);
-  console.log(searchFilter);
   let result = {};
   if (searchFilter === 'ingrediente') {
     result = await fetchIngrediente(searchInput);
-    console.log(result);
   } else if (searchFilter === 'nome') {
     result = await fetchName(searchInput);
   } else {
