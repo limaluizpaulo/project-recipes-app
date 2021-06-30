@@ -31,6 +31,7 @@ function MainDrink() {
           <button
             type="button"
             key={ idx }
+            data-testid={ `${el.strCategory}-category-filter` }
           >
             {el.strCategory}
           </button>
