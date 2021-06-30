@@ -37,6 +37,7 @@ function FoodRecipes() {
         {firstCategories.map((category, index) => (
           <button
             className="category-btn"
+            data-testid={ `${category}-category-filter` }
             key={ index }
             type="button"
           >
@@ -45,10 +46,18 @@ function FoodRecipes() {
         ))}
       </div>
       <div className="card-container">
-        {firstMeals.map((meal) => (
-          <div className="card" key={ meal.strMeal }>
-            <img src={ meal.strMealThumb } alt={ meal.strMeal } />
-            <p>{meal.strMeal}</p>
+        {firstMeals.map((meal, index) => (
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="card"
+            key={ meal.strMeal }
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ meal.strMealThumb }
+              alt={ meal.strMeal }
+            />
+            <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
           </div>
         ))}
       </div>
