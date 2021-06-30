@@ -43,7 +43,12 @@ function Recipes() {
 
   return (
     <section>
-      <Button onClick={ (ev) => { setRecipeCategory(ev.target.innerText); } }>All</Button>
+      <Button
+        data-testid="All-category-filter"
+        onClick={ (ev) => { setRecipeCategory(ev.target.innerText); } }
+      >
+        All
+      </Button>
       {categories.map((category, index) => (<CategoryCard
         key={ index }
         food

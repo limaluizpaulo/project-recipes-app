@@ -41,7 +41,12 @@ function Drinks() {
 
   return (
     <section>
-      <Button onClick={ (ev) => { setDrinkCategory(ev.target.innerText); } }>All</Button>
+      <Button
+        data-testid="All-category-filter"
+        onClick={ (ev) => { setDrinkCategory(ev.target.innerText); } }
+      >
+        All
+      </Button>
       {categories.map((category, index) => (<CategoryCard
         key={ index }
         food={ false }

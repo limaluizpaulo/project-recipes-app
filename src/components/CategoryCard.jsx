@@ -5,9 +5,21 @@ import RecipesContext from '../context/RecipesContext';
 import DrinksContext from '../context/DrinksContext';
 
 function CategoryCard(props) {
-  const { setRecipeCategory } = useContext(RecipesContext);
-  const { setDrinkCategory } = useContext(DrinksContext);
+  const { recipeCategory, setRecipeCategory } = useContext(RecipesContext);
+  const { drinkCategory, setDrinkCategory } = useContext(DrinksContext);
   const { food, name } = props;
+
+  function toogleRecipeCategory(ev) {
+    if (recipeCategory === ev.target.innerText) {
+      setRecipeCategory('All');
+    } else { setRecipeCategory(ev.target.innerText); }
+  }
+
+  function toogleDrinkCategory(ev) {
+    if (drinkCategory === ev.target.innerText) {
+      setDrinkCategory('All');
+    } else { setDrinkCategory(ev.target.innerText); }
+  }
 
   return (
     <section>
@@ -15,8 +27,8 @@ function CategoryCard(props) {
         data-testid={ `${name}-category-filter` }
         onClick={
           food
-            ? (ev) => { setRecipeCategory(ev.target.innerText); }
-            : (ev) => { setDrinkCategory(ev.target.innerText); }
+            ? toogleRecipeCategory
+            : toogleDrinkCategory
         }
       >
         {name}
