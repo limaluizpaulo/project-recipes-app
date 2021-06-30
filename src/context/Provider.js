@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 export const GlobalContext = createContext();
 
-const checkOption = ({ inputSearch, option }) => {
+const checkOption = ({ inputSearch, option, food }) => {
   let query;
+  let db;
   switch (option) {
   case 'ingredient':
     query = `filter.php?i=${inputSearch}`;
@@ -18,8 +19,16 @@ const checkOption = ({ inputSearch, option }) => {
   default:
     return false;
   }
-  return `https://www.themealdb.com/api/json/v1/1/${query}`;
+
+  if (food) db = 'themealdb';
+  if (!food) db = 'thecocktaildb';
+
+  return `https://www.${db}.com/api/json/v1/1/${query}`;
 };
+
+// https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingrediente}
+// https://www.thecocktaildb.com/api/json/v1/1/search.php?s={nome}
+// https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}
 
 // 'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken'
 // https://www.themealdb.com/api/json/v1/1/search.php?s=soup'

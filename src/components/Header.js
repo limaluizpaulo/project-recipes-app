@@ -5,7 +5,7 @@ import iconProfile from '../images/profileIcon.svg';
 import iconSearch from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-const Header = ({ search, title }) => {
+const Header = ({ search, title, food = false }) => {
   const [searchInput, toggleSearch] = useState();
 
   return (
@@ -29,7 +29,7 @@ const Header = ({ search, title }) => {
           />
         </button>
       )}
-      { searchInput && <SearchBar />}
+      { searchInput && <SearchBar food={ food } />}
     </div>
   );
 };
@@ -37,10 +37,12 @@ const Header = ({ search, title }) => {
 Header.defaultProps = {
   search: false,
   title: '',
+  food: false,
 };
 
 Header.propTypes = {
   search: PropTypes.bool,
+  food: PropTypes.bool,
   title: PropTypes.string,
 };
 

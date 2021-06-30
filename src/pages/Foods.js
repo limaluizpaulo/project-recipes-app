@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 const Foods = () => (
   <div>
-    <Header title="Comidas" search />
+    <Header title="Comidas" search food />
   </div>
 );
 

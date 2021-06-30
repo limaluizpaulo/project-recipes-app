@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { GlobalContext } from '../context/Provider';
 
-const SearchBar = () => {
+const SearchBar = ({ food }) => {
   const [option, setOption] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const { setSearchOp } = useContext(GlobalContext);
@@ -54,7 +55,7 @@ const SearchBar = () => {
             if (inputSearch.length > 1 && option === 'firstLetter') {
               return global.alert('Sua busca deve conter somente 1 (um) caracter');
             }
-            setSearchOp({ option, inputSearch });
+            setSearchOp({ option, inputSearch, food });
           } }
           type="button"
           data-testid="exec-search-btn"
@@ -64,6 +65,10 @@ const SearchBar = () => {
       </div>
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  food: PropTypes.bool.isRequired,
 };
 
 export default SearchBar;
