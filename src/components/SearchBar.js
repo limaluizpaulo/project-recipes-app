@@ -5,6 +5,7 @@ const SearchBar = () => {
   const [option, setOption] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const { setSearchOp } = useContext(GlobalContext);
+
   return (
     <div>
       <label htmlFor="search">
@@ -49,7 +50,12 @@ const SearchBar = () => {
           Primeira letra
         </label>
         <button
-          onClick={ () => setSearchOp({ option, inputSearch }) }
+          onClick={ () => {
+            if (inputSearch.length > 1 && option === 'firstLetter') {
+              return global.alert('Sua busca deve conter somente 1 (um) caracter');
+            }
+            setSearchOp({ option, inputSearch });
+          } }
           type="button"
           data-testid="exec-search-btn"
         >
