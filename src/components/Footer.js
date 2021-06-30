@@ -17,15 +17,14 @@ function Footer() {
 
   const renderContent = () => (
     <footer data-testid="footer">
-      {/* TODO: Remove to="comidas" */}
-      <Link to="/bebidas" data-testid="drinks-bottom-btn">
-        <img src={ drinkIcon } alt="Drink Icon" />
+      <Link to="/bebidas">
+        <img src={ drinkIcon } alt="Drink Icon" data-testid="drinks-bottom-btn" />
       </Link>
-      <Link to="/explorar" data-testid="explore-bottom-btn">
-        <img src={ exploreIcon } alt="Explore Icon" />
+      <Link to="/explorar">
+        <img src={ exploreIcon } alt="Explore Icon" data-testid="explore-bottom-btn" />
       </Link>
-      <Link to="/comidas" data-testid="food-bottom-btn">
-        <img src={ mealIcon } alt="Meal Icon" />
+      <Link to="/comidas">
+        <img src={ mealIcon } alt="Meal Icon" data-testid="food-bottom-btn" />
       </Link>
     </footer>
   );
