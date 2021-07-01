@@ -4,15 +4,16 @@ import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
 function ExploreDrinks() {
-  const { getRandomRacipes,
-    recipeDetail, goDetail, setGoDetail } = useContext(RecipesContext);
+  const { getRandomRecipe, recipeDetails,
+    redirectToRecipeDetails, setRedirectToRecipeDetails } = useContext(RecipesContext);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => setGoDetail(false), []);
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => () => setRedirectToRecipeDetails(false), []);
 
   return (
     <div>
-      { goDetail && <Redirect to={ `/bebidas/${recipeDetail.idDrink}` } /> }
+      { redirectToRecipeDetails
+        && <Redirect to={ `/bebidas/${recipeDetails.idDrink}` } /> }
       ExploreDrinks
       <br />
       <Link
@@ -25,7 +26,7 @@ function ExploreDrinks() {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => getRandomRacipes('drinks') }
+        onClick={ () => getRandomRecipe('cocktail') }
       >
         Me Surpreenda!
       </button>

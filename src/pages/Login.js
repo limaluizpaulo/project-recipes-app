@@ -28,7 +28,7 @@ function Login() {
   };
 
   const buttonLogin = () => {
-    login({ email, password });
+    login(email);
     setLocalStorage();
     setRedirectToComidas(true);
   };

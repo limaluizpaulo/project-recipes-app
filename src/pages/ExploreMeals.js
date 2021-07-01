@@ -1,42 +1,48 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
+
 import RecipesContext from '../context/RecipesContext';
 
-function ExploreFood() {
-  const { getRandomRacipes,
-    recipeDetail, goDetail, setGoDetail } = useContext(RecipesContext);
+import './style/ExploreMeals.css';
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => setGoDetail(false), []);
+function ExploreMeals() {
+  const {
+    redirectToRecipeDetails,
+    recipeDetails,
+    getRandomRecipe,
+    setRedirectToRecipeDetails,
+  } = useContext(RecipesContext);
+
+  useEffect(() => () => setRedirectToRecipeDetails(false), []);
+
   return (
-    <div>
-      { goDetail && <Redirect to={ `/comidas/${recipeDetail.idMeal}` } /> }
+    <main>
+      { redirectToRecipeDetails
+        && <Redirect to={ `/comidas/${recipeDetails.idMeal}` } /> }
       ExploreFood
-      <br />
       <Link
         to="/explorar/comidas/ingredientes"
         data-testid="explore-by-ingredient"
       >
         Por Ingredientes
       </Link>
-      <br />
       <Link
         to="/explorar/comidas/area"
         data-testid="explore-by-area"
       >
         Por Local de Origem
       </Link>
-      <br />
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => getRandomRacipes('meals') }
+        onClick={ getRandomRecipe }
       >
         Me Surpreenda!
       </button>
-    </div>
+    </main>
   );
 }
 
-export default ExploreFood;
+export default ExploreMeals;

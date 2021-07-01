@@ -5,7 +5,7 @@ import { fetchIngredientesRecipes } from '../services/RecipesAPI';
 
 import '../components/style/IngredientsMeal.css';
 
-function IngredientDrink() {
+function IngredientMeals() {
   const { filterByIngredients, redirectToMainScreen,
     setRedirectToMainScreen } = useContext(RecipesContext);
 
@@ -14,8 +14,8 @@ function IngredientDrink() {
   const [maxCards/* setMaxCards */] = useState(DOZE);
 
   const getIngredients = async () => {
-    const { drinks } = await fetchIngredientesRecipes('drinks');
-    setIngredients(drinks);
+    const { meals } = await fetchIngredientesRecipes('meals');
+    setIngredients(meals);
   };
 
   useEffect(() => {
@@ -25,31 +25,32 @@ function IngredientDrink() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => setRedirectToMainScreen(false), []);
 
-  const imgUrl = 'https://www.thecocktaildb.com/images/ingredients/';
+  const imgUrl = 'https://www.themealdb.com/images/ingredients/';
   return (
     <div>
       { redirectToMainScreen && <Redirect to="/comidas" /> }
-      { ingredients.slice(0, maxCards).map(({ strIngredient1 }, index) => (
+
+      { ingredients.slice(0, maxCards).map(({ idIngredient, strIngredient }, index) => (
         <label
           data-testid={ `${index}-ingredient-card` }
-          key={ index }
-          htmlFor={ strIngredient1 }
+          key={ idIngredient }
+          htmlFor={ strIngredient }
           className="optionIngredients"
         >
           <input
             type="radio"
-            onClick={ () => filterByIngredients(strIngredient1) }
-            id={ strIngredient1 }
+            onClick={ () => filterByIngredients(strIngredient) }
+            id={ strIngredient }
             className="search-icon-radio"
           />
           <img
             data-testid={ `${index}-card-img` }
-            src={ `${imgUrl}${strIngredient1}-Small.png` }
-            alt={ strIngredient1 }
+            src={ `${imgUrl}${strIngredient}-Small.png` }
+            alt={ strIngredient }
             className="cardImage"
           />
           <p data-testid={ `${index}-card-name` }>
-            { strIngredient1 }
+            { strIngredient }
           </p>
         </label>
       )) }
@@ -57,4 +58,4 @@ function IngredientDrink() {
   );
 }
 
-export default IngredientDrink;
+export default IngredientMeals;
