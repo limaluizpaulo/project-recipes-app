@@ -8,7 +8,7 @@ function DrinkCard(props) {
 
   const totalRecipes = 12;
   const drinks = resultDrink.filter((elem, index) => index < totalRecipes);
-  console.log(resultDrink);
+
   return drinks.map((recipe, index) => (
     <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
       <img
