@@ -1,9 +1,9 @@
 import { ADD_LOGIN } from '../store';
 
-const userReducer = (state, action) => {
-  switch (action.type) {
+const userReducer = (state, { type, payload }) => { // Desestruturação do Action
+  switch (type) {
   case ADD_LOGIN: {
-    const { payload: { name, value } } = action;
+    const { name, value } = payload;
     return {
       ...state,
       [name]: value,

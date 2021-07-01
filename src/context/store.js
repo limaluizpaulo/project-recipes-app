@@ -9,11 +9,12 @@ export const USER = {
 
 export const RECIPES = {
   foods: true,
+  categoriesLimit: 5,
   cardsLimit: 12,
   meals: [],
-  categoryMeals: [],
+  categoriesMeals: [],
   drinks: [],
-  categoryDrinks: [],
+  categoriesDrinks: [],
 };
 
 export const SEARCH = {
@@ -39,6 +40,11 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 // RECIPES
 
 export const ADD_RECIPES = 'ADD_RECIPES';
-export const addRecipes = (meals, drinks) => ({
-  type: ADD_RECIPES, payload: { meals, drinks },
+export const addRecipes = (meals, drinks, categoriesMeals, categoriesDrinks) => ({
+  type: ADD_RECIPES, payload: { meals, drinks, categoriesMeals, categoriesDrinks },
+});
+
+export const DIRECT_PAGE = 'DIRECT_PAGE';
+export const directPage = (foods) => ({
+  type: DIRECT_PAGE, payload: { foods },
 });
