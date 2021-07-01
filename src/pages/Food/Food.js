@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import requestMeal from '../../helpers/requests';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import './Food.css';
 
 function Food() {
@@ -40,6 +41,7 @@ function Food() {
           ? 'Carregando...'
           : (mapData(data))
       }
+      <Footer />
     </div>
   );
 }
