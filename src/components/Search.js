@@ -49,6 +49,7 @@ function Search() {
       const object = await inputSearch.length === ONE
         ? atalho(searchByFirstLetterFood, inputSearch)
         : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      return object;
     }
   }
 
