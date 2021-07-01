@@ -44,7 +44,7 @@ export default function Login() {
       <input
         type="password"
         name="password"
-        placeholder="Insira sua senha de 6 dígitos"
+        placeholder="senha de 7 ou mais dígitos"
         data-testid="password-input"
         onChange={ (e) => setUser(addLogin(e)) }
       />
