@@ -9,7 +9,7 @@ import Card from '../components/Card';
 function Recipes() {
   const { recipesFilter: { filteredRecipes },
     allRecipes: { recipes }, allCategories: { categories },
-    recipesFilteredByCategory: { recipesByCategory }, setCategory, category,
+    recipesFilteredByCategory: { recipesByCategory }, setCategory, category, setIsFiltred, isFiltred,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -23,7 +23,7 @@ function Recipes() {
   }, [filteredRecipes, history]);
 
   function renderRecipesDefault() {
-    if (!recipesByCategory) {
+    if (!recipesByCategory && isFiltred === false) {
       return (
         <div>
           {
@@ -68,6 +68,7 @@ function Recipes() {
                 key={ index }
                 data-testid={ `${categoryRecipes.strCategory}-category-filter` }
                 onClick={ (event) => {
+                  setIsFiltred(false);
                   if (category === event.target.innerText) {
                     setCategory('All');
                   } else {
@@ -91,10 +92,10 @@ function Recipes() {
       {renderButtonCategories()}
 
       {
-        filteredRecipes.length === 0
-          ? renderRecipesDefault()
-          : <FilteredList filteredRecipes={ filteredRecipes } />
+        isFiltred ? <FilteredList filteredRecipes={ filteredRecipes } recipesByCategory={ recipesByCategory } />
+          : renderRecipesDefault()
       }
+
     </>
   );
 }

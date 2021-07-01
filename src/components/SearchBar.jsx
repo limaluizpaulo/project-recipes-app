@@ -12,7 +12,7 @@ function SearchBar() {
   const { location: { pathname } } = useHistory();
 
   const { filterRecipesByIngredient, filterRecipesByName, filterRecipesByFirstLetter,
-    recipesFilter: { filteredRecipes } } = useContext(RecipesContext);
+    recipesFilter: { filteredRecipes }, setIsFiltred, setCategory } = useContext(RecipesContext);
 
   const { filterDrinksByIngredient,
     filterDrinksByName, filterDrinksByFirstLetter,
@@ -44,6 +44,9 @@ function SearchBar() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsFiltred(true);
+    setCategory('All');
+
     if (pathname.includes('/comidas')) {
       if (textFilter && typeOfFilter === 'ingredient') {
         filterRecipesByIngredient(textFilter);
