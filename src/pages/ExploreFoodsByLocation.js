@@ -6,7 +6,7 @@ function ExploreFoodsByLocation() {
   return (
     <section>
       <Header />
-      <h1>Página Explorar comidas por ingredientes</h1>
+      <h1>Página Explorar comidas por Localizacao</h1>
       <Footer />
     </section>
   );

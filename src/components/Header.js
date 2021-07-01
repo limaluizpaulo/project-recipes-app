@@ -11,8 +11,9 @@ export default function Header() {
   // Source: https://stackoverflow.com/questions/26574388/boolean-logic-in-switch-case-statement-java/26574416
   function imageRendering() {
     switch (path) {
-    case '/explorar':
     case '/comidas':
+    case '/bebidas':
+    case '/explorar':
       return (
         <>
           <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
