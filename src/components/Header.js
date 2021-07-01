@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import iconProfile from '../images/profileIcon.svg';
 import iconSearch from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
-const Header = ({ search, title }) => {
+const Header = ({ search, title, food = false }) => {
   const [searchInput, toggleSearch] = useState();
 
   return (
@@ -28,14 +29,7 @@ const Header = ({ search, title }) => {
           />
         </button>
       )}
-      { searchInput && (
-        (
-          <label htmlFor="search">
-            Explorar:
-            <input id="search" type="text" data-testid="search-input" />
-          </label>
-        )
-      )}
+      { searchInput && <SearchBar food={ food } />}
     </div>
   );
 };
@@ -43,10 +37,12 @@ const Header = ({ search, title }) => {
 Header.defaultProps = {
   search: false,
   title: '',
+  food: false,
 };
 
 Header.propTypes = {
   search: PropTypes.bool,
+  food: PropTypes.bool,
   title: PropTypes.string,
 };
 
