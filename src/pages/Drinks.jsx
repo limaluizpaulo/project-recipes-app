@@ -4,9 +4,7 @@ import CategoryCard from '../components/CategoryCard';
 import FoodCard from '../components/FoodCard';
 import DrinksContext from '../context/DrinksContext';
 
-
 import Header from '../components/Header';
-
 
 function Drinks() {
   const {
@@ -64,7 +62,6 @@ function Drinks() {
         comida={ false }
       />))}
     </>
-
   );
 }
 
