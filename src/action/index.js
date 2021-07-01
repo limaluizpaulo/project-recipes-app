@@ -70,19 +70,31 @@ export const fetchFoodRecipesByfirstLetter = (primeiraletra = '') => (dispatch) 
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraletra}`)
     .then((response) => response.json())
     .then((allFoodRecipes) => {
-      console.log(allFoodRecipes, 'fetch da primeira letra');
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
       dispatch(getAllFoodRecipes(recipes));
     });
 };
 
-export const fetchDrinksRecipes = () => (dispatch) => {
+export const fetchDrinksRecipes = (name = '') => (dispatch) => {
   const maxRecipes = 12;
   dispatch(isLoading());
-  fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`)
     .then((response) => response.json())
     .then((allDrinksRecipes) => {
       const drinksRecipes = allDrinksRecipes.drinks.slice(0, maxRecipes);
+      console.log(drinksRecipes);
+      dispatch(getAllDrinksRecipes(drinksRecipes));
+    });
+};
+
+export const fetchDrinksRecipesByFirstLetter = (letter = '') => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+  fetch(`www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`)
+    .then((response) => response.json())
+    .then((allDrinksRecipesByFirsLetter) => {
+      const drinksRecipes = allDrinksRecipesByFirsLetter.drinks.slice(0, maxRecipes);
+      console.log(drinksRecipes);
       dispatch(getAllDrinksRecipes(drinksRecipes));
     });
 };

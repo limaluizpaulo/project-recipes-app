@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchFoodRecipes, fetchFoodRecipesByIngredients,
-  fetchFoodRecipesByfirstLetter } from '../action';
+  fetchFoodRecipesByfirstLetter,
+  fetchDrinksRecipes,
+  fetchDrinksRecipesByFirstLetter } from '../action';
 
 class SearchBar extends Component {
   constructor() {
@@ -25,24 +27,37 @@ class SearchBar extends Component {
   }
 
   handleClick() {
-    const { fetchApi, fetchApiByIngredient, fetchApiByFirstLetter } = this.props;
+    const { fetchApi, fetchApiByIngredient, fetchApiByFirstLetter,
+      fetchApiDrinks,
+      fetchApiDrinksByFirstLetter } = this.props;
+    const { location } = this.props;
+    console.log(location);
+
+    if (location === '/comidas') {
+      return this.handleFoodAndDrink(fetchApi,
+        fetchApiByIngredient, fetchApiByFirstLetter);
+    }
+    if (location === '/bebidas') {
+      return this.handleFoodAndDrink(fetchApiDrinks, fetchApiDrinks, fetchApiDrinksByFirstLetter);
+    }
+  }
+
+  handleFoodAndDrink(fetchByName, fetchByingrdient, fetchByFirstLetter) {
     const { inputSearch, radioValue } = this.state;
 
     if (!radioValue || radioValue === 'nome') {
-      return fetchApi(inputSearch);
+      return fetchByName(inputSearch);
     }
 
     if (radioValue === 'ingrediente') {
-      return fetchApiByIngredient(inputSearch);
+      return fetchByingrdient(inputSearch);
     }
 
     if (radioValue === 'primeira-letra') {
-      if (!inputSearch) {
-        return this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-      } if (inputSearch.length > 1) {
+      if (!inputSearch || inputSearch.length > 1) {
         return this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       }
-      return fetchApiByFirstLetter(inputSearch);
+      return fetchByFirstLetter(inputSearch);
     }
   }
 
@@ -108,6 +123,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApi: (e) => dispatch(fetchFoodRecipes(e)), // apagar
   fetchApiByIngredient: (e) => dispatch(fetchFoodRecipesByIngredients(e)),
   fetchApiByFirstLetter: (e) => dispatch(fetchFoodRecipesByfirstLetter(e)),
+  fetchApiDrinks: (e) => dispatch(fetchDrinksRecipes(e)),
+  fetchApiDrinksByFirstLetter: (e) => dispatch(fetchDrinksRecipesByFirstLetter(e)),
 
 });
 
