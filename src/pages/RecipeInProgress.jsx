@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import copy from 'clipboard-copy';
 import { getDrinkDetails, getMealDetails } from '../services';
+import shareIcon from '../images/shareIcon.svg';
+import { FavoriteBtn } from '../components';
 
 function RecipeInProgress({ match, history }) {
   const { id } = match.params;
@@ -70,17 +72,16 @@ function RecipeInProgress({ match, history }) {
   );
   const ingredients = strIngredient.filter((el) => el[1] !== '' && el[1] !== null);
 
-  const strMeasure = Object.entries(recipeInProgress).filter(
-    (el) => el[0].includes('strMeasure'),
-  );
-  const measures = strMeasure.filter((el) => el[1] !== '' && el[1] !== null);
+  // const strMeasure = Object.entries(recipeInProgress).filter(
+  //   (el) => el[0].includes('strMeasure'),
+  // );
+  // const measures = strMeasure.filter((el) => el[1] !== '' && el[1] !== null);
 
   const shareRecipe = () => {
     copy(window.location.href.replace('/in-progress', ''));
     setWasCopied(true);
   };
 
-  console.log(measures);
   return (
     <section>
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
@@ -89,16 +90,20 @@ function RecipeInProgress({ match, history }) {
         alt="Imagem ilustrativa do prato "
         data-testid="recipe-photo"
       />
+
       <button
         type="button"
         data-testid="share-btn"
         onClick={ shareRecipe }
       >
-        Compartilhar
+        <img src={ shareIcon } className="small-btn" alt="icone de compartilhar" />
       </button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+
+      <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ recipeInProgress } />
+
       <span data-testid="recipe-category">{strCategory}</span>
       {wasCopied && <span>Link copiado!</span>}
+
       <ul>
         {ingredients.map((recp, idx) => (
           <li

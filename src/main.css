@@ -5,3 +5,7 @@ img {
 /* input:checked {
   text-decoration: line-through;
 } */
+
+.small-btn {
+  width: 20px;
+}
