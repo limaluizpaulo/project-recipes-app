@@ -3,4 +3,4 @@ import Context from './Context';
 
 function GlobalProvider({ children }) {
   const
-} 10621
+}

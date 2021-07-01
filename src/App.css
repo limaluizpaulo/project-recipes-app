@@ -67,3 +67,15 @@
     transform: rotate(-10deg);
   }
 }
+
+footer {
+  bottom: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: space-around;
+}
