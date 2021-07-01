@@ -3,6 +3,7 @@ import store, { addRecipes } from '../../context/store';
 import { DRINKS, fetchAPI, MEALS } from '../../services';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 export default function Recipes() {
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ export default function Recipes() {
     <main className="Cards">
       <Header pageName="Comidas" />
       <RecipeCard />
+      <Footer />
     </main>
   );
 }
