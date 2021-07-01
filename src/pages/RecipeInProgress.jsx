@@ -28,10 +28,15 @@ function RecipeInProgress({ match, history }) {
     strInstructions,
   } = recipeInProgress;
 
-  const ingredients = Object.entries(recipeInProgress).filter(
+  const strIngredient = Object.entries(recipeInProgress).filter(
     (el) => el[0].includes('strIngredient'),
   );
-  const recpIngredients = ingredients.filter((el) => el[1] !== '' && el[1] !== null);
+  const ingredients = strIngredient.filter((el) => el[1] !== '' && el[1] !== null);
+
+  const strMeasure = Object.entries(recipeInProgress).filter(
+    (el) => el[0].includes('strMeasure'),
+  );
+  const measures = strMeasure.filter((el) => el[1] !== '' && el[1] !== null);
 
   return (
     <section>
@@ -45,12 +50,20 @@ function RecipeInProgress({ match, history }) {
       <button type="button" data-testid="favorite-btn">Favoritar</button>
       <span data-testid="recipe-category">{strCategory}</span>
       <ul>
-        {recpIngredients.map((recp, idx) => (
+        {ingredients.map((recp, idx) => (
           <li
             key={ idx }
             data-testid={ `${idx}-ingredient-step` }
           >
-            {recp[1]}
+            <label htmlFor="ingredient">
+              <input
+                type="checkbox"
+                id="ingredient"
+                data-testid={ `${idx}-ingredient-name-and-measure` }
+              />
+              {`${recp[1]} - ${measures[idx][1]}`}
+            </label>
+
           </li>))}
       </ul>
       <span data-testid="instructions">{strInstructions}</span>
