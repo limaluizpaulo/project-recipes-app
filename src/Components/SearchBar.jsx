@@ -15,7 +15,8 @@ function SearchBar(props) {
     e.preventDefault();
     const radioInputRefs = [ingredientRadio, letterRadio, nameRadio];
     const radioRef = radioInputRefs.find((radio) => radio.current.checked);
-    getFoodsApi(inputText.current.value, MealsAPI[radioRef.current.id]);
+    getFoodsApi(inputText.current.value,
+      MealsAPI[radioRef.current.id] || MealsAPI.ingredient);
   };
   return (
     <form>
@@ -44,7 +45,6 @@ function SearchBar(props) {
       <label htmlFor="name">
         <input
           id="name"
-          checked
           type="radio"
           ref={ nameRadio }
           name="radioFilter"
