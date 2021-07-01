@@ -13,6 +13,7 @@ import ExplorarComidas from './pages/ExploreFood/ExploreFood';
 import ExplorarBebidas from './pages/ExploreDrinks/ExploreDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
+import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 
 const test = '';
 function App() {
@@ -40,7 +41,7 @@ function App() {
             exact
             component={ DrinkIngredients }
           />
-          <Route path="/explorar/comidas/area" exact component={ test } />
+          <Route path="/explorar/comidas/area" exact component={ ExploreFoodOrigin } />
           <Route path="/perfil" exact component={ test } />
           <Route path="/receitas-feitas" exact component={ test } />
           <Route path="/receitas-favoritas" exact component={ test } />
