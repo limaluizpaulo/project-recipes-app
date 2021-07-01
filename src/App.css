@@ -53,3 +53,7 @@ body {
   height: 150px;
   width: 150px;
 }
+
+.details-image {
+  width: 100%;
+}
