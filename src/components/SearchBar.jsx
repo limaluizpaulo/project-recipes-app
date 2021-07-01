@@ -1,33 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import FetchContext from '../context/FetchContext';
 
 function SearchBar() {
   const [searchText, setSearchText] = useState('');
   const [radioButton, setRadioButton] = useState(' ingredients');
+  const { typeFunc, handleFoods, handleDrinks } = useContext(FetchContext);
 
   const handleClick = () => {
-    if (radioButton === 'ingrediente') {
-      return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`)
-        .then((res) => res.json())
-        .then(({ meals }) => console.log(meals));
+    if (typeFunc === 'Foods') {
+      return handleFoods(radioButton, searchText);
     }
 
-    if (radioButton === 'nome') {
-      return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
-        .then((res) => res.json())
-        .then(({ meals }) => console.log(meals));
-    }
-
-    // função tirada da ajuda do Lucas Martins no Slack
-    const alertMessage = (func, message) => func(message);
-
-    if (searchText.length > 1) {
-      alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
-    }
-
-    if (radioButton === 'primeira letra') {
-      return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchText}`)
-        .then((res) => res.json())
-        .then(({ meals }) => console.log(meals));
+    if (typeFunc === 'Drinks') {
+      return handleDrinks(radioButton, searchText);
     }
   };
 
