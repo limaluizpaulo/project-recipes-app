@@ -10,40 +10,31 @@ import './Footer.css';
 class Footer extends React.Component {
   render() {
     return (
-
       <footer data-testid="footer" className="footer">
         <Link to="/bebidas">
-          <button
-            type="button"
+          <img
             data-testid="drinks-bottom-btn"
             src={ drinkImage }
-          >
-            <img src={ drinkImage } alt="drinks" />
-          </button>
+            alt="drinks"
+          />
         </Link>
-
         <Link to="/explorar">
-          <button
+          <img
             type="button"
             data-testid="explore-bottom-btn"
             src={ exploreImage }
-          >
-            <img src={ exploreImage } alt="explore" />
-          </button>
+            alt="explore"
+          />
         </Link>
-
         <Link to="/comidas">
-          <button
+          <img
             type="button"
             data-testid="food-bottom-btn"
             src={ mealImage }
-          >
-            <img src={ mealImage } alt="food" />
-          </button>
+            alt="food"
+          />
         </Link>
-
       </footer>
-
     );
   }
 }

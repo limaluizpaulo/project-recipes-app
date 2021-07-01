@@ -9,9 +9,7 @@ class ExploreByArea extends Component {
         <section>
           <Header title="Explorar Origem" />
         </section>
-        <footer data-testid="footer">
-          <Footer />
-        </footer>
+        <Footer />
       </>
     );
   }

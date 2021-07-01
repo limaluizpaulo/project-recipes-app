@@ -9,9 +9,7 @@ class Perfil extends Component {
         <section>
           <Header title="Perfil" searchIcon />
         </section>
-        <footer data-testid="footer">
-          <Footer />
-        </footer>
+        <Footer />
       </>
     );
   }

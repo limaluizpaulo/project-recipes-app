@@ -61,8 +61,7 @@ class SearchBar extends Component {
         return <FoodCard />;
       }
       if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
-        return resultDrink.map((recipe, index) => (
-          <DrinkCard key={ index } recipe={ recipe } />));
+        return <DrinkCard />;
       }
     };
     return (

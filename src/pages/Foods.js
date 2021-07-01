@@ -9,9 +9,7 @@ class Foods extends Component {
         <section>
           <Header title="Comidas" />
         </section>
-        <footer data-testid="footer">
-          <Footer />
-        </footer>
+        <Footer />
       </>
     );
   }
