@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import FoodCard from './FoodCard';
-import DrinkCard from './DrinkCard';
+// import FoodCard from './FoodCard';
+// import DrinkCard from './DrinkCard';
 
 import '../css/SearchBar.css';
 
