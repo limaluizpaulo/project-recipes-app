@@ -3,6 +3,7 @@ import { REQUEST_INGREDIENT_FOOD, REQUEST_FOOD_BY_ID } from '../actions';
 const INITIAL_STATE = {
   recipes: [],
   // food: [],
+  foodById: [],
 };
 
 const foodReducer = (state = INITIAL_STATE, action) => {
