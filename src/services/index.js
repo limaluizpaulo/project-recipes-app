@@ -47,3 +47,12 @@ export async function fetchByCategory(type, category) {
   const result = await data.json();
   return result[type];
 }
+
+export async function fetchDetails(type, id) {
+  const API_URL = type === 'meals'
+    ? 'https://www.themealdb.com/api/json/v1/1/lookup.php?i='
+    : 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  const data = await fetch(`${API_URL}${id}`);
+  const result = await data.json();
+  return result[type][0];
+}
