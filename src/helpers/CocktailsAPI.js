@@ -2,22 +2,19 @@ import getAPI from './api';
 
 const COCKTAILS_API = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
+export const getCocktailsRecipes = () => (
+  getAPI(COCKTAILS_API, 'search.php?s=', 'drinks')
+);
+
 export const getCocktailsCategories = () => (
-  getAPI(`${COCKTAILS_API}list.php?`, 'c', 'drinks')
+  getAPI(COCKTAILS_API, 'list.php?c=list', 'drinks')
 );
-
-export const getCocktailsGlasses = () => (
-  getAPI(`${COCKTAILS_API}list.php?`, 'g', 'drinks')
+export const getCocktailsAreas = () => (
+  getAPI(COCKTAILS_API, 'list.php?a=list', 'drinks')
 );
-
 export const getCocktailsIngredients = () => (
-  getAPI(`${COCKTAILS_API}list.php?`, 'i', 'drinks')
+  getAPI(COCKTAILS_API, 'list.php?i=list', 'drinks')
 );
-
-export const getCocktailsAlcoholicFilters = () => (
-  getAPI(`${COCKTAILS_API}list.php?`, 'a', 'drinks')
+export const getCocktailsIngredientsFilter = (filter) => (
+  getAPI(COCKTAILS_API, 'filter.php?i=', 'meals', filter)
 );
-
-// https://www.themealdb.com/api/json/v1/1/list.php?c=list
-// https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list
-// https://www.thecocktaildb.com/api/json/v1/1/search.php?s=

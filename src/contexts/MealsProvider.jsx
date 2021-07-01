@@ -35,7 +35,7 @@ function MealsProvider({ children }) {
     const ingredients = async () => {
       setIsFetching(true);
       const results = await getMealsIngredients();
-      setMealsIngredients(results.filter((item, index) => index < maxCards));
+      setMealsIngredients(results);
       setIsFetching(false);
     };
 
@@ -45,12 +45,13 @@ function MealsProvider({ children }) {
   }, []);
 
   const context = {
-    mealsCategories,
     isFetching,
+    mealsCategories,
     mealsIngredients,
     mealsRecipes,
     setFilterHeader,
   };
+
   return (
     <MealsContext.Provider value={ context }>
       {children}
