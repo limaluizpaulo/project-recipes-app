@@ -1,3 +1,18 @@
+.cards {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -13,15 +28,6 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
 }
 
 /*
