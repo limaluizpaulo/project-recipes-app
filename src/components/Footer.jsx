@@ -16,7 +16,7 @@ const Footer = () => (
         <img data-testid="food-bottom-btn" src={ mealIcon } alt="icone de comidas" />
       </button>
     </Link>
-    <Link to="/perfil">
+    <Link to="/explorar">
       <button type="button">
         <img
           data-testid="explore-bottom-btn"
