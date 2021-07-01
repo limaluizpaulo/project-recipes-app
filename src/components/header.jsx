@@ -29,8 +29,9 @@ class Header extends Component {
 
   searchBarTrue() {
     return (
-      <button type="button" onClick={ this.verify } data-testid="search-top-btn">
+      <button type="button" onClick={ this.verify }>
         <img
+          data-testid="search-top-btn"
           src={ searchIcon }
           alt="search"
         />
@@ -61,7 +62,7 @@ class Header extends Component {
       <div>
         { location !== undefined
         && this.header(location.pathname.substring(1), searchBarOn)}
-        {isSearchBar === true && <SearchBar /> }
+        {isSearchBar === true && <SearchBar location={ location.pathname } /> }
       </div>
     );
   }

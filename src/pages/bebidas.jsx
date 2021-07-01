@@ -15,10 +15,10 @@ class Bebidas extends Component {
   }
 
   render() {
-    const { drinks, drinksCategories } = this.props;
+    const { drinks, location, drinksCategories } = this.props;
     return (
       <div>
-        <Header />
+        <Header location={ location } />
         <main>
           <ButtonCategories
             btnClass="btn-filterDrinks-cards"
