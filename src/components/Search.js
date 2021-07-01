@@ -15,30 +15,43 @@ function Search() {
     return fn(message);
   }
 
-  console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
-
   const ONE = 1;
   const DOZE = 12;
 
-  async function submit(ev) {
-    ev.preventDefault();
-
-    if (radio === 'Ingrediente') {
-      searchByIngredientsFood(inputSearch);
-    }
-    if (radio === 'Nome') {
-      searchByNameFood(inputSearch);
-    }
-    if (radio === 'Primeira letra') {
-      const object = await inputSearch.length === ONE
-        ? searchByFirstLetterFood(inputSearch)
-        : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-      const { meals } = await object.then((resolve) => resolve);
+  const atalho = async (func, element) => {
+    const object = await func(element);
+    const { meals } = await object;
+    if (meals) {
       if (meals.length > DOZE) {
         return setFirstMeals(meals.slice(0, DOZE));
       }
+      if (meals.length > 0) {
+        return setFirstMeals(meals);
+      }
+    }
+    return invokeAlert(alert,
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  };
+
+  // console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
+
+  async function submit(ev) {
+    console.log(radio);
+    ev.preventDefault();
+
+    if (radio === 'Ingrediente') {
+      return atalho(searchByIngredientsFood, inputSearch);
+    }
+    if (radio === 'Nome') {
+      return atalho(searchByNameFood, inputSearch);
+    }
+    if (radio === 'Primeira letra') {
+      const object = await inputSearch.length === ONE
+        ? atalho(searchByFirstLetterFood, inputSearch)
+        : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
   }
+
   return (
     <form onSubmit={ submit }>
       <label htmlFor="search">
@@ -68,7 +81,6 @@ function Search() {
           type="radio"
           value="Nome"
           id="name"
-          checked
           onChange={ ({ target }) => setRadio(target.value) }
           data-testid="name-search-radio"
         />
