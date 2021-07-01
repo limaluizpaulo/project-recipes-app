@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
 import { GlobalContext } from '../context/Provider';
+import Footer from '../components/Footer';
 
 const Drinks = () => {
   const { recipes: { drinks = [] } } = useContext(GlobalContext);
@@ -19,6 +20,7 @@ const Drinks = () => {
     <div>
       <Header title="Bebidas" search />
       {drinks && renderCard()}
+      <Footer />
     </div>
   );
 };
