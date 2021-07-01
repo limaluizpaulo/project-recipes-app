@@ -11,7 +11,7 @@ function ExploreFoods() {
       <Header />
       <Link to="/explorar/comidas/ingredientes">
         <Button variant="primary" data-testid="explore-by-ingredient">
-          Por Ingrediente
+          Por Ingredientes
         </Button>
       </Link>
       <Link to="/explorar/comidas/area">
@@ -20,7 +20,7 @@ function ExploreFoods() {
         </Button>
       </Link>
       <Button variant="primary" data-testid="explore-surprise">
-        Me Surpeenda!
+        Me Surpreenda!
       </Button>
       <Footer />
     </>

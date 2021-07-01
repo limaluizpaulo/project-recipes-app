@@ -11,11 +11,11 @@ function ExploreDrinks() {
       <Header />
       <Link to="/explorar/bebidas/ingredientes">
         <Button variant="primary" data-testid="explore-by-ingredient">
-          Por Ingrediente
+          Por Ingredientes
         </Button>
       </Link>
       <Button variant="primary" data-testid="explore-surprise">
-        Me Surpeenda!
+        Me Surpreenda!
       </Button>
       <Footer />
     </>
