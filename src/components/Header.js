@@ -16,6 +16,18 @@ export default function Header() {
   //   setHidden(!(isHidden));
   // }
 
+  function getTitle() {
+    const title = path.replace(/\W/g, ' ')
+      .split(' ').map((word) => (
+        word.replace(/\w/, (char) => char.toUpperCase())))
+      .join(' ')
+      .replace(' ', '');
+
+    if (path.includes('/ingredientes')) { return 'Explorar Ingredientes'; }
+    if (path.includes('/area')) { return 'Explorar Origem'; }
+    return (path && title);
+  }
+
   function imageRendering() {
     switch (path) {
     case '/comidas':
@@ -25,17 +37,16 @@ export default function Header() {
         <Navbar bg="dark" variant="dark">
           <Container>
             <Nav.Link href="/perfil">
-              <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
+              <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
             </Nav.Link>
             <Navbar.Brand href="/">
-              <h1 data-testid="page-title">Page Title</h1>
+              <h1 data-testid="page-title">{ getTitle() }</h1>
             </Navbar.Brand>
             <button
-              data-testid="search-top-btn"
               type="button"
               onClick={ () => setHidden(!(isHidden)) }
             >
-              <img src={ searchIcon } alt="" />
+              <img data-testid="search-top-btn" src={ searchIcon } alt="search-icon" />
             </button>
             {!isHidden && (
               <div className="search-container">
@@ -56,10 +67,15 @@ export default function Header() {
     case '/receitas-favoritas':
     case '/perfil':
       return (
-        <>
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
-          <h1 data-testid="page-title">Page Title</h1>
-        </>);
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Nav.Link href="/perfil">
+              <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
+            </Nav.Link>
+            <h1 data-testid="page-title">{ getTitle() }</h1>
+          </Container>
+        </Navbar>
+      );
     default:
       return ('');
     }
@@ -68,7 +84,6 @@ export default function Header() {
   return (
     <header>
       {imageRendering()}
-
     </header>
   );
 }
