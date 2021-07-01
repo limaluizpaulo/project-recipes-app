@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import RecipeContext from '../../context/Context';
-// import apiRequest from '../../services/helpers/apiServises';
 import messageAlert from '../../services/helpers/alertMessage';
 
 function InputSearch() {
   const [valueRadioButton, setValueRadioButton] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const { setValueRadio, setInputRadio } = useContext(RecipeContext);
+  const { setValueRadio, setInputValue, setPathname } = useContext(RecipeContext);
+
+  const { pathname } = useLocation();
 
   // Função que controla o valor dos radios button
   function handleChange({ target }) {
@@ -19,17 +21,19 @@ function InputSearch() {
     setSearchInput(newValue);
   }
 
-  async function handleOnClick() {
+  function handleOnClick(event) {
+    event.preventDefault();
     if (valueRadioButton === 'Primeira letra' && searchInput.length > 1) {
       messageAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
     setValueRadio(valueRadioButton);
-    setInputRadio(searchInput);
+    setInputValue(searchInput);
+    setPathname(pathname);
   }
 
   // Inputs de busca que ficará abaixo do header
   return (
-    <form>
+    <form onSubmit={ handleOnClick }>
       <div>
         <input
           value={ searchInput }
@@ -77,9 +81,8 @@ function InputSearch() {
 
       <div>
         <button
-          type="button"
+          type="submit"
           data-testid="exec-search-btn"
-          onClick={ handleOnClick }
         >
           Buscar
         </button>
