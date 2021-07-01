@@ -4,10 +4,10 @@ import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './header.css';
 
-function Header({ title }) {
+function Header({ title, haveSrc }) {
   const [searchField, setSearchField] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
-
+  console.log(haveSrc);
   const search = () => (
     <input
       type="text"
@@ -22,25 +22,30 @@ function Header({ title }) {
 
   return (
     <header className="Header">
-      <button type="button" data-testid="profile-top-btn">
-        <img src={ profileIcon } alt="profile icon" />
+      <button type="button">
+        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </button>
 
       {searchField ? search() : pageTitle()}
 
-      <button
-        type="button"
-        data-testid="search-top-btn"
-        onClick={ () => (searchField ? setSearchField(false) : setSearchField(true)) }
-      >
-        <img src={ searchIcon } alt="profile icon" />
-      </button>
+      {
+        haveSrc ? (
+          <button
+            type="button"
+            onClick={ () => (searchField ? setSearchField(false) : setSearchField(true)) }
+          >
+            <img src={ searchIcon } alt="profile icon" data-testid="search-top-btn" />
+          </button>
+        ) : (<di />)
+      }
+
     </header>
   );
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  haveSrc: PropTypes.bool.isRequired,
 };
 
 export default Header;

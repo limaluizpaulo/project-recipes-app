@@ -3,6 +3,8 @@ import { requestDrink,
   requestCategoryDrink, requestNameDrink } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
+import React from 'react';
+import Footer from '../components/Footer/Footer';
 
 function Drinks() {
   const [data, setData] = useState([]);
@@ -75,6 +77,7 @@ function Drinks() {
             : (mapData(data, filter))
         }
       </div>
+      <Footer />
     </>
   );
 }
