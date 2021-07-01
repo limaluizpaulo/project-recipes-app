@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
-import { searchByCategoryButton } from '../services/searchApi';
+import { searchByCategoryFood } from '../services/searchApi';
 
 function FoodRecipes() {
   const { setFirstMeals, firstMeals } = useContext(Context);
@@ -30,12 +30,14 @@ function FoodRecipes() {
   }, []);
 
   async function handleClick({ target }) {
-    if (target.innerText === 'All') {
+    if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
+      target.className = 'category-btn';
       const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const { meals } = await request.json();
       return setFirstMeals(meals.slice(0, numOfMeals));
     }
-    const { meals } = await searchByCategoryButton(target.innerText);
+    target.className = 'category-btn-dbl';
+    const { meals } = await searchByCategoryFood(target.innerText);
     setFirstMeals(meals.splice(0, numOfMeals));
   }
 
