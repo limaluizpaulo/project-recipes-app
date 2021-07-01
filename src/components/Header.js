@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
+
+import './style/Header.css';
+
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+
 import SearchBar from './SearchBar';
 
-export default function Header({ title, search }) {
+function Header() {
   const [searchBar, setSearchBar] = useState(false);
+
   return (
-    <div>
-      <header>
+    <header>
+      <section className="header">
         <Link to="/perfil">
-          <button type="button">
-            <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profile-icon" />
-          </button>
+          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profile-icon" />
         </Link>
-        <h1 data-testid="page-title">{ title }</h1>
-        {
-          search === 'false' ? ''
-            : (
-              <button type="button" onClick={ () => setSearchBar(!searchBar) }>
-                <img src={ SearchIcon } alt="search-icon" data-testid="search-top-btn" />
-              </button>
-            )
-        }
-      </header>
+        <p>oi</p>
+        <label htmlFor="search-icon">
+          <input
+            type="radio"
+            onClick={ () => setSearchBar(!searchBar) }
+            id="search-icon"
+            className="search-icon-radio"
+          />
+          <img
+            src={ SearchIcon }
+            alt="search-icon"
+            data-testid="search-top-btn"
+            className="search-icon"
+          />
+        </label>
+      </section>
       {searchBar && <SearchBar />}
-    </div>
+    </header>
   );
 }
 
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-};
+export default Header;

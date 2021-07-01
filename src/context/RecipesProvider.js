@@ -1,81 +1,60 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import RecipesContext from './RecipesContext';
-import fetchFood from '../services/FoodApi';
-import fetchDrink from '../services/CocktailApi';
 
-const searchParams = {
-  selectedParam: '',
-  inputSearch: '',
-};
+import RecipesContext from './RecipesContext';
+
+import {
+  fetchAllRecipes,
+  fetchRecipesBySearch,
+  fetchRandomRecipe,
+} from '../services/RecipesAPI';
 
 function RecipesProvider({ children }) {
-  const [user, setUser] = useState({ user: '', password: '' });
-  const [searchParam, setSearchParam] = useState(searchParams);
+  const [user, setUser] = useState('');
+  const [mealsOrDrinks, setMealsOrDrinks] = useState('meals');
   const [recipes, setRecipes] = useState([]);
-  const [cocktails, setCocktails] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState(false);
+  const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
 
-  const login = ({ email, password }) => {
-    setUser({ user: email, password });
+  const login = (email) => {
+    setUser(email);
   };
-  useEffect(() => {
-    const { selectedParam, inputSearch } = searchParam;
-    switch (selectedParam) {
-    case 'ingredient':
-      fetchFood(`filter.php?i=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    case 'name':
-      fetchFood(`search.php?s=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    case 'first-letter':
-      fetchFood(`search.php?f=${inputSearch}`)
-        .then((response) => setRecipes(response));
-      break;
-    default:
-      fetchFood('search.php?s=')
-        .then((response) => setRecipes(response));
-      break;
-    }
-  }, [searchParam]);
-  useEffect(() => {
-    const { selectedParam, inputSearch } = searchParam;
-    switch (selectedParam) {
-    case 'ingredient':
-      fetchDrink(`filter.php?i=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    case 'name':
-      fetchDrink(`search.php?s=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    case 'first-letter':
-      fetchDrink(`search.php?f=${inputSearch}`)
-        .then((response) => setCocktails(response));
-      break;
-    default:
-      fetchDrink('search.php?s=')
-        .then((response) => setCocktails(response));
-      break;
-    }
-  }, [searchParam]);
 
-  const provide = {
-    searchParam,
-    setSearchParam,
+  const getInitialRecipes = async () => {
+    const allRecipes = await fetchAllRecipes(mealsOrDrinks);
+    setRecipes(allRecipes.meals);
+  };
+
+  const searchRecipesBy = async () => {
+    const recipesBySearch = await fetchRecipesBySearch(
+      mealsOrDrinks, 'ingredient', 'Chiken',
+    );
+    console.log(recipesBySearch);
+  };
+
+  const getRandomRecipe = async () => {
+    const recipe = await fetchRandomRecipe(mealsOrDrinks);
+    setRecipeDetails(recipe[mealsOrDrinks][0]);
+    setRedirectToRecipeDetails(true);
+  };
+
+  const context = {
+    user,
+    login,
     recipes,
-    cocktails,
+    searchRecipesBy,
+    recipeDetails,
+    redirectToRecipeDetails,
+    getRandomRecipe,
   };
+
+  useEffect(() => {
+    getInitialRecipes();
+  }, []);
 
   return (
-    <RecipesContext.Provider
-      value={ {
-        user,
-        login,
-        provide,
-      } }
-    >
+    <RecipesContext.Provider value={ context }>
       { children }
     </RecipesContext.Provider>
   );

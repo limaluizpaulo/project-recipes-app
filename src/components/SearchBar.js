@@ -1,91 +1,56 @@
-import React, { useContext, useState } from 'react';
-import RecipesContext from '../context/RecipesContext';
+import React from 'react';
 
-export default function SearchBar() {
-  const { searchParam, setSearchParam } = useContext(RecipesContext);
-  const [inputChange, setInputChange] = useState({
-    inputSearch: '',
-    selectedParam: '',
-  });
+import './style/SearchBar.css';
 
-  function handleChange({ target: { value, name } }) {
-    setInputChange({
-      ...inputChange,
-      [name]: value,
-    });
-  }
-
-  function handleClick() {
-    setSearchParam(inputChange);
-    const msg = 'alert(\'Sua busca deve conter somente 1 (um) caracter\');\'';
-    const maxCaracter = 1;
-    const paramType = inputChange.selectedParam;
-    const inputLength = inputChange.inputSearch.length;
-    if (paramType === 'first-letter' && inputLength > maxCaracter) {
-      return msg;
-    }
-    setInputChange({
-      ...inputChange,
-      inputSearch: '',
-    });
-  }
-
-  console.log(searchParam);
-
+function SearchBar() {
   return (
-    <span>
-      <label htmlFor="search">
-        <input
-          type="text"
-          id="search"
-          value={ inputChange.inputSearch }
-          name="inputSearch"
-          data-testid="search-input"
-          onChange={ handleChange }
-        />
-      </label>
-      <div>
-        <label htmlFor="ingredient">
-          <input
-            type="radio"
-            id="ingredient"
-            name="selectedParam"
-            value="ingredient"
-            data-testid="ingredient-search-radio"
-            onChange={ handleChange }
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="name">
-          <input
-            type="radio"
-            id="name"
-            name="selectedParam"
-            value="name"
-            data-testid="name-search-radio"
-            onChange={ handleChange }
-          />
-          Nome
-        </label>
-        <label htmlFor="first-letter">
-          <input
-            type="radio"
-            id="first-letter"
-            name="selectedParam"
-            value="first-letter"
-            data-testid="first-letter-search-radio"
-            onChange={ handleChange }
-          />
-          Primeira letra
-        </label>
+    <form>
+      <input
+        type="text"
+        data-testid="search-input"
+      />
+      <section className="search-content">
+        <section className="search-parameters">
+          <label htmlFor="ingredient">
+            Ingrediente
+            <input
+              type="radio"
+              name="search-parameter"
+              id="ingredient"
+              data-testid="ingredient-search-radio"
+              className="radio"
+            />
+          </label>
+          <label htmlFor="name">
+            Nome
+            <input
+              type="radio"
+              name="search-parameter"
+              id="name"
+              data-testid="name-search-radio"
+              className="radio"
+            />
+          </label>
+          <label htmlFor="firstLetter">
+            Primeira letra
+            <input
+              type="radio"
+              name="search-parameter"
+              id="firstLetter"
+              data-testid="first-letter-search-radio"
+              className="radio"
+            />
+          </label>
+        </section>
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ handleClick }
         >
           Buscar
         </button>
-      </div>
-    </span>
+      </section>
+    </form>
   );
 }
+
+export default SearchBar;
