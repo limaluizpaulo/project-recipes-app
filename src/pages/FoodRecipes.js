@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
+import { searchByCategoryButton } from '../services/searchApi';
 
 function FoodRecipes() {
   const { setFirstMeals, firstMeals } = useContext(Context);
@@ -28,13 +29,31 @@ function FoodRecipes() {
     fetchCategories();
   }, []);
 
+  async function handleClick({ target }) {
+    if (target.innerText === 'All') {
+      const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const { meals } = await request.json();
+      return setFirstMeals(meals.slice(0, numOfMeals));
+    }
+    const { meals } = await searchByCategoryButton(target.innerText);
+    setFirstMeals(meals.splice(0, numOfMeals));
+  }
+
   return (
     <div>
       <Header title="Comidas" />
       <div className="btn-container">
+        <button
+          className="category-btn"
+          onClick={ handleClick }
+          type="button"
+        >
+          All
+        </button>
         {firstCategories.map((category, index) => (
           <button
             className="category-btn"
+            onClick={ handleClick }
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             type="button"
