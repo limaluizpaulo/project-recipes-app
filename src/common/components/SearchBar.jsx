@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
-import store from '../../context/store';
+import store, { addRecipes } from '../../context/store';
 import {
-  INGREDIENT_MEALS, NAME_MEALS, FIRSTLETTER_MEALS, fetchAPI,
+  INGREDIENT_MEALS,
+  NAME_MEALS, FIRSTLETTER_MEALS, fetchAPI,
+  INGREDIENT_DRINKS, NAME_DRINKS, FIRSTLETTER_DRINKS,
 } from '../../services/index';
 
 export default function SearchBar() {
-  const { recipes } = useContext(store);
+  const { recipes, setRecipes } = useContext(store);
   const [searchBar, setSearchBar] = useState({
     input: '',
     rate: '',
@@ -24,21 +26,28 @@ export default function SearchBar() {
   const handleClick = () => {
     const { rate, input } = searchBar;
     const { foods } = recipes;
-    if (rate === 'ingredient') {
+    if (rate === 'ingredient' && (foods)) {
       fetchAPI(`${INGREDIENT_MEALS}${input}`)
-        .then((response) => console.log(response.meals));
-      // setRecipes(addRecipes(meals.meals, drinks.drinks))
+        .then((response) => setRecipes(addRecipes(response.meals)));
+    } else {
+      fetchAPI(INGREDIENT_DRINKS + input);
     }
-    if (rate === 'name') {
+
+    if (rate === 'name' && (foods)) {
       fetchAPI(`${NAME_MEALS}${input}`)
         .then((response) => console.log(response.meals));
+    } else {
+      fetchAPI(NAME_DRINKS);
     }
-    if (rate === 'firstLetter') {
+
+    if (rate === 'firstLetter' && (foods)) {
       if (input.length > 1 || !input.length) {
         global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
       fetchAPI(FIRSTLETTER_MEALS + input)
         .then((response) => console.log(response.meals));
+    } else {
+      fetchAPI(FIRSTLETTER_DRINKS);
     }
   };
 
