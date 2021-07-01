@@ -6,18 +6,53 @@ import { getDrinkDetails, getMealDetails } from '../services';
 function RecipeInProgress({ match, history }) {
   const { id } = match.params;
   const { pathname } = history.location;
-
+  const recipeType = pathname.includes('/comidas') ? 'meals' : 'cocktails';
   const [recipeInProgress, setRecipeInProgress] = useState({});
+
+  const setLocalStorage = () => {
+    const localStorageDefault = {
+      cocktails: {
+        [id]: [],
+      },
+      meals: {
+        [id]: [],
+      },
+    };
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageDefault));
+    }
+  };
+
+  const checkLocalStorage = (index) => {
+    setLocalStorage(); // creates a default when undefined
+    const arr = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType];
+    return arr[id].some((el) => el === index);
+  };
+
+  const updateLocalStorage = (item) => {
+    const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails, meals } = data;
+    if (recipeType === 'meals') {
+      meals[id].push(item);
+    }
+    if (recipeType === 'cocktails') {
+      cocktails[id].push(item);
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails,
+      meals,
+    }));
+  };
 
   useEffect(() => {
     const getRecipes = async () => {
-      const resp = pathname.includes('/comidas')
+      const resp = recipeType === 'meals'
         ? await getMealDetails(id)
         : await getDrinkDetails(id);
       setRecipeInProgress(resp[0]);
     };
     getRecipes();
-  }, [id, pathname]);
+  }, [id, pathname, recipeType]);
 
   const {
     strMeal,
@@ -60,6 +95,8 @@ function RecipeInProgress({ match, history }) {
                 type="checkbox"
                 id="ingredient"
                 data-testid={ `${idx}-ingredient-name-and-measure` }
+                onChange={ () => updateLocalStorage(idx) }
+                defaultChecked={ checkLocalStorage(idx) }
               />
               {`${recp[1]} - ${measures[idx][1]}`}
             </label>
