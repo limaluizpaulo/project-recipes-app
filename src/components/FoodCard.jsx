@@ -11,7 +11,7 @@ function FoodCard(props) {
   const food = resultFood.filter((elem, index) => index < totalRecipes);
 
   return food.map((recipe, index) => (
-    <Link key={ $recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
+    <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
       <div data-testid={ `${index}-recipe-card` }>
         <img
           data-testid={ `${index}-card-img` }
