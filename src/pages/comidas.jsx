@@ -2,24 +2,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/header';
-import { fetchApiFoodCategories } from '../action';
-import MainScreen from '../components/MainScreen';
-// import Cards from '../components/cards';
-import Fooder from '../components/footer';
+import { fetchApiFoodCategories, fetchFoodRecipes } from '../action';
+import Cards from '../components/cards';
+import Footer from '../components/footer';
+
+import '../css/comidas.css';
+import '../App.css';
+import ButtonCategories from '../components/ButtonCategories';
 
 class Comidas extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      foodCategories: [],
-    };
+    // ***VERIFICAR SE PRECISA DESSE ESTADO****
+    // this.state = {
+    //   foodCategories: [],
+    // };
 
     this.categories = this.categories.bind(this);
   }
 
   async componentDidMount() {
-    const { apiFoodCategories } = this.props;
+    const { apiFoodCategories, dispatchFoodRecipes } = this.props;
     apiFoodCategories();
+    dispatchFoodRecipes();
     // await apiFoodCategories().then((data) => console.log(data));
   }
 
@@ -36,34 +41,50 @@ class Comidas extends Component {
   }
 
   render() {
-    const { foodCategories } = this.state;
-    console.log(foodCategories);
-    const { location } = this.props;
+    // const { foodCategories } = this.state;
+    // console.log(foodCategories);
+    const { location, meals, getFoodCategories } = this.props;
     return (
       <div>
         <Header location={ location } />
         <main>
-          <MainScreen />
+          <ButtonCategories
+            btnClass="btn-filterMeasls-cards"
+            getCategories={ getFoodCategories }
+          />
+          <section className="cards-content">
+            {
+              meals.map((masl, index) => (
+                <Cards
+                  key={ index }
+                  img={ masl.strMealThumb }
+                  title={ masl.strMeal }
+                  index={ index }
+                />
+              ))
+            }
+          </section>
         </main>
-        <p>qualquer coisa</p>
         { this.categories() }
-        <Fooder />
+        <Footer />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  apiFoodCategories: () => dispatch(fetchApiFoodCategories()), // apagar
+  apiFoodCategories: () => dispatch(fetchApiFoodCategories()),
+  dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
 });
 
 const mapStateToProps = (state) => ({
   getFoodCategories: state.foodCategories.allFoodCategories,
-
+  meals: state.foodCategories.meals,
 });
 
 Comidas.propTypes = {
   apiFoodCategories: PropTypes.func,
+  dispatchFoodRecipes: PropTypes.func.isRequired,
   getFoodCategories: PropTypes.objectOf(PropTypes.object),
   location: PropTypes.shape,
 }.isRequired;

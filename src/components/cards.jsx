@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/cards.css';
 
 class cards extends Component {
   render() {
-    const { info } = this.props;
+    const { img, title, index } = this.props;
     return (
-      <Card style={ { width: '5rem' } }>
-        <Card.Img variant="top" src={ info.strMealThumb } />
+      <Card data-testid={ `${index}-recipe-card` }>
+        <Card.Img
+          variant="top"
+          src={ img }
+          data-testid={ `${index}-card-img` }
+        />
         <Card.Body>
-          <Card.Title>{ info.strMeal }</Card.Title>
+          <Card.Title data-testid={ `${index}-card-name` }>{ title }</Card.Title>
         </Card.Body>
       </Card>
     );
@@ -19,7 +24,9 @@ class cards extends Component {
 }
 
 cards.propTypes = {
-  info: PropTypes.shape.isRequired,
+  index: PropTypes.number.isRequired,
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default cards;

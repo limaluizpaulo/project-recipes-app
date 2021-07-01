@@ -1,7 +1,8 @@
-import { ALL_DRINK_CATEGORIES, IS_LOADING } from '../action';
+import { ALL_DRINK_CATEGORIES, IS_LOADING, ALL_DRINKS_RECIPES } from '../action';
 
 const INITIAL_STATE = {
   allDrinkCategories: [],
+  drinks: [],
 };
 
 const drinkCategories = (state = INITIAL_STATE, action) => {
@@ -14,6 +15,11 @@ const drinkCategories = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       allDrinkCategories: action.allDrinkCategories,
+    };
+  case ALL_DRINKS_RECIPES:
+    return {
+      ...state,
+      drinks: action.recipes,
     };
   default:
     return state;
