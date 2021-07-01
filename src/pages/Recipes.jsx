@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 import { actionRecipes } from '../actions';
+import CardItem from '../components/CardItem';
 
 class Recipes extends Component {
   constructor(props) {
@@ -25,12 +26,18 @@ class Recipes extends Component {
     const { listRecipes } = this.props;
     if (!listRecipes) return (<h3>Loading...</h3>);
     return (
-      <div>
+      <>
         <Header header="Comidas" explorer />
         <h2>Recipes</h2>
-        {listRecipes.map((recipe) => <h5 key={ recipe.strMeal }>{recipe.strMeal}</h5>)}
+        {listRecipes.map(({ strMealThumb, strMeal }, index) => (
+          <CardItem
+            key={ index }
+            index={ index }
+            name={ strMeal }
+            image={ strMealThumb }
+          />))}
         <DownMenu />
-      </div>
+      </>
     );
   }
 }
@@ -43,6 +50,7 @@ const mapStateToProps = (state) => ({
 
 Recipes.propTypes = {
   recipes: PropTypes.func.isRequired,
+  listRecipes: PropTypes.shape().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
