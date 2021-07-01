@@ -7,6 +7,8 @@ import Login from './Login';
 import Profile from './Profile';
 import NotFound from './NotFound';
 import ExploreDrinksByIngredients from './ExploreDrinksByIngredients';
+import ExploreFoodsByIngredients from './ExploreFoodsByIngredients';
+import ExploreFoodsByLocation from './ExploreFoodsByLocation';
 
 export default {
   CookedRecipes,
@@ -18,4 +20,6 @@ export default {
   Profile,
   NotFound,
   ExploreDrinksByIngredients,
+  ExploreFoodsByIngredients,
+  ExploreFoodsByLocation,
 };

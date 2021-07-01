@@ -1,139 +1,63 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-  Switch,
-  Route,
-  Link,
-  // useParams,
-  useRouteMatch,
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Pages from './pages/index';
-import TesteDeRotas from './components/TesteDeRotas';
-
-// Source: https://reactrouter.com/web/example/nesting
 
 export default function App() {
-  const { path } = useRouteMatch();
-  // const { recipeId } = useParams();
-
-  function renderLoginPage() {
-    return (
-      <Pages.Login />
-    );
-  }
-
-  function renderFoodsRote() {
-    return (
-      <>
-        <Pages.Foods />
-        <Link to="/comidas/:recipeId"> FoodId </Link>
-        <Link to="/comidas/:recipeId/in-progress"> FoodId/Status </Link>
-        <Switch>
-          <Route path="/comidas" />
-          <Route path="/comidas/:recipeId" />
-          <Route path="/comidas/:recipeId/in-progress" />
-        </Switch>
-      </>
-    );
-  }
-
-  function renderDrinksRote() {
-    return (
-      <>
-        <Pages.Drinks />
-        <Link to="/bebidas/:drinkId"> DrinkId </Link>
-        <Link to="/bebidas/:drinkId/in-progress"> DrinkId/Status </Link>
-        <Switch>
-          <Route path="/bebidas" />
-          <Route path="/bebidas/:drinkId" />
-          <TesteDeRotas />
-          <Route path="/bebidas/:drinkId/in-progress" />
-        </Switch>
-      </>
-    );
-  }
-
-  function renderExploreRotes() {
-    return (
-      <>
-        <Pages.Explore />
-        <Link to="/explorar/comidas"> Explore Food </Link>
-        <Link to="explorar/comidas/area"> Explore Food Area </Link>
-        <Link to="/explorar/comidas/ingredientes"> Food Ingredients </Link>
-        <Link to="/explorar/bebidas/"> Explore Drinks </Link>
-        <Link to="/explorar/bebidas/ingredientes"> Drinks Ingridients </Link>
-        <Switch>
-          <Route path={ path } />
-          <Route path={ `${path}/comidas` } />
-          <Route path={ `${path}/comidas/area` } />
-          <Route path={ `${path}/comidas/ingredientes` } />
-          <Route path={ `${path}/bebidas` } />
-          <Route path={ `${path}/bebidas/ingredientes` } />
-        </Switch>
-      </>
-    );
-  }
-
-  function renderProfileRote() {
-    return (
-      <Pages.Profile />
-    );
-  }
-
-  function renderCookedRecipes() {
-    return (
-      <Pages.CookedRecipes />
-    );
-  }
-
-  function renderFavoriteRecipes() {
-    return (
-      <Pages.FavoritesRecipes />
-    );
-  }
-
-  // function renderNotFoundPage() {
-  //   return (
-  //     <Pages.NotFound />
-  //   );
-  // }
-
   function renderRotes() {
     return (
       <Switch>
+        <Route path="/comidas/:recipeId/in-progress" />
+        <Route path="/comidas/:recipeId" />
         <Route
           path="/comidas"
-          render={ renderFoodsRote }
+          component={ Pages.Foods }
         />
+        <Route path="/bebidas/:drinkId/in-progress" />
+        <Route path="/bebidas/:drinkId" />
         <Route
           path="/bebidas"
-          render={ renderDrinksRote }
+          component={ Pages.Drinks }
+        />
+        <Route path="/explorar/comidas" />
+        <Route
+          path="explorar/comidas/area"
+          component={ Pages.ExploreFoodsByLocation }
+        />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          component={ Pages.ExploreFoodsByIngredients }
+        />
+        <Route path="/explorar/bebidas/" />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          component={ Pages.ExploreDrinksByIngredients }
         />
         <Route
           path="/explorar"
-          render={ renderExploreRotes }
+          component={ Pages.Explore }
         />
         <Route
           path="/perfil"
-          render={ renderProfileRote }
+          component={ Pages.Profile }
         />
         <Route
           path="/receitas-feitas"
-          render={ renderCookedRecipes }
+          component={ Pages.CookedRecipes }
         />
         <Route
           path="/receitas-favoritas"
-          render={ renderFavoriteRecipes }
+          component={ Pages.FavoritesRecipes }
         />
-        {/* <Route
-          path="*"
-          render={ renderNotFoundPage }
-        /> */}
         <Route
           exact
           path="/"
-          render={ renderLoginPage }
+          component={ Pages.Login }
+        />
+        <Route
+          path="*"
+          component={ Pages.NotFound }
         />
       </Switch>
     );
