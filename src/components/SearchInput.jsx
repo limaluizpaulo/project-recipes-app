@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
-import ingredienteApi from '../services/servicesApi';
+import { useLocation } from 'react-router-dom';
+import { comidaApi, bebidaApi } from '../services/servicesApi';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function SearchInput() {
+  const pathName = useLocation().pathname;
   const { setfetchAPI } = useContext(AppReceitasContext);
   const [selectFilter, setSelectFilter] = useState({
     input: '',
@@ -13,11 +15,20 @@ function SearchInput() {
     funcaoAlert('Sua busca deve conter somente 1 (um) caracter');
   };
 
-  const chamaAPI = async ({ input, search }) => {
+  const getApiComidas = async ({ input, search }) => {
     if ((input.length > 1) && (search === 'f')) {
       chamaAlert(alert);
     } else {
-      const resposta = await ingredienteApi(input, search);
+      const resposta = await comidaApi(input, search);
+      setfetchAPI(resposta);
+    }
+  };
+
+  const getApiBedidas = async ({ input, search }) => {
+    if ((input.length > 1) && (search === 'f')) {
+      chamaAlert(alert);
+    } else {
+      const resposta = await bebidaApi(input, search);
       setfetchAPI(resposta);
     }
   };
@@ -75,7 +86,8 @@ function SearchInput() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => chamaAPI(selectFilter) }
+        onClick={ () => (pathName === '/comidas'
+          ? getApiComidas(selectFilter) : getApiBedidas(selectFilter)) }
       >
         Buscar
       </button>
