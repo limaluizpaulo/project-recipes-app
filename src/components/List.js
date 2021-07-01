@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function List({ array, drinks }) {
-  function filterIngredients(array) {
-    const ingredients = Object.entries(array)
+  function filterIngredients(arrayList) {
+    const ingredients = Object.entries(arrayList)
       .filter((ingredient) => ingredient[0].includes('strIngredient'));
-    const measures = Object.entries(array)
+    const measures = Object.entries(arrayList)
       .filter((measure) => measure[0].includes('strMeasure'));
     return ingredients.map((element, index) => {
       if (element[1] !== null) {
