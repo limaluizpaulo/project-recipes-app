@@ -24,14 +24,23 @@ function FoodDetails({ match, history }) {
     fetchDetails();
   }, [pathname, id]);
 
-  const { strCategory, strVideo, strAlcoholic, strMeal, strDrink } = details[0];
+  const {
+    strCategory,
+    strVideo,
+    strAlcoholic,
+    strMeal,
+    strDrink,
+    strInstructions,
+    strMealThumb } = details[0];
+
+  console.log(typeof Object.keys(details[0]));
 
   return (
     <>
       <img
         data-testid="recipe-photo"
-        src="https://saude.abril.com.br/wp-content/uploads/2021/03/bichos-foto-vauvau-Getty-Images.png?quality=85&strip=info&resize=680,453"
-        alt="nome da comida"
+        src={ strMealThumb }
+        alt={ strMeal }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
       <button
@@ -48,11 +57,11 @@ function FoodDetails({ match, history }) {
       </button>
       <div>
         <h4 data-testid="recipe-category">{strCategory}</h4>
-        <p data-testid="instructions">Passo a passo</p>
+        <p data-testid="instructions">{strInstructions}</p>
         <div>
           {strVideo === null
             ? <span>Não temos vídeo para essa receita</span>
-            : <MealClip strVideo={ strVideo } />}
+            : <MealClip />}
         </div>
         <IndicatedRecipes data-testid={ `${1}-recomendation-card` } />
       </div>
