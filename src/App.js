@@ -9,37 +9,50 @@ export default function App() {
   function renderRotes() {
     return (
       <Switch>
-        <Route path="/comidas/:recipeId/in-progress" />
-        <Route path="/comidas/:recipeId" />
+        <Route
+          path="/comidas/:recipeId/in-progress"
+          component={ Pages.FoodRecipeByIdProgress }
+        />
+        <Route
+          path="/comidas/:recipeId"
+          component={ Pages.FoodRecipeById }
+        />
         <Route
           path="/comidas"
           component={ Pages.Foods }
         />
-        <Route path="/bebidas/:drinkId/in-progress" />
-        <Route path="/bebidas/:drinkId" />
+        <Route
+          path="/bebidas/:drinkId/in-progress"
+          component={ Pages.DrinkRecipeByIdProgress }
+        />
+        <Route
+          path="/bebidas/:drinkId"
+          component={ Pages.DrinkRecipeById }
+        />
         <Route
           path="/bebidas"
           component={ Pages.Drinks }
-        />
-        <Route
-          path="/explorar/comidas"
-          component={ Pages.ExploreFoods }
-        />
-        <Route
-          path="explorar/comidas/area"
-          component={ Pages.ExploreFoodsByLocation }
         />
         <Route
           path="/explorar/comidas/ingredientes"
           component={ Pages.ExploreFoodsByIngredients }
         />
         <Route
-          path="/explorar/bebidas/"
-          component={ Pages.ExploreDrinks }
+          path="/explorar/comidas/area"
+          component={ Pages.ExploreFoodsByLocation }
+        />
+        <Route
+          path="/explorar/comidas"
+          component={ Pages.ExploreFoods }
         />
         <Route
           path="/explorar/bebidas/ingredientes"
           component={ Pages.ExploreDrinksByIngredients }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas"
+          component={ Pages.ExploreDrinks }
         />
         <Route
           path="/explorar"
@@ -72,7 +85,6 @@ export default function App() {
 
   return (
     <div className="meals">
-      <h1>Olaaaa Main Group 3!! O melhor grupo de todos!!</h1>
       {renderRotes()}
     </div>
   );

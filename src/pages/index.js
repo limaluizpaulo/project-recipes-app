@@ -11,6 +11,10 @@ import ExploreDrinks from './ExploreDrinks';
 import ExploreDrinksByIngredients from './ExploreDrinksByIngredients';
 import ExploreFoodsByIngredients from './ExploreFoodsByIngredients';
 import ExploreFoodsByLocation from './ExploreFoodsByLocation';
+import FoodRecipeByIdProgress from './FoodRecipeByIdProgress';
+import DrinkRecipeById from './DrinkRecipeById';
+import FoodRecipeById from './FoodRecipeById';
+import DrinkRecipeByIdProgress from './DrinkRecipeByIdProgress';
 
 export default {
   CookedRecipes,
@@ -26,4 +30,8 @@ export default {
   ExploreDrinksByIngredients,
   ExploreFoodsByIngredients,
   ExploreFoodsByLocation,
+  FoodRecipeByIdProgress,
+  DrinkRecipeById,
+  FoodRecipeById,
+  DrinkRecipeByIdProgress,
 };
