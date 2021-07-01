@@ -162,7 +162,7 @@ export const fetchCategorieFoodFilterAction = (categorie) => async (dispatch) =>
 
 export const fetchCategorieDrinkFilter = async (categorie) => {
   const result = await
-  fetch(`www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
   const response = await result.json();
   return response;
 };
