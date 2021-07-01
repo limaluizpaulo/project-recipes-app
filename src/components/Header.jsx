@@ -10,7 +10,6 @@ import Button from '../helpers/Button';
 function Header(props) {
   const { title, searchBar, context } = props;
   const { setFilterHeader } = useContext(context);
-
   const [showSearch, setShowSearch] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
@@ -26,6 +25,7 @@ function Header(props) {
     if (showSearch === false) setShowSearch(true);
     else setShowSearch(false);
   };
+
   const searchBarInput = showSearch ? (
     <form htmlFor="seachBar">
       <Input
