@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
 
 const Footer = () => (
-  <footer data-testid="footer">
+  <footer data-testid="footer" className="footer">
     <Link to="/bebidas">
-      <button data-testid="drinks-bottom-btn" type="button">Drinks</button>
+      <button type="button">
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="icone de bebidas" />
+      </button>
     </Link>
     <Link to="/comidas">
-      <button data-testid="food-bottom-btn" type="button">Foods</button>
+      <button type="button">
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="icone de comidas" />
+      </button>
     </Link>
     <Link to="/perfil">
-      <button data-testid="explore-bottom-btn" type="button">Explore</button>
+      <button type="button">
+        <img
+          data-testid="explore-bottom-btn"
+          src={ exploreIcon }
+          alt="icone de exploração"
+        />
+      </button>
     </Link>
   </footer>
 );
