@@ -15,7 +15,8 @@ export default function SearchBar() {
   const { pathname } = useHistory().location;
   const { setMealsFiltered } = useMealsContext();
   const { setDrinksFiltered } = useDrinksContext();
-  const customAlert = alert;
+  const caracterAlert = alert;
+  const notFoundAlert = alert;
 
   const NUM = 12;
 
@@ -39,11 +40,13 @@ export default function SearchBar() {
       fetchDrinks = await fetchDrinkByFirstLetter(searchText);
     }
     if (filter === 'firstLetter' && searchText.length > 1) {
-      customAlert('Sua busca deve conter somente 1 (um) caracter');
+      caracterAlert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     if (fetchDrinks) {
       setDrinksFiltered(fetchDrinks.slice(0, NUM));
+    } else {
+      notFoundAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 
@@ -62,7 +65,7 @@ export default function SearchBar() {
         fetchMealsRes = await fetchMealsByFirstLetter(searchText);
       }
       if (filter === 'firstLetter' && searchText.length > 1) {
-        customAlert('Sua busca deve conter somente 1 (um) caracter');
+        caracterAlert('Sua busca deve conter somente 1 (um) caracter');
       }
     } else {
       handleDrinkFetch();
@@ -70,6 +73,8 @@ export default function SearchBar() {
 
     if (fetchMealsRes) {
       setMealsFiltered(fetchMealsRes.slice(0, NUM));
+    } else {
+      notFoundAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 

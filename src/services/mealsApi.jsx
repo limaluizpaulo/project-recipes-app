@@ -18,3 +18,24 @@ export const fetchMealsByFirstLetter = async (letter) => {
   const data = response.meals;
   return data;
 };
+
+export const fetchCategoryMeals = async () => {
+  const fetchCategory = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const response = await fetchCategory.json();
+  const data = response.meals;
+  return data;
+};
+
+export const fetchMealsByCategory = async (category) => {
+  const fetchByCategory = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const response = await fetchByCategory.json();
+  const data = response.meals;
+  return data;
+};
+
+export const fetchIngreMeals = async () => {
+  const fetchIngre = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const response = await fetchIngre.json();
+  const data = response.meals;
+  return data;
+};
