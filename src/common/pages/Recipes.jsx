@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import store, { addRecipes } from '../../context/store';
 import { DRINKS, fetchAPI, MEALS } from '../../services';
-import Headerr from '../components/Headerr';
+
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header/Header';
 
 export default function Recipes() {
   const [loading, setLoading] = useState(true);
@@ -30,9 +31,8 @@ export default function Recipes() {
   }
   return (
     <main className="Cards">
-      <Headerr />
+      <Header pageName="Comidas" />
       <RecipeCard />
-
     </main>
 
   );
