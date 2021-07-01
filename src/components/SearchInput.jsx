@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { comidaApi, bebidaApi } from '../services/servicesApi';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function SearchInput() {
-  const pathName = useLocation().pathname;
+  const pathName = useHistory();
   const { setfetchAPI } = useContext(AppReceitasContext);
   const [selectFilter, setSelectFilter] = useState({
     input: '',
@@ -15,12 +15,30 @@ function SearchInput() {
     funcaoAlert('Sua busca deve conter somente 1 (um) caracter');
   };
 
+  const verificaTamanhoArray = (array, type) => {
+    if (array !== null) {
+      const objeto = array[0];
+      let id = '';
+
+      if (type === 'comidas') {
+        id = 'idMeal';
+      } else {
+        id = 'idDrink';
+      }
+
+      if (array.length === 1) {
+        pathName.push(`/${type}/${objeto[id]}`);
+      }
+    }
+  };
+
   const getApiComidas = async ({ input, search }) => {
     if ((input.length > 1) && (search === 'f')) {
       chamaAlert(alert);
     } else {
       const resposta = await comidaApi(input, search);
       setfetchAPI(resposta);
+      verificaTamanhoArray(resposta.meals, 'comidas');
     }
   };
 
@@ -30,6 +48,7 @@ function SearchInput() {
     } else {
       const resposta = await bebidaApi(input, search);
       setfetchAPI(resposta);
+      verificaTamanhoArray(resposta.drinks, 'bebidas');
     }
   };
 
@@ -86,7 +105,7 @@ function SearchInput() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => (pathName === '/comidas'
+        onClick={ () => (pathName.location.pathname === '/comidas'
           ? getApiComidas(selectFilter) : getApiBedidas(selectFilter)) }
       >
         Buscar
