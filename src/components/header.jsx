@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProfileIcon from '../images/profileIcon.svg';
+import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './searchBar';
 import '../css/header.css';
@@ -17,6 +17,7 @@ class Header extends Component {
 
     this.header = this.header.bind(this);
     this.verify = this.verify.bind(this);
+    this.searchBarTrue = this.searchBarTrue.bind(this);
   }
 
   verify() {
@@ -44,7 +45,7 @@ class Header extends Component {
       <div>
         <header className="header">
           <Link to="/perfil">
-            <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profileImagem" />
+            <img data-testid="profile-top-btn" src={ profileIcon } alt="profileImagem" />
           </Link>
           <h1 data-testid="page-title">{ title }</h1>
 
@@ -58,11 +59,12 @@ class Header extends Component {
   render() {
     const { isSearchBar } = this.state;
     const { location, searchBarOn } = this.props;
-    console.log(searchBarOn);
     return (
       <div>
         { location !== undefined
-        && this.header(location.pathname.substring(1), searchBarOn)}
+        && this.header(location.pathname
+          .substring(1).charAt(0)
+          .toUpperCase() + location.pathname.substring(2), searchBarOn)}
         {isSearchBar === true && <SearchBar location={ location.pathname } /> }
       </div>
     );

@@ -19,8 +19,9 @@ export class TelaDePerfil extends Component {
     const { hasSearchBar } = this.props;
     hasSearchBar(false);
     const info = JSON.parse(localStorage.getItem('user'));
-    const { email } = info;
-    this.updateState(email);
+    console.log(info);
+    if (info !== null) { return this.updateState(info.email); }
+    this.updateState('email@email.com');
   }
 
   updateState(email) {
