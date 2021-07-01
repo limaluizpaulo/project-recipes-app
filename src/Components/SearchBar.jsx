@@ -9,6 +9,7 @@ function SearchBar(props) {
   const nameRadio = React.useRef();
 
   const { getFoodsApi } = props;
+  console.log(getFoodsApi);
   const handleClick = (e) => {
     e.preventDefault();
     switch (true) {
@@ -54,7 +55,6 @@ function SearchBar(props) {
           checked
           type="radio"
           ref={ nameRadio }
-
           name="radioFilter"
           data-testid="name-search-radio"
         />
