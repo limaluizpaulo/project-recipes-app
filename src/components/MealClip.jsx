@@ -1,18 +1,13 @@
 import React from 'react';
 
-function MealClip({ strVideo, strMeal }) {
+function MealClip({ strYoutube, strMeal }) {
+  console.log(strYoutube);
   return (
-
     <iframe
       data-testid="video"
       title={ strMeal }
-      width="853"
-      height="480"
-      src={ strVideo }
-    >
-      Video
-    </iframe>
-
+      src={ strYoutube }
+    />
   );
 }
 

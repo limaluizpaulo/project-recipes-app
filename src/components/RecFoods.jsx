@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Carousel from 'react-elastic-carousel';
 import { getFoodRecipes } from '../services';
 
 const SIX = 6;
@@ -14,24 +15,21 @@ function RecFoods() {
     fetchRecFoods();
   }, []);
 
-  const thumbFoods = recFoods.filter((recFood) => recFood.strThumbMeal);
-
-  console.log(thumbFoods);
-
   return (
-    <section>
-      <span>Comidas para acompanhar</span>
-      <br />
-      {
-        recFoods.map(({ strMeal, strMealThumb, idMeal }, key) => (
-          <img
-            data-testid={ `${key}-recomendation-card` }
-            key={ idMeal }
-            alt={ strMeal }
-            src={ strMealThumb }
-          />))
-      }
-    </section>
+    <>
+      <span>Pratos recomendados</span>
+      <Carousel>
+        {
+          recFoods.map(({ strMeal, strMealThumb, idMeal }, key) => (
+            <img
+              data-testid={ `${key}-recomendation-card` }
+              key={ idMeal }
+              alt={ strMeal }
+              src={ strMealThumb }
+            />))
+        }
+      </Carousel>
+    </>
   );
 }
 

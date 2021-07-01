@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Carousel from 'react-elastic-carousel';
 import { getDrinkRecipes } from '../services';
 
 const SIX = 6;
@@ -14,10 +15,21 @@ function RecDrinks() {
     fetchRecDrinks();
   }, []);
 
-  console.log(recDrinks);
-
   return (
-    <div>BEBIDAS</div>
+    <>
+      <span>Bebidas</span>
+      <Carousel>
+        {
+          recDrinks.map(({ strDrink, strDrinkThumb, idDrink }, key) => (
+            <img
+              data-testid={ `${key}-recomendation-card` }
+              key={ idDrink }
+              alt={ strDrink }
+              src={ strDrinkThumb }
+            />))
+        }
+      </Carousel>
+    </>
   );
 }
 

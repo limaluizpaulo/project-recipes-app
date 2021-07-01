@@ -9,6 +9,7 @@ function FoodDetails({ match, history }) {
 
   const [details, setDetails] = useState([{}]);
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [embedVideo, setEmbedVideo] = useState('');
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -24,16 +25,6 @@ function FoodDetails({ match, history }) {
     fetchDetails();
   }, [pathname, id]);
 
-  const {
-    strCategory,
-    strVideo,
-    strAlcoholic,
-    strMeal,
-    strDrink,
-    strInstructions,
-    strMealThumb,
-    strDrinkThumb } = details[0];
-
   useEffect(() => {
     const objKeys = Object.keys(details[0]);
 
@@ -48,6 +39,21 @@ function FoodDetails({ match, history }) {
     });
     setIngredientsList(ingredientItems);
   }, [details]);
+
+  useEffect(() => {
+    const { strYoutube } = details[0];
+    console.log(strYoutube);
+  }, [details]);
+
+  const {
+    strCategory,
+    strYoutube,
+    strAlcoholic,
+    strMeal,
+    strDrink,
+    strInstructions,
+    strMealThumb,
+    strDrinkThumb } = details[0];
 
   return (
     <>
@@ -85,9 +91,9 @@ function FoodDetails({ match, history }) {
         <p data-testid="instructions">{strInstructions}</p>
         <IngList ingredientsList={ ingredientsList } />
         <div>
-          {strVideo === null
+          {strYoutube === null
             ? <span>Não temos vídeo para essa receita</span>
-            : <MealClip strVideo={ strVideo } />}
+            : <MealClip embedVideo={ embedVideo } />}
         </div>
         {
           pathname.includes('/comida')
