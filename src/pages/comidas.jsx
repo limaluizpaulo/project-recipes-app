@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import { fetchApiFoodCategories } from '../action';
 import MainScreen from '../components/MainScreen';
-import Cards from '../components/cards';
+// import Cards from '../components/cards';
 import Fooder from '../components/footer';
 
 class Comidas extends Component {
@@ -26,7 +26,7 @@ class Comidas extends Component {
   categories() {
     const { getFoodCategories } = this.props;
     // const teste = getFoodCategories.map((elem) => elem);
-    console.log(getFoodCategories);
+    // console.log(getFoodCategories);
     return (
       <div>
         { getFoodCategories.map((elem, index) => (
@@ -36,14 +36,14 @@ class Comidas extends Component {
   }
 
   render() {
-    // const { foodCategories } = this.state;
-    // console.log(foodCategories);
+    const { foodCategories } = this.state;
+    console.log(foodCategories);
     const { location } = this.props;
     return (
       <div>
         <Header location={ location } />
         <main>
-          {/* <MainScreen /> */}
+          <MainScreen />
         </main>
         <p>qualquer coisa</p>
         { this.categories() }

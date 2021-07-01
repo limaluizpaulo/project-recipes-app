@@ -34,13 +34,39 @@ export const fetchApiDrinkCategories = () => (dispatch) => {
     .then((allDrinkCategories) => dispatch(getAllDrinkCategories(allDrinkCategories)));
 };
 
-export const fetchFoodRecipes = () => (dispatch) => {
+export const fetchFoodRecipes = (name = '') => (dispatch) => {
   const maxRecipes = 12;
   dispatch(isLoading());
-  fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
     .then((response) => response.json())
     .then((allFoodRecipes) => {
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
+      console.log(recipes);
+      dispatch(getAllFoodRecipes(recipes));
+    });
+};
+
+export const fetchFoodRecipesByIngredients = (ingrediente = '') => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+    .then((response) => response.json())
+    .then((allFoodRecipes) => {
+      console.log(allFoodRecipes);
+      const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
+      console.log(recipes);
+      dispatch(getAllFoodRecipes(recipes));
+    });
+};
+export const fetchFoodRecipesByfirstLetter = (primeiraletra = '') => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraletra}`)
+    .then((response) => response.json())
+    .then((allFoodRecipes) => {
+      console.log(allFoodRecipes, 'fetch da primeira letra');
+      const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
+      console.log(recipes);
       dispatch(getAllFoodRecipes(recipes));
     });
 };
