@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import copy from 'clipboard-copy';
 import { getDrinkDetails, getMealDetails } from '../services';
 
 function RecipeInProgress({ match, history }) {
@@ -8,6 +9,7 @@ function RecipeInProgress({ match, history }) {
   const { pathname } = history.location;
   const recipeType = pathname.includes('/comidas') ? 'meals' : 'cocktails';
   const [recipeInProgress, setRecipeInProgress] = useState({});
+  const [wasCopied, setWasCopied] = useState(false);
 
   const setLocalStorage = () => {
     const localStorageDefault = {
@@ -73,6 +75,12 @@ function RecipeInProgress({ match, history }) {
   );
   const measures = strMeasure.filter((el) => el[1] !== '' && el[1] !== null);
 
+  const shareRecipe = () => {
+    copy(window.location.href.replace('/in-progress', ''));
+    setWasCopied(true);
+  };
+
+  console.log(measures);
   return (
     <section>
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
@@ -81,9 +89,16 @@ function RecipeInProgress({ match, history }) {
         alt="Imagem ilustrativa do prato "
         data-testid="recipe-photo"
       />
-      <button type="button" data-testid="share-btn">Compartilhar</button>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ shareRecipe }
+      >
+        Compartilhar
+      </button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
       <span data-testid="recipe-category">{strCategory}</span>
+      {wasCopied && <span>Link copiado!</span>}
       <ul>
         {ingredients.map((recp, idx) => (
           <li
@@ -98,7 +113,7 @@ function RecipeInProgress({ match, history }) {
                 onChange={ () => updateLocalStorage(idx) }
                 defaultChecked={ checkLocalStorage(idx) }
               />
-              {`${recp[1]} - ${measures[idx][1]}`}
+              {`${recp[1]}`}
             </label>
 
           </li>))}
