@@ -44,7 +44,7 @@ function Header(props) {
         type="radio"
         value="ingredients"
       />
-      <Input
+      <Input // refatorar para menos parametros
         func={ setRadioInput }
         htmlFor="name-radio"
         label="Nome"
@@ -65,7 +65,14 @@ function Header(props) {
         value="firstLetter"
       />
       <Button
-        func={ () => setFilterHeader({ searchInput, radioInput }) }
+        func={ () => {
+          if (radioInput === 'firstLetter' && searchInput.length > 1) {
+            const alertMessage = (fn, message) => {
+              fn(message);
+            };
+            alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
+          } else setFilterHeader({ searchInput, radioInput });
+        } }
         disabled={ isDisabled() }
         testid="exec-search-btn"
         label="Buscar"

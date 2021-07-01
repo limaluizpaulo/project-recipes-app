@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import MealsContext from './MealsContext';
 import {
   getMealsRecipes,
-  getMealsCategories,
-  getMealsIngredients,
+  // getMealsCategories,
+  // getMealsIngredients,
+  getMealsIngredientsFilter,
+  getMealsNameFilter,
+  getMealsFirstLetterFilter,
 } from '../helpers/MealsAPI';
 
 function MealsProvider({ children }) {
-  const [mealsCategories, setMealsCategories] = useState([]);
-  const [mealsIngredients, setMealsIngredients] = useState([]);
-  const [mealsRecipes, setMealsRecipes] = useState([]);
+  const [meals, setMeals] = useState([]);
+  // const [mealsCategories, setMealsCategories] = useState([]);
+  // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [filterHeader, setFilterHeader] = useState({});
-  console.log(filterHeader);
 
   const maxCards = 12;
 
@@ -21,34 +23,50 @@ function MealsProvider({ children }) {
     const recipes = async () => {
       setIsFetching(true);
       const results = await getMealsRecipes();
-      setMealsRecipes(results.filter((item, index) => index < maxCards));
+      setMeals(results.filter((item, index) => index < maxCards)); //  refatorar
       setIsFetching(false);
     };
 
-    const categories = async () => {
-      setIsFetching(true);
-      const results = await getMealsCategories();
-      setMealsCategories(results);
-      setIsFetching(false);
-    };
+    // const categories = async () => {
+    //   setIsFetching(true);
+    //   const results = await getMealsCategories();
+    //   setMeals(results);
+    //   setIsFetching(false);
+    // };
 
-    const ingredients = async () => {
-      setIsFetching(true);
-      const results = await getMealsIngredients();
-      setMealsIngredients(results.filter((item, index) => index < maxCards));
-      setIsFetching(false);
-    };
+    // const ingredients = async () => {
+    //   setIsFetching(true);
+    //   const results = await getMealsIngredients();
+    //   setMeals(results.filter((item, index) => index < maxCards));
+    //   setIsFetching(false);
+    // };
 
     recipes();
-    categories();
-    ingredients();
+    // categories();
+    // ingredients();
   }, []);
 
+  useEffect(() => {
+    const filterApi = () => {
+      if (filterHeader.radioInput === 'ingredients') {
+        getMealsIngredientsFilter(filterHeader.searchInput);
+      }
+      if (filterHeader.radioInput === 'name') {
+        getMealsNameFilter(filterHeader.searchInput);
+      }
+      if (filterHeader.radioInput === 'firstLetter') {
+        getMealsFirstLetterFilter(filterHeader.searchInput);
+      }
+    };
+    filterApi();
+    setMeals(filterHeader);
+  }, [filterHeader]);
+
   const context = {
-    mealsCategories,
+    // mealsCategories,
     isFetching,
-    mealsIngredients,
-    mealsRecipes,
+    // mealsIngredients,
+    meals,
     setFilterHeader,
   };
   return (

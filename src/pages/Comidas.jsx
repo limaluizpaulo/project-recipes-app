@@ -5,11 +5,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Comidas() {
-  const { mealsRecipes, isFetching } = useContext(MealsContext);
+  const { meals, isFetching } = useContext(MealsContext);
   return isFetching ? <p>Loading...</p> : (
     <>
       <Header context={ MealsContext } title="Comidas" searchBar />
-      <MainCards data={ mealsRecipes } searchBar />
+      <MainCards data={ meals } searchBar />
       <Footer />
     </>
   );

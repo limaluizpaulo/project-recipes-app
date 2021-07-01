@@ -10,7 +10,9 @@ export default function MainCards(props) {
     <main>
       <aside>Categories</aside>
       <section>
-        {data.length && (<Card data={ data[0] } />)}
+        {data.length && (
+          data.map((card, index) => <Card key={ index } data={ card } />)
+        )}
       </section>
     </main>
   );
