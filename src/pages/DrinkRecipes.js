@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
+import { searchByCategoryDrink } from '../services/searchApi';
 
 function DrinkRecipes() {
   const { setFirstDrinks, firstDrinks } = useContext(Context);
@@ -28,14 +30,35 @@ function DrinkRecipes() {
     fetchCategories();
   }, []);
 
+  async function handleClick({ target }) {
+    if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
+      target.className = 'category-btn';
+      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const { drinks } = await request.json();
+      return setFirstDrinks(drinks.slice(0, numOfDrinks));
+    }
+    target.className = 'category-btn-dbl';
+    const { drinks } = await searchByCategoryDrink(target.innerText);
+    setFirstDrinks(drinks.splice(0, numOfDrinks));
+  }
+
   return (
     <div>
       <Header title="Bebidas" />
       <div className="btn-container">
+        <button
+          className="category-btn"
+          data-testid="All-category-filter"
+          onClick={ handleClick }
+          type="button"
+        >
+          All
+        </button>
         {firstCategories.map((category, index) => (
           <button
             className="category-btn"
             data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ handleClick }
             key={ index }
             type="button"
           >
@@ -45,18 +68,19 @@ function DrinkRecipes() {
       </div>
       <div className="card-container">
         {firstDrinks.map((drink, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            className="card"
-            key={ drink.strDrink }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
-            />
-            <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
-          </div>
+          <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
+            <div
+              data-testid={ `${index}-recipe-card` }
+              className="card"
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+              />
+              <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+            </div>
+          </Link>
         ))}
       </div>
       <Footer />
