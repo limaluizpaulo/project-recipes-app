@@ -8,8 +8,8 @@ import Card from '../components/Card';
 
 function Recipes() {
   const { recipesFilter: { filteredRecipes },
-    allRecipes: { recipes }, allCategories: { categories },
-    recipesFilteredByCategory: { recipesByCategory }, setCategory, category, setIsFiltred, isFiltred,
+    allRecipes: { recipes }, allCategories: { categories }, recipesFilteredByCategory:
+    { recipesByCategory }, setCategory, category, setIsFiltred, isFiltred,
   } = useContext(RecipesContext);
 
   const history = useHistory();
@@ -29,7 +29,6 @@ function Recipes() {
           {
             recipes.slice(0, NUMBER_OF_ITEMS)
               .map((recipe, index) => (<Card
-                data-testid={ `${index}-recipe-card` }
                 key={ recipe.idMeal }
                 recipe={ recipe }
                 index={ index }
@@ -92,7 +91,7 @@ function Recipes() {
       {renderButtonCategories()}
 
       {
-        isFiltred ? <FilteredList filteredRecipes={ filteredRecipes } recipesByCategory={ recipesByCategory } />
+        isFiltred ? <FilteredList filteredRecipes={ filteredRecipes } />
           : renderRecipesDefault()
       }
 

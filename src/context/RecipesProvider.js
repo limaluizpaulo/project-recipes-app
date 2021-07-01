@@ -13,7 +13,7 @@ function RecipesProvider({ children }) {
   const [allCategories, setAllCategories] = useState({ categories: [] });
   const [recipesFilteredByCategory,
     setRecipesFilteredByCategory] = useState({ recipesByCategory: [] });
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
 
   async function filterRecipesByIngredient(ingredient) {
@@ -41,8 +41,8 @@ function RecipesProvider({ children }) {
     setAllCategories({ categories });
   }
 
-  async function filterRecipesByCategory(category) {
-    const recipesByCategory = await fetchRecipesByCategory(category);
+  async function filterRecipesByCategory(categoryRecipe) {
+    const recipesByCategory = await fetchRecipesByCategory(categoryRecipe);
     setRecipesFilteredByCategory({ recipesByCategory });
   }
 
