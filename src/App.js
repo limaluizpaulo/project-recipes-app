@@ -5,7 +5,7 @@ import Routers from './pages/Routers';
 
 function App() {
   return (
-    <div className="meals">
+    <div className="app">
       <Routers />
     </div>
   );
