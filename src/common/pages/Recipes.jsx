@@ -50,6 +50,7 @@ export default function Recipes() {
 
   useEffect(() => {
     if (loading) getRecipes();
+  });
 
   // ---------------------------------------------------------------------------------------------
 
@@ -60,7 +61,7 @@ export default function Recipes() {
       <CategoryButton
         clickCategory={ handleClickCategory }
         clickAll={ getRecipes }
-      />     
+      />
       <RecipeCard />
     </main>
   );
