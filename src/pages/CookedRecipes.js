@@ -1,11 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function CookedRecipes() {
   return (
     <div>
-      <h2>
-        Not raw!
-      </h2>
+      <Header />
+      Not raw!
     </div>
   );
 }
