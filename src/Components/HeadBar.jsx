@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Search from './SearchBar';
+import SearchBar from './SearchBar';
 import Header from './Header';
 
 function HeadBar(props) {
@@ -9,7 +9,7 @@ function HeadBar(props) {
   return searchBar ? (
     <div>
       <Header title={ title } searchBar={ searchBar } setSearchBar={ setSearchBar } />
-      <Search />
+      <SearchBar title={ title } />
     </div>
   )
     : (

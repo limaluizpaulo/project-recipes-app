@@ -68,6 +68,7 @@
 }
 
 .footer {
+  margin-bottom: 25px;
   bottom: 0;
   position: fixed;
   width: 100%;

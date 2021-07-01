@@ -6,9 +6,9 @@
   top: 0;
 }
 
-.header-container div {
+/* .header-container div {
   padding-right: 20px;
-}
+} */
 
 .header-container > button {
   background-color: inherit;
@@ -20,10 +20,3 @@
   text-align: center;
 }
 
-.show {
-  visibility: visible;
-}
-
-.hidden {
-  visibility: none;
-}

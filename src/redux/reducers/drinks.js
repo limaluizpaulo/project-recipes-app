@@ -1,8 +1,8 @@
-import { FOODS } from '../actions/index';
+import { DRINKS } from '../actions/index';
 
 export default (state = { list: [] }, { type, payload }) => {
   switch (type) {
-  case FOODS:
+  case DRINKS:
     return {
       ...state, list: payload,
     };
