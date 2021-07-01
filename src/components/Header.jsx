@@ -6,7 +6,6 @@ import searchIcon from '../images/searchIcon.svg';
 function Header() {
   const history = useHistory();
   const { pathname } = useLocation();
-  // test
   const condicionRenderingTitle = () => {
     switch (pathname) {
     case '/comidas':

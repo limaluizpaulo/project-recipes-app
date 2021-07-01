@@ -18,7 +18,6 @@ import IdFood from './pages/IdFood';
 function App() {
   return (
     <Switch>
-
       <Route path="/explorar/comidas/area" component={ AreaExplorer } />
       <Route path="/explorar/bebidas/ingredientes" component={ SearchIngredients } />
       <Route path="/explorar/comidas/ingredientes" component={ SearchIngredients } />
