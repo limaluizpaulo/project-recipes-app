@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipesFavorite from './pages/RecipesFavorite';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         {/* <Route path="/explorar/comidas/area" component={ComidasArea} /> */}
         {/* <Route path="/perfil" component={Perfil} /> */}
         <Route path="/receitas-feitas" component={ RecipesMade } />
-        {/* <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
+        <Route path="/receitas-favoritas" component={ RecipesFavorite } />
       </Switch>
     </RecipesProvider>
     // <div className="meals">
