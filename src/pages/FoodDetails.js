@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ReactPlayer from 'react-player';
 
 import { requestByDetailsMeal } from '../services/api';
 
@@ -39,7 +38,6 @@ function FoodDetails() {
             </li>
           </ul>
           <span data-testid="instructions">{ strInstructions }</span>
-          <ReactPlayer url={ strYoutube } data-testid="video" />
           <div data-testid={ `${index}-recomendation-card` }>{ strSource }</div>
           <button type="button" data-testid="start-recipe-btn">
             Iniciar
