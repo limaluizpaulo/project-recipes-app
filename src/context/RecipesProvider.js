@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
-import { fetchRecipesByIngredient,
-  fetchRecipesByName, fetchRecipesByFirstLetter } from '../services/RecipesServices';
+import { fetchRecipesByIngredient, fetchRecipesByName,
+  fetchRecipesByFirstLetter, fetchAllRecipes } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
   const [recipesFilter, setRecipesFilter] = useState({ filteredRecipes: [] });
+  const [allRecipes, setAllRecipes] = useState({ recipes: [] });
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
@@ -23,12 +24,23 @@ function RecipesProvider({ children }) {
     setRecipesFilter({ filteredRecipes: recipesFilteredByFirstLetter });
   }
 
+  async function getAllRecipes() {
+    const recipes = await fetchAllRecipes();
+    setAllRecipes({ recipes });
+  }
+
+  useEffect(() => {
+    getAllRecipes();
+  }, []);
+
   return (
     <RecipesContext.Provider
       value={ { recipesFilter,
         filterRecipesByIngredient,
         filterRecipesByName,
-        filterRecipesByFirstLetter } }
+        filterRecipesByFirstLetter,
+        allRecipes,
+        getAllRecipes } }
     >
       { children }
     </RecipesContext.Provider>

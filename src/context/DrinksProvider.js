@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import DrinksContext from './DrinksContext';
-import { fetchDrinksByFirstLetter,
+import { fetchAllDrinks, fetchDrinksByFirstLetter,
   fetchDrinksByIngredient, fetchDrinksByName } from '../services/DrinksServices';
 
 function DrinksProvider({ children }) {
   const [drinksFilter, setrinksFilter] = useState({ filteredDrinks: [] });
+  const [allDrinks, setAllDrinks] = useState({ drinks: [] });
 
   async function filterDrinksByIngredient(ingredient) {
     const drinksFilteredByIngredient = await fetchDrinksByIngredient(ingredient);
@@ -23,12 +24,23 @@ function DrinksProvider({ children }) {
     setrinksFilter({ filteredDrinks: drinksFilteredByFirstLetter });
   }
 
+  async function getAllDrinks() {
+    const drinks = await fetchAllDrinks();
+    setAllDrinks({ drinks });
+  }
+
+  useEffect(() => {
+    getAllDrinks();
+  }, []);
+
   return (
     <DrinksContext.Provider
       value={ { drinksFilter,
         filterDrinksByIngredient,
         filterDrinksByName,
-        filterDrinksByFirstLetter } }
+        filterDrinksByFirstLetter,
+        allDrinks,
+        getAllDrinks } }
     >
       { children }
     </DrinksContext.Provider>

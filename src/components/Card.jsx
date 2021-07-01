@@ -8,7 +8,7 @@ function Card({ drink, recipe, index }) {
       {
         pathname.includes('/comidas')
           ? (
-            <div>
+            <div data-testid={ `${index}-recipe-card` }>
               <h3 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h3>
               <img
                 data-testid={ `${index}-card-img` }
@@ -18,7 +18,7 @@ function Card({ drink, recipe, index }) {
             </div>
           )
           : (
-            <div>
+            <div data-testid={ `${index}-recipe-card` }>
               <h3 data-testid={ `${index}-card-name` }>{drink.strDrink}</h3>
               <img
                 data-testid={ `${index}-card-img` }
