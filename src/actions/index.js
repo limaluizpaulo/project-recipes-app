@@ -2,6 +2,8 @@ export const REQUEST_INGREDIENT_FOOD = 'REQUEST_INGREDIENT_FOOD';
 export const REQUEST_INGREDIENT_DRINK = 'REQUEST_INGREDIENT_DRINK';
 export const REQUEST_FOOD_BY_ID = 'REQUEST_FOOD_BY_ID';
 export const REQUEST_DRINK_BY_ID = 'REQUEST_DRINK_BY_ID';
+// export const REQUEST_FOOD = 'REQUEST_FOOD';
+// export const REQUEST_DRINK = 'REQUEST_DRINK';
 
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -73,14 +75,42 @@ export const fetchDrinksAction = (searchInput, searchFilter) => async (dispatch)
   });
 };
 
-export const fetchFoodId = async (id) => {
-  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+export const fetchFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const response = await result.json();
   return response;
 };
 
-export const fetchDrinkId = async (id) => {
-  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+export const fetchFoodAction = () => async (dispatch) => {
+  let result = {};
+  result = await fetchFood();
+  dispatch({
+    type: REQUEST_INGREDIENT_FOOD,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchDrinkAction = () => async (dispatch) => {
+  let result = {};
+  result = await fetchDrink();
+  dispatch({
+    type: REQUEST_INGREDIENT_DRINK,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchFoodId = async (id) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const response = await result.json();
   return response;
 };
@@ -93,6 +123,12 @@ export const fetchFoodIdAction = (id) => async (dispatch) => {
       response,
     },
   });
+};
+
+export const fetchDrinkId = async (id) => {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const response = await result.json();
+  return response;
 };
 
 export const fetchDrinkIdAction = (id) => async (dispatch) => {

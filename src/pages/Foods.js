@@ -1,18 +1,53 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import FoodCard from '../components/FoodCard';
+
+import { fetchFoodAction } from '../actions';
 
 class Foods extends Component {
+  constructor() {
+    super();
+
+    this.requisicao = this.requisicao.bind(this);
+  }
+
+  componentDidMount() {
+    this.requisicao();
+  }
+
+  requisicao() {
+    const { requestFoodRecipes } = this.props;
+    requestFoodRecipes();
+  }
+
   render() {
+    const { resultFood } = this.props;
     return (
       <>
         <section>
           <Header title="Comidas" />
         </section>
+        {resultFood ? <FoodCard /> : null}
         <Footer />
       </>
     );
   }
 }
 
-export default Foods;
+const mapStateToProps = (state) => ({
+  resultFood: state.food.recipes,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  requestFoodRecipes: () => (dispatch(fetchFoodAction())),
+});
+
+Foods.propTypes = {
+  requestFoodRecipes: PropTypes.func.isRequired,
+  resultFood: PropTypes.arrayOf(Object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foods);

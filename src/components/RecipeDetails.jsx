@@ -1,10 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
 class RecipeDetails extends React.Component {
   render() {
+    const { recipeDetails } = this.props;
+    console.log(recipeDetails);
+
     return (
       <section>
         <div>
@@ -26,26 +32,22 @@ class RecipeDetails extends React.Component {
         </div>
         <div>
           <h4>Ingredientes</h4>
-          <ul>
-          </ul>
+          <ul />
         </div>
         <div>
           <h4>Instruções</h4>
-          <p data-testid="instructions"></p>
+          <p data-testid="instructions" />
         </div>
         <div>
           <h4>Video</h4>
-          <iframe
-            src={}
-            data-testid="video"
-            frameborder="0"
-          >
-          </iframe>
+          {/* <iframe
+            data-testid="video" */}
+          {/* /> */}
         </div>
         <div>
           <h4>Recomendadas</h4>
-          <div data-testid="${index}-recomendation-card" >Carrosel de cards</div> 
-          </div>
+          <div data-testid={ `${index}-recomendation-card` }>Carrosel de cards</div>
+        </div>
         <button
           type="button"
           data-testid="start-recipe-btn"
@@ -58,4 +60,12 @@ class RecipeDetails extends React.Component {
   }
 }
 
-export default RecipeDetails;
+const mapStateToProps = (state) => ({
+  recipeDetails: state.food.foodById,
+});
+
+RecipeDetails.propTypes = {
+  recipeDetails: PropTypes.arrayOf(Object).isRequired,
+};
+
+export default connect(mapStateToProps)(RecipeDetails);
