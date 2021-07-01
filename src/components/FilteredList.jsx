@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Card from './Card';
 
@@ -62,5 +63,10 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
     </section>
   );
 }
+
+FilteredList.propTypes = {
+  filteredDrinks: PropTypes.string.isRequired,
+  filteredRecipes: PropTypes.string.isRequired,
+};
 
 export default FilteredList;

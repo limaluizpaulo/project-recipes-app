@@ -74,8 +74,8 @@ function Header({ search, profile, name }) {
 
 Header.propTypes = {
   name: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-  profile: PropTypes.string.isRequired,
+  search: PropTypes.bool.isRequired,
+  profile: PropTypes.bool.isRequired,
 };
 
 export default Header;

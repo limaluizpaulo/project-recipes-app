@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function Card({ drink, recipe, index }) {
   const { location: { pathname } } = useHistory();
@@ -35,5 +36,20 @@ function Card({ drink, recipe, index }) {
     </section>
   );
 }
+
+Card.propTypes = {
+  recipe: PropTypes.objectOf({
+    idMeal: PropTypes.number,
+    strMealThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+  }).isRequired,
+  drink: PropTypes.objectOf({
+    idDrink: PropTypes.number,
+    strDrinkThumb: PropTypes.string,
+    strDrink: PropTypes.string,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+
+};
 
 export default Card;
