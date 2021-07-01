@@ -11,7 +11,6 @@ function Drinks() {
     allDrinks: { drinks }, allCategories: { categories }, drinksFilteredByCategory:
     { drinksByCategory }, setCategory, category, setIsFiltred, isFiltred,
   } = useContext(DrinksContext);
-
   const history = useHistory();
   const NUMBER_OF_ITEMS = 12;
   const NUMBER_OF_CATEGORIES = 5;
@@ -22,11 +21,8 @@ function Drinks() {
     }
   }, [filteredDrinks, history]);
 
-  useEffect(() => {
-
-  }, []);
   function renderDrinksDefault() {
-    if (drinksByCategory.length === 0 && isFiltred === false) {
+    if (!drinksByCategory && isFiltred === false) {
       return (
         <div>
           {

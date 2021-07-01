@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
-
 import Header from '../components/Header';
 
 function Recipes() {
@@ -85,11 +84,7 @@ function Recipes() {
 
   return (
     <>
-      <Header
-        profile
-        name="Comidas"
-        search
-      />
+      <Header profile name="Comidas" search />
 
       {renderButtonCategories()}
 
