@@ -1,5 +1,5 @@
 .footer {
-  bottom: 0px;
-  display: flex;  
+  bottom: 0;
+  display: flex;
   position: fixed;
-}
+};
