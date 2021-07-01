@@ -1,22 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
 import store, { addRecipes } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header/Header';
 
 export default function Recipes() {
-  // const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [categoryOn, setCategoryOn] = useState(undefined);
   const { recipes: { foods, meals, drinks, categoriesMeals, categoriesDrinks },
     setRecipes } = useContext(store);
 
   const getRecipes = async () => {
-    // if (location.pathname === '/bebidas') { setRecipes(directPage(false)); }
-    // if (location.pathname === '/comidas') { setRecipes(directPage(true)); }
-
     const Meals = await fetchAPI(MEALS);
     const catMeals = await fetchAPI(CATEG_MEALS);
     const Drinks = await fetchAPI(DRINKS);
@@ -54,32 +50,18 @@ export default function Recipes() {
 
   useEffect(() => {
     if (loading) getRecipes();
-  });
-  // useEffect(() => {
-  //   const getRecipes = async () => {
-  //     const Meals = await fetchAPI(MEALS);
-  //     const catMeals = await fetchAPI(CATEG_MEALS);
-  //     const Drinks = await fetchAPI(DRINKS);
-  //     const catDrinks = await fetchAPI(CATEG_DRINKS);
-  //     setRecipes(
-  //       addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
-  //     );
-  //     setLoading(false);
-  //   };
-  //   getRecipes();
-  // }, [setRecipes]);
 
   // ---------------------------------------------------------------------------------------------
 
   if (loading) return (<h5>Loading...</h5>);
   return (
     <main className="Cards">
+      <Header pageName="Comidas" />
       <CategoryButton
         clickCategory={ handleClickCategory }
         clickAll={ getRecipes }
-      />
+      />     
       <RecipeCard />
-
     </main>
   );
 }
