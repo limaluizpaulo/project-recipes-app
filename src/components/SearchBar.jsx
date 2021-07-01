@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
     this.fetchFood = this.fetchFood.bind(this);
     this.fetchBeverages = this.fetchBeverages.bind(this);
     this.OnClickSearch = this.OnClickSearch.bind(this);
-    this.onSingleRecipieReturn = this.onSingleRecipieReturn.bind(this);
+    this.onSingleRecipeReturn = this.onSingleRecipeReturn.bind(this);
     this.state = {
       input: '',
       filter: '',
@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  onSingleRecipieReturn() {
+  onSingleRecipeReturn() {
     const { history } = this.props;
     const { API } = this.state;
     if (API.drinks && API.drinks.length === 1) {
@@ -33,6 +33,9 @@ class SearchBar extends React.Component {
     }
     if (API.meals && API.meals.length === 1) {
       return history.push(`/comidas/${API.meals[0].idMeal}`);
+    }
+    if (API.meals === null || API.drinks === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return null;
   }
@@ -55,7 +58,7 @@ class SearchBar extends React.Component {
     const responseAPI = await fetchAPI(url);
     return this.setState({
       API: responseAPI,
-    }, () => this.onSingleRecipieReturn());
+    }, () => this.onSingleRecipeReturn());
   }
 
   async fetchBeverages() {
@@ -76,7 +79,7 @@ class SearchBar extends React.Component {
     const responseAPI = await fetchAPI(url);
     return this.setState({
       API: responseAPI,
-    }, () => this.onSingleRecipieReturn());
+    }, () => this.onSingleRecipeReturn());
   }
 
   OnClickSearch() {
