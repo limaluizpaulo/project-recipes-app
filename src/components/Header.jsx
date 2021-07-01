@@ -53,18 +53,24 @@ function Header(props) {
   ) : null;
 
   return (
-    <header>
-      <Link to="/perfil">
-        <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
+    <div>
+      <header>
+        <Link to="/perfil">
+          <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {searchBar && (
+          <button
+            onClick={ showSearchChange }
+            type="button"
+            data-testid="exec-search-btn"
+          >
+            <img src={ searchIcon } alt="search button" data-testid="search-top-btn" />
+          </button>
+        ) }
+      </header>
       {searchBarInput}
-      {searchBar && (
-        <button onClick={ showSearchChange } type="button" data-testid="exec-search-btn">
-          <img src={ searchIcon } alt="search button" data-testid="search-top-btn" />
-        </button>
-      ) }
-    </header>
+    </div>
   );
 }
 

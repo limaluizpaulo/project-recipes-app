@@ -12,8 +12,8 @@ const fetchAPI = async (url) => {
   return response.json(); // retorna o objeto JSON resultado do sucesso de uma Promise do processamento da stream response
 };
 
-const getAPI = async (url, type, key) => {
-  const endpoint = `${url}${type}`;
+const getAPI = async (url, type, key, filter = '') => {
+  const endpoint = `${url}${type}${filter}`;
   console.log(endpoint);
   try {
     const results = await fetchAPI(endpoint);
