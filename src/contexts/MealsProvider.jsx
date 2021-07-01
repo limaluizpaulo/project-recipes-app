@@ -12,6 +12,8 @@ function MealsProvider({ children }) {
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealsRecipes, setMealsRecipes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [filterHeader, setFilterHeader] = useState({});
+  console.log(filterHeader);
 
   const maxCards = 12;
 
@@ -47,6 +49,7 @@ function MealsProvider({ children }) {
     isFetching,
     mealsIngredients,
     mealsRecipes,
+    setFilterHeader,
   };
   return (
     <MealsContext.Provider value={ context }>

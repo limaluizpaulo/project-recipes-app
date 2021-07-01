@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,9 +8,19 @@ import Input from '../helpers/Input';
 import Button from '../helpers/Button';
 
 function Header(props) {
-  const { title, searchBar } = props;
+  const { title, searchBar, context } = props;
+  const { setFilterHeader } = useContext(context);
 
   const [showSearch, setShowSearch] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [radioInput, setRadioInput] = useState('');
+
+  const isDisabled = () => {
+    if (searchInput === '' || radioInput === '') {
+      return true;
+    }
+    return false;
+  };
 
   const showSearchChange = () => {
     if (showSearch === false) setShowSearch(true);
@@ -19,21 +29,23 @@ function Header(props) {
   const searchBarInput = showSearch ? (
     <form htmlFor="seachBar">
       <Input
+        func={ setSearchInput }
         id="searchBar"
         type="text"
         testid="search-input"
       />
       <Input
+        func={ setRadioInput }
         name="search-radios"
         htmlFor="ingredients-radio"
-        label="Ingredientes"
+        label="Ingrediente"
         testid="ingredient-search-radio"
         id="ingredients-radio"
         type="radio"
         value="ingredients"
-        checked
       />
       <Input
+        func={ setRadioInput }
         htmlFor="name-radio"
         label="Nome"
         name="search-radios"
@@ -43,6 +55,7 @@ function Header(props) {
         value="name"
       />
       <Input
+        func={ setRadioInput }
         htmlFor="firstLetter-radio"
         label="Primeira letra"
         name="search-radios"
@@ -51,7 +64,12 @@ function Header(props) {
         testid="first-letter-search-radio"
         value="firstLetter"
       />
-      <Button testid="exec-search-btn" label="Buscar" />
+      <Button
+        func={ () => setFilterHeader({ searchInput, radioInput }) }
+        disabled={ isDisabled() }
+        testid="exec-search-btn"
+        label="Buscar"
+      />
     </form>
   ) : null;
 
@@ -77,6 +95,7 @@ function Header(props) {
 }
 
 Header.propTypes = {
+  context: PropTypes.objectOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
   searchBar: PropTypes.bool.isRequired,
 };
