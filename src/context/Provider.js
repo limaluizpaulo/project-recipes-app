@@ -4,6 +4,8 @@ import Context from './Context';
 
 export default function Provider({ children }) {
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [mealsRecipes, setMealsRecipes] = useState([]);
+  const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
 
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
