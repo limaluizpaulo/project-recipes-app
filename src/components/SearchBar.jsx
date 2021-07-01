@@ -1,8 +1,35 @@
 import React, { useState } from 'react';
 
 function SearchBar() {
-  const [, setSearchText] = useState('');
-  const [, setRadioButton] = useState(' ingredients');
+  const [searchText, setSearchText] = useState('');
+  const [radioButton, setRadioButton] = useState(' ingredients');
+
+  const handleClick = () => {
+    if (radioButton === 'ingrediente') {
+      return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`)
+        .then((res) => res.json())
+        .then(({ meals }) => console.log(meals));
+    }
+
+    if (radioButton === 'nome') {
+      return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
+        .then((res) => res.json())
+        .then(({ meals }) => console.log(meals));
+    }
+
+    // função tirada da ajuda do Lucas Martins no Slack
+    const alertMessage = (func, message) => func(message);
+
+    if (searchText.length > 1) {
+      alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
+    }
+
+    if (radioButton === 'primeira letra') {
+      return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchText}`)
+        .then((res) => res.json())
+        .then(({ meals }) => console.log(meals));
+    }
+  };
 
   return (
     <form>
@@ -16,9 +43,9 @@ function SearchBar() {
         <input
           type="radio"
           id="ingredients"
-          value="ingredients"
+          value="ingrediente"
           name="searchType"
-          data-testid="ingredients-search-radio"
+          data-testid="ingredient-search-radio"
           onChange={ ({ target: { value } }) => setRadioButton(value) }
         />
         Ingrediente
@@ -38,7 +65,7 @@ function SearchBar() {
         <input
           type="radio"
           id="primeiraLetra"
-          value="primeiraLetra"
+          value="primeira letra"
           name="searchType"
           data-testid="first-letter-search-radio"
           onChange={ ({ target: { value } }) => setRadioButton(value) }
@@ -48,6 +75,7 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ handleClick }
       >
         Buscar
       </button>
