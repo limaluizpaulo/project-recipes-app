@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import FoodCard from './FoodCard';
-// import DrinkCard from './DrinkCard';
+import FoodCard from './FoodCard';
+import DrinkCard from './DrinkCard';
 
 import '../css/SearchBar.css';
 
@@ -55,12 +55,15 @@ class SearchBar extends Component {
       this.invokeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    // if (resultFood && title === 'Comidas' && resultFood.length > 1) {
-    //   return <FoodCard />;
-    // }
-    // if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
-    //   return <DrinkCard />;
-    // }
+
+    const renderCard = () => {
+      if (resultFood && title === 'Comidas' && resultFood.length > 1) {
+        return <FoodCard />;
+      }
+      if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
+        return <DrinkCard />;
+      }
+    };
     return (
       <div className="search">
         <div className="search-container">
@@ -119,6 +122,7 @@ class SearchBar extends Component {
             Buscar
           </button>
         </div>
+        {renderCard()}
       </div>
     );
   }
@@ -141,8 +145,8 @@ SearchBar.propTypes = {
   requestFoodRecipes: PropTypes.func.isRequired,
   requestDrinkRecipes: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  resultFood: PropTypes.number.isRequired,
-  resultDrink: PropTypes.number.isRequired,
+  resultFood: PropTypes.arrayOf(Object).isRequired,
+  resultDrink: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

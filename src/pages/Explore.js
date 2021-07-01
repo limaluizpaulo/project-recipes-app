@@ -9,9 +9,7 @@ class Explore extends Component {
         <section>
           <Header title="Explorar" searchIcon />
         </section>
-        <footer data-testid="footer">
-          <Footer />
-        </footer>
+        <Footer />
       </>
     );
   }

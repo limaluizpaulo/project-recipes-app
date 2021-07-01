@@ -9,9 +9,7 @@ class ExploreDrinks extends Component {
         <section>
           <Header title="Explorar Bebidas" searchIcon />
         </section>
-        <footer data-testid="footer">
-          <Footer />
-        </footer>
+        <Footer />
       </>
     );
   }
