@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 class MealCard extends React.Component {
   render() {
     const { meals } = this.props;
+    const numeroMaximoDeReceitas = 12;
     if (meals) {
       console.log(meals);
       return (
         <main>
           {meals.meals.map((meal, index) => {
-            if (index < 12) {
+            if (index < numeroMaximoDeReceitas) {
               return (
                 <div key={ index } data-testid={ `${index}-recipe-card` }>
                   <img
