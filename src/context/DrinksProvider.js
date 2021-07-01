@@ -54,7 +54,7 @@ function DrinksProvider({ children }) {
       setDrinksFilteredByCategory(allDrinks);
     }
     filterDrinksByCategory(category);
-  }, [category]);
+  }, [allDrinks, category]);
 
   return (
     <DrinksContext.Provider
