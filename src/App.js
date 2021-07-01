@@ -31,23 +31,4 @@ function App() {
   );
 }
 
-/*
-/
-/explorar/comidas/ingredientes
-/explorar/bebidas/ingredientes
-/explorar/comidas/area
-/explorar/comidas
-/explorar/bebidas
-/explorar
-/perfil
-/receitas-feitas
-/receitas-favoritas
-/comidas/:id/in-progress
-/bebidas/:id/in-progress
-/bebidas/:id
-/comidas/:id
-/bebidas
-/comidas
-*/
-
 export default App;

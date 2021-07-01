@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Input from '../helpers/Input';
+import Button from '../helpers/Button';
 
 function Header(props) {
   const { title, searchBar } = props;
@@ -23,6 +24,7 @@ function Header(props) {
         testid="search-input"
       />
       <Input
+        name="search-radios"
         htmlFor="ingredients-radio"
         label="Ingredientes"
         testid="ingredient-search-radio"
@@ -49,6 +51,7 @@ function Header(props) {
         testid="first-letter-search-radio"
         value="firstLetter"
       />
+      <Button testid="exec-search-btn" label="Buscar" />
     </form>
   ) : null;
 
@@ -63,7 +66,6 @@ function Header(props) {
           <button
             onClick={ showSearchChange }
             type="button"
-            data-testid="exec-search-btn"
           >
             <img src={ searchIcon } alt="search button" data-testid="search-top-btn" />
           </button>
