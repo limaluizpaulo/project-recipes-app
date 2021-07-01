@@ -6,6 +6,8 @@ import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
 import Header from '../components/Header';
 
+import '../styles/Card.css';
+
 function Recipes() {
   const { recipesFilter: { filteredRecipes },
     allRecipes: { recipes }, allCategories: { categories }, recipesFilteredByCategory:
@@ -24,7 +26,7 @@ function Recipes() {
   function renderRecipesDefault() {
     if (!recipesByCategory && isFiltred === false) {
       return (
-        <div>
+        <section className="cards-field">
           {
             recipes.slice(0, NUMBER_OF_ITEMS)
               .map((recipe, index) => (<Card
@@ -33,11 +35,11 @@ function Recipes() {
                 index={ index }
               />))
           }
-        </div>
+        </section>
       );
     }
     return (
-      <div>
+      <section className="cards-field">
         {
           recipesByCategory.slice(0, NUMBER_OF_ITEMS)
             .map((recipe2, index2) => (<Card
@@ -46,13 +48,13 @@ function Recipes() {
               index={ index2 }
             />))
         }
-      </div>
+      </section>
     );
   }
 
   function renderButtonCategories() {
     return (
-      <div>
+      <section className="category-field">
         <Button
           data-testid="All-category-filter"
           onClick={ (event) => setCategory(event.target.innerText) }
@@ -78,7 +80,7 @@ function Recipes() {
               </Button>
             ))
         }
-      </div>
+      </section>
     );
   }
 

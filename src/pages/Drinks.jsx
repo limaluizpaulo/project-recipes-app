@@ -6,6 +6,8 @@ import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
 import Header from '../components/Header';
 
+import '../styles/Card.css';
+
 function Drinks() {
   const { drinksFilter: { filteredDrinks },
     allDrinks: { drinks }, allCategories: { categories }, drinksFilteredByCategory:
