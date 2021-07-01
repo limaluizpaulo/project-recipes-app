@@ -22,6 +22,7 @@ const Drinks = () => {
               title={ strDrink }
               img={ strDrinkThumb }
               index={ index }
+              type="bebidas"
             />
           );
         }

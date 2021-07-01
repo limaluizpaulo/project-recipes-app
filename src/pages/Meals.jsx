@@ -26,6 +26,7 @@ const Meals = () => {
               title={ strMeal }
               img={ strMealThumb }
               index={ index }
+              type="comidas"
             />
           );
         }
