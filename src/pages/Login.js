@@ -40,15 +40,15 @@ export default function Login() {
         type="text"
         data-testid="email-input"
         onChange={ handleInputChange }
-      /> */}
-      {/* Senha:
+      />
+      Senha:
       <input
         name="password"
         type="password"
         data-testid="password-input"
         onChange={ handleInputChange }
-      /> */}
-      {/* <button
+      />s
+      <button
         type="submit"
         data-testid="login-submit-btn"
         disabled={ !validation }

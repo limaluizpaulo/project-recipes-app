@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Pages from './pages/index';
+// import TesteDeRotas from './components/TesteDeRotas';
 
 export default function App() {
   function renderRotes() {
@@ -20,7 +21,10 @@ export default function App() {
           path="/bebidas"
           component={ Pages.Drinks }
         />
-        <Route path="/explorar/comidas" />
+        <Route
+          path="/explorar/comidas"
+          component={ Pages.ExploreFoods }
+        />
         <Route
           path="explorar/comidas/area"
           component={ Pages.ExploreFoodsByLocation }
@@ -29,7 +33,7 @@ export default function App() {
           path="/explorar/comidas/ingredientes"
           component={ Pages.ExploreFoodsByIngredients }
         />
-        <Route path="/explorar/bebidas/" />
+        <Route path="/explorar/bebidas/" component={ Pages.ExploreDrinks } />
         <Route
           path="/explorar/bebidas/ingredientes"
           component={ Pages.ExploreDrinksByIngredients }
