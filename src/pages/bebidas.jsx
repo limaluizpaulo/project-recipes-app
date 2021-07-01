@@ -5,11 +5,13 @@ import Header from '../components/header';
 import ButtonCategories from '../components/ButtonCategories';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
-import { fetchApiDrinkCategories, fetchDrinksRecipes } from '../action';
+import { fetchApiDrinkCategories,
+  fetchDrinksRecipes, getSearchBarResponse } from '../action';
 
 class Bebidas extends Component {
   componentDidMount() {
-    const { dispatchDrinks, apiDrinkCategories } = this.props;
+    const { dispatchDrinks, apiDrinkCategories, hasSearchBar } = this.props;
+    hasSearchBar(true);
     dispatchDrinks();
     apiDrinkCategories();
   }
@@ -46,6 +48,8 @@ class Bebidas extends Component {
 const mapDispatchToProps = (dispatch) => ({
   dispatchDrinks: () => dispatch(fetchDrinksRecipes()),
   apiDrinkCategories: () => dispatch(fetchApiDrinkCategories()),
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
+
 });
 
 const mapStateToProps = (state) => ({
@@ -58,6 +62,8 @@ Bebidas.propTypes = {
   drinksCategories: PropTypes.arrayOf(PropTypes.shape).isRequired,
   dispatchDrinks: PropTypes.func.isRequired,
   apiDrinkCategories: PropTypes.func.isRequired,
+  location: PropTypes.shape.isRequired,
+  hasSearchBar: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

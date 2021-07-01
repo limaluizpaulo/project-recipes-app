@@ -38,7 +38,9 @@ class SearchBar extends Component {
         fetchApiByIngredient, fetchApiByFirstLetter);
     }
     if (location === '/bebidas') {
-      return this.handleFoodAndDrink(fetchApiDrinks, fetchApiDrinks, fetchApiDrinksByFirstLetter);
+      return this.handleFoodAndDrink(
+        fetchApiDrinks, fetchApiDrinks, fetchApiDrinksByFirstLetter,
+      );
     }
   }
 
