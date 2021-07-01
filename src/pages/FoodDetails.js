@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import List from '../components/List';
 
 import { requestByDetailsMeal } from '../services/api';
 
@@ -18,32 +19,53 @@ function FoodDetails() {
   return (
     item && (
       item.map((
-        { strMeal, strInstructions, strYoutube, strMeasure,
-          strMealThumb, strCategory, strIngredient, strSource },
+        { strMeal, strInstructions, strYoutube,
+          strMealThumb, strCategory, strSource, ...rest },
         index,
-      ) => (
-        <div key={ index }>
-          <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
-          <h1 data-testid="recipe-title">{ strMeal }</h1>
-          <img src="" alt="" data-testid="share-btn" />
-          {' '}
-          Compartilhar
-          <img src="" alt="" data-testid="favorite-btn" />
-          {' '}
-          FAVORITAR
-          <span data-testid="recipe-category">{ strCategory }</span>
-          <ul>
-            <li data-testid={ `${index}ingredient-name-and-measure` }>
-              { `${strMeasure}${index}  ${strIngredient}${index}` }
-            </li>
-          </ul>
-          <span data-testid="instructions">{ strInstructions }</span>
-          <div data-testid={ `${index}-recomendation-card` }>{ strSource }</div>
-          <button type="button" data-testid="start-recipe-btn">
-            Iniciar
-          </button>
-        </div>
-      )))
+      ) => {
+        const array = rest;
+        return (
+          <div key={ index }>
+            <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
+            <section>
+              <div>
+                <h1 data-testid="recipe-title">{ strMeal }</h1>
+                <span data-testid="recipe-category">{ strCategory }</span>
+              </div>
+              <div>
+                <img src="" alt="" data-testid="share-btn" />
+                {' '}
+                Compartilhar
+                <img src="" alt="" data-testid="favorite-btn" />
+                {' '}
+                FAVORITAR
+              </div>
+            </section>
+            <List array={ array } />
+            <h2>Instructions</h2>
+            <span data-testid="instructions">{ strInstructions }</span>
+            <h2>Video</h2>
+            <iframe
+              width="853"
+              height="480"
+              data-testid="video"
+              src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
+              frameBorder="0"
+              allow="accelerometer; autoplay;
+            clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Embedded youtube"
+            />
+            <h2>Recomendations</h2>
+            {/* Recomendações com data-testid={ `${index}-recomendation-card` } */}
+            <div data-testid="0-recomendation-card">{ strSource }</div>
+            <button type="button" data-testid="start-recipe-btn">
+              Start Recipe
+            </button>
+          </div>
+        );
+      }))
   );
 }
 
