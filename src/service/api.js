@@ -23,6 +23,20 @@ export async function recipesListApi(pathname) {
   }
 }
 
+export async function recipesListRecomendationApi(pathname) {
+  let fetchSearch;
+  if (pathname.includes('/comidas')) {
+    fetchSearch = await fetch(BASE_URL_DRINKS);
+    const response = await fetchSearch.json();
+    return response.drinks;
+  }
+  if (pathname.includes('/bebidas')) {
+    fetchSearch = await fetch(BASE_URL_MEAL);
+    const response = await fetchSearch.json();
+    return response.meals;
+  }
+}
+
 export async function categoriesListApi(pathname) {
   let fetchSearch;
   if (pathname === '/comidas') {
@@ -93,16 +107,17 @@ export async function searchByFirstLetterApi(inputValue, pathname) {
   }
 }
 
-export async function detailRecipe(id, pathname) {
-  let fetchSearch;
-  if (pathname.includes('/comidas')) {
-    fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
-    const response = await fetchSearch.json();
-    return response.meals;
-  }
-  if (pathname.includes('/bebidas')) {
-    fetchSearch = await fetch(`${BASE_URL_DETAIL_DRINKS}${id}`);
+export async function detailRecipeDrinks(id) {
+  if (id) {
+    const fetchSearch = await fetch(`${BASE_URL_DETAIL_DRINKS}${id}`);
     const response = await fetchSearch.json();
     return response.drinks;
   }
+  return [];
+}
+
+export async function detailRecipeMeal(id) {
+  const fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
+  const response = await fetchSearch.json();
+  return response.meals;
 }

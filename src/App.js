@@ -18,6 +18,8 @@ import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
 import DetailMeal from './pages/DetailMeal';
 import DetailDrink from './pages/DetailDrink';
+import InProgressMeal from './pages/InProgressMeal';
+import InProgressDrink from './pages/InProgressDrink';
 
 function App() {
   return (
@@ -28,9 +30,11 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ Food } />
             <Route exact path="/bebidas" component={ Drink } />
-            <Route path="/comidas/:id" component={ DetailMeal } />
-            <Route path="/bebidas/:id" component={ DetailDrink } />
+            <Route exact path="/comidas/:id" component={ DetailMeal } />
+            <Route exact path="/bebidas/:id" component={ DetailDrink } />
             <Route exact path="/perfil" component={ Profile } />
+            <Route exact path="/comidas/:id/in-progress" component={ InProgressMeal } />
+            <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrink } />
             <Route exact path="/receitas-feitas" component={ DoneRecipes } />
             <Route exact path="/receitas-favoritas" component={ FavouritesRecipes } />
             <Route exact path="/explorar" component={ Explore } />

@@ -31,9 +31,9 @@ export default function RecipeProvider({ children }) {
   // Render all recipes
   useEffect(() => {
     async function requestAllRecipes() {
-      const returnInitialRecipes = await recipesListApi(pathname);
-      const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
-      if (!toggleBtnCategories) {
+      if (toggleBtnCategories === false) {
+        const returnInitialRecipes = await recipesListApi(pathname);
+        const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
         setRecipes(limitedRecipes);
       }
     }
@@ -57,10 +57,10 @@ export default function RecipeProvider({ children }) {
   // Render filter by category
   useEffect(() => {
     async function requestFilterByCategory() {
-      const returnCategory = await filterCategoryApi(selectedCategory, pathname);
-      if (returnCategory !== null) {
-        const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
-        if (toggleBtnCategories) {
+      if (toggleBtnCategories) {
+        const returnCategory = await filterCategoryApi(selectedCategory, pathname);
+        if (returnCategory !== null) {
+          const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
           setRecipes(limitedRecipes);
         }
       }
