@@ -66,3 +66,15 @@
     transform: rotate(-10deg);
   }
 }
+
+footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: space-around;
+}

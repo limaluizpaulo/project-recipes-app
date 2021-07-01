@@ -1,17 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
+import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
+import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Route>
-        <Login path="/" />
-      </Route>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route path="/comidas" component={ Foods } />
+      <Route path="/bebidas" component={ Drinks } />
+    </Switch>
   );
 }
 
