@@ -1,4 +1,6 @@
-export const allowedFooterPathRender = [
+const foodByOrigin = '/explorar/comidas/area';
+
+export const allowedFooterRenderByPath = [
   '/comidas',
   '/bebidas',
   '/explorar',
@@ -6,11 +8,11 @@ export const allowedFooterPathRender = [
   '/explorar/bebidas',
   '/explorar/comidas/ingredientes',
   '/explorar/bebidas/ingredientes',
-  '/explorar/comidas/area',
+  foodByOrigin,
   '/perfil',
 ];
 
-export const allowedHeaderPathRender = [
+export const allowedHeaderRenderByPath = [
   '/comidas',
   '/bebidas',
   '/explorar',
@@ -18,8 +20,14 @@ export const allowedHeaderPathRender = [
   '/explorar/bebidas',
   '/explorar/comidas/ingredientes',
   '/explorar/bebidas/ingredientes',
-  '/explorar/comidas/area',
+  foodByOrigin,
   '/perfil',
   '/receitas-feitas',
-  '/receitas-feitas',
+  '/receitas-favoritas',
+];
+
+export const allowedSearchIconRenderByPath = [
+  '/comidas',
+  '/bebidas',
+  foodByOrigin,
 ];

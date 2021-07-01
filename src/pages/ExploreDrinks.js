@@ -14,19 +14,16 @@ function ExploreDrinks() {
     <div>
       { redirectToRecipeDetails
         && <Redirect to={ `/bebidas/${recipeDetails.idDrink}` } /> }
-      ExploreDrinks
-      <br />
       <Link
         to="/explorar/bebidas/ingredientes"
         data-testid="explore-by-ingredient"
       >
         Por Ingredientes
       </Link>
-      <br />
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => getRandomRecipe('cocktail') }
+        onClick={ getRandomRecipe }
       >
         Me Surpreenda!
       </button>

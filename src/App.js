@@ -17,22 +17,22 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 import {
-  allowedHeaderPathRender,
-  allowedFooterPathRender,
-} from './services/pathLocationNames';
+  allowedHeaderRenderByPath,
+  allowedFooterRenderByPath,
+} from './services/AllowanceToRender';
 
 function App() {
   const location = useLocation();
 
   const verifyAllowanceToRenderHeader = () => {
-    const shouldRenderHeader = allowedHeaderPathRender.some(
+    const shouldRenderHeader = allowedHeaderRenderByPath.some(
       (element) => element === location.pathname,
     );
     return shouldRenderHeader ? <Header /> : null;
   };
 
   const verifyAllowanceToRenderFooter = () => {
-    const shouldRenderFooter = allowedFooterPathRender.some(
+    const shouldRenderFooter = allowedFooterRenderByPath.some(
       (element) => element === location.pathname,
     );
     return shouldRenderFooter ? <Footer /> : null;
