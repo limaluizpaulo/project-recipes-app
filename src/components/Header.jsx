@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import Input from '../helpers/Input';
 
 function Header(props) {
   const { title, searchBar } = props;
@@ -16,38 +17,38 @@ function Header(props) {
   };
   const searchBarInput = showSearch ? (
     <form htmlFor="seachBar">
-      <input id="searchBar" type="text" data-testid="search-input" />
-      <label htmlFor="ingredients-radio">
-        Ingredientes
-        <input
-          name="search-radios"
-          type="radio"
-          id="ingredients-radio"
-          data-testid="ingredient-search-radio"
-          value="ingredients"
-          checked
-        />
-      </label>
-      <label htmlFor="name-radio">
-        Nome
-        <input
-          name="search-radios"
-          type="radio"
-          id="name-radio"
-          data-testid="name-search-radio"
-          value="name"
-        />
-      </label>
-      <label htmlFor="firstLetter-radio">
-        Primeira Letra
-        <input
-          name="search-radios"
-          type="radio"
-          id="firstLetter-radio"
-          data-testid="first-letter-search-radio"
-          value="firstLetter"
-        />
-      </label>
+      <Input
+        id="searchBar"
+        type="text"
+        testid="search-input"
+      />
+      <Input
+        htmlFor="ingredients-radio"
+        label="Ingredientes"
+        testid="ingredient-search-radio"
+        id="ingredients-radio"
+        type="radio"
+        value="ingredients"
+        checked
+      />
+      <Input
+        htmlFor="name-radio"
+        label="Nome"
+        name="search-radios"
+        type="radio"
+        id="name-radio"
+        testid="name-search-radio"
+        value="name"
+      />
+      <Input
+        htmlFor="firstLetter-radio"
+        label="Primeira letra"
+        name="search-radios"
+        type="radio"
+        id="firstLetter-radio"
+        testid="first-letter-search-radio"
+        value="firstLetter"
+      />
     </form>
   ) : null;
 

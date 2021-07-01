@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default function Input(values) {
-  const { className, func, label, testid, type, value } = values;
+  const { className, func, label, testid, type, value, htmlFor } = values;
 
   return (
-    <label htmlFor={ testid }>
+    <label htmlFor={ htmlFor }>
       {label}
       <input
         className={ className }
