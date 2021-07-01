@@ -14,6 +14,7 @@ function Header({ title, haveSrc }) {
     <input
       type="text"
       value={ inputSearch }
+      data-testid="search-input"
       onChange={ ({ target: { value } }) => setInputSearch(value) }
     />
   );
