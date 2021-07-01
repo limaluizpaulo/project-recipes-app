@@ -1,9 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 function DetalhesBebida() {
+  const { id } = useParams();
   return (
     <div>
-      <p>DetalhesBebida</p>
+      <p>{ id }</p>
     </div>
   );
 }

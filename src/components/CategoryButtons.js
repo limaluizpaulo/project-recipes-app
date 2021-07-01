@@ -4,15 +4,21 @@ import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 
 function CategoryButtons() {
-  const { filter: filterDrinks } = useContext(DrinksContext);
-  const { filter: filterMeals } = useContext(MealsContext);
+  const {
+    filter: filterDrinks,
+    setCategory: setDrinksCategory,
+  } = useContext(DrinksContext);
+
+  const { filter: filterMeals, setCategory: setMealsCategory } = useContext(MealsContext);
   const history = useHistory();
   const { pathname } = history.location;
-  console.log('buttons', filterMeals);
 
   function renderButtons(categories) {
     return categories.map((item, index) => (
       <button
+        onClick={ () => (pathname.includes('bebidas')
+          ? setDrinksCategory(item.strCategory)
+          : setMealsCategory(item.strCategory)) }
         data-testid={ `${item.strCategory}-category-filter` }
         key={ index }
         type="button"
@@ -24,7 +30,14 @@ function CategoryButtons() {
 
   return (
     <div>
-      <button type="button">ALL</button>
+      <button
+        onClick={ () => (pathname.includes('bebidas')
+          ? setDrinksCategory('')
+          : setMealsCategory('')) }
+        type="button"
+      >
+        ALL
+      </button>
       {pathname.includes('bebidas')
         ? renderButtons(filterDrinks)
         : renderButtons(filterMeals)}

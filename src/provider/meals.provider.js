@@ -6,12 +6,15 @@ import { fetchInit, fetchCategoriesMeals } from '../services';
 function MealsProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [filter, setFilter] = useState([]);
+  const [category, setCategory] = useState('');
 
   const shared = {
     meals,
     setMeals,
     filter,
     setFilter,
+    category,
+    setCategory,
   };
 
   async function getData() {
@@ -23,7 +26,6 @@ function MealsProvider({ children }) {
     const MAX_ITEM = 5;
     const { meals: listCategories } = await fetchCategoriesMeals();
     const categories = listCategories.filter((meal, index) => index < MAX_ITEM && meal);
-    console.log(categories);
     setFilter(categories);
   }
 

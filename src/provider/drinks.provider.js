@@ -6,12 +6,15 @@ import { fetchInit, fetchCategoriesDrinks } from '../services';
 function DrinksProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [filter, setFilter] = useState([]);
+  const [category, setCategory] = useState();
 
   const shared = {
     drinks,
     setDrinks,
     filter,
     setFilter,
+    category,
+    setCategory,
   };
 
   async function getData() {
