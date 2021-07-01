@@ -7,7 +7,7 @@ function HeaderSearchButton() {
 
   return (
     <>
-      <button type="button" onClick={ () => { setRenderButton(true); } }>
+      <button type="button" onClick={ () => { setRenderButton(!renderButton); } }>
         <img
           src={ searchIcon }
           alt="search icon"
