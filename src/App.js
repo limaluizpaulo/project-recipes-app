@@ -22,6 +22,15 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/Comidas" component={ Foods } />
       <Route exact path="/Bebidas" component={ Drinks } />
+      <Route exact path="/explorar" component={ Explore } />
+      <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ ExploreFoodsIngredients } />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ ExploreDrinksIngredients } />
+      <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
+      <Route exact path="/perfil" component={ Profile } />
+      <Route exact path="/receitas-feitas" component={ FavoriteRecipes } />
+      <Route exact path="/receitas-favoritas" component={ RecipesDone } />
     </BrowserRouter>
   );
 }
