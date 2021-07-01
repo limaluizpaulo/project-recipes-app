@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
 import MealsContext from '../context/meals.context';
 
-function MealsCard() {
+function MealsList() {
   const { meals } = useContext(MealsContext);
   const MAX_CARDS = 12;
 
   return (
-    <div>
+    <div className="card-list">
       {meals.map((meal, index) => {
         if (index < MAX_CARDS) {
           return (
-            <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
+            <div
+              data-testid={ `${index}-recipe-card` }
+              className="card"
+              key={ meal.idMeal }
+            >
               <img
                 data-testid={ `${index}-card-img` }
+                className="card-image"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />
@@ -26,4 +31,4 @@ function MealsCard() {
   );
 }
 
-export default MealsCard;
+export default MealsList;
