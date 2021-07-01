@@ -1,29 +1,40 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 
 function CategoryButtons() {
   const {
-    filter: filterDrinks,
-    setCategory: setDrinksCategory,
+    categories: drinksCategories,
+    setFilter: setDrinksFilter,
   } = useContext(DrinksContext);
 
-  const { filter: filterMeals, setCategory: setMealsCategory } = useContext(MealsContext);
+  const {
+    categories: mealsCategories,
+    setFilter: setMealsFilter,
+  } = useContext(MealsContext);
+
   const history = useHistory();
-  const { pathname } = history.location;
+  const { location: { pathname } } = history;
+
+  function handleClick(category) {
+    if (pathname.includes('bebidas')) {
+      setDrinksFilter(category);
+    } else {
+      setMealsFilter(category);
+    }
+  }
 
   function renderButtons(categories) {
     return categories.map((item, index) => (
       <button
-        onClick={ () => (pathname.includes('bebidas')
-          ? setDrinksCategory(item.strCategory)
-          : setMealsCategory(item.strCategory)) }
-        data-testid={ `${item.strCategory}-category-filter` }
-        key={ index }
         type="button"
+        key={ index }
+        onClick={ () => handleClick(item) }
+        data-testid={ `${item}-category-filter` }
       >
-        {item.strCategory}
+        {item}
       </button>
     ));
   }
@@ -31,16 +42,14 @@ function CategoryButtons() {
   return (
     <div>
       <button
-        onClick={ () => (pathname.includes('bebidas')
-          ? setDrinksCategory('')
-          : setMealsCategory('')) }
         type="button"
+        onClick={ () => handleClick('') }
       >
         ALL
       </button>
       {pathname.includes('bebidas')
-        ? renderButtons(filterDrinks)
-        : renderButtons(filterMeals)}
+        ? renderButtons(drinksCategories)
+        : renderButtons(mealsCategories)}
     </div>
   );
 }
