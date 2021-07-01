@@ -4,7 +4,9 @@ import CategoryCard from '../components/CategoryCard';
 import FoodCard from '../components/FoodCard';
 import DrinksContext from '../context/DrinksContext';
 
-import { fetchAllDrinks, fetchCatDrinks, fetchDrinksByCategory } from '../services/api';
+
+import Header from '../components/Header';
+
 
 function Drinks() {
   const {
@@ -41,6 +43,7 @@ function Drinks() {
 
   return (
     <>
+      <Header profile name="Bebidas" search />
       <Button
         data-testid="All-category-filter"
         onClick={ (ev) => { setDrinkCategory(ev.target.innerText); } }

@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function FinishedRecipes() {
   return (
-    <p>Comidas</p>
+    <Header profile name="Receitas Feitas" />
   );
 }
 

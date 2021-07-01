@@ -9,6 +9,8 @@ import { fetchAllRecipes,
   fetchCatRecipes,
   fetchRecipesByCategory } from '../services/api';
 
+import Header from '../components/Header';
+
 function Recipes() {
   const {
     recipes,
@@ -44,6 +46,7 @@ function Recipes() {
 
   return (
     <>
+      <Header profile name="Comidas" search />
       <section className="category-field">
         <Button
           className="btn-category"
