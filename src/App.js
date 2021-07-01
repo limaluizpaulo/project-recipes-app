@@ -16,6 +16,7 @@ import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
 import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 import Profile from './pages/Profile/Profile';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
+import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
 const test = '';
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Route path="/explorar/comidas/area" exact component={ ExploreFoodOrigin } />
           <Route path="/perfil" exact component={ Profile } />
           <Route path="/receitas-feitas" exact component={ RecipesMade } />
-          <Route path="/receitas-favoritas" exact component={ test } />
+          <Route path="/receitas-favoritas" exact component={ RecipesFavorites } />
         </Switch>
       </Router>
     </Provider>
