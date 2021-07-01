@@ -9,7 +9,12 @@ export default function Comidas() {
   return isFetching ? <p>Loading...</p> : (
     <>
       <Header context={ MealsContext } title="Comidas" searchBar />
-      <MainCards data={ meals } searchBar />
+      <MainCards
+        data={ meals }
+        thumbnail="strMealThumb"
+        title="strMeal"
+        searchBar
+      />
       <Footer />
     </>
   );

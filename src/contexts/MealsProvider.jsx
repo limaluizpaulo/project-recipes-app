@@ -69,6 +69,7 @@ function MealsProvider({ children }) {
     meals,
     setFilterHeader,
   };
+
   return (
     <MealsContext.Provider value={ context }>
       {children}
