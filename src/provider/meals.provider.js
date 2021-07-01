@@ -7,15 +7,12 @@ import { fetchByName, fetchCategories } from '../services';
 function MealsProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [filter, setFilter] = useState('');
 
   const shared = {
     meals,
     setMeals,
     categories,
     setCategories,
-    filter,
-    setFilter,
   };
 
   async function getCategories() {

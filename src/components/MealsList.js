@@ -5,16 +5,11 @@ import Card from './Card';
 
 function MealsList() {
   const MAX_CARDS = 12;
-  const { meals, filter } = useContext(MealsContext);
-
-  let itemsList = [...meals];
-  if (filter) {
-    itemsList = meals.filter((item) => item.strCategory === filter);
-  }
+  const { meals } = useContext(MealsContext);
 
   return (
     <div className="card-list">
-      {itemsList.map((item, index) => {
+      {meals.map((item, index) => {
         if (index < MAX_CARDS) {
           return (
             <Card

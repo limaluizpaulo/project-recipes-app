@@ -1,29 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
+import { fetchByCategory, fetchByName } from '../services';
 
 function CategoryButtons() {
-  const {
-    categories: drinksCategories,
-    setFilter: setDrinksFilter,
-  } = useContext(DrinksContext);
-
-  const {
-    categories: mealsCategories,
-    setFilter: setMealsFilter,
-  } = useContext(MealsContext);
-
+  const { categories: drinksCategories, setDrinks } = useContext(DrinksContext);
+  const { categories: mealsCategories, setMeals } = useContext(MealsContext);
+  const [filter, setFilter] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  function handleClick(category) {
-    if (pathname.includes('bebidas')) {
-      setDrinksFilter(category);
-    } else {
-      setMealsFilter(category);
-    }
+  async function handleClick(category) {
+    const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
+    const setFn = pathname.includes('bebidas') ? setDrinks : setMeals;
+    const result = category && filter !== category
+      ? await fetchByCategory(type, category)
+      : await fetchByName(type);
+
+    setFilter(category);
+    setFn(result);
   }
 
   function renderButtons(categories) {
@@ -44,6 +41,7 @@ function CategoryButtons() {
       <button
         type="button"
         onClick={ () => handleClick('') }
+        data-testid="All-category-filter"
       >
         ALL
       </button>
