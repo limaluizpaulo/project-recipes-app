@@ -13,7 +13,8 @@ import ExplorarComidas from './pages/ExplorarComidas/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas/ExplorarBebidas';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
-import Detalhes from './pages/Detalhes/Detalhes';
+import DetalhesComidas from './pages/Detalhes/DetalhesComidas';
+import DetalhesBebidas from './pages/Detalhes/DetalhesBebidas';
 
 const test = '';
 function App() {
@@ -23,10 +24,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/comidas" exact component={ Food } />
-          <Route path="/comidas/:id" exact component={ Detalhes } />
+          <Route path="/comidas/:id" exact component={ DetalhesComidas } />
           <Route path="/comidas/:id/in-progress" exact component={ test } />
           <Route path="/bebidas" exact component={ Drinks } />
-          <Route path="/bebidas/:id" exact component={ test } />
+          <Route path="/bebidas/:id" exact component={ DetalhesBebidas } />
           <Route path="/bebidas/:id/in-progress" exact component={ test } />
           <Route path="/explorar" exact component={ Explorar } />
           <Route path="/explorar/comidas" exact component={ ExplorarComidas } />
