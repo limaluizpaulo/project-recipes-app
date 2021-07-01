@@ -47,6 +47,7 @@ function DrinkRecipes() {
       <div className="btn-container">
         <button
           className="category-btn"
+          data-testid="All-category-filter"
           onClick={ handleClick }
           type="button"
         >
