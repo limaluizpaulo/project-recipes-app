@@ -9,21 +9,33 @@ function Footer() {
   const history = useHistory();
   return (
     <footer data-testid="footer">
-      <button onClick={ () => history.push('/bebidas') } type="button">
+      <button
+        className="button-svg"
+        onClick={ () => history.push('/bebidas') }
+        type="button"
+      >
         <img
           data-testid="drinks-bottom-btn"
           src={ drinkIncon }
           alt="Drinks Icon"
         />
       </button>
-      <button onClick={ () => history.push('/explorar') } type="button">
+      <button
+        className="button-svg"
+        onClick={ () => history.push('/explorar') }
+        type="button"
+      >
         <img
           data-testid="explore-bottom-btn"
           src={ exploreIncon }
           alt="Explore Icon"
         />
       </button>
-      <button onClick={ () => history.push('/comidas') } type="button">
+      <button
+        className="button-svg"
+        onClick={ () => history.push('/comidas') }
+        type="button"
+      >
         <img data-testid="food-bottom-btn" src={ mealIncon } alt="Foods Icon" />
       </button>
     </footer>

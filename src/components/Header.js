@@ -60,19 +60,29 @@ function Header({ title, show = true }) {
     if (result) {
       setData(result);
     } else {
-      invokeAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      invokeAlert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
     }
   }
 
   return (
     <header>
       <div>
-        <button type="button" onClick={ () => history.push('/perfil') }>
+        <button
+          type="button"
+          className="button-svg"
+          onClick={ () => history.push('/perfil') }
+        >
           <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile" />
         </button>
         <h2 data-testid="page-title">{title}</h2>
         {show && (
-          <button type="button" onClick={ () => setShowSearch(!showSearch) }>
+          <button
+            type="button"
+            className="button-svg"
+            onClick={ () => setShowSearch(!showSearch) }
+          >
             <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
           </button>
         )}
@@ -85,7 +95,7 @@ function Header({ title, show = true }) {
               data-testid="search-input"
               id="search-input"
               name="search-input"
-              placeholder="Pesquisar"
+              placeholder="Digite algo..."
               onChange={ handleChange }
             />
           </div>
@@ -93,10 +103,10 @@ function Header({ title, show = true }) {
             <label htmlFor="ingredient-search-radio">
               <input
                 type="radio"
-                data-testid="ingredient-search-radio"
                 id="ingredient-search-radio"
                 name="search-radio"
                 onChange={ () => setFilter('ingredient') }
+                data-testid="ingredient-search-radio"
                 defaultChecked
               />
               Ingrediente
@@ -104,29 +114,30 @@ function Header({ title, show = true }) {
             <label htmlFor="name-search-radio">
               <input
                 type="radio"
-                data-testid="name-search-radio"
                 id="name-search-radio"
                 name="search-radio"
                 onChange={ () => setFilter('name') }
+                data-testid="name-search-radio"
               />
               Nome
             </label>
             <label htmlFor="first-letter-search-radio">
               <input
                 type="radio"
-                data-testid="first-letter-search-radio"
                 id="first-letter-search-radio"
                 name="search-radio"
                 onChange={ () => setFilter('letter') }
+                data-testid="first-letter-search-radio"
               />
               Primeira letra
             </label>
           </div>
           <div>
             <button
-              data-testid="exec-search-btn"
               type="button"
+              className="button"
               onClick={ getData }
+              data-testid="exec-search-btn"
             >
               Buscar
             </button>

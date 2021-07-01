@@ -2,8 +2,8 @@ footer {
   background-color: #eee;
   bottom: 0;
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  height: 60px;
+  justify-content: space-around;
   position: fixed;
   width: 100%;
 }
