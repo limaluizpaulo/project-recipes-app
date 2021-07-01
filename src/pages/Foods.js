@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
 
 import { fetchFoodAction } from '../actions';
+import FoodButtons from '../components/FoodButtons';
 
 class Foods extends Component {
   constructor() {
@@ -30,6 +31,7 @@ class Foods extends Component {
         <section>
           <Header title="Comidas" />
         </section>
+        <FoodButtons />
         {resultFood ? <FoodCard /> : null}
         <Footer />
       </>
