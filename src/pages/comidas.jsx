@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/header';
-import { fetchApiFoodCategories, fetchFoodRecipes } from '../action';
+import { fetchApiFoodCategories,
+  fetchFoodRecipes, getSearchBarResponse } from '../action';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
 
@@ -22,7 +23,8 @@ class Comidas extends Component {
   }
 
   async componentDidMount() {
-    const { apiFoodCategories, dispatchFoodRecipes } = this.props;
+    const { apiFoodCategories, dispatchFoodRecipes, hasSearchBar } = this.props;
+    hasSearchBar(true);
     apiFoodCategories();
     dispatchFoodRecipes();
     // await apiFoodCategories().then((data) => console.log(data));
@@ -75,6 +77,7 @@ class Comidas extends Component {
 const mapDispatchToProps = (dispatch) => ({
   apiFoodCategories: () => dispatch(fetchApiFoodCategories()),
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
 });
 
 const mapStateToProps = (state) => ({

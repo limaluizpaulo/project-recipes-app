@@ -43,7 +43,7 @@ class Header extends Component {
     return (
       <div>
         <header className="header">
-          <Link to="/">
+          <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profileImagem" />
           </Link>
           <h1 data-testid="page-title">{ title }</h1>
@@ -58,6 +58,7 @@ class Header extends Component {
   render() {
     const { isSearchBar } = this.state;
     const { location, searchBarOn } = this.props;
+    console.log(searchBarOn);
     return (
       <div>
         { location !== undefined
@@ -69,7 +70,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  searchBarOn: state.searchBarOn,
+  searchBarOn: state.isSearchBar.searchBarOn,
 });
 
 Header.propTypes = {
