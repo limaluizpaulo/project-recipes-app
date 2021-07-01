@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DrinkCard = ({ recipe: { strDrinkThumb, strDrink }, index }) => (
-  <div data-testid={ `${index}-recipe-card` }>
+  <div className="cards" data-testid={ `${index}-recipe-card` }>
     <img data-testid={ `${index}-card-img` } src={ strDrinkThumb } alt={ strDrink } />
-    <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+    <div className="container">
+      <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+    </div>
   </div>
 );
 
