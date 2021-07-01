@@ -1,11 +1,14 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function ReceitasFeitas() {
+function MainPage() {
   return (
     <div>
       <Header />
+      <Footer />
     </div>
   );
 }
-export default ReceitasFeitas;
+
+export default MainPage;
