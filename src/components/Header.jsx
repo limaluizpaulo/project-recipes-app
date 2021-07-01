@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-//
+import Lupa from './Lupa';
+
 function Header() {
+  const [toggleSearch, setToggleSearch] = useState(false);
   const history = useHistory();
   const { pathname } = useLocation();
   const condicionRenderingTitle = () => {
@@ -40,7 +42,11 @@ function Header() {
     || pathname === '/bebidas'
     || pathname === '/explorar/comidas/area') {
       return (
-        <button type="button">
+        <button
+          type="button"
+          // className={  }
+          onClick={ () => setToggleSearch(!toggleSearch) }
+        >
           <img src={ searchIcon } alt="ícone de buscar" data-testid="search-top-btn" />
         </button>
       );
@@ -48,18 +54,21 @@ function Header() {
   };
 
   return (
-    <header>
-      <button
-        type="button"
-        onClick={ () => {
-          history.push('/perfil');
-        } }
-      >
-        <img src={ profileIcon } alt="ícone de perfil" data-testid="profile-top-btn" />
-      </button>
-      <h1 data-testid="page-title">{ condicionRenderingTitle() }</h1>
-      { condicionRenderSearchBar() }
-    </header>
+    <>
+      <header>
+        <button
+          type="button"
+          onClick={ () => {
+            history.push('/perfil');
+          } }
+        >
+          <img src={ profileIcon } alt="ícone de perfil" data-testid="profile-top-btn" />
+        </button>
+        <h1 data-testid="page-title">{ condicionRenderingTitle() }</h1>
+        { condicionRenderSearchBar() }
+      </header>
+      { toggleSearch && <Lupa /> }
+    </>
   );
 }
 
