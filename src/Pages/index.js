@@ -10,3 +10,4 @@ export { default as ExpComidas } from './Explorar/ExpComidas';
 export { default as ExpComidasArea } from './Explorar/ExpComidasArea';
 export { default as ExpComidasIngredientes } from './Explorar/ExpComidasIngredientes';
 export { default as DetalhesComida } from './DetalhesComida';
+export { default as DetalhesBebida } from './DetalhesBebida';

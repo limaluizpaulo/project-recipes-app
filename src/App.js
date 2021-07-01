@@ -5,7 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 
 import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
-  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil, DetalhesComida } from './Pages';
+  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
+  DetalhesComida, DetalhesBebida } from './Pages';
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
+        <Route exact path="/bebidas" component={ Bebidas } />
         <Route path="/comidas/:id" component={ DetalhesComida } />
-        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/bebidas/:id" component={ DetalhesBebida } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/explorar/comidas" component={ ExpComidas } />
