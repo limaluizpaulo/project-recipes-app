@@ -1,63 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApiFoodCategories, fetchFoodRecipes } from '../action';
+import { fetchApiFoodCategories } from '../action';
 import Cards from './cards';
+
+// import '../css/MainScreen.css';
 
 class MainScreen extends Component {
   componentDidMount() {
-    const { dispatchFoodCategories, dispatchFoodRecipes, apiFoodCategories } = this.props;
-    dispatchFoodCategories();
-    dispatchFoodRecipes();
-    // console.log(apiFoodCategories());
+
   }
 
   render() {
-    const { foodCategories, meals } = this.props;
-    console.log(foodCategories);
+    const { foodCategories, drinkOurFood } = this.props;
     return (
       <section>
-        <section>
-          {
-            foodCategories.map(({ strCategory }, index) => (
-              <button
-                data-testid={ `data-testid=${strCategory}-category-filter` }
-                type="button"
-                key={ strCategory + index }
-              >
-                {strCategory}
-              </button>
-            ))
-          }
-        </section>
-        <section>
-          {
-            meals.map((masl, index) => (
-              <Cards key={ index } info={ masl } />
-            ))
-          }
-        </section>
+        
+        
       </section>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFoodCategories: () => dispatch(fetchApiFoodCategories()),
-  dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
-  // apiFoodCategories: () => dispatch(fetchApiFoodCategories()), // apagar
+
 });
 
 const mapStateToProps = (state) => ({
   foodCategories: state.foodCategories.allFoodCategories,
-  meals: state.foodCategories.meals,
 });
 
 MainScreen.propTypes = {
   dispatchFoodCategories: PropTypes.func.isRequired,
-  dispatchFoodRecipes: PropTypes.func.isRequired,
   foodCategories: PropTypes.shape.isRequired,
-  meals: PropTypes.shape.isRequired,
+  drinkOurFood: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
