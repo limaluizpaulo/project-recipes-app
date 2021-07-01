@@ -1,13 +1,22 @@
-import { ADD_RECIPES } from '../store';
+import { ADD_RECIPES, DIRECT_PAGE } from '../store';
 
-const recipesReducer = (state, action) => {
-  switch (action.type) {
+const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action
+  switch (type) {
   case ADD_RECIPES: {
-    const { payload: { meals, drinks } } = action;
+    const { meals, drinks, categoriesMeals, categoriesDrinks } = payload;
     return {
       ...state,
       meals,
       drinks,
+      categoriesMeals,
+      categoriesDrinks,
+    };
+  }
+  case DIRECT_PAGE: {
+    const { foods } = payload;
+    return {
+      ...state,
+      foods,
     };
   }
   default:
