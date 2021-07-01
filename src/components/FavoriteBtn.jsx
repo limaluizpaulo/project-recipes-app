@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteBtn({ id, type, currentRecipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const typePTBR = type === 'meals' ? 'comida' : 'bebida';
 
   const {
     strMeal,
@@ -17,7 +18,9 @@ function FavoriteBtn({ id, type, currentRecipe }) {
   } = currentRecipe;
 
   const saveAsFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favorites = getFavorites || [];
+
     let updated = [];
 
     if (favorites.find((el) => el.id === id)) {
@@ -28,7 +31,7 @@ function FavoriteBtn({ id, type, currentRecipe }) {
         [...favorites,
           {
             id,
-            type,
+            type: typePTBR,
             area: strArea || '',
             category: strCategory,
             alcoholicOrNot: strAlcoholic || '',
@@ -40,13 +43,31 @@ function FavoriteBtn({ id, type, currentRecipe }) {
     const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setIsFavorite(favoritesUpdated.some((el) => el.id === id));
   };
+  useEffect(() => {
+    const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoritesUpdated) {
+      setIsFavorite(favoritesUpdated.some((el) => el.id === id));
+    }
+  }, [isFavorite, id]);
 
   return (
-    <button type="button" data-testid="favorite-btn" onClick={ saveAsFavorite }>
-      {isFavorite
-        ? <img src={ whiteHeartIcon } className="small-btn" alt="Ícone de coração" />
-        : <img src={ blackHeartIcon } className="small-btn" alt="Ícone de coração" /> }
 
+    <button type="button" onClick={ saveAsFavorite }>
+      {isFavorite
+        ? (
+          <img
+            src={ blackHeartIcon }
+            className="small-btn"
+            alt="Ícone de coração"
+            data-testid="favorite-btn"
+          />)
+        : (
+          <img
+            src={ whiteHeartIcon }
+            className="small-btn"
+            alt="Ícone de coração"
+            data-testid="favorite-btn"
+          />)}
     </button>
   );
 }
