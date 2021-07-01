@@ -3,14 +3,12 @@ import { requestDrink,
   requestCategoryDrink, requestNameDrink } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
-import React from 'react';
-import Footer from '../components/Footer/Footer';
 
 function Drinks() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState(false);
+  const [nameItem, setNameItem] = useState('');
 
   useEffect(() => {
     (async function resolved() {
@@ -23,9 +21,15 @@ function Drinks() {
   }, []);
 
   async function onClick({ target: { name } }) {
-    const request = await requestNameDrink(name);
-    setData(request);
-    setFilter(true);
+    if (name) {
+      setNameItem(name);
+      const request = await requestNameDrink(name);
+      setData(request);
+    }
+    if (name === nameItem) {
+      const request = await requestDrink();
+      setData(request);
+    }
   }
 
   function mapCategory({ drinks }) {
@@ -44,10 +48,8 @@ function Drinks() {
         </button>));
   }
 
-  function mapData({ drinks }, filtered) {
-    const notFilter = 12;
-    const yepFilter = 5;
-    const magicNumber = filtered ? yepFilter : notFilter;
+  function mapData({ drinks }) {
+    const magicNumber = 12;
     return drinks.filter((_, index) => index < magicNumber)
       .map((item, index) => (
         <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
@@ -74,10 +76,10 @@ function Drinks() {
         {
           loading
             ? 'Carregando...'
-            : (mapData(data, filter))
+            : (mapData(data))
         }
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

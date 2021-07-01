@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import requestMeal,
 { requestCategoryMeal, requestNamemeal } from '../../helpers/requests';
-// import onClick from '../../helpers/onClickAliments';
 import Header from '../../components/Header/Header';
 import './Food.css';
 
@@ -9,7 +8,7 @@ function Food() {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState(false);
+  const [nameItem, setNameItem] = useState('');
 
   useEffect(() => {
     (async function resolved() {
@@ -22,9 +21,15 @@ function Food() {
   }, []);
 
   async function onClick({ target: { name } }) {
-    const request = await requestNamemeal(name);
-    setData(request);
-    setFilter(true);
+    if (name) {
+      setNameItem(name);
+      const request = await requestNamemeal(name);
+      setData(request);
+    }
+    if (name === nameItem) {
+      const request = await requestMeal();
+      setData(request);
+    }
   }
 
   function mapCategory({ meals }) {
@@ -40,13 +45,12 @@ function Food() {
           onClick={ onClick }
         >
           {item.strCategory}
-        </button>));
+        </button>
+      ));
   }
 
-  function mapData({ meals }, filtered) {
-    const notFilter = 12;
-    const yepFilter = 5;
-    const magicNumber = filtered ? yepFilter : notFilter;
+  function mapData({ meals }) {
+    const magicNumber = 12;
     return meals
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
@@ -75,7 +79,7 @@ function Food() {
         {
           loading
             ? 'Carregando...'
-            : (mapData(data, filter))
+            : (mapData(data))
         }
       </div>
     </>

@@ -7,7 +7,6 @@ import './header.css';
 function Header({ title, haveSrc }) {
   const [searchField, setSearchField] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
-  console.log(haveSrc);
   const search = () => (
     <input
       type="text"
