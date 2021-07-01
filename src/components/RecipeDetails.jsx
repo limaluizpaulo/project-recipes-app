@@ -6,7 +6,15 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
+import { fetchFoodIdAction } from '../actions';
+
 class RecipeDetails extends React.Component {
+  constructor (props) {
+    super (props);
+    const { match: { params: { id } } } = this.props;
+    console.log(id);
+  }
+
   render() {
     const { recipeDetails } = this.props;
     console.log(recipeDetails);
@@ -46,7 +54,9 @@ class RecipeDetails extends React.Component {
         </div>
         <div>
           <h4>Recomendadas</h4>
-          <div data-testid={ `${index}-recomendation-card` }>Carrosel de cards</div>
+          {
+            /* <div data-testid={ `${index}-recomendation-card` }>Carrosel de cards</div> */
+          }
         </div>
         <button
           type="button"
@@ -60,6 +70,10 @@ class RecipeDetails extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  requestFoodById: (id) => dispatch(fetchFoodIdAction(id)),
+});
+
 const mapStateToProps = (state) => ({
   recipeDetails: state.food.foodById,
 });
@@ -68,4 +82,4 @@ RecipeDetails.propTypes = {
   recipeDetails: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default connect(mapStateToProps)(RecipeDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
