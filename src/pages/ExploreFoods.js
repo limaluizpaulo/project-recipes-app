@@ -6,7 +6,7 @@ function ExploreFoods() {
   return (
     <section>
       <Header />
-      <h1>Página Explorar comidas</h1>
+      {/* <h1>Página Explorar comidas</h1> */}
       <Footer />
     </section>
   );

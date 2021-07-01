@@ -6,7 +6,6 @@ function ExploreFoodsByIngredients() {
   return (
     <section>
       <Header />
-      <h1>Página Explorar comidas por ingredientes</h1>
       <Footer />
     </section>
   );
