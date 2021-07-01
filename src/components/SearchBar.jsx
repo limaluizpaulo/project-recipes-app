@@ -11,11 +11,12 @@ function SearchBar() {
   const [typeOfFilter, setTypeOfFilter] = useState('null');
   const { location: { pathname } } = useHistory();
 
-  const { filterRecipesByIngredient,
-    filterRecipesByName, filterRecipesByFirstLetter } = useContext(RecipesContext);
+  const { filterRecipesByIngredient, filterRecipesByName, filterRecipesByFirstLetter,
+    recipesFilter: { filteredRecipes } } = useContext(RecipesContext);
 
   const { filterDrinksByIngredient,
-    filterDrinksByName, filterDrinksByFirstLetter } = useContext(DrinksContext);
+    filterDrinksByName, filterDrinksByFirstLetter,
+    drinksFilter: { filteredDrinks } } = useContext(DrinksContext);
 
   function invokeAlert(fn, message) {
     fn(message);
@@ -77,7 +78,6 @@ function SearchBar() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-
             <Form.Check
               value={ typeOfFilter }
               data-testid="ingredient-search-radio"

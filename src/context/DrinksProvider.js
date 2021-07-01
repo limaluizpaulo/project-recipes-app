@@ -6,21 +6,21 @@ import { fetchDrinksByFirstLetter,
   fetchDrinksByIngredient, fetchDrinksByName } from '../services/DrinksServices';
 
 function DrinksProvider({ children }) {
-  const [drinksFilter, setDrinksFilter] = useState({ filteredDrinks: [] });
+  const [drinksFilter, setrinksFilter] = useState({ filteredDrinks: [] });
 
   async function filterDrinksByIngredient(ingredient) {
     const drinksFilteredByIngredient = await fetchDrinksByIngredient(ingredient);
-    setDrinksFilter({ filteredDrinks: drinksFilteredByIngredient });
+    setrinksFilter({ filteredDrinks: drinksFilteredByIngredient });
   }
 
   async function filterDrinksByName(name) {
     const DrinksFilteredByName = await fetchDrinksByName(name);
-    setDrinksFilter({ filteredDrinks: DrinksFilteredByName });
+    setrinksFilter({ filteredDrinks: DrinksFilteredByName });
   }
 
   async function filterDrinksByFirstLetter(firstLetter) {
     const drinksFilteredByFirstLetter = await fetchDrinksByFirstLetter(firstLetter);
-    setDrinksFilter({ filteredDrinks: drinksFilteredByFirstLetter });
+    setrinksFilter({ filteredDrinks: drinksFilteredByFirstLetter });
   }
 
   return (

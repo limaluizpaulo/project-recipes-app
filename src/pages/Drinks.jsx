@@ -9,7 +9,7 @@ function Drinks() {
   const history = useHistory();
 
   useEffect(() => {
-    if (filteredDrinks.length === 1) {
+    if (filteredDrinks && filteredDrinks.length === 1) {
       history.push(`/bebidas/${filteredDrinks[0].idDrink}`);
     }
   }, [filteredDrinks, history]);

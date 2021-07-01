@@ -10,13 +10,21 @@ function Card({ drink, recipe, index }) {
           ? (
             <div>
               <h3 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h3>
-              <img src={ recipe.strMealThumb } alt={ recipe.strMeal } />
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ recipe.strMealThumb }
+                alt={ recipe.strMeal }
+              />
             </div>
           )
           : (
             <div>
               <h3 data-testid={ `${index}-card-name` }>{drink.strDrink}</h3>
-              <img src={ drink.strDrinkThumb } alt={ drink.strDrink } />
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+              />
             </div>
           )
       }

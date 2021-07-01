@@ -9,7 +9,7 @@ function Recipes() {
   const history = useHistory();
 
   useEffect(() => {
-    if (filteredRecipes.length === 1) {
+    if (filteredRecipes && filteredRecipes.length === 1) {
       history.push(`/comidas/${filteredRecipes[0].idMeal}`);
     }
   }, [filteredRecipes, history]);
