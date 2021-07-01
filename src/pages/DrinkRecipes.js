@@ -21,7 +21,7 @@ function DrinkRecipes() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
       const { drinks } = await request.json();
       setFirstCategories(drinks.slice(0, numOfCategories));
     };
