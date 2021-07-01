@@ -8,7 +8,7 @@ import Food from './pages/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
-import Explorar from './pages/Explorar/Explorar';
+import Explorar from './pages/Explore/Explore';
 import ExplorarComidas from './pages/ExplorarComidas/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas/ExplorarBebidas';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
