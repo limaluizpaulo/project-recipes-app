@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExploreFoodsArea() {
   return (
-    <p>Comidas</p>
+    <Header profile name="Explorar Origem" search />
   );
 }
 

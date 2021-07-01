@@ -66,3 +66,13 @@
     transform: rotate(-10deg);
   }
 }
+
+button {
+  background: none;
+  border: none;
+  transition: filter 0.2s;
+}
+
+button:hover {
+  filter: blur(0.5px);
+}

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Header from '../components/Header';
+
 function Recipes() {
   return (
-    <p>Comidas</p>
+    <Header profile name="Comidas" search />
   );
 }
 
