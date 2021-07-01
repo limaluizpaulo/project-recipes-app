@@ -22,10 +22,13 @@ class Recipes extends Component {
   }
 
   render() {
+    const { listRecipes } = this.props;
+    if (!listRecipes) return (<h3>Loading...</h3>);
     return (
       <div>
         <Header header="Comidas" explorer />
         <h2>Recipes</h2>
+        {listRecipes.map((recipe) => <h5 key={ recipe.strMeal }>{recipe.strMeal}</h5>)}
         <DownMenu />
       </div>
     );
@@ -34,9 +37,12 @@ class Recipes extends Component {
 const mapDispatchToProps = (dispatch) => ({
   recipes: () => dispatch(actionRecipes()),
 });
+const mapStateToProps = (state) => ({
+  listRecipes: state.recipes.recipes,
+});
 
 Recipes.propTypes = {
   recipes: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Recipes);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
