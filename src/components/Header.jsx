@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,18 +7,23 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header(props) {
   const { title, searchBar } = props;
-  // const history = useHistory();
-  // const link = () => {
-  //   history.push('/perfil');
-  // };
+
+  const [showSearch, setShowSearch] = useState(false);
+
+  const showSearchChange = () => {
+    if (showSearch === false) setShowSearch(true);
+    else setShowSearch(false);
+  };
+  const searchBarInput = showSearch ? (<input data-testid="search-input" />) : null;
   return (
     <header>
       <Link to="/perfil">
         <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
       </Link>
       <h1 data-testid="page-title">{title}</h1>
+      {searchBarInput}
       {searchBar && (
-        <button type="button">
+        <button onClick={ showSearchChange } type="button">
           <img src={ searchIcon } alt="search button" data-testid="search-top-btn" />
         </button>
       ) }
