@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getMealDetails, getDrinkDetails } from '../services';
 
-import { IndicatedRecipes, MealClip } from '../components';
+import { RecDrinks, RecFoods, MealClip, IngList } from '../components';
 
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
   const { location: { pathname } } = history;
 
   const [details, setDetails] = useState([{}]);
+  const [ingredientsList, setIngredientsList] = useState([]);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -31,16 +32,30 @@ function FoodDetails({ match, history }) {
     strMeal,
     strDrink,
     strInstructions,
-    strMealThumb } = details[0];
+    strMealThumb,
+    strDrinkThumb } = details[0];
 
-  console.log(typeof Object.keys(details[0]));
+  useEffect(() => {
+    const objKeys = Object.keys(details[0]);
+
+    const ingredientKeys = objKeys.filter((key) => key.includes('strIngredient'));
+
+    const ingredientItems = [];
+
+    ingredientKeys.forEach((item) => {
+      if (details[0][item] !== '' || undefined) {
+        ingredientItems.push(details[0][item]);
+      }
+    });
+    setIngredientsList(ingredientItems);
+  }, [details]);
 
   return (
     <>
       <img
         data-testid="recipe-photo"
-        src={ strMealThumb }
-        alt={ strMeal }
+        src={ strMealThumb || strDrinkThumb }
+        alt={ strMeal || strDrink }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
       <button
@@ -55,22 +70,32 @@ function FoodDetails({ match, history }) {
       >
         Favoritar receita
       </button>
-      <div>
-        <h4 data-testid="recipe-category">{strCategory}</h4>
-        <p data-testid="instructions">{strInstructions}</p>
-        <div>
-          {strVideo === null
-            ? <span>Não temos vídeo para essa receita</span>
-            : <MealClip />}
-        </div>
-        <IndicatedRecipes data-testid={ `${1}-recomendation-card` } />
-      </div>
       <button
         data-testid="start-recipe-btn"
         type="button"
       >
         Iniciar Receita
       </button>
+      <div>
+        <h4 data-testid="recipe-category">{strCategory}</h4>
+        {
+          strAlcoholic
+            ? <span>{strAlcoholic}</span>
+            : <span>{strAlcoholic}</span>
+        }
+        <p data-testid="instructions">{strInstructions}</p>
+        <IngList ingredientsList={ ingredientsList } />
+        <div>
+          {strVideo === null
+            ? <span>Não temos vídeo para essa receita</span>
+            : <MealClip strVideo={ strVideo } />}
+        </div>
+        {
+          pathname.includes('/comida')
+            ? <RecDrinks id={ id } />
+            : <RecFoods id={ id } />
+        }
+      </div>
     </>
   );
 }
