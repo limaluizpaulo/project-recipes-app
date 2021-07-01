@@ -8,7 +8,10 @@ import Card from '../components/Card';
 
 function Recipes() {
   const { recipesFilter: { filteredRecipes },
-    allRecipes: { recipes }, allCategories: { categories } } = useContext(RecipesContext);
+    allRecipes: { recipes }, allCategories: { categories },
+    recipesFilteredByCategory: { recipesByCategory }, setCategory, category,
+  } = useContext(RecipesContext);
+
   const history = useHistory();
   const NUMBER_OF_ITEMS = 12;
   const NUMBER_OF_CATEGORIES = 5;
@@ -20,15 +23,29 @@ function Recipes() {
   }, [filteredRecipes, history]);
 
   function renderRecipesDefault() {
+    if (!recipesByCategory) {
+      return (
+        <div>
+          {
+            recipes.slice(0, NUMBER_OF_ITEMS)
+              .map((recipe, index) => (<Card
+                data-testid={ `${index}-recipe-card` }
+                key={ recipe.idMeal }
+                recipe={ recipe }
+                index={ index }
+              />))
+          }
+        </div>
+      );
+    }
     return (
       <div>
         {
-          recipes.slice(0, NUMBER_OF_ITEMS)
-            .map((recipe, index) => (<Card
-              data-testid={ `${index}-recipe-card` }
-              key={ recipe.idMeal }
-              recipe={ recipe }
-              index={ index }
+          recipesByCategory.slice(0, NUMBER_OF_ITEMS)
+            .map((recipe2, index2) => (<Card
+              key={ recipe2.idMeal }
+              recipe={ recipe2 }
+              index={ index2 }
             />))
         }
       </div>
@@ -38,14 +55,27 @@ function Recipes() {
   function renderButtonCategories() {
     return (
       <div>
+        <Button
+          data-testid="All-category-filter"
+          onClick={ (event) => setCategory(event.target.innerText) }
+        >
+          All
+        </Button>
         {
           categories.slice(0, NUMBER_OF_CATEGORIES)
-            .map((category, index) => (
+            .map((categoryRecipes, index) => (
               <Button
                 key={ index }
-                data-testid={ `${category.strCategory}-category-filter` }
+                data-testid={ `${categoryRecipes.strCategory}-category-filter` }
+                onClick={ (event) => {
+                  if (category === event.target.innerText) {
+                    setCategory('All');
+                  } else {
+                    setCategory(event.target.innerText);
+                  }
+                } }
               >
-                {category.strCategory}
+                {categoryRecipes.strCategory}
               </Button>
             ))
         }

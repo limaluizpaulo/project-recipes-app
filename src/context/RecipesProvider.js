@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
-import { fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter,
-  fetchAllRecipes, fetchCategoriesRecipes } from '../services/RecipesServices';
+import {
+  fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter,
+  fetchAllRecipes, fetchCategoriesRecipes, fetchRecipesByCategory,
+} from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
   const [recipesFilter, setRecipesFilter] = useState({ filteredRecipes: [] });
   const [allRecipes, setAllRecipes] = useState({ recipes: [] });
   const [allCategories, setAllCategories] = useState({ categories: [] });
+  const [recipesFilteredByCategory,
+    setRecipesFilteredByCategory] = useState({ recipesByCategory: [] });
+  const [category, setCategory] = useState('');
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
@@ -35,10 +40,16 @@ function RecipesProvider({ children }) {
     setAllCategories({ categories });
   }
 
+  async function filterRecipesByCategory(category) {
+    const recipesByCategory = await fetchRecipesByCategory(category);
+    setRecipesFilteredByCategory({ recipesByCategory });
+  }
+
   useEffect(() => {
     getAllRecipes();
     getAllCategories();
-  }, []);
+    filterRecipesByCategory(category);
+  }, [category]);
 
   return (
     <RecipesContext.Provider
@@ -48,6 +59,10 @@ function RecipesProvider({ children }) {
         filterRecipesByFirstLetter,
         allRecipes,
         allCategories,
+        filterRecipesByCategory,
+        recipesFilteredByCategory,
+        setCategory,
+        category,
       } }
     >
       { children }

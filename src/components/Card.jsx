@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 function Card({ drink, recipe, index }) {
   const { location: { pathname } } = useHistory();
   return (
-    <section>
+    <section data-testid={ `${index}-recipe-card` }>
       {
         pathname.includes('/comidas')
           ? (
