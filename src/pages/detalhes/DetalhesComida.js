@@ -30,7 +30,7 @@ function DetalhesComida() {
   }
 
   async function getDrinks() {
-    const result = await fetchByName('meals');
+    const result = await fetchByName('drinks');
     setDrinks(result);
   }
 

@@ -12,6 +12,7 @@ function DrinksCarousel() {
     <div className="carousel">
       {drinks.map((item, index) => {
         if (index < MAX_CARDS) {
+          // console.log(item, index);
           return (
             <button
               type="button"
