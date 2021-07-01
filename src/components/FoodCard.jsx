@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//  import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+//  import PropTypes from 'prop-types';
 
 function FoodCard(props) {
   const { resultFood } = props;
@@ -11,7 +11,6 @@ function FoodCard(props) {
 
   return food.map((recipe, index) => (
     <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
-
       <div data-testid={ `${index}-recipe-card` }>
         <img
           data-testid={ `${index}-card-img` }
