@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import DrinksContext from '../../context/drinks.context';
 import { fetchDetails, fetchByName } from '../../services';
 import DrinksCarousel from '../../components/DrinksCarousel';
+import whiteFavIcon from '../../images/whiteHeartIcon.svg';
 
 function DetalhesComida() {
   const [details, setDetails] = useState({});
@@ -48,10 +49,14 @@ function DetalhesComida() {
           alt={ details.strMeals }
           data-testid="recipe-photo"
         />
+        <button type="button">
+          compartilhar
+        </button>
+        <button type="button" data-testid="favorite-btn">
+          <img src={ whiteFavIcon } alt="Favoritar" />
+        </button>
         <p data-testid="recipe-title">{ details.strMeal }</p>
         <p data-testid="recipe-category">{ details.strCategory }</p>
-        <button type="button" data-testid="share-btn">compartilhar</button>
-        <button type="button" data-testid="favorite-btn">favoritar</button>
         <ul>
           {ingredients.map((ingredient, index) => (
             <li
@@ -67,6 +72,7 @@ function DetalhesComida() {
         </ul>
         <p data-testid="instructions">{ details.strInstructions }</p>
         <iframe
+          className="youtube-video"
           src={ `https://www.youtube.com/embed/${youtubeId}` }
           title="Video da receita"
           data-testid="video"
@@ -74,7 +80,7 @@ function DetalhesComida() {
       </div>
       <DrinksCarousel />
       <div>
-        <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
+        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     </main>
   );
