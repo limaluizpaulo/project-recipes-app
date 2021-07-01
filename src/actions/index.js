@@ -1,5 +1,7 @@
 export const REQUEST_INGREDIENT_FOOD = 'REQUEST_INGREDIENT_FOOD';
 export const REQUEST_INGREDIENT_DRINK = 'REQUEST_INGREDIENT_DRINK';
+export const REQUEST_FOOD = 'REQUEST_INGREDIENT_FOOD';
+export const REQUEST_DRINK = 'REQUEST_INGREDIENT_DRINK';
 
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -65,6 +67,40 @@ export const fetchDrinksAction = (searchInput, searchFilter) => async (dispatch)
   }
   dispatch({
     type: REQUEST_INGREDIENT_DRINK,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchFoodAction = () => async (dispatch) => {
+  let result = {};
+  result = await fetchFood();
+  dispatch({
+    type: REQUEST_FOOD,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchDrinkAction = () => async (dispatch) => {
+  let result = {};
+  result = await fetchDrink();
+  dispatch({
+    type: REQUEST_DRINK,
     payload: {
       result,
     },

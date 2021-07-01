@@ -1,7 +1,8 @@
-import { REQUEST_INGREDIENT_FOOD } from '../actions';
+import { REQUEST_FOOD, REQUEST_INGREDIENT_FOOD } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
+  food: [],
 };
 
 const foodReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const foodReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       recipes: action.payload.result.meals,
+    };
+  case REQUEST_FOOD:
+    return {
+      ...state,
+      food: action.payload.result.meals,
     };
   default:
     return state;
