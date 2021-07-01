@@ -5,7 +5,7 @@ import AppReceitasContext from '../context/AppReceitasContext';
 
 function SearchInput() {
   const pathName = useHistory();
-  const { setfetchAPI } = useContext(AppReceitasContext);
+  const { setFetchAPI } = useContext(AppReceitasContext);
   const [selectFilter, setSelectFilter] = useState({
     input: '',
     search: '',
@@ -37,7 +37,7 @@ function SearchInput() {
       chamaAlert(alert);
     } else {
       const resposta = await comidaApi(input, search);
-      setfetchAPI(resposta);
+      setFetchAPI(resposta);
       verificaTamanhoArray(resposta.meals, 'comidas');
     }
   };
@@ -47,7 +47,7 @@ function SearchInput() {
       chamaAlert(alert);
     } else {
       const resposta = await bebidaApi(input, search);
-      setfetchAPI(resposta);
+      setFetchAPI(resposta);
       verificaTamanhoArray(resposta.drinks, 'bebidas');
     }
   };
