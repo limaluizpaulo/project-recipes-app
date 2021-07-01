@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 function Card({ drink, recipe, index }) {
   const { location: { pathname } } = useHistory();
   return (
-    <section data-testid={ `${index}-recipe-card` }>
+    <section>
       {
         pathname.includes('/comidas')
           ? (
@@ -21,7 +21,7 @@ function Card({ drink, recipe, index }) {
           )
           : (
             <div className="card-field" data-testid={ `${index}-recipe-card` }>
-              <Link to={ `/bebidas/${recipe.idMeal}` }>
+              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ drink.strDrinkThumb }

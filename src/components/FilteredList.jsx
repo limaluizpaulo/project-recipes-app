@@ -15,7 +15,7 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
   function renderFilteredRecipes() {
     if (filteredRecipes) {
       return (
-        <div>
+        <section className="cards-field">
           {
             filteredRecipes.slice(0, NUMBER_OF_ITEMS)
               .map((recipe, index) => (<Card
@@ -25,7 +25,7 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
                 index={ index }
               />))
           }
-        </div>
+        </section>
       );
     }
     invokeAlert(alert,
@@ -35,7 +35,7 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
   function renderFilteredDrinks() {
     if (filteredDrinks) {
       return (
-        <div>
+        <section className="cards-field">
           {
             filteredDrinks.slice(0, NUMBER_OF_ITEMS)
               .map((drink, index) => (<Card
@@ -45,7 +45,7 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
                 index={ index }
               />))
           }
-        </div>
+        </section>
       );
     }
     invokeAlert(alert,
@@ -53,7 +53,7 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
   }
 
   return (
-    <section>
+    <section className="cards-field">
       {
         pathname.includes('/comidas')
           ? renderFilteredRecipes()

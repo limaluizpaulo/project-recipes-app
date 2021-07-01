@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import DrinksContext from './DrinksContext';
-import { fetchAllDrinks, fetchCategoriesDrinks,
+import {
+  fetchAllDrinks, fetchCategoriesDrinks,
   fetchDrinksByCategory, fetchDrinksByFirstLetter,
-  fetchDrinksByIngredient, fetchDrinksByName } from '../services/DrinksServices';
+  fetchDrinksByIngredient, fetchDrinksByName,
+} from '../services/DrinksServices';
 
 function DrinksProvider({ children }) {
   const [drinksFilter, setrinksFilter] = useState({ filteredDrinks: [] });
   const [allDrinks, setAllDrinks] = useState({ drinks: [] });
   const [allCategories, setAllCategories] = useState({ categories: [] });
-
   const [drinksFilteredByCategory,
     setDrinksFilteredByCategory] = useState({ drinksByCategory: [] });
   const [category, setCategory] = useState('All');
@@ -49,6 +50,9 @@ function DrinksProvider({ children }) {
   useEffect(() => {
     getAllDrinks();
     getAllCategories();
+    if (category === 'All') {
+      setDrinksFilteredByCategory(allDrinks);
+    }
     filterDrinksByCategory(category);
   }, [category]);
 

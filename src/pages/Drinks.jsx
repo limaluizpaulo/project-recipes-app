@@ -26,7 +26,7 @@ function Drinks() {
   function renderDrinksDefault() {
     if (!drinksByCategory && isFiltred === false) {
       return (
-        <div>
+        <section className="cards-field">
           {
             drinks.slice(0, NUMBER_OF_ITEMS)
               .map((drink, index) => (<Card
@@ -35,11 +35,11 @@ function Drinks() {
                 index={ index }
               />))
           }
-        </div>
+        </section>
       );
     }
     return (
-      <div>
+      <section className="cards-field">
         {
           drinksByCategory.slice(0, NUMBER_OF_ITEMS)
             .map((drink2, index2) => (<Card
@@ -48,14 +48,15 @@ function Drinks() {
               index={ index2 }
             />))
         }
-      </div>
+      </section>
     );
   }
 
   function renderButtonCategories() {
     return (
-      <div>
+      <section className="category-field">
         <Button
+          className="btn-category"
           data-testid="All-category-filter"
           onClick={ (event) => setCategory(event.target.innerText) }
         >
@@ -65,6 +66,7 @@ function Drinks() {
           categories.slice(0, NUMBER_OF_CATEGORIES)
             .map((categoryDrinks, index) => (
               <Button
+                className="btn-category"
                 key={ index }
                 data-testid={ `${categoryDrinks.strCategory}-category-filter` }
                 onClick={ (event) => {
@@ -80,7 +82,7 @@ function Drinks() {
               </Button>
             ))
         }
-      </div>
+      </section>
     );
   }
 

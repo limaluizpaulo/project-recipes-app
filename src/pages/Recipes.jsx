@@ -56,6 +56,7 @@ function Recipes() {
     return (
       <section className="category-field">
         <Button
+          className="btn-category"
           data-testid="All-category-filter"
           onClick={ (event) => setCategory(event.target.innerText) }
         >
@@ -65,6 +66,7 @@ function Recipes() {
           categories.slice(0, NUMBER_OF_CATEGORIES)
             .map((categoryRecipes, index) => (
               <Button
+                className="btn-category"
                 key={ index }
                 data-testid={ `${categoryRecipes.strCategory}-category-filter` }
                 onClick={ (event) => {
