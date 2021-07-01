@@ -60,7 +60,6 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  // adicionarUsuarioState: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 

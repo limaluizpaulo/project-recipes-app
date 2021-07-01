@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import fetchApiAction from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class SearchBar extends React.Component {
@@ -41,6 +43,7 @@ class SearchBar extends React.Component {
   }
 
   async fetchFood() {
+    const { SendApiToState } = this.props;
     const { input, filter } = this.state;
     let url;
     if (filter === 'Ingrediente') {
@@ -56,12 +59,14 @@ class SearchBar extends React.Component {
       url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
     }
     const responseAPI = await fetchAPI(url);
+    SendApiToState(responseAPI);
     return this.setState({
       API: responseAPI,
     }, () => this.onSingleRecipeReturn());
   }
 
   async fetchBeverages() {
+    const { SendApiToState } = this.props;
     const { input, filter } = this.state;
     let url;
     if (filter === 'Ingrediente') {
@@ -77,6 +82,7 @@ class SearchBar extends React.Component {
       url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`;
     }
     const responseAPI = await fetchAPI(url);
+    SendApiToState(responseAPI);
     return this.setState({
       API: responseAPI,
     }, () => this.onSingleRecipeReturn());
@@ -150,11 +156,16 @@ class SearchBar extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  SendApiToState: (payload) => dispatch(fetchApiAction(payload)),
+});
+
 SearchBar.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
+  SendApiToState: PropTypes.func.isRequired,
 };
 
-export default withRouter(SearchBar);
+export default connect(null, mapDispatchToProps)(withRouter(SearchBar));
