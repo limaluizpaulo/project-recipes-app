@@ -3,7 +3,8 @@ import React from 'react';
 function DrinkDetails() {
   return (
     <div>
-      <img src="" alt="" data-testid="recipe-photo" />
+      alo
+      {/* <img src="" alt="" data-testid="recipe-photo" />
       {' '}
       FOTO
       <h1 data-testid="recipe-title">TITULO</h1>
@@ -22,7 +23,7 @@ function DrinkDetails() {
       <div data-testid="${''}-recomendation-card">receitas recomendadas</div>
       <button type="button" data-testid="start-recipe-btn">
         Iniciar
-      </button>
+      </button> */}
     </div>
   );
 }
