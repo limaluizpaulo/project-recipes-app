@@ -14,9 +14,9 @@ function GlobalProvider({ children }) {
   };
 
   return (
-    <Context.GlobalProvider value={ contextValue }>
+    <Context.Provider value={ contextValue }>
       { children }
-    </Context.GlobalProvider>
+    </Context.Provider>
   );
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -8,9 +7,7 @@ import GlobalProvider from './context/GlobalProvider';
 
 ReactDOM.render(
   <GlobalProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </GlobalProvider>, document.getElementById('root'),
 );
 
