@@ -32,16 +32,13 @@ const Provider = ({ children }) => {
 
   useEffect(() => {
     const endPoint = checkOption(searchOp);
-    fetch(endPoint)
-      .then((res) => res.json())
-      .then(setRecipes);
+    if (endPoint) {
+      fetch(endPoint)
+        .then((res) => res.json())
+        .then(setRecipes);
+    }
   }, [searchOp]);
 
-  // const notFound = () => {
-  //   const { meals, drinks } = recipes;
-  //   if (!drinks.length || !meals.length) {
-  //     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  //   }
   const value = {
     setSearchOp,
     recipes,
