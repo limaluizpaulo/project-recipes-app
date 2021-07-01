@@ -6,6 +6,8 @@ const BASE_URL_CATEGORIES_MEAL = 'https://www.themealdb.com/api/json/v1/1/list.p
 const BASE_URL_CATEGORIES_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const BASE_URL_FILTER_CTGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const BASE_URL_FILTER_CTGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const BASE_URL_DETAIL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const BASE_URL_DETAIL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 export async function recipesListApi(pathname) {
   let fetchSearch;
@@ -86,6 +88,20 @@ export async function searchByFirstLetterApi(inputValue, pathname) {
   }
   if (pathname === '/bebidas') {
     fetchSearch = await fetch(`${BASE_URL_SEARCH_DRINKS}search.php?f=${inputValue}`);
+    const response = await fetchSearch.json();
+    return response.drinks;
+  }
+}
+
+export async function detailRecipe(id, pathname) {
+  let fetchSearch;
+  if (pathname.includes('/comidas')) {
+    fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
+    const response = await fetchSearch.json();
+    return response.meals;
+  }
+  if (pathname.includes('/bebidas')) {
+    fetchSearch = await fetch(`${BASE_URL_DETAIL_DRINKS}${id}`);
     const response = await fetchSearch.json();
     return response.drinks;
   }
