@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 const MealCard = ({ recipe, index }) => {
   const { strMealThumb, strMeal } = recipe;
   return (
-    <div className="cards" data-testid={ `"${index}-recipe-card"` }>
-      {/* `[data-testid="${index}-recipe-card"]` */}
+    <div key={ `${idx} - meals` } className="cards" data-testid={ `"${index}-recipe-card"` }>
       <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
       <p data-testid={ `${index}-card-name` }>{strMeal}</p>
     </div>
