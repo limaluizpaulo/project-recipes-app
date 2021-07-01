@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import copy from 'clipboard-copy';
 import { getDrinkDetails, getMealDetails } from '../services';
-import shareIcon from '../images/shareIcon.svg';
-import { FavoriteBtn } from '../components';
+import { FavoriteBtn, ShareBtn } from '../components';
 
 function RecipeInProgress({ match, history }) {
   const { id } = match.params;
@@ -77,11 +75,6 @@ function RecipeInProgress({ match, history }) {
   // );
   // const measures = strMeasure.filter((el) => el[1] !== '' && el[1] !== null);
 
-  const shareRecipe = () => {
-    copy(window.location.href.replace('/in-progress', ''));
-    setWasCopied(true);
-  };
-
   return (
     <section>
       <h2 data-testid="recipe-title">{strMeal || strDrink}</h2>
@@ -91,14 +84,7 @@ function RecipeInProgress({ match, history }) {
         data-testid="recipe-photo"
       />
 
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ shareRecipe }
-      >
-        <img src={ shareIcon } className="small-btn" alt="icone de compartilhar" />
-      </button>
-
+      <ShareBtn showCopiedMsg={ setWasCopied } />
       <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ recipeInProgress } />
 
       <span data-testid="recipe-category">{strCategory}</span>
