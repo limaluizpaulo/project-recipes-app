@@ -18,7 +18,9 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" search food />
-      {meals && renderCard()}
+      <div className="grade">
+        {meals && renderCard()}
+      </div>
       <Footer />
     </div>
   );

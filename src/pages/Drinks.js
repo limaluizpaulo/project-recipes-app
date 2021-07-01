@@ -19,7 +19,9 @@ const Drinks = () => {
   return (
     <div>
       <Header title="Bebidas" search />
-      {drinks && renderCard()}
+      <div className="grade">
+        {drinks && renderCard()}
+      </div>
       <Footer />
     </div>
   );
