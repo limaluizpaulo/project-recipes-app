@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import { Header, Categories, Card, Footer } from '../components';
-import { MealsContext } from '../context/MealsProvider';
+import { DrinksContext } from '../context/DrinksProvider';
 
-const Meals = () => {
-  const {
-    meals,
-    categories,
-    setFilterCategory,
-  } = useContext(MealsContext);
+const Drinks = () => {
+  const { drinks, categories, setFilterCategory } = useContext(DrinksContext);
 
   const recipesShow = 12;
   return (
@@ -17,16 +13,16 @@ const Meals = () => {
         categories={ categories }
         onClick={ setFilterCategory }
       />
-      {meals.map(({ idMeal, strMeal, strMealThumb }, index) => {
+      {drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => {
         if (index < recipesShow) {
           return (
             <Card
-              id={ idMeal }
-              key={ idMeal }
-              title={ strMeal }
-              img={ strMealThumb }
+              id={ idDrink }
+              key={ idDrink }
+              title={ strDrink }
+              img={ strDrinkThumb }
               index={ index }
-              type="comidas"
+              type="bebidas"
             />
           );
         }
@@ -37,4 +33,4 @@ const Meals = () => {
   );
 };
 
-export default Meals;
+export default Drinks;
