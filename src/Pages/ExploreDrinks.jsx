@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../Components/Header';
 
 function ExploreDrinks() {
   return (
     <div>
-      <h1>Explore Bebidas</h1>
+      <Header />
+      <button type="button" data-testid="explore-by-ingredient">Por Ingredientes</button>
+      <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
     </div>
   );
 }
