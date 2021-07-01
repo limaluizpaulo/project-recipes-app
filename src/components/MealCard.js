@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const recipeCard = ({ strMealThumb, strMeal }, index) => {
+const MealCard = ({ recipe, index }) => {
+  const { strMealThumb, strMeal } = recipe;
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
@@ -10,9 +11,14 @@ const recipeCard = ({ strMealThumb, strMeal }, index) => {
   );
 };
 
-recipeCard.propTypes = {
-  strMealThumb: PropTypes.string.isRequired,
-  strMeal: PropTypes.string.isRequired,
+MealCard.defaultProps = {
+  strMealThumb: '',
+  strMeal: '',
 };
 
-export default recipeCard;
+MealCard.propTypes = {
+  strMealThumb: PropTypes.string,
+  strMeal: PropTypes.string,
+}.isRequired;
+
+export default MealCard;
