@@ -9,7 +9,7 @@ import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
 import Explorar from './pages/Explore/Explore';
-import ExplorarComidas from './pages/ExplorarComidas/ExplorarComidas';
+import ExplorarComidas from './pages/ExploreFood/ExploreFood';
 import ExplorarBebidas from './pages/ExploreDrinks/ExploreDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
