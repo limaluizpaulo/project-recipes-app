@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
@@ -17,6 +18,8 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
 
+  const location = useLocation();
+
   const login = (email) => {
     setUser(email);
   };
@@ -26,11 +29,11 @@ function RecipesProvider({ children }) {
     setRecipes(allRecipes.meals);
   };
 
-  const searchRecipesBy = async () => {
+  const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
     const recipesBySearch = await fetchRecipesBySearch(
-      mealsOrDrinks, 'ingredient', 'Chiken',
+      mealsOrDrinks, searchParameter, searchPayload,
     );
-    console.log(recipesBySearch);
+    setRecipes(recipesBySearch[mealsOrDrinks]);
   };
 
   const getRandomRecipe = async () => {
@@ -52,6 +55,14 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     getInitialRecipes();
   }, []);
+
+  useEffect(() => {
+    if (location.pathname.includes('comida')) {
+      setMealsOrDrinks('meals');
+    } else if (location.pathname.includes('bebida')) {
+      setMealsOrDrinks('drinks');
+    }
+  }, [location]);
 
   return (
     <RecipesContext.Provider value={ context }>

@@ -16,22 +16,22 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 import {
-  allowedHeaderPathRender,
-  allowedFooterPathRender,
-} from './services/pathLocationNames';
+  allowedHeaderRenderByPath,
+  allowedFooterRenderByPath,
+} from './services/AllowanceToRender';
 
 function App() {
   const location = useLocation();
 
   const verifyAllowanceToRenderHeader = () => {
-    const shouldRenderHeader = allowedHeaderPathRender.some(
+    const shouldRenderHeader = allowedHeaderRenderByPath.some(
       (element) => element === location.pathname,
     );
     return shouldRenderHeader ? <Header /> : null;
   };
 
   const verifyAllowanceToRenderFooter = () => {
-    const shouldRenderFooter = allowedFooterPathRender.some(
+    const shouldRenderFooter = allowedFooterRenderByPath.some(
       (element) => element === location.pathname,
     );
     return shouldRenderFooter ? <Footer /> : null;
@@ -40,13 +40,15 @@ function App() {
   return (
     <RecipesProvider>
       { verifyAllowanceToRenderHeader() }
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ FoodList } />
-        <Route exact path="/explorar" component={ Explore } />
-        <Route exact path="/explorar/comidas" component={ ExploreMeals } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-      </Switch>
+      <main>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ FoodList } />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ ExploreMeals } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        </Switch>
+      </main>
       { verifyAllowanceToRenderFooter() }
     </RecipesProvider>
   );

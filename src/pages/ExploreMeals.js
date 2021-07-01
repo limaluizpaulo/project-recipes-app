@@ -5,8 +5,6 @@ import { Redirect } from 'react-router';
 
 import RecipesContext from '../context/RecipesContext';
 
-import './style/ExploreMeals.css';
-
 function ExploreMeals() {
   const {
     redirectToRecipeDetails,

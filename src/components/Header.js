@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import pageTitleByLocation from '../services/pageTitleByLocation';
+import { allowedSearchIconRenderByPath } from '../services/AllowanceToRender';
+
+import SearchForm from './SearchForm';
+import SearchIcon from './SearchIcon';
+
+import ProfileIcon from '../images/profileIcon.svg';
 
 import './style/Header.css';
 
-import ProfileIcon from '../images/profileIcon.svg';
-import SearchIcon from '../images/searchIcon.svg';
-
-import SearchBar from './SearchBar';
-
 function Header() {
-  const [searchBar, setSearchBar] = useState(false);
+  const [searchForm, setSearchForm] = useState(false);
+  const [searchIcon, setSearchIcon] = useState(true);
+  const [pageTitle, setPageTitle] = useState('Comidas');
+  const location = useLocation();
+
+  useEffect(() => {
+    setPageTitle(pageTitleByLocation[location.pathname]);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setSearchIcon(allowedSearchIconRenderByPath.some((path) => (
+      path === location.pathname
+    )));
+  }, [location.pathname]);
 
   return (
     <header>
@@ -17,23 +33,15 @@ function Header() {
         <Link to="/perfil">
           <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profile-icon" />
         </Link>
-        <p>oi</p>
-        <label htmlFor="search-icon">
-          <input
-            type="radio"
-            onClick={ () => setSearchBar(!searchBar) }
-            id="search-icon"
-            className="search-icon-radio"
-          />
-          <img
-            src={ SearchIcon }
-            alt="search-icon"
-            data-testid="search-top-btn"
-            className="search-icon"
-          />
-        </label>
+        <h3 data-testid="page-title">{ pageTitle }</h3>
+        {
+          searchIcon ? <SearchIcon
+            searchForm={ searchForm }
+            setSearchForm={ setSearchForm }
+          /> : <div style={ { width: '30px' } } />
+        }
       </section>
-      {searchBar && <SearchBar />}
+      {searchForm && <SearchForm />}
     </header>
   );
 }
