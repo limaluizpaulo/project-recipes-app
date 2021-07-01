@@ -1,9 +1,11 @@
 import React from 'react';
+import searchIcon from '../images/searchIcon.svg';
 
-function HeaderSearchBar() {
+function HeaderSearchBarWithButton() {
   return (
     <form>
       <fieldset>
+        <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
         <label htmlFor="search">
           <input
             id="search"
@@ -52,4 +54,4 @@ function HeaderSearchBar() {
   );
 }
 
-export default HeaderSearchBar;
+export default HeaderSearchBarWithButton;

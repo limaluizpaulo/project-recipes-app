@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 
-function Comidas() {
+function Foods() {
   return (
     <>
       <div>Tela de Comidas</div>
@@ -10,4 +10,4 @@ function Comidas() {
   );
 }
 
-export default Comidas;
+export default Foods;

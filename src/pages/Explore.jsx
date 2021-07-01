@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './Header';
 
-function Bebidas() {
+function Explore() {
   return (
     <>
-      <div>Tela de Bebidas</div>
+      <div>Tela de explorar</div>
       <Header />
     </>
   );
 }
 
-export default Bebidas;
+export default Explore;
