@@ -4,10 +4,9 @@ import Header from '../components/Header';
 
 export default function Foods() {
   return (
-    <div>
+    <>
       <Header />
-      Le food!
       <Footer />
-    </div>
+    </>
   );
 }

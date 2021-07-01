@@ -3,9 +3,6 @@ import Header from '../components/Header';
 
 export default function FavoritesRecipes() {
   return (
-    <div>
-      <Header />
-      Tout les recipes!
-    </div>
+    <Header />
   );
 }

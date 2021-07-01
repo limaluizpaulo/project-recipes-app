@@ -4,10 +4,9 @@ import Header from '../components/Header';
 
 export default function Drinks() {
   return (
-    <div>
+    <>
       <Header />
-      La beauverage!
       <Footer />
-    </div>
+    </>
   );
 }

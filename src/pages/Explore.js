@@ -7,7 +7,7 @@ import Header from '../components/Header';
 
 export default function Explore() {
   return (
-    <div>
+    <>
       <Header />
       <Link to="/explorar/comidas">
         <Button variant="primary" data-testid="explore-food">
@@ -20,6 +20,6 @@ export default function Explore() {
         </Button>
       </Link>
       <Footer />
-    </div>
+    </>
   );
 }
