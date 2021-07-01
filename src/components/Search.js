@@ -33,7 +33,7 @@ function Search() {
       'Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
-  // console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
+  console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
 
   async function submit(ev) {
     console.log(radio);
