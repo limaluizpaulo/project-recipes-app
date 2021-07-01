@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import requestMeal from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Food.css';
+import { Link } from 'react-router-dom';
 
 function Food() {
   const [data, setData] = useState([]);
@@ -11,6 +12,7 @@ function Food() {
     (async function resolved() {
       const resolve = await requestMeal();
       setData(resolve);
+      console.log(resolve);
       setLoading(false);
     }());
   }, []);
@@ -22,6 +24,7 @@ function Food() {
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
         <div key={ index } className="card-meals-items">
+          <Link to="/comidas/:id">Detalhes</Link>
           <img
             data-testid={ `${index}-card-img` }
             src={ item.strMealThumb }
