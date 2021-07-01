@@ -5,7 +5,7 @@ function RecipesDone() {
   return (
     <>
       <div>Tela de perfil</div>
-      <Header />
+      <Header title="Receitas Feitas" />
     </>
   );
 }

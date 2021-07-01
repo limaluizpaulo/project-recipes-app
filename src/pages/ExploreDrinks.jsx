@@ -5,7 +5,7 @@ function ExploreDrinks() {
   return (
     <>
       <div>Tela de explorar bebidas</div>
-      <Header />
+      <Header title="Explorar Bebidas" />
     </>
   );
 }

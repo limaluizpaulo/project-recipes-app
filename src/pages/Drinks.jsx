@@ -6,7 +6,7 @@ function Drinks() {
   return (
     <>
       <div>Tela de Bebidas</div>
-      <Header />
+      <Header title="Bebidas" />
       <HeaderSearchButton />
     </>
   );

@@ -5,7 +5,7 @@ function Explore() {
   return (
     <>
       <div>Tela de explorar</div>
-      <Header />
+      <Header title="Explorar" />
     </>
   );
 }

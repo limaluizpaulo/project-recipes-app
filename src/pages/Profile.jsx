@@ -5,7 +5,7 @@ function Profile() {
   return (
     <>
       <div>Tela de perfil</div>
-      <Header />
+      <Header title="Perfil" />
     </>
   );
 }

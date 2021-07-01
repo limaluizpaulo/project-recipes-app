@@ -6,7 +6,7 @@ function ExploreFoodsArea() {
   return (
     <>
       <div>Tela de explorar comidas area</div>
-      <Header />
+      <Header title="Explorar Origem" />
       <HeaderSearchButton />
     </>
   );

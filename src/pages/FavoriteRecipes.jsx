@@ -5,7 +5,7 @@ function FavoriteRecipes() {
   return (
     <>
       <div>Tela de receitas favoritas</div>
-      <Header />
+      <Header title="Receitas Favoritas" />
     </>
   );
 }
