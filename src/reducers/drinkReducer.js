@@ -1,8 +1,8 @@
-import { REQUEST_DRINK, REQUEST_INGREDIENT_DRINK } from '../actions';
+import { REQUEST_INGREDIENT_DRINK } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
-  drinks: [],
+  // drinks: [],
 };
 
 const drinkReducer = (state = INITIAL_STATE, action) => {
@@ -12,11 +12,11 @@ const drinkReducer = (state = INITIAL_STATE, action) => {
       ...state,
       recipes: action.payload.result.drinks,
     };
-  case REQUEST_DRINK:
-    return {
-      ...state,
-      drinks: action.payload.result.drinks,
-    };
+  // case REQUEST_DRINK:
+  //   return {
+  //     ...state,
+  //     drinks: action.payload.result.drinks,
+  //   };
   default:
     return state;
   }
