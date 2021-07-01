@@ -18,7 +18,6 @@ export async function fetchByName(type, query = '') {
     : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const data = await fetch(`${API_URL}${query}`);
   const result = await data.json();
-  console.log(result);
   return result[type];
 }
 
@@ -46,6 +45,5 @@ export async function fetchByCategory(type, category) {
     : 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
   const data = await fetch(`${API_URL}${category}`);
   const result = await data.json();
-  console.log(result);
   return result[type];
 }

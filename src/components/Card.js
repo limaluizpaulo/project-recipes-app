@@ -18,7 +18,7 @@ function Card({ index, imgSrc, name, path }) {
         alt={ name }
         data-testid={ `${index}-card-img` }
       />
-      <p data-testid={ `${index}-card-name` }>{name}</p>
+      <span data-testid={ `${index}-card-name` }>{name}</span>
     </button>
   );
 }
