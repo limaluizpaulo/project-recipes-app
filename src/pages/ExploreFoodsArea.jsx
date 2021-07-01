@@ -3,15 +3,15 @@ import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
 import Footer from '../components/Footer';
 
-function Foods() {
+function ExploreFoodsArea() {
   return (
     <>
-      <div>Tela de Comidas</div>
-      <Header title="Comidas" />
+      <div>Tela de explorar comidas area</div>
+      <Header title="Explorar Origem" />
       <HeaderSearchButton />
       <Footer />
     </>
   );
 }
 
-export default Foods;
+export default ExploreFoodsArea;
