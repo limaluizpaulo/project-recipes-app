@@ -5,12 +5,6 @@ import AlternativesCaroussel from './AlternativesCaroussel';
 
 const FoodVideoAndRecomendation = () => {
   const { selectedFood } = useContext(RecipeContext);
-  if (!selectedFood) {
-    return (
-      <p>loading</p>
-    );
-  }
-
   const renderYoutubeVideo = () => {
     const { strYoutube } = selectedFood;
     if (!strYoutube) return;

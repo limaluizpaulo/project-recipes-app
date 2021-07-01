@@ -6,11 +6,6 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const FoodDetails = ({ children }) => {
   const { selectedFood } = useContext(RecipeContext);
-  if (!selectedFood) {
-    return (
-      <p>loading</p>
-    );
-  }
   const { strCategory, strAlcoholic, strInstructions } = selectedFood;
   const renderImgAndTitle = () => {
     const { strMealThumb, strMeal } = selectedFood;

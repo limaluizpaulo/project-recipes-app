@@ -7,17 +7,18 @@ import IngredientList from '../components/IngredientList';
 import FoodVideoAndRecomendation from '../components/FoodVideoAndRecomendation';
 import getFoodFromUrlParams from '../services/api/getFoodOrDrink';
 import RecipeContext from '../context/Context';
+import FoodDetailsButton from '../components/FoodDetailsButton';
 
 // Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes
-export default function FoodIngredients({ history }) {
-  const { setSelectedFood } = useContext(RecipeContext);
-
+export default function FoodIngredients({ history, match }) {
+  const { selectedFood, setSelectedFood } = useContext(RecipeContext);
   useEffect(() => {
     const getFood = async () => {
       const params = history.location.pathname.split('/');
       params.shift();
-      const [location, id] = params;
-      const res = await getFoodFromUrlParams(location, id);
+      const [location] = params;
+      const { params: { recipeId } } = match;
+      const res = await getFoodFromUrlParams(location, recipeId);
       const SIX = 6;
       if (location === 'comidas') {
         const alternativas = await getFoodFromUrlParams('bebidasAlternativas');
@@ -36,6 +37,11 @@ export default function FoodIngredients({ history }) {
     getFood();
   }, [history.location.pathname, setSelectedFood]);
 
+  if (!selectedFood) {
+    return (
+      <p>loading</p>
+    );
+  }
   return (
     <div>
       <Header history={ history } title="Explorar Ingredientes" />
@@ -44,7 +50,7 @@ export default function FoodIngredients({ history }) {
           <IngredientList />
         </FoodDetails>
         <FoodVideoAndRecomendation />
-        <button className="foodDetails__startBtn" type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <FoodDetailsButton match={ match } />
       </section>
       <Footer />
     </div>
@@ -53,4 +59,9 @@ export default function FoodIngredients({ history }) {
 
 FoodIngredients.propTypes = {
   history: PropTypes.shape().isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      recipeId: PropTypes.string,
+    }),
+  }).isRequired,
 };

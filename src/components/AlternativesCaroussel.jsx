@@ -6,7 +6,6 @@ import '../styles/foodDetails.css';
 const AlternativesCaroussel = () => {
   const { selectedFood } = useContext(RecipeContext);
   const { alternatives } = selectedFood;
-  console.log(alternatives);
   const renderAlternatives = () => alternatives.map((alternative, index) => {
     const name = alternative.strMeal || alternative.strDrink;
     const category = alternative.strCategory || alternative.strAlcoholic;

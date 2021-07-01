@@ -4,6 +4,7 @@ export const setOnLocalStorage = (key, value) => {
   localStorage.setItem(key, itemToBeStored);
 };
 
-export const getFromLocalStorage = () => {
-
+export const getFromLocalStorage = (key) => {
+  const resFromLocalStorage = localStorage.getItem(key);
+  return JSON.parse(resFromLocalStorage);
 };
