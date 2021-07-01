@@ -33,7 +33,10 @@ export default function App() {
           path="/explorar/comidas/ingredientes"
           component={ Pages.ExploreFoodsByIngredients }
         />
-        <Route path="/explorar/bebidas/" component={ Pages.ExploreDrinks } />
+        <Route
+          path="/explorar/bebidas/"
+          component={ Pages.ExploreDrinks }
+        />
         <Route
           path="/explorar/bebidas/ingredientes"
           component={ Pages.ExploreDrinksByIngredients }
