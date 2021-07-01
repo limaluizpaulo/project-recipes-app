@@ -1,11 +1,11 @@
 import React from 'react';
-import HeaderSearchBar from './HeaderSearchBar';
+import Header from './Header';
 
 function Bebidas() {
   return (
     <>
-      <div>Bebidas</div>
-      <HeaderSearchBar />
+      <div>Tela de Bebidas</div>
+      <Header />
     </>
   );
 }
