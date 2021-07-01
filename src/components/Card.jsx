@@ -28,7 +28,6 @@ function Card({ drink, recipe, index }) {
             </div>
           )
       }
-
     </section>
   );
 }

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
-import { fetchRecipesByIngredient, fetchRecipesByName,
-  fetchRecipesByFirstLetter, fetchAllRecipes } from '../services/RecipesServices';
+import { fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter,
+  fetchAllRecipes, fetchCategoriesRecipes } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
   const [recipesFilter, setRecipesFilter] = useState({ filteredRecipes: [] });
   const [allRecipes, setAllRecipes] = useState({ recipes: [] });
+  const [allCategories, setAllCategories] = useState({ categories: [] });
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
@@ -29,8 +30,14 @@ function RecipesProvider({ children }) {
     setAllRecipes({ recipes });
   }
 
+  async function getAllCategories() {
+    const categories = await fetchCategoriesRecipes();
+    setAllCategories({ categories });
+  }
+
   useEffect(() => {
     getAllRecipes();
+    getAllCategories();
   }, []);
 
   return (
@@ -40,7 +47,8 @@ function RecipesProvider({ children }) {
         filterRecipesByName,
         filterRecipesByFirstLetter,
         allRecipes,
-        getAllRecipes } }
+        allCategories,
+      } }
     >
       { children }
     </RecipesContext.Provider>

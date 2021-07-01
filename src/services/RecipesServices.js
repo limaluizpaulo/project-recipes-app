@@ -1,6 +1,7 @@
 const API_URL_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const API_URL_NAME_AND_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?';
 const API_URL_ALL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const API_URL_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 
 export async function fetchRecipesByIngredient(ingredient) {
   const request = await fetch(`${API_URL_INGREDIENT}${ingredient}`);
@@ -25,6 +26,13 @@ export async function fetchRecipesByFirstLetter(firstLetter) {
 
 export async function fetchAllRecipes() {
   const request = await fetch(API_URL_ALL_RECIPES);
+  const response = await request.json();
+  const { meals } = response;
+  return meals;
+}
+
+export async function fetchCategoriesRecipes() {
+  const request = await fetch(API_URL_CATEGORIES);
   const response = await request.json();
   const { meals } = response;
   return meals;
