@@ -6,6 +6,7 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
+import ComidasArea from './pages/ComidasArea';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         component={ComidasIngredientes} /> */}
         {/* <Route path="/explorar/bebidas/ingredientes"
         component={BebidasIngredientes} /> */}
-        {/* <Route path="/explorar/comidas/area" component={ComidasArea} /> */}
+        <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
         {/* <Route path="/perfil" component={Perfil} /> */}
         {/* <Route path="/receitas-feitas" component={ReceitasFeitas} /> */}
         {/* <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
