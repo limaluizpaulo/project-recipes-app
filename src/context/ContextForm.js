@@ -8,6 +8,8 @@ function Provider({ children }) {
   const [pass, setPass] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [radio, setRadio] = useState('Nome');
+  const [firstMeals, setFirstMeals] = useState([]);
+  const [firstDrinks, setFirstDrinks] = useState([]);
 
   const object = {
     email,
@@ -18,6 +20,10 @@ function Provider({ children }) {
     setInputSearch,
     radio,
     setRadio,
+    firstMeals,
+    setFirstMeals,
+    firstDrinks,
+    setFirstDrinks,
   };
 
   return (

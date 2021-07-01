@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Context } from '../context/ContextForm';
 
 function FoodRecipes() {
-  // const [Meals, setMeals] = useState([]);
-  const [firstMeals, setFirstMeals] = useState([]);
-  // const [categories, setCategories] = useState([]);
+  const { setFirstMeals, firstMeals } = useContext(Context);
   const [firstCategories, setFirstCategories] = useState([]);
   const numOfMeals = 12;
   const numOfCategories = 5;
@@ -15,7 +14,6 @@ function FoodRecipes() {
     const fetchMeals = async () => {
       const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const { meals } = await request.json();
-      // setMeals(meals);
       setFirstMeals(meals.slice(0, numOfMeals));
     };
     fetchMeals();
@@ -25,7 +23,6 @@ function FoodRecipes() {
     const fetchCategories = async () => {
       const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
       const { meals } = await request.json();
-      // setCategories(meals);
       setFirstCategories(meals.slice(0, numOfCategories));
     };
     fetchCategories();
@@ -38,7 +35,7 @@ function FoodRecipes() {
         {firstCategories.map((category, index) => (
           <button
             className="category-btn"
-            data-testid={ `${category}-category-filter` }
+            data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             type="button"
           >
