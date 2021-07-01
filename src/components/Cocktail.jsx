@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 
 export default function Cocktail({ drinks: { strDrink, strDrinkThumb }, index }) {
@@ -11,3 +12,10 @@ export default function Cocktail({ drinks: { strDrink, strDrinkThumb }, index })
     </Card>
   );
 }
+
+Cocktail.porpType = {
+  drinks: PropTypes.shape({
+    strDrink: PropTypes.string.isRequired,
+    strDrinkThumb: PropTypes.string.isRequired,
+  }),
+};

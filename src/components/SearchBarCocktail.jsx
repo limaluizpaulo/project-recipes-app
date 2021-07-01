@@ -2,23 +2,24 @@ import React, { useContext, useState } from 'react';
 import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 import Context from '../context/Context';
 
-export default function SearchBar() {
+export default function SearchBarCocktail() {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
-  const { findByFilter } = useContext(Context);
+  const { findByFilterCocktails } = useContext(Context);
 
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {
       setFilter({ [name]: value, searchText: '' });
     } else {
       setFilter({ ...filter, [name]: value });
-    };
+    }
   };
 
   const filterByFirstLetter = () => {
+    const NUMBER = 24;
     if (filter.filter === 'firstLetter') {
       return 1;
     }
-    return 24;
+    return NUMBER;
   };
 
   return (
@@ -66,7 +67,13 @@ export default function SearchBar() {
       </Form.Group>
       <Form.Group as={ Row }>
         <Col sm={ { span: 10, offset: 2 } }>
-          <Button data-testid="exec-search-btn" type="button" onClick={ () => findByFilter(filter) }>Pesquisar</Button>
+          <Button
+            data-testid="exec-search-btn"
+            type="button"
+            onClick={ () => findByFilterCocktails(filter) }
+          >
+            Pesquisar
+          </Button>
         </Col>
       </Form.Group>
     </Container>

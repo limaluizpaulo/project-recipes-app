@@ -25,11 +25,11 @@ export default function MealList() {
     }
 
     if (mealsRecipes && mealsRecipes.length > 1) {
-      console.log('1');
+      const NUMBER = 12;
       return mealsRecipes.map((meal, index) => {
-        if (index < 12) {
+        if (index < NUMBER) {
           return (<Meal key={ index } meal={ meal } index={ index } />);
-        };
+        }
         return null;
       });
     }
@@ -38,7 +38,6 @@ export default function MealList() {
       console.log('3');
       return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
     }
-    
   };
 
   return (
