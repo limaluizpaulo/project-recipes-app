@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteBtn({ id, type, currentRecipe }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const {
     strMeal,
     strMealThumb,
@@ -34,11 +37,16 @@ function FavoriteBtn({ id, type, currentRecipe }) {
           }],
       ));
     }
+    const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setIsFavorite(favoritesUpdated.some((el) => el.id === id));
   };
 
   return (
     <button type="button" data-testid="favorite-btn" onClick={ saveAsFavorite }>
-      <img src={ whiteHeartIcon } className="small-btn" alt="Ícone de coração" />
+      {isFavorite
+        ? <img src={ whiteHeartIcon } className="small-btn" alt="Ícone de coração" />
+        : <img src={ blackHeartIcon } className="small-btn" alt="Ícone de coração" /> }
+
     </button>
   );
 }
