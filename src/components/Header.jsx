@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import SearchBar from './SearchBar';
 
 class Header extends React.Component {
   constructor() {
@@ -52,14 +53,13 @@ class Header extends React.Component {
           </Link>
           { this.renderSearchButton() }
         </div>
-        { searchBar ? <input data-testid="search-input" /> : null }
+        { searchBar ? <SearchBar title={ title } /> : null }
       </nav>
     );
   }
 }
 
 Header.propTypes = {
-  // adicionarUsuarioState: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
