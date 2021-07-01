@@ -43,3 +43,8 @@ export const ADD_RECIPES = 'ADD_RECIPES';
 export const addRecipes = (meals, drinks, categoriesMeals, categoriesDrinks) => ({
   type: ADD_RECIPES, payload: { meals, drinks, categoriesMeals, categoriesDrinks },
 });
+
+export const DIRECT_PAGE = 'DIRECT_PAGE';
+export const directPage = (foods) => ({
+  type: DIRECT_PAGE, payload: { foods },
+});
