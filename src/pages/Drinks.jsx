@@ -8,9 +8,6 @@ import { actionDrinks } from '../actions';
 class Drinks extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-    };
 
     this.fetchDrinks = this.fetchDrinks.bind(this);
   }
@@ -22,16 +19,12 @@ class Drinks extends Component {
   fetchDrinks() {
     const { drinks } = this.props;
     drinks();
-    this.setState({ loading: false });
   }
 
   render() {
-    const { loading } = this.state;
-    if (loading) {
-      return (<h3>Loading...</h3>);
-    }
     const { listDrinks } = this.props;
-    console.log(listDrinks.drinks);
+    if (!listDrinks) return (<h3>Loading...</h3>);
+    console.log(listDrinks);
     return (
       <div>
         <Header header="Bebidas" explorer />
