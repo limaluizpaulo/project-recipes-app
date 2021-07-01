@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class Beverages extends React.Component {
   constructor() {
@@ -37,6 +38,7 @@ class Beverages extends React.Component {
       <div>
         <Header title="Bebidas" />
         { this.renderCards() }
+        <Footer />
       </div>
     );
   }
