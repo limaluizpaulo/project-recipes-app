@@ -1,5 +1,4 @@
 import React from 'react';
-import HeaderSearchBarWithButton from './HeaderSearchBarWithButton';
 import profileIcon from '../images/profileIcon.svg';
 
 function Header() {
@@ -7,7 +6,6 @@ function Header() {
     <header>
       <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       <h3 data-testid="page-title">título provisório</h3>
-      <HeaderSearchBarWithButton />
     </header>
   );
 }

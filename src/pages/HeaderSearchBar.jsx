@@ -1,6 +1,6 @@
 import React from 'react';
 
-function HeaderSearchBarWithButton() {
+function HeaderSearchBar() {
   return (
     <form>
       <fieldset>
@@ -52,4 +52,4 @@ function HeaderSearchBarWithButton() {
   );
 }
 
-export default HeaderSearchBarWithButton;
+export default HeaderSearchBar;
