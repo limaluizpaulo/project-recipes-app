@@ -7,13 +7,16 @@ import Cards from '../components/cards';
 import Footer from '../components/footer';
 
 import '../css/comidas.css';
+import '../App.css';
+import ButtonCategories from '../components/ButtonCategories';
 
 class Comidas extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      foodCategories: [],
-    };
+    // ***VERIFICAR SE PRECISA DESSE ESTADO****
+    // this.state = {
+    //   foodCategories: [],
+    // };
 
     this.categories = this.categories.bind(this);
   }
@@ -28,7 +31,7 @@ class Comidas extends Component {
   categories() {
     const { getFoodCategories } = this.props;
     // const teste = getFoodCategories.map((elem) => elem);
-    console.log(getFoodCategories);
+    // console.log(getFoodCategories);
     return (
       <div>
         { getFoodCategories.map((elem, index) => (
@@ -45,19 +48,10 @@ class Comidas extends Component {
       <div>
         <Header location={ location } />
         <main>
-          <section>
-            {
-              getFoodCategories.map(({ strCategory }, index) => (
-                <button
-                  data-testid={ `data-testid=${strCategory}-category-filter` }
-                  type="button"
-                  key={ strCategory + index }
-                >
-                  {strCategory}
-                </button>
-              ))
-            }
-          </section>
+          <ButtonCategories
+            btnClass="btn-filterMeasls-cards"
+            getCategories={ getFoodCategories }
+          />
           <section className="cards-content">
             {
               meals.map((masl, index) => (
