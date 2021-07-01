@@ -1,6 +1,6 @@
 .footer {
   background-color: #c4c4c4;
-  bottom: 0px;
+  bottom: 0;
   display: flex;
   height: 3.6rem;
   justify-content: space-around;
@@ -10,5 +10,5 @@
 
 button {
   background-color: #c4c4c4;
-  border: 0px;
+  border: 0;
 }
