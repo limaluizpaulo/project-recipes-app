@@ -14,9 +14,24 @@ function RecFoods() {
     fetchRecFoods();
   }, []);
 
-  console.log(recFoods);
+  const thumbFoods = recFoods.filter((recFood) => recFood.strThumbMeal);
+
+  console.log(thumbFoods);
+
   return (
-    <div>COMIDAS</div>
+    <section>
+      <span>Comidas para acompanhar</span>
+      <br />
+      {
+        recFoods.map(({ strMeal, strMealThumb, idMeal }, key) => (
+          <img
+            data-testid={ `${key}-recomendation-card` }
+            key={ idMeal }
+            alt={ strMeal }
+            src={ strMealThumb }
+          />))
+      }
+    </section>
   );
 }
 
