@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import meals from './meals';
 
 const rootReducer = combineReducers({
-  teste: 1,
+  meals,
 });
 
 export default rootReducer;

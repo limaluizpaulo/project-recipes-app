@@ -7,7 +7,7 @@ import exploreIcon from '../images/exploreIcon.svg';
 class Footer extends React.Component {
   render() {
     return (
-      <footer data-testid="footer">
+      <footer className="footer" data-testid="footer">
         <Link to="/bebidas">
           <img
             src={ drinkIcon }

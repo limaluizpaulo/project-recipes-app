@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -90,4 +92,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  meals: PropTypes.shape({
+    meals: PropTypes.shape(),
+  }).isRequired,
+};
+
+export default connect()(Login);

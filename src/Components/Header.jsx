@@ -25,28 +25,31 @@ export default class Header extends React.Component {
     const { disable } = this.state;
 
     return (
-      <header>
-        <Link to="/perfil">
-          <img
-            src={ profileIcon }
-            alt="profile"
-            data-testid="profile-top-btn"
-          />
-        </Link>
-        <h1 data-testid="page-title">{ title }</h1>
-        { search && (
-          <button
-            type="submit"
-            data-testid="search-top-btn"
-            onClick={ this.handleClick }
-          >
-            { searchIcon }
-          </button>
-        )}
+      <main>
+        <header className="header">
+          <Link to="/perfil">
+            <img
+              src={ profileIcon }
+              alt="profile"
+              data-testid="profile-top-btn"
+            />
+          </Link>
+          <h1 data-testid="page-title">{ title || 'Comidas' }</h1>
+          { search && (
+            <button
+              type="submit"
+              data-testid="search-top-btn"
+              onClick={ this.handleClick }
+            >
+              <img src={ searchIcon } alt="search icon" />
+            </button>
+          )}
+
+        </header>
         { disable && (
           <SearchBar />
         )}
-      </header>
+      </main>
     );
   }
 }
