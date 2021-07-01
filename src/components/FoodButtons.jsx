@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategorieFoodAction } from '../actions';
+import { fetchCategorieFoodAction, fetchCategorieFoodFilterAction } from '../actions';
 
 class FoodButtons extends Component {
   constructor() {
     super();
 
     this.requisicao = this.requisicao.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.requisicao();
+  }
+
+  handleClick({ strCategory }) {
+    const { requestFoodFilter } = this.props;
+    requestFoodFilter(strCategory);
   }
 
   requisicao() {
@@ -33,6 +39,9 @@ class FoodButtons extends Component {
             data-testid={ `${strCategory}-category-filter` }
             type="button"
             key={ index }
+            name="categorie"
+            value={ strCategory }
+            onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}
           </button>
@@ -49,11 +58,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   requestFoodCategories: () => (
     dispatch(fetchCategorieFoodAction())),
+  requestFoodFilter: (categorie) => (
+    dispatch(fetchCategorieFoodFilterAction(categorie))),
 });
 
 FoodButtons.propTypes = {
   requestFoodCategories: PropTypes.func.isRequired,
   resultFoodCategories: PropTypes.arrayOf(Object).isRequired,
+  requestFoodFilter: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodButtons);

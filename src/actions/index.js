@@ -142,3 +142,38 @@ export const fetchCategorieDrinkAction = () => async (dispatch) => {
     },
   });
 };
+
+export const fetchCategorieFoodFilter = async (categorie) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`);
+  const response = await result.json();
+  return response;
+};
+
+export const fetchCategorieFoodFilterAction = (categorie) => async (dispatch) => {
+  let result = {};
+  result = await fetchCategorieFoodFilter(categorie);
+  dispatch({
+    type: REQUEST_INGREDIENT_FOOD,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchCategorieDrinkFilter = async (categorie) => {
+  const result = await
+  fetch(`www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
+  const response = await result.json();
+  return response;
+};
+
+export const fetchCategorieDrinkFilterAction = (categorie) => async (dispatch) => {
+  let result = {};
+  result = await fetchCategorieDrinkFilter(categorie);
+  dispatch({
+    type: REQUEST_INGREDIENT_DRINK,
+    payload: {
+      result,
+    },
+  });
+};
