@@ -46,7 +46,8 @@ export function useMealsContext() {
     filtersBtnsMeals,
     setFiltersBtnsMeals,
     valueMealsInput,
-    serValueMealsInput };
+    serValueMealsInput,
+  };
 }
 
 MealsContextProvider.propTypes = {
