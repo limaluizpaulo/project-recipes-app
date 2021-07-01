@@ -1,25 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { requestDrink } from '../../helpers/requests';
+import { requestDrink,
+  requestCategoryDrink, requestNameDrink } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
 
 function Drinks() {
   const [data, setData] = useState([]);
+  const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     (async function resolved() {
-      const resolve = await requestDrink();
-      setData(resolve);
+      const resolveDrinks = await requestDrink();
+      const resolveCategory = await requestCategoryDrink();
+      setData(resolveDrinks);
+      setCategory(resolveCategory);
       setLoading(false);
     }());
   }, []);
 
-  function mapData(param) {
-    const { drinks } = param;
-    const magicNumber = 12;
+  async function onClick({ target: { name } }) {
+    const request = await requestNameDrink(name);
+    setData(request);
+    setFilter(true);
+  }
+
+  function mapCategory({ drinks }) {
+    const magicNumber = 5;
     return drinks
       .filter((_, index) => index < magicNumber)
+      .map((item, index) => (
+        <button
+          key={ index }
+          type="button"
+          onClick={ onClick }
+          name={ item.strCategory }
+          data-testid={ `${item.strCategory}-category-filter` }
+        >
+          {item.strCategory}
+        </button>));
+  }
+
+  function mapData({ drinks }, filtered) {
+    const notFilter = 12;
+    const yepFilter = 5;
+    const magicNumber = filtered ? yepFilter : notFilter;
+    return drinks.filter((_, index) => index < magicNumber)
       .map((item, index) => (
         <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
           <img
@@ -38,14 +65,17 @@ function Drinks() {
   }
 
   return (
-    <div className="card-meals">
+    <>
       <Header title="Bebidas" />
-      {
-        loading
-          ? 'Carregando...'
-          : (mapData(data))
-      }
-    </div>
+      <div className="card-meals">
+        { !loading && mapCategory(category)}
+        {
+          loading
+            ? 'Carregando...'
+            : (mapData(data, filter))
+        }
+      </div>
+    </>
   );
 }
 
