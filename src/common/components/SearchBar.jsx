@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import store from '../../context/store';
+import {
+  INGREDIENT_MEALS, NAME_MEALS, FIRSTLETTER_MEALS, fetchAPI,
+} from '../../services/index';
 
 export default function SearchBar() {
+  const { recipes } = useContext(store);
   const [searchBar, setSearchBar] = useState({
     input: '',
     rate: '',
@@ -17,22 +22,23 @@ export default function SearchBar() {
 
   // _____________function para fazer map com referencia da pesquisa__________
   const handleClick = () => {
-    const { rate } = searchBar;
+    const { rate, input } = searchBar;
+    const { foods } = recipes;
     if (rate === 'ingredient') {
-      return console.log('ingrediente');
-      // https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente};
+      fetchAPI(`${INGREDIENT_MEALS}${input}`)
+        .then((response) => console.log(response.meals));
+      // setRecipes(addRecipes(meals.meals, drinks.drinks))
     }
     if (rate === 'name') {
-      return console.log('name');
-      // https://www.themealdb.com/api/json/v1/1/search.php?s={nome}
+      fetchAPI(`${NAME_MEALS}${input}`)
+        .then((response) => console.log(response.meals));
     }
     if (rate === 'firstLetter') {
-      if (rate.length > '1') {
-        alert('1');
-      } else {
-        return console.log('firsterLetter');
+      if (input.length > 1 || !input.length) {
+        global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      // https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
+      fetchAPI(FIRSTLETTER_MEALS + input)
+        .then((response) => console.log(response.meals));
     }
   };
 
