@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProfileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './searchBar';
 import '../css/header.css';
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    // const { title, searchBar } = this.props;
 
     this.state = {
       isSearchBar: false,
@@ -22,9 +22,9 @@ class Header extends Component {
   verify() {
     const { isSearchBar } = this.state;
     if (isSearchBar === true) {
-      return this.setState({ isSearchBar: false }, (console.log('false')));
+      return this.setState({ isSearchBar: false });
     }
-    return this.setState({ isSearchBar: true }, console.log('true'));
+    return this.setState({ isSearchBar: true });
   }
 
   searchBarTrue() {
@@ -55,13 +55,13 @@ class Header extends Component {
   }
 
   render() {
-    // const { isSearchBar } = this.state;
-    const { location } = this.props;
-    const { searchBarOn } = this.props;
+    const { isSearchBar } = this.state;
+    const { location, searchBarOn } = this.props;
     return (
       <div>
-        { location !== undefined && this.header(location.pathname.substring(1), searchBarOn)}
-        {/* {isSearchBar === true && } //meu Componente de searchbar */}
+        { location !== undefined
+        && this.header(location.pathname.substring(1), searchBarOn)}
+        {isSearchBar === true && <SearchBar /> }
       </div>
     );
   }

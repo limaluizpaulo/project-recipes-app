@@ -6,10 +6,9 @@ import Cards from './cards';
 
 class MainScreen extends Component {
   componentDidMount() {
-    const { dispatchFoodCategories, dispatchFoodRecipes, apiFoodCategories } = this.props;
+    const { dispatchFoodCategories, dispatchFoodRecipes } = this.props;
     dispatchFoodCategories();
     dispatchFoodRecipes();
-    // console.log(apiFoodCategories());
   }
 
   render() {
@@ -45,7 +44,6 @@ class MainScreen extends Component {
 const mapDispatchToProps = (dispatch) => ({
   dispatchFoodCategories: () => dispatch(fetchApiFoodCategories()),
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
-  // apiFoodCategories: () => dispatch(fetchApiFoodCategories()), // apagar
 });
 
 const mapStateToProps = (state) => ({
