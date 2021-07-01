@@ -9,8 +9,8 @@ import favoriteIcon from '../images/whiteHeartIcon.svg';
 import { fetchFoodIdAction } from '../actions';
 
 class RecipeDetails extends React.Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     const { match: { params: { id } } } = this.props;
     console.log(id);
   }
