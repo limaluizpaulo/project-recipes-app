@@ -11,11 +11,13 @@ function SearchBar() {
   const [typeOfFilter, setTypeOfFilter] = useState('null');
   const { location: { pathname } } = useHistory();
 
-  const { filterRecipesByIngredient, filterRecipesByName,
-    filterRecipesByFirstLetter, setIsFiltred, setCategory } = useContext(RecipesContext);
+  const { filterRecipesByIngredient, filterRecipesByName, filterRecipesByFirstLetter,
+    recipesFilter: { filteredRecipes }, setIsFiltred, setCategory,
+  } = useContext(RecipesContext);
 
-  const { filterDrinksByIngredient, filterDrinksByName, filterDrinksByFirstLetter,
-    setIsFiltred: setIsFiltredDrinks, setCategory: setCategoryDrinks,
+  const { filterDrinksByIngredient,
+    filterDrinksByName, filterDrinksByFirstLetter, drinksFilter:
+    { filteredDrinks }, setIsFiltred: setIsFiltredDrinks, setCategory: setCategoryDrinks,
   } = useContext(DrinksContext);
 
   function invokeAlert(fn, message) {

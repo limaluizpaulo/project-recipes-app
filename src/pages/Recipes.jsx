@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import SearchBar from '../components/SearchBar';
 import RecipesContext from '../context/RecipesContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
+
+import Header from '../components/Header';
 
 function Recipes() {
   const { recipesFilter: { filteredRecipes },
     allRecipes: { recipes }, allCategories: { categories }, recipesFilteredByCategory:
     { recipesByCategory }, setCategory, category, setIsFiltred, isFiltred,
   } = useContext(RecipesContext);
-
   const history = useHistory();
   const NUMBER_OF_ITEMS = 12;
   const NUMBER_OF_CATEGORIES = 5;
@@ -85,8 +85,11 @@ function Recipes() {
 
   return (
     <>
-      <h1>Receitas</h1>
-      <SearchBar />
+      <Header
+        profile
+        name="Comidas"
+        search
+      />
 
       {renderButtonCategories()}
 

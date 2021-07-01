@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import SearchBar from '../components/SearchBar';
 import DrinksContext from '../context/DrinksContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
+import Header from '../components/Header';
 
 function Drinks() {
   const { drinksFilter: { filteredDrinks },
@@ -88,8 +88,7 @@ function Drinks() {
 
   return (
     <>
-      <h1>Bebidas</h1>
-      <SearchBar />
+      <Header profile name="Bebidas" search />
 
       {renderButtonCategories()}
 
