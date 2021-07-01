@@ -37,15 +37,7 @@ function FoodDetails() {
             </li>
           </ul>
           <span data-testid="instructions">{ strInstructions }</span>
-          <iframe
-            src={ strYoutube }
-            data-testid="video"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            XFrameOptions="sameorigin"
-            allowFullScreen
-            title="video"
-          />
+          <iframe className="embed-responsive-item" src={ strYoutube } title={ strMeal } />
           <div data-testid={ `${index}-recomendation-card` }>{ strSource }</div>
           <button type="button" data-testid="start-recipe-btn">
             Iniciar
