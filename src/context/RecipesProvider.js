@@ -1,36 +1,82 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
+
 import RecipesContext from './RecipesContext';
-import RandomRacipe from '../services/RandomRacipeAPI';
+
+import {
+  fetchAllRecipes,
+  fetchRecipesBySearch,
+  fetchRandomRecipe,
+} from '../services/RecipesAPI';
 
 function RecipesProvider({ children }) {
-  const [user, setUser] = useState({ user: '', password: '' });
-  const [recipeDetail, setRecipeDetail] = useState(false);
-  const [goDetail, setGoDetail] = useState(false);
+  const [user, setUser] = useState('');
+  const [mealsOrDrinks, setMealsOrDrinks] = useState('meals');
+  const [recipes, setRecipes] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState(false);
+  const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
 
-  const login = ({ email, password }) => {
-    setUser({ user: email, password });
+  const location = useLocation();
+
+  const login = (email) => {
+    setUser(email);
   };
 
-  const getRandomRacipes = async (recipe) => {
-    const result = await RandomRacipe(recipe);
-    // console.log(result);
-    console.log('Surpreenda', result[recipe][0]);
-    setRecipeDetail(result[recipe][0]);
-    setGoDetail(true);
+  const getInitialRecipes = async () => {
+    const allRecipes = await fetchAllRecipes(mealsOrDrinks);
+    setRecipes(allRecipes.meals);
   };
+
+  const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
+    const recipesBySearch = await fetchRecipesBySearch(
+      mealsOrDrinks, searchParameter, searchPayload,
+    );
+    setRecipes(recipesBySearch[mealsOrDrinks]);
+  };
+
+  const getRandomRecipe = async () => {
+    const recipe = await fetchRandomRecipe(mealsOrDrinks);
+    setRecipeDetails(recipe[mealsOrDrinks][0]);
+    setRedirectToRecipeDetails(true);
+  };
+
+  const filterByIngredients = (searchPayload) => {
+    searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+    console.log(`filtro ${searchPayload}`);
+    setRedirectToMainScreen(true);
+  };
+
+  const context = {
+    user,
+    login,
+    recipes,
+    searchRecipesBy,
+    recipeDetails,
+    redirectToRecipeDetails,
+    getRandomRecipe,
+    redirectToMainScreen,
+    setRedirectToMainScreen,
+    setRedirectToRecipeDetails,
+    filterByIngredients,
+  };
+
+  useEffect(() => {
+    getInitialRecipes();
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname.includes('comida')) {
+      setMealsOrDrinks('meals');
+    } else if (location.pathname.includes('bebida')) {
+      setMealsOrDrinks('drinks');
+    }
+  }, [location]);
 
   return (
-    <RecipesContext.Provider
-      value={ {
-        user,
-        login,
-        getRandomRacipes,
-        recipeDetail,
-        goDetail,
-        setGoDetail,
-      } }
-    >
+    <RecipesContext.Provider value={ context }>
       { children }
     </RecipesContext.Provider>
   );

@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+  position: fixed;
+  right: 13%;
+  width: fit-content;
+}
+
+.search-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+  position: fixed;
+  right: 13%;
+  width: fit-content;
+}
+
+.search-parameters {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.radio {
+  margin-left: 2px;
+}

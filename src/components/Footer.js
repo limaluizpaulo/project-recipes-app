@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
@@ -7,12 +7,8 @@ import mealIcon from '../images/mealIcon.svg';
 
 import './style/Footer.css';
 
-import { allowedFooterPathRender } from '../data/pathLocationNames';
-
 function Footer() {
-  const location = useLocation();
-
-  const renderContent = () => (
+  return (
     <footer data-testid="footer">
       <Link to="/bebidas">
         <img src={ drinkIcon } alt="Drink Icon" data-testid="drinks-bottom-btn" />
@@ -25,23 +21,6 @@ function Footer() {
       </Link>
     </footer>
   );
-
-  const verifyAllowance = () => {
-    let isAllowed = false;
-    allowedFooterPathRender.some((element) => {
-      if (location.pathname === element) {
-        isAllowed = true;
-        return true; // stops "some" func.
-      }
-      return false;
-    });
-
-    if (isAllowed) return renderContent();
-
-    return null;
-  };
-
-  return verifyAllowance();
 }
 
 export default Footer;
