@@ -3,22 +3,22 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 
-function DrinksList() {
-  const MAX_CARDS = 12;
+function DrinksCarousel() {
+  const MAX_CARDS = 6;
   const { drinks } = useContext(DrinksContext);
   const history = useHistory();
 
   return (
-    <div className="card-list">
+    <div className="carousel">
       {drinks.map((item, index) => {
         if (index < MAX_CARDS) {
           return (
             <button
               type="button"
               className="card"
-              key={ item.idDrink }
+              key={ index }
               onClick={ () => history.push(`/bebidas/${item.idDrink}`) }
-              data-testid={ `${index}-recipe-card` }
+              data-testid={ `${index}-recomendation-card` }
             >
               <img
                 className="card-image"
@@ -36,4 +36,4 @@ function DrinksList() {
   );
 }
 
-export default DrinksList;
+export default DrinksCarousel;

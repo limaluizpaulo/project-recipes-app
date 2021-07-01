@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import MealsContext from '../../context/meals.context';
 import { fetchDetails, fetchByName } from '../../services';
+import MealsCarousel from '../../components/MealsCarousel';
 
 function DetalhesBebida() {
   const [details, setDetails] = useState({});
@@ -12,8 +13,6 @@ function DetalhesBebida() {
 
   async function getDetails() {
     const result = await fetchDetails('drinks', id);
-
-    console.log(result);
 
     const array = Object.entries(result)
       .filter((item) => item[0].includes('Ingredient') && item[1])
@@ -70,6 +69,7 @@ function DetalhesBebida() {
         </ul>
         <p data-testid="instructions">{ details.strInstructions }</p>
       </div>
+      <MealsCarousel />
       <div>
         <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
       </div>
@@ -78,6 +78,3 @@ function DetalhesBebida() {
 }
 
 export default DetalhesBebida;
-
-// O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
-
