@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/global.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -67,18 +68,19 @@ function FoodRecipes() {
       </div>
       <div className="card-container">
         {firstMeals.map((meal, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            className="card"
-            key={ meal.strMeal }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-            />
-            <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-          </div>
+          <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
+            <div
+              data-testid={ `${index}-recipe-card` }
+              className="card"
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+              <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+            </div>
+          </Link>
         ))}
       </div>
       <Footer />
