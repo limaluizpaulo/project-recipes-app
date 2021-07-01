@@ -5,6 +5,8 @@ import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
+import './Header.css';
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -37,26 +39,28 @@ class Header extends Component {
     return (
       <header>
         <div>
-          <button
-            type="button"
-            data-testid="profile-top-btn"
-            onClick={ this.changeRoute }
-            src={ profile }
-          >
-            <img src={ profile } alt="profile-icon" />
-          </button>
-          <h2 data-testid="page-title">{title}</h2>
-          { !hydeSearch ? (
+          <div className="header">
             <button
-              onClick={ this.showInput }
               type="button"
-              page-title="search-top-btn"
-              data-testid="search-top-btn"
-              src={ search }
+              data-testid="profile-top-btn"
+              onClick={ this.changeRoute }
+              src={ profile }
             >
-              <img src={ search } alt="search-icon" />
-            </button>)
-            : null}
+              <img src={ profile } alt="profile-icon" />
+            </button>
+            <h2 data-testid="page-title">{title}</h2>
+            { !hydeSearch ? (
+              <button
+                onClick={ this.showInput }
+                type="button"
+                page-title="search-top-btn"
+                data-testid="search-top-btn"
+                src={ search }
+              >
+                <img src={ search } alt="search-icon" />
+              </button>)
+              : null}
+          </div>
 
           { !hydeInput
             ? (
