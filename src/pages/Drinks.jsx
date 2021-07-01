@@ -1,6 +1,7 @@
 import React from 'react';
-import Header from './Header';
-import HeaderSearchButton from './HeaderSearchButton';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import HeaderSearchButton from '../components/HeaderSearchButton';
 
 function Drinks() {
   return (
@@ -8,6 +9,7 @@ function Drinks() {
       <div>Tela de Bebidas</div>
       <Header title="Bebidas" />
       <HeaderSearchButton />
+      <Footer />
     </>
   );
 }
