@@ -18,7 +18,6 @@ function FoodDetails({ match, history }) {
         setDetails(meal);
       } else {
         const drink = await getDrinkDetails(id);
-        console.log(drink);
         setDetails(drink);
       }
     };
