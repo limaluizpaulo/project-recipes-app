@@ -10,6 +10,21 @@ function RecipeInProgress({ match, history }) {
   const recipeType = pathname.includes('/comidas') ? 'meals' : 'cocktails';
   const [recipeInProgress, setRecipeInProgress] = useState({});
   const [wasCopied, setWasCopied] = useState(false);
+  const [isBtnDisable, setIsBtnDisable] = useState(true);
+
+  const {
+    strMeal,
+    strMealThumb,
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strInstructions,
+  } = recipeInProgress;
+
+  const strIngredient = Object.entries(recipeInProgress).filter(
+    (el) => el[0].includes('strIngredient'),
+  );
+  const ingredients = strIngredient.filter((el) => el[1] !== '' && el[1] !== null);
 
   const setLocalStorage = () => {
     const localStorageDefault = {
@@ -44,6 +59,13 @@ function RecipeInProgress({ match, history }) {
       cocktails,
       meals,
     }));
+    const storageUpdated = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (storageUpdated[recipeType][id].length >= ingredients.length) {
+      setIsBtnDisable(false);
+    } else {
+      setIsBtnDisable(true);
+    }
   };
 
   useEffect(() => {
@@ -55,20 +77,6 @@ function RecipeInProgress({ match, history }) {
     };
     getRecipes();
   }, [id, pathname, recipeType]);
-
-  const {
-    strMeal,
-    strMealThumb,
-    strDrink,
-    strDrinkThumb,
-    strCategory,
-    strInstructions,
-  } = recipeInProgress;
-
-  const strIngredient = Object.entries(recipeInProgress).filter(
-    (el) => el[0].includes('strIngredient'),
-  );
-  const ingredients = strIngredient.filter((el) => el[1] !== '' && el[1] !== null);
 
   // const strMeasure = Object.entries(recipeInProgress).filter(
   //   (el) => el[0].includes('strMeasure'),
@@ -110,7 +118,14 @@ function RecipeInProgress({ match, history }) {
           </li>))}
       </ul>
       <span data-testid="instructions">{strInstructions}</span>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ isBtnDisable }
+        onClick={ () => history.push('/receitas-feitas') }
+      >
+        Finalizar receita
+      </button>
 
     </section>
   );
