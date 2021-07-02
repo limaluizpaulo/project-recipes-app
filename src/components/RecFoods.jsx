@@ -21,12 +21,16 @@ function RecFoods() {
       <Carousel>
         {
           recFoods.map(({ strMeal, strMealThumb, idMeal }, key) => (
-            <img
-              data-testid={ `${key}-recomendation-card` }
-              key={ idMeal }
-              alt={ strMeal }
-              src={ strMealThumb }
-            />))
+            <div key={ key }>
+              <img
+                data-testid={ `${key}-recomendation-card` }
+                alt={ strMeal }
+                src={ strMealThumb }
+              />
+              <h4 data-testid={ `${key}-recomendation-title` }>{strMeal}</h4>
+              )
+            </div>
+          ))
         }
       </Carousel>
     </>

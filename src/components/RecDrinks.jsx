@@ -16,20 +16,24 @@ function RecDrinks() {
   }, []);
 
   return (
-    <>
+    <section>
       <span>Bebidas</span>
       <Carousel>
         {
           recDrinks.map(({ strDrink, strDrinkThumb, idDrink }, key) => (
-            <img
-              data-testid={ `${key}-recomendation-card` }
-              key={ idDrink }
-              alt={ strDrink }
-              src={ strDrinkThumb }
-            />))
+            <div key={ key }>
+              <img
+                data-testid={ `${key}-recomendation-card` }
+                alt={ strDrink }
+                src={ strDrinkThumb }
+              />
+              <h4 data-testid={ `${key}-recomendation-title` }>{strDrink}</h4>
+              )
+            </div>
+          ))
         }
       </Carousel>
-    </>
+    </section>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMealDetails, getDrinkDetails } from '../services';
 
-import { RecDrinks, RecFoods, MealClip, IngList } from '../components';
+import { RecDrinks, RecFoods, MealClip, IngList, FavoriteBtn, ShareBtn } from '../components';
 
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
@@ -10,6 +10,7 @@ function FoodDetails({ match, history }) {
   const [details, setDetails] = useState([{}]);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [measures, setMeasure] = useState([]);
+  const [wasCopied, setWasCopied] = useState(false);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -66,24 +67,9 @@ function FoodDetails({ match, history }) {
         alt={ strMeal || strDrink }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar receita
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        Favoritar receita
-      </button>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      <FavoriteBtn id={ id } type={ pathname.location } currentRecipe={ details } />
+      <ShareBtn showCopiedMsg={ setWasCopied } />
+      {wasCopied && <span>Link copiado!</span>}
       <div>
         {
           strAlcoholic
@@ -101,6 +87,12 @@ function FoodDetails({ match, history }) {
             : <RecFoods id={ id } />
         }
       </div>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+      >
+        Iniciar Receita
+      </button>
     </>
   );
 }
