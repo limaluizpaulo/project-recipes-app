@@ -23,6 +23,7 @@ export default function ExpBebidas() {
           Por Ingredientes
         </Button>
         <Button
+          href="/bebidas/:id"
           data-testid="explore-surprise"
           variant="outline-dark"
           size="lg"

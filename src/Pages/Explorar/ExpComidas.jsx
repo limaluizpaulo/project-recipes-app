@@ -32,6 +32,7 @@ export default function ExpComidas() {
           Por Local de Origem
         </Button>
         <Button
+          href="/comidas/:id"
           data-testid="explore-surprise"
           variant="outline-dark"
           size="lg"
