@@ -33,6 +33,13 @@ const Categories = ({ food }) => {
           {strCategory}
         </button>
       ))}
+      <button
+        onClick={ () => setRecipes({}) }
+        type="button"
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
     </div>
   );
 };
