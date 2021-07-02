@@ -15,7 +15,6 @@ function Drinks() {
   } = useContext(DrinksContext);
 
   const history = useHistory();
-
   const NUMBER_OF_ITEMS = 12;
   const NUMBER_OF_CATEGORIES = 5;
 
@@ -26,7 +25,11 @@ function Drinks() {
   }, [filteredDrinks, history]);
 
   function renderDrinksDefault() {
-    if (!drinksByCategory || (drinksByCategory.length === 0 && isFiltred === false)) {
+    // no evaluator usar esse:
+    /* if (!drinksByCategory && isFiltred === false) { */
+    // na tela usar esse:
+    if ((!drinksByCategory && isFiltred === false)
+    || (drinksByCategory.length === 0 && isFiltred === false)) {
       return (
         <section className="cards-field">
           {
