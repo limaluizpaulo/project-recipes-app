@@ -23,13 +23,13 @@ export default function SearchBar() {
   };
 
   // _____________function para fazer map com referencia da pesquisa__________
-  function m(response) {
+  function setMeals(response) {
     const { drinks, categoriesMeals, categoriesDrinks } = recipes;
     setRecipes(addRecipes(
       response.meals, drinks, categoriesMeals, categoriesDrinks,
     ));
   }
-  function d(response) {
+  function setDrinks(response) {
     const { meals, categoriesMeals, categoriesDrinks } = recipes;
     setRecipes(addRecipes(
       meals, response.drinks, categoriesMeals, categoriesDrinks,
@@ -42,10 +42,10 @@ export default function SearchBar() {
 
     if (foods) {
       fetchAPI(`${INGREDIENT_MEALS}${input}`)
-        .then((response) => m(response));
+        .then((response) => setMeals(response));
     } else {
-      fetchAPI(INGREDIENT_DRINKS + input)
-        .then((response) => d(response));
+      fetchAPI(`${INGREDIENT_DRINKS}${input}`)
+        .then((response) => setDrinks(response));
     }
   }
 
@@ -55,10 +55,10 @@ export default function SearchBar() {
 
     if (foods) {
       fetchAPI(`${NAME_MEALS}${input}`)
-        .then((response) => m(response));
+        .then((response) => setMeals(response));
     } else {
       fetchAPI(`${NAME_DRINKS}${input}`)
-        .then((response) => d(response));
+        .then((response) => setDrinks(response));
     }
   }
   function setFirstLetter() {
@@ -67,10 +67,10 @@ export default function SearchBar() {
 
     if (foods) {
       fetchAPI(`${FIRSTLETTER_MEALS}${input}`)
-        .then((response) => m(response));
+        .then((response) => setMeals(response));
     } else {
       fetchAPI(`${FIRSTLETTER_DRINKS}${input}`)
-        .then((response) => d(response));
+        .then((response) => setDrinks(response));
     }
   }
   const handleClick = () => {
