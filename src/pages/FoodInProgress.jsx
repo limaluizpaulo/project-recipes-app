@@ -1,8 +1,9 @@
 import React from 'react';
+import FoodDetails from '../components/FoodDetails';
 
 const FoodInProgress = () => (
   <div>
-    <h4>FoodInProgress</h4>
+    <FoodDetails />
   </div>
 );
 
