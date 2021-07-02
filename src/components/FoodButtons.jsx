@@ -15,6 +15,7 @@ class FoodButtons extends Component {
 
     this.requisicao = this.requisicao.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickAll = this.handleClickAll.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,15 @@ class FoodButtons extends Component {
     return !isToggleOn ? requestFoodFilter(strCategory) : requestFood();
   }
 
+  handleClickAll() {
+    const { requestFood } = this.props;
+    const { isToggleOn } = this.state;
+    this.setState({
+      isToggleOn: !isToggleOn,
+    });
+    requestFood();
+  }
+
   requisicao() {
     const { requestFoodCategories } = this.props;
     requestFoodCategories();
@@ -37,7 +47,7 @@ class FoodButtons extends Component {
 
   render() {
     const { resultFoodCategories } = this.props;
-    const { isToggleOn } = this.state;
+    // const { isToggleOn } = this.state;
     const totalCategories = 5;
     const categories = resultFoodCategories.filter(
       (elem, index) => index < totalCategories,
@@ -51,12 +61,19 @@ class FoodButtons extends Component {
             key={ index }
             name="categorie"
             value={ strCategory }
-            disabled={ isToggleOn }
+            // disabled={ isToggleOn }
             onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}
           </button>
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.handleClickAll() }
+        >
+          All
+        </button>
       </div>
     );
   }

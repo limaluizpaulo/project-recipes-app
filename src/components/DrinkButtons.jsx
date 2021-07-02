@@ -15,6 +15,7 @@ class DrinkButtons extends Component {
 
     this.requisicao = this.requisicao.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickAll = this.handleClickAll.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,15 @@ class DrinkButtons extends Component {
       isToggleOn: !isToggleOn,
     });
     return !isToggleOn ? requestDrinkFilter(strCategory) : requestDrink();
+  }
+
+  handleClickAll() {
+    const { requestDrink } = this.props;
+    const { isToggleOn } = this.state;
+    this.setState({
+      isToggleOn: !isToggleOn,
+    });
+    requestDrink();
   }
 
   requisicao() {
@@ -56,6 +66,13 @@ class DrinkButtons extends Component {
             {strCategory}
           </button>
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.handleClickAll() }
+        >
+          All
+        </button>
       </div>
     );
   }
