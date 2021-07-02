@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareBtn({ showCopiedMsg, testId }) {
+function ShareBtn({ showCopiedMsg, testId, type, id, route }) {
   const copyLink = () => {
-    copy(window.location.href.replace('/in-progress', ''));
+    copy(window.location.href.replace(route, `${type}/${id}`));
+    console.log(window.location.href.replace(route, `${type}/${id}`));
     showCopiedMsg(true);
   };
 

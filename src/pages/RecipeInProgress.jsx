@@ -51,7 +51,13 @@ function RecipeInProgress({ match, history }) {
         data-testid="recipe-photo"
       />
 
-      <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
+      <ShareBtn
+        showCopiedMsg={ setWasCopied }
+        testId="share-btn"
+        id={ id }
+        type={ recipeType === 'meals' ? 'comidas' : 'bebidas' }
+        route={ `${recipeType === 'meals' ? 'comidas' : 'bebidas'}/${id}/in-progress` }
+      />
       <FavoriteBtn
         id={ id }
         type={ recipeType }
