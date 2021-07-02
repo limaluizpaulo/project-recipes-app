@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+// import { copy } from 'clipboard-copy';
 
 import { urlToEmbed } from '../helpers';
 import { fetchDetails } from '../services';

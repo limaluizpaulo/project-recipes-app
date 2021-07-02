@@ -32,8 +32,9 @@ main {
   color: #eee;
   height: 50px;
   font-family: inherit;
-  font-size: 20px;
+  font-size: 18px;
   position: fixed;
+  text-transform: uppercase;
   width: 100vw;
 }
 
