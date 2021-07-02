@@ -7,6 +7,7 @@ import Meal from './Meal';
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
   const { mealsRecipes } = useContext(Context);
+  console.log(mealsRecipes);
   const history = useHistory();
   const isInitialMount = useRef(true);
 

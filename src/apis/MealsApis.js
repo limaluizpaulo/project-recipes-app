@@ -1,5 +1,4 @@
 export async function fetchMealApi({ searchText, filter }) {
-  console.log('Requisição');
   if (filter === 'ingredient') {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`);
     const { meals } = await request.json();

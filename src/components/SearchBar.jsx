@@ -11,14 +11,15 @@ export default function SearchBar() {
       setFilter({ [name]: value, searchText: '' });
     } else {
       setFilter({ ...filter, [name]: value });
-    };
+    }
   };
 
   const filterByFirstLetter = () => {
+    const NUMBER = 24;
     if (filter.filter === 'firstLetter') {
       return 1;
     }
-    return 24;
+    return NUMBER;
   };
 
   return (
@@ -66,7 +67,13 @@ export default function SearchBar() {
       </Form.Group>
       <Form.Group as={ Row }>
         <Col sm={ { span: 10, offset: 2 } }>
-          <Button data-testid="exec-search-btn" type="button" onClick={ () => findByFilter(filter) }>Pesquisar</Button>
+          <Button
+            data-testid="exec-search-btn"
+            type="button"
+            onClick={ () => findByFilter(filter) }
+          >
+            Pesquisar
+          </Button>
         </Col>
       </Form.Group>
     </Container>

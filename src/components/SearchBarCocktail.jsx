@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Container, Button, Form, Row, Col } from 'react-bootstrap';
-import Context from '../context/Context';
+import ContextBebidas from '../context/ContextBebidas';
 
 export default function SearchBarCocktail() {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
-  const { findByFilterCocktails } = useContext(Context);
+  const { findByFilterCocktails } = useContext(ContextBebidas);
 
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {

@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
-import Context from '../context/Context';
+import ContextBebidas from '../context/ContextBebidas';
 import Cocktail from './Cocktail';
 
 export default function CocktailList() {
   const [showCocktail, setShowCocktail] = useState(false);
-  const { cocktailRecipes } = useContext(Context);
+  const { cocktailRecipes } = useContext(ContextBebidas);
+  console.log(cocktailRecipes);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -24,15 +25,15 @@ export default function CocktailList() {
     }
     if (cocktailRecipes && cocktailRecipes.length > 1) {
       const NUMBER = 12;
-      return cocktailRecipes.map((cocktail, index) => {
+      return cocktailRecipes.map((drink, index) => {
         if (index < NUMBER) {
-          return (<Cocktail key={ index } cocktail={ cocktail } index={ index } />);
+          return (<Cocktail key={ index } drink={ drink } index={ index } />);
         }
         return null;
       });
     }
     if (cocktailRecipes && cocktailRecipes.length === 1) {
-      return history.push(`/bebidas/${cocktailRecipes[0].idDrink} `);
+      return history.push(`/bebidas/${cocktailRecipes[0].idDrink}`);
     }
   };
 

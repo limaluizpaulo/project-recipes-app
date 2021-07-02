@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 
-export default function Cocktail({ drinks: { strDrink, strDrinkThumb }, index }) {
+export default function Cocktail(drink, index) {
+  const { strDrink, strDrinkThumb } = drink;
   return (
     <Card style={ { width: '18rem' } } data-testid={ `${index}-recipe-card` }>
       <Card.Img variant="top" src={ strDrinkThumb } data-testid={ `${index}-card-img` } />
@@ -14,7 +15,7 @@ export default function Cocktail({ drinks: { strDrink, strDrinkThumb }, index })
 }
 
 Cocktail.porpType = {
-  drinks: PropTypes.shape({
+  drink: PropTypes.shape({
     strDrink: PropTypes.string.isRequired,
     strDrinkThumb: PropTypes.string.isRequired,
   }),
