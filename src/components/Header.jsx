@@ -17,22 +17,20 @@ function Header({ title }) {
     <header>
       <button
         type="button"
-        data-testid="profile-top-btn"
-        src={ profileIcon }
+        // data-testid="profile-top-btn"
+        // src={ profileIcon }
         onClick={ handleClick }
       >
-        <img src={ profileIcon } alt="profile icon" />
+        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </button>
 
       <h2 data-testid="page-title">{title}</h2>
 
       <button
         type="button"
-        src={ searchIcon }
-        data-testid="search-top-btn"
         onClick={ () => setShowSearch(!showSearch) }
       >
-        <img src={ searchIcon } alt="search icon" />
+        <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
       </button>
     </header>
   );
