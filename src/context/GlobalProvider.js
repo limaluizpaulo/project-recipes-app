@@ -8,7 +8,7 @@ function GlobalProvider({ children }) {
     chosenFilter: '',
   });
 
-  const FoodsEndPoint = 'www.themealdb.com/api/json/v1/1/';
+  const FoodsEndPoint = 'https://www.themealdb.com/api/json/v1/1/';
   const DrinksEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
   const handleChange = ({ target: { name, value } }) => {

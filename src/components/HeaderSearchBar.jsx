@@ -22,7 +22,7 @@ function HeaderSearchBar() {
         <label htmlFor="ingredient">
           Ingrediente
           <input
-            value="Ingrediente"
+            value="filter.php?i="
             onChange={ handleChange }
             name="chosenFilter"
             required
@@ -34,7 +34,7 @@ function HeaderSearchBar() {
         <label htmlFor="name">
           Nome
           <input
-            value="Nome"
+            value="search.php?s="
             onChange={ handleChange }
             name="chosenFilter"
             required
@@ -46,7 +46,7 @@ function HeaderSearchBar() {
         <label htmlFor="first-letter">
           Primeira letra
           <input
-            value="Primeira letra"
+            value="search.php?f="
             onChange={ handleChange }
             name="chosenFilter"
             id="first-letter"
