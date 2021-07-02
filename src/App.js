@@ -8,11 +8,15 @@ import Food from './pages/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
-import Explorar from './pages/Explorar/Explorar';
-import ExplorarComidas from './pages/ExplorarComidas/ExplorarComidas';
-import ExplorarBebidas from './pages/ExplorarBebidas/ExplorarBebidas';
+import Explorar from './pages/Explore/Explore';
+import ExplorarComidas from './pages/ExploreFood/ExploreFood';
+import ExplorarBebidas from './pages/ExploreDrinks/ExploreDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
+import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
+import Profile from './pages/Profile/Profile';
+import RecipesMade from './pages/RecipesMade/RecipesMade';
+import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
 const test = '';
 function App() {
@@ -40,10 +44,10 @@ function App() {
             exact
             component={ DrinkIngredients }
           />
-          <Route path="/explorar/comidas/area" exact component={ test } />
-          <Route path="/perfil" exact component={ test } />
-          <Route path="/receitas-feitas" exact component={ test } />
-          <Route path="/receitas-favoritas" exact component={ test } />
+          <Route path="/explorar/comidas/area" exact component={ ExploreFoodOrigin } />
+          <Route path="/perfil" exact component={ Profile } />
+          <Route path="/receitas-feitas" exact component={ RecipesMade } />
+          <Route path="/receitas-favoritas" exact component={ RecipesFavorites } />
         </Switch>
       </Router>
     </Provider>
