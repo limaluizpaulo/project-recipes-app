@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
 import { searchByCategoryFood } from '../services/searchApi';
+import { requestMeal } from '../services/api';
 
 function FoodRecipes() {
   const { setFirstMeals, firstMeals } = useContext(Context);
@@ -14,8 +15,7 @@ function FoodRecipes() {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await request.json();
+      const meals = await requestMeal();
       setFirstMeals(meals.slice(0, numOfMeals));
     };
     fetchMeals();
@@ -33,8 +33,7 @@ function FoodRecipes() {
   async function handleClick({ target }) {
     if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
       target.className = 'category-btn';
-      const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await request.json();
+      const meals = await requestMeal();
       return setFirstMeals(meals.slice(0, numOfMeals));
     }
     target.className = 'category-btn-dbl';

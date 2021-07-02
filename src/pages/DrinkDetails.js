@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import List from '../components/List';
+import RecomendationsMeal from '../components/RecomendationMeal';
 
 import { requestByDetailsDrink } from '../services/api';
 
@@ -45,10 +46,9 @@ function DrinkDetails() {
             <h2>Instructions</h2>
             <span data-testid="instructions">{ strInstructions }</span>
             <h2>Recomendations</h2>
-            {/* Recomendações com data-testid={ `${index}-recomendation-card` } */}
-            <div data-testid="0-recomendation-card">{ strSource }</div>
+            <RecomendationsMeal />
             <button type="button" data-testid="start-recipe-btn">
-              Start Recipe
+              Iniciar Receita
             </button>
           </div>
         );

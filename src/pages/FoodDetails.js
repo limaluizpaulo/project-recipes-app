@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import List from '../components/List';
-
+import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
 
 function FoodDetails() {
@@ -58,10 +58,9 @@ function FoodDetails() {
               title="Embedded youtube"
             />
             <h2>Recomendations</h2>
-            {/* Recomendações com data-testid={ `${index}-recomendation-card` } */}
-            <div data-testid="0-recomendation-card">{ strSource }</div>
+            <RecomendationsDrink />
             <button type="button" data-testid="start-recipe-btn">
-              Start Recipe
+              Iniciar Receita
             </button>
           </div>
         );

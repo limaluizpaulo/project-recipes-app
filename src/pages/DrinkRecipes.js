@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
 import { searchByCategoryDrink } from '../services/searchApi';
+import { requestDrink } from '../services/api';
 
 function DrinkRecipes() {
   const { setFirstDrinks, firstDrinks } = useContext(Context);
@@ -14,8 +15,7 @@ function DrinkRecipes() {
 
   useEffect(() => {
     const fetchDrinks = async () => {
-      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const { drinks } = await request.json();
+      const drinks = await requestDrink();
       setFirstDrinks(drinks.slice(0, numOfDrinks));
     };
     fetchDrinks();
@@ -33,8 +33,7 @@ function DrinkRecipes() {
   async function handleClick({ target }) {
     if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
       target.className = 'category-btn';
-      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const { drinks } = await request.json();
+      const drinks = await requestDrink();
       return setFirstDrinks(drinks.slice(0, numOfDrinks));
     }
     target.className = 'category-btn-dbl';
