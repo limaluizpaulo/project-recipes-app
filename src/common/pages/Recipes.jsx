@@ -5,6 +5,7 @@ import { CATEG_DRINKS, CATEG_MEALS,
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 export default function Recipes() {
   const [loading, setLoading] = useState(true);
@@ -56,13 +57,16 @@ export default function Recipes() {
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    <main className="Cards">
-      <Header pageName="Comidas" />
-      <CategoryButton
-        clickCategory={ handleClickCategory }
-        clickAll={ getRecipes }
-      />
-      <RecipeCard />
-    </main>
+    <body>
+      <main className="Cards">
+        <Header pageName="Comidas" />
+        <CategoryButton
+          clickCategory={ handleClickCategory }
+          clickAll={ getRecipes }
+        />
+        <RecipeCard />
+      </main>
+      <Footer />
+    </body>
   );
 }
