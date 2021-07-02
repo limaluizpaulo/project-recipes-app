@@ -7,7 +7,6 @@ import Cocktail from './Cocktail';
 export default function CocktailList() {
   const [showCocktail, setShowCocktail] = useState(false);
   const { cocktailRecipes } = useContext(ContextBebidas);
-  console.log(cocktailRecipes);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -20,9 +19,10 @@ export default function CocktailList() {
   }, [cocktailRecipes]);
 
   const renderCards = () => {
-    if (!cocktailRecipes.length) {
-      return null; // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    if (cocktailRecipes && cocktailRecipes.length === 1) {
+      return history.push(`/bebidas/${cocktailRecipes[0].idDrink}`);
     }
+
     if (cocktailRecipes && cocktailRecipes.length > 1) {
       const NUMBER = 12;
       return cocktailRecipes.map((drink, index) => {
@@ -32,9 +32,7 @@ export default function CocktailList() {
         return null;
       });
     }
-    if (cocktailRecipes && cocktailRecipes.length === 1) {
-      return history.push(`/bebidas/${cocktailRecipes[0].idDrink}`);
-    }
+    return null; // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   return (

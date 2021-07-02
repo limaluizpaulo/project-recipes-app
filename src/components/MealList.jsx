@@ -20,9 +20,9 @@ export default function MealList() {
   }, [mealsRecipes]);
 
   const renderCards = () => {
-    if (!mealsRecipes.length) {
-      return null;
-      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    if (mealsRecipes && mealsRecipes.length === 1) {
+      console.log('3');
+      return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
     }
 
     if (mealsRecipes && mealsRecipes.length > 1) {
@@ -35,10 +35,8 @@ export default function MealList() {
       });
     }
 
-    if (mealsRecipes && mealsRecipes.length === 1) {
-      console.log('3');
-      return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
-    }
+    return null;
+    // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   return (
