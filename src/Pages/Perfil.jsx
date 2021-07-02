@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Context from '../context/Context';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import Context from '../context/Context';
 
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -17,13 +17,13 @@ export default function Perfil() {
       return history.push('/');
     }
     return history.push(`/${id}`);
-  }
+  };
 
   return (
     <div>
       <Header title="Perfil" />
       { openSearchBar ? <SearchBar /> : null }
-      <span>{`Email: `}</span>
+      <span>{'Email: '}</span>
       <span data-testid="profile-email">{ email }</span>
       <Button
         variant="primary"
