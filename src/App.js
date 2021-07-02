@@ -6,6 +6,7 @@ import Login from './common/pages/Login';
 import Profile from './common/pages/Profile';
 import Recipes from './common/pages/Recipes';
 import Provider from './context/Provider';
+import RecipesMade from './common/pages/RecipesMade';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/explorar" component={ Explorer } />
+        <Route path="/receitas-feitas" component={ RecipesMade } />
       </Switch>
     </Provider>
   );

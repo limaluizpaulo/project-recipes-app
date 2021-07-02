@@ -63,6 +63,7 @@ export default function Recipes() {
         <CategoryButton
           clickCategory={ handleClickCategory }
           clickAll={ getRecipes }
+          // path={ false }
         />
         <RecipeCard />
       </main>
