@@ -6,12 +6,12 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
-// [{ id, type, area, category, alcoholicOrNot, name, image }]
+
 const FoodDetails = ({ children }) => {
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const { selectedFood } = useContext(RecipeContext);
-  const { idMeal, strCategory, strAlcoholic, strInstructions, strArea } = selectedFood;
+  const { selectedFood, createObjectFromFood } = useContext(RecipeContext);
+  const { strCategory, strAlcoholic, strInstructions } = selectedFood;
   const recipeId = selectedFood.idMeal || selectedFood.idDrink;
 
   useEffect(() => {
@@ -29,16 +29,12 @@ const FoodDetails = ({ children }) => {
     }, ONE_SECOND * 2);
   };
 
-  const createObjectFromFood = () => ({
-    id: recipeId,
-    type: idMeal ? 'comida' : 'bebida',
-    area: strArea || '',
-  });
-
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
     const parsedFood = createObjectFromFood();
-    console.log(parsedFood)
+    if (!isFavorite === true) {
+
+    }
   };
 
   const renderImgAndTitle = () => {
