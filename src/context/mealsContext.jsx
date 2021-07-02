@@ -8,6 +8,7 @@ export default function MealsContextProvider({ children }) {
   const [mealsFiltered, setMealsFiltered] = useState([]);
   const [filtersBtnsMeals, setFiltersBtnsMeals] = useState([]);
   const [valueMealsInput, serValueMealsInput] = useState('');
+  const [areaSelected, setAreaSelected] = useState('American');
 
   useEffect(() => {
     const NUM = 12;
@@ -28,7 +29,9 @@ export default function MealsContextProvider({ children }) {
         filtersBtnsMeals,
         setFiltersBtnsMeals,
         valueMealsInput,
-        serValueMealsInput } }
+        serValueMealsInput,
+        areaSelected,
+        setAreaSelected } }
     >
       {children}
     </MealsContext.Provider>
@@ -40,13 +43,15 @@ export function useMealsContext() {
 
   const { mealsFiltered,
     setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals,
-    valueMealsInput, serValueMealsInput } = context;
+    valueMealsInput, serValueMealsInput, areaSelected, setAreaSelected } = context;
   return { mealsFiltered,
     setMealsFiltered,
     filtersBtnsMeals,
     setFiltersBtnsMeals,
     valueMealsInput,
     serValueMealsInput,
+    areaSelected,
+    setAreaSelected,
   };
 }
 
