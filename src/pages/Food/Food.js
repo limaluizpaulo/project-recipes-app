@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import requestMeal,
-{ requestCategoryMeal, requestNamemeal, requestAllCategory } from '../../helpers/requests';
+{
+  requestCategoryMeal,
+  requestNamemeal,
+  requestAllCategory } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Food.css';
 
@@ -80,7 +83,6 @@ function Food() {
   }
 
   function mapData({ meals }) {
-    console.log(meals);
     const magicNumber = 12;
     return meals
       .filter((_, index) => index < magicNumber)
@@ -102,28 +104,6 @@ function Food() {
           </Link>
         </div>
       ));
-    // if (categories) {
-    //   return categories
-    //     .filter((_, index) => index < magicNumber)
-    //     .map((item, index) => (
-    //       <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
-    //         <Link to={ `/comidas/${item.strMeal}` }>
-    //           <img
-    //             data-testid={ `${index}-card-img` }
-    //             src={ item.strCategoryThumb }
-    //             className="card-img-top"
-    //             alt={ `imagem de ${item}` }
-    //           />
-    //           <h5
-    //             data-testid={ `${index}-card-name` }
-    //             className="card-title"
-    //           >
-    //             {item.strCategory}
-    //           </h5>
-    //         </Link>
-    //       </div>
-    // ));
-    // }
   }
 
   return (

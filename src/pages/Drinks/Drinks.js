@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { requestDrink,
-  requestCategoryDrink, requestNameDrink, requestAllDrinkCategory } from '../../helpers/requests';
+import {
+  requestDrink,
+  requestCategoryDrink,
+  requestNameDrink,
+  requestAllDrinkCategory } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
 
