@@ -11,13 +11,13 @@ import FoodDetailsButton from '../components/FoodDetailsButton';
 
 // Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes
 export default function FoodIngredients({ history, match }) {
+  const { params: { recipeId } } = match;
   const { selectedFood, setSelectedFood } = useContext(RecipeContext);
+  const params = history.location.pathname.split('/');
+  params.shift();
+  const [location] = params;
   useEffect(() => {
     const getFood = async () => {
-      const params = history.location.pathname.split('/');
-      params.shift();
-      const [location] = params;
-      const { params: { recipeId } } = match;
       const res = await getFoodFromUrlParams(location, recipeId);
       const SIX = 6;
       if (location === 'comidas') {
@@ -36,7 +36,6 @@ export default function FoodIngredients({ history, match }) {
     };
     getFood();
   }, [history.location.pathname, setSelectedFood]);
-
   if (!selectedFood) {
     return (
       <p>loading</p>
@@ -50,7 +49,10 @@ export default function FoodIngredients({ history, match }) {
           <IngredientList />
         </FoodDetails>
         <FoodVideoAndRecomendation />
-        <FoodDetailsButton match={ match } />
+        <FoodDetailsButton
+          location={ location }
+          recipeId={ recipeId }
+        />
       </section>
       <Footer />
     </div>
