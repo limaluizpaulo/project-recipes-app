@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { requestDrinkById } from '../../helpers/requests';
+import { requestDrinkById, requestMeal } from '../../helpers/requests';
 import { useHistory } from "react-router-dom";
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -8,6 +8,7 @@ import renderIngredients from './renderIngredients.js';
 
 function DetalhesBebidas() {
 const [data, setData] = useState([]);
+const [recomm, setRecomm] = useState([]);
 const [loading, setLoading] = useState(true);
 
 const history = useHistory();
@@ -16,7 +17,9 @@ const id = history.location.pathname;;
 useEffect(() => {
   (async function resolved() {
     const resolve = await requestDrinkById(id.substring(9));
+    const resolveRecomm = await requestMeal();
     setData(resolve);
+    setRecomm(resolveRecomm);
     setLoading(false);
   }());
 }, []);
@@ -38,6 +41,24 @@ function AlcoholVerify(item) {
   if(item.strAlcoholic) {
     return <h5 data-testid="recipe-category">{item.strAlcoholic}</h5>
   }
+}
+
+function mapRecomm(param) {
+  const { meals } = param;
+  const magicNumber = 5;
+  return meals
+    .filter((_, index) => index < magicNumber)
+    .map((item, index) => (
+      <div key={ index } data-testid={`${index}-recomendation-card`}>
+        {/* <img
+          data-testid={ `${index}-card-img` }
+          src={ item.strMealsThumb }
+          alt={ `imagem de ${item}` }
+          id={item.idMeals}
+        />
+        <p data-testid={ `${index}-card-name` }>{item.strMeals}</p> */}
+      </div>
+    ));
 }
 
 function mapData(param) {
@@ -62,14 +83,9 @@ function mapData(param) {
               Instruções de preparo:
               <p data-testid="instructions">{item.strInstructions}</p>
             </label>
-            <embed  /> 
-            <label htmlFor="video">
-              Vídeo:
-              <video data-testid="video" src={item.strYoutube}></video>
-            </label>
             <label>
               Recomendações:
-              <span data-testid={`${index}-recomendation-card`}>{item.strDrinkAlternate}</span>
+              {mapRecomm(recomm)}
             </label>
             <button data-testid="start-recipe-btn">Iniciar Receita</button>
           </>
