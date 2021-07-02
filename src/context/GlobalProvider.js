@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 import fetchAPI from '../services/fetchAPI';
@@ -25,9 +26,21 @@ function GlobalProvider({ children }) {
     }
   }, [requestResult]);
 
-  const manageRender = () => {
-    
-  }
+  const manageRenderMeal = () => {
+    console.log(meals);
+    if (meals.length === 1) {
+      const mealId = meals[0].idMeal;
+      return <Redirect to={ `/comidas/${mealId}` } />;
+    } else if ( meals.length > 1) {
+      
+    }
+  };
+
+  const manageRenderDrink = () => {
+    if (drinks.length === 1) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setRequestParams({ ...requestParams, [name]: value });
@@ -48,6 +61,8 @@ function GlobalProvider({ children }) {
     meals,
     drinks,
     asyncSetState,
+    manageRenderMeal,
+    manageRenderDrink,
   };
 
   return (
