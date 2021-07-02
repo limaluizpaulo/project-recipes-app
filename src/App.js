@@ -15,34 +15,36 @@ import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
 import DoneRecipes from './pages/DoneRecepies';
 import FavouritesRecipes from './pages/FavouritesRecipes';
+import AuthProvider from './ContextApi/Provider';
 
 function App() {
   return (
     <div>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Food } />
-        <Route exact path="/bebidas" component={ Drink } />
-        <Route exact path="/explorar" component={ Explore } />
-        <Route exact path="/explorar/comidas" component={ ExploreFoods } />
-        <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-        <Route exact path="/receitas-favoritas" component={ FavouritesRecipes } />
-        <Route
-          exact
-          path="/explorar/comidas/ingredientes"
-          component={ FoodIngredients }
-        />
-        <Route
-          exact
-          path="/explorar/bebidas/ingredientes"
-          component={ DrinkIngredients }
-        />
-        <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
+      <AuthProvider>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Food } />
+          <Route exact path="/bebidas" component={ Drink } />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+          <Route exact path="/receitas-favoritas" component={ FavouritesRecipes } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ FoodIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ DrinkIngredients }
+          />
+          <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
 
-      </Switch>
-
+        </Switch>
+      </AuthProvider>
     </div>
   );
 }
