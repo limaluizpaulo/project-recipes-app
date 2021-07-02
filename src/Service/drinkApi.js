@@ -11,8 +11,7 @@ export const fetchNomeDrinks = async (nome) => {
 };
 
 export const fetchFirstLetterDrinks = async (first) => {
-  const firstLetter = await fetch(`www.thecocktaildb.com/api/json/v1/1/search.
-  php?f=a${first}`);
+  const firstLetter = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${first}`);
   const { drinks } = await firstLetter.json();
   return drinks;
 };
