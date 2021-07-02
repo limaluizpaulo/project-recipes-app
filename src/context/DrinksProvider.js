@@ -50,11 +50,8 @@ function DrinksProvider({ children }) {
   useEffect(() => {
     getAllDrinks();
     getAllCategories();
-    if (category === 'All') {
-      setDrinksFilteredByCategory(allDrinks);
-    }
     filterDrinksByCategory(category);
-  }, [allDrinks, category]);
+  }, [category]);
 
   return (
     <DrinksContext.Provider

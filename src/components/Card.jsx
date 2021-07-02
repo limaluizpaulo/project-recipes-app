@@ -38,13 +38,13 @@ function Card({ drink, recipe, index }) {
 }
 
 Card.propTypes = {
-  recipe: PropTypes.objectOf({
-    idMeal: PropTypes.number,
+  recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
   }).isRequired,
-  drink: PropTypes.objectOf({
-    idDrink: PropTypes.number,
+  drink: PropTypes.shape({
+    idDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
   }).isRequired,
