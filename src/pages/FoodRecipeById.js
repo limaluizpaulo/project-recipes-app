@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function CookedRecipes() {
+function FoodRecipeById() {
   return (
     <Header />
   );
 }
+
+export default FoodRecipeById;
