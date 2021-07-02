@@ -31,3 +31,19 @@ export const removeFromLocalStorage = (key, value) => {
   const newItemsToBeStored = itemStored.filter(({ id }) => id !== value.id);
   setOnLocalStorage(key, newItemsToBeStored);
 };
+
+export const setRecipeInProgressLocalStorage = (type, id) => {
+  const key = 'inProgressRecipes';
+  const itensStored = getFromLocalStorage(key);
+  if (!itensStored || !itensStored[type]) {
+    const obj = { ...itensStored,
+      [type]: {
+        [id]: [],
+      },
+    };
+    setOnLocalStorage(key, obj);
+  } else {
+    itensStored[type][id] = [];
+    setOnLocalStorage(key, itensStored);
+  }
+};
