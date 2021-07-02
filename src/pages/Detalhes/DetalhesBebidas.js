@@ -45,18 +45,18 @@ function AlcoholVerify(item) {
 
 function mapRecomm(param) {
   const { meals } = param;
-  const magicNumber = 5;
+  const magicNumber = 6;
   return meals
     .filter((_, index) => index < magicNumber)
     .map((item, index) => (
       <div key={ index } data-testid={`${index}-recomendation-card`}>
-        {/* <img
+        <img
           data-testid={ `${index}-card-img` }
-          src={ item.strMealsThumb }
+          src={ item.strMealThumb }
           alt={ `imagem de ${item}` }
-          id={item.idMeals}
+          id={item.idMeal}
         />
-        <p data-testid={ `${index}-card-name` }>{item.strMeals}</p> */}
+        <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
       </div>
     ));
 }

@@ -41,18 +41,18 @@ function renderButtons() {
 
 function mapRecomm(param) {
   const { drinks } = param;
-  const magicNumber = 5;
+  const magicNumber = 6;
   return drinks
     .filter((_, index) => index < magicNumber)
     .map((item, index) => (
       <div key={ index } data-testid={`${index}-recomendation-card`}>
-        {/* <img
+        <img
           data-testid={ `${index}-card-img` }
-          src={ item.strDrinksThumb }
+          src={ item.strDrinkThumb }
           alt={ `imagem de ${item}` }
-          id={item.idDrinks}
+          id={item.idDrink}
         />
-        <p data-testid={ `${index}-card-name` }>{item.strDrinks}</p> */}
+        <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
       </div>
     ));
 }
