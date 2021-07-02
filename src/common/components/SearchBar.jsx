@@ -4,7 +4,7 @@ import {
   INGREDIENT_MEALS,
   NAME_MEALS, FIRSTLETTER_MEALS, fetchAPI,
   INGREDIENT_DRINKS, NAME_DRINKS, FIRSTLETTER_DRINKS,
-} from '../../services/index';
+} from '../../services';
 
 export default function SearchBar() {
   const { recipes, setRecipes } = useContext(store);
@@ -23,32 +23,69 @@ export default function SearchBar() {
   };
 
   // _____________function para fazer map com referencia da pesquisa__________
+  function m(response) {
+    const { drinks, categoriesMeals, categoriesDrinks } = recipes;
+    setRecipes(addRecipes(
+      response.meals, drinks, categoriesMeals, categoriesDrinks,
+    ));
+  }
+  function d(response) {
+    const { meals, categoriesMeals, categoriesDrinks } = recipes;
+    setRecipes(addRecipes(
+      meals, response.drinks, categoriesMeals, categoriesDrinks,
+    ));
+  }
+
+  function setIgredient() {
+    const { input } = searchBar;
+    const { foods } = recipes;
+
+    if (foods) {
+      fetchAPI(`${INGREDIENT_MEALS}${input}`)
+        .then((response) => m(response));
+    } else {
+      fetchAPI(INGREDIENT_DRINKS + input)
+        .then((response) => d(response));
+    }
+  }
+
+  function setName() {
+    const { input } = searchBar;
+    const { foods } = recipes;
+
+    if (foods) {
+      fetchAPI(`${NAME_MEALS}${input}`)
+        .then((response) => m(response));
+    } else {
+      fetchAPI(`${NAME_DRINKS}${input}`)
+        .then((response) => d(response));
+    }
+  }
+  function setFirstLetter() {
+    const { input } = searchBar;
+    const { foods } = recipes;
+
+    if (foods) {
+      fetchAPI(`${FIRSTLETTER_MEALS}${input}`)
+        .then((response) => m(response));
+    } else {
+      fetchAPI(`${FIRSTLETTER_DRINKS}${input}`)
+        .then((response) => d(response));
+    }
+  }
   const handleClick = () => {
     const { rate, input } = searchBar;
-    const { foods } = recipes;
-    if (rate === 'ingredient' && (foods)) {
-      fetchAPI(`${INGREDIENT_MEALS}${input}`)
-        .then((response) => setRecipes(addRecipes(response.meals)));
-    } else {
-      fetchAPI(INGREDIENT_DRINKS + input);
+    const er = input.length > 1 || !input;
+
+    if (rate === 'firstLetter' && er) {
+      return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
-    if (rate === 'name' && (foods)) {
-      fetchAPI(`${NAME_MEALS}${input}`)
-        .then((response) => console.log(response.meals));
-    } else {
-      fetchAPI(NAME_DRINKS);
-    }
+    if (rate === 'ingredient') { setIgredient(); }
 
-    if (rate === 'firstLetter' && (foods)) {
-      if (input.length > 1 || !input.length) {
-        global.alert('Sua busca deve conter somente 1 (um) caracter');
-      }
-      fetchAPI(FIRSTLETTER_MEALS + input)
-        .then((response) => console.log(response.meals));
-    } else {
-      fetchAPI(FIRSTLETTER_DRINKS);
-    }
+    if (rate === 'name') { setName(); }
+
+    if (rate === 'firstLetter') { setFirstLetter(); }
   };
 
   return (
