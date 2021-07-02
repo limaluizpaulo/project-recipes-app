@@ -35,7 +35,7 @@ export default function FoodIngredients({ history, match }) {
       }
     };
     getFood();
-  }, [history.location.pathname, setSelectedFood]);
+  }, [history.location.pathname, setSelectedFood, recipeId, location]);
   if (!selectedFood) {
     return (
       <p>loading</p>
