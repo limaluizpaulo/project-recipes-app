@@ -25,3 +25,30 @@
 .filters-btns {
   display: flex;
 }
+
+.header-details {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+.img-detail {
+  width: 30rem;
+}
+
+.recomendations {
+  display: flex;
+  width: 100rem;
+}
+
+.recomendation-card {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 0 1rem;
+}
+
+.btn-start {
+  bottom: 0;
+  position: fixed;
+}
