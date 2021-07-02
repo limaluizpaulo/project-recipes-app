@@ -14,7 +14,7 @@ function DrinkDetails() {
       setDrink(result.drinks);
     };
     request();
-  }, [params.id]);
+  }, []);
 
   return (
     drink && (
