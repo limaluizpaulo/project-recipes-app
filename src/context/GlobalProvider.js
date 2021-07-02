@@ -27,19 +27,23 @@ function GlobalProvider({ children }) {
   }, [requestResult]);
 
   const manageRenderMeal = () => {
-    console.log(meals);
     if (meals.length === 1) {
       const mealId = meals[0].idMeal;
       return <Redirect to={ `/comidas/${mealId}` } />;
-    } else if ( meals.length > 1) {
-      
+    } if (meals.length > 1) {
+      return <div>renderizar com a lógica do vinicus</div>;
     }
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   const manageRenderDrink = () => {
     if (drinks.length === 1) {
-      return <Redirect to="/" />;
+      const drinkId = drinks[0].idDrink;
+      return <Redirect to={ `/bebidas/${drinkId}` } />;
+    } if (drinks.length > 1) {
+      return <div>renderizar com a lógica do vinicus</div>;
     }
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   const handleChange = ({ target: { name, value } }) => {
