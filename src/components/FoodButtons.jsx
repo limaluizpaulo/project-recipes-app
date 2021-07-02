@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategorieFoodAction, fetchCategorieFoodFilterAction } from '../actions';
+import { fetchCategorieFoodAction, fetchCategorieFoodFilterAction,
+  fetchFoodAction } from '../actions';
 
 class FoodButtons extends Component {
   constructor() {
     super();
+
+    this.state = {
+      isToggleOn: false,
+    };
 
     this.requisicao = this.requisicao.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -17,8 +22,12 @@ class FoodButtons extends Component {
   }
 
   handleClick({ strCategory }) {
-    const { requestFoodFilter } = this.props;
-    requestFoodFilter(strCategory);
+    const { requestFoodFilter, requestFood } = this.props;
+    const { isToggleOn } = this.state;
+    this.setState({
+      isToggleOn: !isToggleOn,
+    });
+    return !isToggleOn ? requestFoodFilter(strCategory) : requestFood();
   }
 
   requisicao() {
@@ -28,6 +37,7 @@ class FoodButtons extends Component {
 
   render() {
     const { resultFoodCategories } = this.props;
+    const { isToggleOn } = this.state;
     const totalCategories = 5;
     const categories = resultFoodCategories.filter(
       (elem, index) => index < totalCategories,
@@ -41,6 +51,7 @@ class FoodButtons extends Component {
             key={ index }
             name="categorie"
             value={ strCategory }
+            disabled={ isToggleOn }
             onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}
@@ -53,6 +64,7 @@ class FoodButtons extends Component {
 
 const mapStateToProps = (state) => ({
   resultFoodCategories: state.food.categories,
+  resultFood: state.food.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -60,12 +72,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchCategorieFoodAction())),
   requestFoodFilter: (categorie) => (
     dispatch(fetchCategorieFoodFilterAction(categorie))),
+  requestFood: () => (
+    dispatch(fetchFoodAction())),
 });
 
 FoodButtons.propTypes = {
   requestFoodCategories: PropTypes.func.isRequired,
   resultFoodCategories: PropTypes.arrayOf(Object).isRequired,
   requestFoodFilter: PropTypes.func.isRequired,
+  requestFood: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodButtons);

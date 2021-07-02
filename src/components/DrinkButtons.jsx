@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategorieDrinkAction, fetchCategorieDrinkFilterAction } from '../actions';
+import { fetchCategorieDrinkAction, fetchCategorieDrinkFilterAction,
+  fetchDrinkAction } from '../actions';
 
 class DrinkButtons extends Component {
   constructor() {
     super();
+
+    this.state = {
+      isToggleOn: false,
+    };
 
     this.requisicao = this.requisicao.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -17,9 +22,13 @@ class DrinkButtons extends Component {
   }
 
   handleClick({ strCategory }) {
-    const { requestDrinkFilter } = this.props;
+    const { requestDrinkFilter, requestDrink } = this.props;
 
-    requestDrinkFilter(strCategory);
+    const { isToggleOn } = this.state;
+    this.setState({
+      isToggleOn: !isToggleOn,
+    });
+    return !isToggleOn ? requestDrinkFilter(strCategory) : requestDrink();
   }
 
   requisicao() {
@@ -54,6 +63,7 @@ class DrinkButtons extends Component {
 
 const mapStateToProps = (state) => ({
   resultDrinkCategories: state.drink.categories,
+  resultDrink: state.food.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,12 +71,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchCategorieDrinkAction())),
   requestDrinkFilter: (categorie) => (
     dispatch(fetchCategorieDrinkFilterAction(categorie))),
+  requestDrink: () => (
+    dispatch(fetchDrinkAction())),
 });
 
 DrinkButtons.propTypes = {
   requestDrinkCategories: PropTypes.func.isRequired,
   resultDrinkCategories: PropTypes.arrayOf(Object).isRequired,
   requestDrinkFilter: PropTypes.func.isRequired,
+  requestDrink: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrinkButtons);
