@@ -9,6 +9,7 @@ function FoodDetails({ match, history }) {
 
   const [details, setDetails] = useState([{}]);
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [measures, setMeasure] = useState([]);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -26,16 +27,25 @@ function FoodDetails({ match, history }) {
   useEffect(() => {
     const objKeys = Object.keys(details[0]);
 
-    const ingredientKeys = objKeys.filter((key) => key.includes('strIngredient'));
+    const ingredientName = objKeys.filter((key) => key.includes('strIngredient'));
+    const ingredientMeasures = objKeys.filter((key) => key.includes('strMeasure'));
 
     const ingredientItems = [];
+    const ingredientQuanti = [];
 
-    ingredientKeys.forEach((item) => {
+    ingredientName.forEach((item) => {
       if (details[0][item] !== '' || undefined) {
         ingredientItems.push(details[0][item]);
       }
     });
     setIngredientsList(ingredientItems);
+
+    ingredientMeasures.forEach((item) => {
+      if (details[0][item] !== '' || undefined) {
+        ingredientQuanti.push(details[0][item]);
+      }
+    });
+    setMeasure(ingredientQuanti);
   }, [details]);
 
   const {
@@ -82,7 +92,7 @@ function FoodDetails({ match, history }) {
             : <span />
         }
         <p data-testid="instructions">{strInstructions}</p>
-        <IngList ingredientsList={ ingredientsList } />
+        <IngList ingredientsList={ ingredientsList } measures={ measures } />
         <div>
           <MealClip strYoutube={ strYoutube } />
         </div>

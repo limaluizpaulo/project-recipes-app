@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IngList({ ingredientsList }) {
+function IngList({ ingredientsList, measures }) {
   return (
     <section>
       Lista de ingredientes
@@ -11,7 +11,9 @@ function IngList({ ingredientsList }) {
             <div
               data-testid={ `${idx}-ingredient-name-and-measure` }
             >
-              {item}
+              {
+                `${item} ${measures[idx]}`
+              }
             </div>
           </div>))
       }
@@ -21,6 +23,7 @@ function IngList({ ingredientsList }) {
 
 IngList.propTypes = {
   ingredientsList: PropTypes.arrayOf.isRequired,
+  measures: PropTypes.arrayOf.isRequired,
 };
 
 export default IngList;
