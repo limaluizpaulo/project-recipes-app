@@ -6,7 +6,7 @@ import Provider from './context/Provider';
 
 import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
   ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
-  DetalhesComida, DetalhesBebida } from './Pages';
+  DetalhesComida, DetalhesBebida, ReceitasFeitas, ReceitasFavoritas } from './Pages';
 
 function App() {
   return (
@@ -29,6 +29,14 @@ function App() {
         <Route
           path="/explorar/bebidas/ingredientes"
           component={ ExpBebidasIngredientes }
+        />
+        <Route
+          path="/receitas-feitas"
+          component={ ReceitasFeitas }
+        />
+        <Route
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
         />
       </Switch>
     </Provider>

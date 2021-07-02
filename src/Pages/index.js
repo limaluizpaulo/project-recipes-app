@@ -11,3 +11,5 @@ export { default as ExpComidasArea } from './Explorar/ExpComidasArea';
 export { default as ExpComidasIngredientes } from './Explorar/ExpComidasIngredientes';
 export { default as DetalhesComida } from './DetalhesComida';
 export { default as DetalhesBebida } from './DetalhesBebida';
+export { default as ReceitasFeitas } from './ReceitasFeitas';
+export { default as ReceitasFavoritas } from './ReceitasFavoritas';
