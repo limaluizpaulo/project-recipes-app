@@ -85,9 +85,9 @@ function SearchBar() {
           />
         </div>
       </div>
-      <div className="mb-3 form-group" controlid="formBasicEmail">
-        <div className="form-check form-check-inline">
-          <label htmlFor="ingredient" className="form-check-label">
+      <div className="radio" controlid="formBasicEmail">
+        <div>
+          <label htmlFor="ingredient">
             <input
               onChange={ (event) => setTypeOfFilter(event.target.id) }
               data-testid="ingredient-search-radio"
@@ -100,8 +100,8 @@ function SearchBar() {
             Ingrediente
           </label>
         </div>
-        <div className="form-check form-check-inline">
-          <label htmlFor="name" className="form-check-label">
+        <div>
+          <label htmlFor="name">
             <input
               onChange={ (event) => setTypeOfFilter(event.target.id) }
               data-testid="name-search-radio"
@@ -114,8 +114,8 @@ function SearchBar() {
             Nome
           </label>
         </div>
-        <div className="form-check form-check-inline">
-          <label htmlFor="first-letter" className="form-check-label">
+        <div>
+          <label htmlFor="first-letter">
             <input
               onChange={ (event) => setTypeOfFilter(event.target.id) }
               data-testid="first-letter-search-radio"
@@ -130,7 +130,7 @@ function SearchBar() {
         </div>
       </div>
       <button
-        className="btn btn-primary"
+        // className="btn btn-primary"
         data-testid="exec-search-btn"
         type="submit"
       >

@@ -25,7 +25,10 @@ function Drinks() {
   }, [filteredDrinks, history]);
 
   function renderDrinksDefault() {
-    if (drinksByCategory.length === 0 && isFiltred === false) {
+    // no evaluator usar esse:
+    if (!drinksByCategory && isFiltred === false) {
+      // na tela usar esse:
+      // if (drinksByCategory.length === 0 && isFiltred === false) {
       return (
         <section className="cards-field">
           {

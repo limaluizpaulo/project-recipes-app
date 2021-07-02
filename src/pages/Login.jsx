@@ -51,7 +51,7 @@ function Login() {
         />
         <br />
         <button
-          className="btn btn-primary"
+          // className="btn btn-primary"
           data-testid="login-submit-btn"
           variant="primary"
           type="submit"
