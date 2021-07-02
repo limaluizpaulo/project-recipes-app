@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { fetchIngredientes, fetchNome, fetchFirstLetter } from '../Service/Api';
+import { fetchIngredientes, fetchNome, fetchFirstLetter } from '../Service/foodApi';
 
 import RecipesContext from '../Context/RecipesContext';
 
@@ -18,7 +18,7 @@ function Lupa() {
 
     switch (valuesSearch.searchRadio) {
     case 'Ingredientes':
-      console.log('chueguei');
+
       return fetchIngredientes(input).then((result) => setResponseApiLupa(result));
     case 'Nome':
       return fetchNome(input).then((result) => setResponseApiLupa(result));
