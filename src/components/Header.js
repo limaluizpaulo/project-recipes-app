@@ -51,9 +51,33 @@ export default function Header() {
             {!isHidden && (
               <div className="search-container">
                 <input type="text" data-testid="search-input" />
-                <input type="radio" data-testid="ingredient-search-radio" />
-                <input type="radio" data-testid="name-search-radio" />
-                <input type="radio" data-testid="first-letter-search-radio" />
+                <label htmlFor="ingredient">
+                  Ingredientes
+                  <input
+                    id="ingredient"
+                    name="search"
+                    type="radio"
+                    data-testid="ingredient-search-radio"
+                  />
+                </label>
+                <label htmlFor="name">
+                  Nome
+                  <input
+                    id="name"
+                    name="search"
+                    type="radio"
+                    data-testid="name-search-radio"
+                  />
+                </label>
+                <label htmlFor="first-letter">
+                  Primeira letra
+                  <input
+                    id="first-letter"
+                    name="search"
+                    type="radio"
+                    data-testid="first-letter-search-radio"
+                  />
+                </label>
                 <Button type="button" data-testid="exec-search-btn">Search</Button>
               </div>)}
           </Container>
