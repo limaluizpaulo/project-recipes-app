@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 
 import RecipeDetails from '../components/RecipeDetails';
 
-import { fetchDrinkIdAction } from '../actions';
+import { fetchDrinkIdAction, fetchFoodAction } from '../actions';
 
 class bebidas extends Component {
   componentDidMount() {
-    const { match: { params: { bebidaId } }, requestDrinkById } = this.props;
+    const { match: { params: { bebidaId } },
+      requestDrinkById, requestFoodRecipes } = this.props;
     requestDrinkById(bebidaId);
+    requestFoodRecipes();
   }
 
   render() {
@@ -28,6 +30,7 @@ class bebidas extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestDrinkById: (id) => dispatch(fetchDrinkIdAction(id)),
+  requestFoodRecipes: () => (dispatch(fetchFoodAction())),
 });
 
 const mapStateToProps = (state) => ({

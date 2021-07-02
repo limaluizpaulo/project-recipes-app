@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 import RecipeDetails from '../components/RecipeDetails';
 
-import { fetchFoodIdAction } from '../actions';
+import { fetchFoodIdAction, fetchDrinkAction } from '../actions';
 
 class comidas extends Component {
   componentDidMount() {
-    const { match: { params: { comidaId } }, requestFoodById } = this.props;
+    const { match: { params: { comidaId } },
+      requestFoodById, requestDrinkRecipes } = this.props;
     const foodId = comidaId.replace(/[^0-9]/g, '');
     requestFoodById(foodId);
+    requestDrinkRecipes();
   }
 
   render() {
@@ -30,6 +32,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   requestFoodById: (id) => dispatch(fetchFoodIdAction(id)),
+  requestDrinkRecipes: () => (dispatch(fetchDrinkAction())),
 });
 
 comidas.propTypes = {
