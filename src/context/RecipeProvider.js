@@ -10,6 +10,7 @@ import {
   recipesListApi,
   categoriesListApi,
   filterCategoryApi,
+  searchIngredients,
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
@@ -25,8 +26,10 @@ export default function RecipeProvider({ children }) {
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
+  const [searchIngredient, setSearchIngredient] = useState('');
 
   // Render all recipes
   useEffect(() => {
@@ -69,6 +72,28 @@ export default function RecipeProvider({ children }) {
       requestFilterByCategory();
     }
   }, [selectedCategory, toggleBtnCategories]);
+
+  useEffect(() => {
+    const getIngredients = async () => {
+      setIngredients(await searchIngredients(pathname));
+    };
+    getIngredients();
+  }, [pathname]);
+
+  useEffect(() => {
+    const searchByIngredients = async () => {
+      const returnIngredients = await
+      searchByIngredientsApi(searchIngredient, pathname);
+      // console.log(searchIngredient);
+      // console.log(pathname);
+      const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
+      setRecipes(limitedRecipes);
+      setSearchIngredient('');
+    };
+    if (searchIngredient !== '') {
+      searchByIngredients();
+    }
+  }, [pathname, searchIngredient]);
 
   // Render search recipes
   useEffect(() => {
@@ -131,6 +156,8 @@ export default function RecipeProvider({ children }) {
         routeFromSearch,
         recipes,
         categories,
+        ingredients,
+        setSearchIngredient,
         setSelectedCategory,
         selectedCategory,
         setToggleBtnCategories,

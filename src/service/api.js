@@ -10,6 +10,8 @@ const BASE_URL_DETAIL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php
 const BASE_URL_DETAIL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const BASE_URL_RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const BASE_URL_RANDOM_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+const BASE_URL_MEAL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const BASE_URL_DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
 export async function recipesListApi(pathname) {
   let fetchSearch;
@@ -129,13 +131,36 @@ export async function randomRecipe(pathname) {
   if (pathname.match(/comidas/)) {
     fetchSearch = await fetch(BASE_URL_RANDOM_MEAL);
     const response = await fetchSearch.json();
-    console.log(`MEAL${response.meals[0].idMeal}`);
     return response.meals[0].idMeal;
   }
   if (pathname.match(/bebidas/)) {
     fetchSearch = await fetch(BASE_URL_RANDOM_DRINKS);
     const response = await fetchSearch.json();
-    console.log(`DRINK${response.drinks[0].idDrink}`);
     return response.drinks[0].idDrink;
+  }
+}
+
+export async function searchIngredients(pathname) {
+  const MAX_NUMBER_OF_ITEMS = 12;
+  let fetchSearch;
+  if (pathname.match(/comidas/)) {
+    fetchSearch = await fetch(BASE_URL_MEAL_INGREDIENTS);
+    const response = await fetchSearch.json();
+    response.meals.splice(MAX_NUMBER_OF_ITEMS);
+    const ingredientsImages = response.meals.map((ingredient) => {
+      const imgSrc = `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png`;
+      return { ...ingredient, imgSrc };
+    });
+    return ingredientsImages;
+  }
+  if (pathname.match(/bebidas/)) {
+    fetchSearch = await fetch(BASE_URL_DRINK_INGREDIENTS);
+    const response = await fetchSearch.json();
+    response.drinks.splice(MAX_NUMBER_OF_ITEMS);
+    const ingredientsImages = response.drinks.map((ingredient) => {
+      const imgSrc = `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png`;
+      return { ...ingredient, imgSrc };
+    });
+    return ingredientsImages;
   }
 }
