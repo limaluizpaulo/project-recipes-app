@@ -7,7 +7,7 @@ import Meal from './FooterIcons/Meal';
 
 function Footer() {
   return (
-    <footer data-testid="footer">
+    <footer data-testid="footer" className="footer">
       <Container className="footer">
         <Row>
           <Meal />
