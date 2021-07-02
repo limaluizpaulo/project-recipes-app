@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { fetchIngredientes, fetchNome, fetchFirstLetter } from '../Service/Api';
 
-import RecipesProvider from '../Context/RecipesProvider';
+import RecipesContext from '../Context/RecipesContext';
 
 function Lupa() {
-  const { responseApiLupa,
-    setResponseApiLupa } = useContext(RecipesProvider);
+  const { setResponseApiLupa } = useContext(RecipesContext);
   const [valuesSearch, setValuesSearch] = useState({});
 
   const handleChange = ({ target: { value, name, checked, type } }) => {
@@ -13,9 +12,21 @@ function Lupa() {
     setValuesSearch({ ...valuesSearch, [name]: valueFiltered });
   };
 
-  useEffect(() => {
-    fetchIngredientes('chicken').then((response) => console.log(response));
-  }, []);
+  const getApi = () => {
+    console.log('a');
+    const input = valuesSearch.search;
+    switch (valuesSearch.searchRadio) {
+    case 'Ingredientes':
+      console.log('chueguei');
+      return fetchIngredientes(input).then((result) => setResponseApiLupa(result));
+    case 'Nome':
+      return fetchNome(input).then((result) => setResponseApiLupa(result));
+    case 'Primeira letra':
+      return fetchFirstLetter(input).then((result) => setResponseApiLupa(result));
+    default:
+      break;
+    }
+  };
 
   return (
     <form>
@@ -64,7 +75,7 @@ function Lupa() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={  }
+        onClick={ () => getApi() }
       >
         Buscar
       </button>
