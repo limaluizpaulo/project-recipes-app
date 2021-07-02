@@ -49,7 +49,6 @@ Card.propTypes = {
     strDrink: PropTypes.string,
   }).isRequired,
   index: PropTypes.number.isRequired,
-
 };
 
 export default Card;

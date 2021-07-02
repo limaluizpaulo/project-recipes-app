@@ -10,14 +10,12 @@ function SearchBar() {
   const [typeOfFilter, setTypeOfFilter] = useState('null');
   const { location: { pathname } } = useHistory();
 
-  const { filterRecipesByIngredient, filterRecipesByName, filterRecipesByFirstLetter,
-    // recipesFilter: { filteredRecipes },
-    setIsFiltred, setCategory,
+  const { filterRecipesByIngredient, filterRecipesByName,
+    filterRecipesByFirstLetter, setIsFiltred, setCategory,
   } = useContext(RecipesContext);
 
   const { filterDrinksByIngredient,
     filterDrinksByName, filterDrinksByFirstLetter,
-    // drinksFilter: { filteredDrinks },
     setIsFiltred: setIsFiltredDrinks, setCategory: setCategoryDrinks,
   } = useContext(DrinksContext);
 
@@ -130,7 +128,6 @@ function SearchBar() {
         </div>
       </div>
       <button
-        // className="btn btn-primary"
         data-testid="exec-search-btn"
         type="submit"
       >
