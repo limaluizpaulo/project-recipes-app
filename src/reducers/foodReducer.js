@@ -1,9 +1,10 @@
-import { REQUEST_INGREDIENT_FOOD } from '../actions';
+import { REQUEST_INGREDIENT_FOOD, REQUEST_FOOD_BY_ID } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
   categories: [],
   // food: [],
+  foodById: [],
 };
 
 // const magic = 5;
@@ -27,6 +28,11 @@ const foodReducer = (state = INITIAL_STATE, action) => {
   //     ...state,
   //     recipes: action.payload.result.meals,
   //   };
+  case REQUEST_FOOD_BY_ID:
+    return {
+      ...state,
+      foodById: action.payload.response.meals,
+    };
   default:
     return state;
   }

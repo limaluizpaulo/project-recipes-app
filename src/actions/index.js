@@ -2,6 +2,8 @@ export const REQUEST_INGREDIENT_FOOD = 'REQUEST_INGREDIENT_FOOD';
 export const REQUEST_INGREDIENT_DRINK = 'REQUEST_INGREDIENT_DRINK';
 // export const REQUEST_CATEGORIE_FOOD = 'REQUEST_CATEGORIE_FOOD';
 // export const REQUEST_CATEGORIE_DRINK = 'REQUEST_CATEGORIE_DRINK';
+export const REQUEST_FOOD_BY_ID = 'REQUEST_FOOD_BY_ID';
+export const REQUEST_DRINK_BY_ID = 'REQUEST_DRINK_BY_ID';
 // export const REQUEST_FOOD = 'REQUEST_FOOD';
 // export const REQUEST_DRINK = 'REQUEST_DRINK';
 
@@ -149,6 +151,12 @@ export const fetchCategorieFoodFilter = async (categorie) => {
   return response;
 };
 
+export const fetchFoodId = async (id) => {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const response = await result.json();
+  return response;
+};
+
 export const fetchCategorieFoodFilterAction = (categorie) => async (dispatch) => {
   let result = {};
   result = await fetchCategorieFoodFilter(categorie);
@@ -160,9 +168,25 @@ export const fetchCategorieFoodFilterAction = (categorie) => async (dispatch) =>
   });
 };
 
+export const fetchFoodIdAction = (id) => async (dispatch) => {
+  const response = await fetchFoodId(id);
+  dispatch({
+    type: REQUEST_FOOD_BY_ID,
+    payload: {
+      response,
+    },
+  });
+};
+
 export const fetchCategorieDrinkFilter = async (categorie) => {
   const result = await
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
+  const response = await result.json();
+  return response;
+};
+
+export const fetchDrinkId = async (id) => {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   const response = await result.json();
   return response;
 };
@@ -174,6 +198,16 @@ export const fetchCategorieDrinkFilterAction = (categorie) => async (dispatch) =
     type: REQUEST_INGREDIENT_DRINK,
     payload: {
       result,
+    },
+  });
+};
+
+export const fetchDrinkIdAction = (id) => async (dispatch) => {
+  const response = await fetchDrinkId(id);
+  dispatch({
+    type: REQUEST_DRINK_BY_ID,
+    payload: {
+      response,
     },
   });
 };
