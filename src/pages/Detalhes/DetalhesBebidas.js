@@ -89,7 +89,7 @@ function mapRecomm(param) {
 function mapData(param) {
   const { drinks } = param;
   return drinks
-    .map((item, index) => {
+    .map((item) => {
       const path = `/bebidas/${item.idDrink}`;
       if( path === history.location.pathname) {
         return(
