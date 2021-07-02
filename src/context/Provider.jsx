@@ -44,7 +44,7 @@ const RecipeProvider = ({ children }) => {
     inputValue,
     radioValue,
     selectedTypeItem,
-    setSelectedTypeItem, 
+    setSelectedTypeItem,
   };
   return (
     <Context.Provider value={ objContext }>
