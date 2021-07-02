@@ -9,7 +9,7 @@ export const USER = {
 
 export const RECIPES = {
   loading: true,
-  foods: true,
+  foods: null,
   categoriesLimit: 5,
   cardsLimit: 12,
   meals: [],
