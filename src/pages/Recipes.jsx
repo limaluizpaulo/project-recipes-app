@@ -2,32 +2,68 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { fetchMealsByName, fetchCategoryMeals } from '../services/mealsApi';
-import { fetchDrinkByName, fetchCategoryDrinks } from '../services/drinksApi';
+import { fetchCategoryMeals } from '../services/mealsApi';
+import { fetchCategoryDrinks } from '../services/drinksApi';
 import { useMealsContext } from '../context/mealsContext';
 import { useDrinksContext } from '../context/drinksContext';
 import BtnsCategory from '../components/BtnsCategory';
 import CardRecipe from '../components/CardRecipe';
+import useMealsAndDrinks from '../hooks/useMealsAndDrinks';
+
+// const meals = (filterMeals, setMeals, setTitle) => {
+//   const TWELVE = 12;
+//   setTitle('Comidas');
+//   if (filterMeals) {
+//     fetchMealsByIngre(filterMeals).then((data) => setMeals(data.slice(0, TWELVE)));
+//   } else {
+//     fetchMealsByName().then((data) => setMeals(data.slice(0, TWELVE)));
+//   }
+// };
+
+// const drinks = (filterDrinks, setDrinks, setTitle) => {
+//   const TWELVE = 12;
+//   setTitle('Bebidas');
+//   if (filterDrinks) {
+//     fetchDrinksByIngre(filterDrinks).then((data) => setDrinks(data.slice(0, TWELVE)));
+//   } else {
+//     fetchDrinkByName().then((data) => setDrinks(data.slice(0, TWELVE)));
+//   }
+// };
 
 export default function Recipes() {
   const { pathname } = useHistory().location;
+  const { meals, drinks } = useMealsAndDrinks();
   const { mealsFiltered, setMealsFiltered,
-    filtersBtnsMeals, setFiltersBtnsMeals } = useMealsContext();
+    filtersBtnsMeals, setFiltersBtnsMeals, filterMealsByIngre } = useMealsContext();
   const { drinksFiltered, setDrinksFiltered,
-    filtersBtnsDrinks, setFiltersBtnsDrinks } = useDrinksContext();
+    filtersBtnsDrinks, setFiltersBtnsDrinks, filterDrinksByIngre } = useDrinksContext();
   const [title, setTitle] = useState('');
-  const TWELVE = 12;
-
   useEffect(() => {
     if (pathname.includes('comidas')) {
-      setTitle('Comidas');
-      fetchMealsByName().then((data) => setMealsFiltered(data.slice(0, TWELVE)));
+      meals(filterMealsByIngre, setMealsFiltered, setTitle);
     }
     if (pathname.includes('bebidas')) {
-      setTitle('Bebidas');
-      fetchDrinkByName().then((data) => setDrinksFiltered(data.slice(0, TWELVE)));
+      drinks(filterDrinksByIngre, setDrinksFiltered, setTitle);
     }
-  }, [pathname, setMealsFiltered, setFiltersBtnsMeals, setDrinksFiltered]);
+
+    //   if (filterMealsByIngre) {
+    //     fetchMealsByIngre(filterMealsByIngre).then((data) => setMealsFiltered(data.slice(0, TWELVE)));
+    //   } else {
+    //     fetchMealsByName().then((data) => setMealsFiltered(data.slice(0, TWELVE)));
+    //   }
+    // }
+    // if (pathname.includes('bebidas')) {
+    //   setTitle('Bebidas');
+    //   fetchDrinkByName().then((data) => setDrinksFiltered(data.slice(0, TWELVE)));
+    // }
+  }, [
+    pathname,
+    meals,
+    filterMealsByIngre,
+    setMealsFiltered,
+    drinks, filterDrinksByIngre,
+    setDrinksFiltered]);
+  // [pathname, setMealsFiltered, setFiltersBtnsMeals, setDrinksFiltered, filterMealsByIngre]
 
   useEffect(() => {
     const all = { strCategory: 'All' };

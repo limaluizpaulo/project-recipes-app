@@ -1,24 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareBtn from './ShareBtn';
 
+const handleToggleFavorite = (fav, setFav, favoriteRecipes, recipe) => {
+  const id = recipe.idMeal || recipe.idDrink;
+  if (fav) {
+    const item = favoriteRecipes.filter((elem) => elem.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(item));
+  } else {
+    const favRecipe = {
+      id,
+      type: recipe.idMeal ? 'comida' : 'bebida',
+      area: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+    };
+
+    localStorage
+      .setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, favRecipe]));
+  }
+  setFav(!fav);
+};
+
 export default function HeaderDetails({ recipe, pathname }) {
-  // idMeal, idDrink,
+  const [fav, setFav] = useState(false);
   const {
     strMeal, strDrink, strMealThumb, strDrinkThumb,
-    strCategory, strInstructions, strAlcoholic,
+    strCategory, strInstructions, strAlcoholic, idMeal, idDrink,
   } = recipe;
+
+  const id = idMeal || idDrink;
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  let verify = false;
+  if (!favoriteRecipes) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  } else {
+    verify = favoriteRecipes.some((rec) => rec.id === id);
+  }
+
+  useEffect(() => {
+    setFav(verify);
+  }, [verify]);
 
   return (
     <>
       <header>
         <div className="header-details">
           <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
-          <ShareBtn pathname={ pathname } />
-          <button type="button">
-            <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="favorite" />
+          <ShareBtn pathname={ pathname } recipe={ recipe } />
+          <button
+            type="button"
+            onClick={ () => handleToggleFavorite(fav,
+              setFav, favoriteRecipes, recipe) }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ fav ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+            />
           </button>
         </div>
         <img

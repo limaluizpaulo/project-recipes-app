@@ -8,6 +8,7 @@ export default function DrinksContextProvider({ children }) {
   const [drinksFiltered, setDrinksFiltered] = useState([]);
   const [filtersBtnsDrinks, setFiltersBtnsDrinks] = useState([]);
   const [valueDrinksInput, serValueDrinksInput] = useState('');
+  const [filterDrinksByIngre, setFilterDrinksByIngre] = useState('');
 
   useEffect(() => {
     const NUM = 12;
@@ -28,7 +29,9 @@ export default function DrinksContextProvider({ children }) {
         filtersBtnsDrinks,
         setFiltersBtnsDrinks,
         valueDrinksInput,
-        serValueDrinksInput } }
+        serValueDrinksInput,
+        filterDrinksByIngre,
+        setFilterDrinksByIngre } }
     >
       {children}
     </DrinksContext.Provider>
@@ -40,13 +43,16 @@ export function useDrinksContext() {
 
   const { drinksFiltered,
     setDrinksFiltered, filtersBtnsDrinks, setFiltersBtnsDrinks,
-    valueDrinksInput, serValueDrinksInput } = context;
+    valueDrinksInput, serValueDrinksInput, filterDrinksByIngre,
+    setFilterDrinksByIngre } = context;
   return { drinksFiltered,
     setDrinksFiltered,
     filtersBtnsDrinks,
     setFiltersBtnsDrinks,
     valueDrinksInput,
-    serValueDrinksInput };
+    serValueDrinksInput,
+    filterDrinksByIngre,
+    setFilterDrinksByIngre };
 }
 
 DrinksContextProvider.propTypes = {
