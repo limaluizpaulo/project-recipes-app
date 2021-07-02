@@ -16,7 +16,7 @@ export default function HeaderDetails({ recipe, pathname }) {
       <header>
         <div className="header-details">
           <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
-          <ShareBtn pathname={ pathname } />
+          <ShareBtn pathname={ pathname } recipe={ recipe } />
           <button type="button">
             <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="favorite" />
           </button>
