@@ -33,33 +33,32 @@ function Login() {
     <section>
       <h1>Login</h1>
       <Form onSubmit={ handleSumit }>
-        <input
-          // className="form-control"
-          value={ email }
-          data-testid="email-input"
-          type="email"
-          placeholder="Email"
-          onChange={ (event) => setEmail(event.target.value) }
-        />
-        <br />
-        <input
-          // className="form-control"
-          value={ password }
-          data-testid="password-input"
-          type="password"
-          placeholder="Senha"
-          onChange={ (event) => setPassword(event.target.value) }
-        />
-        <br />
-        <button
-          // className="btn btn-primary"
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
+            value={ email }
+            data-testid="email-input"
+            type="email"
+            placeholder="Email"
+            onChange={ (event) => setEmail(event.target.value) }
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Control
+            value={ password }
+            data-testid="password-input"
+            type="password"
+            placeholder="Senha"
+            onChange={ (event) => setPassword(event.target.value) }
+          />
+        </Form.Group>
+        <Button
           data-testid="login-submit-btn"
           variant="primary"
           type="submit"
           disabled={ !validateLogin() }
         >
           Entrar
-        </button>
+        </Button>
       </Form>
     </section>
   );
