@@ -1,11 +1,21 @@
 import React, { useState, useContext } from 'react';
-import { fetchIngredientes, fetchNome, fetchFirstLetter } from '../Service/foodApi';
+import { useLocation } from 'react-router-dom';
+import {
+  fetchIngredientesMeal,
+  fetchNomeMeal,
+  fetchFirstLetterMeal } from '../Service/foodApi';
+import {
+  fetchIngredientesDrinks,
+  fetchFirstLetterDrinks,
+  fetchNomeDrinks } from '../Service/drinkApi';
 
 import RecipesContext from '../Context/RecipesContext';
 
 function Lupa() {
-  const { setResponseApiLupa } = useContext(RecipesContext);
+  const { setResponseApiLupa,
+    setResponseApiLupaDrink } = useContext(RecipesContext);
   const [valuesSearch, setValuesSearch] = useState({});
+  const { pathname } = useLocation();
 
   const handleChange = ({ target: { value, name, checked, type } }) => {
     const valueFiltered = (type === 'checkbox' ? checked : value);
@@ -13,18 +23,33 @@ function Lupa() {
   };
 
   const getApi = () => {
-    console.log('a');
     const input = valuesSearch.search;
-
     switch (valuesSearch.searchRadio) {
     case 'Ingredientes':
+      if (pathname === '/bebidas') {
+        return fetchIngredientesDrinks(input)
+          .then((result) => setResponseApiLupaDrink(result));
+      }
 
-      return fetchIngredientes(input).then((result) => setResponseApiLupa(result));
+      return fetchIngredientesMeal(input)
+        .then((result) => setResponseApiLupa(result));
     case 'Nome':
-      return fetchNome(input).then((result) => setResponseApiLupa(result));
+      if (pathname === '/bebidas') {
+        return fetchNomeDrinks(input)
+          .then((result) => setResponseApiLupaDrink(result));
+      }
+
+      return fetchNomeMeal(input).then((result) => setResponseApiLupa(result));
     case 'Primeira letra':
+      if (pathname === '/bebidas') {
+        return (input.length !== 1)
+          ? alert('Sua busca deve conter somente 1 (um) caracter')
+          : fetchFirstLetterDrinks(input)
+            .then((result) => setResponseApiLupaDrink(result));
+      }
+
       return (input.length !== 1) ? alert('Sua busca deve conter somente 1 (um) caracter')
-        : fetchFirstLetter(input).then((result) => setResponseApiLupa(result));
+        : fetchFirstLetterMeal(input).then((result) => setResponseApiLupa(result));
     default:
       break;
     }
