@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 
 import RecipeContext from '../context/Context';
 
-const IngredientList = () => {
+const FoodDetailsIngredientList = () => {
   const [ingredients, setIngredients] = useState();
   const { selectedFood } = useContext(RecipeContext);
 
@@ -53,4 +53,4 @@ const IngredientList = () => {
   return <p>Loading</p>;
 };
 
-export default IngredientList;
+export default FoodDetailsIngredientList;

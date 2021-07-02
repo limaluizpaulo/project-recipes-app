@@ -1,17 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-import FoodDetails from '../components/FoodDetails';
-import getFoodFromUrlParams from '../services/api/getFoodOrDrink';
+import { useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router';
 import RecipeContext from '../context/Context';
+import getFoodFromUrlParams from '../services/api/getFoodOrDrink';
 
-const FoodInProgress = ({ match }) => {
-  const { params: { recipeId } } = match;
-  const { selectedFood, setSelectedFood } = useContext(RecipeContext);
+const useFood = () => {
   const history = useHistory();
-  const params = history.location.pathname.split('/');
-  params.shift();
-  const [location] = params;
+  const splittedLocation = history.location.pathname.split('/');
+
+  const { recipeId } = useParams();
+  const location = splittedLocation[1];
+
+  const { setSelectedFood } = useContext(RecipeContext);
   useEffect(() => {
     const getFood = async () => {
       const res = await getFoodFromUrlParams(location, recipeId);
@@ -32,24 +31,6 @@ const FoodInProgress = ({ match }) => {
     };
     getFood();
   });
-  if (!selectedFood) {
-    return (
-      <p>loading</p>
-    );
-  }
-  return (
-    <div>
-      <FoodDetails />
-    </div>
-  );
 };
 
-FoodInProgress.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      recipeId: PropTypes.string,
-    }),
-  }).isRequired,
-};
-
-export default FoodInProgress;
+export default useFood;

@@ -1,28 +1,31 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import { useHistory, useParams } from 'react-router';
 import useCheckFoodStatus from '../hooks/useCheckFoodStatus';
 import RecipeContext from '../context/Context';
 import { setRecipeInProgressLocalStorage } from '../services/helpers/localStorage';
 
-const FoodDetailsButton = ({ urlId, history }) => {
+const FoodDetailsButton = () => {
   const { selectedFood } = useContext(RecipeContext);
+  const history = useHistory();
+  const { recipeId } = useParams();
   const { idMeal, idDrink } = selectedFood;
-  const params = history.location.pathname.split('/');
-  params.shift();
-  const [location] = params;
-  const { isDone, isInProgress } = useCheckFoodStatus(urlId, location);
+  const { isDone, isInProgress } = useCheckFoodStatus();
+
   const Redirect = () => {
-    history.push(`${urlId}/in-progress`);
+    history.push(`${recipeId}/in-progress`);
   };
+
   const setRecipeToProgress = () => {
     const CurrentId = idMeal || idDrink;
     const mainKey = idMeal ? 'meals' : 'cocktails';
     setRecipeInProgressLocalStorage(mainKey, CurrentId);
   };
+
   const handleSubmit = () => {
     setRecipeToProgress();
     Redirect();
   };
+
   if (isDone) return '';
   return (
     <button
@@ -37,9 +40,3 @@ const FoodDetailsButton = ({ urlId, history }) => {
 };
 
 export default FoodDetailsButton;
-
-FoodDetailsButton.propTypes = {
-  history: PropTypes.shape().isRequired,
-  urlId: PropTypes.string.isRequired,
-
-};

@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
-const useCheckFoodStatus = (recipeId, location) => {
+const useCheckFoodStatus = () => {
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
+
+  const history = useHistory();
+  const splittedLocation = history.location.pathname.split('/');
+  const location = splittedLocation[1];
+
+  const { recipeId } = useParams();
 
   const doneRecipes = getFromLocalStorage('doneRecipes');
   const inProgressRecipes = getFromLocalStorage('inProgressRecipes');
