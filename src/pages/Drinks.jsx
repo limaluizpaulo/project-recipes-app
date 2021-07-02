@@ -97,7 +97,6 @@ function Drinks() {
         isFiltred ? <FilteredList filteredDrinks={ filteredDrinks } />
           : renderDrinksDefault()
       }
-
     </>
   );
 }
