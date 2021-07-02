@@ -32,26 +32,24 @@ function Login() {
     <section>
       <h1>Login</h1>
       <form onSubmit={ handleSumit }>
-        <div className="mb-3" controlId="formBasicEmail">
-          <input
-            className="form-control"
-            value={ email }
-            data-testid="email-input"
-            type="email"
-            placeholder="Email"
-            onChange={ (event) => setEmail(event.target.value) }
-          />
-        </div>
-        <div className="mb-3" controlId="formBasicPassword">
-          <input
-            className="form-control"
-            value={ password }
-            data-testid="password-input"
-            type="password"
-            placeholder="Senha"
-            onChange={ (event) => setPassword(event.target.value) }
-          />
-        </div>
+        <input
+          // className="form-control"
+          value={ email }
+          data-testid="email-input"
+          type="email"
+          placeholder="Email"
+          onChange={ (event) => setEmail(event.target.value) }
+        />
+        <br />
+        <input
+          // className="form-control"
+          value={ password }
+          data-testid="password-input"
+          type="password"
+          placeholder="Senha"
+          onChange={ (event) => setPassword(event.target.value) }
+        />
+        <br />
         <button
           className="btn btn-primary"
           data-testid="login-submit-btn"

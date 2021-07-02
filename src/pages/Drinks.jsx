@@ -11,6 +11,7 @@ function Drinks() {
   const { drinksFilter: { filteredDrinks },
     allDrinks: { drinks }, allCategories: { categories }, drinksFilteredByCategory:
     { drinksByCategory }, setCategory, category, setIsFiltred, isFiltred,
+    setDrinksFilteredByCategory,
   } = useContext(DrinksContext);
 
   const history = useHistory();
@@ -24,7 +25,7 @@ function Drinks() {
   }, [filteredDrinks, history]);
 
   function renderDrinksDefault() {
-    if (!drinksByCategory && isFiltred === false) {
+    if (drinksByCategory.length === 0 && isFiltred === false) {
       return (
         <section className="cards-field">
           {
@@ -52,6 +53,11 @@ function Drinks() {
     );
   }
 
+  function resetDrinkCategory(event) {
+    setDrinksFilteredByCategory({ drinksByCategory: [] });
+    setCategory(event.target.innerText);
+  }
+
   function renderButtonCategories() {
     return (
       <section className="category-field">
@@ -59,7 +65,7 @@ function Drinks() {
           type="button"
           className="btn-category btn btn-primary"
           data-testid="All-category-filter"
-          onClick={ (event) => setCategory(event.target.innerText) }
+          onClick={ (event) => resetDrinkCategory(event) }
         >
           All
         </button>
