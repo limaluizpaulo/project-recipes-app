@@ -15,6 +15,7 @@ function Lupa() {
   const getApi = () => {
     console.log('a');
     const input = valuesSearch.search;
+
     switch (valuesSearch.searchRadio) {
     case 'Ingredientes':
       console.log('chueguei');
@@ -22,7 +23,8 @@ function Lupa() {
     case 'Nome':
       return fetchNome(input).then((result) => setResponseApiLupa(result));
     case 'Primeira letra':
-      return fetchFirstLetter(input).then((result) => setResponseApiLupa(result));
+      return (input.length !== 1) ? alert('Sua busca deve conter somente 1 (um) caracter')
+        : fetchFirstLetter(input).then((result) => setResponseApiLupa(result));
     default:
       break;
     }
