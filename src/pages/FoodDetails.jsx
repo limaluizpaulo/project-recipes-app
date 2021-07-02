@@ -19,7 +19,8 @@ function FoodDetails({ match, history }) {
   const [measures, setMeasure] = useState([]);
   const [wasCopied, setWasCopied] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
-  const [doneRecipe, setDoneRecipe] = useState(true);
+  const [donerecipe, setDoneRecipe] = useState(true);
+  const [recipeType, setRecipeType] = useState('meals');
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -34,7 +35,7 @@ function FoodDetails({ match, history }) {
       }
     };
     fetchDetails();
-    setDoneRecipe(checkDoneRecipes());
+    setDoneRecipe(checkDoneRecipes(id));
   }, [pathname, id]);
 
   useEffect(() => {
@@ -61,6 +62,10 @@ function FoodDetails({ match, history }) {
     setMeasure(ingredientQuanti);
   }, [details]);
 
+  const startRecipe = () => {
+    history.push(`${pathname}/in-progress`);
+  };
+
   const {
     strCategory,
     strYoutube,
@@ -71,8 +76,6 @@ function FoodDetails({ match, history }) {
     strMealThumb,
     strDrinkThumb } = details[0];
 
-    console.log(isStarted)
-
   return (
     <>
       <img
@@ -81,7 +84,7 @@ function FoodDetails({ match, history }) {
         alt={ strMeal || strDrink }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <FavoriteBtn id={ id } type={ pathname.location } currentRecipe={ details } />
+      <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ details[0] } />
       <ShareBtn showCopiedMsg={ setWasCopied } />
       {wasCopied && <span>Link copiado!</span>}
       <div>
@@ -101,19 +104,20 @@ function FoodDetails({ match, history }) {
             : <RecFoods id={ id } />
         }
       </div>
-      { !doneRecipe && (
-        <button
-          className="start-btn"
-          data-testid="start-recipe-btn"
-          type="button"
-          // onClick={ () =>  }
-        >
-          {
-            isStarted
-              ? 'Continuar Receita'
-              : 'Iniciar Receita'
-          }
-        </button>) }
+      <button
+        className="start-btn"
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ startRecipe }
+        style={ { visibility: donerecipe ? 'hidden' : 'visible' } }
+      >
+        {
+          isStarted
+            ? 'Continuar Receita'
+            : 'Iniciar Receita'
+        }
+      </button>
+      )
     </>
   );
 }

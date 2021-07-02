@@ -43,7 +43,10 @@ export const updateLocalStorage = (param) => {
 
 export const checkDoneRecipes = (id) => {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));
-  return data.some(({ id: recipeDone }) => recipeDone === id);
+  if (data) {
+    return data.some(({ id: recipeDone }) => recipeDone === id);
+  }
+  return false;
 };
 
 export const checkProgress = (id, type) => {

@@ -1,4 +1,5 @@
 .start-btn {
   bottom: 0;
   position: fixed;
+  visibility: hidden;
 }
