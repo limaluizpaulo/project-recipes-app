@@ -12,6 +12,7 @@ export default function SearchBar() {
     input: '',
     rate: '',
   });
+
   // ________________Function para pegar pesquisa searchBar__________________
   const handleChange = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
