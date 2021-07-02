@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
 import Footer from '../components/Footer';
-//test
+
 const Foods = () => {
   const {
     recipes: { meals = [] },
