@@ -9,13 +9,11 @@ function FoodDetails({ match, history }) {
 
   const [details, setDetails] = useState([{}]);
   const [ingredientsList, setIngredientsList] = useState([]);
-  const [embedVideo, setEmbedVideo] = useState('');
 
   useEffect(() => {
     const fetchDetails = async () => {
       if (pathname.includes('/comida')) {
         const meal = await getMealDetails(id);
-        // console.log(meal);
         setDetails(meal);
       } else {
         const drink = await getDrinkDetails(id);
@@ -38,11 +36,6 @@ function FoodDetails({ match, history }) {
       }
     });
     setIngredientsList(ingredientItems);
-  }, [details]);
-
-  useEffect(() => {
-    const { strYoutube } = details[0];
-    console.log(strYoutube);
   }, [details]);
 
   const {
@@ -85,15 +78,13 @@ function FoodDetails({ match, history }) {
         <h4 data-testid="recipe-category">{strCategory}</h4>
         {
           strAlcoholic
-            ? <span>{strAlcoholic}</span>
-            : <span>{strAlcoholic}</span>
+            ? <h4>Alcoholic</h4>
+            : <span />
         }
         <p data-testid="instructions">{strInstructions}</p>
         <IngList ingredientsList={ ingredientsList } />
         <div>
-          {strYoutube === null
-            ? <span>Não temos vídeo para essa receita</span>
-            : <MealClip embedVideo={ embedVideo } />}
+          <MealClip strYoutube={ strYoutube } />
         </div>
         {
           pathname.includes('/comida')

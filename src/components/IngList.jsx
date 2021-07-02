@@ -23,8 +23,4 @@ IngList.propTypes = {
   ingredientsList: PropTypes.arrayOf.isRequired,
 };
 
-IngList.default = {
-  ingredientsList: undefined,
-};
-
 export default IngList;
