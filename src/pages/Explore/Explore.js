@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 
-function Explorar() {
+function Explore() {
   return (
     <div>
       <Header title="Explorar" />
@@ -10,4 +10,4 @@ function Explorar() {
   );
 }
 
-export default Explorar;
+export default Explore;

@@ -38,7 +38,7 @@ function Food() {
 
   return (
     <div className="card-meals">
-      <Header title="Comidas" />
+      <Header title="Comidas" haveSrc />
       {
         loading
           ? 'Carregando...'

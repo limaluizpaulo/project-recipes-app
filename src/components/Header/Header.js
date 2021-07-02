@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './header.css';
 
 function Header({ title, haveSrc }) {
+  const history = useHistory();
   const [searchField, setSearchField] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
   console.log(haveSrc);
@@ -12,6 +14,7 @@ function Header({ title, haveSrc }) {
     <input
       type="text"
       value={ inputSearch }
+      data-testid="search-input"
       onChange={ ({ target: { value } }) => setInputSearch(value) }
     />
   );
@@ -22,7 +25,10 @@ function Header({ title, haveSrc }) {
 
   return (
     <header className="Header">
-      <button type="button">
+      <button
+        type="button"
+        onClick={ () => history.push('/perfil') }
+      >
         <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </button>
 
