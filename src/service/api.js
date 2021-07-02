@@ -123,9 +123,12 @@ export async function detailRecipeDrinks(id) {
 }
 
 export async function detailRecipeMeal(id) {
-  const fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
-  const response = await fetchSearch.json();
-  return response.meals;
+  if (id) {
+    const fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
+    const response = await fetchSearch.json();
+    return response.meals;
+  }
+  return [];
 }
 
 export async function randomRecipe(pathname) {

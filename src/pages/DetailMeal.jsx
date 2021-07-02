@@ -50,11 +50,6 @@ export default function DetailMeal() {
         setIngredients[1].length > 0 && setIngredients[1]
       ))
       .filter((finalList) => finalList !== false));
-    return list;
-  }
-
-  function listMeasure(recipe) {
-    const list = [];
 
     list.push(Object.entries(recipe)
       .filter((ingredient) => (
@@ -142,7 +137,7 @@ export default function DetailMeal() {
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  {`${ing}: ${listMeasure(recipeDetail[0])[0][index]}`}
+                  {`${ing}: ${listIngredients(recipeDetail[0])[1][index]}`}
                 </li>
               ))
             }

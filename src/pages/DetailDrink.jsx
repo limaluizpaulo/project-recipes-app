@@ -49,11 +49,6 @@ export default function DetailDrink() {
         setIngredients[1].length > 0 && setIngredients[1]
       ))
       .filter((finalList) => finalList !== false));
-    return list;
-  }
-
-  function listMeasure(recipe) {
-    const list = [];
 
     list.push(Object.entries(recipe)
       .filter((ingredient) => (
@@ -139,7 +134,7 @@ export default function DetailDrink() {
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  {` ${ing}: ${ternary(listMeasure(recipeDetail[0])[0][index])} `}
+                  {` ${ing}: ${ternary(listIngredients(recipeDetail[0])[1][index])} `}
                 </li>
               ))
             }
