@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDrinkDetails, getMealDetails } from '../services';
+import { checkLocalStorage, updateLocalStorage } from '../services/localStorageManager';
 import { FavoriteBtn, ShareBtn } from '../components';
 
 function RecipeInProgress({ match, history }) {
@@ -25,48 +26,6 @@ function RecipeInProgress({ match, history }) {
     (el) => el[0].includes('strIngredient'),
   );
   const ingredients = strIngredient.filter((el) => el[1] !== '' && el[1] !== null);
-
-  const setLocalStorage = () => {
-    const localStorageDefault = {
-      cocktails: {
-        [id]: [],
-      },
-      meals: {
-        [id]: [],
-      },
-    };
-    if (!localStorage.getItem('inProgressRecipes')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageDefault));
-    }
-  };
-
-  const checkLocalStorage = (index) => {
-    setLocalStorage(); // creates a default when undefined
-    const arr = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType];
-    return arr[id].some((el) => el === index);
-  };
-
-  const updateLocalStorage = (item) => {
-    const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { cocktails, meals } = data;
-    if (recipeType === 'meals') {
-      meals[id].push(item);
-    }
-    if (recipeType === 'cocktails') {
-      cocktails[id].push(item);
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      cocktails,
-      meals,
-    }));
-    const storageUpdated = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (storageUpdated[recipeType][id].length >= ingredients.length) {
-      setIsBtnDisable(false);
-    } else {
-      setIsBtnDisable(true);
-    }
-  };
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -99,7 +58,7 @@ function RecipeInProgress({ match, history }) {
       {wasCopied && <span>Link copiado!</span>}
 
       <ul>
-        {ingredients.map((recp, idx) => (
+        {ingredients.map((recp, idx, arr) => (
           <li
             key={ idx }
             data-testid={ `${idx}-ingredient-step` }
@@ -109,8 +68,12 @@ function RecipeInProgress({ match, history }) {
                 type="checkbox"
                 id="ingredient"
                 data-testid={ `${idx}-ingredient-name-and-measure` }
-                onChange={ () => updateLocalStorage(idx) }
-                defaultChecked={ checkLocalStorage(idx) }
+                onChange={ () => updateLocalStorage(
+                  {
+                    idx, recipeType, id, setIsBtnDisable, arr,
+                  },
+                ) }
+                defaultChecked={ checkLocalStorage(id, idx, recipeType) }
               />
               {`${recp[1]}`}
             </label>
