@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Button } from 'react-bootstrap';
-
+import { useRouteMatch } from 'react-router-dom';
 import fetchAPI from '../services/apiRequest';
 import RecipesContext from '../context/RecipesContext';
 
 export default function SearchBar() {
+  const { path } = useRouteMatch();
   const [filter, setFilter] = useState({ content: '', URL: '' });
   // const [show, setShow] = useState(false);
   const { setGlobalState } = useContext(RecipesContext);
@@ -13,9 +14,9 @@ export default function SearchBar() {
     const { id, value, type } = target;
 
     const data = {
-      ingredients: (content) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${content}`,
-      name: (content) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${content}`,
-      char: (content) => `https://www.themealdb.com/api/json/v1/1/search.php?f=${content}`,
+      ingredients: (domain, content) => `https://www.${domain}.com/api/json/v1/1/filter.php?i=${content}`,
+      name: (domain, content) => `https://www.${domain}.com/api/json/v1/1/search.php?s=${content}`,
+      char: (domain, content) => `https://www.${domain}.com/api/json/v1/1/search.php?f=${content}`,
     };
 
     if (type === 'radio') {
@@ -30,12 +31,15 @@ export default function SearchBar() {
   }
 
   async function handleClick() {
+    let domain = 'themealdb';
+    if (path === '/bebidas') domain = 'thecocktaildb';
+
     const { content, URL: { name, link } } = filter;
     if (content.length >= 2 && name === 'char') {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
-    const data = await fetchAPI(link(content));
+    const data = await fetchAPI(link(domain, content));
     if (content !== '' && URL !== '') setGlobalState(data);
   }
 
