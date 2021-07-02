@@ -20,6 +20,7 @@ import DetailMeal from './pages/DetailMeal';
 import DetailDrink from './pages/DetailDrink';
 import InProgressMeal from './pages/InProgressMeal';
 import InProgressDrink from './pages/InProgressDrink';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -50,7 +51,8 @@ function App() {
               path="/explorar/bebidas/ingredientes"
               component={ DrinkIngredients }
             />
-            <Route path="/explorar/comidas/area" component={ FoodOrigin } />
+            <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
+            <Route path="" component={ NotFound } />
           </Switch>
         </RecipeDetailProvider>
       </RecipeProvider>
