@@ -13,8 +13,8 @@ const mealCategories = {
     { strCategory: 'Side' },
     { strCategory: 'Starter' },
     { strCategory: 'Vegan' },
-    { strCategory: 'Vegetarian' }
-  ]
+    { strCategory: 'Vegetarian' },
+  ],
 };
 
 module.exports = mealCategories;
