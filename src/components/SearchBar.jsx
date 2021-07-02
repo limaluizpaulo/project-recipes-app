@@ -73,10 +73,9 @@ function SearchBar() {
 
   return (
     <form onSubmit={ handleSubmit }>
-      <div className="mb-3">
-        <div className="mb-3 form-group" controlId="formBasicEmail">
+      <div>
+        <div controlId="formBasicEmail">
           <input
-            className="form-control"
             value={ textFilter }
             data-testid="search-input"
             type="text"
@@ -92,7 +91,7 @@ function SearchBar() {
             <input
               onChange={ (event) => setTypeOfFilter(event.target.id) }
               data-testid="ingredient-search-radio"
-              name="ingredient"
+              name="checkbox"
               type="radio"
               id="ingredient"
               className="form-check-input"
