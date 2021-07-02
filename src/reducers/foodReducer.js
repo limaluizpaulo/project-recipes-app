@@ -1,10 +1,12 @@
-import { REQUEST_INGREDIENT_FOOD, REQUEST_CATEGORIE_FOOD } from '../actions';
+import { REQUEST_INGREDIENT_FOOD } from '../actions';
 
 const INITIAL_STATE = {
   recipes: [],
   categories: [],
   // food: [],
 };
+
+// const magic = 5;
 
 const foodReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -13,11 +15,13 @@ const foodReducer = (state = INITIAL_STATE, action) => {
       ...state,
       recipes: action.payload.result.meals,
     };
-  case REQUEST_CATEGORIE_FOOD:
-    return {
-      ...state,
-      categories: action.payload.result.meals,
-    };
+  // case REQUEST_CATEGORIE_FOOD:
+  //   return {
+  //     ...state,
+  //     categories: action.payload.result.meals
+  //       .filter(({ strCategory }, index) => index < magic
+  //     && ({ active: false, strCategory })),
+  //   };
   // case REQUEST_FOOD:
   //   return {
   //     ...state,

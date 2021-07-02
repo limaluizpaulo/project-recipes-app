@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategorieFoodAction, fetchCategorieFoodFilterAction,
+import { fetchCategorieFoodFilterAction,
   fetchFoodAction } from '../actions';
 
 class FoodButtons extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
+      categories: [],
       isToggleOn: false,
     };
 
@@ -23,45 +24,54 @@ class FoodButtons extends Component {
   }
 
   handleClick({ strCategory }) {
+    const { categories, isToggleOn } = this.state;
     const { requestFoodFilter, requestFood } = this.props;
-    const { isToggleOn } = this.state;
-    this.setState({
-      isToggleOn: !isToggleOn,
-    });
-    return !isToggleOn ? requestFoodFilter(strCategory) : requestFood();
+    if (!isToggleOn) {
+      console.log('opa toggle on');
+      requestFoodFilter(strCategory);
+      const toggle = categories.map((category) => {
+        if (category.strCategory === strCategory) return { ...category, active: false };
+        return { ...category, active: true };
+      });
+      this.setState({ categories: toggle, isToggleOn: true });
+    } else {
+      console.log('opa toggle off');
+      requestFood();
+      const toggle = categories.map((category) => ({ ...category, active: false }));
+      this.setState({ categories: toggle, isToggleOn: false });
+    }
   }
 
   handleClickAll() {
     const { requestFood } = this.props;
-    const { isToggleOn } = this.state;
-    this.setState({
-      isToggleOn: !isToggleOn,
-    });
+    const { categories } = this.state;
     requestFood();
+    const toggle = categories.map((category) => ({ ...category, active: false }));
+    this.setState({ categories: toggle, isToggleOn: false });
   }
 
-  requisicao() {
-    const { requestFoodCategories } = this.props;
-    requestFoodCategories();
+  async requisicao() {
+    const magic = 5;
+    const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    const { meals } = await result.json();
+    const categories = meals
+      .filter(({ strCategory }, idx) => idx < magic && ({ active: false, strCategory }));
+    this.setState({ categories });
   }
 
   render() {
-    const { resultFoodCategories } = this.props;
-    // const { isToggleOn } = this.state;
-    const totalCategories = 5;
-    const categories = resultFoodCategories.filter(
-      (elem, index) => index < totalCategories,
-    );
+    const { categories } = this.state;
+    console.log(categories);
     return (
       <div>
-        {categories.map(({ strCategory }, index) => (
+        {categories.map(({ strCategory, active }, index) => (
           <button
             data-testid={ `${strCategory}-category-filter` }
             type="button"
             key={ index }
             name="categorie"
             value={ strCategory }
-            // disabled={ isToggleOn }
+            disabled={ active }
             onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}
@@ -80,13 +90,13 @@ class FoodButtons extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  resultFoodCategories: state.food.categories,
+  categories: state.food.categories,
   resultFood: state.food.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestFoodCategories: () => (
-    dispatch(fetchCategorieFoodAction())),
+  // requestFoodCategories: () => (
+  //   dispatch(fetchCategorieFoodAction())),
   requestFoodFilter: (categorie) => (
     dispatch(fetchCategorieFoodFilterAction(categorie))),
   requestFood: () => (
@@ -94,8 +104,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FoodButtons.propTypes = {
-  requestFoodCategories: PropTypes.func.isRequired,
-  resultFoodCategories: PropTypes.arrayOf(Object).isRequired,
   requestFoodFilter: PropTypes.func.isRequired,
   requestFood: PropTypes.arrayOf(Object).isRequired,
 };
