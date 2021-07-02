@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
-import fetchAPI from '../services/fetchAPI';
 
 function HeaderSearchBar({ baseEndPoint }) {
   const {
     requestParams: { chosenFilter, searchText },
     handleChange,
+    setRequestResult,
+    asyncSetState,
   } = useContext(Context);
 
   const [blockRequest, setBlockRequest] = useState(false);
 
   useEffect(() => {
-    if (searchText.length > 1
-      && chosenFilter === 'search.php?f=') {
+    if (searchText.length > 1 && chosenFilter === 'search.php?f=') {
       setBlockRequest(true);
     } else {
       setBlockRequest(false);
@@ -70,9 +70,18 @@ function HeaderSearchBar({ baseEndPoint }) {
           />
         </label>
         <button
-          onClick={ blockRequest
-            ? () => { global.alert('Sua busca deve conter somente 1 (um) caracter'); }
-            : () => fetchAPI(baseEndPoint, chosenFilter, searchText) }
+          onClick={
+            blockRequest
+              ? () => {
+                global.alert('Sua busca deve conter somente 1 (um) caracter');
+              } : () => asyncSetState(
+                setRequestResult,
+                baseEndPoint,
+                chosenFilter,
+                searchText,
+              )
+
+          }
           type="button"
           data-testid="exec-search-btn"
         >
