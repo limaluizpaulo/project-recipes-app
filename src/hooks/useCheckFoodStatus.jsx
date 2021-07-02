@@ -7,10 +7,10 @@ const useCheckFoodStatus = (recipeId, location) => {
 
   const doneRecipes = getFromLocalStorage('doneRecipes');
   const inProgressRecipes = getFromLocalStorage('inProgressRecipes');
-  console.log(inProgressRecipes);
+
   let type = 'meals';
   if (location === 'bebidas') type = 'cocktails';
-  console.log()
+
   useEffect(() => {
     const doneStatus = doneRecipes
     && doneRecipes.find((recipe) => recipe.id === recipeId);
@@ -18,6 +18,7 @@ const useCheckFoodStatus = (recipeId, location) => {
 
     const progressmeals = inProgressRecipes
      && inProgressRecipes[type] && Object.keys(inProgressRecipes[type]);
+    console.log(Object.keys(inProgressRecipes[type]));
     const inProgressStatus = progressmeals && progressmeals.find((id) => id === recipeId);
     if (inProgressStatus) setIsInProgress(true);
   }, []);
