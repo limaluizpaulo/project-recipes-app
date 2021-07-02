@@ -9,6 +9,7 @@ import {
   fetchAllRecipes,
   fetchRecipesBySearch,
   fetchRandomRecipe,
+  fetchRecipesByArea,
 } from '../services/RecipesAPI';
 
 function RecipesProvider({ children }) {
@@ -49,7 +50,22 @@ function RecipesProvider({ children }) {
     setRedirectToMainScreen(true);
   };
 
+  const filterByArea = async ({ target: { value } }) => {
+    if (value === 'All') {
+      getInitialRecipes();
+    } else {
+      const { meals } = await fetchRecipesByArea(value);
+      setRecipes(meals);
+    }
+  };
+
+  const lookDetailsRecipe = (recipe) => {
+    setRecipeDetails(recipe);
+    setRedirectToRecipeDetails(true);
+  };
+
   const context = {
+    mealsOrDrinks,
     user,
     login,
     recipes,
@@ -61,6 +77,9 @@ function RecipesProvider({ children }) {
     setRedirectToMainScreen,
     setRedirectToRecipeDetails,
     filterByIngredients,
+    filterByArea,
+    lookDetailsRecipe,
+    getInitialRecipes,
   };
 
   useEffect(() => {
