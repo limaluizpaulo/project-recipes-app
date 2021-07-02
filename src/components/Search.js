@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Context } from '../context/ContextForm';
 import searchByNameFood,
 { searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
@@ -9,39 +10,82 @@ function Search() {
     setRadio,
     inputSearch,
     setInputSearch,
-    setFirstMeals } = useContext(Context);
+    setFirstMeals,
+    setFirstDrinks } = useContext(Context);
+  const history = useHistory();
 
   function invokeAlert(fn, message) {
     return fn(message);
   }
 
-  console.log(searchByFirstLetterDrink, searchByIngredientsDrink, searchByNameDrink);
-
   const ONE = 1;
   const DOZE = 12;
 
-  async function submit(ev) {
-    ev.preventDefault();
-
-    if (radio === 'Ingrediente') {
-      searchByIngredientsFood(inputSearch);
-    }
-    if (radio === 'Nome') {
-      searchByNameFood(inputSearch);
-    }
-    if (radio === 'Primeira letra') {
-      const object = await inputSearch.length === ONE
-        ? searchByFirstLetterFood(inputSearch)
-        : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-      const { meals } = await object.then((resolve) => resolve);
-      if (meals.length === 1) {
-        console.log(meals);
-      }
+  async function atalhoFunctionFood(func, element) {
+    const object = await func(element);
+    const { meals } = await object;
+    if (meals) {
       if (meals.length > DOZE) {
         return setFirstMeals(meals.slice(0, DOZE));
       }
+      if (meals.length === ONE) {
+        const mealId = meals[0].idMeal;
+        return history.push(`/comidas/${mealId}`);
+      }
+      if (meals.length > 0) {
+        return setFirstMeals(meals);
+      }
+    }
+    return invokeAlert(alert,
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  async function atalhoFunctionDrink(func, element) {
+    const object = await func(element);
+    const { drinks } = await object;
+    if (drinks) {
+      if (drinks.length > DOZE) {
+        return setFirstDrinks(drinks.slice(0, DOZE));
+      }
+      if (drinks.length === ONE) {
+        const drinkId = drinks[0].idDrink;
+        return history.push(`bebidas/${drinkId}`);
+      }
+      if (drinks.length > 0) {
+        return setFirstDrinks(drinks);
+      }
+    }
+    return invokeAlert(alert,
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  async function condicao(funct1, funct2, funct3, func) {
+    if (radio === 'Ingrediente') {
+      return func(funct1, inputSearch);
+    } if (radio === 'Nome') {
+      return func(funct2, inputSearch);
+    } if (radio === 'Primeira letra') {
+      const object = await inputSearch.length === ONE
+        ? func(funct3, inputSearch)
+        : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      return object;
     }
   }
+
+  function submit(ev) {
+    ev.preventDefault();
+
+    if (history.location.pathname === '/comidas') {
+      return condicao(searchByIngredientsFood,
+        searchByNameFood, searchByFirstLetterFood, atalhoFunctionFood);
+    }
+
+    if (history.location.pathname === '/bebidas') {
+      return condicao(searchByIngredientsDrink, searchByNameDrink,
+        searchByFirstLetterDrink, atalhoFunctionDrink);
+    }
+  }
+
   return (
     <form onSubmit={ submit }>
       <label htmlFor="search">
