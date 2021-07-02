@@ -5,8 +5,12 @@ import FetchContext from './FetchContext';
 function FetchProvider({ children }) {
   const [typeFunc, setTypeFunc] = useState('');
   const [data, setData] = useState([]);
+  const [imgRecipes, setImgRecipes] = useState('');
+  const [nameRecipes, setNameRecipes] = useState('');
 
   const handleFoods = (radioButton, searchText) => {
+    setNameRecipes('strMeal');
+    setImgRecipes('strMealThumb');
     if (radioButton === 'ingrediente') {
       return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`)
         .then((res) => res.json())
@@ -34,6 +38,8 @@ function FetchProvider({ children }) {
   };
 
   const handleDrinks = (radioButton, searchText) => {
+    setNameRecipes('strDrink');
+    setImgRecipes('strDrinkThumb');
     if (radioButton === 'ingrediente') {
       return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchText}`)
         .then((res) => res.json())
@@ -66,6 +72,10 @@ function FetchProvider({ children }) {
     handleFoods,
     handleDrinks,
     data,
+    imgRecipes,
+    setImgRecipes,
+    nameRecipes,
+    setNameRecipes,
   };
 
   return (
