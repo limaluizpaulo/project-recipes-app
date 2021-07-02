@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { FavoriteBtn, ShareBtn } from '../components';
 
-function FavoriteRecipes({ history }) {
+function FavoriteRecipes() {
   const [allFavorites, setAllFavorites] = useState([]);
   const [wasCopied, setWasCopied] = useState(false);
   const [recipesToRender, setRecipesToRender] = useState([]);
   const [shouldUpdate, setShouldUpdate] = useState(false);
-
-  const { pathname } = history.location;
-  const recipeType = pathname.includes('/comidas') ? 'comidas' : 'bebidas';
 
   useEffect(() => {
     setAllFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
@@ -67,7 +63,7 @@ function FavoriteRecipes({ history }) {
               </a>
               <ShareBtn
                 showCopiedMsg={ setWasCopied }
-                type={ recipeType }
+                type={ `${type}s` }
                 id={ id }
                 route="receitas-favoritas"
                 testId={ `${idx}-horizontal-share-btn` }
@@ -88,9 +84,5 @@ function FavoriteRecipes({ history }) {
     </>
   );
 }
-
-FavoriteRecipes.propTypes = {
-  history: PropTypes.objectOf,
-}.isRequired;
 
 export default FavoriteRecipes;
