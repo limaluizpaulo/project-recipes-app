@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
 import Footer from '../components/Footer';
+import Categories from '../components/Categories';
 
 const Drinks = () => {
   const { drinks: defaultDrinks, recipes: { drinks = [] } } = useContext(GlobalContext);
@@ -31,6 +32,7 @@ const Drinks = () => {
   return (
     <div>
       <Header title="Bebidas" search />
+      <Categories />
       <div className="grade">
         {renderCard().length && renderCard()}
       </div>

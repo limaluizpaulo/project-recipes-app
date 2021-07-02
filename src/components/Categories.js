@@ -1,22 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { GlobalContext } from '../context/Provider';
 
 const Categories = ({ food }) => {
   const magic = 5;
-  const { ctgMeals, ctgDrinks } = useContext(GlobalContext);
+  const { ctgMeals, ctgDrinks, setSearchOp, setRecipes } = useContext(GlobalContext);
+  const [oldCategory, setOldCategory] = useState('');
+  const [toggleActive, setToggle] = useState(false);
   const list = food ? ctgMeals : ctgDrinks;
-  list.splice(0, magic);
+  const filter = list.slice(0, magic);
+
+  const toggle = (category) => {
+    if (!toggleActive || category !== oldCategory) {
+      setOldCategory(category);
+      setToggle(true);
+      setSearchOp({ inputSearch: category, option: 'category', food });
+    } else {
+      setToggle(false);
+      setRecipes({});
+    }
+  };
+
   return (
     <div>
-      { list.map(({ strCategoy }) => (
+      {filter.map(({ strCategory }) => (
         <button
+          onClick={ () => toggle(strCategory) }
           type="button"
-          key={ strCategoy }
-          data-testid={ `${strCategoy}-category-filter` }
+          key={ strCategory }
+          data-testid={ `${strCategory}-category-filter` }
         >
-          {strCategoy}
+          {strCategory}
         </button>
-      )) }
+      ))}
     </div>
   );
 };

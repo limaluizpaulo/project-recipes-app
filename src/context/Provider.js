@@ -39,6 +39,7 @@ const Provider = ({ children }) => {
     drinks,
     ctgMeals,
     ctgDrinks,
+    setRecipes,
   };
 
   return <GlobalContext.Provider value={ value }>{children}</GlobalContext.Provider>;
