@@ -7,20 +7,20 @@ import DropdownArea from '../components/DropdownArea';
 import CardRecipe from '../components/CardRecipe';
 
 export default function ExploreByArea() {
-  const { areaSelected } = useMealsContext();
-  const [mealsToRender, setMealsToRender] = useState([]);
+  const { areaSelected, mealsFiltered, setMealsFiltered } = useMealsContext();
   const [areaList, setAreaList] = useState([]);
   useEffect(() => {
     const TWELVE = 12;
+    const all = { strArea: 'All' };
     fetchAreaMeals()
-      .then((res) => setAreaList(res));
-    fetchMealByArea(areaSelected).then((res) => setMealsToRender(res.slice(0, TWELVE)));
-  }, [areaSelected, setMealsToRender]);
+      .then((res) => setAreaList([...res, all]));
+    fetchMealByArea(areaSelected).then((res) => setMealsFiltered(res.slice(0, TWELVE)));
+  }, [areaSelected, setMealsFiltered]);
   return (
     <div>
       <Header title="Explorar Origem" search />
       <DropdownArea data={ areaList } />
-      {mealsToRender.map((
+      {mealsFiltered.map((
         data, index,
       ) => <CardRecipe key={ index } data={ data } index={ index } />)}
       <Footer />
