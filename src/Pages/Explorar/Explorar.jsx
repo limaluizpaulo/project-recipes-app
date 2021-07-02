@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button } from 'bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Context from '../../context/Context';
 
 import Header from '../../components/Header';
@@ -12,12 +12,34 @@ export default function Explorar() {
     <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
-      <Button variant="outline-primary" size="lg">
-        Eplorar Comidas
-      </Button>
-      <Button variant="outline-primary" size="lg">
-        Eplorar Bebidas
-      </Button>
+      <ButtonGroup vertical>
+        <Button
+          href="/explorar/comidas"
+          data-testid="explore-food"
+          variant="outline-primary"
+          size="lg"
+          className="mb-2"
+        >
+          Explorar Comidas
+        </Button>
+        <Button
+          href="/explorar/bebidas"
+          data-testid="explore-drinks"
+          variant="outline-danger"
+          size="lg"
+          className="mb-2"
+        >
+          Explorar Bebidas
+        </Button>
+        <Button
+          href="/"
+          variant="danger"
+          size="lg"
+          className="mb-2"
+        >
+          Logof
+        </Button>
+      </ButtonGroup>
     </div>
   );
 }

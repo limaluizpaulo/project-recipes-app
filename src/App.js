@@ -20,7 +20,7 @@ function App() {
           <Route path="/comidas/:id" component={ DetalhesComida } />
           <Route path="/bebidas/:id" component={ DetalhesBebida } />
           <Route path="/perfil" component={ Perfil } />
-          <Route path="/explorar" component={ Explorar } />
+          <Route exact path="/explorar" component={ Explorar } />
           <Route path="/explorar/comidas" component={ ExpComidas } />
           <Route
             path="/explorar/comidas/ingredientes"
