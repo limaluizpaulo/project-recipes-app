@@ -13,6 +13,7 @@ function Drinks() {
     allDrinks: { drinks }, allCategories: { categories }, drinksFilteredByCategory:
     { drinksByCategory }, setCategory, category, setIsFiltred, isFiltred,
   } = useContext(DrinksContext);
+
   const history = useHistory();
   const NUMBER_OF_ITEMS = 12;
   const NUMBER_OF_CATEGORIES = 5;
