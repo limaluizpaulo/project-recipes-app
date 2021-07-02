@@ -51,8 +51,13 @@ function RecipeInProgress({ match, history }) {
         data-testid="recipe-photo"
       />
 
-      <ShareBtn showCopiedMsg={ setWasCopied } />
-      <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ recipeInProgress } />
+      <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
+      <FavoriteBtn
+        id={ id }
+        type={ recipeType }
+        currentRecipe={ recipeInProgress }
+        testId="favorite-btn"
+      />
 
       <span data-testid="recipe-category">{strCategory}</span>
       {wasCopied && <span>Link copiado!</span>}
