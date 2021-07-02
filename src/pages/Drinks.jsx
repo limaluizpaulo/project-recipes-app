@@ -4,6 +4,7 @@ import DrinksContext from '../context/DrinksContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import '../styles/Card.css';
 
@@ -108,6 +109,7 @@ function Drinks() {
         isFiltred ? <FilteredList filteredDrinks={ filteredDrinks } />
           : renderDrinksDefault()
       }
+      <Footer />
     </>
   );
 }
