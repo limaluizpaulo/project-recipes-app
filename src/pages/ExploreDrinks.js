@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
+import './style/ExploreDrinks.css';
+
 function ExploreDrinks() {
   const { getRandomRecipe, recipeDetails,
     redirectToRecipeDetails, setRedirectToRecipeDetails } = useContext(RecipesContext);
@@ -11,7 +13,7 @@ function ExploreDrinks() {
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
 
   return (
-    <div>
+    <div className="exploraBebidas">
       { redirectToRecipeDetails
         && <Redirect to={ `/bebidas/${recipeDetails.idDrink}` } /> }
       <Link
