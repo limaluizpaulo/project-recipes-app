@@ -1,22 +1,23 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 import CategoryButton from '../components/CategoryButton';
+import comidas from './comidas';
 
 export default function RecipesMade() {
   const handleClickCategory = () => console.log('handleClickCategory');
   const getRecipes = () => console.log('getRecipes');
 
-  // const renderRecipesMade = () => (
-  //   array.map((recipe, index) => (
-  //     <div key={ index }>
-  //       <img
-  //         src={ recipe.src }
-  //         alt="x"
-  //         data-testid={ `${index}-horizontal-image` }
-  //       />
-  //     </div>
-  //   ))
-  // );
+  const renderRecipesMade = () => (
+    comidas.map((recipe, index) => (
+      <div key={ index }>
+        <img
+          src={ recipe.strMealThumb }
+          alt={ recipe.strMealThumb }
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </div>
+    ))
+  );
 
   return (
     <>
@@ -26,7 +27,7 @@ export default function RecipesMade() {
         clickAll={ getRecipes }
         path
       />
-      {/* { renderRecipesMade() } */}
+      { renderRecipesMade() }
     </>
   );
 }
