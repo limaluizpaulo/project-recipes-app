@@ -34,6 +34,9 @@ function Search() {
         ? searchByFirstLetterFood(inputSearch)
         : invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       const { meals } = await object.then((resolve) => resolve);
+      if (meals.length === 1) {
+        console.log(meals);
+      }
       if (meals.length > DOZE) {
         return setFirstMeals(meals.slice(0, DOZE));
       }
@@ -68,7 +71,6 @@ function Search() {
           type="radio"
           value="Nome"
           id="name"
-          checked
           onChange={ ({ target }) => setRadio(target.value) }
           data-testid="name-search-radio"
         />
