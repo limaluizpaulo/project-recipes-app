@@ -33,6 +33,13 @@ export const fetchMealsByCategory = async (category) => {
   return data;
 };
 
+export const fetchMealById = async (id) => {
+  const fetchMeal = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const response = await fetchMeal.json();
+  const data = response.meals;
+  return data;
+};
+
 export const fetchIngreMeals = async () => {
   const fetchIngre = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
   const response = await fetchIngre.json();
