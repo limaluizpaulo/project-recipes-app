@@ -17,39 +17,42 @@ function Footer() {
 
   return (
     <footer data-testid="footer">
-      <button
-        type="button"
-        onClick={ (event) => teste2(event) }
-      >
-        <img
-          src={ Drink }
-          alt="drink"
-          name="bebidas"
-          data-testid="drinks-bottom-btn"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ (event) => teste2(event) }
-      >
-        <img
-          src={ Explore }
-          alt="explore"
-          name="explorar"
-          data-testid="explore-bottom-btn"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ (event) => teste2(event) }
-      >
-        <img
-          src={ teste }
-          alt="food"
-          name="comidas"
-          data-testid="food-bottom-btn"
-        />
-      </button>
+      <div className="footer">
+
+        <button
+          type="button"
+          onClick={ (event) => teste2(event) }
+        >
+          <img
+            src={ Drink }
+            alt="drink"
+            name="bebidas"
+            data-testid="drinks-bottom-btn"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={ (event) => teste2(event) }
+        >
+          <img
+            src={ Explore }
+            alt="explore"
+            name="explorar"
+            data-testid="explore-bottom-btn"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={ (event) => teste2(event) }
+        >
+          <img
+            src={ teste }
+            alt="food"
+            name="comidas"
+            data-testid="food-bottom-btn"
+          />
+        </button>
+      </div>
     </footer>
   );
 }

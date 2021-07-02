@@ -16,7 +16,7 @@ function Card({ drink, recipe, index }) {
                   src={ recipe.strMealThumb }
                   alt={ recipe.strMeal }
                 />
-                <h3 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h3>
+                <h5 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h5>
               </Link>
             </div>
           )
@@ -28,7 +28,7 @@ function Card({ drink, recipe, index }) {
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }
                 />
-                <h3 data-testid={ `${index}-card-name` }>{drink.strDrink}</h3>
+                <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
               </Link>
             </div>
           )
@@ -42,13 +42,13 @@ Card.propTypes = {
     idMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
-  }).isRequired,
+  }),
   drink: PropTypes.shape({
     idDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
-  }).isRequired,
-  index: PropTypes.number.isRequired,
-};
+  }),
+  index: PropTypes.number,
+}.isRequired;
 
 export default Card;
