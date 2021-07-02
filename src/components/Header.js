@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import invokeAlert from '../helpers';
+import { invokeAlert } from '../helpers';
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 import {

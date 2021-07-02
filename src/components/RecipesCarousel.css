@@ -1,0 +1,8 @@
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.carousel-card {
+  margin-left: 50px;
+}

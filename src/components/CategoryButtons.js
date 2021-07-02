@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 import { fetchByCategory, fetchByName } from '../services';
-import './CategoryButton.css';
+import './CategoryButtons.css';
 
 function CategoryButtons() {
   const { categories: drinksCategories, setDrinks } = useContext(DrinksContext);
@@ -13,14 +13,16 @@ function CategoryButtons() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
+  const isDrinks = pathname.includes('bebidas');
+  const type = isDrinks ? 'drinks' : 'meals';
+
   async function handleClick(category) {
-    const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
     const result = category && filter !== category
       ? await fetchByCategory(type, category)
       : await fetchByName(type);
-
     setFilter(category);
-    if (pathname.includes('bebidas')) setDrinks(result);
+
+    if (isDrinks) setDrinks(result);
     else setMeals(result);
   }
 

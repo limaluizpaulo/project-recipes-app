@@ -1,0 +1,10 @@
+.details-image {
+  width: 100vw;
+}
+
+.youtube-video {
+  border: none;
+  height: 240px;
+  margin: 40px 0;
+  width: 100vw;
+}

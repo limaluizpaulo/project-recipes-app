@@ -1,17 +1,18 @@
 import React from 'react';
+
 import Header from '../../components/Header';
-import DrinksList from '../../components/DrinksList';
+import CategoryButtons from '../../components/CategoryButtons';
+import RecipesList from '../../components/RecipesList';
 import Footer from '../../components/Footer';
-import Categories from '../../components/CategoryButtons';
 
 function PrincipalBebidas() {
   return (
-    <div>
+    <main>
       <Header title="Bebidas" />
-      <Categories />
-      <DrinksList />
+      <CategoryButtons />
+      <RecipesList />
       <Footer />
-    </div>
+    </main>
   );
 }
 
