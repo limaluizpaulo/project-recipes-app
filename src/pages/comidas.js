@@ -16,18 +16,26 @@ class comidas extends Component {
   }
 
   render() {
-    const { recipeDetails } = this.props;
+    const { recipeDetails, recipes } = this.props;
     return (
-      <section>
-        <h3>Detalhes Comidas</h3>
-        <RecipeDetails recipeDetails={ recipeDetails } />
-      </section>
+      recipeDetails && recipes ? (
+        <section>
+          <h3>Detalhes Comidas</h3>
+          <RecipeDetails
+            recipeDetails={ recipeDetails }
+            title="Comidas"
+            recipes={ recipes }
+          />
+        </section>
+      )
+        : null
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   recipeDetails: state.food.foodById,
+  recipes: state.drink.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({

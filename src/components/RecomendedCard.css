@@ -1,0 +1,12 @@
+.card-list {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.recomendation-card {
+  width: 50vw;
+}
+
+.recomendation-card img {
+  width: 50vw;
+}
