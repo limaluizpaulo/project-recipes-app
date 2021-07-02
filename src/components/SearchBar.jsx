@@ -37,7 +37,8 @@ class SearchBar extends React.Component {
       return history.push(`/comidas/${API.meals[0].idMeal}`);
     }
     if (API.meals === null || API.drinks === null) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return null;
   }
@@ -54,7 +55,7 @@ class SearchBar extends React.Component {
     }
     if (filter === 'Primeira Letra') {
       if (input.length > 1) {
-        return alert('Sua busca deve conter somente 1 (um) caracter');
+        return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
       url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
     }
@@ -77,7 +78,7 @@ class SearchBar extends React.Component {
     }
     if (filter === 'Primeira Letra') {
       if (input.length > 1) {
-        return alert('Sua busca deve conter somente 1 (um) caracter');
+        return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
       url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`;
     }
