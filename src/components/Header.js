@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../styles/global.css';
 
 function Header({ title }) {
   const [search, setSearch] = useState(false);
@@ -15,7 +16,7 @@ function Header({ title }) {
     setSearch(!search);
   }
   return (
-    <div>
+    <div className="header-container">
       <Link to="/perfil">
         <img src={ profileIcon } data-testid="profile-top-btn" alt="Profile Avatar" />
       </Link>

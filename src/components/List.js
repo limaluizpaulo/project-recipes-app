@@ -9,7 +9,7 @@ export default function List({ array, drinks }) {
       .filter((measure) => measure[0].includes('strMeasure'));
     return ingredients.map((element, index) => {
       if (element[1] !== null) {
-        console.log('cheguei');
+        console.log();
         if (element[1].length > 0) {
           return (
             <li

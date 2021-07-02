@@ -68,13 +68,11 @@ function Search() {
     ev.preventDefault();
 
     if (history.location.pathname === '/comidas') {
-      console.log('comidas');
       return condicao(searchByIngredientsFood,
         searchByNameFood, searchByFirstLetterFood, atalhoFunctionFood);
     }
 
     if (history.location.pathname === '/bebidas') {
-      console.log('bebidas');
       return condicao(searchByIngredientsDrink, searchByNameDrink,
         searchByFirstLetterDrink, atalhoFunctionDrink);
     }

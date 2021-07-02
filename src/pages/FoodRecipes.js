@@ -19,7 +19,7 @@ function FoodRecipes() {
       setFirstMeals(meals.slice(0, numOfMeals));
     };
     fetchMeals();
-  }, []);
+  }, [setFirstMeals]);
 
   useEffect(() => {
     const fetchCategories = async () => {

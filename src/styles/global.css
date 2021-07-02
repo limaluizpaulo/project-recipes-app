@@ -4,29 +4,47 @@
   padding: 0;
 }
 
+.login {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.header-container {
+  display: flex;
+  justify-content:space-between;
+  margin: 15px 15px 0px 15px;
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
   margin: 5px;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
-  width: 150px;
+  width: 165px;
 }
 
 .btn-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .category-btn {
-  margin: 5px;
-  width: 125px;
+  margin: 3px;
+  width: 114px;
 }
 
 .category-btn-dbl {
-  margin: 5px;
-  width: 125px;
+  margin: 3px;
+  width: 114px;
 }
