@@ -6,8 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/login';
 import PricipalComidas from './pages/principal/PrincipalComidas';
 import PrincipalBebidas from './pages/principal/PrincipalBebidas';
-import DetalhesBebida from './pages/detalhes/DetalhesBebida';
-import DetalhesComida from './pages/detalhes/DetalhesComida';
+// import DetalhesBebida from './pages/detalhes/DetalhesBebida';
+// import DetalhesComida from './pages/detalhes/DetalhesComida';
+import Details from './pages/Details';
 import ComidaEmProcesso from './pages/em-processo/ComidaEmProcesso';
 import BebidaEmProcesso from './pages/em-processo/BebidaEmProcesso';
 import Explorar from './pages/explorar';
@@ -28,8 +29,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ PricipalComidas } />
         <Route exact path="/bebidas" component={ PrincipalBebidas } />
-        <Route exact path="/comidas/:id" component={ DetalhesComida } />
-        <Route exact path="/bebidas/:id" component={ DetalhesBebida } />
+        <Route exact path="/comidas/:id" component={ Details } />
+        <Route exact path="/bebidas/:id" component={ Details } />
         <Route
           exact
           path="/comidas/:id/in-progress"
