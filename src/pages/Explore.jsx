@@ -8,6 +8,7 @@ import '../styles/Explore.css';
 
 function Explore() {
   const history = useHistory();
+
   return (
     <Container className="content">
       <Header profile name="Explorar" />
