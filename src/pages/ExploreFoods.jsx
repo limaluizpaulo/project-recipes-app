@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, ButtonGroup, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 import { fetchRandomRecipe } from '../services/RecipesServices';
+
+import '../styles/ExploreFoods.css';
 
 function ExploreFoods() {
   const { setRandomRecipe } = useContext(RecipesContext);
@@ -25,8 +27,7 @@ function ExploreFoods() {
   return (
     <Container>
       <Header profile name="Explorar Comidas" />
-      <Container className="buttons">
-
+      <ButtonGroup className="buttons-explore-foods">
         <Button
           data-testid="explore-by-ingredient"
           variant="outline-secondary"
@@ -34,7 +35,6 @@ function ExploreFoods() {
           onClick={ () => history.push('/explorar/comidas/ingredientes') }
         >
           Por Ingredientes
-
         </Button>
 
         <Button
@@ -44,7 +44,6 @@ function ExploreFoods() {
           onClick={ () => history.push('/explorar/comidas/area') }
         >
           Por Local de Origem
-
         </Button>
 
         <Button
@@ -54,10 +53,9 @@ function ExploreFoods() {
           onClick={ () => redirectToFoodDetails() }
         >
           Me Surpreenda!
-
         </Button>
 
-      </Container>
+      </ButtonGroup>
       <Footer />
     </Container>
   );
