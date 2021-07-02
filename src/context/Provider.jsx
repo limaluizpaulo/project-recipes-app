@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Context from './Context';
+import RecipeContext from './Context';
 import { apiRequestMeal, apiRequestDrink } from '../services/helpers/apiServises';
 import messageAlert from '../services/helpers/alertMessage';
 
@@ -10,6 +10,7 @@ const RecipeProvider = ({ children }) => {
   const [inputValue, setInputValue] = useState('');
   const [pathname, setPathname] = useState('');
   const [selectedTypeItem, setSelectedTypeItem] = useState('all');
+  const [selectedFood, setSelectedFood] = useState();
 
   useEffect(() => {
     async function setDataRecipes() {
@@ -35,7 +36,33 @@ const RecipeProvider = ({ children }) => {
     }
   }, [radioValue, inputValue, pathname]);
 
+  const createObjectFromFood = () => {
+    const {
+      idMeal,
+      idDrink,
+      strCategory,
+      strAlcoholic,
+      strArea,
+      strMeal,
+      strDrink,
+      strDrinkThumb,
+      strMealThumb,
+    } = selectedFood;
+
+    return ({
+      id: idMeal || idDrink,
+      type: idMeal ? 'comida' : 'bebida',
+      area: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strMeal || strDrink,
+      image: strDrinkThumb || strMealThumb,
+    });
+  };
   const objContext = {
+    selectedFood,
+    setSelectedFood,
+    createObjectFromFood,
     data,
     setData,
     setValueRadio,
@@ -47,9 +74,9 @@ const RecipeProvider = ({ children }) => {
     setSelectedTypeItem,
   };
   return (
-    <Context.Provider value={ objContext }>
+    <RecipeContext.Provider value={ objContext }>
       {children}
-    </Context.Provider>
+    </RecipeContext.Provider>
   );
 };
 

@@ -9,11 +9,13 @@ import Explore from './pages/Explore';
 import Profile from './pages/Profile';
 import ExploreFoods from './pages/ExploreFoods';
 import FoodIngredients from './pages/FoodIngredients';
+import FoodInProgress from './pages/FoodInProgress';
 import ExploreDrinks from './pages/ExploreDrinks';
-import DrinkIngredients from './pages/DrinkIngredients';
 import FoodArea from './pages/FoodArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
+import ExploreMealsIngredients from './pages/ExploreMealIngredients';
+import ExploreDrinksIngredients from './pages/ExploreDrinkIngredients';
 
 function App() {
   return (
@@ -40,6 +42,16 @@ function App() {
       />
       <Route
         exact
+        path="/explorar/comidas/ingredientes"
+        component={ ExploreMealsIngredients }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ ExploreDrinksIngredients }
+      />
+      <Route
+        exact
         path="/explorar/comidas"
         component={ ExploreFoods }
       />
@@ -49,14 +61,25 @@ function App() {
         component={ ExploreDrinks }
       />
       <Route
-        path="/explorar/comidas/ingredientes"
+        exact
+        path="/bebidas/:recipeId/in-progress"
+        component={ FoodInProgress }
+      />
+      <Route
+        exact
+        path="/comidas/:recipeId/in-progress"
+        component={ FoodInProgress }
+      />
+      <Route
+        path="/bebidas/:recipeId"
         component={ FoodIngredients }
       />
       <Route
-        path="/explorar/bebidas/ingredientes"
-        component={ DrinkIngredients }
+        path="/comidas/:recipeId"
+        component={ FoodIngredients }
       />
       <Route
+        exact
         path="/explorar/comidas/area"
         component={ FoodArea }
       />
