@@ -10,6 +10,7 @@ class FoodButtons extends Component {
     super(props);
 
     this.state = {
+      category: '',
       categories: [],
       isToggleOn: false,
     };
@@ -24,21 +25,18 @@ class FoodButtons extends Component {
   }
 
   handleClick({ strCategory }) {
-    const { categories, isToggleOn } = this.state;
+    const { categories, isToggleOn, category } = this.state;
     const { requestFoodFilter, requestFood } = this.props;
-    if (!isToggleOn) {
-      console.log('opa toggle on');
+    if (!isToggleOn || strCategory !== category) {
       requestFoodFilter(strCategory);
-      const toggle = categories.map((category) => {
-        if (category.strCategory === strCategory) return { ...category, active: false };
-        return { ...category, active: true };
+      const toggle = categories.map((categorys) => {
+        if (categorys.strCategory === strCategory) return { ...categorys, active: false };
+        return { ...categorys, active: true };
       });
-      this.setState({ categories: toggle, isToggleOn: true });
+      this.setState({ categories: toggle, isToggleOn: true, category: strCategory });
     } else {
-      console.log('opa toggle off');
       requestFood();
-      const toggle = categories.map((category) => ({ ...category, active: false }));
-      this.setState({ categories: toggle, isToggleOn: false });
+      this.setState({ isToggleOn: false });
     }
   }
 
@@ -61,17 +59,15 @@ class FoodButtons extends Component {
 
   render() {
     const { categories } = this.state;
-    console.log(categories);
     return (
       <div>
-        {categories.map(({ strCategory, active }, index) => (
+        {categories.map(({ strCategory }, index) => (
           <button
             data-testid={ `${strCategory}-category-filter` }
             type="button"
             key={ index }
             name="categorie"
             value={ strCategory }
-            disabled={ active }
             onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}

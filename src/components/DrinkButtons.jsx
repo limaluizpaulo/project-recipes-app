@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchCategorieDrinkAction, fetchCategorieDrinkFilterAction,
+import { fetchCategorieDrinkFilterAction,
   fetchDrinkAction } from '../actions';
 
 class DrinkButtons extends Component {
@@ -10,6 +10,8 @@ class DrinkButtons extends Component {
     super();
 
     this.state = {
+      category: '',
+      categories: [],
       isToggleOn: false,
     };
 
@@ -23,35 +25,40 @@ class DrinkButtons extends Component {
   }
 
   handleClick({ strCategory }) {
+    const { categories, isToggleOn, category } = this.state;
     const { requestDrinkFilter, requestDrink } = this.props;
-
-    const { isToggleOn } = this.state;
-    this.setState({
-      isToggleOn: !isToggleOn,
-    });
-    return !isToggleOn ? requestDrinkFilter(strCategory) : requestDrink();
+    if (!isToggleOn || strCategory !== category) {
+      requestDrinkFilter(strCategory);
+      const toggle = categories.map((categorys) => {
+        if (categorys.strCategory === strCategory) return { ...categorys, active: false };
+        return { ...categorys, active: true };
+      });
+      this.setState({ categories: toggle, isToggleOn: true, category: strCategory });
+    } else {
+      requestDrink();
+      this.setState({ isToggleOn: false });
+    }
   }
 
   handleClickAll() {
     const { requestDrink } = this.props;
-    const { isToggleOn } = this.state;
-    this.setState({
-      isToggleOn: !isToggleOn,
-    });
+    const { categories } = this.state;
     requestDrink();
+    const toggle = categories.map((category) => ({ ...category, active: false }));
+    this.setState({ categories: toggle, isToggleOn: false });
   }
 
-  requisicao() {
-    const { requestDrinkCategories } = this.props;
-    requestDrinkCategories();
+  async requisicao() {
+    const magic = 5;
+    const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const { drinks } = await result.json();
+    const categories = drinks
+      .filter(({ strCategory }, idx) => idx < magic && ({ active: false, strCategory }));
+    this.setState({ categories });
   }
 
   render() {
-    const { resultDrinkCategories } = this.props;
-    const totalCategories = 5;
-    const categories = resultDrinkCategories.filter(
-      (elem, index) => index < totalCategories,
-    );
+    const { categories } = this.state;
     return (
       <div>
         {categories.map(({ strCategory }, index) => (
@@ -79,13 +86,13 @@ class DrinkButtons extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  resultDrinkCategories: state.drink.categories,
+  categories: state.drink.categories,
   resultDrink: state.food.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestDrinkCategories: () => (
-    dispatch(fetchCategorieDrinkAction())),
+  // requestDrinkCategories: () => (
+  //   dispatch(fetchCategorieDrinkAction())),
   requestDrinkFilter: (categorie) => (
     dispatch(fetchCategorieDrinkFilterAction(categorie))),
   requestDrink: () => (
@@ -93,8 +100,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 DrinkButtons.propTypes = {
-  requestDrinkCategories: PropTypes.func.isRequired,
-  resultDrinkCategories: PropTypes.arrayOf(Object).isRequired,
   requestDrinkFilter: PropTypes.func.isRequired,
   requestDrink: PropTypes.arrayOf(Object).isRequired,
 };
