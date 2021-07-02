@@ -1,9 +1,22 @@
 .footer {
   bottom: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   padding: 10px;
   position: fixed;
-  width: 100%;
+}
+
+.center-footer-icons {
+  display: inherit;
+  justify-content: center;
+}
+
+.headerSection {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.headerSection button {
+  background: transparent;
+  border: none;
 }

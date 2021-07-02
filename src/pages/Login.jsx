@@ -11,11 +11,10 @@ function Login() {
 
   const validateFields = ({ email, password }) => {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const passwordLenght = password.length;
+    const passwordLength = password.length;
     const minPassword = 6;
 
-    if ((regex.test(email)) && (passwordLenght > minPassword)) {
-      console.log('entrei');
+    if ((regex.test(email)) && (passwordLength > minPassword)) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
@@ -36,8 +35,6 @@ function Login() {
     setItemLocalStorage('cocktailsToken', 1);
     setItemLocalStorage('user', { email });
   };
-
-  console.log(localStorage);
 
   useEffect(() => {
     validateFields(login);
