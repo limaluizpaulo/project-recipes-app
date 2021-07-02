@@ -18,14 +18,17 @@ const Foods = () => {
 
   const renderCard = () => {
     const magic = 12;
-    const recipes = meals.length ? meals : defaultMeals;
-    const newRecipes = recipes.filter((_, idx) => idx < magic);
-    return newRecipes.map(({ strMealThumb, strMeal }, index) => (
-      <div key={ index } data-testid={ `${index}-recipe-card` }>
-        <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
-        <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-      </div>
-    ));
+    if (meals && defaultMeals) {
+      const recipes = meals.length ? meals : defaultMeals;
+      const newRecipes = recipes.filter((_, idx) => idx < magic);
+      return newRecipes.map(({ strMealThumb, strMeal }, index) => (
+        <div key={ index } data-testid={ `${index}-recipe-card` }>
+          <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
+          <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+        </div>
+      ));
+    }
+    return [];
   };
 
   return (
