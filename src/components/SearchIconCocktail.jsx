@@ -5,14 +5,14 @@ import ContextBebidas from '../context/ContextBebidas';
 import searchIcon from '../images/searchIcon.svg';
 
 export default function SearchIcon() {
-  const { handleSearchBar } = useContext(ContextBebidas);
+  const { handleSearchBarCocktail } = useContext(ContextBebidas);
 
   return (
     <Col>
       <Image
         src={ searchIcon }
         data-testid="search-top-btn"
-        onClick={ handleSearchBar }
+        onClick={ handleSearchBarCocktail }
       />
     </Col>
   );

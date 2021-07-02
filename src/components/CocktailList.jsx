@@ -19,11 +19,11 @@ export default function CocktailList() {
   }, [cocktailRecipes]);
 
   const renderCards = () => {
-    if (cocktailRecipes && cocktailRecipes.length === 1) {
+    if (cocktailRecipes && cocktailRecipes.lenght === 1) {
       return history.push(`/bebidas/${cocktailRecipes[0].idDrink}`);
     }
 
-    if (cocktailRecipes && cocktailRecipes.length > 1) {
+    if (cocktailRecipes && cocktailRecipes.lenght > 1) {
       const NUMBER = 12;
       return cocktailRecipes.map((drink, index) => {
         if (index < NUMBER) {
