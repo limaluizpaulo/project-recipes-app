@@ -12,36 +12,26 @@ function ExploreDrinks() {
       <Header profile name="Explorar Bebidas" />
 
       <Container>
+        <Container>
 
-        <Button
-          data-testid="explore-by-ingredient"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => history.push('/explorar/bebidas/ingredientes') }
-        >
-          Por Ingredientes
+          <Button
+            data-testid="explore-by-ingredient"
+            onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+          >
+            Por Ingredientes
+          </Button>
+        </Container>
 
-        </Button>
+        <Container>
 
-        <Button
-          data-testid="explore-by-area"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => history.push('/explorar/bebidas/area') }
-        >
-          Por Local de Origem
+          <Button
+            data-testid="explore-surprise"
+            onClick=""/* { () => history.push() } */
+          >
+            Me Surpreenda!
 
-        </Button>
-
-        <Button
-          data-testid="explore-surprise"
-          variant="outline-secondary"
-          size="lg"
-          onClick=""/* { () => history.push() } */
-        >
-          Me Surpreenda!
-
-        </Button>
+          </Button>
+        </Container>
 
       </Container>
 
