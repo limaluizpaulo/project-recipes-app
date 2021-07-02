@@ -1,25 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
-import { fetchFoodIdAction, fetchDrinkIdAction } from '../actions';
-
 class RecipeDetails extends React.Component {
-  componentDidMount() {
-    const { id, requestFoodById, title, requestDrinkById } = this.props;
-    if (title === 'Comida') {
-      const foodId = id.replace(/[^0-9]/g, '');
-      requestFoodById(foodId);
-    }
-    requestDrinkById(id);
-  }
-
   render() {
-    const { recipeDetails } = this.props;
+    const { recipeDetails, title } = this.props;
 
     return (
       recipeDetails[0] ? (
@@ -27,11 +15,13 @@ class RecipeDetails extends React.Component {
           <div>
             <img
               data-testid="recipe-photo"
-              src={ recipeDetails[0].strMealThumb }
-              alt={ recipeDetails[0].strMeal }
+              src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
+              alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
               width="250px"
             />
-            <h1 data-testid="recipe-title">{ recipeDetails[0].strMeal }</h1>
+            <h1 data-testid="recipe-title">
+              { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+            </h1>
             <button
               data-testid="share-btn"
               type="button"
@@ -54,13 +44,15 @@ class RecipeDetails extends React.Component {
             <h4>Instruções</h4>
             <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
           </div>
-          <div>
-            <h4>Video</h4>
-            <iframe
-              title={ recipeDetails[0].strMeal }
-              src={ recipeDetails[0].strYoutube }
-            />
-          </div>
+          {title === 'Bebidas' ? null
+            : (
+              <div>
+                <h4>Video</h4>
+                <iframe
+                  title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+                  src={ recipeDetails[0].strYoutube }
+                />
+              </div>)}
           <div>
             <h4>Recomendadas</h4>
             {/*
@@ -79,19 +71,9 @@ class RecipeDetails extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  requestFoodById: (id) => dispatch(fetchFoodIdAction(id)),
-  requestDrinkById: (id) => dispatch(fetchDrinkIdAction(id)),
-});
-
-const mapStateToProps = (state) => ({
-  recipeDetails: state.food.foodById,
-  drinkDetails: state.food.drinkById,
-});
-
 RecipeDetails.propTypes = {
   recipeDetails: PropTypes.arrayOf(Object),
   id: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
+export default RecipeDetails;
