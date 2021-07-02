@@ -6,6 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 
 export default function SearchBar() {
   const { path } = useRouteMatch();
+
   const [filter, setFilter] = useState({ content: '', URL: '' });
   // const [show, setShow] = useState(false);
   const { setGlobalState } = useContext(RecipesContext);
@@ -40,7 +41,9 @@ export default function SearchBar() {
     }
 
     const data = await fetchAPI(link(domain, content));
-    if (content !== '' && URL !== '') setGlobalState(data);
+    if (content !== '' && URL !== '') {
+      setGlobalState(Object.values(data).shift());
+    }
   }
 
   return (
