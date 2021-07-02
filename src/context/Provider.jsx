@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
 const RecipeProvider = ({ children }) => {
-  const context = { teste: 'teste' };
+  const [selectedTypeItem, setSelectedTypeItem] = useState('all');
+  const context = {
+    selectedTypeItem,
+    setSelectedTypeItem };
   return (
     <Context.Provider value={ context }>
       {children}
