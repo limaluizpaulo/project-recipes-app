@@ -30,11 +30,21 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 1rem;
-  width: 50%;
+  width: 100%;
 }
 
 .img-detail {
   width: 30rem;
+}
+
+.ingre-card {
+  background-color: red;
+  margin-left: 5rem;
+  width: 5rem;
+}
+
+.ingre-card img {
+  width: 100%;
 }
 
 .recomendations {
