@@ -5,6 +5,7 @@
 }
 
 .btn-category {
+  margin-bottom: 3px;
   margin-right: 3px;
 }
 
@@ -18,9 +19,9 @@
 .card-field {
   display: flex;
   margin-right: 15px;
-  max-width: 200px;
+  max-width: 160px;
 }
 
 .card-field img {
-  width: 200px;
+  width: 160px;
 }
