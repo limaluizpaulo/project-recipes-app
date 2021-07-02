@@ -11,6 +11,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+main {
+  margin-bottom: 60px;
+}
+
 .button {
   border: none;
   font-family: inherit;
@@ -68,4 +72,8 @@ body {
 .carousel {
   display: flex;
   overflow-x: scroll;
+}
+
+.carousel-card {
+  margin-left: 50px;
 }
