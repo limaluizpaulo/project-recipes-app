@@ -70,18 +70,10 @@ function HeaderSearchBar({ baseEndPoint }) {
           />
         </label>
         <button
-          onClick={
-            blockRequest
-              ? () => {
-                global.alert('Sua busca deve conter somente 1 (um) caracter');
-              } : () => asyncSetState(
-                setRequestResult,
-                baseEndPoint,
-                chosenFilter,
-                searchText,
-              )
-
-          }
+          onClick={ blockRequest
+            ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
+            : () => asyncSetState(setRequestResult, baseEndPoint, chosenFilter,
+              searchText) }
           type="button"
           data-testid="exec-search-btn"
         >
