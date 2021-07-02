@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
+import RecomendedCard from './RecomendedCard';
+
 class RecipeDetails extends React.Component {
   constructor(props) {
     super(props);
 
-    this.recomendedRecipes = this.recomendedRecipes.bind(this);
-    // this.renderIngredients = this.renderIngredients.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
   }
 
@@ -35,34 +35,8 @@ class RecipeDetails extends React.Component {
     }
   }
 
-  recomendedRecipes() {
-    const { recipeDetails } = this.props;
-    const chaves = Object.entries(recipeDetails[0]);
-    const recomendadas = chaves.filter((key) => (
-      key[0].includes('Alternate')));
-    return recomendadas.map((receita, index) => (
-      <div key={ index } data-testid={ `${index}-recomendation-card` }>
-        <div data-testid={ `${index}-recomendation-title` }>
-          {receita}
-        </div>
-      </div>
-    ));
-  }
-
-  // renderIngredients(ingredientes, medidas) {
-  //   ingredientes.map((ingrediente, index) => {
-  //     if (ingrediente && medidas[index]) {
-  //       return (
-  //         <li data-testid={ `${index}-ingredient-name-and-measure` }>
-  //           {`${ingrediente[1]}-${medidas[index]}`}
-  //         </li>);
-  //     }
-  //     return null;
-  //   });
-  // }
-
   render() {
-    const { recipeDetails, title } = this.props;
+    const { recipeDetails, title, recipes } = this.props;
 
     return (
       recipeDetails[0] ? (
@@ -119,8 +93,8 @@ class RecipeDetails extends React.Component {
               </div>)}
           <div>
             <h4>Recomendadas</h4>
-            <div>
-              {this.recomendedRecipes()}
+            <div className="card-list">
+              <RecomendedCard recipes={ recipes } />
             </div>
           </div>
           <button
