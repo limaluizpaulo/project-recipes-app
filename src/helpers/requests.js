@@ -38,4 +38,19 @@ export async function requestNameDrink(name) {
   return resolve;
 }
 
+export async function requestAllCategory() {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const request = await fetch(url);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestAllDrinkCategory() {
+  // const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007';
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const request = await fetch(url);
+  const resolve = await request.json();
+  return resolve;
+}
+
 export default requestMeal;

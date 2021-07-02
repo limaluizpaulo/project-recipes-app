@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import requestMeal,
-{ requestCategoryMeal, requestNamemeal } from '../../helpers/requests';
+{ requestCategoryMeal, requestNamemeal, requestAllCategory } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Food.css';
 
@@ -32,43 +33,97 @@ function Food() {
     }
   }
 
-  function mapCategory({ meals }) {
+  async function allButton() {
+    const request = await requestAllCategory();
+    setData(request);
+  }
+
+  function mapCategory({ meals, categories }) {
     const magicNumber = 5;
-    return meals
+    const verify = meals || categories;
+    return verify
       .filter((_, index) => index < magicNumber)
-      .map((item, index) => (
-        <button
-          key={ index }
-          name={ item.strCategory }
-          type="button"
-          data-testid={ `${item.strCategory}-category-filter` }
-          onClick={ onClick }
-        >
-          {item.strCategory}
-        </button>
-      ));
+      .map((item, index) => {
+        if (index === 0) {
+          return (
+            <>
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ allButton }
+              >
+                All
+              </button>
+              <button
+                key={ index }
+                name={ item.strCategory }
+                type="button"
+                data-testid={ `${item.strCategory}-category-filter` }
+                onClick={ onClick }
+              >
+                {item.strCategory}
+              </button>
+            </>
+          );
+        } return (
+          <button
+            key={ index }
+            name={ item.strCategory }
+            type="button"
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ onClick }
+          >
+            {item.strCategory}
+          </button>
+        );
+      });
   }
 
   function mapData({ meals }) {
+    console.log(meals);
     const magicNumber = 12;
     return meals
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
         <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ item.strMealThumb }
-            className="card-img-top"
-            alt={ `imagem de ${item}` }
-          />
-          <h5
-            data-testid={ `${index}-card-name` }
-            className="card-title"
-          >
-            {item.strMeal}
-          </h5>
+          <Link to={ `/comidas/${item.idMeal}` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ item.strMealThumb }
+              className="card-img-top"
+              alt={ `imagem de ${item}` }
+            />
+            <h5
+              data-testid={ `${index}-card-name` }
+              className="card-title"
+            >
+              {item.strMeal}
+            </h5>
+          </Link>
         </div>
       ));
+    // if (categories) {
+    //   return categories
+    //     .filter((_, index) => index < magicNumber)
+    //     .map((item, index) => (
+    //       <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
+    //         <Link to={ `/comidas/${item.strMeal}` }>
+    //           <img
+    //             data-testid={ `${index}-card-img` }
+    //             src={ item.strCategoryThumb }
+    //             className="card-img-top"
+    //             alt={ `imagem de ${item}` }
+    //           />
+    //           <h5
+    //             data-testid={ `${index}-card-name` }
+    //             className="card-title"
+    //           >
+    //             {item.strCategory}
+    //           </h5>
+    //         </Link>
+    //       </div>
+    // ));
+    // }
   }
 
   return (
