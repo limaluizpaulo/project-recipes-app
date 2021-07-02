@@ -10,10 +10,6 @@
   width: 100%;
 }
 
-.icon{
-  height: 63px !important;
-}
-
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
