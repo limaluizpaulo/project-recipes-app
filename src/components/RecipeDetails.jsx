@@ -6,6 +6,22 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
 class RecipeDetails extends React.Component {
+  constructor() {
+    super();
+
+    this.recomendedRecipes = this.recomendedRecipes.bind(this);
+  }
+
+  recomendedRecipes() {
+    const { recipeDetails } = this.props;
+    const chaves = Object.entries(recipeDetails[0]);
+    const recomendadas = chaves.filter((key) => (
+      key[0].includes('Alternate')));
+    return recomendadas.map((receita, index) => (
+      <div key={ index } data-testid={ `${index}-recomendation-card` }>{receita}</div>
+    ));
+  }
+
   render() {
     const { recipeDetails, title } = this.props;
 
@@ -81,9 +97,9 @@ class RecipeDetails extends React.Component {
               </div>)}
           <div>
             <h4>Recomendadas</h4>
-            {/* <div data-testid={ `${index}-recomendation-card` }>
-              {recipeDetails[0].strMealsAlternate || recipeDetails[0].strDrinkAlternate}
-            </div> */}
+            <div>
+              {this.recomendedRecipes()}
+            </div>
           </div>
           <button
             type="button"
