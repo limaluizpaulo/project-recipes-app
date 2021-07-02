@@ -6,10 +6,33 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
 class RecipeDetails extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.recomendedRecipes = this.recomendedRecipes.bind(this);
+    // this.renderIngredients = this.renderIngredients.bind(this);
+    this.getIngredients = this.getIngredients.bind(this);
+  }
+
+  getIngredients() {
+    const { recipeDetails } = this.props;
+    if (recipeDetails[0]) {
+      const chaves = Object.entries(recipeDetails[0]);
+      const ingredientes = chaves.filter((key) => (
+        key[0].includes('strIngredient') && (key[1] !== null && key[1] !== '')));
+      const medidas = chaves.filter((key) => (
+        key[0].includes('strMeasure') && (key[1] !== null && key[1] !== ' ')));
+      const apenasMedidas = medidas.map((medida) => medida[1]);
+      return ingredientes.map((ingrediente, index) => {
+        if (ingrediente && apenasMedidas[index]) {
+          return (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${ingrediente[1]}-${apenasMedidas[index]}`}
+            </li>);
+        }
+        return null;
+      });
+    }
   }
 
   recomendedRecipes() {
@@ -18,36 +41,28 @@ class RecipeDetails extends React.Component {
     const recomendadas = chaves.filter((key) => (
       key[0].includes('Alternate')));
     return recomendadas.map((receita, index) => (
-      <div key={ index } data-testid={ `${index}-recomendation-card` }>{receita}</div>
+      <div key={ index } data-testid={ `${index}-recomendation-card` }>
+        <div data-testid={ `${index}-recomendation-title` }>
+          {receita}
+        </div>
+      </div>
     ));
   }
 
+  // renderIngredients(ingredientes, medidas) {
+  //   ingredientes.map((ingrediente, index) => {
+  //     if (ingrediente && medidas[index]) {
+  //       return (
+  //         <li data-testid={ `${index}-ingredient-name-and-measure` }>
+  //           {`${ingrediente[1]}-${medidas[index]}`}
+  //         </li>);
+  //     }
+  //     return null;
+  //   });
+  // }
+
   render() {
     const { recipeDetails, title } = this.props;
-
-    const renderIngredients = (ingredientes, medidas) => (
-      ingredientes.map((ingrediente, index) => {
-        if (ingrediente && medidas[index]) {
-          return (
-            <li data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingrediente[1]}-${medidas[index]}`}
-            </li>);
-        }
-        return null;
-      })
-    );
-
-    const getIngredients = () => {
-      if (recipeDetails[0]) {
-        const chaves = Object.entries(recipeDetails[0]);
-        const ingredientes = chaves.filter((key) => (
-          key[0].includes('strIngredient') && (key[1] !== null && key[1] !== '')));
-        const medidas = chaves.filter((key) => (
-          key[0].includes('strMeasure') && (key[1] !== null && key[1] !== ' ')));
-        const apenasMedidas = medidas.map((medida) => medida[1]);
-        return renderIngredients(ingredientes, apenasMedidas);
-      }
-    };
 
     return (
       recipeDetails[0] ? (
@@ -62,6 +77,11 @@ class RecipeDetails extends React.Component {
             <h1 data-testid="recipe-title">
               { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
             </h1>
+            <div>
+              <span data-testid="recipe-category">
+                { recipeDetails[0].strAlcoholic }
+              </span>
+            </div>
             <button
               data-testid="share-btn"
               type="button"
@@ -74,11 +94,13 @@ class RecipeDetails extends React.Component {
             >
               <img src={ favoriteIcon } alt="favoriteIcon" />
             </button>
-            <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
+            <div>
+              <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
+            </div>
           </div>
           <div>
             <h4>Ingredientes</h4>
-            {getIngredients()}
+            {this.getIngredients()}
             <ul />
           </div>
           <div>
