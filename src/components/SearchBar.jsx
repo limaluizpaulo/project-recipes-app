@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 import Context from '../context/Context';
 
-export default function SearchBar() {
+export default function SearchBar({ url }) {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
-  const { findByFilter } = useContext(Context);
+  const { findMealsByFilter, findCocktailsByFilter } = useContext(Context);
 
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {
@@ -20,6 +21,20 @@ export default function SearchBar() {
       return 1;
     }
     return NUMBER;
+  };
+
+  const filterByType = (filt) => {
+    if (url === '/comidas') {
+      findMealsByFilter(filt);
+    }
+    if (url === '/bebidas') {
+      findCocktailsByFilter(filt);
+    }
+  };
+
+  const alertChar = () => {
+    const newAlert = 'Sua busca deve conter somente 1 (um) caracter';
+    alert(newAlert);
   };
 
   return (
@@ -61,7 +76,7 @@ export default function SearchBar() {
             label="Primeira Letra"
             name="filter"
             value="firstLetter"
-            onClick={ () => alert('Sua busca deve conter somente 1 (um) caracter') }
+            onClick={ () => alertChar() }
           />
         </Col>
       </Form.Group>
@@ -70,7 +85,7 @@ export default function SearchBar() {
           <Button
             data-testid="exec-search-btn"
             type="button"
-            onClick={ () => findByFilter(filter) }
+            onClick={ () => filterByType(filter) }
           >
             Pesquisar
           </Button>
@@ -79,3 +94,7 @@ export default function SearchBar() {
     </Container>
   );
 }
+
+SearchBar.propTypes = {
+  url: PropTypes.string.isRequired,
+};

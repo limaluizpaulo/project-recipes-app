@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
-import ContextBebidas from '../context/ContextBebidas';
+import PropTypes from 'prop-types';
+import Context from '../context/Context';
 
 import Header from '../components/Header';
-import SearchBarCocktail from '../components/SearchBarCocktail';
+import SearchBar from '../components/SearchBar';
 import CocktailList from '../components/CocktailList';
 
-export default function Bebidas() {
-  const { openSearchBarCocktail } = useContext(ContextBebidas);
+export default function Bebidas({ match: { url } }) {
+  const { openSearchBar } = useContext(Context);
 
   return (
     <div>
       <Header title="Bebidas" searchIcon />
-      { openSearchBarCocktail ? <SearchBarCocktail /> : null }
+      { openSearchBar ? <SearchBar url={ url } /> : null }
       <CocktailList />
     </div>
   );
 }
+
+Bebidas.propTypes = {
+  match: PropTypes.shape().isRequired,
+};
