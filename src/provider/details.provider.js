@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import DetailsContext from '../context/details.context';
 
 function DetailsProvider({ children }) {
-  const [detailsFavoriteDrinks, setDetailsFavoriteDrinks] = useState([]);
-  const [detailsFavoriteMeals, setDetailsFavoriteMeals] = useState([]);
+  const [details, setDetails] = useState([]);
 
   const shared = {
-    detailsFavoriteDrinks,
-    setDetailsFavoriteDrinks,
-    detailsFavoriteMeals,
-    setDetailsFavoriteMeals,
+    details,
+    setDetails,
   };
 
   return (

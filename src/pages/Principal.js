@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import CategoryButtons from '../../components/CategoryButtons';
-import RecipesList from '../../components/RecipesList';
-import Footer from '../../components/Footer';
+import Header from '../components/Header';
+import CategoryButtons from '../components/CategoryButtons';
+import RecipesList from '../components/RecipesList';
+import Footer from '../components/Footer';
 
 function PrincipalBebidas() {
   const history = useHistory();
