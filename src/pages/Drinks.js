@@ -1,18 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
 import Footer from '../components/Footer';
 
 const Drinks = () => {
-  const { recipes: { drinks = [] } } = useContext(GlobalContext);
-  const [defaultDrinks, setDefaultDrinks] = useState([]);
-
-  useEffect(() => {
-    const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    fetch(URL)
-      .then((res) => res.json())
-      .then(({ drinks: data }) => setDefaultDrinks(data));
-  }, []);
+  const { drinks: defaultDrinks, recipes: { drinks = [] } } = useContext(GlobalContext);
+  // const [defaultDrinks, setDefaultDrinks] = useState([]);
 
   const renderCard = () => {
     const magic = 12;
