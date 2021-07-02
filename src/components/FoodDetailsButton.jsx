@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getFromLocalStorage } from '../services/helpers/localStorage';
 import useCheckFoodStatus from '../hooks/useCheckFoodStatus';
 
-const FoodDetailsButton = ({ recipeId, location }) => {
+const FoodDetailsButton = ({ recipeId, history }) => {
+  const params = history.location.pathname.split('/');
+  params.shift();
+  const [location] = params;
   const { isDone, isInProgress } = useCheckFoodStatus(recipeId, location);
-  console.log(isDone, isInProgress);
+  const handleRedirect = () => {
+    history.push(`${recipeId}/in-progress`);
+  };
   if (isDone) return '';
   return (
     <button
       className="foodDetails__startBtn"
       type="button"
       data-testid="start-recipe-btn"
+      onClick={ handleRedirect }
     >
       {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
@@ -21,7 +26,7 @@ const FoodDetailsButton = ({ recipeId, location }) => {
 export default FoodDetailsButton;
 
 FoodDetailsButton.propTypes = {
+  history: PropTypes.shape().isRequired,
   recipeId: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
 
 };

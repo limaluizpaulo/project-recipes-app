@@ -9,6 +9,7 @@ import Explore from './pages/Explore';
 import Profile from './pages/Profile';
 import ExploreFoods from './pages/ExploreFoods';
 import FoodIngredients from './pages/FoodIngredients';
+import FoodInProgress from './pages/FoodInProgress';
 import ExploreDrinks from './pages/ExploreDrinks';
 import FoodArea from './pages/FoodArea';
 import DoneRecipes from './pages/DoneRecipes';
@@ -48,17 +49,27 @@ function App() {
         component={ ExploreDrinks }
       />
       <Route
+        exact
+        path="/bebidas/:recipeId/in-progress"
+        component={ FoodInProgress }
+      />
+      <Route
+        exact
+        path="/comidas/:recipeId/in-progress"
+        component={ FoodInProgress }
+      />
+      <Route
         path="/bebidas/:recipeId"
+        component={ FoodIngredients }
+      />
+      <Route
+        path="/comidas/:recipeId"
         component={ FoodIngredients }
       />
       <Route
         exact
         path="/explorar/comidas/area"
         component={ FoodArea }
-      />
-      <Route
-        path="/comidas/:recipeId"
-        component={ FoodIngredients }
       />
       <Route
         path="/receitas-feitas"

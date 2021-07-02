@@ -50,7 +50,7 @@ export default function FoodIngredients({ history, match }) {
         </FoodDetails>
         <FoodVideoAndRecomendation />
         <FoodDetailsButton
-          location={ location }
+          history={ history }
           recipeId={ recipeId }
         />
       </section>
