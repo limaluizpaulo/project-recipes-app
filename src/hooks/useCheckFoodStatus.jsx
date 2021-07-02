@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { getFromLocalStorage } from '../services/helpers/localStorage';
 
-const useCheckFoodStatus = ({ doneRecipes, inProgressRecipes }, recipeId, location) => {
-  const [isDone, setIsDone] = useState(false)
-  const [isInProgress, setIsDone] = useState(false)
+const useCheckFoodStatus = (recipeId, location) => {
+  const [isDone, setIsDone] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
+
+  const doneRecipes = getFromLocalStorage('doneRecipes');
+  const inProgressRecipes = getFromLocalStorage('inProgressRecipes');
+
   let type = 'meals';
   if (location === 'bebidas') type = 'cocktails';
-  const progressmeals = inProgressRecipes && inProgressRecipes[type] && Object.keys(inProgressRecipes[type]);
-  const status = {
-    isDone: false,
-    isInProgress: false,
+
+  useEffect(() => {
+    const doneStatus = doneRecipes
+    && doneRecipes.find((recipe) => recipe.id === recipeId);
+    if (doneStatus) setIsDone(true);
+
+    const progressmeals = inProgressRecipes
+     && inProgressRecipes[type] && Object.keys(inProgressRecipes[type]);
+    const inProgressStatus = progressmeals && progressmeals.find((id) => id === recipeId);
+    if (inProgressStatus) setIsInProgress(true);
+  });
+
+  return {
+    isDone,
+    isInProgress,
   };
-  const doneStatus = doneRecipes && doneRecipes.find((recipe) => recipe.id === recipeId);
-  if (doneStatus) status.isDone = true;
-  const inProgressStatus = progressmeals && progressmeals.find((id) => id === recipeId);
-  if (inProgressStatus) status.isInProgress = true;
-  return status;
 };
 
 export default useCheckFoodStatus;

@@ -4,9 +4,7 @@ import { getFromLocalStorage } from '../services/helpers/localStorage';
 import useCheckFoodStatus from '../hooks/useCheckFoodStatus';
 
 const FoodDetailsButton = ({ recipeId, location }) => {
-  const doneRecipes = getFromLocalStorage('doneRecipes');
-  const inProgressRecipes = getFromLocalStorage('inProgressRecipes');
-  const { isDone, isInProgress } = useCheckFoodStatus({ doneRecipes, inProgressRecipes }, recipeId, location);
+  const { isDone, isInProgress } = useCheckFoodStatus(recipeId, location);
   console.log(isDone, isInProgress);
   if (isDone) return '';
   return (
