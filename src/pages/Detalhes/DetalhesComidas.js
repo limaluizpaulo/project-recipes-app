@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients.js';
-// import Recommendation from './Recommendations';
 
 //  Fonte do método substring(): https://www.devmedia.com.br/javascript-substring-selecionando-parte-de-uma-string/39232#:~:text=O%20m%C3%A9todo%20substring()%20retorna,%22%3B%20var%20resultado%20%3D%20stringExemplo.
 

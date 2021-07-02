@@ -20,6 +20,7 @@ useEffect(() => {
     const resolveRecomm = await requestMeal();
     setData(resolve);
     setRecomm(resolveRecomm);
+    console.log(resolveRecomm);
     setLoading(false);
   }());
 }, []);
@@ -48,9 +49,15 @@ function mapRecomm(param) {
   const magicNumber = 6;
   return meals
     .filter((_, index) => index < magicNumber)
-    .map((item, index) => (
-      <div key={ index } data-testid={`${index}-recomendation-card`}>
+    .map((item, index) => {
+      if (index === 0) {
+        return(
+      <div
+      class="carousel-item active"
+      key={ index }
+      data-testid={`${index}-recomendation-card`}>
         <img
+          class="d-block w-100"
           data-testid={ `${index}-card-img` }
           src={ item.strMealThumb }
           alt={ `imagem de ${item}` }
@@ -58,7 +65,25 @@ function mapRecomm(param) {
         />
         <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
       </div>
-    ));
+      )  
+      } else {
+        return(
+      <div
+      class="carousel-item"
+      key={ index }
+      data-testid={`${index}-recomendation-card`}>
+        <img
+          class="d-block w-100"
+          data-testid={ `${index}-card-img` }
+          src={ item.strMealThumb }
+          alt={ `imagem de ${item}` }
+          id={item.idMeal}
+        />
+        <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
+      </div>
+      )
+      }
+    });
 }
 
 function mapData(param) {
@@ -83,9 +108,29 @@ function mapData(param) {
               Instruções de preparo:
               <p data-testid="instructions">{item.strInstructions}</p>
             </label>
-            <label>
-              Recomendações:
-              {mapRecomm(recomm)}
+              <label>
+                Recomendações:                  
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    {mapRecomm(recomm)}
+                  </div>
+                  <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControls" data-bs-slide="prev"
+                  >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControls" data-bs-slide="next"
+                  >
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
             </label>
             <button data-testid="start-recipe-btn">Iniciar Receita</button>
           </>
