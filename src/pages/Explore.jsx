@@ -4,12 +4,14 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import '../styles/Explore.css';
+
 function Explore() {
   const history = useHistory();
   return (
-    <Container>
+    <Container className="content">
       <Header profile name="Explorar" />
-      <Container>
+      <Container className="buttons">
         <Container>
           <Button
             data-testid="explore-food"

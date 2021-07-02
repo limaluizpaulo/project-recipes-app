@@ -1,0 +1,9 @@
+.buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  justify-content: center;
+  margin: 50px;
+  text-align: center;
+}
