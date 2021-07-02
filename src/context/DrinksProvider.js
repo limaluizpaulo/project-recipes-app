@@ -13,7 +13,7 @@ function DrinksProvider({ children }) {
   const [allDrinks, setAllDrinks] = useState({ drinks: [] });
   const [allCategories, setAllCategories] = useState({ categories: [] });
   const [drinksFilteredByCategory,
-    setDrinksFilteredByCategory] = useState({ drinksByCategory: null });
+    setDrinksFilteredByCategory] = useState({ drinksByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
 
