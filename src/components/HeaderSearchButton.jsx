@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
 
@@ -20,3 +21,7 @@ function HeaderSearchButton({ baseEndPoint }) {
 }
 
 export default HeaderSearchButton;
+
+HeaderSearchButton.propTypes = {
+  baseEndPoint: PropTypes.string.isRequired,
+};

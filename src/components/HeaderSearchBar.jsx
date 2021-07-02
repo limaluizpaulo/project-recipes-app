@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../context/Context';
 import fetchAPI from '../services/fetchAPI';
 
@@ -83,3 +84,7 @@ function HeaderSearchBar({ baseEndPoint }) {
 }
 
 export default HeaderSearchBar;
+
+HeaderSearchBar.propTypes = {
+  baseEndPoint: PropTypes.string.isRequired,
+};
