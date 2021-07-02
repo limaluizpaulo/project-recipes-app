@@ -8,6 +8,8 @@ const BASE_URL_FILTER_CTGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/fil
 const BASE_URL_FILTER_CTGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 const BASE_URL_DETAIL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const BASE_URL_DETAIL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const BASE_URL_RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const BASE_URL_RANDOM_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 export async function recipesListApi(pathname) {
   let fetchSearch;
@@ -120,4 +122,20 @@ export async function detailRecipeMeal(id) {
   const fetchSearch = await fetch(`${BASE_URL_DETAIL_MEAL}${id}`);
   const response = await fetchSearch.json();
   return response.meals;
+}
+
+export async function randomRecipe(pathname) {
+  let fetchSearch;
+  if (pathname.match(/comidas/)) {
+    fetchSearch = await fetch(BASE_URL_RANDOM_MEAL);
+    const response = await fetchSearch.json();
+    console.log(`MEAL${response.meals[0].idMeal}`);
+    return response.meals[0].idMeal;
+  }
+  if (pathname.match(/bebidas/)) {
+    fetchSearch = await fetch(BASE_URL_RANDOM_DRINKS);
+    const response = await fetchSearch.json();
+    console.log(`DRINK${response.drinks[0].idDrink}`);
+    return response.drinks[0].idDrink;
+  }
 }
