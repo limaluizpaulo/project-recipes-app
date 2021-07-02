@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getMealDetails, getDrinkDetails } from '../services';
-
-import { RecDrinks, RecFoods, MealClip, IngList, FavoriteBtn, ShareBtn } from '../components';
+import { checkDoneRecipes, checkProgress } from '../services/localStorageManager';
+import './FoodDetails.css';
+import {
+  RecDrinks,
+  RecFoods,
+  MealClip,
+  IngList,
+  FavoriteBtn,
+  ShareBtn } from '../components';
 
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
@@ -11,18 +18,23 @@ function FoodDetails({ match, history }) {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [measures, setMeasure] = useState([]);
   const [wasCopied, setWasCopied] = useState(false);
+  const [isStarted, setIsStarted] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState(true);
 
   useEffect(() => {
     const fetchDetails = async () => {
       if (pathname.includes('/comida')) {
         const meal = await getMealDetails(id);
         setDetails(meal);
+        setIsStarted(checkProgress(id, 'meals'));
       } else {
         const drink = await getDrinkDetails(id);
         setDetails(drink);
+        setIsStarted(checkProgress(id, 'cocktails'));
       }
     };
     fetchDetails();
+    setDoneRecipe(checkDoneRecipes());
   }, [pathname, id]);
 
   useEffect(() => {
@@ -59,6 +71,8 @@ function FoodDetails({ match, history }) {
     strMealThumb,
     strDrinkThumb } = details[0];
 
+    console.log(isStarted)
+
   return (
     <>
       <img
@@ -87,12 +101,19 @@ function FoodDetails({ match, history }) {
             : <RecFoods id={ id } />
         }
       </div>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      { !doneRecipe && (
+        <button
+          className="start-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+          // onClick={ () =>  }
+        >
+          {
+            isStarted
+              ? 'Continuar Receita'
+              : 'Iniciar Receita'
+          }
+        </button>) }
     </>
   );
 }
