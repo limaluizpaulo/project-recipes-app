@@ -22,9 +22,11 @@ const Foods = () => {
       const recipes = meals.length ? meals : defaultMeals;
       const newRecipes = recipes.filter((_, idx) => idx < magic);
       return newRecipes.map(({ strMealThumb, strMeal }, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <div key={ index } className="cards" data-testid={ `${index}-recipe-card` }>
           <img data-testid={ `${index}-card-img` } src={ strMealThumb } alt={ strMeal } />
-          <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+          <div className="container">
+            <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+          </div>
         </div>
       ));
     }
@@ -34,7 +36,9 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" search food />
-      {renderCard().length && renderCard()}
+      <div className="grade">
+        {renderCard().length && renderCard()}
+      </div>
       <Footer />
     </div>
   );
