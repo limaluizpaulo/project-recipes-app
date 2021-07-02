@@ -51,7 +51,7 @@ export default function FoodIngredients({ history, match }) {
         <FoodVideoAndRecomendation />
         <FoodDetailsButton
           history={ history }
-          recipeId={ recipeId }
+          urlId={ recipeId }
         />
       </section>
       <Footer />

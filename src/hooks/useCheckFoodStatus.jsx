@@ -18,10 +18,10 @@ const useCheckFoodStatus = (recipeId, location) => {
 
     const progressmeals = inProgressRecipes
      && inProgressRecipes[type] && Object.keys(inProgressRecipes[type]);
-    console.log(Object.keys(inProgressRecipes[type]));
+
     const inProgressStatus = progressmeals && progressmeals.find((id) => id === recipeId);
     if (inProgressStatus) setIsInProgress(true);
-  }, []);
+  }, [doneRecipes, inProgressRecipes, recipeId, type]);
 
   return {
     isDone,
