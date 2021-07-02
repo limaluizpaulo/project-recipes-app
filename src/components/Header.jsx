@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import InputSearch from './Header/InputSearch';
+import Search from './Search';
 
 export default function Header({ history, title }) {
   const [searchInput, toggleSearch] = useState();
@@ -40,7 +40,7 @@ export default function Header({ history, title }) {
         { isHeaderPresent() }
         { searchInput && (
           (
-            <InputSearch />
+            <Search />
           )
         )}
       </div>

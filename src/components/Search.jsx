@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import RecipeContext from '../../context/Context';
-import messageAlert from '../../services/helpers/alertMessage';
+import RecipeContext from '../context/Context';
+import messageAlert from '../services/helpers/alertMessage';
 
 function InputSearch() {
   const [valueRadioButton, setValueRadioButton] = useState('');
