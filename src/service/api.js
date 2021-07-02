@@ -12,6 +12,8 @@ const BASE_URL_RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php
 const BASE_URL_RANDOM_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const BASE_URL_MEAL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const BASE_URL_DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const BASE_URL_SEARCH_AREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const MAX_NUMBER_OF_ITEMS = 12;
 
 export async function recipesListApi(pathname) {
   let fetchSearch;
@@ -141,7 +143,6 @@ export async function randomRecipe(pathname) {
 }
 
 export async function searchIngredients(pathname) {
-  const MAX_NUMBER_OF_ITEMS = 12;
   let fetchSearch;
   if (pathname.match(/comidas/)) {
     fetchSearch = await fetch(BASE_URL_MEAL_INGREDIENTS);
@@ -163,4 +164,10 @@ export async function searchIngredients(pathname) {
     });
     return ingredientsImages;
   }
+}
+
+export async function searchAreas() {
+  const fetchSearch = await fetch(BASE_URL_SEARCH_AREA);
+  const response = await fetchSearch.json();
+  return response.meals;
 }

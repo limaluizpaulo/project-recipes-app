@@ -11,6 +11,7 @@ import {
   categoriesListApi,
   filterCategoryApi,
   searchIngredients,
+  searchAreas,
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
@@ -27,6 +28,7 @@ export default function RecipeProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [areas, setAreas] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
   const [searchIngredient, setSearchIngredient] = useState('');
@@ -73,6 +75,7 @@ export default function RecipeProvider({ children }) {
     }
   }, [selectedCategory, toggleBtnCategories]);
 
+  // search ingredients
   useEffect(() => {
     const getIngredients = async () => {
       setIngredients(await searchIngredients(pathname));
@@ -80,6 +83,15 @@ export default function RecipeProvider({ children }) {
     getIngredients();
   }, [pathname]);
 
+  // search areas
+  useEffect(() => {
+    const getAreas = async () => {
+      setAreas(await searchAreas());
+    };
+    getAreas();
+  }, []);
+
+  // render recipes filtered by ingredients
   useEffect(() => {
     const searchByIngredients = async () => {
       const returnIngredients = await
@@ -147,10 +159,12 @@ export default function RecipeProvider({ children }) {
   return (
     <RecipeContext.Provider
       value={ {
+        areas,
         showSearch,
         setShowSearch,
         setCheckedRadio,
         setInputValue,
+        setRecipes,
         setRedirectSearchBar,
         setRouteFromSearch,
         routeFromSearch,
