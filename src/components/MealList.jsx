@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
-import Meal from './Meal';
+// import Meal from './Meal';
+import ItemCard from './ItemCard';
 
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
   const { mealsRecipes } = useContext(Context);
-  console.log(mealsRecipes);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -27,16 +27,16 @@ export default function MealList() {
 
     if (mealsRecipes && mealsRecipes.length > 1) {
       const NUMBER = 12;
-      return mealsRecipes.map((meal, index) => {
+      return mealsRecipes.map((item, index) => {
         if (index < NUMBER) {
-          return (<Meal key={ index } meal={ meal } index={ index } />);
+          return (<ItemCard key={ index } item={ item } i={ index } />);
         }
         return null;
       });
     }
 
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return null;
-    // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   return (

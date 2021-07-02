@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
-import ContextBebidas from '../context/ContextBebidas';
-import Cocktail from './Cocktail';
+import Context from '../context/Context';
+// import Meal from './Meal';
+import ItemCard from './ItemCard';
 
 export default function CocktailList() {
-  const [showCocktail, setShowCocktail] = useState(false);
-  const { cocktailRecipes } = useContext(ContextBebidas);
+  const [showCocktails, setShowCocktails] = useState(false);
+  const { cocktailsRecipes } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -14,30 +15,33 @@ export default function CocktailList() {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      setShowCocktail(true);
+      setShowCocktails(true);
     }
-  }, [cocktailRecipes]);
+  }, [cocktailsRecipes]);
 
   const renderCards = () => {
-    if (cocktailRecipes && cocktailRecipes.length === 1) {
-      return history.push(`/bebidas/${cocktailRecipes[0].idDrink}`);
+    if (cocktailsRecipes && cocktailsRecipes.length === 1) {
+      console.log('3');
+      return history.push(`/bebidas/${cocktailsRecipes[0].idDrink} `);
     }
 
-    if (cocktailRecipes && cocktailRecipes.length > 1) {
+    if (cocktailsRecipes && cocktailsRecipes.length > 1) {
       const NUMBER = 12;
-      return cocktailRecipes.map((drink, index) => {
+      return cocktailsRecipes.map((item, index) => {
         if (index < NUMBER) {
-          return (<Cocktail key={ index } drink={ drink } index={ index } />);
+          return (<ItemCard key={ index } item={ item } i={ index } />);
         }
         return null;
       });
     }
-    return null; // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    return null;
   };
 
   return (
     <Container>
-      { showCocktail ? renderCards() : <Spinner animation="border" /> }
+      { showCocktails ? renderCards() : <Spinner animation="border" /> }
     </Container>
   );
 }

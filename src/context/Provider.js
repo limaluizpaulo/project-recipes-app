@@ -1,35 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
-import { fetchMealApi, fetchMealRecomendation } from '../apis/MealsApis';
+import { fetchMealsApi, fetchMealsRecomendation } from '../apis/MealsApis';
+import { fetchCocktailsApi, fetchCocktailsRecomendation } from '../apis/CocktailsApis';
 
 export default function Provider({ children }) {
   const [openSearchBar, setOpenSearchBar] = useState(false);
   const [mealsRecipes, setMealsRecipes] = useState([]);
+  const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
 
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
   };
 
-  const findByFilter = async (filter) => {
-    const apiMeals = await fetchMealApi(filter);
+  const findCocktailsByFilter = async (filter) => {
+    const apiCocktails = await fetchCocktailsApi(filter);
+    setCocktailsRecipes(apiCocktails);
+  };
+
+  const resquestCocktailsApi = async () => {
+    const apiCocktails = await fetchCocktailsRecomendation();
+    setCocktailsRecipes(apiCocktails);
+  };
+
+  const findMealsByFilter = async (filter) => {
+    const apiMeals = await fetchMealsApi(filter);
     setMealsRecipes(apiMeals);
   };
 
-  const resquestApi = async () => {
-    const apiMeals = await fetchMealRecomendation();
+  const resquestMealsApi = async () => {
+    const apiMeals = await fetchMealsRecomendation();
     setMealsRecipes(apiMeals);
   };
 
   useEffect(() => {
-    resquestApi();
+    resquestCocktailsApi();
+    resquestMealsApi();
   }, []);
 
   const context = {
     openSearchBar,
     handleSearchBar,
-    findByFilter,
+    findMealsByFilter,
     mealsRecipes,
+    findCocktailsByFilter,
+    cocktailsRecipes,
   };
   return (
     <Context.Provider value={ context }>

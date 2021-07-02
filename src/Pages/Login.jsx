@@ -37,8 +37,7 @@ export default function Login() {
     localStorage.setItem('doneRecipes', JSON.stringify([{}]));
     localStorage.setItem('favoriteRecipes', JSON.stringify([{}]));
     localStorage.setItem('inProgressRecipes', JSON.stringify({}));
-    // history.push('/comidas');
-    history.push('/bebidas');
+    history.push('/comidas');
   };
 
   const disabledButton = validLoginEmail() && validLoginPassword();

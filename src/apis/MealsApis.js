@@ -1,4 +1,4 @@
-export async function fetchMealApi({ searchText, filter }) {
+export async function fetchMealsApi({ searchText, filter }) {
   if (filter === 'ingredient') {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`);
     const { meals } = await request.json();
@@ -16,7 +16,7 @@ export async function fetchMealApi({ searchText, filter }) {
   }
 }
 
-export async function fetchMealRecomendation() {
+export async function fetchMealsRecomendation() {
   const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const { meals } = await request.json();
   return meals;
