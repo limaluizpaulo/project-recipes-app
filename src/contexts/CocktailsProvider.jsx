@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import CocktailsContext from './CocktailsContext';
+import CocktailsContext from './RecipesContext';
 import {
   getCocktailsCategories,
   getCocktailsIngredients,

@@ -4,16 +4,13 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import MealsProvider from './contexts/MealsProvider';
-import CocktailsProvider from './contexts/CocktailsProvider';
+import RecipesProvider from './contexts/RecipesProvider';
 
 ReactDOM.render(
   <BrowserRouter>
-    <MealsProvider>
-      <CocktailsProvider>
-        <App />
-      </CocktailsProvider>
-    </MealsProvider>
+    <RecipesProvider>
+      <App />
+    </RecipesProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

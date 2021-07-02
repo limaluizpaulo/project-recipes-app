@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import MealsContext from './MealsContext';
+import { useLocation } from 'react-router-dom';
+import RecipesContext from './RecipesContext';
 import {
   getMealsRecipes,
   // getMealsCategories,
@@ -9,9 +11,11 @@ import {
   getMealsNameFilter,
   getMealsFirstLetterFilter,
 } from '../helpers/MealsAPI';
+import { getCocktailsRecipes } from '../helpers/CocktailsAPI';
 
-function MealsProvider({ children }) {
-  const [meals, setMeals] = useState([]);
+function RecipesProvider({ children }) {
+  const [data, setData] = useState([]);
+  const [type, setType] = useState('meal');
   // const [mealsCategories, setMealsCategories] = useState([]);
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -19,11 +23,32 @@ function MealsProvider({ children }) {
 
   const maxCards = 12;
 
+  const mustUpdateType = (strType, strPath, pathname) => (
+    type !== strType && pathname.includes(strPath)
+  );
+
+  const { pathname } = useLocation();
+  if (mustUpdateType('meal', 'comidas', pathname)) {
+    setType('meal');
+  }
+  if (mustUpdateType('drink', 'bebidas', pathname)) {
+    setType('drink');
+  }
+
   useEffect(() => {
     const recipes = async () => {
       setIsFetching(true);
-      const results = await getMealsRecipes();
-      setMeals(results.filter((item, index) => index < maxCards)); //  refatorar
+
+      const results = (type === 'meal')
+        ? await getMealsRecipes() : await getCocktailsRecipes();
+      /*
+      results.reduce((acc, item) => {
+        if (acc.length < maxCards) {
+          acc.push(item);
+        }
+        return acc;
+      }, []); */
+      setData(results.filter((item, index) => index < maxCards)); //  refatorar para stopar ao atingir o maxCards
       setIsFetching(false);
     };
 
@@ -59,26 +84,29 @@ function MealsProvider({ children }) {
       }
     };
     filterApi();
-    setMeals(filterHeader);
+    setData(filterHeader);
   }, [filterHeader]);
 
   const context = {
     // mealsCategories,
     isFetching,
     // mealsIngredients,
-    meals,
+    data,
+    type,
+    setType,
     setFilterHeader,
   };
 
   return (
-    <MealsContext.Provider value={ context }>
+    <RecipesContext.Provider value={ context }>
+      {console.log(pathname)}
       {children}
-    </MealsContext.Provider>
+    </RecipesContext.Provider>
   );
 }
 
-MealsProvider.propTypes = {
+RecipesProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default MealsProvider;
+export default RecipesProvider;
