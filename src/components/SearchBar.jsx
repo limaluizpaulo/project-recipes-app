@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import DrinksContext from '../context/DrinksContext';
