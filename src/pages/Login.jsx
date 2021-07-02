@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Button, Form } from 'react-bootstrap';
 import LoginContext from '../context/LoginContext';
 
 function Login() {
@@ -31,7 +32,7 @@ function Login() {
   return (
     <section>
       <h1>Login</h1>
-      <form onSubmit={ handleSumit }>
+      <Form onSubmit={ handleSumit }>
         <input
           // className="form-control"
           value={ email }
@@ -59,7 +60,7 @@ function Login() {
         >
           Entrar
         </button>
-      </form>
+      </Form>
     </section>
   );
 }

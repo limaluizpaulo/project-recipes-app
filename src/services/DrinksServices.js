@@ -40,8 +40,10 @@ export async function fetchCategoriesDrinks() {
 }
 
 export async function fetchDrinksByCategory(category) {
-  const request = await fetch(`${API_URL_DRINKS_BY_CATEGORY}${category}`);
-  const response = await request.json();
-  const { drinks } = response;
-  return drinks;
+  if (category !== 'All') {
+    const request = await fetch(`${API_URL_DRINKS_BY_CATEGORY}${category}`);
+    const response = await request.json();
+    const { drinks } = response;
+    return drinks;
+  }
 }
