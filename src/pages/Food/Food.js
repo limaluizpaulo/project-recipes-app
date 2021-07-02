@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { requestMeal } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
-import { useHistory } from "react-router-dom";
 import './Food.css';
 
 function Food() {
@@ -28,8 +28,8 @@ function Food() {
             data-testid={ `${index}-card-img` }
             src={ item.strMealThumb }
             alt={ `imagem de ${item}` }
-            onClick={() => history.push(`/comidas/${item.idMeal}`)}
-            id={item.idMeal}
+            onClick={ () => history.push(`/comidas/${item.idMeal}`) }
+            id={ item.idMeal }
           />
           <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
         </div>

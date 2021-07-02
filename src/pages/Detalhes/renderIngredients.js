@@ -1,7 +1,6 @@
 import React from 'react';
 
 function renderIngredients(meal) {
-
   const ingredients = [
     meal.strIngredient1,
     meal.strIngredient2,
@@ -23,7 +22,7 @@ function renderIngredients(meal) {
     meal.strIngredient18,
     meal.strIngredient19,
     meal.strIngredient20,
-  ]
+  ];
 
   const measures = [
     meal.strMeasure1,
@@ -46,15 +45,22 @@ function renderIngredients(meal) {
     meal.strMeasure18,
     meal.strMeasure19,
     meal.strMeasure20,
-  ]
+  ];
 
   return (
     ingredients.map((item, index) => {
-        if(item && measures[index]) {
-          return <li data-testid={`${index}-ingredient-name-and-measure`}>{ `${item}-${measures[index]}` }</li>
-        }
-      })
-  )
+      if (item && measures[index]) {
+        return (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            { `${item}-${measures[index]}` }
+          </li>
+        );
+      }
+      return null;
+    })
+  );
 }
 
 export default renderIngredients;
