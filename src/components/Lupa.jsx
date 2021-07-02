@@ -12,7 +12,7 @@ import {
 import RecipesContext from '../Context/RecipesContext';
 
 function Lupa() {
-  const { setResponseApiLupa,
+  const { setResponseApiLupaMeal,
     setResponseApiLupaDrink } = useContext(RecipesContext);
   const [valuesSearch, setValuesSearch] = useState({});
   const { pathname } = useLocation();
@@ -21,6 +21,8 @@ function Lupa() {
     const valueFiltered = (type === 'checkbox' ? checked : value);
     setValuesSearch({ ...valuesSearch, [name]: valueFiltered });
   };
+
+  const alertMoreTwo = () => alert('Sua busca deve conter somente 1 (um) caracter');
 
   const getApi = () => {
     const input = valuesSearch.search;
@@ -32,24 +34,24 @@ function Lupa() {
       }
 
       return fetchIngredientesMeal(input)
-        .then((result) => setResponseApiLupa(result));
+        .then((result) => setResponseApiLupaMeal(result));
     case 'Nome':
       if (pathname === '/bebidas') {
         return fetchNomeDrinks(input)
           .then((result) => setResponseApiLupaDrink(result));
       }
 
-      return fetchNomeMeal(input).then((result) => setResponseApiLupa(result));
+      return fetchNomeMeal(input).then((result) => setResponseApiLupaMeal(result));
     case 'Primeira letra':
       if (pathname === '/bebidas') {
         return (input.length !== 1)
-          ? alert('Sua busca deve conter somente 1 (um) caracter')
+          ? alertMoreTwo()
           : fetchFirstLetterDrinks(input)
             .then((result) => setResponseApiLupaDrink(result));
       }
 
-      return (input.length !== 1) ? alert('Sua busca deve conter somente 1 (um) caracter')
-        : fetchFirstLetterMeal(input).then((result) => setResponseApiLupa(result));
+      return (input.length !== 1) ? alertMoreTwo()
+        : fetchFirstLetterMeal(input).then((result) => setResponseApiLupaMeal(result));
     default:
       break;
     }
