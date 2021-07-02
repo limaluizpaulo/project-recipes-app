@@ -7,20 +7,21 @@ export default function CardMeal() {
   let arrayMeal = responseApiLupaMeal;
   const twelve = 12;
   if (responseApiLupaMeal.length > twelve) {
-    arrayMeal = responseApiLupaMeal.filter((_e, index) => index <= twelve);
+    arrayMeal = responseApiLupaMeal.filter((_e, index) => index < twelve);
   }
+
   return (
     <main>
       <ul>
-        {arrayMeal.map(({ idMeal, strMeal, strMealThumb }) => (
-          <li key={ idMeal } data-testid={ `${idMeal}-recipe-card` }>
+        {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
+          <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
             <img
               width="80px"
               src={ strMealThumb }
               alt="imagem receita"
-              data-testid={ `${idMeal}-card-img` }
+              data-testid={ `${index}-card-img` }
             />
-            <div data-testid={ `${idMeal}-card-name` }>{ strMeal }</div>
+            <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
           </li>
         ))}
       </ul>

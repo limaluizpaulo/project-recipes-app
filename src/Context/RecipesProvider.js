@@ -4,8 +4,8 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   const [login, setLogin] = useState([]);
-  const [responseApiLupaMeal, setResponseApiLupaMeal] = useState([]);
-  const [resposeApiLupaDrink, setResponseApiLupaDrink] = useState([]);
+  const [responseApiLupaMeal, setResponseApiLupaMeal] = useState(['']);
+  const [resposeApiLupaDrink, setResponseApiLupaDrink] = useState(['']);
 
   const context = {
     login,

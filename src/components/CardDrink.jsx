@@ -6,20 +6,21 @@ export default function CardDrink() {
   const twelve = 12;
   let arrayDrink = resposeApiLupaDrink;
   if (resposeApiLupaDrink.length > twelve) {
-    arrayDrink = resposeApiLupaDrink.filter((_e, index) => index <= twelve);
+    arrayDrink = resposeApiLupaDrink.filter((_e, index) => index < twelve);
   }
+
   return (
     <main>
       <ul>
-        {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }) => (
-          <li key={ idDrink } data-testid={ `${idDrink}-recipe-card` }>
+        {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
+          <li key={ idDrink } data-testid={ `${index}-recipe-card` }>
             <img
               width="80px"
               src={ strDrinkThumb }
               alt="imagem da bebida"
-              data-testid={ `${idDrink}-card-img` }
+              data-testid={ `${index}-card-img` }
             />
-            <div data-testid={ `${idDrink}-card-name` }>{ strDrink }</div>
+            <div data-testid={ `${index}-card-name` }>{ strDrink }</div>
           </li>))}
       </ul>
     </main>
