@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../context/Context';
+import fetchAPI from '../services/fetchAPI';
 
 function HeaderSearchBar() {
+  const { requestParams: { chosenFilter, searchText },
+    handleChange, FoodsEndPoint,
+    DrinksEndPoint } = useContext(Context);
   return (
     <form>
       <fieldset>
         <label htmlFor="search">
           <input
+            value={ searchText }
+            onChange={ handleChange }
+            name="searchText"
             id="search"
             type="search"
             data-testid="search-input"
@@ -14,7 +22,9 @@ function HeaderSearchBar() {
         <label htmlFor="ingredient">
           Ingrediente
           <input
-            name="radio-input"
+            value="Ingrediente"
+            onChange={ handleChange }
+            name="chosenFilter"
             required
             id="ingredient"
             type="radio"
@@ -24,7 +34,9 @@ function HeaderSearchBar() {
         <label htmlFor="name">
           Nome
           <input
-            name="radio-input"
+            value="Nome"
+            onChange={ handleChange }
+            name="chosenFilter"
             required
             id="name"
             type="radio"
@@ -34,7 +46,9 @@ function HeaderSearchBar() {
         <label htmlFor="first-letter">
           Primeira letra
           <input
-            name="radio-input"
+            value="Primeira letra"
+            onChange={ handleChange }
+            name="chosenFilter"
             id="first-letter"
             required
             type="radio"
@@ -42,6 +56,7 @@ function HeaderSearchBar() {
           />
         </label>
         <button
+          onClick={ () => fetchAPI(FoodsEndPoint, chosenFilter, searchText) }
           type="button"
           data-testid="exec-search-btn"
         >
