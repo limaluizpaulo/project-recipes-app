@@ -6,15 +6,15 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
-
+// [{ id, type, area, category, alcoholicOrNot, name, image }]
 const FoodDetails = ({ children }) => {
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const { selectedFood } = useContext(RecipeContext);
-  const { strCategory, strAlcoholic, strInstructions } = selectedFood;
+  const { idMeal, strCategory, strAlcoholic, strInstructions, strArea } = selectedFood;
+  const recipeId = selectedFood.idMeal || selectedFood.idDrink;
 
   useEffect(() => {
-    const recipeId = selectedFood.idMeal || selectedFood.idDrink;
     const favRecipes = getFromLocalStorage('favoriteRecipes');
     const isFavorited = favRecipes && favRecipes.find(({ id }) => id === recipeId);
     if (isFavorited) setIsFavorite(true);
@@ -28,6 +28,19 @@ const FoodDetails = ({ children }) => {
       setCopied(false);
     }, ONE_SECOND * 2);
   };
+
+  const createObjectFromFood = () => ({
+    id: recipeId,
+    type: idMeal ? 'comida' : 'bebida',
+    area: strArea || '',
+  });
+
+  const handleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    const parsedFood = createObjectFromFood();
+    console.log(parsedFood)
+  };
+
   const renderImgAndTitle = () => {
     const title = selectedFood.strMeal || selectedFood.strDrink;
     const thumb = selectedFood.strMealThumb || selectedFood.strDrinkThumb;
@@ -45,8 +58,12 @@ const FoodDetails = ({ children }) => {
         <button type="button" onClick={ handleShare } data-testid="share-btn">
           <img src={ shareIcon } alt="share icon" />
         </button>
-        <button type="button">
-          <img data-testid="favorite-btn" src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="share icon" />
+        <button type="button" onClick={ handleFavorite }>
+          <img
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="share icon"
+          />
         </button>
       </div>
       {copied ? <p>Link copiado!</p> : ''}
