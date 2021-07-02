@@ -30,24 +30,29 @@ function Lupa() {
     case 'Ingredientes':
       if (pathname === '/bebidas') {
         return fetchIngredientesDrinks(input)
-          .then((result) => setResponseApiLupaDrink(result));
+          .then((result) => setResponseApiLupaDrink(result))
+          .catch(() => window.location.reload());
       }
 
       return fetchIngredientesMeal(input)
-        .then((result) => setResponseApiLupaMeal(result));
+        .then((result) => setResponseApiLupaMeal(result))
+        .catch(() => window.location.reload());
     case 'Nome':
       if (pathname === '/bebidas') {
         return fetchNomeDrinks(input)
-          .then((result) => setResponseApiLupaDrink(result));
+          .then((result) => setResponseApiLupaDrink(result))
+          .catch(() => window.location.reload());
       }
 
-      return fetchNomeMeal(input).then((result) => setResponseApiLupaMeal(result));
+      return fetchNomeMeal(input).then((result) => setResponseApiLupaMeal(result))
+        .catch(() => window.location.reload());
     case 'Primeira letra':
       if (pathname === '/bebidas') {
         return (input.length !== 1)
           ? alertMoreTwo()
           : fetchFirstLetterDrinks(input)
-            .then((result) => setResponseApiLupaDrink(result));
+            .then((result) => setResponseApiLupaDrink(result))
+            .catch(() => window.location.reload());
       }
 
       return (input.length !== 1) ? alertMoreTwo()
