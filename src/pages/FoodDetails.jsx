@@ -85,11 +85,10 @@ function FoodDetails({ match, history }) {
         Iniciar Receita
       </button>
       <div>
-        <h4 data-testid="recipe-category">{strCategory}</h4>
         {
           strAlcoholic
-            ? <h4>Alcoholic</h4>
-            : <span />
+            ? <h4 data-testid="recipe-category">Alcoholic</h4>
+            : <h4 data-testid="recipe-category">{strCategory}</h4>
         }
         <p data-testid="instructions">{strInstructions}</p>
         <IngList ingredientsList={ ingredientsList } measures={ measures } />
