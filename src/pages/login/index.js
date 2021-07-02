@@ -30,11 +30,7 @@ function Login() {
     if (!favoriteRecipes) localStorage.setItem('favoriteRecipes', JSON.stringify([]));
 
     const inProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const initialObj = {
-      meals: {
-        52771: [],
-      },
-    };
+    const initialObj = { cocktails: {}, meals: {} };
     if (!inProgressRecipes) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
     }

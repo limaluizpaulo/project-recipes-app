@@ -1,10 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesCarousel from '../components/RecipesCarousel';
 
 function DetalhesBebida() {
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const { id } = useParams();
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -20,17 +22,14 @@ function DetalhesBebida() {
     inProgressIds.push(Object.keys(inProgressRecipes.meals));
   }
 
-  console.log(inProgressIds, id);
-
   const inProgress = inProgressIds.some((item) => Number(item) === Number(id));
-
-  console.log(inProgress);
 
   function renderStartButton() {
     return (
       <button
         type="button"
         className="button-start"
+        onClick={ () => history.push(`${pathname}/in-progress`) }
         data-testid="start-recipe-btn"
       >
         {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
