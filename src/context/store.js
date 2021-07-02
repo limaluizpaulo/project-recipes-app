@@ -8,6 +8,7 @@ export const USER = {
 };
 
 export const RECIPES = {
+  loading: true,
   foods: true,
   categoriesLimit: 5,
   cardsLimit: 12,
@@ -39,6 +40,11 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 });
 
 // RECIPES
+
+export const UPDATE_LOADING = 'UPDATE_LOADING';
+export const setLoading = (loading) => ({
+  type: UPDATE_LOADING, payload: { loading },
+});
 
 export const ADD_RECIPES = 'ADD_RECIPES';
 export const addRecipes = (meals, drinks, categoriesMeals, categoriesDrinks) => ({

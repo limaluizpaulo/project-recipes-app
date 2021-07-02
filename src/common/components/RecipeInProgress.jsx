@@ -1,32 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
-import store from '../../context/store';
-import { setStorage } from '../../functions';
+import { useParams } from 'react-router-dom';
+import store, { addRecDetail, setLoading } from '../../context/store';
+import { getStorage, setStorage } from '../../functions';
+import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import ShareLikeButton from './ShareLikeButton';
 
 export default function RecipeInProgress() {
-  const [ingrOK, setIngrOK] = useState();
-  const [taskOK, setTaskOk] = useState({});
-  const { recipes: { recipeDetail, foods } } = useContext(store);
+  const { id } = useParams();
+  // const [saveLS, setSaveLS] = useState(false);
+  const [ingrOK, setIngrOK] = useState(() => (getStorage('inProgressRecipes')[id] || []));
+  const [taskOK, setTaskOK] = useState({});
+  const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
 
   console.log(ingrOK);
 
-  const setIngredientsOK = () => {
-    const ingredientsOK = Object.keys(taskOK)
+  const addTaskCompleted = ({ target: { checked, name } }) => {
+    const setTaskCompleted = { ...taskOK, [name]: checked };
+    console.log(setTaskCompleted);
+    setTaskOK(setTaskCompleted);
+
+    const ingredientsOK = Object.keys(setTaskCompleted)
       .filter((ingredient) => {
-        if (taskOK[ingredient]) {
+        if (setTaskCompleted[ingredient]) {
           return ingredient;
         }
         return '';
       });
     setIngrOK(ingredientsOK);
     setStorage('inProgressRecipes', {
-      cocktails: { [recipeDetail.idDrink || '']: (!foods) ? ingredientsOK : '' },
-      meals: { [recipeDetail.idMeal || '']: (foods) ? ingredientsOK : '' },
-    });
-  };
-
-  const addTaskCompleted = ({ target: { checked, name } }) => {
-    setTaskOk({ ...taskOK, [name]: checked });
+      [recipeDetail.idMeal || recipeDetail.idDrink]: ingredientsOK });
   };
 
   const renderIngredients = () => {
@@ -63,13 +65,6 @@ export default function RecipeInProgress() {
       })
     );
   };
-
-  // ---------------------------------------------------------------------------------------------
-  // CICLOS DE VIDA
-
-  useEffect(setIngredientsOK, [foods, recipeDetail.idDrink, recipeDetail.idMeal, taskOK]);
-
-  // ---------------------------------------------------------------------------------------------
 
   function renderRecipe() {
     return (
@@ -110,6 +105,28 @@ export default function RecipeInProgress() {
     );
   }
 
+  const getRecipeDetailByID = async () => {
+    if (foods) {
+      const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
+      setRecipes(addRecDetail(mealsDetails.meals[0]));
+      setRecipes(setLoading(false));
+    } else {
+      const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
+      setRecipes(addRecDetail(drinksDetails.drinks[0]));
+      setRecipes(setLoading(false));
+    }
+  };
+
+  // ---------------------------------------------------------------------------------------------
+  // CICLOS DE VIDA
+
+  useEffect(() => {
+    if (loading) getRecipeDetailByID();
+  });
+
+  // ---------------------------------------------------------------------------------------------
+
+  if (loading) return (<h5>Loading...</h5>);
   return (
     renderRecipe()
   );
