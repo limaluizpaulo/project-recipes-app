@@ -41,26 +41,26 @@ export default function RecipeInProgress() {
       .filter((measure) => measure);
 
     return (
-      ingredients.map((ingredient, i) => (
-        <div key={ i }>
-          <label
-            htmlFor={ ingredient }
-            className={ (taskOK[ingredient]) ? 'completedRecipe' : '' }
-          >
-            <input
-              type="checkbox"
-              data-testid={ `${i + 1}-ingredient-step` }
-              name={ ingredient }
-              id={ ingredient }
-              onClick={ addTaskCompleted }
-            />
-            {ingredient}
-            :
-            {' '}
-            {measures[i]}
-          </label>
-        </div>
-      ))
+      ingredients.map((ingredient, i) => {
+        const task = `${ingredient}: ${measures[i]}`;
+        return (
+          <div key={ i }>
+            <label
+              htmlFor={ ingredient }
+              className={ (taskOK[task]) ? 'completedRecipe' : '' }
+            >
+              <input
+                type="checkbox"
+                data-testid={ `${i + 1}-ingredient-step` }
+                name={ task }
+                id={ ingredient }
+                onClick={ addTaskCompleted }
+              />
+              {task}
+            </label>
+          </div>
+        );
+      })
     );
   };
 
