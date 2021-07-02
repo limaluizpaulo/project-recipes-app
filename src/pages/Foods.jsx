@@ -8,7 +8,7 @@ function Foods() {
     <>
       <div>Tela de Comidas</div>
       <Header title="Comidas" />
-      <HeaderSearchButton />
+      <HeaderSearchButton baseEndPoint="https://www.themealdb.com/api/json/v1/1/" />
       <Footer />
     </>
   );

@@ -8,7 +8,7 @@ function Drinks() {
     <>
       <div>Tela de Bebidas</div>
       <Header title="Bebidas" />
-      <HeaderSearchButton />
+      <HeaderSearchButton baseEndPoint="https://www.thecocktaildb.com/api/json/v1/1/" />
       <Footer />
     </>
   );

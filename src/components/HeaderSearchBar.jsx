@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import fetchAPI from '../services/fetchAPI';
 
-function HeaderSearchBar() {
+function HeaderSearchBar({ baseEndPoint }) {
   const {
     requestParams: { chosenFilter, searchText },
     handleChange,
-    FoodsEndPoint,
-    DrinksEndPoint,
   } = useContext(Context);
 
   const [blockRequest, setBlockRequest] = useState(false);
@@ -73,7 +71,7 @@ function HeaderSearchBar() {
         <button
           onClick={ blockRequest
             ? () => { global.alert('Sua busca deve conter somente 1 (um) caracter'); }
-            : () => fetchAPI(FoodsEndPoint, chosenFilter, searchText) }
+            : () => fetchAPI(baseEndPoint, chosenFilter, searchText) }
           type="button"
           data-testid="exec-search-btn"
         >

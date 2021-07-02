@@ -8,7 +8,7 @@ function ExploreFoodsArea() {
     <>
       <div>Tela de explorar comidas area</div>
       <Header title="Explorar Origem" />
-      <HeaderSearchButton />
+      <HeaderSearchButton baseEndPoint="https://www.themealdb.com/api/json/v1/1/" />
       <Footer />
     </>
   );
