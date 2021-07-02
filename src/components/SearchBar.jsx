@@ -77,7 +77,8 @@ function SearchBar() {
       {['radio'].map((type) => (
         <div key={ `inline-${type}` } className="mb-3">
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
+            <input
+              className="form-control"
               value={ textFilter }
               data-testid="search-input"
               type="text"
@@ -120,12 +121,13 @@ function SearchBar() {
           </Form.Group>
         </div>
       ))}
-      <Button
+      <button
+        className="btn btn-primary"
         data-testid="exec-search-btn"
         type="submit"
       >
         Buscar
-      </Button>
+      </button>
     </Form>
   );
 }

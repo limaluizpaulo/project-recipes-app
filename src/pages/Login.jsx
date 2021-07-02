@@ -34,7 +34,8 @@ function Login() {
       <h1>Login</h1>
       <Form onSubmit={ handleSumit }>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control
+          <input
+            className="form-control"
             value={ email }
             data-testid="email-input"
             type="email"
@@ -43,7 +44,8 @@ function Login() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Control
+          <input
+            className="form-control"
             value={ password }
             data-testid="password-input"
             type="password"
@@ -51,14 +53,15 @@ function Login() {
             onChange={ (event) => setPassword(event.target.value) }
           />
         </Form.Group>
-        <Button
+        <button
+          className="btn btn-primary"
           data-testid="login-submit-btn"
           variant="primary"
           type="submit"
           disabled={ !validateLogin() }
         >
           Entrar
-        </Button>
+        </button>
       </Form>
     </section>
   );
