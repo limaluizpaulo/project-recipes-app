@@ -116,3 +116,31 @@ body, button {
   text-decoration: line-through solid black;
   color:pink;
 }
+
+.titleButtons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.titleButtons h1 {
+  margin-right: 50px;
+}
+
+.titleButtons button {
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+/*  ====================================================================================================================================*/
+
+/* SHARELIKEBUTTONS COMPONENT ===========================================================================================================*/
+.showMsg {
+  display: block;
+}
+
+.hideMsg {
+  display: none;
+}
+
+/*  ====================================================================================================================================*/
