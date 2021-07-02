@@ -25,7 +25,7 @@ function ExploreFoods() {
   return (
     <Container>
       <Header profile name="Explorar Comidas" />
-      <Container>
+      <Container className="buttons">
 
         <Button
           data-testid="explore-by-ingredient"

@@ -1,9 +1,6 @@
-.buttons {
-  align-items: center;
+.buttons-explore {
   display: flex;
   flex-direction: column;
-  gap: 52px;
-  justify-content: center;
-  margin: 50px;
-  text-align: center;
+  gap: 50px;
+  margin-top: 70px;
 }

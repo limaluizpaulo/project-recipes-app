@@ -10,30 +10,26 @@ function Explore() {
   const history = useHistory();
 
   return (
-    <Container className="content">
+    <Container>
       <Header profile name="Explorar" />
-      <Container className="buttons">
-        <Container>
-          <Button
-            data-testid="explore-food"
-            variant="outline-secondary"
-            size="lg"
-            onClick={ () => history.push('/explorar/comidas') }
-          >
-            Explorar Comidas
-          </Button>
-        </Container>
-        <Container>
-          <Button
-            data-testid="explore-drinks"
-            variant="outline-secondary"
-            size="lg"
-            onClick={ () => history.push('/explorar/bebidas') }
-          >
-            Explorar Bebidas
-          </Button>
-        </Container>
-      </Container>
+      <div className="buttons-explore d-grid gap-2">
+        <Button
+          data-testid="explore-food"
+          variant="outline-secondary"
+          size="lg"
+          onClick={ () => history.push('/explorar/comidas') }
+        >
+          Explorar Comidas
+        </Button>
+        <Button
+          data-testid="explore-drinks"
+          variant="outline-secondary"
+          size="lg"
+          onClick={ () => history.push('/explorar/bebidas') }
+        >
+          Explorar Bebidas
+        </Button>
+      </div>
       <Footer />
     </Container>
   );
