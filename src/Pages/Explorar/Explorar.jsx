@@ -31,14 +31,14 @@ export default function Explorar() {
         >
           Explorar Bebidas
         </Button>
-        <Button
+        {/* <Button
           href="/"
           variant="danger"
           size="lg"
           className="mb-2"
         >
           Logof
-        </Button>
+        </Button> */}
       </ButtonGroup>
     </div>
   );

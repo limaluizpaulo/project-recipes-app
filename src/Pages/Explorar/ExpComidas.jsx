@@ -36,18 +36,18 @@ export default function ExpComidas() {
           variant="outline-dark"
           size="lg"
           className="mb-2"
-          onClick={ () => alert('Surprise Meal') }
+          // onClick={ () => alert('Surprise Meal') }
         >
           Me Surpreenda!
         </Button>
-        <Button
+        {/* <Button
           href="/explorar/"
           variant="danger"
           size="lg"
           className="mb-2"
         >
           Voltar
-        </Button>
+        </Button> */}
       </ButtonGroup>
     </div>
   );

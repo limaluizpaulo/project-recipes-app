@@ -23,31 +23,21 @@ export default function ExpBebidas() {
           Por Ingredientes
         </Button>
         <Button
-          href="/explorar/bebidas/area"
-          data-testid="explore-by-area"
-          variant="outline-danger"
-          size="lg"
-          className="mb-2"
-        >
-          Por Local de Origem
-        </Button>
-        <Button
           data-testid="explore-surprise"
           variant="outline-dark"
           size="lg"
           className="mb-2"
-          onClick={ () => alert('Surprise Drink') }
         >
           Me Surpreenda!
         </Button>
-        <Button
+        {/* <Button
           href="/explorar"
           variant="danger"
           size="lg"
           className="mb-2"
         >
           Voltar
-        </Button>
+        </Button> */}
       </ButtonGroup>
     </div>
   );

@@ -17,16 +17,18 @@ function App() {
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route path="/comidas/:id" component={ DetalhesComida } />
         <Route path="/bebidas/:id" component={ DetalhesBebida } />
-        <Route path="/perfil" component={ Perfil } />
-        <Route path="/explorar" component={ Explorar } />
-        <Route path="/explorar/comidas" component={ ExpComidas } />
+        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar" component={ Explorar } />
+        <Route exact path="/explorar/comidas" component={ ExpComidas } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           component={ ExpComidasIngredientes }
         />
-        <Route path="/explorar/comidas/area" component={ ExpComidasArea } />
-        <Route path="/explorar/bebidas" component={ ExpBebidas } />
+        <Route exact path="/explorar/comidas/area" component={ ExpComidasArea } />
+        <Route exact path="/explorar/bebidas" component={ ExpBebidas } />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           component={ ExpBebidasIngredientes }
         />
