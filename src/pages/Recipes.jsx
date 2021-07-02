@@ -4,6 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import '../styles/Card.css';
 
@@ -98,7 +99,9 @@ function Recipes() {
           : renderRecipesDefault()
       }
 
+      <Footer />
     </>
+
   );
 }
 
