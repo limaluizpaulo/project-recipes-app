@@ -28,6 +28,10 @@ function Search() {
       if (meals.length > DOZE) {
         return setFirstMeals(meals.slice(0, DOZE));
       }
+      if (meals.length === ONE) {
+        const mealId = meals[0].idMeal;
+        return history.push(`/comidas/${mealId}`);
+      }
       if (meals.length > 0) {
         return setFirstMeals(meals);
       }
@@ -42,6 +46,10 @@ function Search() {
     if (drinks) {
       if (drinks.length > DOZE) {
         return setFirstDrinks(drinks.slice(0, DOZE));
+      }
+      if (drinks.length === ONE) {
+        const drinkId = drinks[0].idDrink;
+        return history.push(`bebidas/${drinkId}`);
       }
       if (drinks.length > 0) {
         return setFirstDrinks(drinks);
