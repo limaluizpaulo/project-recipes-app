@@ -8,11 +8,9 @@ function DetalhesComida() {
     <main>
       <RecipeDetails />
       <RecipesCarousel />
-      <div>
-        <button type="button" data-testid="start-recipe-btn">
-          Iniciar Receita
-        </button>
-      </div>
+      <button type="button" className="button-start" data-testid="start-recipe-btn">
+        Iniciar Receita
+      </button>
     </main>
   );
 }

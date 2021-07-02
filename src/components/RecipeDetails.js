@@ -6,6 +6,7 @@ import { fetchDetails } from '../services';
 import shareIcon from '../images/shareIcon.svg';
 import whiteFavIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './RecipeDetails.css';
 
 function RecipeDetails() {
   const [details, setDetails] = useState({});
@@ -74,10 +75,10 @@ function RecipeDetails() {
       <div>
         <h2 data-testid="recipe-title">{details[nameKey]}</h2>
         <div>
-          <button type="button" data-testid="share-btn">
+          <button type="button" className="button-svg" data-testid="share-btn">
             <img src={ shareIcon } alt="Compartilhar" />
           </button>
-          <button type="button" data-testid="favorite-btn">
+          <button type="button" className="button-svg" data-testid="favorite-btn">
             <img src={ whiteFavIcon } alt="Favoritar" />
           </button>
         </div>

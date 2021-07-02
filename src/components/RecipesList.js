@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
+import './RecipesList.css';
 
 function DrinksList() {
   const MAX_CARDS = 12;
