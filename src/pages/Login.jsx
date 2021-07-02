@@ -32,8 +32,8 @@ function Login() {
   return (
     <section>
       <h1>Login</h1>
-      <Form onSubmit={ handleSumit }>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+      <form onSubmit={ handleSumit }>
+        <div className="mb-3" controlId="formBasicEmail">
           <input
             className="form-control"
             value={ email }
@@ -42,8 +42,8 @@ function Login() {
             placeholder="Email"
             onChange={ (event) => setEmail(event.target.value) }
           />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        </div>
+        <div className="mb-3" controlId="formBasicPassword">
           <input
             className="form-control"
             value={ password }
@@ -52,7 +52,7 @@ function Login() {
             placeholder="Senha"
             onChange={ (event) => setPassword(event.target.value) }
           />
-        </Form.Group>
+        </div>
         <button
           className="btn btn-primary"
           data-testid="login-submit-btn"
@@ -62,7 +62,7 @@ function Login() {
         >
           Entrar
         </button>
-      </Form>
+      </form>
     </section>
   );
 }
