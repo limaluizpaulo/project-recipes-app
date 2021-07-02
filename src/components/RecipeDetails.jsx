@@ -9,6 +9,30 @@ class RecipeDetails extends React.Component {
   render() {
     const { recipeDetails, title } = this.props;
 
+    const renderIngredients = (ingredientes, medidas) => (
+      ingredientes.map((ingrediente, index) => {
+        if (ingrediente && medidas[index]) {
+          return (
+            <li data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${ingrediente[1]}-${medidas[index]}`}
+            </li>);
+        }
+        return null;
+      })
+    );
+
+    const getIngredients = () => {
+      if (recipeDetails[0]) {
+        const chaves = Object.entries(recipeDetails[0]);
+        const ingredientes = chaves.filter((key) => (
+          key[0].includes('strIngredient') && key[1] !== null));
+        const medidas = chaves.filter((key) => (
+          key[0].includes('strMeasure') && key[1] !== null));
+        const apenasMedidas = medidas.map((medida) => medida[1]);
+        return renderIngredients(ingredientes, apenasMedidas);
+      }
+    };
+
     return (
       recipeDetails[0] ? (
         <section>
@@ -38,6 +62,7 @@ class RecipeDetails extends React.Component {
           </div>
           <div>
             <h4>Ingredientes</h4>
+            {getIngredients()}
             <ul />
           </div>
           <div>
@@ -49,14 +74,16 @@ class RecipeDetails extends React.Component {
               <div>
                 <h4>Video</h4>
                 <iframe
+                  data-testid="video"
                   title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
                   src={ recipeDetails[0].strYoutube }
                 />
               </div>)}
           <div>
             <h4>Recomendadas</h4>
-            {/*
-            <div data-testid={ `${index}-recomendation-card` }>Carrosel de cards</div> */}
+            {/* <div data-testid={ `${index}-recomendation-card` }>
+              {recipeDetails[0].strMealsAlternate || recipeDetails[0].strDrinkAlternate}
+            </div> */}
           </div>
           <button
             type="button"
