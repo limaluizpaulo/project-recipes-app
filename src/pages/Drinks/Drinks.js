@@ -34,9 +34,6 @@ function Drinks() {
       const request = await requestDrink();
       setData(request);
     }
-    // if (value) {
-    //   console.log(value);
-    // }
   }
 
   async function allButton() {
@@ -133,7 +130,7 @@ function Drinks() {
 
   return (
     <>
-      <Header title="Bebidas" />
+      <Header title="Bebidas" haveSrc />
       <div className="card-meals">
         { !loading && mapCategory(category)}
         {

@@ -108,7 +108,7 @@ function Food() {
 
   return (
     <>
-      <Header title="Comidas" />
+      <Header title="Comidas" haveSrc />
       <div className="card-meals">
         { !loading && mapCategory(category)}
         {
