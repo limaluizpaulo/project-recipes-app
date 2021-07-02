@@ -5,7 +5,11 @@ import RecipeContext from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getFromLocalStorage } from '../services/helpers/localStorage';
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  updateLocalStorage,
+} from '../services/helpers/localStorage';
 
 const FoodDetails = ({ children }) => {
   const [copied, setCopied] = useState(false);
@@ -18,7 +22,7 @@ const FoodDetails = ({ children }) => {
     const favRecipes = getFromLocalStorage('favoriteRecipes');
     const isFavorited = favRecipes && favRecipes.find(({ id }) => id === recipeId);
     if (isFavorited) setIsFavorite(true);
-  }, [selectedFood.idMeal, selectedFood.idDrink]);
+  }, [selectedFood.idMeal, selectedFood.idDrink, recipeId]);
   const handleShare = () => {
     const ONE_SECOND = 1000;
     const { href } = window.location;
@@ -33,7 +37,9 @@ const FoodDetails = ({ children }) => {
     setIsFavorite(!isFavorite);
     const parsedFood = createObjectFromFood();
     if (!isFavorite === true) {
-
+      updateLocalStorage('favoriteRecipes', parsedFood, true);
+    } else {
+      removeFromLocalStorage('favoriteRecipes', parsedFood);
     }
   };
 

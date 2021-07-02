@@ -11,19 +11,23 @@ export const getFromLocalStorage = (key) => {
 
 export const updateLocalStorage = (key, value, array = false) => {
   const itemStored = getFromLocalStorage(key);
-
-  if (typeof itemStored !== 'object') {
+  if (!itemStored) {
     if (array) {
-      setOnLocalStorage([value]);
-    } else {
-      setOnLocalStorage(key, value);
+      setOnLocalStorage(key, [value]);
+      return;
     }
-  }
-  if (Array.isArray(itemStored)) {
+    setOnLocalStorage(key, value);
+  } else if (Array.isArray(itemStored)) {
+    console.log(itemStored);
     itemStored.push(value);
+    setOnLocalStorage(key, itemStored);
+  } else {
+    setOnLocalStorage(key, value);
   }
 };
 
 export const removeFromLocalStorage = (key, value) => {
   const itemStored = getFromLocalStorage(key);
+  const newItemsToBeStored = itemStored.filter(({ id }) => id !== value.id);
+  setOnLocalStorage(key, newItemsToBeStored);
 };
