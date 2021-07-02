@@ -41,9 +41,9 @@ class RecipeDetails extends React.Component {
       if (recipeDetails[0]) {
         const chaves = Object.entries(recipeDetails[0]);
         const ingredientes = chaves.filter((key) => (
-          key[0].includes('strIngredient') && key[1] !== null));
+          key[0].includes('strIngredient') && (key[1] !== null && key[1] !== '')));
         const medidas = chaves.filter((key) => (
-          key[0].includes('strMeasure') && key[1] !== null));
+          key[0].includes('strMeasure') && (key[1] !== null && key[1] !== ' ')));
         const apenasMedidas = medidas.map((medida) => medida[1]);
         return renderIngredients(ingredientes, apenasMedidas);
       }

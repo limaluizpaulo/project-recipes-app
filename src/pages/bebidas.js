@@ -9,17 +9,19 @@ import { fetchDrinkIdAction } from '../actions';
 class bebidas extends Component {
   componentDidMount() {
     const { match: { params: { bebidaId } }, requestDrinkById } = this.props;
-    console.log(bebidaId);
     requestDrinkById(bebidaId);
   }
 
   render() {
     const { recipeDetails } = this.props;
     return (
-      <section>
-        <h3>Detalhes Bebida</h3>
-        <RecipeDetails recipeDetails={ recipeDetails } title="Bebidas" />
-      </section>
+      recipeDetails ? (
+        <section>
+          <h3>Detalhes Bebida</h3>
+          <RecipeDetails recipeDetails={ recipeDetails } title="Bebidas" />
+        </section>
+      )
+        : null
     );
   }
 }
