@@ -8,6 +8,7 @@ export default function MealsContextProvider({ children }) {
   const [mealsFiltered, setMealsFiltered] = useState([]);
   const [filtersBtnsMeals, setFiltersBtnsMeals] = useState([]);
   const [valueMealsInput, serValueMealsInput] = useState('');
+  const [filterMealsByIngre, setFilterMealsByIngre] = useState('');
 
   useEffect(() => {
     const NUM = 12;
@@ -28,7 +29,9 @@ export default function MealsContextProvider({ children }) {
         filtersBtnsMeals,
         setFiltersBtnsMeals,
         valueMealsInput,
-        serValueMealsInput } }
+        serValueMealsInput,
+        filterMealsByIngre,
+        setFilterMealsByIngre } }
     >
       {children}
     </MealsContext.Provider>
@@ -40,13 +43,16 @@ export function useMealsContext() {
 
   const { mealsFiltered,
     setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals,
-    valueMealsInput, serValueMealsInput } = context;
+    valueMealsInput, serValueMealsInput, filterMealsByIngre,
+    setFilterMealsByIngre } = context;
   return { mealsFiltered,
     setMealsFiltered,
     filtersBtnsMeals,
     setFiltersBtnsMeals,
     valueMealsInput,
     serValueMealsInput,
+    filterMealsByIngre,
+    setFilterMealsByIngre,
   };
 }
 
