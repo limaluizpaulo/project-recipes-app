@@ -63,6 +63,7 @@ function DrinksProvider({ children }) {
         allCategories,
         filterDrinksByCategory,
         drinksFilteredByCategory,
+        setDrinksFilteredByCategory,
         setCategory,
         category,
         isFiltred,

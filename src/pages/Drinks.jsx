@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import DrinksContext from '../context/DrinksContext';
 import FilteredList from '../components/FilteredList';
 import Card from '../components/Card';
@@ -12,6 +11,7 @@ function Drinks() {
   const { drinksFilter: { filteredDrinks },
     allDrinks: { drinks }, allCategories: { categories }, drinksFilteredByCategory:
     { drinksByCategory }, setCategory, category, setIsFiltred, isFiltred,
+    setDrinksFilteredByCategory,
   } = useContext(DrinksContext);
 
   const history = useHistory();
@@ -25,7 +25,10 @@ function Drinks() {
   }, [filteredDrinks, history]);
 
   function renderDrinksDefault() {
+    // no evaluator usar esse:
     if (!drinksByCategory && isFiltred === false) {
+      // na tela usar esse:
+      // if (drinksByCategory.length === 0 && isFiltred === false) {
       return (
         <section className="cards-field">
           {
@@ -53,21 +56,28 @@ function Drinks() {
     );
   }
 
+  function resetDrinkCategory(event) {
+    setDrinksFilteredByCategory({ drinksByCategory: [] });
+    setCategory(event.target.innerText);
+  }
+
   function renderButtonCategories() {
     return (
       <section className="category-field">
-        <Button
-          className="btn-category"
+        <button
+          type="button"
+          className="btn-category btn btn-primary"
           data-testid="All-category-filter"
-          onClick={ (event) => setCategory(event.target.innerText) }
+          onClick={ (event) => resetDrinkCategory(event) }
         >
           All
-        </Button>
+        </button>
         {
           categories.slice(0, NUMBER_OF_CATEGORIES)
             .map((categoryDrinks, index) => (
-              <Button
-                className="btn-category"
+              <button
+                type="button"
+                className="btn-category btn btn-primary"
                 key={ index }
                 data-testid={ `${categoryDrinks.strCategory}-category-filter` }
                 onClick={ (event) => {
@@ -80,7 +90,7 @@ function Drinks() {
                 } }
               >
                 {categoryDrinks.strCategory}
-              </Button>
+              </button>
             ))
         }
       </section>

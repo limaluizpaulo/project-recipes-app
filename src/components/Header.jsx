@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Col, Container, Row } from 'react-bootstrap';
 
 import profileImg from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
@@ -17,9 +16,9 @@ function Header({ search, profile, name }) {
 
   return (
     <>
-      <Container className="mt-2">
-        <Row>
-          <Col>
+      <div className="mt-2">
+        <div className="row">
+          <div className="col">
             {profile && (
               <button type="button">
                 <Link to="/perfil">
@@ -32,14 +31,14 @@ function Header({ search, profile, name }) {
               </button>
             )}
 
-          </Col>
-          <Col className="mt-1">
+          </div>
+          <div className="col mt-1">
             {name && (
               <p data-testid="page-title">{ name }</p>
             )}
 
-          </Col>
-          <Col>
+          </div>
+          <div className="col">
             {search && (
               <button type="button" onClick={ showSearchBar }>
                 <img
@@ -49,9 +48,9 @@ function Header({ search, profile, name }) {
                 />
               </button>
             )}
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
       {/* {profile && (
         <button type="button">
           <Link to="/perfil">

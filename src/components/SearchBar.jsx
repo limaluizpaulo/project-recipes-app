@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 
-import { Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import DrinksContext from '../context/DrinksContext';
@@ -73,60 +72,71 @@ function SearchBar() {
   }
 
   return (
-    <Form onSubmit={ handleSubmit }>
-      {['radio'].map((type) => (
-        <div key={ `inline-${type}` } className="mb-3">
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
-              value={ textFilter }
-              data-testid="search-input"
-              type="text"
-              placeholder="busca"
-              name="checkbox"
-              onChange={ (event) => setTextFilter(event.target.value) }
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Check
-              value={ typeOfFilter }
-              data-testid="ingredient-search-radio"
-              onChange={ (event) => setTypeOfFilter(event.target.id) }
-              inline
-              id="ingredient"
-              label="Ingrediente"
-              name="checkbox"
-              type={ type }
-            />
-            <Form.Check
-              value={ typeOfFilter }
-              data-testid="name-search-radio"
-              inline
-              id="name"
-              label="Nome"
-              onChange={ (event) => setTypeOfFilter(event.target.id) }
-              name="checkbox"
-              type={ type }
-            />
-            <Form.Check
-              value={ typeOfFilter }
-              data-testid="first-letter-search-radio"
-              inline
-              id={ FIRST_LETTER }
-              label="Primeira letra"
-              onChange={ (event) => setTypeOfFilter(event.target.id) }
-              name="checkbox"
-              type={ type }
-            />
-          </Form.Group>
+    <form onSubmit={ handleSubmit }>
+      <div>
+        <div controlId="formBasicEmail">
+          <input
+            value={ textFilter }
+            data-testid="search-input"
+            type="text"
+            placeholder="busca"
+            name="checkbox"
+            onChange={ (event) => setTextFilter(event.target.value) }
+          />
         </div>
-      ))}
-      <Button
+      </div>
+      <div className="radio" controlid="formBasicEmail">
+        <div>
+          <label htmlFor="ingredient">
+            <input
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              data-testid="ingredient-search-radio"
+              name="checkbox"
+              type="radio"
+              id="ingredient"
+              className="form-check-input"
+              value="null"
+            />
+            Ingrediente
+          </label>
+        </div>
+        <div>
+          <label htmlFor="name">
+            <input
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              data-testid="name-search-radio"
+              name="checkbox"
+              type="radio"
+              id="name"
+              className="form-check-input"
+              value="null"
+            />
+            Nome
+          </label>
+        </div>
+        <div>
+          <label htmlFor="first-letter">
+            <input
+              onChange={ (event) => setTypeOfFilter(event.target.id) }
+              data-testid="first-letter-search-radio"
+              name="checkbox"
+              type="radio"
+              id="first-letter"
+              className="form-check-input"
+              value="null"
+            />
+            Primeira letra
+          </label>
+        </div>
+      </div>
+      <button
+        // className="btn btn-primary"
         data-testid="exec-search-btn"
         type="submit"
       >
         Buscar
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 }
 

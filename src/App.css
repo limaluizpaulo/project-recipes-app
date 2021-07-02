@@ -67,12 +67,10 @@
   }
 }
 
-button {
-  background: none;
-  border: none;
-  transition: filter 0.2s;
-}
-
 button:hover {
   filter: blur(0.5px);
+}
+
+.radio {
+  margin-left: 25px;
 }
