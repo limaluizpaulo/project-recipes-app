@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import FetchContext from '../context/FetchContext';
 import Cards from '../components/Cards';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const { setTypeFunc, data } = useContext(FetchContext);
@@ -27,6 +28,7 @@ function Drinks() {
       { setTypeFunc('Drinks') }
       <Header title={ Drinks.displayName } />
       { data.length > 0 && <Cards /> }
+      <Footer />
     </div>
   );
 }

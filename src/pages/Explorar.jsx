@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Explorar() {
@@ -6,6 +7,7 @@ function Explorar() {
   return (
     <div>
       <Header title={ Explorar.displayName } />
+      <Footer />
     </div>
   );
 }

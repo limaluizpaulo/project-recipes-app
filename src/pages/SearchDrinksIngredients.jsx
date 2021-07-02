@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function SearchDrinksIngredients() {
@@ -6,6 +7,7 @@ function SearchDrinksIngredients() {
   return (
     <div>
       <Header title={ SearchDrinksIngredients.displayName } />
+      <Footer />
     </div>
   );
 }
