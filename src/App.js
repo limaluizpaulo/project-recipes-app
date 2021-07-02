@@ -1,6 +1,6 @@
-import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
+import React from 'react';
 import {
   Login, Foods, Drinks, Food, Drink, FoodProgress, DrinkProgress,
   Search, SearchFoods, SearchDrinks, SearchFoodsIng, SearchDrinksIng,
