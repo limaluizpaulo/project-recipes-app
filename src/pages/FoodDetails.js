@@ -14,7 +14,7 @@ function FoodDetails() {
       setItem(result.meals);
     };
     request();
-  }, []);
+  }, [params.id]);
 
   return (
     item && (
