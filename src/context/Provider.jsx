@@ -9,6 +9,7 @@ const RecipeProvider = ({ children }) => {
   const [radioValue, setValueRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [pathname, setPathname] = useState('');
+  const [selectedTypeItem, setSelectedTypeItem] = useState('all');
 
   useEffect(() => {
     async function setDataRecipes() {
@@ -42,8 +43,9 @@ const RecipeProvider = ({ children }) => {
     setPathname,
     inputValue,
     radioValue,
+    selectedTypeItem,
+    setSelectedTypeItem, 
   };
-
   return (
     <Context.Provider value={ objContext }>
       {children}
