@@ -6,13 +6,15 @@ function FavoriteRecipes({ history }) {
   const [allFavorites, setAllFavorites] = useState([]);
   const [wasCopied, setWasCopied] = useState(false);
   const [recipesToRender, setRecipesToRender] = useState([]);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
+
   const { pathname } = history.location;
   const recipeType = pathname.includes('/comidas') ? 'comidas' : 'bebidas';
 
   useEffect(() => {
     setAllFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setRecipesToRender(JSON.parse(localStorage.getItem('favoriteRecipes')));
-  }, []);
+  }, [shouldUpdate]);
 
   const filterRecipes = (rcpType) => {
     setRecipesToRender(allFavorites.filter(({ type }) => type === rcpType));
@@ -75,6 +77,8 @@ function FavoriteRecipes({ history }) {
                 type={ type === 'comida' ? 'meals' : 'drinks' }
                 currentRecipe={ el }
                 testId={ `${idx}-horizontal-favorite-btn` }
+                setShouldUpdate={ setShouldUpdate }
+                shouldUpdate={ shouldUpdate }
               />
             </section>
 

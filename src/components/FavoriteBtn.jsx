@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ id, type, currentRecipe, testId }) {
+function FavoriteBtn({ id, type, currentRecipe, testId, setShouldUpdate, shouldUpdate }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const typePTBR = type === 'meals' ? 'comida' : 'bebida';
 
@@ -43,6 +43,9 @@ function FavoriteBtn({ id, type, currentRecipe, testId }) {
     }
     const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setIsFavorite(favoritesUpdated.some((el) => el.id === id));
+    if (setShouldUpdate) {
+      setShouldUpdate(!shouldUpdate);
+    }
   };
   useEffect(() => {
     const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
