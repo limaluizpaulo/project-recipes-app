@@ -50,40 +50,6 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory({ drinksByCategory });
   }
 
-  /* async function getDrinkById(id) {
-    const SIZE = -1;
-    const quantity = [];
-    const keysIngredients = [];
-
-    const drink = await fetchDrinksById(id);
-    setDrinkDetail(drink[0]);
-
-    Object.keys(drinkDetail).forEach((key) => {
-      if (
-        key.indexOf('strIngredient')
-        > SIZE && drinkDetail[key] !== ''
-      && drinkDetail[key] !== null) {
-        keysIngredients.push(drinkDetail[key]);
-      }
-    });
-
-    Object.keys(drinkDetail).forEach((key) => {
-      if (
-        key.indexOf('strMeasure')
-        > SIZE && drinkDetail[key] !== ' '
-      && drinkDetail[key] !== null
-      && drinkDetail[key] !== '') {
-        quantity.push(drinkDetail[key]);
-      }
-    });
-
-    const full = quantity.map((item, index) => `${item} ${keysIngredients[index]}`);
-
-    setIngredients(full);
-    keysIngredients.slice(0, keysIngredients.length);
-    quantity.slice(0, quantity.length);
-  }
- */
   useEffect(() => {
     getAllDrinks();
     getAllCategories();

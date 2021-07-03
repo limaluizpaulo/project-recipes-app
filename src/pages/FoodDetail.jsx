@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import RecipesContext from '../context/RecipesContext';
@@ -17,16 +17,17 @@ function FoodDetails() {
 
   const [load, setLoad] = useState(true);
 
-  useEffect(() => {
-    const food = async () => {
-      const fetch = await fetchRecipesById(id);
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-      const match = fetch[0].strYoutube.match(regExp);
-      setFoodDetails({ ...fetch[0], url: `https://www.youtube.com/embed/${match[2]}` });
-      setLoad(false);
-    };
-    food();
+  const food = useCallback(async () => {
+    const fetch = await fetchRecipesById(id);
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = fetch[0].strYoutube.match(regExp);
+    setFoodDetails({ ...fetch[0], url: `https://www.youtube.com/embed/${match[2]}` });
+    setLoad(false);
   }, [fetchRecipesById, id, setFoodDetails]);
+
+  useEffect(() => {
+    food();
+  }, [food]);
 
   useEffect(() => {
     const SIZE = -1;

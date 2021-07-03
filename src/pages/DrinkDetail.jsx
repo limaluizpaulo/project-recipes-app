@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
 
@@ -16,14 +16,19 @@ function DrinkDetail() {
 
   const [load, setLoad] = useState(true);
 
+  const drink = useCallback(async () => {
+    const fetch = await fetchDrinksById(id);
+    setDrinkDetails(fetch[0]);
+    setLoad(false);
+    console.log(fetch[0]);
+  }, [fetchDrinksById, id, setDrinkDetails]);
+
   useEffect(() => {
-    const drink = async () => {
-      const fetch = await fetchDrinksById(id);
-      setDrinkDetails(fetch[0]);
-      setLoad(false);
-    };
     drink();
-  });
+    return (
+      setDrinkDetails([])
+    );
+  }, [drink, setDrinkDetails]);
 
   useEffect(() => {
     const SIZE = -1;
