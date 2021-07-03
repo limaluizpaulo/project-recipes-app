@@ -32,18 +32,26 @@ export const removeFromLocalStorage = (key, value) => {
   setOnLocalStorage(key, newItemsToBeStored);
 };
 
-export const setRecipeInProgressLocalStorage = (type, id) => {
+export const setRecipeInProgressLocalStorage = (type, id, value = []) => {
   const key = 'inProgressRecipes';
   const itensStored = getFromLocalStorage(key);
   if (!itensStored || !itensStored[type]) {
     const obj = { ...itensStored,
       [type]: {
-        [id]: [],
+        [id]: value,
       },
     };
     setOnLocalStorage(key, obj);
+  } else if (itensStored[type][id]
+    && itensStored[type][id].some(({ ingr }) => ingr === value[0].ingr)) {
+    const filteredStorage = itensStored[type][id]
+      .filter((ingredient) => ingredient.ingr !== value[0].ingr);
+
+    itensStored[type][id] = filteredStorage;
+
+    setOnLocalStorage(key, itensStored);
   } else {
-    itensStored[type][id] = [];
+    itensStored[type][id] = [...(itensStored[type][id] || []), ...value];
     setOnLocalStorage(key, itensStored);
   }
 };
