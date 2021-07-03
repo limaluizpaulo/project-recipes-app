@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Explorer from './common/pages/Explorer';
 import RecipeDetails from './common/components/RecipeDetails';
 import RecipeInProgress from './common/components/RecipeInProgress';
 import DoneRecipes from './common/pages/DoneRecipes';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/perfil" component={ Profile } />
+        <Route path="/explorar" component={ Explorer } />
       </Switch>
     </Provider>
   );

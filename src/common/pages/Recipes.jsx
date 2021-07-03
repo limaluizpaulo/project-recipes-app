@@ -5,6 +5,7 @@ import { CATEG_DRINKS, CATEG_MEALS,
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 export default function Recipes() {
   const [categoryOn, setCategoryOn] = useState(undefined);
@@ -60,6 +61,7 @@ export default function Recipes() {
         clickAll={ getRecipes }
       />
       <RecipeCard />
+      <Footer />
     </main>
   );
 }
