@@ -39,10 +39,10 @@
 
 .ingre-card {
   align-items: center;
-  display: flex;
-  justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
   margin: 2rem;
   width: 10rem;
 }
