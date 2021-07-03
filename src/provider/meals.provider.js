@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import MealsContext from '../context/meals.context';
-import { fetchByName, fetchCategories } from '../services';
+import { fetchCategories } from '../services';
 
 function MealsProvider({ children }) {
   const [meals, setMeals] = useState([]);
@@ -26,14 +26,8 @@ function MealsProvider({ children }) {
     setCategories(categoryNames);
   }
 
-  async function getMeals() {
-    const result = await fetchByName('meals');
-    setMeals(result);
-  }
-
   useEffect(() => {
     getCategories();
-    getMeals();
   }, []);
 
   return (

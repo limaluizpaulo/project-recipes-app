@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
-import { getRecipes } from '../helpers/provider';
+import { getFilteredRecipes } from '../helpers/provider';
 
 function SearchBar() {
   const { setDrinks } = useContext(DrinksContext);
@@ -13,18 +13,17 @@ function SearchBar() {
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
-  const setFn = isDrinks ? setDrinks : setMeals;
   const type = isDrinks ? 'drinks' : 'meals';
   const typePt = isDrinks ? 'bebidas' : 'comidas';
   const idKey = isDrinks ? 'idDrink' : 'idMeal';
+  const setFn = isDrinks ? setDrinks : setMeals;
 
   function handleChange({ target: { value } }) {
     setSearchTerm(value);
   }
 
   async function handleClick() {
-    const recipes = await getRecipes({ setFn, filter, type, searchTerm });
-    console.log(recipes);
+    const recipes = await getFilteredRecipes({ filter, type, searchTerm, setFn });
     if (recipes.length === 1) push(`/${typePt}/${recipes[0][idKey]}`);
   }
 

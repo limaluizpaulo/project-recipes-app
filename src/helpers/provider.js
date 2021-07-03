@@ -5,6 +5,34 @@ import {
   fetchByFirstLetter,
 } from '../services';
 
+export async function getFilteredRecipes(params) {
+  const { filter, type, searchTerm, setFn } = params;
+
+  let result;
+  if (filter === 'ingredient') {
+    result = await fetchByIngredient(type, searchTerm);
+  } else if (filter === 'name') {
+    result = await fetchByName(type, searchTerm);
+  } else if (searchTerm.length === 1) {
+    result = await fetchByFirstLetter(type, searchTerm);
+  } else {
+    invokeAlert('Sua busca deve conter somente 1 (um) caracter');
+  }
+
+  if (!result) {
+    invokeAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    return [];
+  }
+  setFn(result);
+  return result;
+}
+
+export async function getRecipes(params) {
+  const { type, setFn } = params;
+  const result = await fetchByName(type);
+  setFn(result);
+}
+
 export function toggleFavorite(params) {
   const { favorites, setFavorites, recipe } = params;
   const isDrink = Object.keys(recipe).includes('idDrink');
@@ -28,26 +56,4 @@ export function toggleFavorite(params) {
     ? favorites.filter((item) => item.id !== formattedRecipe.id)
     : favorites.concat(formattedRecipe);
   setFavorites(favoriteRecipes);
-}
-
-export async function getRecipes(params) {
-  const { setFn, filter, type, searchTerm } = params;
-
-  let result;
-  if (filter === 'ingredient') {
-    result = await fetchByIngredient(type, searchTerm);
-  } else if (filter === 'name') {
-    result = await fetchByName(type, searchTerm);
-  } else if (searchTerm.length === 1) {
-    result = await fetchByFirstLetter(type, searchTerm);
-  } else {
-    invokeAlert('Sua busca deve conter somente 1 (um) caracter');
-  }
-
-  if (!result) {
-    invokeAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    return [];
-  }
-  setFn(result);
-  return result;
 }

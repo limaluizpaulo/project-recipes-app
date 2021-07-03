@@ -11,11 +11,10 @@ function RecipeDetails() {
   let [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  if (!details) details = {};
+  if (!details) details = {}; // Cypress bug
 
   const isDrinks = pathname.includes('bebidas');
   const type = isDrinks ? 'drinks' : 'meals';

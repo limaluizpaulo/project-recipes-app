@@ -1,42 +1,49 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import drinkIncon from '../images/drinkIcon.svg';
-import exploreIncon from '../images/exploreIcon.svg';
+
 import mealIncon from '../images/mealIcon.svg';
+import exploreIncon from '../images/exploreIcon.svg';
+import drinkIncon from '../images/drinkIcon.svg';
 import './Footer.css';
 
 function Footer() {
-  const history = useHistory();
+  const { push } = useHistory();
+
   return (
     <footer data-testid="footer">
       <button
-        className="button-svg"
-        onClick={ () => history.push('/bebidas') }
         type="button"
+        className="button-svg"
+        onClick={ () => push('/comidas') }
       >
         <img
-          data-testid="drinks-bottom-btn"
-          src={ drinkIncon }
-          alt="Drinks Icon"
+          src={ mealIncon }
+          alt="Meals Icon"
+          data-testid="food-bottom-btn"
         />
       </button>
+
       <button
-        className="button-svg"
-        onClick={ () => history.push('/explorar') }
         type="button"
+        className="button-svg"
+        onClick={ () => push('/explorar') }
       >
         <img
-          data-testid="explore-bottom-btn"
           src={ exploreIncon }
           alt="Explore Icon"
+          data-testid="explore-bottom-btn"
         />
       </button>
       <button
-        className="button-svg"
-        onClick={ () => history.push('/comidas') }
         type="button"
+        className="button-svg"
+        onClick={ () => push('/bebidas') }
       >
-        <img data-testid="food-bottom-btn" src={ mealIncon } alt="Foods Icon" />
+        <img
+          src={ drinkIncon }
+          alt="Drinks Icon"
+          data-testid="drinks-bottom-btn"
+        />
       </button>
     </footer>
   );

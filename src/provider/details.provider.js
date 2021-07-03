@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import DetailsContext from '../context/details.context';
 
 function DetailsProvider({ children }) {

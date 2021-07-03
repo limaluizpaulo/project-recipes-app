@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
+import { getRecipes } from '../helpers/provider';
 import './RecipesCarousel.css';
 
 function RecipesCarousel() {
   const MAX_CARDS = 6;
-  let { drinks } = useContext(DrinksContext);
-  let { meals } = useContext(MealsContext);
+  let { drinks, setDrinks } = useContext(DrinksContext);
+  let { meals, setMeals } = useContext(MealsContext);
   const { location: { pathname }, push } = useHistory();
 
   // Cypress bug
@@ -17,10 +18,16 @@ function RecipesCarousel() {
 
   const isDrinks = pathname.includes('comidas');
   const recipes = isDrinks ? [...drinks] : [...meals];
+  const type = isDrinks ? 'drinks' : 'meals';
   const typePt = isDrinks ? 'bebidas' : 'comidas';
   const idKey = isDrinks ? 'idDrink' : 'idMeal';
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
+  const setFn = isDrinks ? setDrinks : setMeals;
+
+  useEffect(() => {
+    getRecipes({ type, setFn });
+  }, [type, setFn]);
 
   return (
     <div className="carousel">
