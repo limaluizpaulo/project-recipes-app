@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
 import Footer from '../components/Footer';
@@ -13,17 +14,19 @@ const Drinks = () => {
     if (drinks && defaultDrinks) {
       const recipes = drinks.length ? drinks : defaultDrinks;
       const newRecipes = recipes.filter((_, idx) => idx < magic);
-      return newRecipes.map(({ strDrinkThumb, strDrink }, index) => (
-        <div key={ index } className="cards" data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ strDrinkThumb }
-            alt={ strDrink }
-          />
-          <div className="container">
-            <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+      return newRecipes.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+        <Link key={ idDrink } to={ `/bebidas/${idDrink}` }>
+          <div key={ index } className="cards" data-testid={ `${index}-recipe-card` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ strDrinkThumb }
+              alt={ strDrink }
+            />
+            <div className="container">
+              <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+            </div>
           </div>
-        </div>
+        </Link>
       ));
     }
     return [];
