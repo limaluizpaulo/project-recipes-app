@@ -5,8 +5,12 @@ import Header from '../components/header';
 import ButtonCategories from '../components/ButtonCategories';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
-import { fetchApiDrinkCategories,
-  fetchDrinksRecipes, getSearchBarResponse } from '../action';
+import {
+  fetchApiDrinkCategories,
+  fetchDrinksRecipes,
+  fetchFilterDrinkByCategories,
+  getSearchBarResponse,
+} from '../action';
 
 class Bebidas extends Component {
   componentDidMount() {
@@ -17,7 +21,14 @@ class Bebidas extends Component {
   }
 
   render() {
-    const { drinks, location, drinksCategories } = this.props;
+    const {
+      drinks,
+      location,
+      drinksCategories,
+      drinkByCategories,
+      dispatchDrinks,
+      match,
+    } = this.props;
     return (
       <div>
         <Header location={ location } />
@@ -25,11 +36,15 @@ class Bebidas extends Component {
           <ButtonCategories
             btnClass="btn-filterDrinks-cards"
             getCategories={ drinksCategories }
+            filter={ drinkByCategories }
+            filterAll={ dispatchDrinks }
           />
           <section className="cards-content">
             {
               drinks.map((drink, index) => (
                 <Cards
+                  url={ match.path }
+                  id={ drink.idDrink }
                   key={ index }
                   img={ drink.strDrinkThumb }
                   title={ drink.strDrink }
@@ -49,7 +64,7 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchDrinks: () => dispatch(fetchDrinksRecipes()),
   apiDrinkCategories: () => dispatch(fetchApiDrinkCategories()),
   hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
-
+  drinkByCategories: (category) => dispatch(fetchFilterDrinkByCategories(category)),
 });
 
 const mapStateToProps = (state) => ({
@@ -63,7 +78,9 @@ Bebidas.propTypes = {
   dispatchDrinks: PropTypes.func.isRequired,
   apiDrinkCategories: PropTypes.func.isRequired,
   location: PropTypes.shape.isRequired,
+  match: PropTypes.shape.isRequired,
   hasSearchBar: PropTypes.func.isRequired,
+  drinkByCategories: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

@@ -4,6 +4,7 @@ import login from './pages/login';
 import Comidas from './pages/comidas';
 import Bebidas from './pages/bebidas';
 import Perfil from './pages/telaDePerfil';
+import Detalhes from './pages/Detalhes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/:page/:id" component={ Detalhes } />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" />
           <Route path="/perfil" component={ Perfil } />
