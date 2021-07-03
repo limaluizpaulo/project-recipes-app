@@ -70,6 +70,8 @@ function DrinkDetail() {
           </div>
         </section>
       </main>
+
+      <p>Bebidas</p>
     </>
   );
 }

@@ -6,7 +6,7 @@ function ExploreDrinkIngredients() {
   return (
     <>
       <Header profile name="Explorar Ingredientes" />
-      <p>Comidas</p>
+      <p>Bebidas</p>
       <Footer />
     </>
   );
