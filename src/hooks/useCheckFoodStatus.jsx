@@ -31,6 +31,7 @@ const useCheckFoodStatus = () => {
   }, [doneRecipes, inProgressRecipes, recipeId, type]);
 
   return {
+    location,
     isDone,
     isInProgress,
   };

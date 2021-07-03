@@ -9,10 +9,10 @@ const FoodDetailsButton = () => {
   const history = useHistory();
   const { recipeId } = useParams();
   const { idMeal, idDrink } = selectedFood;
-  const { isDone, isInProgress } = useCheckFoodStatus();
+  const { isDone, isInProgress, location } = useCheckFoodStatus();
 
   const Redirect = () => {
-    history.push(`${recipeId}/in-progress`);
+    history.push(`/${location}/${recipeId}/in-progress`);
   };
 
   const setRecipeToProgress = () => {
