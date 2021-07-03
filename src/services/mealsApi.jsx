@@ -46,3 +46,17 @@ export const fetchIngreMeals = async () => {
   const data = response.meals;
   return data;
 };
+
+export const fetchAreaMeals = async () => {
+  const fetchArea = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const response = await fetchArea.json();
+  const data = response.meals;
+  return data;
+};
+
+export const fetchMealByArea = async (area) => {
+  const fetchMeal = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const response = await fetchMeal.json();
+  const data = response.meals;
+  return data;
+};
