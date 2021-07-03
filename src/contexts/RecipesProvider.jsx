@@ -5,23 +5,32 @@ import { useLocation } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
 import {
   getMealsRecipes,
-  // getMealsCategories,
   // getMealsIngredients,
   getMealsIngredientsFilter,
   getMealsNameFilter,
   getMealsFirstLetterFilter,
+  getMealsCategories,
+  getMealsByCategory,
 } from '../helpers/MealsAPI';
-import { getCocktailsRecipes } from '../helpers/CocktailsAPI';
+import {
+  getCocktailsCategories,
+  getCocktailsRecipes,
+  getCocktailsByCategory,
+} from '../helpers/CocktailsAPI';
 
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [type, setType] = useState('meal');
+  const [categoriesData, setCategoriesData] = useState([]);
   // const [mealsCategories, setMealsCategories] = useState([]);
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [filterHeader, setFilterHeader] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [toggle, setToggle] = useState(false);
 
   const maxCards = 12;
+  const maxCategories = 5;
 
   const mustUpdateType = (strType, strPath, pathname) => (
     type !== strType && pathname.includes(strPath)
@@ -38,7 +47,6 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const recipes = async () => {
       setIsFetching(true);
-
       const results = (type === 'meal')
         ? await getMealsRecipes() : await getCocktailsRecipes();
       /*
@@ -52,12 +60,15 @@ function RecipesProvider({ children }) {
       setIsFetching(false);
     };
 
-    // const categories = async () => {
-    //   setIsFetching(true);
-    //   const results = await getMealsCategories();
-    //   setMeals(results);
-    //   setIsFetching(false);
-    // };
+    const categories = async () => {
+      setIsFetching(true);
+      const results = (type === 'meal')
+        ? await getMealsCategories() : await getCocktailsCategories();
+      setCategoriesData(results.filter((item, index) => index < maxCategories));
+      // const results = await getMealsCategories();
+      // setMeals(results);
+      setIsFetching(false);
+    };
 
     // const ingredients = async () => {
     //   setIsFetching(true);
@@ -67,9 +78,28 @@ function RecipesProvider({ children }) {
     // };
 
     recipes();
-    // categories();
+    categories();
     // ingredients();
   }, []);
+
+  useEffect(() => {
+    const filterCategory = async () => {
+      setIsFetching(true);
+      let results;
+      if (selectedCategory === 'All') {
+        results = (type === 'meal')
+          ? await getMealsRecipes() : await getCocktailsRecipes();
+      } else {
+        results = (type === 'meal') ? await getMealsByCategory(selectedCategory)
+          : await getCocktailsByCategory(selectedCategory);
+      }
+      if (results && selectedCategory) {
+        setData(results.filter((item, index) => index < maxCards));
+      }
+      setIsFetching(false);
+    };
+    filterCategory();
+  }, [selectedCategory, toggle]);
 
   useEffect(() => {
     const filterApi = () => {
@@ -95,11 +125,16 @@ function RecipesProvider({ children }) {
     type,
     setType,
     setFilterHeader,
+    categoriesData,
+    selectedCategory,
+    setSelectedCategory,
+    setToggle,
+    toggle,
   };
 
   return (
     <RecipesContext.Provider value={ context }>
-      {console.log(pathname)}
+      {/* {console.log(pathname)} */}
       {children}
     </RecipesContext.Provider>
   );

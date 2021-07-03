@@ -16,5 +16,8 @@ export const getCocktailsIngredients = () => (
   getAPI(COCKTAILS_API, 'list.php?i=list', 'drinks')
 );
 export const getCocktailsIngredientsFilter = (filter) => (
-  getAPI(COCKTAILS_API, 'filter.php?i=', 'meals', filter)
+  getAPI(COCKTAILS_API, 'filter.php?i=', 'drinks', filter)
+);
+export const getCocktailsByCategory = (category) => (
+  getAPI(COCKTAILS_API, 'filter.php?c=', 'drinks', category)
 );
