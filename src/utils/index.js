@@ -13,6 +13,9 @@ export const endPoint = ({ inputSearch, option, food }) => {
   case 'firstLetter':
     query = `search.php?f=${inputSearch}`;
     break;
+  case 'category':
+    query = `filter.php?c=${inputSearch}`;
+    break;
   default:
     return false;
   }

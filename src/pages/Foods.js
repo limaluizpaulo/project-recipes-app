@@ -1,20 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
 import Footer from '../components/Footer';
+import Categories from '../components/Categories';
 
 const Foods = () => {
   const {
+    meals: defaultMeals,
     recipes: { meals = [] },
   } = useContext(GlobalContext);
-  const [defaultMeals, setDefaultMeals] = useState([]);
+  // const [defaultMeals, setDefaultMeals] = useState([]);
 
-  useEffect(() => {
-    const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    fetch(URL)
-      .then((res) => res.json())
-      .then(({ meals: data }) => setDefaultMeals(data));
-  }, []);
+  // useEffect(() => {
+  //   const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  //   fetch(URL)
+  //     .then((res) => res.json())
+  //     .then(({ meals: data }) => setDefaultMeals(data));
+  // }, []);
 
   const renderCard = () => {
     const magic = 12;
@@ -36,6 +38,7 @@ const Foods = () => {
   return (
     <div>
       <Header title="Comidas" search food />
+      <Categories food />
       <div className="grade">
         {renderCard().length && renderCard()}
       </div>
