@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
+import RecipesContext from '../context/RecipesContext';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function DrinkDetail() {
   const { id } = useParams();
+  const { allRecipes: { recipes } } = useContext(RecipesContext);
   const { drinkDetail, getDrinkById, ingredients } = useContext(DrinksContext);
 
   /*   function getIngredients() {
@@ -40,6 +42,8 @@ function DrinkDetail() {
       </header>
     );
   }
+
+  const NUMBER_OF_ITEMS = 6;
   useEffect(() => {
     getDrinkById(id);
   }, [ingredients]);
@@ -68,6 +72,34 @@ function DrinkDetail() {
           <div>
             <p data-testid="instructions">{drinkDetail.strInstructions}</p>
           </div>
+        </section>
+        <section>
+          <h1>Recomendadas</h1>
+          <div>
+            {
+              recipes.slice(0, NUMBER_OF_ITEMS)
+                .map((recipe, index) => (
+                  <div
+                    className="card-field"
+                    data-testid={ `${index}-recipe-card` }
+                    key={ recipe }
+                  >
+                    <Link to={ `/comidas/${recipe.idMeal}` }>
+                      <img
+                        data-testid={ `${index}-recomendation-card` }
+                        src={ recipe.strMealThumb }
+                        alt={ recipe.strMeal }
+                      />
+                      <span data-testid="recipe-category">{ recipe.strCategory }</span>
+                      <h5 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h5>
+                    </Link>
+                  </div>
+                ))
+            }
+          </div>
+          <button type="button" data-testid="start-recipe-btn">
+            <span>Iniciar Receita</span>
+          </button>
         </section>
       </main>
 
