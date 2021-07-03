@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-// import { Redirect } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeContext from '../context';
@@ -11,18 +10,24 @@ const MAX_NUMBER_OF_ITEMS = 12;
 
 function FoodOrigin() {
   const { areas, recipes, setRecipes, showSearch } = useContext(RecipeContext);
-  const [showValues, setShowValues] = useState(false);
+  const [origin, setOrigin] = useState('All');
 
-  async function handleChange({ target: { value } }) {
+  async function filterByOrigin() {
     const fetchSearch = await fetch(BASE_URL_MEAL);
     const response = await fetchSearch.json();
-    const filteredValues = value === 'All'
+    let filteredValues = origin === 'All'
       ? response.meals
-      : response.meals.filter((recipe) => recipe.strArea === value);
-    filteredValues.splice(MAX_NUMBER_OF_ITEMS);
-    console.log(filteredValues);
+      : response.meals.filter((recipe) => recipe.strArea === origin);
+    filteredValues = filteredValues.slice(0, MAX_NUMBER_OF_ITEMS);
     setRecipes(filteredValues);
-    setShowValues(true);
+  }
+
+  useEffect(() => {
+    filterByOrigin();
+  }, [origin]);
+
+  function handleChange({ target: { value } }) {
+    setOrigin(value);
   }
 
   function renderRecipes() {
@@ -44,7 +49,7 @@ function FoodOrigin() {
       <Header title="Explorar Origem" />
       { showSearch && <SearchBar /> }
       <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
-        <option>All</option>
+        <option data-testid="All-option">All</option>
         {areas.map((area, index) => (
           <option
             key={ `${area.strArea}${index}` }
