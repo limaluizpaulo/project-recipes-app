@@ -30,6 +30,7 @@ export default function Header({ pageName }) { // Desestruturação de props
         </h1>
         <div>
           <input
+            className="search"
             type="image"
             onClick={ () => setBar(!showSearchBar) }
             data-testid="search-top-btn"
