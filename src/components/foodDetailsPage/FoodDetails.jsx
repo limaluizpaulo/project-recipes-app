@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import RecipeContext from '../context/Context';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import RecipeContext from '../../context/Context';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import {
   getFromLocalStorage,
   removeFromLocalStorage,
   updateLocalStorage,
-} from '../services/helpers/localStorage';
+} from '../../services/helpers/localStorage';
 
 const FoodDetails = ({ children }) => {
   const [copied, setCopied] = useState(false);
@@ -25,8 +25,12 @@ const FoodDetails = ({ children }) => {
   }, [selectedFood.idMeal, selectedFood.idDrink, recipeId]);
   const handleShare = () => {
     const ONE_SECOND = 1000;
-    const { href } = window.location;
-    copy(href);
+    const { location } = window;
+    const idIndex = 3;
+    const pathname = location.pathname.split('/').slice(1, idIndex).join('/');
+    const url = `${location.protocol}//${location.host}/${pathname}`;
+    console.log(url);
+    copy(url);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);

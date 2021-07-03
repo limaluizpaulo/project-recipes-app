@@ -1,0 +1,13 @@
+.inProgress__listItem__container {
+  align-items: center;
+  display: flex;
+}
+
+.inProgress__list__container {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.inProgress__listItem__checked {
+  text-decoration: line-through;
+}
