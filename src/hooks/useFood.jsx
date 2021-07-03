@@ -30,7 +30,7 @@ const useFood = () => {
       }
     };
     getFood();
-  });
+  }, [location, recipeId, setSelectedFood]);
 };
 
 export default useFood;

@@ -12,7 +12,7 @@ const useIngredientList = () => {
       keys.forEach((key) => {
         if (key.includes('Ingredient') && selectedFood[key]) {
           const number = key.split('Ingredient')[1];
-          mappedIngredients[number] = { ingr: selectedFood[key] };
+          mappedIngredients[number] = { ingr: selectedFood[key], checked: false };
         }
         if (key.includes('Measure') && selectedFood[key] && selectedFood[key] !== ' ') {
           const number = key.split('Measure')[1];
@@ -26,7 +26,15 @@ const useIngredientList = () => {
 
     createRecipe();
   }, [selectedFood]);
+
+  const checkIngredient = (ingrLocation) => {
+    const copy = { ...ingredients };
+    setIngredients(
+      copy, ingredients[ingrLocation].checked = !ingredients[ingrLocation].checked,
+    );
+  };
   return {
+    checkIngredient,
     ingredients,
   };
 };
