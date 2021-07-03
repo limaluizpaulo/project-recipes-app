@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import RecipeIngredients from './RecipeIngredients';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
-// import RecommendedRecipes from './RecommendedRecipes';
+import RecommendedRecipes from './RecommendedRecipes';
 import store from '../../context/store';
 
 export default function RenderDetails() {
@@ -58,7 +58,7 @@ export default function RenderDetails() {
       ) : ('')}
       <div>
         <h3>Receitas Recomendadas</h3>
-        {/* <RecommendedRecipes /> */}
+        <RecommendedRecipes />
       </div>
       <Link
         to={ (foods) ? (

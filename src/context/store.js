@@ -67,5 +67,5 @@ export const addRecDetail = (recipeDetail) => ({
 
 export const ADD_RECOMMENDED = 'ADD_RECOMMENDED';
 export const addRecommended = (recommendedRecipes) => ({
-  type: ADD_RECIPE_DETAIL, payload: { recommendedRecipes },
+  type: ADD_RECOMMENDED, payload: { recommendedRecipes },
 });

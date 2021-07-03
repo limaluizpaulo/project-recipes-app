@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import store, { addRecommended, setLoading } from '../../context/store';
 import { DRINKS, fetchAPI, MEALS } from '../../services';
-// import RenderDetails from '../components/RenderDetails';
+import RenderDetails from '../components/RenderDetails';
 
 // import RecipeIngredients from '../components/RecipeIngredients';
 // import LikeButton from '../components/LikeButton';
@@ -109,7 +109,7 @@ export default function RecipeDetails() {
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    // <RenderDetails />
-    <div />
+    <RenderDetails />
+    // <div />
   );
 }
