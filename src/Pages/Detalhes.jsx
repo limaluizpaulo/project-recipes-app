@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import Context from '../context/Context';
 import { Container, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import Context from '../context/Context';
 import Thumb from '../components/Details/Thumb';
 import Title from '../components/Details/Title';
 import Ingredients from '../components/Details/Ingredients';
@@ -9,11 +10,11 @@ import Video from '../components/Details/Video';
 
 export default function DetalhesComida({ location }) {
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
-  const { id, title, subtitle, instructions, thumb, video, ingredients} = currentRecipe;
+  const { id, title, subtitle, instructions, thumb, video, ingredients } = currentRecipe;
 
   useEffect(() => {
-      storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, [])
+    storeCurrentRecipe(location.pathname.split('/')[2]);
+  }, []);
 
   return (
     <Container>
@@ -32,3 +33,7 @@ export default function DetalhesComida({ location }) {
     </Container>
   );
 }
+
+DetalhesComida.propTypes = {
+  location: PropTypes.shape,
+}.isRequired;

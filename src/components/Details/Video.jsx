@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-export default function Title({ video }) {
-
+export default function Video({ video }) {
   const generateEmbedCode = () => {
     if (video) {
       return video.split('=')[1];
     }
-  }
+  };
 
   return (
     <Container>
@@ -18,10 +18,14 @@ export default function Title({ video }) {
           data-testid="video"
           width="100%"
           title="Video"
-          src={`https://www.youtube.com/embed/${generateEmbedCode()}?autoplay=1&mute=1`}>
-        </iframe>
+          src={ `https://www.youtube.com/embed/${generateEmbedCode()}?autoplay=1&mute=1` }
+        />
       </div>
-      <br/>
+      <br />
     </Container>
   );
 }
+
+Video.propTypes = {
+  video: PropTypes.string,
+}.isRequired;

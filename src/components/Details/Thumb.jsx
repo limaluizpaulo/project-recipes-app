@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default function Thumb({ title, thumb }) {
   return (
@@ -8,3 +9,8 @@ export default function Thumb({ title, thumb }) {
     </Container>
   );
 }
+
+Thumb.propTypes = {
+  title: PropTypes.string,
+  thumb: PropTypes.string,
+}.isRequired;
