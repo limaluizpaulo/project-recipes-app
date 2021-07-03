@@ -6,7 +6,7 @@ import Provider from './context/Provider';
 
 import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
   ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
-  Detalhes, ReceitasFeitas, ReceitasFavoritas } from './Pages';
+  Detalhes, ReceitasFeitas, ReceitasFavoritas, ReceitaEmProcesso } from './Pages';
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route path="/comidas/:id" component={ Detalhes } />
-        <Route path="/bebidas/:id" component={ Detalhes } />
+        <Route exact path="/comidas/:id" component={ Detalhes } />
+        <Route exact path="/bebidas/:id" component={ Detalhes } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/explorar/comidas" component={ ExpComidas } />
@@ -37,6 +37,14 @@ function App() {
         <Route
           path="/receitas-favoritas"
           component={ ReceitasFavoritas }
+        />
+        <Route
+          path="/comidas/:id/in-progress"
+          component={ ReceitaEmProcesso }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          component={ ReceitaEmProcesso }
         />
       </Switch>
     </Provider>
