@@ -1,0 +1,9 @@
+.card-meals-items img {
+  width: 150px;
+}
+
+.card-meals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
