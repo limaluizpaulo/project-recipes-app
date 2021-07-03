@@ -3,11 +3,8 @@ const API_URL_NAME_AND_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1
 const API_URL_ALL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const API_URL_CATEGORIES = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const API_URL_DRINKS_BY_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-<<<<<<< HEAD
 const API_URL_DRINKS_BY_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-=======
 const API_URL_RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
->>>>>>> a486fd30fc8ccc849a3ca1ac28f69c2a316adcf2
 
 export async function fetchDrinksByIngredient(ingredient) {
   const request = await fetch(`${API_URL_INGREDIENT}${ingredient}`);
@@ -53,16 +50,15 @@ export async function fetchDrinksByCategory(category) {
   }
 }
 
-<<<<<<< HEAD
 export async function fetchDrinksById(id) {
   const request = await fetch(`${API_URL_DRINKS_BY_ID}${id}`);
   const response = await request.json();
   const { drinks } = response;
   return drinks;
-=======
+}
+
 export async function fetchRandomDrink() {
   const request = await fetch(API_URL_RANDOM_DRINK);
   const response = await request.json();
   return response;
->>>>>>> a486fd30fc8ccc849a3ca1ac28f69c2a316adcf2
 }
