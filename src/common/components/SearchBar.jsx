@@ -142,7 +142,6 @@ export default function SearchBar() {
           onClick={ handleClick }
         >
           Buscar
-
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ExploreScreen() {
+  const [explorer, setexplorer] = useState;
   return (
     <div>
       <div>
