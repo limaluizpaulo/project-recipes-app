@@ -4,8 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 
-import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
-  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil, DetalhesComida } from './Pages';
+import { Bebidas,
+  Comidas,
+  ExpBebidas,
+  ExpBebidasIngredientes,
+  ExpComidas,
+  ExpComidasArea,
+  ExpComidasIngredientes,
+  Explorar,
+  Login,
+  Perfil,
+  DetalhesComida,
+} from './Pages';
 
 function App() {
   return (
