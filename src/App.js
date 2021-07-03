@@ -10,6 +10,9 @@ import Recipes from './common/pages/Recipes';
 import Provider from './context/Provider';
 import ExploreMeals from './common/pages/ExploreMeals';
 import ExploreDrinks from './common/pages/ExploreDrinks';
+import DrinksIngrediant from './common/pages/DrinksIngrediant';
+import MealsIngredient from './common/pages/MealsIngredient';
+import MealsOrigem from './common/pages/MealsOrigem';
 
 function App() {
   return (
@@ -25,8 +28,11 @@ function App() {
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explorer } />
-        <Route path="/explorar/comidas" component={ ExploreMeals } />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/explorar/comidas" component={ ExploreMeals } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route path="/explorar/bebidas/ingredientes" component={ DrinksIngrediant } />
+        <Route path="/explorar/comidas/ingredientes" component={ MealsIngredient } />
+        <Route path="/explorar/comidas/area" component={ MealsOrigem } />
       </Switch>
     </Provider>
   );
