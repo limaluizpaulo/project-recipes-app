@@ -8,6 +8,8 @@ import Login from './common/pages/Login';
 import Profile from './common/pages/Profile';
 import Recipes from './common/pages/Recipes';
 import Provider from './context/Provider';
+import ExploreMeals from './common/pages/ExploreMeals';
+import ExploreDrinks from './common/pages/ExploreDrinks';
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
         <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/perfil" component={ Profile } />
-        <Route path="/explorar" component={ Explorer } />
+        <Route exact path="/explorar" component={ Explorer } />
+        <Route path="/explorar/comidas" component={ ExploreMeals } />
+        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
       </Switch>
     </Provider>
   );
