@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import UserContext from '../context/user.context';
-import { toggleFavorite } from '../helpers';
+import { toggleFavorite } from '../helpers/provider';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -16,7 +16,7 @@ function FavoriteButton({ recipe }) {
     <button
       type="button"
       className="button-svg"
-      onClick={ () => toggleFavorite(favorites, setFavorites, recipe) }
+      onClick={ () => toggleFavorite({ favorites, setFavorites, recipe }) }
     >
       <img
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }

@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import UserContext from '../../context/user.context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 function Perfil() {
+  const { userEmail } = useContext(UserContext);
   const history = useHistory();
-
-  const { email } = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
-      <Header title="Perfil" show={ false } />
+      <Header title="Perfil" showSearchIcon={ false } />
       <div>
-        <p data-testid="profile-email">{ email }</p>
+        <p data-testid="profile-email">{ userEmail }</p>
         <button
           type="button"
           data-testid="profile-done-btn"

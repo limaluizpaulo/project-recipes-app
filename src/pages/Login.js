@@ -9,10 +9,10 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const history = useHistory();
 
-  function handleChange({ target }) {
-    const { name, value } = target;
+  function handleChange({ target: { name, value } }) {
     setInput((prevState) => ({
-      ...prevState, [name]: value,
+      ...prevState,
+      [name]: value,
     }));
   }
 

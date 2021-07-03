@@ -18,7 +18,7 @@ function ExplorarComidaOuBebida() {
 
   return (
     <div>
-      <Header title={ `Explorar ${title}` } show={ false } />
+      <Header title={ `Explorar ${title}` } showSearchIcon={ false } />
       <div>
         <button
           type="button"

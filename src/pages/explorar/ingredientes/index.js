@@ -12,7 +12,7 @@ function ExplorarPorIngredientes() {
 
   return (
     <div>
-      <Header title="Explorar Ingredientes" show={ false } />
+      <Header title="Explorar Ingredientes" showSearchIcon={ false } />
       <p>{ `Explorar${title}PorIngredientes` }</p>
       <Footer />
     </div>

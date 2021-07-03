@@ -8,12 +8,14 @@ import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  const [details, setDetails] = useState({});
+  let [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const history = useHistory();
   const { location: { pathname } } = history;
   const { id } = useParams();
+
+  if (!details) details = {};
 
   const isDrinks = pathname.includes('bebidas');
   const type = isDrinks ? 'drinks' : 'meals';
