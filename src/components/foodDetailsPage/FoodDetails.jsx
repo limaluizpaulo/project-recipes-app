@@ -25,8 +25,12 @@ const FoodDetails = ({ children }) => {
   }, [selectedFood.idMeal, selectedFood.idDrink, recipeId]);
   const handleShare = () => {
     const ONE_SECOND = 1000;
-    const { href } = window.location;
-    copy(href);
+    const { location } = window;
+    const idIndex = 3;
+    const pathname = location.pathname.split('/').slice(1, idIndex).join('/');
+    const url = `${location.protocol}//${location.host}/${pathname}`;
+    console.log(url);
+    copy(url);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);

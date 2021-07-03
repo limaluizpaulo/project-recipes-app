@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import RecipeContext from '../context/Context';
-import { getFromLocalStorage, setRecipeInProgressLocalStorage } from '../services/helpers/localStorage';
+import {
+  getFromLocalStorage, setRecipeInProgressLocalStorage,
+} from '../services/helpers/localStorage';
 
 const useIngredientList = () => {
-  const [ingredients, setIngredients] = useState();
-  const { selectedFood } = useContext(RecipeContext);
+  const { selectedFood, ingredients, setIngredients } = useContext(RecipeContext);
   const { idMeal, idDrink } = selectedFood;
   const CurrentId = idMeal || idDrink;
   const mainKey = idMeal ? 'meals' : 'cocktails';
@@ -14,7 +15,6 @@ const useIngredientList = () => {
     const recipes = inProgressRecipes
     && inProgressRecipes[mainKey]
     && inProgressRecipes[mainKey][CurrentId];
-    console.log(recipes);
     const createRecipe = () => {
       const keys = Object.keys(selectedFood);
       const mappedIngredients = {};
@@ -36,7 +36,7 @@ const useIngredientList = () => {
     };
 
     createRecipe();
-  }, [selectedFood, mainKey, CurrentId]);
+  }, [selectedFood, mainKey, CurrentId, setIngredients]);
 
   const setIngredientInLocalStorage = (ingrLocation) => {
     setRecipeInProgressLocalStorage(mainKey, CurrentId, [ingredients[ingrLocation]]);
@@ -50,9 +50,9 @@ const useIngredientList = () => {
     );
     setIngredientInLocalStorage(ingrLocation);
   };
+
   return {
     checkIngredient,
-    ingredients,
   };
 };
 

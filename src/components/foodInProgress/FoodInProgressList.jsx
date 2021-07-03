@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import RecipeContext from '../../context/Context';
 import useIngredientList from '../../hooks/useIngredientList';
 import '../../styles/foodInProgress.css';
 
 const FoodInProgressList = () => {
-  const { ingredients, checkIngredient } = useIngredientList();
+  const { checkIngredient } = useIngredientList();
+  const { ingredients } = useContext(RecipeContext);
 
   const handleCheck = (ingrLocation) => {
     checkIngredient(ingrLocation);
@@ -20,7 +22,11 @@ const FoodInProgressList = () => {
           data-testid={ `${index}-ingredient-step` }
           key={ index }
         >
-          <input type="checkbox" checked={ checked } onChange={ () => handleCheck(number) } />
+          <input
+            type="checkbox"
+            checked={ checked }
+            onChange={ () => handleCheck(number) }
+          />
           <li className={ checkedClass }>
             {number}
             -

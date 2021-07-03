@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import RecipeContext from '../../context/Context';
 
 import useIngredientList from '../../hooks/useIngredientList';
 
 const FoodDetailsIngredientList = () => {
-  const { ingredients } = useIngredientList();
+  const { ingredients } = useContext(RecipeContext);
+  useIngredientList();
   const renderList = () => {
     const keys = Object.keys(ingredients);
     return keys.map((key, index) => {
