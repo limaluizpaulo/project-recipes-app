@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import { useMealsContext } from '../context/mealsContext';
 import { useDrinksContext } from '../context/drinksContext';
 
 export default function CardIngre({ data, index }) {
-  const { setFilterMealsByIngre } = useMealsContext();
-  const { setFilterDrinksByIngre } = useDrinksContext();
+  const { setValueMealInputByIngre, serValueMealsInput } = useMealsContext();
+  const { serValueDrinksInput, setValueDrinksInputByIngre } = useDrinksContext();
   const { strIngredient, strIngredient1 } = data;
   const { pathname } = useHistory().location;
   const checkLink = () => {
@@ -25,12 +25,22 @@ export default function CardIngre({ data, index }) {
   };
   const handleClick = async () => {
     if (pathname.includes('/comidas')) {
-      setFilterMealsByIngre(strIngredient);
+      setValueMealInputByIngre(strIngredient);
     }
     if (pathname.includes('bebidas')) {
-      setFilterDrinksByIngre(strIngredient1);
+      setValueDrinksInputByIngre(strIngredient1);
     }
   };
+
+  useEffect(() => {
+    if (pathname.includes('/comidas')) {
+      serValueMealsInput('');
+    }
+    if (pathname.includes('bebidas')) {
+      serValueDrinksInput('');
+    }
+  }, [pathname, serValueMealsInput, serValueDrinksInput]);
+
   return (
     <div data-testid={ `${index}-ingredient-card` } className="ingre-card">
       <Link to={ checkLink() } onClick={ handleClick }>

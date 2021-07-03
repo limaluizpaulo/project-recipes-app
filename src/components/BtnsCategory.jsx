@@ -5,13 +5,16 @@ import { useDrinksContext } from '../context/drinksContext';
 
 export default function BtnsCategory({ label, title }) {
   const { strCategory } = label;
-  const { serValueMealsInput, valueMealsInput } = useMealsContext();
-  const { serValueDrinksInput, valueDrinksInput } = useDrinksContext();
+  const { serValueMealsInput, valueMealsInput,
+    setValueMealInputByIngre } = useMealsContext();
+  const { serValueDrinksInput, valueDrinksInput,
+    setValueDrinksInputByIngre } = useDrinksContext();
 
   const handleFilterByCategory = ({ target: { value } }) => {
     if (title === 'Comidas') {
       if (valueMealsInput !== value && value !== 'All') {
         serValueMealsInput(value);
+        setValueMealInputByIngre('');
       } else {
         serValueMealsInput('');
       }
@@ -19,6 +22,7 @@ export default function BtnsCategory({ label, title }) {
     if (title === 'Bebidas') {
       if (valueDrinksInput !== value && value !== 'All') {
         serValueDrinksInput(value);
+        setValueDrinksInputByIngre('');
       } else {
         serValueDrinksInput('');
       }

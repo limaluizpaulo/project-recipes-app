@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { node } from 'prop-types';
-import { fetchMealsByCategory, fetchMealsByName } from '../services/mealsApi';
+import { fetchMealsByCategory,
+  fetchMealsByName, fetchMealsByIngre } from '../services/mealsApi';
 
 const MealsContext = createContext();
 
@@ -8,6 +9,7 @@ export default function MealsContextProvider({ children }) {
   const [mealsFiltered, setMealsFiltered] = useState([]);
   const [filtersBtnsMeals, setFiltersBtnsMeals] = useState([]);
   const [valueMealsInput, serValueMealsInput] = useState('');
+  const [valueMealsInputByIngre, setValueMealInputByIngre] = useState('');
   const [areaSelected, setAreaSelected] = useState('American');
 
   useEffect(() => {
@@ -16,11 +18,16 @@ export default function MealsContextProvider({ children }) {
       fetchMealsByCategory(valueMealsInput)
         .then((res) => setMealsFiltered(res.slice(0, NUM)));
     }
-    if (!valueMealsInput) {
+    if (!valueMealsInput && !valueMealsInputByIngre) {
       fetchMealsByName(valueMealsInput)
         .then((res) => setMealsFiltered(res.slice(0, NUM)));
     }
-  }, [valueMealsInput]);
+
+    if (valueMealsInputByIngre) {
+      fetchMealsByIngre(valueMealsInputByIngre)
+        .then((data) => setMealsFiltered(data.slice(0, NUM)));
+    }
+  }, [valueMealsInput, valueMealsInputByIngre]);
 
   return (
     <MealsContext.Provider
@@ -31,7 +38,9 @@ export default function MealsContextProvider({ children }) {
         valueMealsInput,
         serValueMealsInput,
         areaSelected,
-        setAreaSelected } }
+        setAreaSelected,
+        valueMealsInputByIngre,
+        setValueMealInputByIngre } }
     >
       {children}
     </MealsContext.Provider>
@@ -43,7 +52,8 @@ export function useMealsContext() {
 
   const { mealsFiltered,
     setMealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals,
-    valueMealsInput, serValueMealsInput, areaSelected, setAreaSelected } = context;
+    valueMealsInput, serValueMealsInput, areaSelected, setAreaSelected,
+    valueMealsInputByIngre, setValueMealInputByIngre } = context;
   return { mealsFiltered,
     setMealsFiltered,
     filtersBtnsMeals,
@@ -52,6 +62,8 @@ export function useMealsContext() {
     serValueMealsInput,
     areaSelected,
     setAreaSelected,
+    valueMealsInputByIngre,
+    setValueMealInputByIngre,
   };
 }
 

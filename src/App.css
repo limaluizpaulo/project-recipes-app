@@ -38,9 +38,13 @@
 }
 
 .ingre-card {
-  background-color: red;
-  margin-left: 5rem;
-  width: 5rem;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+  width: 10rem;
 }
 
 .ingre-card img {
