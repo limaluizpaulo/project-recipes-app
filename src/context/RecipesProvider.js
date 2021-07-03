@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import {
   fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter,
-  fetchAllRecipes, fetchCategoriesRecipes, fetchRecipesByCategory,
+  fetchAllRecipes, fetchCategoriesRecipes, fetchRecipesByCategory, fetchRecipesById,
 } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
@@ -15,6 +15,8 @@ function RecipesProvider({ children }) {
     setRecipesFilteredByCategory] = useState({ recipesByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
+  const [recipeDetail, setRecipeDetail] = useState([]);
+  const [ingredientsRecipe, setIngredientsRecipe] = useState([]);
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
@@ -46,6 +48,19 @@ function RecipesProvider({ children }) {
     setRecipesFilteredByCategory({ recipesByCategory });
   }
 
+  async function getRecipesById(id) {
+    const SIZE = -1;
+    const recipe = await fetchRecipesById(id);
+    setRecipeDetail(recipe[0]);
+    const keys = [];
+    Object.keys(recipeDetail).forEach((key) => {
+      if (key.indexOf('strIngredient') > SIZE && recipeDetail[key] !== '') {
+        keys.push(recipeDetail[key]);
+      }
+    });
+    setIngredientsRecipe(keys);
+    keys.slice(0, keys.length);
+  }
   useEffect(() => {
     getAllRecipes();
     getAllCategories();
@@ -66,6 +81,9 @@ function RecipesProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
+        recipeDetail,
+        getRecipesById,
+        ingredientsRecipe,
       } }
     >
       { children }

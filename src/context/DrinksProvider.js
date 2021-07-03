@@ -5,7 +5,7 @@ import DrinksContext from './DrinksContext';
 import {
   fetchAllDrinks, fetchCategoriesDrinks,
   fetchDrinksByCategory, fetchDrinksByFirstLetter,
-  fetchDrinksByIngredient, fetchDrinksByName,
+  fetchDrinksByIngredient, fetchDrinksByName, fetchDrinksById,
 } from '../services/DrinksServices';
 
 function DrinksProvider({ children }) {
@@ -16,6 +16,8 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory] = useState({ drinksByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
+  const [drinkDetail, setDrinkDetail] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   async function filterDrinksByIngredient(ingredient) {
     const drinksFilteredByIngredient = await fetchDrinksByIngredient(ingredient);
@@ -47,6 +49,20 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory({ drinksByCategory });
   }
 
+  async function getDrinkById(id) {
+    const SIZE = -1;
+    const drink = await fetchDrinksById(id);
+    setDrinkDetail(drink[0]);
+    const keys = [];
+    Object.keys(drinkDetail).forEach((key) => {
+      if (key.indexOf('strIngredient') > SIZE && drinkDetail[key] !== null) {
+        keys.push(drinkDetail[key]);
+      }
+    });
+    setIngredients(keys);
+    keys.slice(0, keys.length);
+  }
+
   useEffect(() => {
     getAllDrinks();
     getAllCategories();
@@ -68,6 +84,9 @@ function DrinksProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
+        drinkDetail,
+        getDrinkById,
+        ingredients,
       } }
     >
       { children }
