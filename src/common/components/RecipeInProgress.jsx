@@ -55,6 +55,7 @@ export default function RecipeInProgress() {
                 id={ `${i}-ingredient-step` }
                 checked={ ingrOK.includes(task) }
                 onClick={ addTaskCompleted }
+                onChange={ () => {} }
               />
               {task}
             </label>

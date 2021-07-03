@@ -74,5 +74,5 @@ export default function LikeButton({ recipe }) { // Desestruturando props
 }
 
 LikeButton.propTypes = {
-  recipe: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
 };
