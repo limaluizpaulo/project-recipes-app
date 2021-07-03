@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/global.css';
+import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
@@ -68,17 +69,24 @@ function DrinkRecipes() {
       <div className="card-container">
         {firstDrinks.map((drink, index) => (
           <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
-            <div
+            <Card
               data-testid={ `${index}-recipe-card` }
               className="card"
             >
-              <img
+              <Card.Img
                 data-testid={ `${index}-card-img` }
                 src={ drink.strDrinkThumb }
                 alt={ drink.strDrink }
               />
-              <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
-            </div>
+              <Card.Body>
+                <Card.Title
+                  className="cardTitle"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {drink.strDrink}
+                </Card.Title>
+              </Card.Body>
+            </Card>
           </Link>
         ))}
       </div>
