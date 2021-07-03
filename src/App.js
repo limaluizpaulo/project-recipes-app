@@ -15,12 +15,12 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Foods } />
-        <Route path="/bebidas" component={ Drinks } />
-        <Route path="/explorar" component={ Explore } />
-        <Route path="/perfil" component={ Profile } />
-        <Route path="/comidas/:id" component={ FoodDetails } />
-        <Route path="/bebidas/:id" component={ DrinkDetails } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       </Switch>
 
     </div>

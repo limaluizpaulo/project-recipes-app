@@ -7,28 +7,23 @@ import MealsAPI from '../services/MealRecipesAPI';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 
 function SearchBar(props) {
-  const { getFoodsApi, getDrinksApi, foods, drinks, title } = props;
+  const {
+    getFoodsApi, getDrinksApi, foods,
+    goToFoodsPage, drinks, goToDrinksPage, title } = props;
+  const shouldRedirect = goToFoodsPage || goToDrinksPage;
+  const itemPage = title === 'Comidas' ? foods : drinks;
+  const itemID = title === 'Comidas' ? 'idMeal' : 'idDrink';
   const inputText = React.useRef();
   const ingredientRadio = React.useRef();
   const letterRadio = React.useRef();
   const nameRadio = React.useRef();
-  // const [link, setLink] = React.useState('#');
-  const [meals, setMeals] = React.useState({});
-  const [cocktails, setCocktails] = React.useState({});
-  const isOneItem = React.useRef(false);
-  // const pageTitle = React.useRef(title);
-  // const item = React.useRef(meals);
-  React.useEffect(() => {
-    isOneItem.current = meals.length === 1 || cocktails.length === 1;
-    // item.current = title === 'Bebidas' ? meals : cocktails;
-  }, [meals, cocktails]);
 
-  const callAPI = () => (
-    title === 'Bebidas' ? getDrinksApi : getFoodsApi
+  const callActionAPI = () => (
+    title === 'Comidas' ? getFoodsApi : getDrinksApi
   );
   const handleClick = async (e) => {
     e.preventDefault();
-    const API = props.title === 'Bebidas' ? BeverageAPI : MealsAPI;
+    const API = title === 'Comidas' ? MealsAPI : BeverageAPI;
     const radioInputRefs = [ingredientRadio, letterRadio, nameRadio];
     const radioRef = radioInputRefs.find((radio) => (
       radio.current.checked || radio.current.id === 'name'
@@ -38,17 +33,13 @@ function SearchBar(props) {
       alert(message); // eslint-disable-line no-alert
     }
 
-    callAPI()(inputText.current.value,
+    callActionAPI()(inputText.current.value,
       API[radioRef.current.id]);
-    setMeals(foods);
-    setCocktails(drinks);
   };
-
-  // const isOneItem = foods.length === 1 || drinks.length === 1;
   const pageTitle = title.toLowerCase();
-  const item = title === 'Bebidas' ? meals : drinks;
-
-  return isOneItem.current ? <Redirect to={ `/${pageTitle}/${item.idMeal}` } /> : (
+  return shouldRedirect ? <Redirect
+    to={ `/${pageTitle}/${itemPage[0][itemID]}` }
+  /> : (
     <form>
       <fieldset />
       <label htmlFor="search">
@@ -110,7 +101,9 @@ function SearchBar(props) {
 
 const mapStateToProps = (state) => ({
   foods: state.foods.list,
-  drinks: state.foods.list,
+  goToFoodsPage: state.foods.goToFoodsPage,
+  drinks: state.drinks.list,
+  goToDrinksPage: state.drinks.goToDrinksPage,
 });
 
 const mapDispatchToProps = ((dispatch) => ({

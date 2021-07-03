@@ -1,0 +1,12 @@
+@media (max-width: 360px) {
+  div.items-list {
+    display: flex;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+
+  .card-body {
+    margin: 0;
+    padding: 0;
+  }
+}

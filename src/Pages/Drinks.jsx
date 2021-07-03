@@ -2,7 +2,7 @@ import React from 'react';
 import HeadBar from '../Components/HeadBar';
 import Footer from '../Components/Footer';
 
-function Bebidas() {
+function Drinks(props) {
   return (
     <div className="foodScreen">
       <HeadBar title="Bebidas" />
@@ -12,4 +12,4 @@ function Bebidas() {
   );
 }
 
-export default Bebidas;
+export default Drinks;

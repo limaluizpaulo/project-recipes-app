@@ -1,10 +1,15 @@
 import { FOODS } from '../actions/index';
 
-export default (state = { list: [] }, { type, payload }) => {
+const initialState = {
+  list: [],
+  goToFoodsPage: false,
+};
+
+export default (state = initialState, { type, payload }) => {
   switch (type) {
   case FOODS:
     return {
-      ...state, list: payload,
+      ...state, list: payload, goToFoodsPage: payload && payload.length === 1,
     };
 
   default:
