@@ -19,18 +19,6 @@
 
 // export default RequestRandomDrink;
 
-// const fetchRandomDrink = async () => {
-//   try {
-//     const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-//     const drink = await fetch(URL).then((response) => response.json());
-//     return drink;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// export default fetchRandomDrink;
-
 const fetchRandomDrink = async () => {
   try {
     const API = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';

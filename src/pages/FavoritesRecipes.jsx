@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderSearch from '../components/HeaderSearch';
 
-export default function FavouritesRecipes() {
+export default function FavoritesRecipes() {
   return (
     <div>
       <HeaderSearch title="Receitas Favoritas" />

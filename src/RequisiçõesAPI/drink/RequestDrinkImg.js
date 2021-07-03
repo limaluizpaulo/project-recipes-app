@@ -8,7 +8,7 @@ function RequestDrinkImg() {
   useEffect(() => {
     fetch(urlRequestImgDrink)
       .then((r) => r.json())
-      .then((p) => setRequestDrinkImg(p.meals))
+      .then((p) => setRequestDrinkImg(p.drinks))
       .catch((error) => error);
   }, []);
 

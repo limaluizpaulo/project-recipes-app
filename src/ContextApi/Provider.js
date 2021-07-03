@@ -10,6 +10,7 @@ import RequestDrinkImg from '../RequisiçõesAPI/drink/RequestDrinkImg';
 
 import Teste from '../RequisiçõesAPI/teste';
 import RequestRandomDrink from '../RequisiçõesAPI/drink/RequestRandomDrink';
+import RequestByDrinksIngredients from '../RequisiçõesAPI/drink/RequestByIngredients';
 
 const initialState = {
   filters: {
@@ -24,6 +25,7 @@ const initialState = {
     drink: {
       drinkImg: [],
       randomDrink: [],
+      ingredients: [],
     },
   },
 };
@@ -32,6 +34,7 @@ function AuthProvider({ children }) {
   const categoryApiReturn = RequestByCategory();
   const areaApiReturn = RequestByArea();
   const ingredientsApiReturn = RequestByIngredients();
+  const ingredientsDrinksApiReturn = RequestByDrinksIngredients();
 
   Teste();
 
@@ -55,6 +58,7 @@ function AuthProvider({ children }) {
           ...state.apis.drink,
           drinkImg: drinkImgApiReturn,
           randomDrink: randomDrinkApiReturn,
+          ingredients: ingredientsDrinksApiReturn,
         },
       },
     });

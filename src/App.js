@@ -14,7 +14,7 @@ import Profile from './pages/Profile';
 import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
 import DoneRecipes from './pages/DoneRecepies';
-import FavouritesRecipes from './pages/FavouritesRecipes';
+import FavoritesRecipes from './pages/FavoritesRecipes';
 import AuthProvider from './ContextApi/Provider';
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-          <Route exact path="/receitas-favoritas" component={ FavouritesRecipes } />
+          <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"
