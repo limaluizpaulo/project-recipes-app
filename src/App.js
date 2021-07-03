@@ -16,6 +16,7 @@ import FoodOrigin from './pages/FoodOrigin';
 import DoneRecipes from './pages/DoneRecepies';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import AuthProvider from './ContextApi/Provider';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             component={ DrinkIngredients }
           />
           <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
 
         </Switch>
       </AuthProvider>
