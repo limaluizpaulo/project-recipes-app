@@ -9,6 +9,7 @@ import CardRecipe from '../components/CardRecipe';
 export default function ExploreByArea() {
   const { areaSelected, mealsFiltered, setMealsFiltered } = useMealsContext();
   const [areaList, setAreaList] = useState([]);
+
   useEffect(() => {
     const TWELVE = 12;
     const all = { strArea: 'All' };
@@ -16,6 +17,7 @@ export default function ExploreByArea() {
       .then((res) => setAreaList([...res, all]));
     fetchMealByArea(areaSelected).then((res) => setMealsFiltered(res.slice(0, TWELVE)));
   }, [areaSelected, setMealsFiltered]);
+
   return (
     <div>
       <Header title="Explorar Origem" search />
