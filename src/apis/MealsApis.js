@@ -21,3 +21,9 @@ export async function fetchMealsRecomendation() {
   const { meals } = await request.json();
   return meals;
 }
+
+export async function fetchMealsById(id) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const { meals } = await request.json();
+  return meals;
+}

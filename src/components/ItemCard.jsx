@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
+import Context from '../context/Context';
+
 
 export default function ItemCard({ item, i }) {
   const [str, setStr] = useState('');
   const [thumb, setThumb] = useState('');
+  const history = useHistory();
+  const { storeCurrentRecipe } = useContext(Context);
 
-  const { strMeal, strMealThumb, strDrink, strDrinkThumb } = item;
+  const { idMeal, strMeal, strMealThumb, strDrink, strDrinkThumb } = item;
 
   useEffect(() => {
     if (!strMeal && !strMealThumb) {
@@ -19,8 +24,17 @@ export default function ItemCard({ item, i }) {
     }
   }, [str, strDrink, strDrinkThumb, strMeal, strMealThumb, thumb]);
 
+  const renderMealsDetailPage = (idMeal) => {
+    storeCurrentRecipe(idMeal, 'meal');
+    history.push(`/comidas/${idMeal}`)
+  }
+
   return (
-    <Card style={ { width: '18rem' } } data-testid={ `${i}-recipe-card` }>
+    <Card
+      style={ { width: '18rem' } }
+      data-testid={ `${i}-recipe-card` }
+      onClick={ () => renderMealsDetailPage(idMeal) }
+    >
       <Card.Img variant="top" src={ thumb } data-testid={ `${i}-card-img` } />
       <Card.Body>
         <Card.Title data-testid={ `${i}-card-name` }>{ str }</Card.Title>
