@@ -1,4 +1,8 @@
-import { ALL_DRINK_CATEGORIES, IS_LOADING, ALL_DRINKS_RECIPES, DRINK_BY_CATEGORIES } from '../action';
+import {
+  ALL_DRINK_CATEGORIES,
+  IS_LOADING,
+  ALL_DRINKS_RECIPES, DRINK_BY_CATEGORIES,
+} from '../action';
 
 const INITIAL_STATE = {
   allDrinkCategories: [],
