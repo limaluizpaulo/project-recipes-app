@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import store, { addRecDetail, setLoading } from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
-import RenderRecipe from './RenderRecipe';
+import RenderRecipe from '../components/RenderRecipe';
 
 export default function RecipeInProgress() {
   const { id } = useParams();
