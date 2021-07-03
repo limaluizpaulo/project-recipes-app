@@ -1,58 +1,50 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
-import RecipesContext from '../context/RecipesContext';
 
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import HeaderDetails from '../components/HeaderDetails';
+import IngredientsDetails from '../components/IngredientsDetails';
 
 function DrinkDetail() {
   const { id } = useParams();
-  const { allRecipes: { recipes } } = useContext(RecipesContext);
-  const { drinkDetail, getDrinkById, ingredients } = useContext(DrinksContext);
+  const {
+    drinkDetails,
+    setDrinkDetails,
+    fetchDrinksById,
+    setIngredientsDrink,
+  } = useContext(DrinksContext);
 
-  /*   function getIngredients() {
-    const array = [];
+  const [load, setLoad] = useState(true);
 
-    console.log(ingredients);
-  } */
-
-  function renderHeader() {
-    return (
-      <header>
-        <img
-          src={ drinkDetail.strDrinkThumb }
-          alt={ drinkDetail.strDrink }
-          data-testid="recipe-photo"
-        />
-        <section>
-          <div className="Title-and-Category">
-            <span data-testid="recipe-title">{ drinkDetail.strDrink}</span>
-            <span data-testid="recipe-category">{ drinkDetail.strAlcoholic }</span>
-          </div>
-          <div className="Like-and-Share">
-            <button type="button" data-testid="share-btn">
-              <img src={ shareIcon } alt="Icon Share" />
-            </button>
-            <button type="button" data-testid="favorite-btn">
-              <img src={ whiteHeartIcon } alt="Icon Like" />
-            </button>
-          </div>
-        </section>
-      </header>
-    );
-  }
-
-  const NUMBER_OF_ITEMS = 6;
   useEffect(() => {
-    getDrinkById(id);
-  }, [ingredients]);
+    const drink = async () => {
+      const fetch = await fetchDrinksById(id);
+      setDrinkDetails(fetch[0]);
+      setLoad(false);
+    };
+    drink();
+  });
 
-  return (
+  useEffect(() => {
+    const SIZE = -1;
+    const keysIngredients = Object.keys(drinkDetails)
+      .map((key) => (key.indexOf('strIngredient') > SIZE ? drinkDetails[key] : ''))
+      .filter((value) => value !== '' && value !== ' ' && value !== null && value);
+
+    const quantity = Object.keys(drinkDetails)
+      .map((key) => (key.indexOf('strMeasure') > SIZE ? drinkDetails[key] : ''))
+      .filter((value) => value !== '' && value !== ' ' && value !== null && value);
+
+    const full = quantity.map((item, index) => `${item} ${keysIngredients[index]}`);
+
+    setIngredientsDrink(full);
+  }, [drinkDetails, setIngredientsDrink]);
+  return !load ? (
     <>
-      {renderHeader()}
+      <HeaderDetails />
       <main>
-        <section className="Ingredients">
+        <IngredientsDetails />
+        {/*         <section className="Ingredients">
           <h1>Ingredients</h1>
           <div>
             <ul>
@@ -66,14 +58,14 @@ function DrinkDetail() {
               ))}
             </ul>
           </div>
-        </section>
+        </section> */}
         <section className="Instructions">
           <h1>Instructions</h1>
           <div>
-            <p data-testid="instructions">{drinkDetail.strInstructions}</p>
+            <p data-testid="instructions">{drinkDetails.strInstructions}</p>
           </div>
         </section>
-        <section>
+        {/*         <section>
           <h1>Recomendadas</h1>
           <div>
             {
@@ -82,7 +74,7 @@ function DrinkDetail() {
                   <div
                     className="card-field"
                     data-testid={ `${index}-recipe-card` }
-                    key={ recipe }
+                    key={ index }
                   >
                     <Link to={ `/comidas/${recipe.idMeal}` }>
                       <img
@@ -97,15 +89,16 @@ function DrinkDetail() {
                 ))
             }
           </div>
-          <button type="button" data-testid="start-recipe-btn">
-            <span>Iniciar Receita</span>
-          </button>
-        </section>
+        </section> */}
+        <button type="button" data-testid="start-recipe-btn">
+          <span>Iniciar Receita</span>
+        </button>
+
       </main>
 
       <p>Bebidas</p>
     </>
-  );
+  ) : <h1>Loading</h1>;
 }
 
 export default DrinkDetail;

@@ -1,0 +1,21 @@
+.recommended {
+  background: green;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-recommended {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  height: 250px;
+  margin: 5px;
+  max-width: 200px;
+}
+
+.card img {
+  height: 180px;
+  width: 180px;
+}

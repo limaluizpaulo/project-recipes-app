@@ -1,111 +1,78 @@
-import React, { useContext, useEffect } from 'react';
-import ReactPlayer from 'react-player';
-import { useParams, Link } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
-import DrinksContext from '../context/DrinksContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import RecipesContext from '../context/RecipesContext';
+
+import HeaderDetails from '../components/HeaderDetails';
+import IngredientsDetails from '../components/IngredientsDetails';
 
 function FoodDetails() {
   const { id } = useParams();
-  const { allDrinks: { drinks } } = useContext(DrinksContext);
-  const { recipeDetail, getRecipesById, ingredientsRecipe } = useContext(RecipesContext);
+  const {
+    foodDetails,
+    setFoodDetails,
+    fetchRecipesById,
+    setIngredientsFood,
+  } = useContext(RecipesContext);
 
-  function renderHeader() {
-    return (
-      <header>
-        <img
-          src={ recipeDetail.strMealThumb }
-          alt={ recipeDetail.strMeal }
-          data-testid="recipe-photo"
-        />
-        <section>
-          <div className="Title-and-Category">
-            <span data-testid="recipe-title">{ recipeDetail.strMeal}</span>
-            <span data-testid="recipe-category">{ recipeDetail.strCategory }</span>
-          </div>
-          <div className="Like-and-Share">
-            <button type="button" data-testid="share-btn">
-              <img src={ shareIcon } alt="Icon Share" />
-            </button>
-            <button type="button" data-testid="favorite-btn">
-              <img src={ whiteHeartIcon } alt="Icon Like" />
-            </button>
-          </div>
-        </section>
-      </header>
-    );
-  }
-
-  const NUMBER_OF_ITEMS = 6;
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    getRecipesById(id);
-  }, [ingredientsRecipe]);
+    const food = async () => {
+      const fetch = await fetchRecipesById(id);
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = fetch[0].strYoutube.match(regExp);
+      setFoodDetails({ ...fetch[0], url: `https://www.youtube.com/embed/${match[2]}` });
+      setLoad(false);
+    };
+    food();
+  }, [fetchRecipesById, id, setFoodDetails]);
 
-  return (
+  useEffect(() => {
+    const SIZE = -1;
+    const keysIngredients = Object.keys(foodDetails)
+      .map((key) => (key.indexOf('strIngredient') > SIZE ? foodDetails[key] : ''))
+      .filter((value) => value !== '' && value !== ' ' && value !== null && value);
+
+    const quantity = Object.keys(foodDetails)
+      .map((key) => (key.indexOf('strMeasure') > SIZE ? foodDetails[key] : ''))
+      .filter((value) => value !== '' && value !== ' ' && value !== null && value);
+
+    const full = quantity.map((item, index) => `${item} ${keysIngredients[index]}`);
+
+    setIngredientsFood(full);
+  }, [foodDetails, setIngredientsFood]);
+  return !load ? (
     <>
-      {renderHeader()}
+      <HeaderDetails />
       <main>
-        <section className="Ingredients">
-          <h1>Ingredients</h1>
-          <div>
-            <ul>
-              {ingredientsRecipe.map((item, index) => (
-                <li
-                  key={ item }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <IngredientsDetails />
         <section className="Instructions">
           <h1>Instructions</h1>
           <div>
-            <p data-testid="instructions">{recipeDetail.strInstructions}</p>
+            <p data-testid="instructions">{foodDetails.strInstructions}</p>
           </div>
         </section>
         <section>
           <h1>Video</h1>
+          {' '}
           <div>
-            <ReactPlayer url={ recipeDetail.strYoutube } data-testid="video" />
+            <iframe
+              title={ foodDetails.strMeal }
+              src={ foodDetails.url }
+              frameBorder="0"
+            />
+
           </div>
         </section>
-        <section>
-          <h1>Recomendadas</h1>
-          <div>
-            {
-              drinks.slice(0, NUMBER_OF_ITEMS)
-                .map((drink, index) => (
-                  <div
-                    className="card-field"
-                    data-testid={ `${index}-recipe-card` }
-                    key={ drink }
-                  >
-                    <Link to={ `/bebidas/${drink.idDrink}` }>
-                      <img
-                        data-testid={ `${index}-recomendation-card` }
-                        src={ drink.strDrinkThumb }
-                        alt={ drink.strDrink }
-                      />
-                      <span data-testid="recipe-category">{ drink.strAlcoholic }</span>
-                      <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
-                    </Link>
-                  </div>
-                ))
-            }
-          </div>
-          <button type="button" data-testid="start-recipe-btn">
-            <span>Iniciar Receita</span>
-          </button>
-        </section>
+        {/* <Recommended /> */}
+        <button type="button" data-testid="start-recipe-btn">
+          <span>Iniciar Receita</span>
+        </button>
+
       </main>
     </>
-  );
+  ) : <h1>Loading</h1>;
 }
 
 export default FoodDetails;

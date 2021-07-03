@@ -15,8 +15,8 @@ function RecipesProvider({ children }) {
     setRecipesFilteredByCategory] = useState({ recipesByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
-  const [recipeDetail, setRecipeDetail] = useState([]);
-  const [ingredientsRecipe, setIngredientsRecipe] = useState([]);
+  const [foodDetails, setFoodDetails] = useState([]);
+  const [ingredientsFood, setIngredientsFood] = useState([]);
   const [randomRecipe, setRandomRecipe] = useState([]);
 
   async function filterRecipesByIngredient(ingredient) {
@@ -49,19 +49,6 @@ function RecipesProvider({ children }) {
     setRecipesFilteredByCategory({ recipesByCategory });
   }
 
-  async function getRecipesById(id) {
-    const SIZE = -1;
-    const recipe = await fetchRecipesById(id);
-    setRecipeDetail(recipe[0]);
-    const keys = [];
-    Object.keys(recipeDetail).forEach((key) => {
-      if (key.indexOf('strIngredient') > SIZE && recipeDetail[key] !== '') {
-        keys.push(recipeDetail[key]);
-      }
-    });
-    setIngredientsRecipe(keys);
-    keys.slice(0, keys.length);
-  }
   useEffect(() => {
     getAllRecipes();
     getAllCategories();
@@ -82,9 +69,11 @@ function RecipesProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
-        recipeDetail,
-        getRecipesById,
-        ingredientsRecipe,
+        foodDetails,
+        fetchRecipesById,
+        setFoodDetails,
+        ingredientsFood,
+        setIngredientsFood,
         randomRecipe,
         setRandomRecipe,
       } }

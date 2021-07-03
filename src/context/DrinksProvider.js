@@ -16,8 +16,8 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory] = useState({ drinksByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
-  const [drinkDetail, setDrinkDetail] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
+  const [drinkDetails, setDrinkDetails] = useState([]);
+  const [ingredientsDrink, setIngredientsDrink] = useState([]);
   const [randomDrink, setRandomDrink] = useState([]);
 
   async function filterDrinksByIngredient(ingredient) {
@@ -50,20 +50,40 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory({ drinksByCategory });
   }
 
-  async function getDrinkById(id) {
+  /* async function getDrinkById(id) {
     const SIZE = -1;
+    const quantity = [];
+    const keysIngredients = [];
+
     const drink = await fetchDrinksById(id);
     setDrinkDetail(drink[0]);
-    const keys = [];
+
     Object.keys(drinkDetail).forEach((key) => {
-      if (key.indexOf('strIngredient') > SIZE && drinkDetail[key] !== null) {
-        keys.push(drinkDetail[key]);
+      if (
+        key.indexOf('strIngredient')
+        > SIZE && drinkDetail[key] !== ''
+      && drinkDetail[key] !== null) {
+        keysIngredients.push(drinkDetail[key]);
       }
     });
-    setIngredients(keys);
-    keys.slice(0, keys.length);
-  }
 
+    Object.keys(drinkDetail).forEach((key) => {
+      if (
+        key.indexOf('strMeasure')
+        > SIZE && drinkDetail[key] !== ' '
+      && drinkDetail[key] !== null
+      && drinkDetail[key] !== '') {
+        quantity.push(drinkDetail[key]);
+      }
+    });
+
+    const full = quantity.map((item, index) => `${item} ${keysIngredients[index]}`);
+
+    setIngredients(full);
+    keysIngredients.slice(0, keysIngredients.length);
+    quantity.slice(0, quantity.length);
+  }
+ */
   useEffect(() => {
     getAllDrinks();
     getAllCategories();
@@ -85,9 +105,11 @@ function DrinksProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
-        drinkDetail,
-        getDrinkById,
-        ingredients,
+        drinkDetails,
+        fetchDrinksById,
+        setDrinkDetails,
+        ingredientsDrink,
+        setIngredientsDrink,
         randomDrink,
         setRandomDrink,
       } }
