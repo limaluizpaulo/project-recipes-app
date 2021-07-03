@@ -14,7 +14,7 @@ export default function RecommendedRecipes() {
             // data-testid={ `${index}-card-img` }
             src={ recipe.strMealThumb || recipe.strDrinkThumb }
             alt="recipe-img"
-            className="recipeImg"
+            className="recommendedImg"
           />
           <h4
             // data-testid={ `${index}-card-name` }

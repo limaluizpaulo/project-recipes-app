@@ -56,8 +56,8 @@ export default function RenderDetails() {
           />
         </div>
       ) : ('')}
-      <div>
-        <h3>Receitas Recomendadas</h3>
+      <h3>Receitas Recomendadas</h3>
+      <div className="recommendedRecipes">
         <RecommendedRecipes />
       </div>
       <Link
