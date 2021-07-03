@@ -47,3 +47,62 @@
   margin: 3px;
   width: 114px;
 }
+
+.alignDetailsItens {
+  margin: auto;
+  width: 95%;
+}
+
+.detailImg {
+  width: 100%;
+}
+
+.detailsTitle-container {
+  display: flex;
+  justify-content:space-between;
+}
+
+.shareAndLike {
+  display: flex;
+
+}
+
+.share {
+  background-color: inherit;
+  border: inherit;
+}
+
+.share:hover {
+  outline-style: none;
+}
+
+.favorite {
+  background-color: inherit;
+  border: inherit;
+  margin-left: 3px;
+}
+
+.favorite:hover {
+  outline-style: none;
+}
+
+.ingredients {
+  background-color: rgb(223, 223, 223);
+  padding: 20px;
+}
+
+.instructions {
+  background-color: rgb(223, 223, 223);
+  padding: 15px;
+}
+
+.detailVideo {
+  width: 100%;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+  margin-top: 160px;
+  padding: 15px;
+}

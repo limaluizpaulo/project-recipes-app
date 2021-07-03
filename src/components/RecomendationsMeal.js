@@ -38,7 +38,6 @@ function RecomendationsMeal() {
                 </div>
               </Link>
             ))}
-            <span aria-hidden="true" className="carousel-control-next-icon" />
           </div>
         </Carousel.Item>
         <Carousel.Item>
@@ -54,7 +53,11 @@ function RecomendationsMeal() {
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
                   />
-                  <p data-testid={ `${index + 2}-recomendation-title` }>{meal.strMeal}</p>
+                  <p
+                    data-testid={ `${index + 2}-recomendation-title` }
+                  >
+                    {meal.strMeal}
+                  </p>
                 </div>
               </Link>
             ))}

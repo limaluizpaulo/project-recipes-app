@@ -17,12 +17,13 @@ export default function List({ array, drinks }) {
               key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              { ` ${element[1]} - ${measures[index][1]}` }
+              { `${element[1]}
+                - ${measures[index][1] === null
+              ? 'as you like' : measures[index][1]}` }
             </li>
           );
         }
       }
-
       return '';
     });
   }
@@ -30,7 +31,7 @@ export default function List({ array, drinks }) {
   return (
     <>
       <h2>Ingredients</h2>
-      <ul>
+      <ul className="ingredients">
         { array ? filterIngredients(array) : filterIngredients(drinks) }
       </ul>
     </>

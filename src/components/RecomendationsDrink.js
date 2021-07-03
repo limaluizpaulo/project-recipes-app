@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { requestDrink } from '../services/api';
+import '../styles/global.css';
 
 function RecomendationsDrink() {
   const [recomendationsDrink, setRecomendationsDrink] = useState([]);
@@ -33,6 +34,7 @@ function RecomendationsDrink() {
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                   />
+                  <span>{drink.strAlcoholic}</span>
                   <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
                 </div>
               </Link>
@@ -52,6 +54,7 @@ function RecomendationsDrink() {
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                   />
+                  <span>{drink.strAlcoholic}</span>
                   <p
                     data-testid={ `${index + 2}-recomendation-title` }
                   >
@@ -75,6 +78,7 @@ function RecomendationsDrink() {
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                   />
+                  <span>{drink.strAlcoholic}</span>
                   <p data-testid={ `${index + four}-recomendation-title` }>
                     {drink.strDrink}
                   </p>

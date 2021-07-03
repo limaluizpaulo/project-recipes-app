@@ -4,7 +4,6 @@ import './App.css';
 import './styles/global.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
-
 import Provider from './context/ContextForm';
 import DrinkExplore from './pages/DrinkExplore';
 import FoodDetails from './pages/FoodDetails';
