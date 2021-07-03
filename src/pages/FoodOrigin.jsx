@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 import RecipesMealCard from '../components/RecipesMealCard';
 
 const BASE_URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const BASE_URL_MEAL_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 const MAX_NUMBER_OF_ITEMS = 12;
 
 function FoodOrigin() {
@@ -13,12 +14,12 @@ function FoodOrigin() {
   const [origin, setOrigin] = useState('All');
 
   async function filterByOrigin() {
-    const fetchSearch = await fetch(BASE_URL_MEAL);
+    const fetchSearch = origin === 'All'
+      ? await fetch(BASE_URL_MEAL)
+      : await fetch(`${BASE_URL_MEAL_AREA}${origin}`);
     const response = await fetchSearch.json();
-    let filteredValues = origin === 'All'
-      ? response.meals
-      : response.meals.filter((recipe) => recipe.strArea === origin);
-    filteredValues = filteredValues.slice(0, MAX_NUMBER_OF_ITEMS);
+    console.log(response.meals);
+    const filteredValues = response.meals.slice(0, MAX_NUMBER_OF_ITEMS);
     setRecipes(filteredValues);
   }
 
@@ -27,6 +28,7 @@ function FoodOrigin() {
   }, [origin]);
 
   function handleChange({ target: { value } }) {
+    console.log(`${BASE_URL_MEAL_AREA}${value}`);
     setOrigin(value);
   }
 
