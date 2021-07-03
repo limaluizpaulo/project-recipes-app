@@ -1,4 +1,5 @@
-import { ADD_RECIPES, DIRECT_PAGE, ADD_RECIPE_DETAIL, UPDATE_LOADING } from '../store';
+import { ADD_RECIPES, DIRECT_PAGE,
+  ADD_RECIPE_DETAIL, UPDATE_LOADING, ADD_RECOMMENDED } from '../store';
 
 const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action
   switch (type) {
@@ -27,10 +28,18 @@ const recipesReducer = (state, { type, payload }) => { // Desestruturação do A
     };
   }
   case ADD_RECIPE_DETAIL: {
-    const { recipeDetail } = payload;
+    const { recipeDetail, loading } = payload;
     return {
       ...state,
       recipeDetail,
+      loading,
+    };
+  }
+  case ADD_RECOMMENDED: {
+    const { recommendedRecipes } = payload;
+    return {
+      ...state,
+      recommendedRecipes,
     };
   }
   default:

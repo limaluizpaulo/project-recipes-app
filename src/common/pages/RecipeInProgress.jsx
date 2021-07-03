@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import store, { addRecDetail, setLoading } from '../../context/store';
 import { getStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
-import LikeButton from '../components/LikeButton';
 import RecipeIngredients from '../components/RecipeIngredients';
+import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 
 export default function RecipeInProgress() {
@@ -50,7 +50,7 @@ export default function RecipeInProgress() {
         </h5>
       </div>
       <div>
-        <h4>Ingredientes</h4>
+        <h3>Ingredientes</h3>
         <RecipeIngredients
           inProg
           setIngrOK={ setIngrOK }
@@ -58,7 +58,7 @@ export default function RecipeInProgress() {
         />
       </div>
       <div>
-        <h4>Instruções</h4>
+        <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
       </div>
       <Link to="/receitas-feitas">
