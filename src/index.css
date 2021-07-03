@@ -132,11 +132,19 @@ body, button {
   cursor: pointer;
 }
 
+.likeShareBtns {
+  display: flex;
+  justify-content: space-around;
+}
+
 /*  ====================================================================================================================================*/
 
-/* SHARELIKEBUTTONS COMPONENT ===========================================================================================================*/
+/* SHAREBUTTONS COMPONENT ===========================================================================================================*/
 .showMsg {
-  display: block;
+  position: absolute;
+  margin-left: -10px;
+  margin-top: 15px;
+  
 }
 
 .hideMsg {

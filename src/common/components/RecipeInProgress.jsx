@@ -45,14 +45,14 @@ export default function RecipeInProgress() {
         return (
           <div key={ i }>
             <label
-              htmlFor={ ingredient }
+              htmlFor={ `${i}-ingredient-step` }
               className={ (taskOK[task]) ? 'completedRecipe' : '' }
+              data-testid={ `${i}-ingredient-step` }
             >
               <input
                 type="checkbox"
-                data-testid={ `${i + 1}-ingredient-step` }
                 name={ task }
-                id={ ingredient }
+                id={ `${i}-ingredient-step` }
                 checked={ ingrOK.includes(task) }
                 onClick={ addTaskCompleted }
               />
@@ -89,6 +89,9 @@ export default function RecipeInProgress() {
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    <RenderRecipe renderIngredients={ renderIngredients } />
+    <RenderRecipe
+      renderIngredients={ renderIngredients }
+      ingrOK={ ingrOK }
+    />
   );
 }
