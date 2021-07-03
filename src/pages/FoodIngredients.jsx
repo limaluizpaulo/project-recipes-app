@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import FoodDetails from '../components/FoodDetails';
-import FoodDetailsIngredientList from '../components/FoodDetailsIngredientList';
-import FoodVideoAndRecomendation from '../components/FoodVideoAndRecomendation';
+import FoodDetails from '../components/foodDetailsPage/FoodDetails';
+import FoodDetailsIngredientList
+  from '../components/foodDetailsPage/FoodDetailsIngredientList';
+import FoodVideoAndRecomendation
+  from '../components/foodDetailsPage/FoodVideoAndRecomendation';
 import RecipeContext from '../context/Context';
-import FoodDetailsButton from '../components/FoodDetailsButton';
+import FoodDetailsButton from '../components/foodDetailsPage/FoodDetailsButton';
 import useFood from '../hooks/useFood';
 
 // Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useIngredientList from '../hooks/useIngredientList';
+import useIngredientList from '../../hooks/useIngredientList';
 
 const FoodDetailsIngredientList = () => {
   const { ingredients } = useIngredientList();

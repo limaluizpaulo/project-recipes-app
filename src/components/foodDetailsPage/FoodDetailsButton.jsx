@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router';
-import useCheckFoodStatus from '../hooks/useCheckFoodStatus';
-import RecipeContext from '../context/Context';
-import { setRecipeInProgressLocalStorage } from '../services/helpers/localStorage';
+import useCheckFoodStatus from '../../hooks/useCheckFoodStatus';
+import RecipeContext from '../../context/Context';
+import { setRecipeInProgressLocalStorage } from '../../services/helpers/localStorage';
 
 const FoodDetailsButton = () => {
   const { selectedFood } = useContext(RecipeContext);

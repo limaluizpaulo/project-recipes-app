@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
-import FoodDetails from '../components/FoodDetails';
+import FoodDetails from '../components/foodDetailsPage/FoodDetails';
+import FoodInProgressBtn from '../components/foodInProgress/FoodInProgressBtn';
+import FoodInProgressList from '../components/foodInProgress/FoodInProgressList';
+import '../styles/foodInProgress.css';
 
 import RecipeContext from '../context/Context';
 import useFood from '../hooks/useFood';
@@ -14,7 +17,10 @@ const FoodInProgress = () => {
   }
   return (
     <div>
-      <FoodDetails />
+      <FoodDetails>
+        <FoodInProgressList />
+      </FoodDetails>
+      <FoodInProgressBtn />
     </div>
   );
 };
