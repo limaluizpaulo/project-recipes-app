@@ -1,15 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import fetchAPI from '../services/apiRequest';
 import RecipesContext from '../context/RecipesContext';
 
 export default function SearchBar() {
   const { path } = useRouteMatch();
-
+  const history = useHistory();
   const [filter, setFilter] = useState({ content: '', URL: '' });
   // const [show, setShow] = useState(false);
-  const { setGlobalState } = useContext(RecipesContext);
+  const { setGlobalState, globalState } = useContext(RecipesContext);
+
+  useEffect(() => {
+    function test() {
+      const targetId = path === '/comidas' ? 'idMeal' : 'idDrink';
+      history.push(`${path}/${globalState[0][targetId]}`);
+    }
+
+    if (globalState.length === 1) {
+      test();
+    }
+  }, [path, history, globalState]);
 
   function handleChange({ target }) {
     const { id, value, type } = target;
@@ -31,7 +42,8 @@ export default function SearchBar() {
     if (type === 'text') setFilter({ ...filter, content: value });
   }
 
-  async function handleClick() {
+  async function handleClick(e) {
+    e.preventDefault();
     let domain = 'themealdb';
     if (path === '/bebidas') domain = 'thecocktaildb';
 
@@ -95,7 +107,7 @@ export default function SearchBar() {
       <Button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleClick }
+        onClick={ (e) => handleClick(e) }
       >
         Search
       </Button>
