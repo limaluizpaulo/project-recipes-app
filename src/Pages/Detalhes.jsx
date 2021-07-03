@@ -14,7 +14,7 @@ export default function DetalhesComida({ location }) {
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, []);
+  }, [storeCurrentRecipe, location]);
 
   return (
     <Container>
