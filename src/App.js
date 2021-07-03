@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import UserContext from './context/user.context';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/login';
+import WarningMessage from './components/WarningMessage';
+import Login from './pages/Login';
 import Principal from './pages/Principal';
 import Details from './pages/Details';
 import ComidaEmProcesso from './pages/em-processo/ComidaEmProcesso';
@@ -16,14 +17,13 @@ import ExplorarPorArea from './pages/explorar/area';
 import Perfil from './pages/perfil';
 import ReceitasFeitas from './pages/receitas-feitas';
 import ReceitasFavoritas from './pages/receitas-favoritas';
-import WarningMessage from './components/WarningMessage';
 import './App.css';
 
 function App() {
-  const { showMessage } = useContext(UserContext);
+  const { warningMessage } = useContext(UserContext);
   return (
     <BrowserRouter>
-    {showMessage && <WarningMessage />}
+      {warningMessage && <WarningMessage />}
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Principal } />

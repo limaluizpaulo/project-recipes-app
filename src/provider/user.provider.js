@@ -5,25 +5,38 @@ import UserContext from '../context/user.context';
 function UserProvider({ children }) {
   const localFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
-  const [user, setUser] = useState({ email: '', password: '' });
+  const [userEmail, setUserEmail] = useState('');
   const [favorites, setFavorites] = useState(localFavorites);
-  const [showMessage, setShowMessage] = useState(false);
+  const [warningMessage, setWarningMessage] = useState('');
 
   const shared = {
-    user,
-    setUser,
+    userEmail,
+    setUserEmail,
     favorites,
     setFavorites,
-    showMessage,
-    setShowMessage,
+    warningMessage,
+    setWarningMessage,
   };
 
   useEffect(() => {
-    const LIMIT = 3000;
-    setTimeout(() => {
-      setShowMessage(false);
-    }, LIMIT);
-  }, [showMessage]);
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (!favoriteRecipes) localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+
+    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+    if (!inProgressRecipes) {
+      const initialObj = { cocktails: {}, meals: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
+    }
+
+    const doneRecipes = localStorage.getItem('doneRecipes');
+    if (!doneRecipes) localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('mealsToken', 1);
+  }, [userEmail]);
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+
 import { urlToEmbed } from '../helpers';
 import { fetchDetails } from '../services';
 import FavoriteButton from './FavoriteButton';

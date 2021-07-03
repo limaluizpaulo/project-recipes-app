@@ -20,7 +20,7 @@ main {
   border: none;
   color: #eee;
   font-family: inherit;
-  font-weight: bold;
+  font-weight: 600;
   padding: 5px 20px;
 }
 
@@ -41,4 +41,17 @@ main {
 .button-svg {
   background: transparent;
   border: none;
+}
+
+.warning-message {
+  position: fixed;
+  text-align: center;
+  top: 20px;
+  width: 100vw;
+}
+
+.warning-message span {
+  background-color: white;
+  padding: 10px;
+  font-style: italic;
 }

@@ -7,8 +7,8 @@
 
 .category-button {
   border: none;
-  height: 40px;
   font-family: inherit;
+  height: 40px;
   margin-bottom: 5px;
   width: 100px;
 }

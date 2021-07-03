@@ -1,53 +1,32 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import UserContext from '../../context/user.context';
+import UserContext from '../context/user.context';
 
 function Login() {
-  const { user, setUser } = useContext(UserContext);
+  const { setUserEmail } = useContext(UserContext);
+  const [input, setInput] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
   const history = useHistory();
 
   function handleChange({ target }) {
     const { name, value } = target;
-    setUser((prevState) => ({
+    setInput((prevState) => ({
       ...prevState, [name]: value,
     }));
   }
 
-  function handleClick() {
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email: user.email }));
-    history.push('/comidas');
-  }
-
-  useEffect(() => {
-    const doneRecipes = localStorage.getItem('doneRecipes');
-    if (!doneRecipes) localStorage.setItem('doneRecipes', JSON.stringify([]));
-
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    if (!favoriteRecipes) localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-
-    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const initialObj = { cocktails: {}, meals: {} };
-    if (!inProgressRecipes) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
-    }
-  }, []);
-
   useEffect(() => {
     const re = /\S+@\S+\.\S+/;
     const MIN_PASSWORD_LENGTH = 7;
-    const { email } = user;
-    const { password } = user;
+    const { email, password } = input;
 
     if (re.test(email) && password.length >= MIN_PASSWORD_LENGTH) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  }, [user]);
+  }, [input]);
 
   return (
     <div>
@@ -75,7 +54,7 @@ function Login() {
       </label>
       <button
         type="button"
-        onClick={ () => handleClick() }
+        onClick={ () => { setUserEmail(input.email); history.push('/comidas'); } }
         data-testid="login-submit-btn"
         disabled={ isDisabled }
       >

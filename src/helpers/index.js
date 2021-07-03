@@ -8,13 +8,12 @@ export function urlToEmbed(url) {
   return `https://www.youtube.com/embed/${url.split('=')[1]}`;
 }
 
-export function toggleFavorite(params) {
-  const { favorites, setFavorites, recipe } = params;
-  const isDrinks = Object.keys(recipe).includes('idDrink');
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const typeCypress = isDrinks ? 'bebida' : 'comida';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
+export function toggleFavorite(favorites, setFavorites, recipe) {
+  const isDrink = Object.keys(recipe).includes('idDrink');
+  const idKey = isDrink ? 'idDrink' : 'idMeal';
+  const typeCypress = isDrink ? 'bebida' : 'comida';
+  const nameKey = isDrink ? 'strDrink' : 'strMeal';
+  const imgKey = isDrink ? 'strDrinkThumb' : 'strMealThumb';
 
   const formattedRecipe = {
     id: recipe[idKey],
@@ -27,10 +26,8 @@ export function toggleFavorite(params) {
   };
 
   const isFavorite = favorites.some((item) => item.id === recipe[idKey]);
-
   const favoriteRecipes = isFavorite
     ? favorites.filter((item) => item.id !== formattedRecipe.id)
     : favorites.concat(formattedRecipe);
-
   setFavorites(favoriteRecipes);
 }
