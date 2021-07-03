@@ -12,7 +12,7 @@ const Meals = () => {
   const recipesShow = 12;
   return (
     <div>
-      <Header />
+      <Header name="Comidas" search />
       <Categories
         categories={ categories }
         onClick={ setFilterCategory }

@@ -5,18 +5,18 @@ import { Header, Footer } from '../components';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Profile = () => {
-  let history = useHistory();
+  const history = useHistory();
   const { email } = getFromLocalStorage('user');
   return (
     <main>
-      <Header name="Perfil" search/>
+      <Header name="Perfil" search />
 
       <h2 data-testid="profile-email">{ email }</h2>
 
       <button
         type="button"
         data-testid="profile-done-btn"
-        onClick={ () => history.push("/receitas-feitas") }
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Receitas Feitas
       </button>
@@ -24,7 +24,7 @@ const Profile = () => {
       <button
         type="button"
         data-testid="profile-favorite-btn"
-        onClick={ () => history.push("/receitas-favoritas") }
+        onClick={ () => history.push('/receitas-favoritas') }
       >
         Receitas Favoritas
       </button>
@@ -32,7 +32,7 @@ const Profile = () => {
       <button
         type="button"
         data-testid="profile-logout-btn"
-        onClick={ () => history.push("/") }
+        onClick={ () => { localStorage.clear(); history.push('/'); } }
       >
         Sair
       </button>
@@ -40,6 +40,6 @@ const Profile = () => {
       <Footer />
     </main>
   );
-}
+};
 
 export default Profile;

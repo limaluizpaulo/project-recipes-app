@@ -8,7 +8,7 @@ const Drinks = () => {
   const recipesShow = 12;
   return (
     <div>
-      <Header />
+      <Header name="Bebidas" search />
       <Categories
         categories={ categories }
         onClick={ setFilterCategory }

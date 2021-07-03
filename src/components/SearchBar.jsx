@@ -7,7 +7,6 @@ const SearchBar = () => {
 
   const handleSearch = async (typeOfSearch, textChosen) => {
     const request = await ingredientsAPI(typeOfSearch, textChosen);
-    console.log(request);
     return request;
   };
 
@@ -30,7 +29,7 @@ const SearchBar = () => {
             data-testid="ingredient-search-radio"
             value="i"
           />
-          Ingredientes
+          Ingrediente
         </label>
         <label htmlFor="name-search">
           <input
