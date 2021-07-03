@@ -5,6 +5,9 @@ import RecipesContext from '../context/RecipesContext';
 
 import HeaderDetails from '../components/HeaderDetails';
 import IngredientsDetails from '../components/IngredientsDetails';
+import InstructionsDetails from '../components/InstructionsDetails';
+import Recommended from '../components/Recommended';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
 function FoodDetails() {
   const { id } = useParams();
@@ -48,30 +51,22 @@ function FoodDetails() {
       <HeaderDetails />
       <main>
         <IngredientsDetails />
-        <section className="Instructions">
-          <h1>Instructions</h1>
-          <div>
-            <p data-testid="instructions">{foodDetails.strInstructions}</p>
-          </div>
-        </section>
-        <section>
+        <InstructionsDetails />
+        <section className="video-details">
           <h1>Video</h1>
-          {' '}
           <div>
             <iframe
               title={ foodDetails.strMeal }
               src={ foodDetails.url }
               frameBorder="0"
+              data-testid="video"
             />
 
           </div>
         </section>
-        {/* <Recommended /> */}
-        <button type="button" data-testid="start-recipe-btn">
-          <span>Iniciar Receita</span>
-        </button>
-
+        <Recommended />
       </main>
+      <ButtonStartRecipe />
     </>
   ) : <h1>Loading</h1>;
 }

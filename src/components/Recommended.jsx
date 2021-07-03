@@ -1,46 +1,56 @@
-/* import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-
 import DrinksContext from '../context/DrinksContext';
-import '../styles/Recommended.css';
+import RecipesContext from '../context/RecipesContext';
 
-function Recommended() {
+export default function Recommended() {
   const { allDrinks: { drinks } } = useContext(DrinksContext);
+  const { allRecipes: { recipes } } = useContext(RecipesContext);
+
+  const { pathname } = useLocation();
+
+  const NUMBER_TO_VERIFICATION = -1;
   const NUMBER_OF_ITEMS = 6;
-  const [next, setNext] = useState(1);
-  const [prev, setPrev] = useState(0);
-  const [reload, setReload] = useState(true);
+  const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
 
-  function display(index) {
-    if (index !== next && index !== prev) {
-      return 'none';
-    }
-    return 'block';
-  }
-
-  const anterior = () => {
-    if (prev === NUMBER_OF_ITEMS - 1) {
-      setPrev(NUMBER_OF_ITEMS - 1);
-    } else {
-      setPrev(prev - 1);
-    }
-  };
-  useEffect(() => {
-    setReload(!reload);
-  }, [next, prev, reload]);
-  return (
-    <section className="recommended">
+  return getDrinksDetails ? (
+    <section>
       <h1>Recomendadas</h1>
-      <div className="cards-recommended">
-        <button type="button" onClick={ anterior }>&lt;</button>
+      <div>
+        {
+          recipes.slice(0, NUMBER_OF_ITEMS)
+            .map((recipe, index) => (
+              <div
+                className="card-field"
+                data-testid={ `${index}-recipe-card` }
+                key={ index }
+              >
+                <Link to={ `/comidas/${recipe.idMeal}` }>
+                  <img
+                    data-testid={ `${index}-recomendation-card` }
+                    src={ recipe.strMealThumb }
+                    alt={ recipe.strMeal }
+                  />
+                  <span data-testid="recipe-category">{ recipe.strCategory }</span>
+                  <h5 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h5>
+                </Link>
+              </div>
+            ))
+        }
+      </div>
+    </section>
+  ) : (
+    <section>
+      <h1>Recomendadas</h1>
+      <div>
         {
           drinks.slice(0, NUMBER_OF_ITEMS)
             .map((drink, index) => (
               <div
-                className="card"
+                className="card-field"
                 data-testid={ `${index}-recipe-card` }
-                key={ `${index}oi` }
-                style={ { display: `${display(index)}` } }
+                key={ index }
               >
                 <Link to={ `/bebidas/${drink.idDrink}` }>
                   <img
@@ -48,7 +58,7 @@ function Recommended() {
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                   />
-                  <span data-testid="recipe-category">{ drink.strAlcoholic }</span>
+                  <span data-testid="recipe-category">{ drink.strCategory }</span>
                   <h5 data-testid={ `${index}-card-name` }>{drink.strDrink}</h5>
                 </Link>
               </div>
@@ -56,8 +66,6 @@ function Recommended() {
         }
       </div>
     </section>
+
   );
 }
-
-export default Recommended;
- */
