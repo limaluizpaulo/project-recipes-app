@@ -11,8 +11,10 @@ function Foods() {
   const maxRecipe = 12;
   const maxCategory = 5;
   const render = meals.length > 0 && categories;
+
   const foodList = () => meals.slice(0, maxRecipe).map((meal, index) => (
     RecipeCard(meal, index)));
+
   const categoryList = () => categories.meals.slice(0, maxCategory)
     .map(({ strCategory }) => (
       CategoryBtn(strCategory)));

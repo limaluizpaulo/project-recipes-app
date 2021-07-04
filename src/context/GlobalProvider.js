@@ -13,7 +13,7 @@ function GlobalProvider({ children }) {
   const [requestParams, setRequestParams] = useState({
     chosenFilter: '', searchText: '' });
 
-  const [requestResult, setRequestResult] = useState({});
+  const [requestResult, setRequestResult] = useState({ drinks: [], meals: [] });
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
@@ -33,6 +33,10 @@ function GlobalProvider({ children }) {
     if (requestResult.drinks) {
       setDrinks(requestResult.drinks);
     }
+    if (requestResult.meals === null || requestResult.drinks === null) {
+      global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
   }, [requestResult]);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -42,7 +46,9 @@ function GlobalProvider({ children }) {
   const asyncSetState = async (baseEndPoint) => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
-    setRequestResult(result);
+    if (result) {
+      setRequestResult(result);
+    }
   };
 
   const manageRenderMeal = (cardList) => {
@@ -52,8 +58,6 @@ function GlobalProvider({ children }) {
     } if (meals.length > 1) {
       return cardList;
     }
-    return global
-      .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   const manageRenderDrink = (cardList) => {
@@ -63,8 +67,6 @@ function GlobalProvider({ children }) {
     } if (drinks.length > 1) {
       return cardList;
     }
-    return global
-      .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   const contextValue = {
