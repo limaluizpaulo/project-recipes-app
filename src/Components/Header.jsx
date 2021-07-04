@@ -8,7 +8,6 @@ import '../styles/Header.css';
 
 export default function Header(props) {
   const { title, setSearchBar, searchBar } = props;
-  console.log(props);
   return (
     <header className="header-container">
       <div>
