@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import fetchRecipeByDetails from '../RequisiçõesAPI/drink/RequestByDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FoodsRecomendation from '../components/FoodsRecomendation';
 // https://dev.to/marcelomatosdev/react-adding-a-video-player-to-play-youtube-videos-in-your-project-30p
 
 export default function DrinkDetails() {
-  // const twenty = 20;
+  const fifteen = 15;
+  const { url } = useRouteMatch();
+  const bottomFixed = {
+    position: 'fixed',
+    bottom: '0px',
+  };
   const [recipeDetails, setRecipeDetails] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
@@ -20,7 +26,7 @@ export default function DrinkDetails() {
   useEffect(() => {
     const handleSelectedFood = async () => {
       const response = await fetchRecipeByDetails(recipeId);
-      const result = await response.meals;
+      const result = await response.drinks;
       setRecipeDetails(result[0]);
     };
     handleSelectedFood();
@@ -38,32 +44,32 @@ export default function DrinkDetails() {
     setIsCopy(true);
   };
 
-  // const preparation = () => {
-  //   const ingredientsList = [];
-  //   for (let index = 1; index <= twenty; index += 1) {
-  //     if (recipeDetails[`strIngredient${index}`] !== ''
-  //     && recipeDetails[`strIngredient${index}`] !== null
-  //     ) {
-  //       ingredientsList.push(
-  //         `${recipeDetails[`strIngredient${index}`]}: 
-  //           ${recipeDetails[`strMeasure${index}`]}`,
-  //       );
-  //     }
-  //   }
-  //   return ingredientsList;
-  // };
+  const preparation = () => {
+    const ingredientsList = [];
+    for (let index = 1; index <= fifteen; index += 1) {
+      if (recipeDetails[`strIngredient${index}`] !== ''
+      && recipeDetails[`strIngredient${index}`] !== null
+      ) {
+        ingredientsList.push(
+          `${recipeDetails[`strIngredient${index}`]}: 
+            ${recipeDetails[`strMeasure${index}`]}`,
+        );
+      }
+    }
+    return ingredientsList;
+  };
 
-  const handleFavorite = ({ idMeal, strArea, strCategory, strMeal, strMealThumb }) => {
+  const handleFavorite = ({ idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb }) => {
     if (!isFavorite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([
         {
-          id: idMeal,
-          type: 'comida',
-          area: strArea,
+          id: idDrink,
+          type: 'bebida',
+          area: '',
           category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
         },
       ]));
       setIsFavorite(true);
@@ -81,10 +87,10 @@ export default function DrinkDetails() {
       {console.log(recipeDetails)}
       <img
         data-testid="recipe-photo"
-        src={ recipeDetails.strMealThumb }
-        alt={ recipeDetails.strMeal }
+        src={ recipeDetails.strDrinkThumb }
+        alt={ recipeDetails.strDrink }
       />
-      <p data-testid="recipe-title">{ recipeDetails.strMeal }</p>
+      <p data-testid="recipe-title">{ recipeDetails.strDrink }</p>
       <button
         type="button"
         data-testid="share-btn"
@@ -109,7 +115,7 @@ export default function DrinkDetails() {
           alt="favorite-btn"
         />
       </button>
-      <p data-testid="recipe-category">{ recipeDetails.strCategory }</p>
+      <p data-testid="recipe-category">{ recipeDetails.strAlcoholic }</p>
       <ul>
         { preparation().map((ingredient, index) => (
           <li
@@ -121,6 +127,15 @@ export default function DrinkDetails() {
         ))}
       </ul>
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
+      <FoodsRecomendation />
+      <button
+        style={ bottomFixed }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`${url}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

@@ -19,6 +19,8 @@ import AuthProvider from './ContextApi/Provider';
 import NotFound from './pages/NotFound';
 import FoodDetais from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 
 function App() {
   return (
@@ -28,8 +30,10 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Food } />
           <Route exact path="/comidas/:id" component={ FoodDetais } />
+          <Route exact path="/comidas/:id/in-progress" component={ FoodInProgress } />
           <Route exact path="/bebidas" component={ Drink } />
           <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+          <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/perfil" component={ Profile } />

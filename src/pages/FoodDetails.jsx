@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import fetchRecipeByDetails from '../RequisiçõesAPI/food/RequestByDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import DrinksRecomendation from '../components/DrinksRecomendation';
 // https://dev.to/marcelomatosdev/react-adding-a-video-player-to-play-youtube-videos-in-your-project-30p
 
 export default function FoodDetais() {
   const twenty = 20;
+  const { url } = useRouteMatch();
+  const bottomFixed = {
+    position: 'fixed',
+    bottom: '0px',
+  };
   const [recipeDetails, setRecipeDetails] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
@@ -137,6 +143,15 @@ export default function FoodDetais() {
         height="315"
         src={ `${youtube}${handleYoutubeVideo(recipeDetails.strYoutube)}` }
       />
+      <DrinksRecomendation />
+      <button
+        style={ bottomFixed }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`${url}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
