@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,15 +10,16 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
+
 
 @font-face {
   font-family: 'PoetsenOne';
   src: url('./fonts/PoetsenOne.ttf');
 }
-/*========== VARIABLES CSS ==========*/
+/*========== VARIABLES CSS ====================================================================================================*/
 :root {
-  /*========== Colors ==========*/
+  /*========== Colors =========================================================================================================*/
   --first-color: #4D49BF;
   /* --second-color: #05DBF2; */
   /* --white-color: #E9EAEC; */
@@ -27,22 +28,22 @@ code {
   /* --dark-color-lighten: #F2F5FF; */
   --title-color: #F2A20C;
 
-  /*========== Font and typography ==========*/
+  /*========== Font and typography ===========================================================================================*/
   --body-font: 'PoetsenOne', sans-serif;
   --normal-font-size: .938rem;
-  --h1-font-size: 1.5rem;
+  --h1-font-size: 1.375rem;
   --h3-font-size: 1.125rem;
   --small-font-size: .75rem;
 }
 
-body{
+body, button {
   margin: 0;
   padding: 0;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
 }
 
-
+ /* RECIPES PAGE ===========================================================================================================*/
 .Cards {
   display: flex;
   flex-direction: column;
@@ -61,7 +62,7 @@ body{
   height: 230px;
   background-color: var(--dark-color);
   border-radius: 1rem;
-  padding: 4rem 2rem 0;
+  /* padding: 4rem 2rem 0; */
   overflow-y: hidden;
   cursor: pointer;
   margin: 15px 5px 0 5px;
@@ -73,25 +74,24 @@ body{
 
 .recipe img {
   position: absolute;
-  margin-left: 25px;
+  margin-left: -75px;
+  margin-top: -60px;
   width: 150px;
   border-radius: 40px;
   filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
 }
 
-.recipeData {
-  transform: translateY(9.2rem);
-  text-align: center;
-}
-
 .recipeTitle {
+  font-family: var(--body-font);
   font-size: var(--h1-font-size);
   color: var(--title-color);
   margin-bottom: .5rem;
+  transform: translateY(4.0rem);
+  text-align: center;
 }
 
-.recipeImg, 
-.recipeData, 
+.recipeImg,
+.recipeData,
 .recipeTitle {
   transition: .5s;
 }
@@ -111,3 +111,45 @@ body{
 .categoriesBtns button {
   cursor: pointer;
 }
+
+/* RECIPES IN PROGRESS PAGE ===========================================================================================================*/
+.completedRecipe {
+  text-decoration: line-through solid black;
+  color:pink;
+}
+
+.titleButtons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.titleButtons h1 {
+  margin-right: 50px;
+}
+
+.titleButtons button {
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.likeShareBtns {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*  ====================================================================================================================================*/
+
+/* SHAREBUTTONS COMPONENT ===========================================================================================================*/
+.showMsg {
+  position: absolute;
+  margin-left: -10px;
+  margin-top: 15px;
+  
+}
+
+.hideMsg {
+  display: none;
+}
+
+/*  ====================================================================================================================================*/

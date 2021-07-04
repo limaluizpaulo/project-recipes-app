@@ -8,13 +8,15 @@ export const USER = {
 };
 
 export const RECIPES = {
-  foods: true,
+  loading: true,
+  foods: null,
   categoriesLimit: 5,
   cardsLimit: 12,
   meals: [],
   categoriesMeals: [],
   drinks: [],
   categoriesDrinks: [],
+  recipeDetail: [],
 };
 
 export const SEARCH = {
@@ -39,6 +41,11 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 
 // RECIPES
 
+export const UPDATE_LOADING = 'UPDATE_LOADING';
+export const setLoading = (loading) => ({
+  type: UPDATE_LOADING, payload: { loading },
+});
+
 export const ADD_RECIPES = 'ADD_RECIPES';
 export const addRecipes = (meals, drinks, categoriesMeals, categoriesDrinks) => ({
   type: ADD_RECIPES, payload: { meals, drinks, categoriesMeals, categoriesDrinks },
@@ -47,4 +54,9 @@ export const addRecipes = (meals, drinks, categoriesMeals, categoriesDrinks) => 
 export const DIRECT_PAGE = 'DIRECT_PAGE';
 export const directPage = (foods) => ({
   type: DIRECT_PAGE, payload: { foods },
+});
+
+export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
+export const addRecDetail = (recipeDetail) => ({
+  type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
 });

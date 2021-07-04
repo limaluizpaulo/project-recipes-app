@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import store, { addRecipes } from '../../context/store';
+import store, { addRecipes, setLoading } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
 import CategoryButton from '../components/CategoryButton';
@@ -8,9 +8,8 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
 export default function Recipes() {
-  const [loading, setLoading] = useState(true);
   const [categoryOn, setCategoryOn] = useState(undefined);
-  const { recipes: { foods, meals, drinks, categoriesMeals, categoriesDrinks },
+  const { recipes: { loading, foods, meals, drinks, categoriesMeals, categoriesDrinks },
     setRecipes } = useContext(store);
 
   const getRecipes = async () => {
@@ -21,7 +20,7 @@ export default function Recipes() {
     setRecipes(
       addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
     );
-    setLoading(false);
+    setRecipes(setLoading(false));
     setCategoryOn(undefined);
   };
 
@@ -49,24 +48,20 @@ export default function Recipes() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    if (loading) getRecipes();
-  });
+  useEffect(() => { if (loading) getRecipes(); });
 
   // ---------------------------------------------------------------------------------------------
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    <body>
-      <main className="Cards">
-        <Header pageName="Comidas" />
-        <CategoryButton
-          clickCategory={ handleClickCategory }
-          clickAll={ getRecipes }
-        />
-        <RecipeCard />
-      </main>
+    <main className="Cards">
+      <Header pageName="Comidas" />
+      <CategoryButton
+        clickCategory={ handleClickCategory }
+        clickAll={ getRecipes }
+      />
+      <RecipeCard />
       <Footer />
-    </body>
+    </main>
   );
 }
