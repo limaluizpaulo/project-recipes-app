@@ -20,9 +20,9 @@ function RecomendationsMeal() {
 
   return (
     <div>
-      <Carousel fade interval={ null } controls="true">
+      <Carousel fade interval={ null } controls="true" className="carousel">
         <Carousel.Item>
-          <div className="card-container">
+          <div className="card-recomendations">
             {recomendationsMeal.slice(0, 2).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
                 <div

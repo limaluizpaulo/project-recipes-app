@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
@@ -67,9 +66,13 @@ function FoodDetails() {
             </div>
             <RecomendationsDrink />
             <div className="recipeBtn">
-              <Button type="button" variant="secondary" data-testid="start-recipe-btn">
+              <button
+                type="button"
+                className="startRecipeBtn"
+                data-testid="start-recipe-btn"
+              >
                 Iniciar Receita
-              </Button>
+              </button>
             </div>
           </div>
         );
