@@ -16,6 +16,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import ExploreMealsIngredients from './pages/ExploreMealIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinkIngredients';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -90,6 +91,10 @@ function App() {
       <Route
         path="/receitas-favoritas"
         component={ FavoritesRecipes }
+      />
+      <Route
+        path="/explorar/bebidas/area"
+        component={ NotFound }
       />
     </Switch>
   );
