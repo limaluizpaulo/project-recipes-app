@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { recipeById } from '../services/requests';
 import { renderIngredients } from '../utils';
 
 const Drink = ({ match }) => {
+  const history = useHistory();
   const {
     params: { id },
   } = match;
@@ -35,7 +37,11 @@ const Drink = ({ match }) => {
       <button type="button" data-testid="favorite-btn">
         Favoritar
       </button>
-      <button type="button" data-testid="start-recipe-btn">
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/bebidas/${meal.idMeal}/in-progress`) }
+      >
         Iniciar Receita
       </button>
     </div>
