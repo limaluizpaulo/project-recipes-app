@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchFood, { FOOD_BY_AREA } from '../services/FoodAPI';
+import fetchFood, { BY_AREA } from '../services/FoodAPI';
 
 export default function MealsByArea() {
   const LIST_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
@@ -13,7 +13,7 @@ export default function MealsByArea() {
   }, []);
 
   useEffect(() => {
-    fetchFood(FOOD_BY_AREA, selectArea)
+    fetchFood(BY_AREA, selectArea)
       .then((res) => setMeals(res));
   }, [selectArea]);
 
@@ -28,8 +28,8 @@ export default function MealsByArea() {
   return (
     <section>
       <select
-        onChange={ (e) => setSelectArea(e.target.value) }
         data-testid="explore-by-area-dropdown"
+        onChange={ (e) => setSelectArea(e.target.value) }
       >
         { areas.map((area, index) => (
           <option
