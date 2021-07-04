@@ -20,7 +20,7 @@ function FoodDetails({ match, history }) {
   const [wasCopied, setWasCopied] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [donerecipe, setDoneRecipe] = useState(true);
-  const [recipeType, setRecipeType] = useState('meals');
+  const [type, setType] = useState('meals');
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -84,7 +84,7 @@ function FoodDetails({ match, history }) {
         alt={ strMeal || strDrink }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ details[0] } />
+      <FavoriteBtn id={ id } type={ type } currentRecipe={ details[0] } />
       <ShareBtn showCopiedMsg={ setWasCopied } />
       {wasCopied && <span>Link copiado!</span>}
       <div>
