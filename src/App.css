@@ -66,10 +66,3 @@
     transform: rotate(-10deg);
   }
 }
-
-.footer {
-  bottom: 0;
-  margin-bottom: 25px;
-  position: fixed;
-  width: 100%;
-}

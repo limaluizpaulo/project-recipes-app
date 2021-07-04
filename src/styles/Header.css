@@ -2,8 +2,8 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  position: absolute;
   left: 0;
+  position: absolute;
   top: 0;
 }
 
