@@ -1,4 +1,15 @@
-export const test = () => false;
+import React from 'react';
+import RecipeCard from '../components/RecipeCard';
+
+export const renderCard = (option, defaultOption) => {
+  const magic = 12;
+  if (option && defaultOption) {
+    const recipes = option.length ? option : defaultOption;
+    const newRecipes = recipes.slice(0, magic);
+    return <RecipeCard recipes={ newRecipes } />;
+  }
+  return [];
+};
 
 export const endPoint = ({ inputSearch, option, food }) => {
   let query = '';

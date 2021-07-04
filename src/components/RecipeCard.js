@@ -11,7 +11,7 @@ const RecipeCard = ({ recipes }) => recipes.map((recipe, index) => {
       className="cards"
       data-testid={ `${index}-recipe-card` }
     >
-      <Link to={ `/comidas/${idMeal || idDrink}` }>
+      <Link to={ idMeal ? `/comidas/${idMeal}` : `/bebidas/${idDrink}` }>
         <img
           data-testid={ `${index}-card-img` }
           src={ strMealThumb || strDrinkThumb }
