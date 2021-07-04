@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default function IngredientsStep({ ingredients, currentRecipe }) {
+export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
 
   // Pupula o estado que gerencia a classe CSS dos ingredientes
@@ -55,6 +55,7 @@ export default function IngredientsStep({ ingredients, currentRecipe }) {
     ]);
 
     addLocalStorageIngredient();
+    stepsProgress(stepsClassName);
   };
 
   return (
