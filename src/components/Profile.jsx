@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+  const email = user ? user.email : 'a@a.com';
   return (
     <div>
       <span data-testid="profile-email">{ email }</span>
