@@ -46,8 +46,18 @@ class RecipeInProgress extends React.Component {
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
           return (
-            <li key={ index } data-testid={ `${index}-ingredient-step` }>
-              {`${ingrediente[1]}-${apenasMedidas[index]}`}
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <label htmlFor="key">
+                <input
+                  type="checkbox"
+                  id="key"
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                />
+                {`${ingrediente[1]}-${apenasMedidas[index]}`}
+              </label>
             </li>);
         }
         return null;
