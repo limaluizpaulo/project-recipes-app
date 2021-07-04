@@ -23,4 +23,7 @@ export default {
   ingredient: MealServiceIngredientsAPI,
   name: MealServiceNameAPI,
   letter: MealServiceFirstLetterAPI,
+  default: () => fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((res) => res.json())
+    .then((res) => res.meals),
 };

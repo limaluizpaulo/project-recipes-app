@@ -1,8 +1,9 @@
-@media (max-width: 360px) {
-  div.items-list {
+@media ( max-width : 360px ) {
+
+  div .items-list {
     display: flex;
-    font-size: 12px;
     flex-wrap: wrap;
+    font-size: 12px;
   }
 
   .card-body {
