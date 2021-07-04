@@ -7,6 +7,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
+import MealsByIngredients from './components/MealsByIngredients';
 
 function App() {
   return (
@@ -20,14 +21,20 @@ function App() {
         {/* <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
         {/* <Route path="/bebidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
         {/* <Route path="/explorar" component={ Explore } /> */}
-        <Route path="/explorar/comidas" component={ ExplorarReceitas } />
-        <Route path="/explorar/bebidas" component={ ExplorarReceitas } />
-        {/* <Route path="/explorar/comidas/ingredientes"
-        component={ComidasIngredientes} /> */}
-        {/* <Route path="/explorar/bebidas/ingredientes"
-        component={BebidasIngredientes} /> */}
+        <Route exact path="/explorar/comidas" component={ ExplorarReceitas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarReceitas } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ MealsByIngredients }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ MealsByIngredients }
+        />
         <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
-        {/* <Route path="/perfil" component={Perfil} /> */}
+        {/* <Route path="/perfil" component={ Perfil } /> */}
         {/* <Route path="/receitas-feitas" component={ReceitasFeitas} /> */}
         {/* <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */}
       </Switch>
