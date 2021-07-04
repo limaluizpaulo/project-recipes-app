@@ -6,6 +6,9 @@ import Explore from './pages/Explore';
 import ExploreDrinks from './pages/ExploreDrinks';
 import IngredientDrink from './pages/IngredientDrink';
 import IngredientMeals from './pages/IngredientMeals';
+import ExploreArea from './pages/ExploreArea';
+import NotFound from './pages/NotFound';
+
 import RecipesProvider from './context/RecipesProvider';
 
 import './App.css';
@@ -58,6 +61,8 @@ function App() {
           component={ IngredientDrink }
         />
         <Route exact path="/comidas" component={ FoodList } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreArea } />
+        <Route component={ NotFound } />
       </Switch>
       { verifyAllowanceToRenderFooter() }
     </RecipesProvider>

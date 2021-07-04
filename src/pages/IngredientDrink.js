@@ -10,8 +10,8 @@ function IngredientDrink() {
     setRedirectToMainScreen } = useContext(RecipesContext);
 
   const DOZE = 12;
-  const [ingredients, setIngredients] = useState([]);
   const [maxCards/* setMaxCards */] = useState(DOZE);
+  const [ingredients, setIngredients] = useState([]);
 
   const getIngredients = async () => {
     const { drinks } = await fetchIngredientesRecipes('drinks');
