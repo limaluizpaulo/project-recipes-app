@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import store from '../../context/store';
+import store, { addDoneRecipe } from '../../context/store';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 
 export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestruturando Props
   const [disabledBtn, setDisabledBtn] = useState(true);
-  const { recipes: { recipeDetail } } = useContext(store);
+  const { recipes: { recipeDetail }, setRecipes } = useContext(store);
 
   const validationButton = () => {
     const ingredients = Object.keys(recipeDetail)
@@ -57,6 +57,7 @@ export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestr
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ disabledBtn }
+          onClick={ () => setRecipes(addDoneRecipe(recipeDetail)) }
         >
           Finalizar Receita
         </button>

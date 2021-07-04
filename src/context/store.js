@@ -17,6 +17,7 @@ export const RECIPES = {
   drinks: [],
   categoriesDrinks: [],
   recipeDetail: [],
+  doneRecipes: [],
 };
 
 export const SEARCH = {
@@ -59,4 +60,9 @@ export const directPage = (foods) => ({
 export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
 export const addRecDetail = (recipeDetail) => ({
   type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
+});
+
+export const DONE_RECIPE = 'DONE_RECIPE';
+export const addDoneRecipe = (doneRecipes) => ({
+  type: DONE_RECIPE, payload: { doneRecipes },
 });
