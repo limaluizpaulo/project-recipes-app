@@ -12,6 +12,9 @@ const RecipeProvider = ({ children }) => {
   const [selectedTypeItem, setSelectedTypeItem] = useState('all');
   const [selectedFood, setSelectedFood] = useState();
   const [ingredients, setIngredients] = useState({});
+  const [places, setPlaces] = useState([]);
+  const [recipesByPlace, setRecipesByPlace] = useState([]);
+  const [area, setArea] = useState();
 
   useEffect(() => {
     async function setDataRecipes() {
@@ -36,6 +39,21 @@ const RecipeProvider = ({ children }) => {
       setDataRecipes();
     }
   }, [radioValue, inputValue, pathname]);
+
+  useEffect(() => {
+    if (places.length > 0) {
+      setArea(places[0]);
+      const fetchRecipeByPlace = async () => {
+        const DOZE = 12;
+        const endpoint = 'https://www.themealdb.com/api/json/v1/1/';
+        const request = await fetch(endpoint);
+        const result = await request.json();
+        const recipes = result.meals.filter((_recipe, idx) => idx < DOZE);
+        setRecipesByPlace(recipes);
+      };
+      fetchRecipeByPlace();
+    }
+  }, [places]);
 
   const createObjectFromFood = () => {
     const {
@@ -75,6 +93,12 @@ const RecipeProvider = ({ children }) => {
     setSelectedTypeItem,
     ingredients,
     setIngredients,
+    places,
+    setPlaces,
+    recipesByPlace,
+    setRecipesByPlace,
+    area,
+    setArea,
   };
   return (
     <RecipeContext.Provider value={ objContext }>
