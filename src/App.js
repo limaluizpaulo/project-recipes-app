@@ -17,6 +17,8 @@ import DoneRecipes from './pages/DoneRecepies';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import AuthProvider from './ContextApi/Provider';
 import NotFound from './pages/NotFound';
+import FoodDetais from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinkDetails';
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Food } />
+          <Route exact path="/comidas/:id" component={ FoodDetais } />
           <Route exact path="/bebidas" component={ Drink } />
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/perfil" component={ Profile } />
