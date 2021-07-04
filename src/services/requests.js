@@ -15,5 +15,5 @@ export const recipeById = (id, meal = false) => {
   const URL = `https://www.${db}.com/api/json/v1/1/lookup.php?i=${id}`;
   return fetch(URL)
     .then((res) => res.json())
-    .then(({ meals }) => meals[0]);
+    .then(({ meals = [], drinks = [] }) => meals[0] || drinks[0]);
 };
