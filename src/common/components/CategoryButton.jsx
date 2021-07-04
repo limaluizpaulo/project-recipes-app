@@ -53,5 +53,9 @@ export default function CategoryButton({ clickCategory, clickAll, path }) { // D
 CategoryButton.propTypes = {
   clickCategory: PropTypes.func.isRequired,
   clickAll: PropTypes.func.isRequired,
-  path: PropTypes.bool.isRequired,
+  path: PropTypes.bool,
+};
+
+CategoryButton.defaultProps = {
+  path: false,
 };
