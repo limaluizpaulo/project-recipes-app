@@ -19,7 +19,7 @@ export default function ReceitaEmProcesso({ location }) {
     <Container>
       <Thumb title={ title } thumb={ thumb } />
       <Title id={ id } title={ title } subtitle={ subtitle } />
-      <IngredientsStep ingredients={ ingredients } />
+      <IngredientsStep currentRecipe={ currentRecipe } ingredients={ ingredients } />
       <Instructions instructions={ instructions } />
       <Button
         data-testid="finish-recipe-btn"
@@ -31,3 +31,7 @@ export default function ReceitaEmProcesso({ location }) {
     </Container>
   );
 }
+
+ReceitaEmProcesso.propTypes = {
+  location: PropTypes.shape,
+}.isRequired;

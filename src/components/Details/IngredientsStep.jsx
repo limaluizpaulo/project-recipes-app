@@ -2,35 +2,60 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default function IngredientsStep({ ingredients }) {
+export default function IngredientsStep({ ingredients, currentRecipe }) {
   const [stepsClassName, setStepsClassName] = useState([]);
+
+  // Pupula o estado que gerencia a classe CSS dos ingredientes
+  const populateSteps = () => {
+    const steps = [];
+
+    if (ingredients) {
+      for (let index = 0; index <= ingredients.length; index += 1) {
+        steps.push({
+          step: 'step-not-checked',
+          checked: false,
+          index,
+        });
+      }
+    }
+
+    setStepsClassName(steps);
+  };
 
   useEffect(() => {
     populateSteps();
   }, [ingredients]);
 
-  const populateSteps = () => {
-    const steps = [];
-    ingredients && ingredients.map(( _, index) => {
-      steps.push({
-        step: 'step-not-checked',
-        checked: false,
-      })
-    });
-    setStepsClassName(steps);
+  // Adiciona o progresso da receita em localstorage
+  const addLocalStorageIngredient = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { id, video } = currentRecipe;
+
+    // if (!video) {
+
+    // } else {
+
+    // }
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(id, video, inProgress));
   };
 
-  const doneStepEffect = ({ id }) => {
+  // Adiciona efeito ao clicar em um item da lista de ingredientes
+  const doneStepEffect = ({ id: targetId }) => {
     let step = 'step-checked';
-    if (stepsClassName[id].checked) {
-      step = 'step-not-checked'
+
+    if (stepsClassName[targetId].checked) {
+      step = 'step-not-checked';
     }
+
     setStepsClassName([
       ...stepsClassName,
-      stepsClassName[id].checked = !stepsClassName[id].checked,
-      stepsClassName[id].step = step,
+      stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
+      stepsClassName[targetId].step = step,
     ]);
-  }
+
+    addLocalStorageIngredient();
+  };
 
   return (
     <Container>
@@ -39,18 +64,16 @@ export default function IngredientsStep({ ingredients }) {
         <tbody>
           {
             ingredients && ingredients.map(({ ingredient, measure }, index) => (
-              <tr key={ index }>
+              <tr key={ index } data-testid={ `${index}-ingredient-step` }>
                 <input
                   type="checkbox"
-                  id={`${index}-ingredient`}
-                  value={`${index}-ingredient`}
+                  id={ `${index}` }
+                  value={ `${index}-ingredient` }
+                  onChange={ ({ target }) => doneStepEffect(target) }
                 />
                 <label
-                  onClick={ ({ target }) => doneStepEffect(target) }
                   className={ stepsClassName[index] && stepsClassName[index].step }
-                  id={`${index}`}
-                  htmlFor={`${index}-ingredient`}
-                  data-testid={`${index}-ingredient-step`}
+                  htmlFor={ `${index}` }
                 >
                   {`${ingredient} - ${measure}`}
                 </label>

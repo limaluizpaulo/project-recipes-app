@@ -24,7 +24,7 @@ export default function DetalhesComida({ location }) {
     } else {
       history.push(`/bebidas/${id}/in-progress`);
     }
-  }
+  };
 
   return (
     <Container>
