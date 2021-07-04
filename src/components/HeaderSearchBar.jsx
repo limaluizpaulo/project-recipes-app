@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import Context from '../context/Context';
 
-function HeaderSearchBar() {
+function HeaderSearchBar({ baseEndPoint }) {
+  const {
+    requestParams: { chosenFilter, searchText },
+    handleChange,
+    asyncSetState,
+  } = useContext(Context);
+
+  const [blockRequest, setBlockRequest] = useState(false);
+
+  useEffect(() => {
+    if (searchText.length > 1 && chosenFilter === 'search.php?f=') {
+      setBlockRequest(true);
+    } else {
+      setBlockRequest(false);
+    }
+  }, [searchText, chosenFilter]);
+
   return (
     <form>
       <fieldset>
         <label htmlFor="search">
           <input
+            value={ searchText }
+            onChange={ handleChange }
+            name="searchText"
             id="search"
             type="search"
             data-testid="search-input"
@@ -14,7 +35,9 @@ function HeaderSearchBar() {
         <label htmlFor="ingredient">
           Ingrediente
           <input
-            name="radio-input"
+            value="filter.php?i="
+            onChange={ handleChange }
+            name="chosenFilter"
             required
             id="ingredient"
             type="radio"
@@ -24,7 +47,9 @@ function HeaderSearchBar() {
         <label htmlFor="name">
           Nome
           <input
-            name="radio-input"
+            value="search.php?s="
+            onChange={ handleChange }
+            name="chosenFilter"
             required
             id="name"
             type="radio"
@@ -34,7 +59,9 @@ function HeaderSearchBar() {
         <label htmlFor="first-letter">
           Primeira letra
           <input
-            name="radio-input"
+            value="search.php?f="
+            onChange={ handleChange }
+            name="chosenFilter"
             id="first-letter"
             required
             type="radio"
@@ -42,6 +69,9 @@ function HeaderSearchBar() {
           />
         </label>
         <button
+          onClick={ blockRequest
+            ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
+            : () => asyncSetState(baseEndPoint) }
           type="button"
           data-testid="exec-search-btn"
         >
@@ -53,3 +83,7 @@ function HeaderSearchBar() {
 }
 
 export default HeaderSearchBar;
+
+HeaderSearchBar.propTypes = {
+  baseEndPoint: PropTypes.string.isRequired,
+};
