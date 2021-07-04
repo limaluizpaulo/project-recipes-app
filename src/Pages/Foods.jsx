@@ -8,8 +8,9 @@ import '../styles/Card.css';
 
 function Foods(props) {
   const { foods } = props;
+  const list = foods || [];
   const twelveItems = 12;
-  const foodsCopy = [...foods];
+  const foodsCopy = [...list];
   const foodsList = foodsCopy.splice(0, twelveItems);
 
   return (
@@ -17,7 +18,7 @@ function Foods(props) {
       <HeadBar title="Comidas" />
       <div className="items-list">
         {foodsList.map((food, index) => (
-          <Card key={ index } item={ food } />
+          <Card key={ index } index={ index } item={ food } type="meal" />
         ))}
       </div>
       <Footer />

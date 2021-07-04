@@ -9,7 +9,8 @@ import BeverageAPI from '../services/BeverageRecipesAPI';
 function SearchBar(props) {
   const {
     getFoodsApi, getDrinksApi, foods,
-    goToFoodsPage, drinks, goToDrinksPage, title } = props;
+    goToFoodsPage, drinks, goToDrinksPage,
+    foodNotFound, drinkNotFound, title } = props;
   const shouldRedirect = goToFoodsPage || goToDrinksPage;
   const itemPage = title === 'Comidas' ? foods : drinks;
   const itemID = title === 'Comidas' ? 'idMeal' : 'idDrink';
@@ -21,22 +22,31 @@ function SearchBar(props) {
   const callActionAPI = () => (
     title === 'Comidas' ? getFoodsApi : getDrinksApi
   );
-  const handleClick = async (e) => {
-    e.preventDefault();
+
+  const configState = () => {
     const API = title === 'Comidas' ? MealsAPI : BeverageAPI;
     const radioInputRefs = [ingredientRadio, letterRadio, nameRadio];
     const radioRef = radioInputRefs.find((radio) => (
       radio.current.checked || radio.current.id === 'name'
     ));
+    return callActionAPI()(inputText.current.value,
+      API[radioRef.current.id]);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
     if (letterRadio.current.checked && inputText.current.value.length > 1) {
       const message = 'Sua busca deve conter somente 1 (um) caracter';
       alert(message); // eslint-disable-line no-alert
     }
 
-    callActionAPI()(inputText.current.value,
-      API[radioRef.current.id]);
+    configState();
   };
   const pageTitle = title.toLowerCase();
+  if (foodNotFound || drinkNotFound) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (
@@ -102,8 +112,10 @@ function SearchBar(props) {
 const mapStateToProps = (state) => ({
   foods: state.foods.list,
   goToFoodsPage: state.foods.goToFoodsPage,
+  foodNotFound: state.foods.foodNotFound,
   drinks: state.drinks.list,
   goToDrinksPage: state.drinks.goToDrinksPage,
+  drinkNotFound: state.drinks.drinkNotFound,
 });
 
 const mapDispatchToProps = ((dispatch) => ({
