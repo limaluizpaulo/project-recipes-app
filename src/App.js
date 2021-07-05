@@ -3,9 +3,16 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
-
-import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
-  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
+import { Bebidas,
+  Comidas,
+  ExpBebidas,
+  ExpBebidasIngredientes,
+  ExpComidas,
+  ExpComidasArea,
+  ExpComidasIngredientes,
+  Explorar,
+  Login,
+  Perfil,
   Detalhes, ReceitasFeitas, ReceitasFavoritas, ReceitaEmProcesso } from './Pages';
 
 function App() {
@@ -21,12 +28,14 @@ function App() {
         <Route path="/explorar" component={ Explorar } />
         <Route path="/explorar/comidas" component={ ExpComidas } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           component={ ExpComidasIngredientes }
         />
-        <Route path="/explorar/comidas/area" component={ ExpComidasArea } />
-        <Route path="/explorar/bebidas" component={ ExpBebidas } />
+        <Route exact path="/explorar/comidas/area" component={ ExpComidasArea } />
+        <Route exact path="/explorar/bebidas" component={ ExpBebidas } />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           component={ ExpBebidasIngredientes }
         />
