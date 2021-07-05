@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Filters = ({ clickFilter }) => (
-
   <div className="filters">
     <button
       type="button"

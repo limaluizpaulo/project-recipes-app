@@ -4,3 +4,4 @@ export { default as Footer } from './Footer';
 export { default as Card } from './Card';
 export { default as Categories } from './Categories';
 export { default as Filters } from './Filters';
+export { default as Tags } from './Tags';

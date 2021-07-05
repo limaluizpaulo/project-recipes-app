@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import { Header, Filters } from '../components';
+import { Header, Filters, Tags } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
@@ -94,14 +94,8 @@ const Done = () => {
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}
                     </h4>
-                    {tags.map((tag, tagIndex) => (tagIndex <= 1 ? (
-                      <span
-                        key={ tagIndex }
-                        data-testid={ `${index}-${tag}-horizontal-tag` }
-                      >
-                        {tag}
-                      </span>
-                    ) : null))}
+                    <Tags tags={ tags } recipeIndex={ index } />
+
                   </div>
                 </div>
               ),
