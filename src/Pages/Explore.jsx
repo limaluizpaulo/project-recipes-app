@@ -6,8 +6,20 @@ function Explore() {
   return (
     <div className="foodScreen">
       <HeadBar title="Explore" />
-      <Link to="explorar/comidas" data-testid="explore-food">Explorar Comidas</Link>
-      <Link to="/explorar/bebidas" data-testid="explore-drinks">Explorar Bebidas</Link>
+      <Link
+        to="/explorar/comidas"
+        data-testid="explore-food"
+        className="btn-explore"
+      >
+        Explorar Comidas
+      </Link>
+      <Link
+        to="/explorar/bebidas"
+        data-testid="explore-drinks"
+        className="btn-explore"
+      >
+        Explorar Bebidas
+      </Link>
     </div>
   );
 }

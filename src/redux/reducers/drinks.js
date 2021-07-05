@@ -1,19 +1,19 @@
-import { FOODS } from '../actions/index';
+import { DRINKS } from '../actions/index';
 
 const initialState = {
   list: [],
-  goToFoodsPage: false,
-  foodNotFound: false,
+  goToDrinksPage: false,
+  drinkNotFound: false,
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case FOODS:
+  case DRINKS:
     return {
       ...state,
       list: payload,
-      goToFoodsPage: payload && payload.length === 1,
-      foodNotFound: !payload,
+      goToDrinksPage: payload && payload.length === 1,
+      drinkNotFound: !payload,
     };
 
   default:

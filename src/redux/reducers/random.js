@@ -1,19 +1,17 @@
-import { FOODS } from '../actions/index';
+import { RANDOM } from '../actions/index';
 
 const initialState = {
   list: [],
-  goToFoodsPage: false,
-  foodNotFound: false,
+  shouldRedirect: false,
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case FOODS:
+  case RANDOM:
     return {
       ...state,
       list: payload,
-      goToFoodsPage: payload && payload.length === 1,
-      foodNotFound: !payload,
+      shouldRedirect: true,
     };
 
   default:

@@ -1,8 +1,9 @@
-import { MealServiceIngredientsAPI,
-  MealServiceNameAPI,
-  MealServiceFirstLetterAPI } from '../../services/MealRecipesAPI';
-
-export const [USERLOGIN, FOODS] = ['USERLOGIN', 'FOODS'];
+export const [
+  USERLOGIN,
+  DRINKS,
+  FOODS,
+  RANDOM,
+] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM'];
 
 export function userLogin(payload) {
   return {
@@ -10,26 +11,33 @@ export function userLogin(payload) {
     payload,
   };
 }
-export function actionGetFoods(payload) {
-  return {
-    type: FOODS,
-    payload,
-  };
+
+const actionGetFoods = (payload) => ({
+  type: FOODS,
+  payload,
+});
+
+const actionGetDrinks = (payload) => ({
+  type: DRINKS,
+  payload,
+});
+
+const actionGetRandom = (payload) => ({
+  type: RANDOM,
+  payload,
+});
+
+export function getFoods(value, callback) {
+  return (dispatch) => callback(value)
+    .then((food) => dispatch(actionGetFoods(food)));
 }
 
-export function getFoods(value, radioType) {
-  return (dispatch) => {
-    switch (radioType) {
-    case 'ingredient':
-      return MealServiceIngredientsAPI(value)
-        .then((food) => dispatch(actionGetFoods(food)));
-    case 'name':
-      return MealServiceNameAPI(value)
-        .then((food) => dispatch(actionGetFoods(food)));
-    case 'letter':
-      return MealServiceFirstLetterAPI(value)
-        .then((food) => dispatch(actionGetFoods(food)));
-    default: break;
-    }
-  };
+export function getDrinks(value, callback) {
+  return (dispatch) => callback(value)
+    .then((drink) => dispatch(actionGetDrinks(drink)));
+}
+
+export function getRandom(callback) {
+  return (dispatch) => callback()
+    .then((random) => dispatch(actionGetRandom(random)));
 }
