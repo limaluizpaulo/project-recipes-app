@@ -10,12 +10,10 @@ import {
   getMealsNameFilter,
   getMealsFirstLetterFilter,
   getMealsCategories,
-  getMealsByCategory,
 } from '../helpers/MealsAPI';
 import {
   getCocktailsCategories,
   getCocktailsRecipes,
-  getCocktailsByCategory,
 } from '../helpers/CocktailsAPI';
 
 function RecipesProvider({ children }) {
@@ -81,25 +79,6 @@ function RecipesProvider({ children }) {
     categories();
     // ingredients();
   }, []);
-
-  useEffect(() => {
-    const filterCategory = async () => {
-      setIsFetching(true);
-      let results;
-      if (selectedCategory === 'All') {
-        results = (type === 'meal')
-          ? await getMealsRecipes() : await getCocktailsRecipes();
-      } else {
-        results = (type === 'meal') ? await getMealsByCategory(selectedCategory)
-          : await getCocktailsByCategory(selectedCategory);
-      }
-      if (results && selectedCategory) {
-        setData(results.filter((item, index) => index < maxCards));
-      }
-      setIsFetching(false);
-    };
-    filterCategory();
-  }, [selectedCategory, toggle]);
 
   useEffect(() => {
     const filterApi = () => {
