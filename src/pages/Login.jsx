@@ -20,7 +20,6 @@ export default function Login() {
     localStorage.setItem('cocktailsToken', 1);
     history.push('/comidas');
     // https://dev.to/ino_gu/utilizando-usehistory-no-react-bgf
-    console.log('oi');
   };
 
   useEffect(() => {

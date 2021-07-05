@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import HeaderSearch from '../components/HeaderSearch';
 
 export default function DoneRecipes() {
   return (
     <div>
-      <Header />
+      <HeaderSearch title="Receitas Feitas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"
