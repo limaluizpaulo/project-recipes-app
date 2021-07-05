@@ -23,7 +23,8 @@ export default function Login() {
     setUser({ ...user, [name]: value });
   }
 
-  function handleLoginClick() {
+  function handleLoginClick(e) {
+    e.preventDefault();
     const { email } = user;
     saveCockTailsToken();
     saveMealsToken();
@@ -64,7 +65,7 @@ export default function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ !validation }
-        onClick={ handleLoginClick }
+        onClick={ (e) => handleLoginClick(e) }
       >
         Submit
       </Button>
