@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
 
-function CardsDeReceitas({ receitas }) {
-  const check = Object.keys(receitas[0]);
+function CardsDeReceitas({ receitas, typeReceita }) {
   const renderCard = (id, strThumb, str) => (
     <Col key={ id }>
       <Card data-testid={ `${id}-recipe-card` }>
@@ -24,7 +23,7 @@ function CardsDeReceitas({ receitas }) {
     </Col>
   );
 
-  if (check[0] === 'idDrink') {
+  if (typeReceita === 'bebidas') {
     return (
       <Row xs={ 2 } md={ 4 }>
         {receitas.map(({ strDrinkThumb, strDrink }, index) => (
@@ -34,7 +33,7 @@ function CardsDeReceitas({ receitas }) {
     );
   }
 
-  if (check[0] === 'idMeal') {
+  if (typeReceita === 'comidas') {
     return (
       <Row xs={ 2 } md={ 4 }>
         {receitas.map(({ strMealThumb, strMeal }, index) => (

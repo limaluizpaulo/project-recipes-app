@@ -53,7 +53,7 @@ function Receitas() {
         <Header />
         <ListaCategoriasReceitas />
         {(receitas !== undefined && receitas.length)
-          && <CardsDeReceitas receitas={ receitas } /> }
+          && <CardsDeReceitas receitas={ receitas } typeReceita={ apelidoAPI } /> }
         <Footer />
       </Container>
     </section>
