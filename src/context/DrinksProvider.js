@@ -18,6 +18,8 @@ function DrinksProvider({ children }) {
   const [isFiltred, setIsFiltred] = useState(false);
   const [randomDrink, setRandomDrink] = useState([]);
 
+  const [ingredients, setIngredients] = useState([]);
+
   async function filterDrinksByIngredient(ingredient) {
     const drinksFilteredByIngredient = await fetchDrinksByIngredient(ingredient);
     setrinksFilter({ filteredDrinks: drinksFilteredByIngredient });
@@ -71,6 +73,8 @@ function DrinksProvider({ children }) {
         setIsFiltred,
         randomDrink,
         setRandomDrink,
+        ingredients,
+        setIngredients,
       } }
     >
       { children }
