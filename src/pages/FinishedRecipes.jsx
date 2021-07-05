@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 function FinishedRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const doneRecipes = [
@@ -33,6 +34,12 @@ function FinishedRecipes() {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     setDoneRecipesList(JSON.parse(localStorage.getItem('doneRecipes')));
   }, []);
+
+  const shareRecipe = (recipe) => {
+    // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+    setCopied(true);
+  };
 
   return (
     <>
@@ -90,6 +97,8 @@ function FinishedRecipes() {
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
+            {copied && <span id="spn">Link copiado!</span>}
+            {}
           </div>
         ))}
       </main>
