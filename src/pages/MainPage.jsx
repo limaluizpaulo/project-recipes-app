@@ -17,7 +17,7 @@ function MainPage() {
     fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
     fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
   };
-  useEffect(getApiAll);
+  useEffect(getApiAll, []);
   return (
     <div>
       <Header />
