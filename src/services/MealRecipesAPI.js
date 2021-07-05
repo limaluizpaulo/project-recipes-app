@@ -30,6 +30,7 @@ export default {
   ingredient: MealServiceIngredientsAPI,
   name: MealServiceNameAPI,
   letter: MealServiceFirstLetterAPI,
+  surpriseFood: SurpriseFoodAPI,
   getByCategory: () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals),

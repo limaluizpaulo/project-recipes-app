@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +6,7 @@ import Footer from '../Components/Footer';
 import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
-import setList from '../services/services';
+import { setList } from '../services/services';
 import '../styles/Card.css';
 
 function Foods(props) {
@@ -17,20 +16,24 @@ function Foods(props) {
   const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { foods } = props;
+
   React.useEffect(() => {
-    getByCategory()
-      .then(setCategories)
-      .then(() => (
-        getByDefault()
-          .then(setFirstFoods)
-          .then(() => setLoading(!loading))
-      ));
-  }, []);
+    if (loading) {
+      getByCategory()
+        .then(setCategories)
+        .then(() => (
+          getByDefault()
+            .then(setFirstFoods)
+            .then(() => setLoading(false))
+        ));
+    }
+  }, [setCategories, setLoading, setFirstFoods, getByCategory, getByDefault, loading]);
 
   return loading ? <div>Loading...</div> : (
     <div>
       <HeadBar title="Comidas" />
       <CategoryButtons
+        type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
 
