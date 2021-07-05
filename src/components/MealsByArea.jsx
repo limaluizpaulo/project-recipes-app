@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import fetchFood, { BY_AREA } from '../services/FoodAPI';
+import fetchFood from '../services/FoodAPI';
 
 export default function MealsByArea() {
   const LIST_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const BY_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
   const [areas, setAreas] = useState(null);
   const [meals, setMeals] = useState([]);
   const [selectArea, setSelectArea] = useState('American');
