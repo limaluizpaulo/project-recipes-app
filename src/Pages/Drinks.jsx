@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +6,7 @@ import Footer from '../Components/Footer';
 import Card from '../Components/Card';
 import CategoryButtons from '../Components/CategoryButtons';
 import BeverageAPI from '../services/BeverageRecipesAPI';
-import setList from '../services/services';
+import { setList } from '../services/services';
 import '../styles/Card.css';
 
 function Drinks(props) {
@@ -18,18 +17,21 @@ function Drinks(props) {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    getByCategory()
-      .then(setCategories)
-      .then(() => (
-        getByDefault()
-          .then(setFirstDrinks)
-          .then(() => setLoading(!loading))
-      ));
-  }, []);
+    if (loading) {
+      getByCategory()
+        .then(setCategories)
+        .then(() => (
+          getByDefault()
+            .then(setFirstDrinks)
+            .then(() => setLoading(false))
+        ));
+    }
+  }, [setCategories, setLoading, setFirstDrinks, getByCategory, getByDefault, loading]);
   return loading ? <div>Loading...</div> : (
     <div className="foodScreen">
       <HeadBar title="Bebidas" />
       <CategoryButtons
+        type="cocktail"
         categories={ categories.map((category) => category.strCategory) }
       />
       <div className="items-list">

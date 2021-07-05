@@ -38,7 +38,7 @@ function SearchBar(props) {
 
     if (letterRadio.current.checked && inputText.current.value.length > 1) {
       const message = 'Sua busca deve conter somente 1 (um) caracter';
-      alert(message); // eslint-disable-line no-alert
+      global.alert(message);
     }
 
     configState();
