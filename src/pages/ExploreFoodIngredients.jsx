@@ -25,7 +25,7 @@ function ExploreFoodIngredients() {
   return (
     <section>
       <Header profile name="Explorar Ingredientes" />
-      <section>
+      <section className="cards-field">
         {
           ingredients.map((ingredient, index) => (<IngredientCard
             key={ index }

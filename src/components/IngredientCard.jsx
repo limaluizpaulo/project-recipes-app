@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import DrinksContext from '../context/DrinksContext';
 
+import '../styles/IngredientCard.css';
+
 function IngredientCard({ index, ingredient }) {
   const { location: { pathname } } = useHistory();
   const history = useHistory();
@@ -26,8 +28,9 @@ function IngredientCard({ index, ingredient }) {
 
   function renderRecipes() {
     return (
-      <div>
+      <div className="card-field">
         <button
+          className="card-button"
           data-testid={ `${index}-ingredient-card` }
           type="button"
           onClick={ () => redirectToRecipes() }
