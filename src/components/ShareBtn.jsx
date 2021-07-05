@@ -29,6 +29,14 @@ export default function ShareBtn({ pathname, doneRecipe, recipe, index }) {
   );
 }
 
+ShareBtn.defaultProps = {
+  doneRecipe: null,
+  index: null,
+};
+
 ShareBtn.propTypes = {
   pathname: PropTypes.string.isRequired,
+  doneRecipe: PropTypes.bool,
+  recipe: PropTypes.shape({}).isRequired,
+  index: PropTypes.number,
 };

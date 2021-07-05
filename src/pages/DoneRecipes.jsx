@@ -41,6 +41,7 @@ export default function DoneRecipes() {
             data-testid={ `${index}-horizontal-image` }
             src={ item.image }
             alt="avatar"
+
           />
           <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
           {item.type === 'comida' ? (
