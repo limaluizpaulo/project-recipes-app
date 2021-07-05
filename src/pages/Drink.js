@@ -38,6 +38,7 @@ const Drink = ({ match }) => {
         Favoritar
       </button>
       <button
+        className="footer"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
@@ -47,6 +48,9 @@ const Drink = ({ match }) => {
       <br />
       <Carousel />
       <Link to="/bebidas"><button type="button">Voltar</button></Link>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

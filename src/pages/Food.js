@@ -35,7 +35,7 @@ const Food = ({ match }) => {
         Favoritar
       </button>
       <button
-        // className="footer"
+        className="footer"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
@@ -45,6 +45,9 @@ const Food = ({ match }) => {
       <Carousel food />
       <br />
       <Link to="/comidas"><button type="button">Voltar</button></Link>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
