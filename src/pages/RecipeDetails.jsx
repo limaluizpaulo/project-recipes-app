@@ -9,6 +9,7 @@ import Ingredients from '../components/Ingredients';
 import Recomendations from '../components/Recomendations';
 
 export default function RecipeDetails() {
+  const [showBtn, setShowBtn] = useState(false);
   const [recipe, setRecipe] = useState({});
   const { id } = useParams();
   const { pathname } = useHistory().location;
@@ -22,6 +23,25 @@ export default function RecipeDetails() {
       fetchDrinkById(id).then((data) => setRecipe(...data));
     }
   }, [id, pathname]);
+
+  useEffect(() => {
+    const doneArr = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneArr) {
+      setShowBtn(doneArr.some((item) => item.id === id));
+    }
+  }, [id]);
+
+  const checkInProgrss = () => {
+    let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgress) inProgress = [];
+    const categories = Object.keys(inProgress);
+    let text = [];
+    categories.forEach((item) => {
+      text = Object.keys(inProgress[item]);
+    });
+    if (text.includes(id)) return 'Continuar Receita';
+    return 'Iniciar Receita';
+  };
 
   return (
     <div>
@@ -37,21 +57,23 @@ export default function RecipeDetails() {
         <Recomendations strMeal={ strMeal } />
       </div>
       <div className="btn-start-container">
-        <Link
-          to={
-            idMeal
-              ? `/comidas/${idMeal}/in-progress`
-              : `/bebidas/${idDrink}/in-progress`
-          }
-        >
-          <button
-            className="btn-start"
-            type="button"
-            data-testid="start-recipe-btn"
+        {!showBtn && (
+          <Link
+            to={
+              idMeal
+                ? `/comidas/${idMeal}/in-progress`
+                : `/bebidas/${idDrink}/in-progress`
+            }
           >
-            Iniciar Receita
-          </button>
-        </Link>
+            <button
+              className="btn-start"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              {checkInProgrss()}
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
