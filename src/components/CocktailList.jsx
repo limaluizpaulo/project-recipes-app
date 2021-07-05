@@ -20,7 +20,7 @@ export default function CocktailList() {
 
   useEffect(() => {
     resquestCocktailsApi();
-  }, []);
+  }, [resquestCocktailsApi]);
 
   const renderCards = () => {
     if (cocktailsRecipes && cocktailsRecipes.length === 1) {
