@@ -3,31 +3,11 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareBtn from './ShareBtn';
-
-const handleToggleFavorite = (fav, setFav, favoriteRecipes, recipe) => {
-  const id = recipe.idMeal || recipe.idDrink;
-  if (fav) {
-    const item = favoriteRecipes.filter((elem) => elem.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(item));
-  } else {
-    const favRecipe = {
-      id,
-      type: recipe.idMeal ? 'comida' : 'bebida',
-      area: recipe.strArea || '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
-
-    localStorage
-      .setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, favRecipe]));
-  }
-  setFav(!fav);
-};
+import useFavorite from '../hooks/useFavorites';
 
 export default function HeaderDetails({ recipe, pathname }) {
   const [fav, setFav] = useState(false);
+  const { handleToggleFavorite } = useFavorite();
   const {
     strMeal, strDrink, strMealThumb, strDrinkThumb,
     strCategory, strInstructions, strAlcoholic, idMeal, idDrink,
