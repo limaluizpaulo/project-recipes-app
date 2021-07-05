@@ -7,8 +7,8 @@ export default function Profile() {
   const [email, setEmail] = useState();
   useEffect(() => {
     const GetEmail = () => {
-      const emailUser = localStorage.getItem('user');
-      setEmail(emailUser);
+      const emailUser = JSON.parse(localStorage.getItem('user'));
+      setEmail(emailUser.email);
     };
     GetEmail();
   }, []);
@@ -16,6 +16,9 @@ export default function Profile() {
     localStorage.removeItem('user');
     localStorage.removeItem('mealsToken');
     localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
+    localStorage.removeItem('doneRecipes');
   };
 
   return (
