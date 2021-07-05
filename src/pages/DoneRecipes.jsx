@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareBtn from '../components/ShareBtn';
 
@@ -57,12 +58,18 @@ export default function DoneRecipes() {
       <div className="recipe-cards" />
       {renderRecipe().map((item, index) => (
         <div key={ item.id }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ item.image }
-            alt="avatar"
-          />
-          <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+          <Link
+            to={ item.type === 'comida'
+              ? `/comidas/${item.id}` : `/bebidas/${item.id}` }
+          >
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ item.image }
+              alt="avatar"
+              className="recipe-card-img"
+            />
+            <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+          </Link>
           {item.type === 'comida' ? (
             <p data-testid={ `${index}-horizontal-top-text` }>
               {item.area}

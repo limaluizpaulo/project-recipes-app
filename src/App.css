@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.recipe-card-img {
+  width: 10rem;
+}
+
 .recipe-container {
   display: flex;
   flex-wrap: wrap;
