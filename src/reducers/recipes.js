@@ -2,8 +2,8 @@ const INTIAL_STATE = {};
 
 const recipes = (state = INTIAL_STATE, action) => {
   switch (action.type) {
-  case 'xxx':
-    return { ...state };
+  case 'GET_RECIPES':
+    return { ...state, recipes: action.payload.data };
   default:
     return state;
   }
