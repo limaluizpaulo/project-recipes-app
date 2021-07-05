@@ -1,19 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 
 import Header from '../components/Header/Header';
 import CategoryButton from '../components/CategoryButton';
 import shareIcon from '../../images/shareIcon.svg';
-import store from '../../context/store';
+// import store from '../../context/store';
+import { getStorage } from '../../functions';
 
 export default function RecipesMade() {
-  const { recipes: { doneRecipes } } = useContext(store);
+  const [doneRecipes] = useState(() => getStorage('doneRecipes'));
+  // const { recipes: { doneRecipes } } = useContext(store);
+
   const handleClickCategory = () => console.log('handleClickCategory');
   const getRecipes = () => console.log('getRecipes');
 
   const renderRecipesMade = () => (
     doneRecipes.map((recipe, index) => (
       <div key={ index }>
-        { console.log(doneRecipes) }
         <img
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt={ recipe.strMealThumb || recipe.strDrinkThumb }
@@ -48,9 +50,10 @@ export default function RecipesMade() {
           />
         </a>
         <p
-          data-testid={ `${index}-${recipe.strTags}-horizontal-tag` }
+          data-testid={ `${index}-${recipe.strTags
+            || recipe.strCategory}-horizontal-tag` }
         >
-          { `Tags: ${recipe.strTags}` }
+          { `Tags: ${recipe.strTags || recipe.strCategory}` }
         </p>
       </div>
     ))

@@ -3,7 +3,7 @@ import {
   DIRECT_PAGE,
   ADD_RECIPE_DETAIL,
   UPDATE_LOADING,
-  DONE_RECIPE,
+  // DONE_RECIPE,
 } from '../store';
 
 const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action
@@ -37,13 +37,6 @@ const recipesReducer = (state, { type, payload }) => { // Desestruturação do A
     return {
       ...state,
       recipeDetail,
-    };
-  }
-  case DONE_RECIPE: {
-    const { doneRecipes } = payload;
-    return {
-      ...state,
-      doneRecipes: [...state.doneRecipes, doneRecipes],
     };
   }
   default:
