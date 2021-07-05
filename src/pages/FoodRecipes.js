@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/global.css';
+import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
 import { searchByCategoryFood } from '../services/searchApi';
+import { requestMeal } from '../services/api';
 
 function FoodRecipes() {
   const { setFirstMeals, firstMeals } = useContext(Context);
@@ -14,12 +16,11 @@ function FoodRecipes() {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await request.json();
+      const meals = await requestMeal();
       setFirstMeals(meals.slice(0, numOfMeals));
     };
     fetchMeals();
-  }, []);
+  }, [setFirstMeals]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -33,8 +34,7 @@ function FoodRecipes() {
   async function handleClick({ target }) {
     if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
       target.className = 'category-btn';
-      const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await request.json();
+      const meals = await requestMeal();
       return setFirstMeals(meals.slice(0, numOfMeals));
     }
     target.className = 'category-btn-dbl';
@@ -68,18 +68,28 @@ function FoodRecipes() {
       </div>
       <div className="card-container">
         {firstMeals.map((meal, index) => (
-          <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
-            <div
+          <Link
+            to={ `/comidas/${meal.idMeal}` }
+            key={ meal.strMeal }
+          >
+            <Card
               data-testid={ `${index}-recipe-card` }
               className="card"
             >
-              <img
+              <Card.Img
                 data-testid={ `${index}-card-img` }
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />
-              <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-            </div>
+              <Card.Body>
+                <Card.Title
+                  className="cardTitle"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {meal.strMeal}
+                </Card.Title>
+              </Card.Body>
+            </Card>
           </Link>
         ))}
       </div>

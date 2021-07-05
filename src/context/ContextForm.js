@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export const Context = createContext();
@@ -25,6 +25,11 @@ function Provider({ children }) {
     firstDrinks,
     setFirstDrinks,
   };
+
+  useEffect(() => {
+    const Favorite = [];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
+  }, []);
 
   return (
     <Context.Provider value={ object }>

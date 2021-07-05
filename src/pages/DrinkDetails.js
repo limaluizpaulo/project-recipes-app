@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
-
+import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
+import Icons from '../components/Icons';
+import '../styles/global.css';
 
 function DrinkDetails() {
   const params = useParams();
@@ -14,42 +16,54 @@ function DrinkDetails() {
       setDrink(result.drinks);
     };
     request();
-  }, []);
+  }, [params.id]);
 
   return (
     drink && (
       drink.map((
-        { strDrink, strInstructions,
+        { idDrink, strDrink, strInstructions,
           strDrinkThumb, strAlcoholic, strSource, ...rest },
         index,
       ) => {
         const drinks = rest;
         return (
           <div key={ index }>
-            <img src={ strDrinkThumb } alt={ strDrink } data-testid="recipe-photo" />
-            <section>
-              <div>
-                <h1 data-testid="recipe-title">{ strDrink }</h1>
-                <span data-testid="recipe-category">{strAlcoholic}</span>
-              </div>
-              <div>
-                <img src="" alt="" data-testid="share-btn" />
-                {' '}
-                Compartilhar
-                <img src="" alt="" data-testid="favorite-btn" />
-                {' '}
-                FAVORITAR
-              </div>
-            </section>
-            <List drinks={ drinks } />
-            <h2>Instructions</h2>
-            <span data-testid="instructions">{ strInstructions }</span>
-            <h2>Recomendations</h2>
-            {/* Recomendações com data-testid={ `${index}-recomendation-card` } */}
-            <div data-testid="0-recomendation-card">{ strSource }</div>
-            <button type="button" data-testid="start-recipe-btn">
-              Start Recipe
-            </button>
+            <img
+              src={ strDrinkThumb }
+              className="detailImg"
+              alt={ strDrink }
+              data-testid="recipe-photo"
+            />
+            <div className="alignDetailsItens">
+              <section className="detailsTitle-container">
+                <div>
+                  <h1 data-testid="recipe-title">{ strDrink }</h1>
+                  <span data-testid="recipe-category">{strAlcoholic}</span>
+                </div>
+                <Icons code={ drink[0] } />
+              </section>
+              <List drinks={ drinks } />
+              <h2>Instructions</h2>
+              <p
+                className="instructions"
+                data-testid="instructions"
+              >
+                { strInstructions }
+              </p>
+              <h2>Recomendations</h2>
+            </div>
+            <RecomendationsMeal />
+            <div className="recipeBtn">
+              <Link to={ `/bebidas/${idDrink}/in-progress` }>
+                <button
+                  type="button"
+                  className="startRecipeBtn"
+                  data-testid="start-recipe-btn"
+                >
+                  Iniciar Receita
+                </button>
+              </Link>
+            </div>
           </div>
         );
       }))
