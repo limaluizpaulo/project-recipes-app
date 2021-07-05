@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import invokeAlert from '../helper/alertMsg';
 
 import { fetchFoodRecipes, fetchFoodRecipesByIngredients,
-  fetchFoodRecipesByfirstLetter,
+  fetchFoodRecipesByfirstLetter, fetchDrinksRecipesByIngredient,
   fetchDrinksRecipes,
   fetchDrinksRecipesByFirstLetter } from '../action';
 
@@ -16,7 +17,6 @@ class SearchBar extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.invokeAlert = this.invokeAlert.bind(this);
   }
 
   handleChange({ target: { id, type, value } }) {
@@ -28,10 +28,10 @@ class SearchBar extends Component {
 
   handleClick() {
     const { fetchApi, fetchApiByIngredient, fetchApiByFirstLetter,
-      fetchApiDrinks,
+      fetchApiDrinks, fetchApiDrinksByingredient,
       fetchApiDrinksByFirstLetter } = this.props;
     const { location } = this.props;
-    console.log(location);
+    // console.log(fetchApiDrinksByFirstLetter);
 
     if (location === '/comidas') {
       return this.handleFoodAndDrink(fetchApi,
@@ -39,7 +39,7 @@ class SearchBar extends Component {
     }
     if (location === '/bebidas') {
       return this.handleFoodAndDrink(
-        fetchApiDrinks, fetchApiDrinks, fetchApiDrinksByFirstLetter,
+        fetchApiDrinks, fetchApiDrinksByingredient, fetchApiDrinksByFirstLetter,
       );
     }
   }
@@ -52,19 +52,17 @@ class SearchBar extends Component {
     }
 
     if (radioValue === 'ingrediente') {
+      console.log('ingredient');
       return fetchByingrdient(inputSearch);
     }
 
     if (radioValue === 'primeira-letra') {
       if (!inputSearch || inputSearch.length > 1) {
-        return this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+        return invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       }
+      // console.log(fetchByFirstLetter);
       return fetchByFirstLetter(inputSearch);
     }
-  }
-
-  invokeAlert(alert, msg) {
-    alert(msg);
   }
 
   render() {
@@ -127,6 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApiByFirstLetter: (e) => dispatch(fetchFoodRecipesByfirstLetter(e)),
   fetchApiDrinks: (e) => dispatch(fetchDrinksRecipes(e)),
   fetchApiDrinksByFirstLetter: (e) => dispatch(fetchDrinksRecipesByFirstLetter(e)),
+  fetchApiDrinksByingredient: (e) => dispatch(fetchDrinksRecipesByIngredient(e)),
 
 });
 
