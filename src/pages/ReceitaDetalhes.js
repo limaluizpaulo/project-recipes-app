@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { fetchRecipe, fetchRelated } from '../services/RecipeDetailsFetch';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -17,37 +18,9 @@ function ReceitaDetalhes({ match }) {
   const food = /comida/gi;
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
-  const [error, setError] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [related, setRelated] = useState([]);
-
-  const fetchRelated = async () => {
-    if (url.match(food)) {
-      await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json())
-        .then((response) => setRelated(response.drinks))
-        .catch(() => setError(true));
-    } else {
-      await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-        .then((response) => response.json())
-        .then((response) => setRelated(response.meals))
-        .catch(() => setError(true));
-    }
-  };
-
-  const fetchRecipe = async (param) => {
-    if (url.match(food)) {
-      await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${param}`)
-        .then((response) => response.json())
-        .then((response) => setRecipe(response.meals[0]))
-        .catch(() => setError(true));
-    } else {
-      await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${param}`)
-        .then((response) => response.json())
-        .then((response) => setRecipe(response.drinks[0]))
-        .catch(() => setError(true));
-    }
-  };
+  const [copied, setCopied] = useState(false);
 
   function checkFavorite() {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -69,8 +42,10 @@ function ReceitaDetalhes({ match }) {
   }
 
   useEffect(() => {
-    fetchRelated();
-    fetchRecipe(id);
+    fetchRelated(url, food)
+      .then((response) => setRelated(response));
+    fetchRecipe(url, food, id)
+      .then((response2) => setRecipe(response2));
   }, []);
 
   function saveWithFavorites() {
@@ -152,6 +127,11 @@ function ReceitaDetalhes({ match }) {
     }
   }
 
+  function copyUrl() {
+    copy(`http://localhost:3000${url}`);
+    setCopied(true);
+  }
+
   function title() {
     const recipeTitle = recipe.strMeal;
     const favoriteIcon = (favorite)
@@ -174,17 +154,20 @@ function ReceitaDetalhes({ match }) {
               <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
             </button>
             <button
-              onClick={ copy(url) }
+              onClick={ copyUrl }
               src={ shareIcon }
               type="button"
               data-testid="share-btn"
             >
               <img src={ shareIcon } alt="compartilhar receita" />
             </button>
+            <br />
+            { copied ? <span>Link copiado!</span> : ''}
           </div>
         </div>
       );
     }
+
     return (
       <div className="title">
         <div className="title-left">
@@ -201,19 +184,20 @@ function ReceitaDetalhes({ match }) {
             <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
           </button>
           <button
-            onClick={ copy(url) }
+            onClick={ copyUrl }
             src={ shareIcon }
             type="button"
             data-testid="share-btn"
           >
             <img src={ shareIcon } alt="compartilhar receita" />
           </button>
+          <br />
+          { copied ? <span>Link copiado!</span> : ''}
         </div>
       </div>
     );
   }
 
-  if (error) return (<h4>Receita não encontrada!</h4>);
   if (!recipe) {
     return (<h4 className="loading">Carregando...</h4>);
   }
@@ -223,7 +207,9 @@ function ReceitaDetalhes({ match }) {
     related,
   };
   console.log(recipe);
+
   checkFavorite();
+
   return (
     <main>
       <DetailsImage value={ { recipe, url } } />
