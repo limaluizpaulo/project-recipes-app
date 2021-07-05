@@ -7,7 +7,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
-import MealsByIngredients from './components/MealsByIngredients';
+import Ingredients from './pages/Ingredientes';
 
 function App() {
   return (
@@ -26,12 +26,12 @@ function App() {
         <Route
           exact
           path="/explorar/comidas/ingredientes"
-          component={ MealsByIngredients }
+          component={ Ingredients }
         />
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
-          component={ MealsByIngredients }
+          component={ Ingredients }
         />
         <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
         {/* <Route path="/perfil" component={ Perfil } /> */}
