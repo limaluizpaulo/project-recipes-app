@@ -8,7 +8,6 @@ import SearchBar from '../components/SearchBar';
 
 export default function Perfil() {
   const { openSearchBar } = useContext(Context);
-  const { email } = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
   const handleClick = ({ id }) => {
@@ -18,6 +17,14 @@ export default function Perfil() {
     }
     return history.push(`/${id}`);
   };
+
+  const localStorageEmail = JSON.parse(localStorage.getItem('user'));
+  let email = '';
+  if (localStorageEmail) {
+    email = localStorageEmail.email;
+  } else {
+    email = 'Você não deveria estar aqui!';
+  }
 
   return (
     <div>
