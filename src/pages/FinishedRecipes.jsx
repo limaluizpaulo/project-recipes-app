@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
+import '../styles/DoneRecipes.css';
+
 function FinishedRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [indexNumber, setIndexNumber] = useState('');
 
   useEffect(() => {
     const doneRecipes = [
@@ -35,10 +38,11 @@ function FinishedRecipes() {
     setDoneRecipesList(JSON.parse(localStorage.getItem('doneRecipes')));
   }, []);
 
-  const shareRecipe = (recipe) => {
+  const shareRecipe = (recipe, index) => {
     // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
     setCopied(true);
+    setIndexNumber(index);
   };
 
   return (
@@ -90,15 +94,21 @@ function FinishedRecipes() {
                 {' '}
               </span>
             ))}
-            <button type="button" onClick={ () => shareRecipe(doneRecipe) }>
+            <button type="button" onClick={ () => shareRecipe(doneRecipe, index) }>
               <img
                 src={ shareIcon }
                 alt="share"
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
-            {copied && <span id="spn">Link copiado!</span>}
-            {}
+            <span
+              id={ index }
+              className={ `${copied && indexNumber === index
+                ? 'alert-show' : 'alert-hidden'}` }
+              onTransitionEnd={ () => setCopied(false) }
+            >
+              Link copiado!
+            </span>
           </div>
         ))}
       </main>
