@@ -17,7 +17,6 @@ export default function Login() {
 
   const validLoginPassword = () => {
     const { password } = user;
-    console.log(password);
     const minCharacters = 7;
     if (password.length >= minCharacters) {
       return true;
@@ -29,7 +28,6 @@ export default function Login() {
       ...user,
       [id]: value,
     });
-    console.log(user);
   };
 
   const handleSubmit = () => {
@@ -38,7 +36,9 @@ export default function Login() {
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('doneRecipes', JSON.stringify([{}]));
     localStorage.setItem('favoriteRecipes', JSON.stringify([{}]));
-    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    localStorage.setItem(
+      'inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }),
+    );
     history.push('/comidas');
   };
 
