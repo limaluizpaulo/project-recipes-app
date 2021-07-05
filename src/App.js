@@ -3,7 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Pages from './pages/index';
-// import TesteDeRotas from './components/TesteDeRotas';
 
 export default function App() {
   function renderRotes() {
