@@ -3,7 +3,8 @@ export const [
   DRINKS,
   FOODS,
   RANDOM,
-] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM'];
+  INGREDIENTS,
+] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM', 'INGREDIENTS'];
 
 export function userLogin(payload) {
   return {
@@ -27,6 +28,11 @@ const actionGetRandom = (payload) => ({
   payload,
 });
 
+const actionGetIngredients = (payload) => ({
+  type: INGREDIENTS,
+  payload,
+});
+
 export function getFoods(value, callback) {
   return (dispatch) => callback(value)
     .then((food) => dispatch(actionGetFoods(food)));
@@ -40,4 +46,9 @@ export function getDrinks(value, callback) {
 export function getRandom(callback) {
   return (dispatch) => callback()
     .then((random) => dispatch(actionGetRandom(random)));
+}
+
+export function getIngredient(callback) {
+  return (dispatch) => callback()
+    .then((ingredient) => dispatch(actionGetIngredients(ingredient)));
 }
