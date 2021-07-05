@@ -17,8 +17,7 @@ export default function Login() {
   function loginValidation() {
     // fonte: https://www.w3resource.com/javascript/form/email-validation.php
 
-    // eslint-disable-next-line max-len
-    const mail = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@\\"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    const mail = /\S+@\S+\.\S+/;
 
     const passwordMinLenght = 6;
     if (email.match(mail) && password.length > passwordMinLenght) {
