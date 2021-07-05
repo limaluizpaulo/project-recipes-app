@@ -46,11 +46,15 @@ body {
 }
 
 .cardTitle {
+  
   /* -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   display: -webkit-box; */
+  display: inline-block;
+  max-height: 2.3em;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .btn-container {
@@ -87,6 +91,7 @@ body {
 
 .shareAndLike {
   display: flex;
+  padding-top: 12px;
 }
 
 .share {
@@ -101,7 +106,7 @@ body {
 .favorite {
   background-color: inherit;
   border: inherit;
-  margin-left: 3px;
+  margin-left: 7px;
 }
 
 .favorite:hover {
