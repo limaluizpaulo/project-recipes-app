@@ -4,7 +4,7 @@ import RecipesContext from '../Context/RecipesContext';
 import CategoryDrinks from './CategoryDrinks';
 
 export default function CardDrink() {
-  const { resposeApiLupaDrink } = useContext(RecipesContext);
+  const { resposeApiLupaDrink, redirect } = useContext(RecipesContext);
   const history = useHistory();
   const twelve = 12;
   let arrayDrink = resposeApiLupaDrink;
@@ -16,7 +16,7 @@ export default function CardDrink() {
   if (resposeApiLupaDrink.length > twelve) {
     arrayDrink = resposeApiLupaDrink.filter((_e, index) => index < twelve);
   }
-  if (resposeApiLupaDrink.length === 1) {
+  if (resposeApiLupaDrink.length === 1 && redirect) {
     const { idDrink } = resposeApiLupaDrink[0];
     return history.push(`/bebidas/${idDrink}`);
   }

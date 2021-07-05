@@ -5,7 +5,7 @@ import RecipesContext from '../Context/RecipesContext';
 import CategoryMeals from './CategoryMeals';
 
 export default function CardMeal() {
-  const { responseApiLupaMeal } = useContext(RecipesContext);
+  const { responseApiLupaMeal, redirect } = useContext(RecipesContext);
   const history = useHistory();
   let arrayMeal = responseApiLupaMeal;
 
@@ -25,20 +25,28 @@ export default function CardMeal() {
 
   return (
     <main>
-      <CategoryMeals />
-      <ul>
-        {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
-            <img
-              width="80px"
-              src={ strMealThumb }
-              alt="imagem receita"
-              data-testid={ `${index}-card-img` }
-            />
-            <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
-          </li>
-        ))}
-      </ul>
+      {
+        responseApiLupaMeal?.length === 1 ? <Redirect to="/comidas/re" />
+          : (
+            <>
+              <CategoryMeals />
+              <ul>
+                {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
+                  <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
+                    <img
+                      width="80px"
+                      src={ strMealThumb }
+                      alt="imagem receita"
+                      data-testid={ `${index}-card-img` }
+                    />
+                    <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+      }
+
     </main>
   );
 }

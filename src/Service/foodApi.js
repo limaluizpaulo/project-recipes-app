@@ -1,3 +1,9 @@
+export const fetchTypeCotegoryMeals = async (category) => {
+  const categoryMeals = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const { meals } = await categoryMeals.json();
+  return meals;
+};
+
 export const fetchAllMeals = async () => {
   const allMeals = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const { meals } = await allMeals.json();

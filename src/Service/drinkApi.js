@@ -27,3 +27,10 @@ export const fetchFirstLetterDrinks = async (first) => {
   const { drinks } = await firstLetter.json();
   return drinks;
 };
+
+export const fetchTypeCategoryFilter = async (category) => {
+  const typeCategory = await
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const { drinks } = await typeCategory.json();
+  return drinks;
+};
