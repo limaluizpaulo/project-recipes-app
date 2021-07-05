@@ -28,11 +28,10 @@ const recipesReducer = (state, { type, payload }) => { // Desestruturação do A
     };
   }
   case ADD_RECIPE_DETAIL: {
-    const { recipeDetail, loading } = payload;
+    const { recipeDetail } = payload;
     return {
       ...state,
       recipeDetail,
-      loading,
     };
   }
   case ADD_RECOMMENDED: {

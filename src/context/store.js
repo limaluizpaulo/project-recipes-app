@@ -62,7 +62,7 @@ export const directPage = (foods) => ({
 
 export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
 export const addRecDetail = (recipeDetail) => ({
-  type: ADD_RECIPE_DETAIL, payload: { recipeDetail, loading: true },
+  type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
 });
 
 export const ADD_RECOMMENDED = 'ADD_RECOMMENDED';
