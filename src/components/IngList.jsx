@@ -6,16 +6,24 @@ function IngList({ ingredientsList, measures }) {
     <section>
       Lista de ingredientes
       {
-        ingredientsList.map((item, idx) => (
-          <div key={ idx }>
-            <div
-              data-testid={ `${idx}-ingredient-name-and-measure` }
-            >
-              {
-                `${item} ${measures[idx]}`
-              }
-            </div>
-          </div>))
+        ingredientsList.map((item, idx) => {
+          if (item === null || item === '') {
+            return null;
+          }
+          if (item) {
+            return (
+              <div key={ idx }>
+                <div
+                  data-testid={ `${idx}-ingredient-name-and-measure` }
+                >
+                  {
+                    `${item} ${measures[idx]}`
+                  }
+                </div>
+              </div>
+            );
+          }
+        })
       }
     </section>
   );

@@ -73,6 +73,7 @@ function Login() {
           type="text"
           name="email"
           onChange={ handleChange }
+          placeholder="example@email.com"
         />
       </label>
       <label htmlFor="password">
@@ -81,6 +82,7 @@ function Login() {
           data-testid="password-input"
           type="password"
           name="password"
+          placeholder="password"
           onChange={ handleChange }
         />
       </label>
