@@ -30,24 +30,25 @@ class Header extends Component {
               <img src={ ImgProfile } alt="perfil" data-testid="profile-top-btn" />
             </button>
             <h2 data-testid="page-title">{header}</h2>
-          </div>
-          { explorer
-            ? (
-              <>
-                <button
-                  type="button"
-                  onClick={ () => this.setState((prev) => ({ search: !prev.search })) }
-                >
-                  <img
-                    src={ searchIcon }
-                    alt="icone de busca"
-                    data-testid="search-top-btn"
-                  />
-                </button>
-                <div />
+            { explorer
+              ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={ () => this.setState((prev) => ({ search: !prev.search })) }
+                  >
+                    <img
+                      src={ searchIcon }
+                      alt="icone de busca"
+                      data-testid="search-top-btn"
+                    />
+                  </button>
+                  <div />
 
-              </>)
-            : null}
+                </>)
+              : null}
+          </div>
+
         </header>
         { search ? <Search /> : null}
       </>

@@ -1,4 +1,4 @@
-.meals {
+.app {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -29,7 +29,7 @@
 }
 */
 
-.meals > .logo {
+.app > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;

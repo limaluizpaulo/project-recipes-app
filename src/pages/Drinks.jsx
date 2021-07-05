@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 import { actionDrinks } from '../actions';
+import CardItem from '../components/CardItem';
 
 class Drinks extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-    };
 
     this.fetchDrinks = this.fetchDrinks.bind(this);
   }
@@ -22,23 +20,25 @@ class Drinks extends Component {
   fetchDrinks() {
     const { drinks } = this.props;
     drinks();
-    this.setState({ loading: false });
   }
 
   render() {
-    const { loading } = this.state;
-    if (loading) {
-      return (<h3>Loading...</h3>);
-    }
     const { listDrinks } = this.props;
-    console.log(listDrinks.drinks);
+    if (!listDrinks) return (<h3>Loading...</h3>);
+    console.log(listDrinks);
     return (
-      <div>
+      <>
         <Header header="Bebidas" explorer />
         <h2> vodK </h2>
-        {listDrinks.map((drink) => <h5 key={ drink.strDrink }>{drink.strDrink}</h5>)}
+        {listDrinks.map(({ strDrinkThumb, strDrink }, index) => (
+          <CardItem
+            key={ index }
+            index={ index }
+            name={ strDrink }
+            image={ strDrinkThumb }
+          />))}
         <DownMenu />
-      </div>
+      </>
     );
   }
 }
