@@ -9,6 +9,7 @@ export default function CategoryDrinks() {
     setCategoryDrink,
     setResponseApiLupaDrink, setRedirect } = useContext(RecipesContext);
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [valor, setValor] = useState('');
   const getApiCategory = () => {
     const FIVE = 5;
     fetchDrinkCategori()
@@ -17,6 +18,9 @@ export default function CategoryDrinks() {
   useEffect(getApiCategory, []);
 
   const handleClick = ({ target: { value } }) => {
+    setValor(value);
+    console.log('state', valor);
+    console.log(value);
     setRedirect(false);
     if (!toggleSearch) {
       fetchTypeCategoryFilter(value).then((result) => setResponseApiLupaDrink(result));
@@ -29,11 +33,11 @@ export default function CategoryDrinks() {
 
   return (
     <div>
-      {categoryDrink.map(({ strCategory }) => (
+      {categoryDrink.map(({ strCategory }, index) => (
         <button
           type="button"
           value={ strCategory }
-          key={ strCategory }
+          key={ index }
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleClick }
         >
