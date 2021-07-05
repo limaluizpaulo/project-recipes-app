@@ -3,26 +3,31 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 import {
-  fetchAPI, getCategories, getMealsRecipes, getDrinksRecipes,
+  fetchAPI, getCategories,
 } from '../services/fetchAPI';
 
 const FoodsEndPoint = 'https://www.themealdb.com/api/json/v1/1/';
 const DrinksEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/';
+const initialParams = { chosenFilter: 'search.php?s=', searchText: '' };
 
 function GlobalProvider({ children }) {
-  const [requestParams, setRequestParams] = useState({
-    chosenFilter: '', searchText: '' });
-
+  // armazena os paramentros vindos dos inputs para requisição da API.
+  const [requestParams, setRequestParams] = useState(initialParams);
+  // armazena o resultado da api (fetchAPI). DidMount e Botão de 'pesquisar'.
   const [requestResult, setRequestResult] = useState({ drinks: [], meals: [] });
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  // armazena o resultado da api de categorias (getCategories).
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
+  // armazena o requestResult sob a condição da sua chave (drinks ou meals).
+  const [drinks, setDrinks] = useState([]);
+  // armazena o requestResult sob a condição da sua chave (drinks ou meals).
+  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
+    const { chosenFilter, searchText } = initialParams;
     async function fetchState() {
       setCategories(await getCategories());
-      setMeals(await getMealsRecipes());
-      setDrinks(await getDrinksRecipes());
+      setRequestResult(await fetchAPI(FoodsEndPoint, chosenFilter, searchText));
+      setRequestResult(await fetchAPI(DrinksEndPoint, chosenFilter, searchText));
     } fetchState();
   }, []);
 
@@ -33,7 +38,7 @@ function GlobalProvider({ children }) {
     if (requestResult.drinks) {
       setDrinks(requestResult.drinks);
     }
-    if (requestResult.meals === null || requestResult.drinks === null) {
+    if (!requestResult[Object.keys(requestResult)[0]]) {
       global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
