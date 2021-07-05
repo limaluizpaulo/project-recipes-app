@@ -19,12 +19,12 @@ export default function MealList() {
   }, [mealsRecipes]);
 
   const renderCards = () => {
-    if (mealsRecipes && mealsRecipes.lenght === 1) {
+    if (mealsRecipes && mealsRecipes.length === 1) {
       console.log('3');
       return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
     }
 
-    if (mealsRecipes && mealsRecipes.lenght > 1) {
+    if (mealsRecipes && mealsRecipes.length > 1) {
       const NUMBER = 12;
       return mealsRecipes.map((item, index) => {
         if (index < NUMBER) {
