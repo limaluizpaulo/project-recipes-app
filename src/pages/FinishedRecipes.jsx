@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -8,33 +9,36 @@ function FinishedRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
   const [copied, setCopied] = useState(false);
   const [indexNumber, setIndexNumber] = useState('');
+  const [category, setCategory] = useState('all');
 
   useEffect(() => {
-    const doneRecipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: '23/06/2020',
-        tags: [],
-      },
-    ];
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    // código abaixo apenas para teste pois o requisito que salva no localstorage as receitas ainda nao está pronto
+    // const doneRecipes = [
+    //   {
+    //     id: '52771',
+    //     type: 'comida',
+    //     area: 'Italian',
+    //     category: 'Vegetarian',
+    //     alcoholicOrNot: '',
+    //     name: 'Spicy Arrabiata Penne',
+    //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    //     doneDate: '23/06/2020',
+    //     tags: ['Pasta', 'Curry'],
+    //   },
+    //   {
+    //     id: '178319',
+    //     type: 'bebida',
+    //     area: '',
+    //     category: 'Cocktail',
+    //     alcoholicOrNot: 'Alcoholic',
+    //     name: 'Aquamarine',
+    //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    //     doneDate: '23/06/2020',
+    //     tags: [],
+    //   },
+    // ];
+    // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    // até aqui
     setDoneRecipesList(JSON.parse(localStorage.getItem('doneRecipes')));
   }, []);
 
@@ -45,48 +49,71 @@ function FinishedRecipes() {
     setIndexNumber(index);
   };
 
-  return (
-    <>
-      <Header profile name="Receitas Feitas" />
-      <section>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filter-by-all-btn"
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filter-by-food-btn"
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filter-by-drink-btn"
-        >
-          Drinks
-        </button>
-      </section>
-      <main>
-        {doneRecipesList.map((doneRecipe, index) => (
-          <div key={ index }>
+  const renderAllRecipes = () => (
+    <main>
+      {doneRecipesList.map((doneRecipe, index) => (
+        <div key={ index } className="card">
+          <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
             <img
               src={ doneRecipe.image }
               alt="recipe"
               data-testid={ `${index}-horizontal-image` }
               width="150px"
             />
+            <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
+          </Link>
+          <h6 data-testid={ `${index}-horizontal-top-text` }>
+            {doneRecipe.area}
+            {doneRecipe.alcoholicOrNot}
+            {' - '}
+            {doneRecipe.category}
+          </h6>
+          <p data-testid={ `${index}-horizontal-done-date` }>{doneRecipe.doneDate}</p>
+          {doneRecipe.tags.map((tag) => (
+            <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+              {tag}
+              {' '}
+            </span>
+          ))}
+          <button type="button" onClick={ () => shareRecipe(doneRecipe, index) }>
+            <img
+              src={ shareIcon }
+              alt="share"
+              data-testid={ `${index}-horizontal-share-btn` }
+            />
+          </button>
+          <span
+            id={ index }
+            className={ `${copied && indexNumber === index
+              ? 'alert-show' : 'alert-hidden'}` }
+            onTransitionEnd={ () => setCopied(false) }
+          >
+            Link copiado!
+          </span>
+        </div>
+      ))}
+    </main>);
+
+  const renderByCategory = () => (
+    <main>
+      {doneRecipesList.filter((recipe) => recipe.type === category)
+        .map((doneRecipe, index) => (
+          <div key={ index } className="card">
+            <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
+              <img
+                src={ doneRecipe.image }
+                alt="recipe"
+                data-testid={ `${index}-horizontal-image` }
+                width="150px"
+              />
+              <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
+            </Link>
             <h6 data-testid={ `${index}-horizontal-top-text` }>
               {doneRecipe.area}
               {doneRecipe.alcoholicOrNot}
               {' - '}
               {doneRecipe.category}
             </h6>
-            <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
             <p data-testid={ `${index}-horizontal-done-date` }>{doneRecipe.doneDate}</p>
             {doneRecipe.tags.map((tag) => (
               <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
@@ -111,7 +138,40 @@ function FinishedRecipes() {
             </span>
           </div>
         ))}
-      </main>
+    </main>
+  );
+
+  return (
+    <>
+      <Header profile name="Receitas Feitas" />
+      <section className="menu">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setCategory('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setCategory('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setCategory('bebida') }
+
+        >
+          Drinks
+        </button>
+      </section>
+      {category === 'all' ? renderAllRecipes() : renderByCategory()}
     </>
   );
 }
