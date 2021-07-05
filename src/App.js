@@ -12,10 +12,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExploreMeals from './pages/ExploreMeals';
 import FoodList from './pages/FoodList';
-
+import FoodDetails from './pages/FoodDetails';
+import CocktailDetails from './pages/CocktailDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
-
+import Profile from './pages/Profile';
 import {
   allowedHeaderRenderByPath,
   allowedFooterRenderByPath,
@@ -45,6 +46,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ FoodList } />
         <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route exact path="/bebidas/:id" component={ CocktailDetails } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
@@ -52,6 +55,7 @@ function App() {
           path="/explorar/comidas/ingredientes"
           component={ IngredientMeals }
         />
+        <Route path="/perfil" component={ Profile } />
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
