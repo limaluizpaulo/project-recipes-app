@@ -16,7 +16,7 @@
   padding: 10px;
 }
 
-.headerSection button {
+.button-transparent {
   background: transparent;
   border: none;
 }

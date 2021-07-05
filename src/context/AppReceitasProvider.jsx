@@ -4,13 +4,13 @@ import AppReceitasContext from './AppReceitasContext';
 
 export default function AppReceitasProvider({ children }) {
   const [login, setLogin] = useState({});
-  const [fetchAPI, setFetchAPI] = useState({});
+  const [parametrosBusca, setParametrosBusca] = useState({});
 
   const contextValue = {
     login,
     setLogin,
-    fetchAPI,
-    setFetchAPI,
+    parametrosBusca,
+    setParametrosBusca,
   };
 
   return (

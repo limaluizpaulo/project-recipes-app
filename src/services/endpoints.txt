@@ -1,0 +1,18 @@
+busca receitas por:
+ - ingrediente        --> ...endpoint.filter.php?i={ingrediente}
+ - primeira letra     --> ...endpoint.search.php?f={primeira-letra}
+ - nome               --> ...endpoint.search.php?s={nome}
+ - primeiras receitas --> ...endpoint.search.php?s=
+ - categoria:         --> ...endpoint.filter.php?c=Seafood
+ - area:              --> ...endpoint.filter.php?a=Canadian
+
+listar todas as:
+ - categorias   --> ...endpoint.list.php?c=list
+ - areas        --> ...endpoint.list.php?a=list
+ - ingredientes --> ...endpoint.list.php?i=list
+
+receita específica:
+ - receita --> ...endpoint.lookup.php?i={id-da-receita}
+
+me surpreenda:
+ - aleatório --> ...endpoint.random.php
