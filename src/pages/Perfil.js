@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -6,6 +7,7 @@ class Perfil extends Component {
   constructor() {
     super();
     this.mailUser = this.mailUser.bind(this);
+    this.clearStorage = this.clearStorage.bind(this);
   }
 
   mailUser() {
@@ -19,6 +21,10 @@ class Perfil extends Component {
     return null;
   }
 
+  clearStorage() {
+    localStorage.clear();
+  }
+
   render() {
     return (
       <>
@@ -29,24 +35,28 @@ class Perfil extends Component {
           <p data-testid="profile-email">
             {this.mailUser}
           </p>
-          <button
+          <Link
+            to="/receitas-feitas"
             type="button"
             data-testid="profile-done-btn"
           >
             Receitas Feitas
-          </button>
-          <button
+          </Link>
+          <Link
+            to="/receitas-favoritas"
             type="button"
             data-testid="profile-favorite-btn"
           >
             Receitas Favoritas
-          </button>
-          <button
+          </Link>
+          <Link
+            to="/"
             type="button"
             data-testid="profile-logout-btn"
+            onClick={ this.clearStorage }
           >
             Sair
-          </button>
+          </Link>
         </section>
         <Footer />
       </>
