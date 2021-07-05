@@ -16,8 +16,27 @@ class BeveragesInProgress extends React.Component {
 
   handleChecked({ target }) {
     const li = target.parentNode;
+    localStorage.setItem('valor', 'teste');
     if (target.checked === true) li.className = 'checked';
     if (target.checked === false) li.className = '';
+  }
+
+  setInitialLocal() {
+    const { idMeal } = testeData[0];
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const obj = {
+        cocktails: {
+          id: [],
+        },
+        meals: {
+          [idMeal]: [],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      // prevStorage.meals[idMeal].push('teste');
+    }
   }
 
   renderIngredients() {
@@ -46,6 +65,7 @@ class BeveragesInProgress extends React.Component {
     const { detailsRecipe } = this.state;
     return (
       <section>
+        { this.setInitialLocal() }
         <img
           src={ detailsRecipe[0].strMealThumb }
           alt="Imagem da Bebida"
