@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import fetchRecipeByDetails from '../RequisiçõesAPI/drink/RequestByDetails';
 
-export default function DrinkPreparation({recipeId}) {
+export default function DrinkPreparation({ recipeId }) {
   const fifteen = 15;
   const [recipeDetails, setRecipeDetails] = useState({});
 
