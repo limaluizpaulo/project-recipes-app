@@ -4,10 +4,13 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import FetchProvider from './context/FetchProvider';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <FetchProvider>
+      <App />
+    </FetchProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

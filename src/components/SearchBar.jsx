@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import FetchContext from '../context/FetchContext';
 
 function SearchBar() {
-  const [, setSearchText] = useState('');
-  const [, setRadioButton] = useState(' ingredients');
+  const [searchText, setSearchText] = useState('');
+  const [radioButton, setRadioButton] = useState(' ingredients');
+  const { typeFunc, handleFoods, handleDrinks } = useContext(FetchContext);
+
+  const handleClick = () => {
+    if (typeFunc === 'Foods') {
+      return handleFoods(radioButton, searchText);
+    }
+
+    if (typeFunc === 'Drinks') {
+      return handleDrinks(radioButton, searchText);
+    }
+  };
 
   return (
     <form>
@@ -16,9 +28,9 @@ function SearchBar() {
         <input
           type="radio"
           id="ingredients"
-          value="ingredients"
+          value="ingrediente"
           name="searchType"
-          data-testid="ingredients-search-radio"
+          data-testid="ingredient-search-radio"
           onChange={ ({ target: { value } }) => setRadioButton(value) }
         />
         Ingrediente
@@ -38,7 +50,7 @@ function SearchBar() {
         <input
           type="radio"
           id="primeiraLetra"
-          value="primeiraLetra"
+          value="primeira letra"
           name="searchType"
           data-testid="first-letter-search-radio"
           onChange={ ({ target: { value } }) => setRadioButton(value) }
@@ -48,6 +60,7 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ handleClick }
       >
         Buscar
       </button>
