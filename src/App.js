@@ -3,8 +3,8 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
-import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
+import MainPage from './pages/MainPage';
+// import Bebidas from './pages/Bebidas';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 
@@ -25,8 +25,8 @@ function App() {
       {/* <Route path="/comidas/:id/in-progress" component={ InProgress } /> */}
       {/* <Route path="/bebidas/:id" component={ Details } /> */}
       {/* <Route path="/comidas/:id" component={ Details } /> */}
-      <Route exact path="/comidas" component={ Comidas } />
-      <Route exact path="/bebidas" component={ Bebidas } />
+      <Route exact path="/comidas" component={ MainPage } />
+      <Route exact path="/bebidas" component={ MainPage } />
     </Switch>
   );
 }

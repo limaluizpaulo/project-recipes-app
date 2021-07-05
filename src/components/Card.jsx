@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Card(props) {
-  const { data } = props;
-  // console.log(thumbnail);
+  const { id, thumbnail, title } = props;
+
   return (
-    <div>
-      <img src={ data.strMealThumb } alt="thumbnail" />
-      <span>{data.strMeal}</span>
+    <div data-testid={ `${id}-recipe-card` }>
+      <img src={ thumbnail } alt={ title } data-testid={ `${id}-card-img` } />
+      <span data-testid={ `${id}-card-name` }>{title}</span>
     </div>
   );
 }
 
 Card.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  id: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };

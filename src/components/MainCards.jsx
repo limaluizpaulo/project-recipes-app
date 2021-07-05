@@ -3,20 +3,28 @@ import PropTypes from 'prop-types';
 import Card from './Card';
 
 export default function MainCards(props) {
-  const { data } = props;
-  // const card = data !== undefined ? data : [];
-  console.log(data);
+  const { data, thumbnail, title } = props;
+
   return (
     <main>
       <aside>Categories</aside>
       <section>
-        {data.length && (<Card data={ data[0] } />)}
+        {data.length
+          && data.map((recipe, index) => (
+            <Card
+              key={ index }
+              id={ index }
+              thumbnail={ recipe[thumbnail] }
+              title={ recipe[title] }
+            />
+          ))}
       </section>
     </main>
   );
 }
 
 MainCards.propTypes = {
-  // searchBar: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
