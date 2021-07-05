@@ -34,4 +34,16 @@ export async function searchByFirstLetterDrink(firstLetter) {
   return result;
 }
 
+export async function searchByCategoryFood(category) {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json()).then((resultObject) => resultObject);
+  return result;
+}
+
+export async function searchByCategoryDrink(category) {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((response) => response.json()).then((resultObject) => resultObject);
+  return result;
+}
+
 export default searchByNameFood;
