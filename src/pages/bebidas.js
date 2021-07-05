@@ -15,6 +15,7 @@ class bebidas extends Component {
   }
 
   render() {
+    const { location: { pathname } } = this.props;
     const { recipeDetails, recipes } = this.props;
     return (
       recipeDetails && recipes ? (
@@ -24,6 +25,7 @@ class bebidas extends Component {
             recipeDetails={ recipeDetails }
             title="Bebidas"
             recipes={ recipes }
+            link={ pathname }
           />
         </section>
       )

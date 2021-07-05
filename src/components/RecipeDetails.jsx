@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
@@ -14,9 +15,11 @@ class RecipeDetails extends React.Component {
 
     this.state = {
       redirectInProgress: false,
+      copied: false,
     };
 
     this.getIngredients = this.getIngredients.bind(this);
+    this.copyLink = this.copyLink.bind(this);
   }
 
   getIngredients() {
@@ -40,9 +43,16 @@ class RecipeDetails extends React.Component {
     }
   }
 
+  copyLink() {
+    this.setState({ copied: true });
+
+    const { link } = this.props;
+    copy(`http://localhost:3000${link}`);
+  }
+
   render() {
     const { recipeDetails, title, recipes } = this.props;
-    const { redirectInProgress } = this.state;
+    const { redirectInProgress, copied } = this.state;
 
     if (redirectInProgress) {
       const { foodById, drinksById } = this.props;
@@ -74,6 +84,7 @@ class RecipeDetails extends React.Component {
             <button
               data-testid="share-btn"
               type="button"
+              onClick={ this.copyLink }
             >
               <img src={ shareIcon } alt="shareIcon" />
             </button>
@@ -83,6 +94,7 @@ class RecipeDetails extends React.Component {
             >
               <img src={ favoriteIcon } alt="favoriteIcon" />
             </button>
+            {copied ? <span>Link copiado!</span> : null}
             <div>
               <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
             </div>
