@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
+import Categories from './Categories';
 
 export default function MainCards(props) {
-  const { data, thumbnail, title } = props;
+  const {
+    data,
+    thumbnail,
+    title,
+    typeId,
+  } = props;
 
   return (
     <main>
-      <aside>Categories</aside>
+      <Categories />
       <section>
         {data.length
           && data.map((recipe, index) => (
             <Card
-              key={ index }
-              id={ index }
+              key={ recipe[typeId] }
+              index={ index }
+              id={ recipe[typeId] }
               thumbnail={ recipe[thumbnail] }
               title={ recipe[title] }
             />
@@ -27,4 +34,5 @@ MainCards.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  typeId: PropTypes.string.isRequired,
 };

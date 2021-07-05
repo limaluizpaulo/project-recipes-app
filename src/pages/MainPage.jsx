@@ -9,15 +9,18 @@ export default function MainPage() {
   let title;
   let thumbnail;
   let strTitle;
+  let typeId;
 
   if (type === 'meal') {
     title = 'Comidas';
     strTitle = 'strMeal';
     thumbnail = 'strMealThumb';
+    typeId = 'idMeal';
   } else {
     title = 'Bebidas';
     strTitle = 'strDrink';
     thumbnail = 'strDrinkThumb';
+    typeId = 'idDrink';
   }
 
   return isFetching ? <p>Loading...</p> : (
@@ -27,6 +30,7 @@ export default function MainPage() {
         data={ data }
         thumbnail={ thumbnail }
         title={ strTitle }
+        typeId={ typeId }
       />
       <Footer />
     </>

@@ -5,13 +5,14 @@ import { useLocation } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
 import {
   getMealsRecipes,
-  // getMealsCategories,
   // getMealsIngredients,
   getMealsIngredientsFilter,
   getMealsNameFilter,
   getMealsFirstLetterFilter,
 } from '../helpers/MealsAPI';
-import { getCocktailsRecipes } from '../helpers/CocktailsAPI';
+import {
+  getCocktailsRecipes,
+} from '../helpers/CocktailsAPI';
 
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
@@ -38,7 +39,6 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const recipes = async () => {
       setIsFetching(true);
-
       const results = (type === 'meal')
         ? await getMealsRecipes() : await getCocktailsRecipes();
       /*
@@ -52,13 +52,6 @@ function RecipesProvider({ children }) {
       setIsFetching(false);
     };
 
-    // const categories = async () => {
-    //   setIsFetching(true);
-    //   const results = await getMealsCategories();
-    //   setMeals(results);
-    //   setIsFetching(false);
-    // };
-
     // const ingredients = async () => {
     //   setIsFetching(true);
     //   const results = await getMealsIngredients();
@@ -67,7 +60,6 @@ function RecipesProvider({ children }) {
     // };
 
     recipes();
-    // categories();
     // ingredients();
   }, []);
 
@@ -95,11 +87,13 @@ function RecipesProvider({ children }) {
     type,
     setType,
     setFilterHeader,
+    setIsFetching,
+    setData,
   };
 
   return (
     <RecipesContext.Provider value={ context }>
-      {console.log(pathname)}
+      {/* {console.log(pathname)} */}
       {children}
     </RecipesContext.Provider>
   );

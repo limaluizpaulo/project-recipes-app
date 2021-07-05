@@ -13,3 +13,5 @@ export const getMealsNameFilter = (filter) => getAPI(MEALS_API,
   'search.php?s=', 'meals', filter);
 export const getMealsFirstLetterFilter = (filter) => getAPI(MEALS_API,
   'search.php?f=', 'meals', filter);
+export const getMealsByCategory = (category) => getAPI(MEALS_API,
+  'filter.php?c=', 'meals', category);
