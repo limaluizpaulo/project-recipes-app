@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { fetchAPI, SUPRISE_ME_MEALS } from '../../services/index';
+import { addRecDetail } from '../../context/store';
 
 export default function ExploreMeals() {
   function handleClic() {
-    fetchAPI(SUPRISE_ME_MEALS).then((res) => console.log(res));
+    fetchAPI(SUPRISE_ME_MEALS).then((res) => addRecDetail(res.meals));
   }
   return (
     <div>
