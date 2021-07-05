@@ -75,6 +75,15 @@ footer {
   width: 100%;
 }
 
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipe-list img {
+  width: 206px;
+}
+
 .footer-icons {
   display: flex;
   justify-content: space-around;
