@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareBtn({ pathname, doneRecipe, recipe, index }) {
+export default function ShareBtn({ pathname, doneRecipe, index }) {
   const [copyLink, setCopyLink] = useState(false);
 
   const handleClipBoard = () => {
@@ -28,7 +28,14 @@ export default function ShareBtn({ pathname, doneRecipe, recipe, index }) {
     </div>
   );
 }
+ShareBtn.defaultProps = {
+  doneRecipe: null,
+  index: null,
+};
 
 ShareBtn.propTypes = {
   pathname: PropTypes.string.isRequired,
+  doneRecipe: propTypes.bool,
+  // recipe: PropTypes.shape({}).isRequired,
+  index: PropTypes.number,
 };
