@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -7,11 +8,17 @@ import '../styles/global.css';
 function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(true);
   const [changeCopy, setChangeCopy] = useState(false);
+  const target = useRef(null);
+
+  const DOISMIL = 2000;
 
   function copyClipboard() {
     const url = document.URL;
     navigator.clipboard.writeText(url);
-    setChangeCopy(!changeCopy);
+    setChangeCopy(true);
+    setTimeout(() => {
+      setChangeCopy(false);
+    }, [DOISMIL]);
   }
 
   function favorite() {
@@ -33,22 +40,37 @@ function Icons(item) {
       name: strDrink || strMeal,
       image: strMealThumb || strDrinkThumb,
     };
-    let isFavoriteBefore = 0;
-    favorites.forEach((fav) => { isFavoriteBefore += fav.id === favoriteElement.id; });
+    // let isFavoriteBefore = 0;
+    // favorites.forEach((fav) => { isFavoriteBefore += fav.id === favoriteElement.id; });
 
     favorites = favorites.filter((fav) => fav.id !== favoriteElement.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
 
     if (changeIcon) {
-      if (isFavoriteBefore === 0) favorites = [...favorites, favoriteElement];
+      favorites = [...favorites, favoriteElement];
       localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     }
   }
+
+  function speakCopy() {
+    return (
+      <Overlay target={ target.current } show={ changeCopy } placement="bottom">
+        {(props) => (
+          <Tooltip id="overlay" { ...props }>
+            Link copiado!
+          </Tooltip>
+        )}
+      </Overlay>
+    );
+  }
+
+  console.log(speakCopy);
 
   return (
     <div>
       <div className="shareAndLike">
         <button
+          ref={ target }
           type="button"
           className="share"
           onClick={ copyClipboard }
@@ -62,7 +84,7 @@ function Icons(item) {
         <button
           type="button"
           className="favorite"
-          onClick={ () => favorite() }
+          onClick={ () => { favorite(); setChangeIcon(!changeIcon); } }
         >
           <img
             src={ changeIcon ? whiteHeartIcon : blackHeartIcon }
@@ -71,7 +93,7 @@ function Icons(item) {
           />
         </button>
       </div>
-      { changeCopy }
+      { changeCopy && <p>Link copiado!</p> }
     </div>
   );
 }
