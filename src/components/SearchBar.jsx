@@ -7,7 +7,6 @@ export default function SearchBar({ url }) {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
   const { findMealsByFilter, findCocktailsByFilter } = useContext(Context);
 
-  const { findByFilter } = useContext(Context);
   const vinteQuatro = 24;
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {

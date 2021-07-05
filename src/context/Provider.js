@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 import {
@@ -41,11 +41,6 @@ export default function Provider({ children }) {
     const apiMeals = await fetchMealsRecomendation();
     setMealsRecipes(apiMeals);
   };
-
-  // useEffect(() => {
-  //   resquestCocktailsApi();
-  //   resquestMealsApi();
-  // }, []);
 
   // Popula o array de ingredients
   const populateIngredientsArray = (recipe) => {

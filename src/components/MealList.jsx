@@ -4,7 +4,6 @@ import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
 import ItemCard from './ItemCard';
 
-
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
   const { mealsRecipes, resquestMealsApi } = useContext(Context);
@@ -20,7 +19,7 @@ export default function MealList() {
       isInitialMount.current = false;
       console.log(isInitialMount.current);
     } else {
-      console.log('show')
+      console.log('show');
       setShowMeals(true);
     }
   }, [mealsRecipes]);
