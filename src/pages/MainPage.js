@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
@@ -7,6 +8,7 @@ import Card from '../components/Card';
 import fetchAPI from '../services/apiRequest';
 
 const TWELVE = 12;
+const FIVE = 5;
 export default function MainPage() {
   const { path } = useRouteMatch();
   const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
@@ -16,6 +18,7 @@ export default function MainPage() {
   const { searchResult, limit, setLimit } = useContext(RecipesContext);
   const [isLoading, setLoader] = useState(false);
   const [dataResult, setDataResult] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
   const [renderer, setRenderer] = useState([]);
 
   useEffect(() => {
@@ -35,6 +38,16 @@ export default function MainPage() {
     }
   }, [limit, firstKey, dataResult, searchResult, domain]);
 
+  useEffect(() => {
+    async function getListPopulated() {
+      setLoader(true);
+      const URL = `https://www.${domain}.com/api/json/v1/1/list.php?c=list`;
+      const list = await fetchAPI(URL);
+      setCategoriesList(list[firstKey].filter((_e, index) => index < FIVE));
+    }
+    getListPopulated();
+  }, [domain, firstKey]);
+
   function handleMoreCards() {
     setLimit(limit + TWELVE);
   }
@@ -42,6 +55,13 @@ export default function MainPage() {
   return (
     <>
       <Header />
+      {categoriesList.map((category) => (
+        <Button
+          data-testid={ `${category.strCategory}-category-filter` }
+          key={ category.strCategory }
+        >
+          {category.strCategory}
+        </Button>))}
       {isLoading
         ? <p>Loading...</p>
         : renderer.map((item, i) => (
