@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FetchContext from './FetchContext';
+import { fetchRecipesList } from '../services/Api';
+
 
 function FetchProvider({ children }) {
   const [typeFunc, setTypeFunc] = useState('');
   const [data, setData] = useState([]);
   const [imgRecipes, setImgRecipes] = useState('');
   const [nameRecipes, setNameRecipes] = useState('');
+  const [mealsFilter, setMealsFilter] = useState([]);
+
+  // useEffect(() => {
+  //   const TWELVE = 12;
+  //   fetchRecipesList().then((res) => setMealsFilter(res.slice(0, TWELVE)))
+  // })
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
@@ -72,10 +80,12 @@ function FetchProvider({ children }) {
     handleFoods,
     handleDrinks,
     data,
+    setData,
     imgRecipes,
     setImgRecipes,
     nameRecipes,
     setNameRecipes,
+    mealsFilter,
   };
 
   return (

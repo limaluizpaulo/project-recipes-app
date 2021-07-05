@@ -4,9 +4,10 @@ import Header from '../components/Header';
 import FetchContext from '../context/FetchContext';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
+import { fetchDrinksList } from '../services/Api';
 
 function Drinks() {
-  const { setTypeFunc, data } = useContext(FetchContext);
+  const { setTypeFunc, data, setData, setNameRecipes, setImgRecipes} = useContext(FetchContext);
 
   Drinks.displayName = 'Bebidas';
 
@@ -23,11 +24,18 @@ function Drinks() {
     return <Redirect to={ `/bebidas/${data[0].idDrink}` } />;
   }
 
+  const renderDrinks = () => {
+    setNameRecipes('strDrink');
+    setImgRecipes('strDrinkThumb');   
+    fetchDrinksList().then((res) => setData(res))
+  }
+
   return (
     <div>
       { setTypeFunc('Drinks') }
       <Header title={ Drinks.displayName } />
-      { data.length > 0 && <Cards /> }
+      { data.length === 0 &&  renderDrinks() }
+      <Cards />
       <Footer />
     </div>
   );

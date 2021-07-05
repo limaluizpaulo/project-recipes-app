@@ -6,6 +6,7 @@ function Cards() {
   const ELEVEN = 11;
   return (
     <div>
+      { console.log(data) }
       {
         data.filter((el, index) => index <= ELEVEN)
           .map((food, index) => (
