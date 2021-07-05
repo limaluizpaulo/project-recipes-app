@@ -6,6 +6,8 @@ import Context from '../context/Context';
 export default function SearchBar({ url }) {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
   const { findMealsByFilter, findCocktailsByFilter } = useContext(Context);
+  // const { findByFilter } = useContext(Context);
+  const vinteQuatro = 24;
 
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {
@@ -35,6 +37,7 @@ export default function SearchBar({ url }) {
   const alertChar = () => {
     const newAlert = 'Sua busca deve conter somente 1 (um) caracter';
     alert(newAlert);
+    return vinteQuatro;
   };
 
   return (
@@ -88,6 +91,9 @@ export default function SearchBar({ url }) {
             onClick={ () => filterByType(filter) }
           >
             Pesquisar
+            {/* onClick={ () => findByFilter(filter) }
+          >
+            Pesquisar */}
           </Button>
         </Col>
       </Form.Group>

@@ -4,9 +4,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 
+<<<<<<< HEAD
 import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
   ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
   DetalhesComida, DetalhesBebida } from './Pages';
+=======
+import { Bebidas,
+  Comidas,
+  ExpBebidas,
+  ExpBebidasIngredientes,
+  ExpComidas,
+  ExpComidasArea,
+  ExpComidasIngredientes,
+  Explorar,
+  Login,
+  Perfil,
+  DetalhesComida,
+} from './Pages';
+>>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
 
 function App() {
   return (

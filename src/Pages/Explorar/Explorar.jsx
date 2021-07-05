@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import Context from '../../context/Context';
-
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import Footer from '../../components/Footer';
 
 export default function Explorar() {
   const { openSearchBar } = useContext(Context);
@@ -12,6 +12,7 @@ export default function Explorar() {
     <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
+<<<<<<< HEAD
       <ButtonGroup vertical>
         <Button
           href="/explorar/comidas"
@@ -40,6 +41,9 @@ export default function Explorar() {
           Logof
         </Button> */}
       </ButtonGroup>
+=======
+      <Footer />
+>>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
     </div>
   );
 }

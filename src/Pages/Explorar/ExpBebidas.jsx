@@ -4,6 +4,7 @@ import Context from '../../context/Context';
 
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import Footer from '../../components/Footer';
 
 export default function ExpBebidas() {
   const { openSearchBar } = useContext(Context);
@@ -12,6 +13,7 @@ export default function ExpBebidas() {
     <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
+<<<<<<< HEAD
       <ButtonGroup vertical>
         <Button
           href="/explorar/bebidas/ingredientes"
@@ -40,6 +42,9 @@ export default function ExpBebidas() {
           Voltar
         </Button> */}
       </ButtonGroup>
+=======
+      <Footer />
+>>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
     </div>
   );
 }

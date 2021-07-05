@@ -10,6 +10,7 @@ export default function MealList() {
   const { mealsRecipes } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
+  const maxRecipes = 12;
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -30,13 +31,25 @@ export default function MealList() {
       return mealsRecipes.map((item, index) => {
         if (index < NUMBER) {
           return (<ItemCard key={ index } item={ item } i={ index } />);
-        }
-        return null;
-      });
-    }
+    // if (mealsRecipes && mealsRecipes.length > 1) {
+    //   console.log('1');
+    //   return mealsRecipes.map((meal, index) => {
+    //     if (index < maxRecipes) {
+    //       return (<Meal key={ index } meal={ meal } index={ index } />);
+    //     }
+    //     return null;
+    //   });
+    // }
 
+<<<<<<< HEAD
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return null;
+=======
+    if (mealsRecipes && mealsRecipes.length === 1) {
+      console.log('3');
+      return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
+    }
+>>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
   };
 
   return (
