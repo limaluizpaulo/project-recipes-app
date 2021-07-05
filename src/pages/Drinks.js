@@ -7,11 +7,11 @@ import Card from '../components/Card';
 import fetchAPI from '../services/apiRequest';
 
 const TWELVE = 12;
-export default function Foods() {
+export default function Drinks() {
   const { path } = useRouteMatch();
   const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
-  const firstKey = (path === '/bebidas') ? 'drinks' : 'meals';
-  const domain = path === '/bebidas' ? 'thecocktaildb' : 'themealdb';
+  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
+  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
 
   const { searchResult } = useContext(RecipesContext);
   const [isLoading, setLoader] = useState(false);

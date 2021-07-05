@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import fetchAPI from '../services/apiRequest';
 
 export default function FoodRecipeById() {
+  const { path } = useRouteMatch();
+  // const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
+  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
+  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
   const { recipeId } = useParams();
   const [singleContent, setSingleContent] = useState({});
 
   useEffect(() => {
     async function getRecipeDetails() {
-      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
+      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${recipeId}`;
       const resolved = await fetchAPI(URL);
-      setSingleContent(...resolved.meals);
+      setSingleContent(...resolved[firstKey]);
     }
     getRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, firstKey, domain]);
   return (
     <>
       {/* <p>{singleContent.strMeal}</p>
