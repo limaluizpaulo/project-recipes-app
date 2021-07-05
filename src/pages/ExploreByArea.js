@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { fetchAreas } from '../services/recipesAPI';
-import RecipesContext from '../context/RecipesContext';
 
 import './style/ExploreArea.css';
 
+import { fetchAreas } from '../services/recipesAPI';
+import { MAX_CARDS_NUMBER } from '../services/allowanceToRender';
+
+import RecipesContext from '../context/RecipesContext';
+
 function ExploreByArea() {
   const {
-    mealsOrDrinks,
     filterByArea,
     redirectToRecipeDetails,
     lookDetailsRecipe,
@@ -21,14 +23,13 @@ function ExploreByArea() {
   const [areas, setAreas] = useState([]);
 
   const getAreas = async () => {
-    const { meals } = await fetchAreas(mealsOrDrinks);
+    const { meals } = await fetchAreas();
     setAreas([{ strArea: 'All' }, ...meals]);
   };
 
-  const DOZE = 12;
-  const [maxCards] = useState(DOZE);
+  const [maxCards] = useState(MAX_CARDS_NUMBER);
 
-  useEffect(() => { getAreas(); }, []);
+  useEffect(() => { getAreas(); }, [areas]);
 
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
   useEffect(() => () => getInitialRecipes(), []);
