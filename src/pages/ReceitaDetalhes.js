@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -172,7 +173,12 @@ function ReceitaDetalhes({ match }) {
             >
               <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
             </button>
-            <button src={ shareIcon } type="button" data-testid="share-btn">
+            <button
+              onClick={ copy(url) }
+              src={ shareIcon }
+              type="button"
+              data-testid="share-btn"
+            >
               <img src={ shareIcon } alt="compartilhar receita" />
             </button>
           </div>
@@ -194,7 +200,12 @@ function ReceitaDetalhes({ match }) {
           >
             <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
           </button>
-          <button src={ shareIcon } type="button" data-testid="share-btn">
+          <button
+            onClick={ copy(url) }
+            src={ shareIcon }
+            type="button"
+            data-testid="share-btn"
+          >
             <img src={ shareIcon } alt="compartilhar receita" />
           </button>
         </div>
