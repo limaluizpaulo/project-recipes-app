@@ -19,10 +19,18 @@ const BeverageServiceFirstLetterAPI = async (firstLetter) => {
   return responseObject.drinks;
 };
 
+const SurpriseDrinksAPI = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const response = await fetch(endpoint);
+  const responseObject = await response.json();
+  return responseObject.drinks;
+};
+
 export default {
   ingredient: BeverageServiceIngredientsAPI,
   name: BeverageServiceNameAPI,
   letter: BeverageServiceFirstLetterAPI,
+  surpriseDrink: SurpriseDrinksAPI,
   default: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((res) => res.json())
     .then((res) => res.drinks),

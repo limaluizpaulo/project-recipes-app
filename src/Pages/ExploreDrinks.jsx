@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
+import { getRandom } from '../redux/actions';
+import BeverageAPI from '../services/BeverageRecipesAPI'
 import '../styles/Explore.css';
 
-function ExploreDrinks() {
+function ExploreDrinks(props) {
+  const { surpriseDrink } = props;
   return (
     <div>
       <Header />
@@ -15,9 +19,10 @@ function ExploreDrinks() {
         Por Ingredientes
       </Link>
       <Link
-        to="/explorar/bebidas/suprise"
+        to="/bebidas/detalhes"
         data-testid="explore-surprise"
         className="btn-explore"
+        onClick={ surpriseDrink }
       >
         Me Surpreenda!
       </Link>
@@ -26,4 +31,8 @@ function ExploreDrinks() {
   );
 }
 
-export default ExploreDrinks;
+const mapDispatchToProps = (dispatch) =>({
+surpriseDrink: () => dispatch(getRandom(BeverageAPI.surpriseDrink))
+})
+
+export default connect(null, mapDispatchToProps)(ExploreDrinks);
