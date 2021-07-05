@@ -1,11 +1,16 @@
 import React from 'react';
+import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 
 function ExploreLocationFood() {
   return (
     <div>
       <Header title="Explorar Origem" haveSrc />
-      <h1>EX origem</h1>
+      <select>
+        <option>Canadá</option>
+        <option>Brasil</option>
+      </select>
+      <Footer />
     </div>
   );
 }
