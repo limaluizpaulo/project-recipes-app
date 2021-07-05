@@ -15,7 +15,7 @@ class RecipeInProgress extends React.Component {
       recipeDetails: {},
       checked: false,
       copied: false,
-      ingredient: [],
+      // ingredient: [],
     };
 
     this.getIngredients = this.getIngredients.bind(this);
