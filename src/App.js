@@ -6,12 +6,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 
+import Comidas from './pages/Comidas';
+
 function App() {
   return (
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route path="/comidas" component={Comidas} /> */}
+        <Route path="/comidas" component={ Comidas } />
         {/* <Route path="/bebidas" component={Bebidas} /> */}
         {/* <Route path="/comidas/:id" component={ReceitaDetalhes} /> */}
         {/* <Route path="/bebidas/:id" component={ReceitaDetalhes} /> */}
