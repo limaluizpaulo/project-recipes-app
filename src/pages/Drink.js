@@ -40,7 +40,7 @@ const Drink = ({ match }) => {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/bebidas/${meal.idMeal}/in-progress`) }
+        onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
       >
         Iniciar Receita
       </button>
