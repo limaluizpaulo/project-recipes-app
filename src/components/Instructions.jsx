@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Instructions = ({ obj }) => {
-  const { instructions } = obj;
+const Instructions = ({ newObj }) => {
+  const { instructions } = newObj;
 
   return (
     <div>

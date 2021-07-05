@@ -1,3 +1,9 @@
 export { default as Header } from './Header';
 export { default as SearchBar } from './SearchBar';
 export { default as DetailsRecipes } from './DetailsRecipes';
+export { default as Footer } from './Footer';
+export { default as Card } from './Card';
+export { default as Categories } from './Categories';
+export { default as Ingredients } from './Ingredients';
+export { default as Instructions } from './Instructions';
+export { default as HeaderRecipes } from './HeaderRecipes';

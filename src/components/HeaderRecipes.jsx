@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const HeaderRecipes = ({ obj }) => {
-  const { imageHeader, title, category } = obj;
+const HeaderRecipes = ({ newObj }) => {
+  const { imageHeader, title, category } = newObj;
   return (
     <div>
       <img

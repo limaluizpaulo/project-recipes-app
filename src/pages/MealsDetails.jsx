@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import HeaderRecipes from '../components/HeaderRecipes';
-import { DetailsRecipes } from '../components/index';
-import Ingredients from '../components/Ingredients';
-import Instructions from '../components/Instructions';
-import RecipesApi from '../services/api/RecipesApi';
+import React, { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { DetailsRecipes, Ingredients, Instructions, HeaderRecipes } from '../components';
+import { MealsContext } from '../context/MealsProvider';
 
-const MealsDetails = (id) => {
+const MealsDetails = ({ match: { params: { id } } }) => {
   const [mealsDetails, setMealsDetail] = useState([]);
+
+  const { meals } = useContext(MealsContext);
 
   const { strMeal,
     strCategory,
     strYoutube,
     strInstructions,
     strMealThumb } = mealsDetails;
+
   const newObj = {
-    id,
     title: strMeal,
     category: strCategory,
     imageHeader: strMealThumb,
     urlVideo: strYoutube,
     instructions: strInstructions,
     type: 'meals',
-    ingredients: mealsDetails.filter((key, i) => (Object.keys(key) === `strIngredient${i + 1}`
-    && Object.values(key) !== '')),
+    // ingredients: mealsDetails.filter((key, i) => (
+    //   Object.keys(key) === `strIngredient${i + 1}`
+    // && Object.values(key) !== ''
+    // )),
   };
 
-  useEffect(() => {
-    const getApi = async () => {
-      const recipe = await RecipesApi('meals', id);
-      setMealsDetail(recipe);
-    };
-    getApi();
-  }, [id]);
+  // useEffect(() => {
+  //   const meal = meals.filter(({ idMeal }) => id === idMeal);
+  //   setMealsDetail(meal);
+  // }, []);
 
   return (
     <div>
-      <DetailsRecipes obj={ newObj } />
-      <HeaderRecipes obj={ newObj } />
-      <Ingredients obj={ newObj } />
-      <Instructions obj={ newObj } />
+      <HeaderRecipes newObj={ newObj } />
+      <Ingredients newObj={ newObj } />
+      <Instructions newObj={ newObj } />
+      <DetailsRecipes newObj={ newObj } />
     </div>
   );
+};
+
+MealsDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default MealsDetails;

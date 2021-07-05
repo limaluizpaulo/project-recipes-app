@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecomendationApi from '../services/api/RecomendationApi';
 
-const DetailsRecipes = ({ obj }) => {
+const DetailsRecipes = ({ newObj }) => {
   const [recomendations, setRecomendations] = useState([]);
 
-  const { imageHeader, title, category,
-    urlVideo, ingredients, instructions, type } = obj;
+  const { urlVideo, type } = newObj;
+  console.log(urlVideo);
 
   useEffect(() => {
     const getApi = async () => {
@@ -18,55 +18,6 @@ const DetailsRecipes = ({ obj }) => {
 
   return (
     <div>
-      <img
-        data-testid="recipe-photo"
-        src={ imageHeader }
-        alt=""
-      />
-      <title data-testid="recipe-title">
-        {title}
-      </title>
-      <button
-        type="button"
-        data-testid="share-btn"
-      // onClick={}
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      // onClick={}
-      >
-        Favoritar
-      </button>
-      <h2
-        data-testid="recipe-category"
-      >
-        {category}
-      </h2>
-      <section>
-        <h3>Ingredient</h3>
-        <ol>
-          {ingredients.map((ingredient, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {ingredient}
-            </li>))}
-        </ol>
-      </section>
-
-      <section>
-        <h3>Instructions</h3>
-        <p
-          data-testid="instructions"
-        >
-          {instructions}
-        </p>
-      </section>
-
       <section>
         { type === 'meals' && (
           <iframe
