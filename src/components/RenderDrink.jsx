@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipeContext from '../context/Context';
 import { apiRequestDrinks } from '../services/api/getMealsDrink';
 import { apiCategoriesDrinks } from '../services/api/getList';
 import { requestCategoriesDrink } from '../services/api/getCategories';
-// import Header from './Header';
-// import Footer from './Footer';
 
 // Tela principal de receitas de bebidas: /bebidas;
-export default function MainDrink({ history }) {
+export default function MainDrink() {
   const { data } = useContext(RecipeContext);
+
+  const history = useHistory();
 
   const [valueButton, setValueButton] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
@@ -177,7 +176,3 @@ export default function MainDrink({ history }) {
     </div>
   );
 }
-
-MainDrink.propTypes = {
-  history: PropTypes.shape().isRequired,
-};

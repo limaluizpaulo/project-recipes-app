@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipeContext from '../context/Context';
 
-const RenderMealIngredient = ({ history }) => {
+const RenderMealIngredient = () => {
   const {
     data,
     valueButton,
@@ -12,6 +11,8 @@ const RenderMealIngredient = ({ history }) => {
     toogle,
     allValue,
   } = useContext(RecipeContext);
+
+  const history = useHistory();
 
   function renderMeal() {
     if (allValue === 'All' && valueButton === '') {
@@ -76,10 +77,6 @@ const RenderMealIngredient = ({ history }) => {
   return (
     <div>{renderMeal()}</div>
   );
-};
-
-RenderMealIngredient.propTypes = {
-  history: PropTypes.shape().isRequired,
 };
 
 export default RenderMealIngredient;
