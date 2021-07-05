@@ -50,7 +50,7 @@ export default function ExplorarReceitas() {
     return (
       <>
         <Button
-          name="MealsByIngradient"
+          name="ingredientes"
           type="button"
           data-testid="explore-by-ingredient"
           onClick={ (e) => handleRedirect(e) }
@@ -58,7 +58,7 @@ export default function ExplorarReceitas() {
           Por Ingrediente
         </Button>
         <Button
-          name="MealsByIngradient"
+          name="surpresa"
           type="button"
           data-testid="explore-surprise"
           onClick={ (e) => handleRedirect(e) }
