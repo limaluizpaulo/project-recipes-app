@@ -1,11 +1,14 @@
 import React from 'react';
 
-function DetailsReceita(props) {
-  const { match: { params: { id } } } = props;
-  console.log(id);
+function DetailsReceita() {
+  // const { match: { params: { id } } } = props;
+  // console.log(id);
   return (
     <div data-testid="0-">
-      {id}
+      {/* {id} */}
+      <button type="button" data-testid="start-recipe-btn">
+        Go
+      </button>
     </div>
   );
 }
