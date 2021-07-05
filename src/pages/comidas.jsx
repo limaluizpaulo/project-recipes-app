@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import { fetchApiFoodCategories,
+  fetchFilterFoodByCategories,
   fetchFoodRecipes, getSearchBarResponse } from '../action';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
@@ -14,12 +15,12 @@ import ButtonCategories from '../components/ButtonCategories';
 class Comidas extends Component {
   constructor(props) {
     super(props);
-    // ***VERIFICAR SE PRECISA DESSE ESTADO****
     // this.state = {
-    //   foodCategories: [],
+    //   checked: false,
     // };
 
     this.categories = this.categories.bind(this);
+    // this.redirect = this.redirect.bind(this);
   }
 
   async componentDidMount() {
@@ -42,10 +43,19 @@ class Comidas extends Component {
     );
   }
 
+  // redirect(id) {
+  //   return <Redirect to="/comidas/512456" />;
+  // }
+
   render() {
-    // const { foodCategories } = this.state;
-    // console.log(foodCategories);
-    const { location, meals, getFoodCategories } = this.props;
+    const {
+      location,
+      meals,
+      getFoodCategories,
+      dispatchFoodRecipes,
+      foodByCategories,
+      match,
+    } = this.props;
     return (
       <div>
         <Header location={ location } />
@@ -53,14 +63,18 @@ class Comidas extends Component {
           <ButtonCategories
             btnClass="btn-filterMeasls-cards"
             getCategories={ getFoodCategories }
+            filter={ foodByCategories }
+            filterAll={ dispatchFoodRecipes }
           />
           <section className="cards-content">
             {
-              meals.map((masl, index) => (
+              meals.map((measl, index) => (
                 <Cards
+                  url={ match.path }
+                  id={ measl.idMeal }
                   key={ index }
-                  img={ masl.strMealThumb }
-                  title={ masl.strMeal }
+                  img={ measl.strMealThumb }
+                  title={ measl.strMeal }
                   index={ index }
                 />
               ))
@@ -78,6 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
   apiFoodCategories: () => dispatch(fetchApiFoodCategories()),
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
   hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
+  foodByCategories: (category) => dispatch(fetchFilterFoodByCategories(category)),
 });
 
 const mapStateToProps = (state) => ({

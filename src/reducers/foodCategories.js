@@ -1,8 +1,15 @@
-import { ALL_FOOD_CATEGORIES, IS_LOADING, ALL_FOOD_RECIPES } from '../action';
+import {
+  ALL_FOOD_CATEGORIES,
+  IS_LOADING,
+  ALL_FOOD_RECIPES,
+  FOOD_BY_CATEGORIES,
+} from '../action';
 
 const INITIAL_STATE = {
   allFoodCategories: [],
   meals: [],
+  checked: false,
+  cardRender: '',
 };
 
 const foodCategories = (state = INITIAL_STATE, action) => {
@@ -20,6 +27,11 @@ const foodCategories = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       meals: action.recipes,
+    };
+  case FOOD_BY_CATEGORIES:
+    return {
+      ...state,
+      meals: action.meals,
     };
   default:
     return state;
