@@ -15,7 +15,7 @@ export default function MainCards(props) {
     <main>
       <Categories />
       <section>
-        {data.length
+        {data
           && data.map((recipe, index) => (
             <Card
               key={ recipe[typeId] }

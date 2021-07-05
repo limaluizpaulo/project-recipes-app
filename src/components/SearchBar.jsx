@@ -1,12 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
+import {
+  getMealsIngredientsFilter,
+  getMealsNameFilter,
+  getMealsFirstLetterFilter,
+} from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 
+const selectedFilter = {
+  ingredients: getMealsIngredientsFilter,
+  name: getMealsNameFilter,
+  firstLetter: getMealsFirstLetterFilter,
+};
+
 function SearchBar() {
-  const { setFilterHeader } = useContext(RecipesContext);
+  const { setData } = useContext(RecipesContext);
   const [searchInput, setSearchInput] = useState('');
-  const [radioInput, setRadioInput] = useState('');
+  const [radioInput, setRadioInput] = useState('ingredients');
+  // const [filterHeader, setFilterHeader] = useState({
+  //   search: '',
+  //   radio: 'ingredients',
+  // });
 
   const isDisabled = () => {
     if (searchInput === '' || radioInput === '') {
@@ -14,6 +30,16 @@ function SearchBar() {
     }
     return false;
   };
+
+  // useEffect(() => {
+  const filterApi = async () => {
+    const result = await selectedFilter[radioInput](searchInput);
+    if (result.length) {
+      setData(result);
+    }
+  };
+
+  // }, [filterHeader]);
 
   /*
     Material consultado sobre search role
@@ -64,7 +90,7 @@ function SearchBar() {
               fn(message);
             };
             alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
-          } else setFilterHeader({ searchInput, radioInput });
+          } else filterApi();
         } }
         disabled={ isDisabled() }
         testid="exec-search-btn"

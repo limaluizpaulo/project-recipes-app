@@ -43,7 +43,7 @@ export default function Categories() {
       setCategoriesData(results.filter((item, index) => index < maxCategories));
     };
     getCategories();
-  }, [type]);
+  }, []);
 
   useEffect(() => {
     const filterCategory = async () => {
@@ -60,7 +60,7 @@ export default function Categories() {
       }
     };
     filterCategory();
-  }, [selectedCategory, setData, type]);
+  }, [selectedCategory]);
 
   return (
     <aside>
