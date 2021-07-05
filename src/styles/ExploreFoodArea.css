@@ -1,0 +1,21 @@
+.input-select {
+  margin-bottom: 20px;
+}
+
+.areas-field {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.areas-field img {
+  width: 160px;
+}
+
+.area {
+  margin-right: 15px;
+  padding: 10px;
+}

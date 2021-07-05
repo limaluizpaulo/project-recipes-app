@@ -5,11 +5,12 @@ import Footer from '../components/Footer';
 import { fetchAreaRecipes, fetchRecipesByArea } from '../services/RecipesServices';
 import RecipesContext from '../context/RecipesContext';
 
+import '../styles/ExploreFoodArea.css';
+
 function ExploreFoodsArea() {
   const [areas, setAreas] = useState([]);
   const [valueArea, setValueArea] = useState('All');
   const [recipesByArea, setRecipesByArea] = useState([]);
-
   const { allRecipes: { recipes } } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -43,28 +44,30 @@ function ExploreFoodsArea() {
   return (
     <>
       <Header profile name="Explorar Origem" search />
-      <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
-        <option data-testid="All-option" value="All">All</option>
-        {
-          areas.map((area, index) => (
-            <option
-              data-testid={ `${area}-option` }
-              key={ index }
-              value={ area }
-            >
-              {area}
-            </option>
-          ))
-        }
-      </select>
+      <div className="input-select">
+        <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
+          <option data-testid="All-option" value="All">All</option>
+          {
+            areas.map((area, index) => (
+              <option
+                data-testid={ `${area}-option` }
+                key={ index }
+                value={ area }
+              >
+                {area}
+              </option>
+            ))
+          }
+        </select>
+      </div>
 
-      <section>
+      <section className="areas-field">
         {
           recipesByArea.map((recipe, index) => (
             <div
-              className="card-field"
               data-testid={ `${index}-recipe-card` }
               key={ index }
+              className="area"
             >
               <Link to={ `/comidas/${recipe.idMeal}` }>
                 <img
