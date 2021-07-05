@@ -49,7 +49,7 @@ function Form() {
         data-testid="login-submit-btn"
         disabled={
           !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)
-          || pass.length < nameLength
+          || pass.length <= nameLength
         }
       >
         Entrar
