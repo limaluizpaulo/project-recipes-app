@@ -11,28 +11,30 @@ export default function Foods() {
   const { path } = useRouteMatch();
   const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
   const firstKey = (path === '/bebidas') ? 'drinks' : 'meals';
+  const domain = path === '/bebidas' ? 'thecocktaildb' : 'themealdb';
 
   const { searchResult } = useContext(RecipesContext);
-  const [searchStatus, setSearchStatus] = useState(false);
-  const [initialState, setInitialState] = useState([]);
-  const [result, setResult] = useState([]);
+  const [isLoading, setLoader] = useState(false);
+  const [dataResult, setDataResult] = useState([]);
+  const [renderer, setRenderer] = useState([]);
   const [limit, setLimit] = useState(TWELVE);
 
   useEffect(() => {
     async function getInitialStatePopulated() {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      setLoader(true);
+      const URL = `https://www.${domain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
-      setInitialState(resolved[firstKey].filter((_e, index) => index < limit));
+      setDataResult(resolved[firstKey]);
     }
     getInitialStatePopulated();
-  }, [limit, firstKey]);
-
-  useEffect(() => {
+    setRenderer(dataResult.filter((_e, index) => index < limit));
+    setLoader(false);
     if (searchResult && searchResult.length > 1) {
-      setSearchStatus(true);
-      setResult(searchResult.filter((_e, index) => index < limit));
+      setLoader(true);
+      setRenderer(searchResult.filter((_e, index) => index < limit));
+      setLoader(false);
     }
-  }, [searchResult, limit]);
+  }, [limit, firstKey, dataResult, searchResult, domain]);
 
   function handleMoreCards() {
     setLimit(limit + TWELVE);
@@ -41,12 +43,9 @@ export default function Foods() {
   return (
     <>
       <Header />
-      {searchStatus
-        ? result.map((item, i) => (
-          <Link key={ item.idMeal } to={ `${path}/${item[searchId]}` }>
-            <Card mealOrDrink={ item } index={ i } />
-          </Link>))
-        : initialState.map((item, i) => (
+      {isLoading
+        ? <p>Loading...</p>
+        : renderer.map((item, i) => (
           <Link key={ item[searchId] } to={ `${path}/${item[searchId]}` }>
             <Card mealOrDrink={ item } index={ i } />
           </Link>))}
