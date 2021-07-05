@@ -5,6 +5,7 @@ const API_URL_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=l
 const API_URL_RECIPES_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const API_URL_DRINKS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const API_URL_RANDOM_RECIPE = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const API_URL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 
 export async function fetchRecipesByIngredient(ingredient) {
   const request = await fetch(`${API_URL_INGREDIENT}${ingredient}`);
@@ -57,6 +58,12 @@ export async function fetchRecipesById(id) {
 
 export async function fetchRandomRecipe() {
   const request = await fetch(API_URL_RANDOM_RECIPE);
+  const response = await request.json();
+  return response;
+}
+
+export async function fetchIngredientsRecipes() {
+  const request = await fetch(API_URL_INGREDIENTS);
   const response = await request.json();
   return response;
 }

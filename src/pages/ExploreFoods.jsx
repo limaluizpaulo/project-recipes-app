@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, ButtonGroup, Container } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,7 +25,7 @@ function ExploreFoods() {
   }
 
   return (
-    <Container>
+    <section>
       <Header profile name="Explorar Comidas" />
       <ButtonGroup className="buttons-explore-foods">
         <Button
@@ -57,7 +57,7 @@ function ExploreFoods() {
 
       </ButtonGroup>
       <Footer />
-    </Container>
+    </section>
   );
 }
 
