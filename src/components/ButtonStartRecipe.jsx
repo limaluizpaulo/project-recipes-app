@@ -5,7 +5,11 @@ import LoginContext from '../context/LoginContext';
 
 export default function ButtonStartRecipe() {
   const [buttonVisible, setButtonVisible] = useState(true);
-  const { idsDoneRecipes } = useContext(LoginContext);
+  const [text, setText] = useState('Iniciar Receita');
+  const {
+    DoneRecipes,
+    idsInProgress,
+  } = useContext(LoginContext);
 
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -17,17 +21,30 @@ export default function ButtonStartRecipe() {
     bottom: 0,
   };
 
+  const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
+  const sizeInPro = idsInProgress.length;
+
   const verifyId = useCallback(() => {
-    const search = idsDoneRecipes.find((item) => item === id);
-    if (typeof search === 'string') {
+    const searchDone = DoneRecipes.find((item) => item.id === id);
+    if (searchDone) {
       setButtonVisible(false);
     }
-  }, [id, idsDoneRecipes]);
+  }, [DoneRecipes, id]);
+
+  const teste123 = useCallback(() => {
+    if (sizeInPro > 0) {
+      const searchInProgress = idsInProgress.find((item) => item === id);
+      if (searchInProgress) {
+        setText('Continuar Receita');
+      }
+    }
+  }, [id, idsInProgress, sizeInPro]);
 
   useEffect(() => {
+    teste123();
     verifyId();
-  }, [verifyId]);
-  const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
+  }, [buttonVisible, teste123, verifyId]);
+
   return getDrinksDetails ? (
 
     buttonVisible && (
@@ -37,7 +54,7 @@ export default function ButtonStartRecipe() {
         style={ style }
         onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
       >
-        <span>Iniciar Receita</span>
+        <span>{text}</span>
       </button>
     )
 
@@ -50,7 +67,7 @@ export default function ButtonStartRecipe() {
         style={ style }
         onClick={ () => history.push(`/comidas/${id}/in-progress`) }
       >
-        <span>Iniciar Receita</span>
+        <span>{text}</span>
       </button>
     )
 
