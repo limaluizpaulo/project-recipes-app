@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import rockGlass from '../images/rockGlass.svg';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -30,29 +33,39 @@ function Login({ history }) {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        name="email-input"
-        placeholder="Email"
-        data-testid="email-input"
-        onChange={ ({ target }) => setEmail(target.value) }
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        data-testid="password-input"
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isDisable }
-        onClick={ isRedirect }
+    <div className="meals">
+      <span className="logo">TRYBE</span>
+      <object
+        className="rocksGlass"
+        type="image/svg+xml"
+        data={ rockGlass }
       >
-        Entrar
-      </button>
-    </form>
+        Glass
+      </object>
+      <form>
+        <input
+          type="email"
+          name="email-input"
+          placeholder="Email"
+          data-testid="email-input"
+          onChange={ ({ target }) => setEmail(target.value) }
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          data-testid="password-input"
+          onChange={ ({ target }) => setPassword(target.value) }
+        />
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ isDisable }
+          onClick={ isRedirect }
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
   );
 }
 
