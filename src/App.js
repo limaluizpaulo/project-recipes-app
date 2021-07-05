@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route path="/comidas/:id" component={ Detalhes } />
+        <Route exact path="/comidas/:id" component={ Detalhes } />
         <Route path="/bebidas/:id" component={ Detalhes } />
         <Route path="/perfil" component={ Perfil } />
         <Route exact path="/explorar" component={ Explorar } />
@@ -48,6 +48,7 @@ function App() {
           component={ ReceitasFavoritas }
         />
         <Route
+          exact
           path="/comidas/:id/in-progress"
           component={ ReceitaEmProcesso }
         />
