@@ -2,9 +2,10 @@ import {
   allRecipesUrls,
   searchRecipesUrls,
   randomRecipeUrls,
-  ingredientesRecipesUrls,
-  areasRecipesUrls,
-} from './APIEndpoints';
+  ingredientsUrls,
+  areasUrl,
+  recipesByArea,
+} from './endpoints';
 
 export const fetchAllRecipes = async (mealsOrDrinks) => {
   const request = await fetch(allRecipesUrls[mealsOrDrinks]);
@@ -27,20 +28,20 @@ export const fetchRandomRecipe = async (mealsOrDrinks) => {
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
 };
 
-export const fetchIngredientesRecipes = async (mealsOrDrinks) => {
-  const request = await fetch(ingredientesRecipesUrls[mealsOrDrinks]);
+export const fetchIngredients = async (mealsOrDrinks) => {
+  const request = await fetch(ingredientsUrls[mealsOrDrinks]);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
 };
 
-export const fetchAreasRecipes = async (mealsOrDrinks) => {
-  const request = await fetch(areasRecipesUrls[mealsOrDrinks]);
+export const fetchAreas = async () => {
+  const request = await fetch(areasUrl);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
 };
 
 export const fetchRecipesByArea = async (area) => {
-  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const request = await fetch(recipesByArea + area);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
 };

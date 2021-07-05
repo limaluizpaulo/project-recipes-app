@@ -1,15 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import RecipesContext from '../context/RecipesContext';
 
 import './style/ExploreDrinks.css';
 
-function ExploreDrinks() {
-  const { getRandomRecipe, recipeDetails,
-    redirectToRecipeDetails, setRedirectToRecipeDetails } = useContext(RecipesContext);
+import RecipesContext from '../context/RecipesContext';
 
-  /* eslint-disable react-hooks/exhaustive-deps */
+function ExploreDrinks() {
+  const {
+    recipeDetails,
+    getRandomRecipe,
+    redirectToRecipeDetails,
+    setRedirectToRecipeDetails,
+  } = useContext(RecipesContext);
+
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
 
   return (

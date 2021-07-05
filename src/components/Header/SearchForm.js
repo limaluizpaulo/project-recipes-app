@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import React, { useState, useContext } from 'react';
 
-import RecipesContext from '../context/RecipesContext';
+import RecipesContext from '../../context/RecipesContext';
 
 import './style/SearchForm.css';
 

@@ -10,21 +10,17 @@ import {
   fetchRecipesBySearch,
   fetchRandomRecipe,
   fetchRecipesByArea,
-} from '../services/RecipesAPI';
+} from '../services/recipesAPI';
 
 function RecipesProvider({ children }) {
   const [user, setUser] = useState('');
   const [mealsOrDrinks, setMealsOrDrinks] = useState('meals');
   const [recipes, setRecipes] = useState([]);
-  const [recipeDetails, setRecipeDetails] = useState(false);
-  const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
+  const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
 
   const location = useLocation();
-
-  const login = (email) => {
-    setUser(email);
-  };
 
   const getInitialRecipes = async () => {
     const allRecipes = await fetchAllRecipes(mealsOrDrinks);
@@ -46,7 +42,6 @@ function RecipesProvider({ children }) {
 
   const filterByIngredients = (searchPayload) => {
     searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
-    console.log(`filtro ${searchPayload}`);
     setRedirectToMainScreen(true);
   };
 
@@ -67,14 +62,14 @@ function RecipesProvider({ children }) {
   const context = {
     mealsOrDrinks,
     user,
-    login,
+    setUser,
     recipes,
     searchRecipesBy,
     recipeDetails,
     redirectToRecipeDetails,
-    getRandomRecipe,
     redirectToMainScreen,
     setRedirectToMainScreen,
+    getRandomRecipe,
     setRedirectToRecipeDetails,
     filterByIngredients,
     filterByArea,
@@ -87,12 +82,16 @@ function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (location.pathname.includes('comida')) {
+    if (location.pathname.includes('comidas')) {
       setMealsOrDrinks('meals');
-    } else if (location.pathname.includes('bebida')) {
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname.includes('bebidas')) {
       setMealsOrDrinks('drinks');
     }
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <RecipesContext.Provider value={ context }>

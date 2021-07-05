@@ -21,11 +21,11 @@ export const randomRecipeUrls = {
   drinks: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
 };
 
-export const ingredientesRecipesUrls = {
+export const ingredientsUrls = {
   meals: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
   drinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
 };
 
-export const areasRecipesUrls = {
-  meals: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
-};
+export const areasUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+export const recipesByArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=';

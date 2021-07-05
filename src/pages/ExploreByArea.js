@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { fetchAreasRecipes } from '../services/RecipesAPI';
+import { fetchAreas } from '../services/recipesAPI';
 import RecipesContext from '../context/RecipesContext';
-// import { Link } from 'react-router-dom';
 
 import './style/ExploreArea.css';
 
-function ExploreArea() {
+function ExploreByArea() {
   const {
     mealsOrDrinks,
     filterByArea,
@@ -21,21 +21,16 @@ function ExploreArea() {
   const [areas, setAreas] = useState([]);
 
   const getAreas = async () => {
-    const { meals } = await fetchAreasRecipes(mealsOrDrinks);
+    const { meals } = await fetchAreas(mealsOrDrinks);
     setAreas([{ strArea: 'All' }, ...meals]);
   };
 
   const DOZE = 12;
-  const [maxCards/* setMaxCards */] = useState(DOZE);
+  const [maxCards] = useState(DOZE);
 
-  useEffect(() => {
-    getAreas();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => { getAreas(); }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => getInitialRecipes(), []);
 
   return (
@@ -85,4 +80,4 @@ function ExploreArea() {
   );
 }
 
-export default ExploreArea;
+export default ExploreByArea;

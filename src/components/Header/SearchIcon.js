@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SearchIcon from '../images/searchIcon.svg';
+import SearchIcon from '../../images/searchIcon.svg';
 
 function SearchButton({ searchForm, setSearchForm }) {
   return (
