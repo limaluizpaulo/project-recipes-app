@@ -13,9 +13,12 @@ export default function Profile() {
     GetEmail();
   }, []);
   const deleteUser = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('email');
     localStorage.removeItem('mealsToken');
     localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
   };
 
   return (
