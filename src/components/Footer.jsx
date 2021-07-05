@@ -5,7 +5,7 @@ import drinkImage from '../images/drinkIcon.svg';
 import exploreImage from '../images/exploreIcon.svg';
 import mealImage from '../images/mealIcon.svg';
 
-import './Footer.css';
+import '../css/Footer.css';
 
 class Footer extends React.Component {
   render() {

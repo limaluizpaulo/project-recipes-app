@@ -1,26 +1,46 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
-import RecomendedCard from './RecomendedCard';
+import '../css/RecipeDetails.css';
 
-class RecipeDetails extends React.Component {
+class RecipeInProgress extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      redirectInProgress: false,
+      recipeDetails: {},
+      checked: false,
+      // ingredients: [],
     };
 
     this.getIngredients = this.getIngredients.bind(this);
+    this.changeState = this.changeState.bind(this);
+  }
+
+  componentDidMount() {
+    const { meals } = this.props;
+    const { match: { params: { comidaId } } } = this.props;
+    const { match: { params: { bebidaId } } } = this.props;
+    const db = meals ? 'themealdb' : 'thecocktaildb';
+    const id = meals ? comidaId : bebidaId;
+    console.log(db);
+    const URL = `https://www.${db}.com/api/json/v1/1/lookup.php?i=${id}`;
+    console.log(URL);
+    fetch(URL)
+      .then((response) => response.json())
+      .then((retorno) => {
+        const { meals: comida, drinks } = retorno;
+        const recipeDetails = comida || drinks;
+        this.setState({ recipeDetails });
+      });
   }
 
   getIngredients() {
-    const { recipeDetails } = this.props;
+    const { recipeDetails, checked } = this.state;
     if (recipeDetails[0]) {
       const chaves = Object.entries(recipeDetails[0]);
       const ingredientes = chaves.filter((key) => (
@@ -28,11 +48,27 @@ class RecipeDetails extends React.Component {
       const medidas = chaves.filter((key) => (
         key[0].includes('strMeasure') && (key[1] !== null && key[1] !== ' ')));
       const apenasMedidas = medidas.map((medida) => medida[1]);
+      // this.setState({ ingredients: ingredientes });
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
           return (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingrediente[1]}-${apenasMedidas[index]}`}
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <label
+                htmlFor="key"
+                className={ ingredientes[index] && checked ? 'checked' : null }
+              >
+                <input
+                  type="checkbox"
+                  id="key"
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  defaultChecked={ checked }
+                  onClick={ () => this.changeState() }
+                />
+                {`${ingrediente[1]}-${apenasMedidas[index]}`}
+              </label>
             </li>);
         }
         return null;
@@ -40,18 +76,16 @@ class RecipeDetails extends React.Component {
     }
   }
 
+  changeState() {
+    const { checked } = this.state;
+    this.setState({
+      checked: !checked,
+    });
+  }
+
   render() {
-    const { recipeDetails, title, recipes } = this.props;
-    const { redirectInProgress } = this.state;
-
-    if (redirectInProgress) {
-      const { foodById, drinksById } = this.props;
-
-      if (foodById.length !== 0 && drinksById.length === 0) {
-        return <Redirect to={ `/comidas/${foodById[0].idMeal}/in-progress` } />;
-      }
-      return <Redirect to={ `/bebidas/${drinksById[0].idDrink}/in-progress` } />;
-    }
+    const { recipeDetails } = this.state;
+    console.log(recipeDetails);
 
     return (
       recipeDetails[0] ? (
@@ -96,46 +130,22 @@ class RecipeDetails extends React.Component {
             <h4>Instruções</h4>
             <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
           </div>
-          {title === 'Bebidas' ? null
-            : (
-              <div>
-                <h4>Video</h4>
-                <iframe
-                  data-testid="video"
-                  title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-                  src={ recipeDetails[0].strYoutube }
-                />
-              </div>)}
-          <div>
-            <h4>Recomendadas</h4>
-            <div className="card-list">
-              <RecomendedCard recipes={ recipes } />
-            </div>
-          </div>
-          <div>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => this.setState({ redirectInProgress: true }) }
-              className="button"
-            >
-              Iniciar Receita
-            </button>
-          </div>
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finalizar Receita
+          </button>
+
         </section>
       ) : null
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  foodById: state.food.foodById,
-  drinksById: state.drink.drinkById,
-});
-
-RecipeDetails.propTypes = {
+RecipeInProgress.propTypes = {
   recipeDetails: PropTypes.arrayOf(Object),
   id: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps)(RecipeDetails);
+export default RecipeInProgress;

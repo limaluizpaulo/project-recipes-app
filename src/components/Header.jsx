@@ -5,7 +5,7 @@ import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-import './Header.css';
+import '../css/Header.css';
 
 class Header extends Component {
   constructor(props) {

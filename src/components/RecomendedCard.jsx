@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './RecomendedCard.css';
+import '../css/RecomendedCard.css';
 
 function RecomendedCard(props) {
   const { recipes } = props;
