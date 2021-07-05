@@ -19,7 +19,7 @@ function ExploreDrinks(props) {
         Por Ingredientes
       </Link>
       <Link
-        to="/bebidas/detalhes"
+        to={`/bebidas/detalhes/${itemPage[0][itemID]`}
         data-testid="explore-surprise"
         className="btn-explore"
         onClick={ surpriseDrink }
