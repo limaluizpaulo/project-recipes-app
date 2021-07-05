@@ -13,7 +13,7 @@ function Profile() {
     <>
       <Header profile name="Perfil" />
       <section className="profile">
-        <h4 data-testid="profile-email">{email.email}</h4>
+        {email && <h4 data-testid="profile-email">{email.email}</h4> }
         <br />
         <Link to="/receitas-feitas">
           <button

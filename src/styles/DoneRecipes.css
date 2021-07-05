@@ -1,0 +1,19 @@
+.alert-hidden {
+  opacity: 0;
+  transition: all 250ms linear 2s;
+}
+
+.alert-show {
+  transition: all 250ms linear;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  align-items: flex-start;
+  margin-left: 3px;
+  margin-top: 10px;
+}
