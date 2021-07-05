@@ -7,6 +7,7 @@ function Details({ id, mealsOrDrinks }) {
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
   const [recommendations, setRecommendations] = useState([]);
+  const [recommendationsKey, setRecommendationsKey] = useState('');
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
@@ -40,15 +41,26 @@ function Details({ id, mealsOrDrinks }) {
     setRecommendations(recipeType.slice(0, MAX_RECOMMENDATIONS));
   };
 
+  const renderRecommendation = () => {
+    const recommendationsKeyThumb = `${recommendationsKey}Thumb`;
+    return recommendations.map((
+      { [recommendationsKey]: title, [recommendationsKeyThumb]: thumb },
+    ) => <img key={ title } src={ thumb } alt={ title } style={ { width: 200 } } />);
+  };
+
   useEffect(() => {
-    if (mealsOrDrinks === 'meals') {
+    const MEALS = 'meals';
+    const DRINKS = 'drinks';
+    if (mealsOrDrinks === MEALS) {
       setRecipeKeyword('strMeal');
       setMaxIngredients(MAX_MEALS_INGREDIENTS);
-      getRecomendations('drinks');
+      getRecomendations(DRINKS);
+      setRecommendationsKey('strDrink');
     }
-    if (mealsOrDrinks === 'drinks') {
+    if (mealsOrDrinks === DRINKS) {
       setRecipeKeyword('strDrink');
-      getRecomendations('meals');
+      getRecomendations(MEALS);
+      setRecommendationsKey('strMeal');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -88,24 +100,32 @@ function Details({ id, mealsOrDrinks }) {
         </div>
       </header>
       <section>
-        <p>Ingredients</p>
-        <ul>
-          {
-            ingredients.map(([ingredient, quantity], index) => (
-              <li
-                key={ ingredient }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ingredient}
-                {', '}
-                {quantity}
-              </li>
-            ))
-          }
-        </ul>
+        <div>
+          <p>Ingredients</p>
+          <ul>
+            {
+              ingredients.map(([ingredient, quantity], index) => (
+                <li
+                  key={ ingredient }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                  {', '}
+                  {quantity}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
         <div>
           <h2>Instructions</h2>
           <p>{recipe.strInstructions}</p>
+        </div>
+        <div>
+          <h2>Recommendations</h2>
+          {
+            renderRecommendation()
+          }
         </div>
         {
           recipe.strYoutube
