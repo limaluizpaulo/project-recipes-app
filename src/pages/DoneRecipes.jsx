@@ -43,14 +43,28 @@ export default function DoneRecipes() {
             alt="avatar"
           />
           <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
-          <p data-testid={ `${index}-horizontal-top-text` }>{item.category}</p>
+          {item.type === 'comida' ? (
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {item.area}
+              {' '}
+              -
+              {' '}
+              {item.category}
+            </p>
+          ) : (
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {item.alcoholicOrNot}
+            </p>
+          )}
+
           <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
-          {item.tags.map((tag) => (
-            <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-          ))}
+          <div className="tags">
+            {(item.type === 'comida' ? item.tags.slice(0, 2) : item.tags).map((tag) => (
+              <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
+            ))}
+          </div>
           <ShareBtn pathname={ pathname } recipe={ item } index={ index } doneRecipe />
         </div>
-
       ))}
 
     </div>
