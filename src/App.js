@@ -29,6 +29,7 @@ function App() {
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      {/* <Route exact path="/comidas/:id" render={ (props) => <DetalhesComidas { ...props } /> } /> */}
       <Route exact path="/comidas/:id" component={ DetalhesComidas } />
       <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
       <Route

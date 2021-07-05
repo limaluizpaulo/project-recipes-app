@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Cards from '../components/Cards';
+import FetchContext from '../context/FetchContext';
 
-function DetalhesComidas() {
+function DetalhesComidas(props) {
+
   return (
-    <h1>DetalhesComidas</h1>
+    <div>
+      <h1>DetalhesComidas</h1>
+    </div>
   );
 }
 
