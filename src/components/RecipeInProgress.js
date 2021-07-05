@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { urlToEmbed, getDetails } from '../helpers';
+import UserContext from '../context/user.context';
+import { getDetails } from '../helpers';
+import { toggleIngredient } from '../helpers/provider';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
+  const { inProgress, setInProgress } = useContext(UserContext);
   const [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const { location: { pathname } } = useHistory();
+  const {
+    location: { pathname },
+  } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
   const type = isDrinks ? 'drinks' : 'meals';
+  const typeObj = isDrinks ? 'cocktails' : 'meals';
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
+  const usedIngredients = inProgress[typeObj][id] || [];
 
   // if (!details) setDetails({ imgKey }); // Cypress bug
 
@@ -30,27 +37,37 @@ function RecipeDetails() {
     setter();
   }, [id, type]);
 
+  function handleCheck({ target: { name } }) {
+    const params = {
+      recipe: details,
+      ingredient: name,
+      inProgress,
+      setInProgress,
+    };
+    toggleIngredient(params);
+  }
+
   function renderIngredients() {
     return (
       <ul>
-        {ingredients.map((ingredient, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { ingredient }
-            { measures[index] && ` - ${measures[index]}` }
-          </li>
-        ))}
-      </ul>
-    );
-  }
+        {ingredients.map((ingredient, index) => {
+          const wasUsed = usedIngredients.includes(ingredient);
 
-  function renderYoutubeVideo() {
-    return (
-      <iframe
-        className="youtube-video"
-        src={ urlToEmbed(details.strYoutube) }
-        title="Video da receita"
-        data-testid="video"
-      />
+          return (
+            <li key={ index } data-testid={ `${index}-ingredient-step` }>
+              <input
+                name={ ingredient }
+                key={ index }
+                type="checkbox"
+                onClick={ (e) => handleCheck(e) }
+                defaultChecked={ wasUsed }
+              />
+              {ingredient}
+              {measures[index] && `- ${measures[index]}`}
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 
@@ -75,7 +92,6 @@ function RecipeDetails() {
       </h4>
       {renderIngredients()}
       <p data-testid="instructions">{details.strInstructions}</p>
-      {!isDrinks && renderYoutubeVideo()}
     </div>
   );
 }

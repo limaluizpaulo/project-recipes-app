@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import UserContext from '../context/user.context';
 
 function UserProvider({ children }) {
   const localFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const localDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const initialObj = { cocktails: {}, meals: {} };
+  const localInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
+    || initialObj;
 
   const [userEmail, setUserEmail] = useState('');
   const [favorites, setFavorites] = useState(localFavorites);
+  const [done, setDone] = useState(localDone);
+  const [inProgress, setInProgress] = useState(localInProgress);
   const [warningMessage, setWarningMessage] = useState('');
 
   const shared = {
@@ -14,22 +21,26 @@ function UserProvider({ children }) {
     setUserEmail,
     favorites,
     setFavorites,
+    done,
+    setDone,
+    inProgress,
+    setInProgress,
     warningMessage,
     setWarningMessage,
   };
 
   useEffect(() => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    if (!favoriteRecipes) localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
 
-    const inProgressRecipes = localStorage.getItem('inProgressRecipes');
-    if (!inProgressRecipes) {
-      const initialObj = { cocktails: {}, meals: {} };
+    if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
     }
 
-    const doneRecipes = localStorage.getItem('doneRecipes');
-    if (!doneRecipes) localStorage.setItem('doneRecipes', JSON.stringify([]));
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
@@ -41,6 +52,15 @@ function UserProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(done));
+  }, [done]);
+
+  useEffect(() => {
+    console.log('setei: ', inProgress)
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+  }, [inProgress]);
 
   return (
     <UserContext.Provider value={ { ...shared } }>

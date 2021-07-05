@@ -25,14 +25,14 @@ main {
 }
 
 .button-start {
+  font-family: inherit;
+  font-size: 18px;
   background-color: orangered;
   border: none;
   bottom: 0;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   color: #eee;
   height: 50px;
-  font-family: inherit;
-  font-size: 18px;
   position: fixed;
   text-transform: uppercase;
   width: 100vw;

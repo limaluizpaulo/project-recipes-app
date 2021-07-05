@@ -57,3 +57,24 @@ export function toggleFavorite(params) {
     : favorites.concat(formattedRecipe);
   setFavorites(favoriteRecipes);
 }
+
+export function toggleIngredient(params) {
+  const { recipe, ingredient, inProgress, setInProgress } = params;
+  const isDrink = Object.keys(recipe).includes('idDrink');
+  const typeKey = isDrink ? 'cocktails' : 'meals';
+  const idKey = isDrink ? 'idDrink' : 'idMeal';
+  const id = recipe[idKey];
+  const ingredients = inProgress[typeKey][id] || [];
+  const wasUsed = ingredients.includes(ingredient);
+
+  if (wasUsed) {
+    const index = ingredients.findIndex((item) => item === ingredient);
+    ingredients.splice(index, 1);
+  } else {
+    ingredients.push(ingredient);
+  }
+
+  const newObj = { ...inProgress };
+  newObj[typeKey][id] = ingredients;
+  setInProgress(newObj);
+}

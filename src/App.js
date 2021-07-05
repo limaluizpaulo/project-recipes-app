@@ -8,8 +8,7 @@ import WarningMessage from './components/WarningMessage';
 import Login from './pages/Login';
 import Principal from './pages/Principal';
 import Details from './pages/Details';
-import ComidaEmProcesso from './pages/em-processo/ComidaEmProcesso';
-import BebidaEmProcesso from './pages/em-processo/BebidaEmProcesso';
+import InProgress from './pages/em-processo/InProgress';
 import Explorar from './pages/explorar';
 import ExplorarComidaOuBebida from './pages/explorar/ExplorarComidaOuBedida';
 import ExplorarPorIngredientes from './pages/explorar/ingredientes';
@@ -30,16 +29,8 @@ function App() {
         <Route exact path="/bebidas" component={ Principal } />
         <Route exact path="/comidas/:id" component={ Details } />
         <Route exact path="/bebidas/:id" component={ Details } />
-        <Route
-          exact
-          path="/comidas/:id/in-progress"
-          component={ ComidaEmProcesso }
-        />
-        <Route
-          exact
-          path="/bebidas/:id/in-progress"
-          component={ BebidaEmProcesso }
-        />
+        <Route exact path="/comidas/:id/in-progress" component={ InProgress } />
+        <Route exact path="/bebidas/:id/in-progress" component={ InProgress } />
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidaOuBebida } />
         <Route exact path="/explorar/bebidas" component={ ExplorarComidaOuBebida } />

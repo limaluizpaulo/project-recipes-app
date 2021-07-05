@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-//  a rota deve mudar para a tela de detalhes de uma receita,
+// a rota deve mudar para a tela de detalhes de uma receita,
 // que deve ser escolhida de forma aleatória através da API
 // endpoint comida https://www.themealdb.com/api/json/v1/1/random.php
 // endpoint bebidas https://www.thecocktaildb.com/api/json/v1/1/random.php
@@ -27,13 +27,16 @@ function ExplorarComidaOuBebida() {
         >
           Por Ingredientes
         </button>
-        <button
-          type="button"
-          data-testid="explore-by-area"
-          onClick={ () => history.push(`/explorar/${path}/area`) }
-        >
-          Por Local de Origem
-        </button>
+        { isDrinks
+          ? null
+          : <button
+              type="button"
+              data-testid="explore-by-area"
+              onClick={ () => history.push(`/explorar/${path}/area`) }
+          >
+            Por Local de Origem
+            </button>
+      }
         <button
           type="button"
           data-testid="explore-surprise"
