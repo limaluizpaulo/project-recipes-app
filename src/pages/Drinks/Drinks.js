@@ -133,7 +133,9 @@ function Drinks() {
     <>
       <Header title="Bebidas" haveSrc />
       <div className="card-meals">
-        { !loading && mapCategory(category)}
+        <di className="menu-box">
+          { !loading && mapCategory(category)}
+        </di>
         {
           loading
             ? 'Carregando...'
