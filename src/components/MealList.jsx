@@ -25,7 +25,7 @@ export default function MealList() {
   const renderCards = () => {
     if (mealsRecipes && mealsRecipes.length === 1) {
       console.log('3');
-      return history.push(`/bebidas/${mealsRecipes[0].idDrink} `);
+      return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
     }
 
     if (mealsRecipes && mealsRecipes.length > 1) {
