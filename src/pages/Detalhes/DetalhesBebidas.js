@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Proptypes from 'prop-types';
 import { requestDrinkById, requestMeal } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
+import './Detalhes.css';
 
-function DetalhesBebidas() {
+function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
-  const id = history.location.pathname;
-  const numberToSub = 9;
+  const { id } = match.params;
 
   useEffect(() => {
     (async function resolved() {
-      const resolve = await requestDrinkById(id.substring(numberToSub));
+      const resolve = await requestDrinkById(id);
       const resolveRecomm = await requestMeal();
       setData(resolve);
       setRecomm(resolveRecomm);
@@ -52,13 +53,49 @@ function DetalhesBebidas() {
       .map((item, index) => {
         if (index === 0) {
           return (
+            <div className="d-flex carousel-item active">
+              <div
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  className="d-flex w-100"
+                  data-testid={ `${index}-card-img` }
+                  src={ item.strMealThumb }
+                  alt={ `imagem de ${item}` }
+                  id={ item.idMeal }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
+              </div>
+              <div
+                key={ index }
+                data-testid={ `${index + 1}-recomendation-card` }
+              >
+                <img
+                  className="d-flex w-100"
+                  data-testid={ `${index + 1}-card-img` }
+                  src={ meals[index + 1].strMealThumb }
+                  alt={ `imagem de ${meals[index + 1]}` }
+                  id={ meals[index + 1].idMeal }
+                />
+                <p
+                  data-testid={ `${index + 1}-recomendation-title` }
+                >
+                  {meals[index + 1].strMeal}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        if (index !== 1) {
+          return (
             <div
-              className="carousel-item active"
+              className="carousel-item"
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
               <img
-                className="d-block w-100"
+                className="d-block w-50"
                 data-testid={ `${index}-card-img` }
                 src={ item.strMealThumb }
                 alt={ `imagem de ${item}` }
@@ -68,22 +105,7 @@ function DetalhesBebidas() {
             </div>
           );
         }
-        return (
-          <div
-            className="carousel-item"
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              className="d-block w-100"
-              data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
-              alt={ `imagem de ${item}` }
-              id={ item.idMeal }
-            />
-            <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
-          </div>
-        );
+        return null;
       });
   }
 
@@ -115,7 +137,11 @@ function DetalhesBebidas() {
               </label>
               <p>Recomendações:</p>
               {mapRecomm(recomm)}
-              <button type="button" data-testid="start-recipe-btn">
+              <button
+                className="start-button"
+                type="button"
+                data-testid="start-recipe-btn"
+              >
                 Iniciar Receita
               </button>
             </>
@@ -135,5 +161,13 @@ function DetalhesBebidas() {
     </div>
   );
 }
+
+DetalhesBebidas.propTypes = {
+  match: Proptypes.shape({
+    params: Proptypes.shape({
+      id: Proptypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default DetalhesBebidas;

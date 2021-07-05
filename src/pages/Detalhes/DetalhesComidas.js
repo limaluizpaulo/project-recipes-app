@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import Proptypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
+import './Detalhes.css';
 
-//  Fonte do método substring(): https://www.devmedia.com.br/javascript-substring-selecionando-parte-de-uma-string/39232#:~:text=O%20m%C3%A9todo%20substring()%20retorna,%22%3B%20var%20resultado%20%3D%20stringExemplo.
-
-function DetalhesComidas() {
+function DetalhesComidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
-  const id = history.location.pathname;
-  const numberToSub = 9;
+  const { id } = match.params;
 
   useEffect(() => {
     (async function resolved() {
-      const resolve = await requestMealById(id.substring(numberToSub));
+      const resolve = await requestMealById(id);
       const resolveRecomm = await requestDrink();
       setData(resolve);
       setRecomm(resolveRecomm);
@@ -41,20 +40,67 @@ function DetalhesComidas() {
 
   function mapRecomm(param) {
     const { drinks } = param;
+    console.log(drinks);
     const magicNumber = 6;
     return drinks
       .filter((_, index) => index < magicNumber)
-      .map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recomendation-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ item.strDrinkThumb }
-            alt={ `imagem de ${item}` }
-            id={ item.idDrink }
-          />
-          <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
-        </div>
-      ));
+      .map((item, index) => {
+        if (index === 0) {
+          return (
+            <div className="d-flex carousel-item active">
+              <div
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  className="d-flex w-100"
+                  data-testid={ `${index}-card-img` }
+                  src={ item.strDrinkThumb }
+                  alt={ `imagem de ${item}` }
+                  id={ item.idDrink }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
+              </div>
+              <div
+                key={ index }
+                data-testid={ `${index + 1}-recomendation-card` }
+              >
+                <img
+                  className="d-flex w-100"
+                  data-testid={ `${index + 1}-card-img` }
+                  src={ drinks[index + 1].strDrinkThumb }
+                  alt={ `imagem de ${drinks[index + 1]}` }
+                  id={ drinks[index + 1].idDrink }
+                />
+                <p
+                  data-testid={ `${index + 1}-recomendation-title` }
+                >
+                  {drinks[index + 1].strDrink}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        if (index !== 1) {
+          return (
+            <div
+              className="carousel-item"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                className="d-block w-50"
+                data-testid={ `${index}-card-img` }
+                src={ item.strDrinkThumb }
+                alt={ `imagem de ${item}` }
+                id={ item.idDrink }
+              />
+              <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
+            </div>
+          );
+        }
+        return null;
+      });
   }
 
   function mapData(param) {
@@ -88,8 +134,38 @@ function DetalhesComidas() {
                 <track kind="captions" />
               </video>
               <p>Recomendações:</p>
-              {mapRecomm(recomm)}
-              <button type="button" data-testid="start-recipe-btn">
+              <div
+                id="carouselExampleControlsNoTouching"
+                className="carousel slide"
+                data-bs-touch="false"
+                data-bs-interval="false"
+              >
+                <div className="carousel-inner" />
+                {mapRecomm(recomm)}
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControlsNoTouching"
+                  data-bs-slide="prev"
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControlsNoTouching"
+                  data-bs-slide="next"
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
+              <button
+                className="start-button"
+                type="button"
+                data-testid="start-recipe-btn"
+              >
                 Iniciar Receita
               </button>
             </>
@@ -109,5 +185,13 @@ function DetalhesComidas() {
     </div>
   );
 }
+//  Fonte Proptypes: https://stackoverflow.com/questions/47311310/proptypes-isrequired-on-react-router-4-params-prop
+DetalhesComidas.propTypes = {
+  match: Proptypes.shape({
+    params: Proptypes.shape({
+      id: Proptypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default DetalhesComidas;
