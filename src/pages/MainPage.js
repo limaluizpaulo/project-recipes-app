@@ -13,11 +13,10 @@ export default function MainPage() {
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
 
-  const { searchResult } = useContext(RecipesContext);
+  const { searchResult, limit, setLimit } = useContext(RecipesContext);
   const [isLoading, setLoader] = useState(false);
   const [dataResult, setDataResult] = useState([]);
   const [renderer, setRenderer] = useState([]);
-  const [limit, setLimit] = useState(TWELVE);
 
   useEffect(() => {
     async function getInitialStatePopulated() {

@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
+const TWELVE = 12;
 export default function RecipesProvider({ children }) {
   const [searchResult, setSearchResult] = useState([]);
   const [userInfo, setInfo] = useState({ email: '' });
-  const context = { setInfo, userInfo, searchResult, setSearchResult };
+  const [limit, setLimit] = useState(TWELVE);
+  const context = { setInfo, userInfo, searchResult, setSearchResult, limit, setLimit };
 
   return (
     <RecipesContext.Provider value={ context }>
