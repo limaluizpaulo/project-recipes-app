@@ -12,6 +12,8 @@ export const FIRSTLETTER_MEALS = 'https://www.themealdb.com/api/json/v1/1/search
 export const INGREDIENT_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 export const NAME_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 export const FIRSTLETTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+export const SUPRISE_ME_MEALS = 'https://www.themealdb.com/api/json/v1/1/random.php';
+export const SUPRISE_ME_DEINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 export const fetchAPI = async (url) => {
   try {

@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
+import { fetchAPI, SUPRISE_ME_MEALS } from '../../services/index';
 
 export default function ExploreMeals() {
+  function handleClic() {
+    fetchAPI(SUPRISE_ME_MEALS).then((res) => console.log(res));
+  }
   return (
     <div>
       <Header pageName="Explorar comidas" />
@@ -22,7 +26,14 @@ export default function ExploreMeals() {
       </Link>
       <br />
       <Link to="/">
-        <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => handleClic() }
+        >
+          Me Surpreenda!
+
+        </button>
       </Link>
       <Footer />
     </div>
