@@ -35,7 +35,11 @@ function IngredientCard({ index, ingredient }) {
           type="button"
           onClick={ () => redirectToRecipes() }
         >
-          <img data-testid={ `${index}-card-img` } src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` } alt={ ingredient } />
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
+            alt={ ingredient }
+          />
           <h6 data-testid={ `${index}-card-name` }>{ingredient}</h6>
         </button>
       </div>
@@ -50,7 +54,11 @@ function IngredientCard({ index, ingredient }) {
           type="button"
           onClick={ () => redirectToDrinks() }
         >
-          <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` } alt={ ingredient } />
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
+            alt={ ingredient }
+          />
           <h6 data-testid={ `${index}-card-name` }>{ingredient}</h6>
         </button>
       </div>
