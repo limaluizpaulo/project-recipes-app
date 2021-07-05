@@ -17,6 +17,10 @@ export default function CategoryDrinks() {
   };
   useEffect(getApiCategory, []);
 
+  const handleAll = () => {
+    fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
+  };
+
   const handleClick = ({ target: { value } }) => {
     setValor(value);
     console.log('state', valor);
@@ -43,6 +47,14 @@ export default function CategoryDrinks() {
         >
           {strCategory}
         </button>))}
+      <button
+        type="button"
+        onClick={ handleAll }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+
     </div>
   );
 }

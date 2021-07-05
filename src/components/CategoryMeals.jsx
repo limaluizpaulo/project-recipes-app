@@ -19,6 +19,9 @@ export default function CategoryMeals() {
       setToggleSearch(false);
     }
   };
+  const handleAll = () => {
+    fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
+  };
 
   const getApiCategory = () => {
     const FIVE = 5;
@@ -38,6 +41,13 @@ export default function CategoryMeals() {
         >
           {strCategory}
         </button>))}
+      <button
+        type="button"
+        onClick={ handleAll }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
     </>
   );
 }
