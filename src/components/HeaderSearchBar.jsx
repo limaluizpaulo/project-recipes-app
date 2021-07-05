@@ -6,7 +6,7 @@ function HeaderSearchBar({ baseEndPoint }) {
   const {
     requestParams: { chosenFilter, searchText },
     handleChange,
-    asyncSetState,
+    syncSetState,
   } = useContext(Context);
 
   const [blockRequest, setBlockRequest] = useState(false);
@@ -71,7 +71,7 @@ function HeaderSearchBar({ baseEndPoint }) {
         <button
           onClick={ blockRequest
             ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
-            : () => asyncSetState(baseEndPoint) }
+            : () => syncSetState(baseEndPoint) }
           type="button"
           data-testid="exec-search-btn"
         >

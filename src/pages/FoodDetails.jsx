@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Context from '../context/Context';
 
-function FoodDetails() {
+function FoodDetails({match: { params: { id } }}) {
+  const { details, detailsSyncSetState } = useContext(Context);
+
+  useEffect(() => {
+    detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }, [detailsSyncSetState, id]);
+
   return (
     <main>
       aaa

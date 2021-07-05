@@ -17,6 +17,7 @@ function GlobalProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
+  const [details, setDetails] = useState({});
 
   useEffect(() => {
     async function fetchState() {
@@ -43,11 +44,18 @@ function GlobalProvider({ children }) {
     setRequestParams({ ...requestParams, [name]: value });
   };
 
-  const asyncSetState = async (baseEndPoint) => {
+  const syncSetState = async (baseEndPoint) => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
     if (result) {
       setRequestResult(result);
+    }
+  };
+
+  const detailsSyncSetState = async (endPoint) => {
+    const result = await fetchAPI(endPoint, '', '');
+    if (result) {
+      setDetails(result);
     }
   };
 
@@ -76,10 +84,13 @@ function GlobalProvider({ children }) {
     meals,
     drinks,
     categories,
+    details,
     handleChange,
-    asyncSetState,
+    syncSetState,
     manageRenderMeal,
     manageRenderDrink,
+    setDetails,
+    detailsSyncSetState,
   };
 
   return (
