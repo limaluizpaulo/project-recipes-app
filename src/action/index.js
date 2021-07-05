@@ -1,3 +1,7 @@
+import invokeAlert from '../helper/alertMsg';
+
+const RESPONSE_ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 export const USER_EMAIL = 'USER_EMAIL';
 export const ALL_FOOD_CATEGORIES = 'ALL_FOOD_CATEGORIES';
 export const ALL_DRINK_CATEGORIES = 'ALL_DRINK_CATEGORIES';
@@ -52,8 +56,13 @@ export const fetchFoodRecipes = (name = '') => (dispatch) => {
   dispatch(isLoading());
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
     .then((response) => response.json())
-    .then((allFoodRecipes) => {
-      const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
+    .then((allFood) => {
+      if (allFood.meals === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
+      const recipes = allFood.meals.slice(0, maxRecipes);
       dispatch(getAllFoodRecipes(recipes));
     });
 };
@@ -86,6 +95,11 @@ export const fetchFoodRecipesByIngredients = (ingrediente = '') => (dispatch) =>
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
     .then((response) => response.json())
     .then((allFoodRecipes) => {
+      if (allFoodRecipes.meals === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
       console.log(allFoodRecipes);
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
       console.log(recipes);
@@ -98,6 +112,11 @@ export const fetchFoodRecipesByfirstLetter = (primeiraletra = '') => (dispatch) 
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraletra}`)
     .then((response) => response.json())
     .then((allFoodRecipes) => {
+      if (allFoodRecipes.meals === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
       dispatch(getAllFoodRecipes(recipes));
     });
@@ -109,20 +128,44 @@ export const fetchDrinksRecipes = (name = '') => (dispatch) => {
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`)
     .then((response) => response.json())
     .then((allDrinksRecipes) => {
+      if (allDrinksRecipes.drinks === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
       const drinksRecipes = allDrinksRecipes.drinks.slice(0, maxRecipes);
-      console.log(drinksRecipes);
       dispatch(getAllDrinksRecipes(drinksRecipes));
     });
 };
 
-export const fetchDrinksRecipesByFirstLetter = (letter = '') => (dispatch) => {
+export const fetchDrinksRecipesByIngredient = (ingrediente = '') => (dispatch) => {
   const maxRecipes = 12;
   dispatch(isLoading());
-  fetch(`www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`)
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+    .then((response) => response.json())
+    .then((allDrinksRecipes) => {
+      if (allDrinksRecipes.drinks === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
+      const drinks = allDrinksRecipes.drinks.slice(0, maxRecipes);
+      dispatch(getAllDrinksRecipes(drinks));
+    });
+};
+
+export const fetchDrinksRecipesByFirstLetter = (letter = 'a') => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`)
     .then((response) => response.json())
     .then((allDrinksRecipesByFirsLetter) => {
+      if (allDrinksRecipesByFirsLetter.drinks === null) {
+        return invokeAlert(
+          alert, RESPONSE_ERROR,
+        );
+      }
       const drinksRecipes = allDrinksRecipesByFirsLetter.drinks.slice(0, maxRecipes);
-      console.log(drinksRecipes);
       dispatch(getAllDrinksRecipes(drinksRecipes));
     });
 };
