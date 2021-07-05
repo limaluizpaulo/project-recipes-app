@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Filters, Tags, ShareButton } from '../components';
+import { Header, Filters, Tags, ShareButton, RecipeHeaderList } from '../components';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Done = () => {
@@ -59,23 +59,19 @@ const Done = () => {
                   type,
                 },
                 index,
-              ) => (
-                <div key={ index }>
-                  <Link to={ `/${type}s/${id}` }>
-                    <img
-                      src={ image }
-                      width="200px"
-                      alt=""
-                      data-testid={ `${index}-horizontal-image` }
-                    />
-                  </Link>
-                  <div>
-                    <span data-testid={ `${index}-horizontal-top-text` }>
-                      {alcoholicOrNot || `${area} - ${category}`}
-                    </span>
+              ) => {
+                const header = { index, alcoholicOrNot, area, category, type, id, name };
+                return (
+                  <div key={ index }>
                     <Link to={ `/${type}s/${id}` }>
-                      <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+                      <img
+                        src={ image }
+                        width="200px"
+                        alt=""
+                        data-testid={ `${index}-horizontal-image` }
+                      />
                     </Link>
+                    <RecipeHeaderList header={ header } />
 
                     <ShareButton
                       type={ type }
@@ -90,8 +86,8 @@ const Done = () => {
                     <Tags tags={ tags } recipeIndex={ index } />
 
                   </div>
-                </div>
-              ),
+                );
+              },
             )}
       </div>
     </>

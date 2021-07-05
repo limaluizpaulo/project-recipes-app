@@ -23,7 +23,7 @@ ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   changeCopy: PropTypes.func.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 
 };
 
