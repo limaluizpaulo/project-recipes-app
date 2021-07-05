@@ -42,7 +42,8 @@ export const fetchAreas = async () => {
 };
 
 export const fetchRecipesByArea = async (area) => {
-  const request = await fetch(recipesByArea + area);
+  const endpoint = recipesByArea + area;
+  const request = await fetch(endpoint);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
 };

@@ -1,11 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function DrinksDetails() {
+import Details from '../components/Details/Details';
+
+function DrinksDetails({ match: { params: { id } } }) {
   return (
-    <div>
-      <p>Drinks Details</p>
-    </div>
+    <Details id={ id } mealsOrDrinks="drinks" />
   );
 }
 
+DrinksDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 export default DrinksDetails;
