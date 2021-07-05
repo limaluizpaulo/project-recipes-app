@@ -39,7 +39,7 @@ function FinishedRecipes() {
     // ];
     // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     // até aqui
-     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       setDoneRecipesList(doneRecipes);
     }
