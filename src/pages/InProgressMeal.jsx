@@ -80,6 +80,29 @@ export default function InProgressMeal() {
     }
   }
 
+  function handleDoneRecipes({
+    idMeal, strArea, strCategory, strMeal, strMealThumb, strTags,
+  }) {
+    const arrayTags = strTags ? strTags.split(',') : [];
+    const doneRecipe = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: Date.now(),
+      tags: arrayTags,
+    };
+    // ]));
+
+    let doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneRecipes = [...doneRecipes, doneRecipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    history.push('/receitas-feitas');
+  }
+
   return (
     <div>
       {recipeInProgress.length > 0 && (
@@ -129,7 +152,7 @@ export default function InProgressMeal() {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ isDisable }
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ () => handleDoneRecipes(recipeInProgress[0]) }
           >
             Finalizar Receita
           </button>
