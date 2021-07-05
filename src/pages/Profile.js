@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 
-import './style/Perfil.css';
+import './style/Profile.css';
 
 function Perfil() {
-  const user = localStorage.getItem('user');
+  const { email } = JSON.parse(localStorage.getItem('user'));
   const [goDoneRecipes, setGoDoneRecipes] = useState(false);
   const [goFavoriteRecipes, setGoFavoriteRecipes] = useState(false);
   const [logoff, setLogoff] = useState(false);
-  console.log(user);
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem('email');
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
+    setLogoff(true);
+  };
 
   return (
     <div className="Perfil">
@@ -17,7 +26,7 @@ function Perfil() {
       { logoff && <Redirect to="/" /> }
 
       <h1 data-testid="profile-email">
-        email
+        { email }
       </h1>
 
       <button
@@ -39,7 +48,7 @@ function Perfil() {
       <button
         type="button"
         data-testid="profile-logout-btn"
-        onClick={ () => setLogoff(true) }
+        onClick={ clearLocalStorage }
       >
         Sair
       </button>

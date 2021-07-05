@@ -13,7 +13,7 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import MealsIngredients from './pages/MealsIngredients';
 import ExploreByArea from './pages/ExploreByArea';
 import DrinksIngredients from './pages/DrinksIngredients';
-import Perfil from './pages/Perfil';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -48,7 +48,7 @@ function App() {
       { verifyAllowanceToRenderHeader() }
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/comidas" component={ Recipes } />
         <Route exact path="/bebidas" component={ Recipes } />
         <Route exact path="/explorar" component={ Explore } />
