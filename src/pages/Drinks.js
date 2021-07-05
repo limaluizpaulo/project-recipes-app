@@ -10,17 +10,17 @@ export default function Foods() {
   const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
 
   const TWELVE = 12;
-  const { globalState } = useContext(RecipesContext);
+  const { searchResult } = useContext(RecipesContext);
   const [searchStatus, setSearchStatus] = useState(false);
   const [result, setResult] = useState([]);
   const [limit, setLimit] = useState(TWELVE);
 
   useEffect(() => {
-    if (globalState && globalState.length > 1) {
+    if (searchResult && searchResult.length > 1) {
       setSearchStatus(true);
-      setResult(globalState.filter((_e, index) => index < limit));
+      setResult(searchResult.filter((_e, index) => index < limit));
     }
-  }, [globalState, limit]);
+  }, [searchResult, limit]);
 
   function handleMoreCards() {
     setLimit(limit + TWELVE);

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 export default function RecipesProvider({ children }) {
-  const [globalState, setGlobalState] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
   const [userInfo, setInfo] = useState({ email: '' });
-  const context = { setInfo, userInfo, globalState, setGlobalState };
+  const context = { setInfo, userInfo, searchResult, setSearchResult };
 
   return (
     <RecipesContext.Provider value={ context }>

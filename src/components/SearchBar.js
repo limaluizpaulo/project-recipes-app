@@ -9,17 +9,17 @@ export default function SearchBar() {
   const history = useHistory();
   const [filter, setFilter] = useState({ content: '', URL: '' });
   // const [show, setShow] = useState(false);
-  const { setGlobalState, globalState } = useContext(RecipesContext);
+  const { setSearchResult, searchResult } = useContext(RecipesContext);
 
   useEffect(() => {
     const targetId = path === '/comidas' ? 'idMeal' : 'idDrink';
     function redirectorOneResult() {
-      history.push(`${path}/${globalState[0][targetId]}`);
+      history.push(`${path}/${searchResult[0][targetId]}`);
     }
-    if (globalState && globalState.length === 1) {
+    if (searchResult && searchResult.length === 1) {
       redirectorOneResult();
     }
-  }, [path, history, globalState]);
+  }, [path, history, searchResult]);
 
   function handleChange({ target }) {
     const { id, value, type } = target;
@@ -56,7 +56,7 @@ export default function SearchBar() {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (content !== '' && URL !== '') {
-      setGlobalState(data[firstKey]);
+      setSearchResult(data[firstKey]);
     }
   }
 
