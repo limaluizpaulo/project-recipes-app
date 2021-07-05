@@ -43,3 +43,11 @@ export async function getDrinkDetails(id) {
   const { drinks } = await fetch(endpoint).then((data) => data.json());
   return drinks;
 }
+export async function getRandomIdMeal() {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals[0].idMeal;
+  // const result = fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+  //   .then((resp) => resp.json());
+  // return result;
+}
