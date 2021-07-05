@@ -13,9 +13,9 @@ function Drinks(props) {
   const { drinks } = props;
   const [firstDrinks, setFirstDrinks] = React.useState();
   const [loading, setLoading] = React.useState(true);
-  const getByName = BeverageAPI.default;
+  const { getByDefault } = BeverageAPI;
   React.useEffect(() => {
-    getByName()
+    getByDefault()
       .then(setFirstDrinks)
       .then(() => setLoading(!loading));
   }, []);

@@ -23,7 +23,7 @@ export default {
   ingredient: BeverageServiceIngredientsAPI,
   name: BeverageServiceNameAPI,
   letter: BeverageServiceFirstLetterAPI,
-  default: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  getByDefault: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((res) => res.json())
     .then((res) => res.drinks),
 };

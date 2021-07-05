@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
-const MealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-// const BeverageURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const MealsURL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 
 export default function App2() {
   const [results, setResults] = React.useState();
