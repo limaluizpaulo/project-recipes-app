@@ -20,16 +20,16 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route path="/explorar/comidas/ingredientes" component={ ExpoFoodsIng } />
-        <Route path="/explorar/comidas/area" component={ ExpoFoodArea } />
+        <Route exact path="/explorar/comidas/ingredientes" component={ ExpoFoodsIng } />
+        <Route exact path="/explorar/comidas/area" component={ ExpoFoodArea } />
         <Route exact path="/comidas/:id" component={ FoodDetails } />
-        <Route path="/explorar/comidas" component={ ExploreFoods } />
+        <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/comidas" component={ Foods } />
-        <Route path="/explorar/bebidas/ingredientes" component={ ExpoDrinksIng } />
-        <Route path="/explorar/bebidas/area" component={ NotFound } />
+        <Route exact path="/explorar/bebidas/ingredientes" component={ ExpoDrinksIng } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/bebidas/:id" component={ DrinkDetails } />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
-        <Route path="/bebidas" component={ Drinks } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/" component={ Login } />

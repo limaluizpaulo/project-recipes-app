@@ -1,4 +1,9 @@
-export const [USERLOGIN, DRINKS, FOODS, RANDOM] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM'];
+export const [
+  USERLOGIN,
+  DRINKS,
+  FOODS,
+  RANDOM,
+] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM'];
 
 export function userLogin(payload) {
   return {

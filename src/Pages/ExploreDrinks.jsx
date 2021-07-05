@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import { getRandom } from '../redux/actions';
-import BeverageAPI from '../services/BeverageRecipesAPI'
+import BeverageAPI from '../services/BeverageRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreDrinks(props) {
-  const { surpriseDrink } = props;
-  return (
+  const { surpriseDrink, shouldRedirect, drink } = props;
+
+  return shouldRedirect ? <Redirect to={ `/bebidas/${drink[0].idDrink}` } /> : (
     <div>
       <Header />
       <Link
@@ -18,21 +20,36 @@ function ExploreDrinks(props) {
       >
         Por Ingredientes
       </Link>
-      <Link
-        to={`/bebidas/detalhes/${itemPage[0][itemID]`}
+      <button
+        type="button"
         data-testid="explore-surprise"
         className="btn-explore"
         onClick={ surpriseDrink }
       >
         Me Surpreenda!
-      </Link>
+      </button>
       Explore Bebidas
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) =>({
-surpriseDrink: () => dispatch(getRandom(BeverageAPI.surpriseDrink))
-})
+ExploreDrinks.propTypes = {
+  drink: PropTypes.any,
+  shouldRedirect: PropTypes.any,
+  surpriseDrink: PropTypes.any,
+}.isRequired;
 
-export default connect(null, mapDispatchToProps)(ExploreDrinks);
+const mapDispatchToProps = (dispatch) => ({
+  surpriseDrink: () => dispatch(getRandom(BeverageAPI.surpriseDrink)),
+});
+
+const mapStateToProps = (state) => ({
+  drink: state.random.list,
+  shouldRedirect: state.random.shouldRedirect,
+});
+
+ExploreDrinks.propTypes = {
+  surpriseDrink: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreDrinks);
