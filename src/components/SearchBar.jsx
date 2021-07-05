@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+
+import { DrinksContext } from '../context/DrinksProvider';
+import { MealsContext } from '../context/MealsProvider';
 import ingredientsAPI from '../services/helpers/ingredientsAPI';
 
-const SearchBar = () => {
+const SearchBar = ({ db }) => {
+  const { setMeals } = useContext(MealsContext);
+  const { setDrinks } = useContext(DrinksContext);
+
   const [type, setType] = useState('');
   const [text, setText] = useState('');
 
   const handleSearch = async (typeOfSearch, textChosen) => {
-    const request = await ingredientsAPI(typeOfSearch, textChosen);
-    console.log(request);
+    const request = await ingredientsAPI(typeOfSearch, textChosen, db);
+
+    if (request && db === 'meals') setMeals(request);
+    if (request && db === 'drinks') setDrinks(request);
+
     return request;
   };
 
@@ -21,7 +31,7 @@ const SearchBar = () => {
           onChange={ ({ target: { value } }) => setText(value) }
         />
       </label>
-      <div onChange={ ({ target: { value } }) => { setType(value); } }>
+      <div onChange={ ({ target: { value } }) => setType(value) }>
         <label htmlFor="ingredient">
           <input
             name="typeOfSearch"
@@ -63,6 +73,10 @@ const SearchBar = () => {
       </button>
     </section>
   );
+};
+
+SearchBar.propTypes = {
+  db: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
