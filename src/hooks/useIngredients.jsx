@@ -13,7 +13,6 @@ export default function useIngredients() {
       return otherCategory;
     }
   };
-
   const handleIngredients = ({ target: { value } }, recipe, setArrChecked) => {
     const category = handleCategoryAndId(recipe, 'category');
     const id = handleCategoryAndId(recipe, 'id');
@@ -56,6 +55,33 @@ export default function useIngredients() {
     setArrChecked(newProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
   };
+
+  const checkedBtn = (inProgreArr, index, recipe) => {
+    const category = handleCategoryAndId(recipe, 'category');
+    const id = handleCategoryAndId(recipe, 'id');
+    if (
+      inProgreArr
+      && inProgreArr[category]
+      && inProgreArr[category][id]
+      && inProgreArr[category][id].includes(index)
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const checkEnableBtn = (arrChecked, recipe, setEnableBtn, ingredients) => {
+    const category = handleCategoryAndId(recipe, 'category');
+    const id = handleCategoryAndId(recipe, 'id');
+    if (arrChecked[category] && arrChecked[category][id]) {
+      if (arrChecked[category][id].length === ingredients.length) {
+        setEnableBtn(false);
+      } else {
+        setEnableBtn(true);
+      }
+    }
+  };
+
   const createIngredientsAndMesure = (recipe, value) => {
     let count = 1;
     const arrValue = [];
@@ -71,8 +97,14 @@ export default function useIngredients() {
         count += 1;
       }
     }
+
     return arrValue;
   };
 
-  return { createIngredientsAndMesure, handleIngredients };
+  return {
+    handleIngredients,
+    checkedBtn,
+    createIngredientsAndMesure,
+    checkEnableBtn,
+  };
 }
