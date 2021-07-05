@@ -11,7 +11,6 @@ import RecipesContext from '../context/RecipesContext';
 
 function DrinksIngredients() {
   const {
-    mealsOrDrinks,
     redirectToMainScreen,
     setRedirectToMainScreen,
     filterByIngredients,
@@ -21,7 +20,7 @@ function DrinksIngredients() {
   const [maxCards] = useState(MAX_CARDS_NUMBER);
 
   const getIngredients = async () => {
-    const { drinks } = await fetchIngredients(mealsOrDrinks);
+    const { drinks } = await fetchIngredients('drinks');
     setIngredients(drinks);
   };
 
