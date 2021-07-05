@@ -5,7 +5,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/global.css';
 
-function Icons() {
+function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(true);
   const [changeCopy, setChangeCopy] = useState(false);
   const target = useRef(null);
@@ -19,6 +19,37 @@ function Icons() {
     setTimeout(() => {
       setChangeCopy(false);
     }, [DOISMIL]);
+  }
+
+  function favorite() {
+    setChangeIcon(!changeIcon);
+    const
+      { idMeal,
+        strArea,
+        idDrink,
+        strCategory,
+        strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
+
+    let favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteElement = {
+      id: idMeal || idDrink,
+      type: idMeal === undefined ? 'bebida' : 'comida',
+      area: idMeal === undefined ? '' : strArea,
+      category: strCategory,
+      alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
+      name: strDrink || strMeal,
+      image: strMealThumb || strDrinkThumb,
+    };
+    // let isFavoriteBefore = 0;
+    // favorites.forEach((fav) => { isFavoriteBefore += fav.id === favoriteElement.id; });
+
+    favorites = favorites.filter((fav) => fav.id !== favoriteElement.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+
+    if (changeIcon) {
+      favorites = [...favorites, favoriteElement];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    }
   }
 
   function speakCopy() {
@@ -53,7 +84,7 @@ function Icons() {
         <button
           type="button"
           className="favorite"
-          onClick={ () => setChangeIcon(!changeIcon) }
+          onClick={ () => { favorite(); setChangeIcon(!changeIcon); } }
         >
           <img
             src={ changeIcon ? whiteHeartIcon : blackHeartIcon }

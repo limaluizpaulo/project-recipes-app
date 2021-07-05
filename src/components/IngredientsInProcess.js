@@ -21,13 +21,12 @@ function IngredientsInProcess({ index, element, measures }) {
   console.log(index, element);
 
   return (
-    <div>
+    <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
         className="inputs"
         onChange={ () => toogleClass() }
         key={ index }
-        data-testid={ `${index}-ingredient-step` }
       />
       <span
         style={ checked ? divStyle1 : divStyle2 }
