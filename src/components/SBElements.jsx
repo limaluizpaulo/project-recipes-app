@@ -46,10 +46,10 @@ function SBElements() {
       break;
     case 'firstLetter':
       if (searchInput.length !== 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
-        getFirstLetter();
+        return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
+      getFirstLetter();
+
       break;
     default:
       console.log('nada aconteceu');
