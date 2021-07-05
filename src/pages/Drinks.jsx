@@ -25,11 +25,10 @@ class Drinks extends Component {
   render() {
     const { listDrinks } = this.props;
     if (!listDrinks) return (<h3>Loading...</h3>);
-    console.log(listDrinks);
     return (
       <>
         <Header header="Bebidas" explorer />
-        <h2> vodK </h2>
+        <h2>Drinks</h2>
         {listDrinks.map(({ strDrinkThumb, strDrink }, index) => (
           <CardItem
             key={ index }

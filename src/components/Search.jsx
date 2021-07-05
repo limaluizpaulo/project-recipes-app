@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import
+{ actionRecipesByIngredients,
+  actionRecipesByName, actionRecipesByFirstLetter } from '../actions';
+
+const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 class Search extends Component {
   constructor(props) {
@@ -7,7 +14,41 @@ class Search extends Component {
       search: '',
       filter: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    // this.saveInputRedux = this.saveInputRedux.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
+
+  handleChange(e) {
+    this.setState({ search: e.target.value });
+    const { search } = this.state;
+    console.log(search);
+  }
+
+  handleFilter() {
+    const { ingredientes, name, firstName } = this.props;
+    const { search, filter } = this.state;
+    switch (filter) {
+    case 'ingredients':
+      return ingredientes(search);
+    case 'name':
+      return name(search);
+    case 'firstLetter':
+      if (search.length > 1) {
+        return global.alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      return firstName(search);
+    default:
+      return global.alert(messageAlert);
+    }
+  }
+
+  // saveInputRedux() {
+  //   const { search } = this.state;
+  //   const { input } = this.props;
+  //   input(search);
+  // }
 
   render() {
     const { search } = this.state;
@@ -74,6 +115,7 @@ class Search extends Component {
           data-testid="exec-search-btn"
           onClick={ () => {
             console.log(this.state);
+            this.handleFilter();
           } }
         >
           Buscar
@@ -83,4 +125,25 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapDispatchToProps = (dispatch) => ({
+  // inputIngredientes: (input) => dispatch(saveInputIngredientes(input)),
+  ingredientes: (ingredientes) => dispatch(actionRecipesByIngredients(ingredientes)),
+  name: (name) => dispatch(actionRecipesByName(name)),
+  firstName: (firstName) => dispatch(actionRecipesByFirstLetter(firstName)),
+});
+
+// const mapStateToProps = (state) => ({
+//   // listRecipes: state.recipes.recipes,
+//   // input: state.recipes.inputIngredientes,
+// });
+
+Search.propTypes = {
+  // inputIngredientes: PropTypes.func.isRequired,
+  ingredientes: PropTypes.func.isRequired,
+  name: PropTypes.func.isRequired,
+  firstName: PropTypes.func.isRequired,
+  // input: PropTypes.string.isRequired,
+  // listRecipes: PropTypes.arrayOf().isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Search);

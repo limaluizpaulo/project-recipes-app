@@ -1,17 +1,98 @@
 const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
+const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
+// const URL_SEARCH_MEALS_LOCATION = 'www.themealdb.com/api/json/v1/1/list.php?a=list'
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s';
+const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
 const LENGTH_DOZE = 12;
+const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+// -------------------------RECIPES--------------------------------
 
 export const getRecipes = async () => {
-  const result = await fetch(URL_RECIPES);
-  const { meals } = await result.json();
-  console.log(meals);
-  return meals.slice(0, LENGTH_DOZE);
+  try {
+    const result = await fetch(URL_RECIPES);
+    const { meals } = await result.json();
+    return meals.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
 };
 
+export const getRecipesByIngredients = async (ingredient) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_MEALS}filter.php?i=${ingredient}`);
+    const { meals } = await result.json();
+    console.log(meals);
+    return meals.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getRecipesByName = async (name) => {
+  try {
+    const result = await fetch(`${URL_RECIPES}=${name}`);
+    const { meals } = await result.json();
+    return meals.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+// export const getRecipesByLocation = async (location) => {
+// const result = await fetch(`${URL_SEARCH_MEALS_LOCATION=${location}`);
+// const { meals } = await result.json();
+// return meals.slice(0, LENGTH_DOZE);
+// };
+
+export const getRecipesByFirstLetter = async (firstLetter) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_MEALS}search.php?f=${firstLetter}`);
+    const { meals } = await result.json();
+    return meals.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+// ---------------------DRINKS-----------------------------------------------------------
+
 export const getDrinks = async () => {
-  const result = await fetch(URL_DRINKS);
-  const { drinks } = await result.json();
-  console.log(drinks);
-  return drinks.slice(0, LENGTH_DOZE);
+  try {
+    const result = await fetch(URL_DRINKS);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getDrinksByIngredients = async (ingredient) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?i=${ingredient}`);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getDrinksByName = async (name) => {
+  try {
+    const result = await fetch(`${URL_DRINKS}=${name}`);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getDrinksByFirstLetter = async (firstLetter) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?f=${firstLetter}`);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
 };
