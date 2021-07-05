@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-import './header.css';
+import './components.css';
 
 function Header({ title, classname }) {
   const [isSerching, setIsSerching] = useState(false);
