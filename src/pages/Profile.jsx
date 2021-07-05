@@ -3,7 +3,7 @@ import React from 'react';
 function Profile() {
   return (
     <main>
-      <h1>oi</h1>
+      <h1>ola</h1>
     </main>
   );
 }
