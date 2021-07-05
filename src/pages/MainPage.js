@@ -16,26 +16,33 @@ export default function MainPage() {
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
 
   const { searchResult, limit, setLimit } = useContext(RecipesContext);
-  const [isLoading, setLoader] = useState(false);
+  const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [renderer, setRenderer] = useState([]);
 
+  // Source: https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm
+
   useEffect(() => {
+    let mounted = true;
     async function getInitialStatePopulated() {
-      setLoader(true);
       const URL = `https://www.${domain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
-      setDataResult(resolved[firstKey]);
+      if (mounted) {
+        setDataResult(resolved[firstKey]);
+        setLoader(false);
+      }
     }
     getInitialStatePopulated();
+
     setRenderer(dataResult.filter((_e, index) => index < limit));
-    setLoader(false);
     if (searchResult && searchResult.length > 1) {
-      setLoader(true);
       setRenderer(searchResult.filter((_e, index) => index < limit));
       setLoader(false);
     }
+    return function cleanup() {
+      mounted = false;
+    };
   }, [limit, firstKey, dataResult, searchResult, domain]);
 
   useEffect(() => {
