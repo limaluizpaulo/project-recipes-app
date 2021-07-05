@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { // useParams,
+  Link,
   useRouteMatch,
 } from 'react-router-dom';
 
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Container } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -38,9 +39,9 @@ export default function Header() {
       return (
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Nav.Link href="/perfil">
+            <Link to="/perfil">
               <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
-            </Nav.Link>
+            </Link>
             <Navbar.Brand href="/">
               <h1 data-testid="page-title">{ getTitle() }</h1>
             </Navbar.Brand>
@@ -64,9 +65,9 @@ export default function Header() {
       return (
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Nav.Link href="/perfil">
+            <Link to="/perfil">
               <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
-            </Nav.Link>
+            </Link>
             <h1 data-testid="page-title">{ getTitle() }</h1>
           </Container>
         </Navbar>
