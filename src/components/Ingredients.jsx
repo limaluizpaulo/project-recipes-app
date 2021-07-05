@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useIngredients from '../hooks/useIngredients';
 
 export default function Ingredients({ recipe, radioBtn }) {
-  const { createIngredientsAndMesure } = useIngredients();
+  const [arrChecked, setArrChecked] = useState({});
+  const { createIngredientsAndMesure, handleIngredients } = useIngredients();
   const ingredients = createIngredientsAndMesure(recipe, 'ingredients');
   const mesure = createIngredientsAndMesure(recipe, 'mesure');
 
@@ -16,6 +17,7 @@ export default function Ingredients({ recipe, radioBtn }) {
               id={ index }
               value={ index }
               type="checkbox"
+              onChange={ (e) => handleIngredients(e, recipe, setArrChecked) }
             />
             {ingredient}
           </label>
