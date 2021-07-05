@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import RecipesContext from '../Context/RecipesContext';
+import CategoryMeals from './CategoryMeals';
 
 export default function CardMeal() {
   const { responseApiLupaMeal } = useContext(RecipesContext);
@@ -24,6 +25,7 @@ export default function CardMeal() {
 
   return (
     <main>
+      <CategoryMeals />
       <ul>
         {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
           <li key={ idMeal } data-testid={ `${index}-recipe-card` }>

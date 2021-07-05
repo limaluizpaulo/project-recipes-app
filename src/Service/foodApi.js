@@ -21,3 +21,9 @@ export const fetchFirstLetterMeal = async (first) => {
   const { meals } = await firstLetter.json();
   return meals;
 };
+
+export const fetchMealsCategory = async () => {
+  const categoryMeals = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const { meals } = await categoryMeals.json();
+  return meals;
+};

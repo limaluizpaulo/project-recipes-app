@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../Context/RecipesContext';
+import CategoryDrinks from './CategoryDrinks';
 
 export default function CardDrink() {
   const { resposeApiLupaDrink } = useContext(RecipesContext);
@@ -21,6 +22,7 @@ export default function CardDrink() {
   }
   return (
     <main>
+      <CategoryDrinks />
       <ul>
         {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           <li key={ idDrink } data-testid={ `${index}-recipe-card` }>
