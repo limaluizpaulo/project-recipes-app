@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
 import { Provider } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './pages/Login';
-import MainPageFood from './pages/MainPageFood';
-import store from './store';
+import { Login, MainPage } from './pages';
 import AppRecipeProvider from './context/AppRecipeProvider';
+import store from './store';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
@@ -14,8 +13,9 @@ function App() {
       <AppRecipeProvider>
         <BrowserRouter>
           <Switch>
+            <Route exact path="/comidas" component={ MainPage } />
+            <Route exact path="/bebidas" component={ MainPage } />
             <Route exact path="/" component={ Login } />
-            <Route path="/comidas" component={ MainPageFood } />
           </Switch>
         </BrowserRouter>
       </AppRecipeProvider>
