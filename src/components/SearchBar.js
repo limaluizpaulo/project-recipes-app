@@ -16,7 +16,7 @@ export default function SearchBar() {
     function redirectorOneResult() {
       history.push(`${path}/${globalState[0][targetId]}`);
     }
-    if (globalState.length === 1) {
+    if (globalState && globalState.length === 1) {
       redirectorOneResult();
     }
   }, [path, history, globalState]);
@@ -50,7 +50,11 @@ export default function SearchBar() {
     }
 
     const data = await fetchAPI(link(domain, content));
+    console.log(data);
     const firstKey = (path === '/bebidas') ? 'drinks' : 'meals';
+    if (!data[firstKey]) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     if (content !== '' && URL !== '') {
       setGlobalState(data[firstKey]);
     }

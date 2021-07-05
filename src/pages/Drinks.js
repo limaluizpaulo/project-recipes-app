@@ -13,7 +13,7 @@ export default function Foods() {
   const [limit, setLimit] = useState(TWELVE);
 
   useEffect(() => {
-    if (globalState.length > 1) {
+    if (globalState && globalState.length > 1) {
       setSearchStatus(true);
       setResult(globalState.filter((_e, index) => index < limit));
     }
