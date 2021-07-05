@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom';
 
 class cards extends Component {
   render() {
-    const { id, img, title, index, url } = this.props;
+    const { id, img, title, index, url, details } = this.props;
     return (
-      <Link to={ `${url}/${id}` }>
+      <Link to={ `${url}/${id}` } onClick={ () => details(id) }>
         <Card
           data-testid={ `${index}-recipe-card` }
         >
@@ -34,6 +34,7 @@ cards.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  details: PropTypes.func.isRequired,
 };
 
 export default cards;
