@@ -1,6 +1,6 @@
-.card-button{
+.card-button {
+  background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.33);
   border-radius: 15px;
-  background: transparent;
   margin: 5px 0;
 }
