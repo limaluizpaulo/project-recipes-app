@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
