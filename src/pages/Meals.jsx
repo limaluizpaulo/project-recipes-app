@@ -14,7 +14,7 @@ const Meals = () => {
   return (
     <div>
 
-      <Header name="Comidas" search />
+      <Header name="Comidas" search db="meals" />
 
       <Categories
         categories={ categories }
