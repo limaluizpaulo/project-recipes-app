@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 export default function ExploreDrinks() {
   return (
     <>
-      <Header />
+      <Header title="Explorar Bebidas" />
       <Link to="/explorar/bebidas/ingredientes">
         <button
           type="button"
