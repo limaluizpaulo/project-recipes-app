@@ -4,4 +4,13 @@ export const setToken = (email) => {
   localStorage.user = JSON.stringify({ email });
 };
 
-export const setRecipe = () => false;
+export const checkRecypeId = (idRecipe) => {
+  const dones = localStorage.doneRecipes ? JSON.parse(localStorage.doneRecipes) : [];
+  return dones.find(({ id }) => id === idRecipe);
+};
+
+export const checkProgress = (idRecipe, meals) => {
+  const recipe = meals ? 'meals' : 'cocktails';
+  return localStorage.inProgressRecipes
+  && JSON.parse(localStorage.inProgressRecipes)[recipe][idRecipe];
+};

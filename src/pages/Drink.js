@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { recipeById } from '../services/requests';
+import { checkRecypeId, checkProgress } from '../services/localStorage';
 import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
 
@@ -15,6 +16,8 @@ const Drink = ({ match }) => {
   useEffect(() => {
     recipeById(id).then(setDrink);
   }, [id, setDrink]);
+
+  const textProgress = checkProgress(id) ? 'Continuar Receita' : 'Iniciar Receita';
 
   console.log(drink);
   return (
@@ -37,18 +40,19 @@ const Drink = ({ match }) => {
       <button type="button" data-testid="favorite-btn">
         Favoritar
       </button>
-      <button
-        className="footer"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {!checkRecypeId(id) && (
+        <button
+          className="footer"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
+        >
+          {textProgress}
+        </button>
+      )}
       <br />
       <Carousel />
       <Link to="/bebidas"><button type="button">Voltar</button></Link>
-      <br />
       <br />
       <br />
     </div>
