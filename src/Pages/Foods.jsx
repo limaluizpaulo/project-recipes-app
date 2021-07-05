@@ -19,7 +19,7 @@ function Foods(props) {
   const { foods } = props;
   React.useEffect(() => {
     getByCategory()
-      .then((res) => setCategories(res))
+      .then(setCategories)
       .then(() => (
         getByDefault()
           .then(setFirstFoods)
