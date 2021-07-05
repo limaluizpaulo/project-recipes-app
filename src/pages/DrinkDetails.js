@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
@@ -21,7 +21,7 @@ function DrinkDetails() {
   return (
     drink && (
       drink.map((
-        { strDrink, strInstructions,
+        { idDrink, strDrink, strInstructions,
           strDrinkThumb, strAlcoholic, strSource, ...rest },
         index,
       ) => {
@@ -54,13 +54,15 @@ function DrinkDetails() {
             </div>
             <RecomendationsMeal />
             <div className="recipeBtn">
-              <button
-                type="button"
-                className="startRecipeBtn"
-                data-testid="start-recipe-btn"
-              >
-                Iniciar Receita
-              </button>
+              <Link to={ `/bebidas/${idDrink}/in-progress` }>
+                <button
+                  type="button"
+                  className="startRecipeBtn"
+                  data-testid="start-recipe-btn"
+                >
+                  Iniciar Receita
+                </button>
+              </Link>
             </div>
           </div>
         );

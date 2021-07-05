@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
@@ -21,7 +21,7 @@ function FoodDetails() {
   return (
     item && (
       item.map((
-        { strMeal, strInstructions, strYoutube,
+        { idMeal, strMeal, strInstructions, strYoutube,
           strMealThumb, strCategory, strSource, ...rest },
         index,
       ) => {
@@ -56,9 +56,6 @@ function FoodDetails() {
                 data-testid="video"
                 src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
                 frameBorder="0"
-                allow="accelerometer; autoplay;
-            clipboard-write;
-            encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 title="Embedded youtube"
               />
@@ -66,13 +63,15 @@ function FoodDetails() {
             </div>
             <RecomendationsDrink />
             <div className="recipeBtn">
-              <button
-                type="button"
-                className="startRecipeBtn"
-                data-testid="start-recipe-btn"
-              >
-                Iniciar Receita
-              </button>
+              <Link to={ `/comidas/${idMeal}/in-progress` }>
+                <button
+                  type="button"
+                  className="startRecipeBtn"
+                  data-testid="start-recipe-btn"
+                >
+                  Iniciar Receita
+                </button>
+              </Link>
             </div>
           </div>
         );
