@@ -7,7 +7,13 @@ import RecipeCard from '../components/RecipeCard';
 import CategoryBtn from '../components/CategoryBtn';
 
 function Drinks() {
-  const { drinks, categories, manageRenderDrink } = useContext(Context);
+  const {
+    drinks,
+    categories,
+    manageRenderDrink,
+    filterCategoryDrinks,
+  } = useContext(Context);
+
   const maxRecipe = 12;
   const maxCategory = 5;
   const render = drinks.length > 0 && categories;
@@ -16,7 +22,7 @@ function Drinks() {
     RecipeCard(drink, index)));
   const categoryList = () => categories.drinks.slice(0, maxCategory)
     .map(({ strCategory }) => (
-      CategoryBtn(strCategory)));
+      CategoryBtn(strCategory, filterCategoryDrinks)));
   const renderList = (
     <div>
       <div>
