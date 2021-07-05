@@ -9,12 +9,14 @@ import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
 import Ingredients from './pages/Ingredientes';
 
+import Comidas from './pages/Comidas';
+
 function App() {
   return (
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route path="/comidas" component={Comidas} /> */}
+        <Route path="/comidas" component={ Comidas } />
         {/* <Route path="/bebidas" component={Bebidas} /> */}
         {/* <Route path="/comidas/:id" component={ReceitaDetalhes} /> */}
         {/* <Route path="/bebidas/:id" component={ReceitaDetalhes} /> */}
