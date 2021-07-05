@@ -165,6 +165,7 @@ function DetalhesComidas({ match }) {
                 className="start-button"
                 type="button"
                 data-testid="start-recipe-btn"
+                onClick={ () => history.push(`/comidas/${item.idMeal}/in-progress`) }
               >
                 Iniciar Receita
               </button>
