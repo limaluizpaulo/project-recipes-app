@@ -79,7 +79,7 @@ function FetchProvider({ children }) {
     nameRecipes,
     setNameRecipes,
     categories,
-    setCategories, 
+    setCategories,
   };
 
   return (

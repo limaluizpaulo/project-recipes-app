@@ -9,14 +9,14 @@ import Category from '../components/Category';
 
 function Drinks() {
   const {
-    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories
+    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories,
   } = useContext(FetchContext);
 
   Drinks.displayName = 'Bebidas';
 
   const renderCategorys = () => {
-    categoryListDrink().then((res) => setCategories(res))
-  }
+    categoryListDrink().then((res) => setCategories(res));
+  };
 
   useEffect(() => {
     renderCategorys();

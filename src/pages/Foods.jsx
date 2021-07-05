@@ -9,14 +9,14 @@ import Category from '../components/Category';
 
 function Foods() {
   const {
-    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, categories
+    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, categories,
   } = useContext(FetchContext);
 
   Foods.displayName = 'Comidas';
 
   const renderCategorys = () => {
-    categoryListMeal().then((res) => setCategories(res))
-  }
+    categoryListMeal().then((res) => setCategories(res));
+  };
 
   useEffect(() => {
     renderCategorys();
@@ -31,21 +31,16 @@ function Foods() {
     return fnAlert(alert, msg);
   }
 
-  // if (data.length === 1) {
-  //   return <Redirect to={ `/comidas/${data[0].idMeal}` } />;
-  // }
-
   if (data.length === 1 && data[0].idMeal !== '52968') {
     return <Redirect to={ `/comidas/${data[0].idMeal}` } />;
   }
-
 
   const renderRecipes = () => {
     setNameRecipes('strMeal');
     setImgRecipes('strMealThumb');
     fetchRecipesList().then((res) => setData(res));
   };
- 
+
   return (
     <div>
       { setTypeFunc('Foods')}

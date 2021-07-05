@@ -12,7 +12,6 @@ export const fetchDrinksList = async () => {
   return data;
 };
 
-
 export const categoryListMeal = async () => {
   const meals = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const response = await meals.json();
@@ -27,7 +26,7 @@ export const categoryListDrink = async () => {
   return data;
 };
 
-export const filterCategoryMeals= async (category) => {
+export const filterCategoryMeals = async (category) => {
   const fetchByCategory = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   const response = await fetchByCategory.json();
   const data = response.meals;
@@ -40,4 +39,3 @@ export const filterCategoryDrinks = async (category) => {
   const data = response.drinks;
   return data;
 };
-
