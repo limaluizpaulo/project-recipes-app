@@ -1,8 +1,6 @@
 import CookedRecipes from './CookedRecipes';
-import Drinks from './Drinks';
 import Explore from './Explore';
 import FavoritesRecipes from './FavoriteRecipes';
-import Foods from './Foods';
 import Login from './Login';
 import Profile from './Profile';
 import NotFound from './NotFound';
@@ -12,16 +10,14 @@ import ExploreDrinksByIngredients from './ExploreDrinksByIngredients';
 import ExploreFoodsByIngredients from './ExploreFoodsByIngredients';
 import ExploreFoodsByLocation from './ExploreFoodsByLocation';
 import FoodRecipeByIdProgress from './FoodRecipeByIdProgress';
-import DrinkRecipeById from './DrinkRecipeById';
-import FoodRecipeById from './FoodRecipeById';
 import DrinkRecipeByIdProgress from './DrinkRecipeByIdProgress';
+import MainPage from './MainPage';
+import FoodAndDrinkById from './FoodAndDrinkById';
 
 export default {
   CookedRecipes,
-  Drinks,
   Explore,
   FavoritesRecipes,
-  Foods,
   Login,
   Profile,
   NotFound,
@@ -31,7 +27,7 @@ export default {
   ExploreFoodsByIngredients,
   ExploreFoodsByLocation,
   FoodRecipeByIdProgress,
-  DrinkRecipeById,
-  FoodRecipeById,
   DrinkRecipeByIdProgress,
+  MainPage,
+  FoodAndDrinkById,
 };

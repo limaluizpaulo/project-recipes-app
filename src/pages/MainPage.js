@@ -7,7 +7,7 @@ import Card from '../components/Card';
 import fetchAPI from '../services/apiRequest';
 
 const TWELVE = 12;
-export default function Drinks() {
+export default function MainPage() {
   const { path } = useRouteMatch();
   const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
