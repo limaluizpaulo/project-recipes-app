@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareBtn({ pathname }) {
+export default function ShareBtn({ pathname, doneRecipe, recipe, index }) {
   const [copyLink, setCopyLink] = useState(false);
 
   const handleClipBoard = () => {
@@ -18,7 +18,11 @@ export default function ShareBtn({ pathname }) {
         type="button"
         onClick={ handleClipBoard }
       >
-        <img src={ shareIcon } alt="share" data-testid="share-btn" />
+        <img
+          src={ shareIcon }
+          alt="share"
+          data-testid={ doneRecipe ? `${index}-horizontal-share-btn` : 'share-btn' }
+        />
       </button>
       {copyLink && <p>Link copiado!</p>}
     </div>
