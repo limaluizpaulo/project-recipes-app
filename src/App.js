@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ReceitaDetalhes from './pages/ReceitaDetalhes';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,10 +10,10 @@ function App() {
     <Switch>
       {/* <Route path="/" component={Login} />
       <Route path="/comidas" component={Comidas} />
-      <Route path="/bebidas" component={Bebidas} />
-      <Route path="/comidas/:id" component={ReceitaDetalhes} />
-      <Route path="/bebidas/:id" component={ReceitaDetalhes} />
-      <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} />
+      <Route path="/bebidas" component={Bebidas} /> */}
+      <Route path="/comidas/:id" component={ ReceitaDetalhes } />
+      <Route path="/bebidas/:id" component={ ReceitaDetalhes } />
+      {/* <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} />
       <Route path="/bebidas/:id/in-progress" component={ReceitaEmProgresso} />
       <Route path="/explorar" component={Explorar} />
       <Route path="/explorar/comidas" component={ExplorarComidas} />

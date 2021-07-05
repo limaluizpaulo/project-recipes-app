@@ -1,0 +1,64 @@
+iframe {
+  width: 360px;
+}
+
+img {
+  height: 150px;
+  object-fit: cover;
+  width: 360px;
+}
+
+.carousel-items {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.ingredients li {
+  list-style: none;
+  width: 360px;
+}
+
+.instructions {
+  text-align: justify;
+  width: 360px;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+}
+
+.title h6 {
+  align-self: flex-start;
+  color: grey;
+}
+
+.title-left {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  width: 230px;
+}
+
+.title img {
+  display: flex;
+  height: 25px;
+  width: 25px;
+}
+
+.title button {
+  background: none;
+  border: none;
+  height: 30px;
+  width: 35px;
+}
+
+.start {
+  bottom: 0;
+  left: 120px;
+  position: fixed;
+}
