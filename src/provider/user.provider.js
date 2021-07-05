@@ -41,7 +41,7 @@ function UserProvider({ children }) {
     if (!localStorage.getItem('doneRecipes')) {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
-  }, []);
+  }, [initialObj]);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify({ email: userEmail }));
@@ -58,7 +58,7 @@ function UserProvider({ children }) {
   }, [done]);
 
   useEffect(() => {
-    console.log('setei: ', inProgress)
+    console.log('setei: ', inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   }, [inProgress]);
 

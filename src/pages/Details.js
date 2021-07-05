@@ -11,7 +11,6 @@ function Details() {
 
   const isDrinks = pathname.includes('bebidas');
   const typeKey = isDrinks ? 'cocktails' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const isDone = doneRecipes.some((item) => item.id === id);

@@ -64,17 +64,17 @@ export function toggleIngredient(params) {
   const typeKey = isDrink ? 'cocktails' : 'meals';
   const idKey = isDrink ? 'idDrink' : 'idMeal';
   const id = recipe[idKey];
-  const ingredients = inProgress[typeKey][id] || [];
-  const wasUsed = ingredients.includes(ingredient);
+  const usedIngredients = inProgress[typeKey][id] || [];
+  const wasUsed = usedIngredients.includes(ingredient);
 
   if (wasUsed) {
-    const index = ingredients.findIndex((item) => item === ingredient);
-    ingredients.splice(index, 1);
+    const index = usedIngredients.findIndex((item) => item === ingredient);
+    usedIngredients.splice(index, 1);
   } else {
-    ingredients.push(ingredient);
+    usedIngredients.push(ingredient);
   }
 
   const newObj = { ...inProgress };
-  newObj[typeKey][id] = ingredients;
+  newObj[typeKey][id] = usedIngredients;
   setInProgress(newObj);
 }

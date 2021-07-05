@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import UserContext from '../context/user.context';
 import { getDetails } from '../helpers';
@@ -8,10 +9,9 @@ import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
-function RecipeDetails() {
+function RecipeDetails({ ingredients, setIngredients }) {
   const { inProgress, setInProgress } = useContext(UserContext);
   const [details, setDetails] = useState({});
-  const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const {
     location: { pathname },
@@ -35,7 +35,7 @@ function RecipeDetails() {
       setMeasures(result[2]);
     }
     setter();
-  }, [id, type]);
+  }, [id, setIngredients, type]);
 
   function handleCheck({ target: { name } }) {
     const params = {
@@ -95,5 +95,10 @@ function RecipeDetails() {
     </div>
   );
 }
+
+RecipeDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.string),
+  setIngredients: PropTypes.func,
+}.isRequired;
 
 export default RecipeDetails;

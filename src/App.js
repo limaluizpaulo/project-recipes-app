@@ -8,7 +8,7 @@ import WarningMessage from './components/WarningMessage';
 import Login from './pages/Login';
 import Principal from './pages/Principal';
 import Details from './pages/Details';
-import InProgress from './pages/em-processo/InProgress';
+import InProgress from './pages/InProgress';
 import Explorar from './pages/explorar';
 import ExplorarComidaOuBebida from './pages/explorar/ExplorarComidaOuBedida';
 import ExplorarPorIngredientes from './pages/explorar/ingredientes';
