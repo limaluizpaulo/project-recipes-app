@@ -31,7 +31,10 @@ export default {
   name: BeverageServiceNameAPI,
   letter: BeverageServiceFirstLetterAPI,
   surpriseDrink: SurpriseDrinksAPI,
-  default: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  getByCategory: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((res) => res.json())
+    .then((res) => res.drinks),
+  getByDefault: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((res) => res.json())
     .then((res) => res.drinks),
 };
