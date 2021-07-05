@@ -4,8 +4,6 @@ import AppReceitasProvider from './context/AppReceitasProvider';
 
 import Login from './pages/Login';
 import Erro404 from './pages/Page404';
-import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
@@ -18,6 +16,7 @@ import Perfil from './pages/Perfil';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Receitas from './pages/Receitas';
 
 function App() {
   return (
@@ -25,8 +24,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ Comidas } />
-          <Route exact path="/bebidas" component={ Bebidas } />
+          <Route exact path="/comidas" component={ Receitas } />
+          <Route exact path="/bebidas" component={ Receitas } />
           <Route path="/comidas/{id-da-receita}" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}" component={ Erro404 } />
           <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />

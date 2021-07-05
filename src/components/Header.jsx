@@ -50,6 +50,7 @@ function Header() {
         <button
           type="button"
           onClick={ handleSearch }
+          className="button-transparent"
         >
           <img
             alt="Search"

@@ -1,61 +1,31 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { comidaApi, bebidaApi } from '../services/servicesApi';
+import { useLocation } from 'react-router-dom';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function SearchInput() {
-  const pathName = useHistory();
-  const { setFetchAPI } = useContext(AppReceitasContext);
+  const { pathname } = useLocation();
+  const { setParametrosBusca } = useContext(AppReceitasContext);
   const [selectFilter, setSelectFilter] = useState({
+    flag: '',
     input: '',
-    search: '',
   });
-
-  const chamaAlert = (funcaoAlert) => {
+  const exibirAlert = (funcaoAlert) => {
     funcaoAlert('Sua busca deve conter somente 1 (um) caracter');
-  };
-
-  const verificaTamanhoArray = (array, type) => {
-    if (array !== null) {
-      const objeto = array[0];
-      let id = '';
-
-      if (type === 'comidas') {
-        id = 'idMeal';
-      } else {
-        id = 'idDrink';
-      }
-
-      if (array.length === 1) {
-        pathName.push(`/${type}/${objeto[id]}`);
-      }
-    }
-  };
-
-  const getApiComidas = async ({ input, search }) => {
-    if ((input.length > 1) && (search === 'f')) {
-      chamaAlert(alert);
-    } else {
-      const resposta = await comidaApi(input, search);
-      setFetchAPI(resposta);
-      verificaTamanhoArray(resposta.meals, 'comidas');
-    }
-  };
-
-  const getApiBedidas = async ({ input, search }) => {
-    if ((input.length > 1) && (search === 'f')) {
-      chamaAlert(alert);
-    } else {
-      const resposta = await bebidaApi(input, search);
-      setFetchAPI(resposta);
-      verificaTamanhoArray(resposta.drinks, 'bebidas');
-    }
   };
 
   const handleChange = ({ target }) => {
     setSelectFilter({
       ...selectFilter, [target.name]: target.value,
     });
+  };
+
+  const executeSearch = () => {
+    const apelidoAPI = pathname.replace('/', '');
+    const { flag, input } = selectFilter;
+    if (flag === 'f' && input.length > 1) {
+      return exibirAlert(alert);
+    }
+    setParametrosBusca({ ...selectFilter, apelidoAPI });
   };
 
   return (
@@ -74,7 +44,7 @@ function SearchInput() {
         <input
           type="radio"
           value="i"
-          name="search"
+          name="flag"
           onChange={ handleChange }
           id="ingredient"
           data-testid="ingredient-search-radio"
@@ -84,7 +54,7 @@ function SearchInput() {
         Nome
         <input
           type="radio"
-          name="search"
+          name="flag"
           onChange={ handleChange }
           value="s"
           id="name"
@@ -94,7 +64,7 @@ function SearchInput() {
       <label htmlFor="first-letter">
         Primeira letra
         <input
-          name="search"
+          name="flag"
           onChange={ handleChange }
           type="radio"
           value="f"
@@ -105,8 +75,7 @@ function SearchInput() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => (pathName.location.pathname === '/comidas'
-          ? getApiComidas(selectFilter) : getApiBedidas(selectFilter)) }
+        onClick={ executeSearch }
       >
         Buscar
       </button>
