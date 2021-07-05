@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
-import store, { addRecommended } from '../../context/store';
-import { DRINKS, fetchAPI, MEALS } from '../../services';
+import store, { } from '../../context/store';
+// import { DRINKS, fetchAPI, MEALS } from '../../services';
 
 const initialImgs = { firstImg: 0, secondImg: 1 };
 
 export default function RecommendedRecipes() {
   const [show, setShow] = useState(initialImgs);
   const {
-    recipes: { foods, recommendedRecipes, recommendedLimit },
-    setRecipes } = useContext(store);
+    recipes: { recommendedRecipes, recommendedLimit },
+  } = useContext(store);
 
   const renderRecommended = () => {
     const { firstImg, secondImg } = show;
@@ -78,18 +78,18 @@ export default function RecommendedRecipes() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    const getRecommended = async () => {
-      if (foods) {
-        const Drinks = await fetchAPI(DRINKS);
-        setRecipes(addRecommended(Drinks.drinks));
-      } else {
-        const Meals = await fetchAPI(MEALS);
-        setRecipes(addRecommended(Meals.meals));
-      }
-    };
-    getRecommended();
-  }, []);
+  // useEffect(() => {
+  //   const getRecommended = async () => {
+  //     if (foods) {
+  //       const Drinks = await fetchAPI(DRINKS);
+  //       setRecipes(addRecommended(Drinks.drinks));
+  //     } else {
+  //       const Meals = await fetchAPI(MEALS);
+  //       setRecipes(addRecommended(Meals.meals));
+  //     }
+  //   };
+  //   getRecommended();
+  // }, []);
 
   // ---------------------------------------------------------------------------------------------
 

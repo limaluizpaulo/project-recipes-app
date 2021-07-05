@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import RecipeIngredients from './RecipeIngredients';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
-// import RecommendedRecipes from './RecommendedRecipes';
+import RecommendedRecipes from './RecommendedRecipes';
 import store from '../../context/store';
 
 export default function RenderDetails() {
   const { recipes: { foods, recipeDetail } } = useContext(store);
-  console.log(recipeDetail);
 
   const renderRecipe = () => (
     <div>
@@ -53,13 +52,13 @@ export default function RenderDetails() {
             frameBorder="0"
             allowFullScreen
             allow="autoplay; encrypted-media"
-            // src={ recipeDetail.strYoutube.replace('watch?v=', 'embed/') }
+            src={ recipeDetail.strYoutube.replace('watch?v=', 'embed/') }
           />
         </div>
       ) : ('')}
       <div className="recommendedRecipes">
         <h3>Receitas Recomendadas</h3>
-        {/* <RecommendedRecipes /> */}
+        <RecommendedRecipes />
       </div>
       <Link
         to={ (foods) ? (
