@@ -20,7 +20,7 @@ function FoodDetails({ match, history }) {
   const [wasCopied, setWasCopied] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [donerecipe, setDoneRecipe] = useState(true);
-  const [type, setType] = useState('comida');
+  const [type, setType] = useState(true);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -30,10 +30,10 @@ function FoodDetails({ match, history }) {
         setIsStarted(checkProgress(id, 'meals'));
       }
       if (pathname.includes('bebidas')) {
+        setType(false);
         const drink = await getDrinkDetails(id);
         setDetails(drink);
         setIsStarted(checkProgress(id, 'cocktails'));
-        setType('bebida');
       }
     };
     fetchDetails();
