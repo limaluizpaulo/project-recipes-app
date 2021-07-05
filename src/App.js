@@ -7,15 +7,11 @@ import Food from './pages/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
-import Explorar from './pages/Explore/Explore';
-import ExplorarComidas from './pages/ExploreFood/ExploreFood';
-import ExplorarBebidas from './pages/ExploreDrinks/ExploreDrinks';
+import Explorar from './pages/Explorar/Explorar';
+import ExplorerFoods from './pages/ExplorerFoods/ExplorerFoods';
+import ExplorerDrinks from './pages/ExplorerDrinks/ExplorerDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
-import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
-import Profile from './pages/Profile/Profile';
-import RecipesMade from './pages/RecipesMade/RecipesMade';
-import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
 const test = '';
 function App() {
@@ -31,8 +27,8 @@ function App() {
           <Route path="/bebidas/:id" exact component={ test } />
           <Route path="/bebidas/:id/in-progress" exact component={ test } />
           <Route path="/explorar" exact component={ Explorar } />
-          <Route path="/explorar/comidas" exact component={ ExplorarComidas } />
-          <Route path="/explorar/bebidas" exact component={ ExplorarBebidas } />
+          <Route path="/explorar/comidas" exact component={ ExplorerFoods } />
+          <Route path="/explorar/bebidas" exact component={ ExplorerDrinks } />
           <Route
             path="/explorar/comidas/ingredientes"
             exact

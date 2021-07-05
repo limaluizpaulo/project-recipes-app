@@ -7,6 +7,7 @@ import {
   requestAllDrinkCategory } from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
+import Footer from '../../components/Footer/Footer';
 
 function Drinks() {
   const [data, setData] = useState([]);
