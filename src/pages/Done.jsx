@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import { Header, Filters, Tags } from '../components';
-import shareIcon from '../images/shareIcon.svg';
+import { Header, Filters, Tags, ShareButton } from '../components';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Done = () => {
@@ -75,22 +73,17 @@ const Done = () => {
                     <span data-testid={ `${index}-horizontal-top-text` }>
                       {alcoholicOrNot || `${area} - ${category}`}
                     </span>
-                    <button
-                      type="button"
-                      onClick={ () => {
-                        clipboardCopy(`http://localhost:3000/${type}s/${id}`);
-                        setCopied(true);
-                      } }
-                    >
-                      <img
-                        src={ shareIcon }
-                        alt=""
-                        data-testid={ `${index}-horizontal-share-btn` }
-                      />
-                    </button>
                     <Link to={ `/${type}s/${id}` }>
                       <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
                     </Link>
+
+                    <ShareButton
+                      type={ type }
+                      id={ id }
+                      changeCopy={ setCopied }
+                      index={ index }
+                    />
+
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}
                     </h4>
