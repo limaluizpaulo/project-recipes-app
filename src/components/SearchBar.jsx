@@ -40,7 +40,7 @@ const SearchBar = ({ db }) => {
             data-testid="ingredient-search-radio"
             value="i"
           />
-          Ingredientes
+          Ingrediente
         </label>
         <label htmlFor="name-search">
           <input

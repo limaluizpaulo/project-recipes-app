@@ -5,26 +5,29 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-const Header = ({ name, db }) => {
+const Header = ({ name, search, db }) => {
   const [bar, setBar] = useState(false);
 
   return (
-    <div>
+    <header>
       <Link to="/perfil">
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </Link>
+
       <h1 data-testid="page-title">{ name }</h1>
 
-      <button type="button" onClick={ () => setBar(!bar) }>
-        <img
-          src={ searchIcon }
-          alt="profileIcon"
-          data-testid="search-top-btn"
-        />
-      </button>
+      { search && (
+        <button type="button" onClick={ () => setBar(!bar) }>
+          <img
+            src={ searchIcon }
+            alt="profileIcon"
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
 
       {bar ? <SearchBar db={ db } /> : ''}
-    </div>
+    </header>
   );
 };
 

@@ -9,7 +9,9 @@ const Drinks = () => {
   const recipesShow = 12;
   return (
     <div>
-      <Header name="Bebidas" db="drinks" />
+
+      <Header name="Bebidas" search db="drinks" />
+
       <Categories
         categories={ categories }
         onClick={ setFilterCategory }
