@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 function MainDrinks() {
   return (
     <div>
-      <Header title="Bebidas" classname="display" />
+      <Header title="Bebidas" display="true" />
       <Footer />
     </div>
   );

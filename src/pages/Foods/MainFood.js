@@ -7,7 +7,7 @@ export default function MainFood() {
     <div
       className="main-food-class"
     >
-      <Header title="Comidas" classname="display" />
+      <Header title="Comidas" display="true" />
       <Footer />
     </div>
   );
