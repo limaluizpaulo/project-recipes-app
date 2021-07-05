@@ -1,9 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-function SearchBar() {
-  return (
-=======
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -55,17 +50,13 @@ function SearchBar(props) {
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
     <form>
       <fieldset />
       <label htmlFor="search">
         <input
           id="search"
           type="text"
-<<<<<<< HEAD
-=======
           ref={ inputText }
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
           name="search"
           placeholder="Buscar Receita"
           data-testid="search-input"
@@ -78,12 +69,8 @@ function SearchBar(props) {
         <input
           id="ingredient"
           type="radio"
-<<<<<<< HEAD
-          name="ingredient"
-=======
           ref={ ingredientRadio }
           name="radioFilter"
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
           data-testid="ingredient-search-radio"
         />
         Ingrediente
@@ -93,12 +80,8 @@ function SearchBar(props) {
         <input
           id="name"
           type="radio"
-<<<<<<< HEAD
-          name="name"
-=======
           ref={ nameRadio }
           name="radioFilter"
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
           data-testid="name-search-radio"
         />
         Nome
@@ -108,20 +91,13 @@ function SearchBar(props) {
         <input
           id="letter"
           type="radio"
-<<<<<<< HEAD
-          name="letter"
-=======
           ref={ letterRadio }
           name="radioFilter"
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
           data-testid="first-letter-search-radio"
         />
         Primeira letra
       </label>
       &nbsp;
-<<<<<<< HEAD
-      <button type="submit" data-testid="exec-search-btn">Busca</button>
-=======
       <button
         type="submit"
         data-testid="exec-search-btn"
@@ -129,14 +105,10 @@ function SearchBar(props) {
       >
         Busca
       </button>
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
     </form>
   );
 }
 
-<<<<<<< HEAD
-export default SearchBar;
-=======
 const mapStateToProps = (state) => ({
   foods: state.foods.list,
   goToFoodsPage: state.foods.goToFoodsPage,
@@ -153,4 +125,3 @@ const mapDispatchToProps = ((dispatch) => ({
 
 SearchBar.propTypes = PropTypes.shape({}).isRequired;
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
->>>>>>> 3733e1de78fa0e110ae8de9bdaba804948ede2bd
