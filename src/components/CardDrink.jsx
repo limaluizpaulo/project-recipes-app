@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import RecipesContext from '../Context/RecipesContext';
 import CategoryDrinks from './CategoryDrinks';
 
 export default function CardDrink() {
   const { resposeApiLupaDrink, redirect } = useContext(RecipesContext);
-  const history = useHistory();
   const twelve = 12;
   let arrayDrink = resposeApiLupaDrink;
 
@@ -18,7 +17,7 @@ export default function CardDrink() {
   }
   if (resposeApiLupaDrink.length === 1 && redirect) {
     const { idDrink } = resposeApiLupaDrink[0];
-    return history.push(`/bebidas/${idDrink}`);
+    return <Redirect to={ `/bebidas/${idDrink}` } />;
   }
   return (
     <main>

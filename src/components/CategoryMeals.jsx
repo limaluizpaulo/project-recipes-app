@@ -1,15 +1,21 @@
-import React, { useContext, useEffect } from 'react';
-import { fetchMealsCategory, fetchTypeCotegoryMeals } from '../Service/foodApi';
+import React, { useContext, useEffect, useState } from 'react';
+import { fetchMealsCategory, fetchTypeCotegoryMeals,
+  fetchAllMeals } from '../Service/foodApi';
 import RecipesContext from '../Context/RecipesContext';
 
 export default function CategoryMeals() {
   const { categoryMeals, setCategoryMeals,
     setResponseApiLupaMeal, setRedirect } = useContext(RecipesContext);
-  // const [toggleSearch, setToggleSearch] = useState(false);
+  const [toggleSearch, setToggleSearch] = useState(false);
   const handleClick = ({ target: { value } }) => {
     setRedirect(false);
-    fetchTypeCotegoryMeals(value).then((result) => setResponseApiLupaMeal(result));
-    // setToggleSearch(!toggleSearch);
+    if (!toggleSearch) {
+      fetchTypeCotegoryMeals(value).then((result) => setResponseApiLupaMeal(result));
+      setToggleSearch(true);
+    } else {
+      fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
+      setToggleSearch(false);
+    }
   };
 
   const getApiCategory = () => {

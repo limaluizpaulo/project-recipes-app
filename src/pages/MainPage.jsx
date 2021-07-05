@@ -11,12 +11,14 @@ import RecipesContext from '../Context/RecipesContext';
 
 function MainPage() {
   const { pathname } = useLocation();
-  const { setResponseApiLupaMeal, setResponseApiLupaDrink } = useContext(RecipesContext);
+  const { setResponseApiLupaMeal, setResponseApiLupaDrink,
+  } = useContext(RecipesContext);
 
   const getApiAll = () => {
     fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
     fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
   };
+
   useEffect(getApiAll, []);
   return (
     <div>

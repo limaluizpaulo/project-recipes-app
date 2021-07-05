@@ -9,6 +9,7 @@ function RecipesProvider({ children }) {
   const [categoryMeals, setCategoryMeals] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
   const [redirect, setRedirect] = useState(true);
+  const [toogle, setToogle] = useState(false);
 
   const context = {
     login,
@@ -23,6 +24,8 @@ function RecipesProvider({ children }) {
     setCategoryDrink,
     redirect,
     setRedirect,
+    toogle,
+    setToogle,
   };
   return (
     <RecipesContext.Provider value={ context }>

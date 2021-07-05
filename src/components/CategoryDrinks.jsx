@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
-import { fetchDrinkCategori, fetchTypeCategoryFilter } from '../Service/drinkApi';
+import React, { useContext, useEffect, useState } from 'react';
+import { fetchDrinkCategori, fetchTypeCategoryFilter,
+  fetchAllDrinks } from '../Service/drinkApi';
 import RecipesContext from '../Context/RecipesContext';
 
 export default function CategoryDrinks() {
@@ -7,6 +8,7 @@ export default function CategoryDrinks() {
     categoryDrink,
     setCategoryDrink,
     setResponseApiLupaDrink, setRedirect } = useContext(RecipesContext);
+  const [toggleSearch, setToggleSearch] = useState(false);
   const getApiCategory = () => {
     const FIVE = 5;
     fetchDrinkCategori()
@@ -16,7 +18,13 @@ export default function CategoryDrinks() {
 
   const handleClick = ({ target: { value } }) => {
     setRedirect(false);
-    fetchTypeCategoryFilter(value).then((result) => setResponseApiLupaDrink(result));
+    if (!toggleSearch) {
+      fetchTypeCategoryFilter(value).then((result) => setResponseApiLupaDrink(result));
+      setToggleSearch(true);
+    } else {
+      fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
+      setToggleSearch(false);
+    }
   };
 
   return (
