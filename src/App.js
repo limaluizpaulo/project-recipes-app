@@ -6,7 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login,
   Meals,
   Drinks,
-  Profile } from './pages';
+  Profile,
+  Explore,
+  ExploreMeals,
+  ExploreDrinks } from './pages';
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
@@ -14,16 +17,16 @@ function App() {
     <Switch>
       <Provider>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Meals } />
-        <Route path="/bebidas" component={ Drinks } />
+        <Route exact path="/comidas" component={ Meals } />
+        <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/explorar" component={ Explore } />
         <Route path="/perfil" component={ Profile } />
-        {/* <Route exact path="/comidas/:id" component={} />
-        <Route exact path="/bebidas/:id" component={} />
-        <Route exact path="/comidas/:id/in-progress" component={} />
+        <Route path="/explorar/comidas" component={ ExploreMeals } />
+        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        { /* <Route exact path="/comidas/:id/in-progress" component={} />
+        <Route exact path="/comidas/:id" component={ MealsDetails } />
+        <Route exact path="/bebidas/:id" component={ DrinksDetails } />
         <Route exact path="/bebidas/:id/in-progress" component={} />
-        <Route path="/explorar" component={} />
-        <Route path="/explorar/comidas" component={} />
-        <Route path="/explorar/bebidas" component={} />
         <Route path="/explorar/comidas/area" component={} />
         <Route path="/explorar/comidas/ingredientes" component={} />
         <Route path="/explorar/bebidas/ingredientes" component={} />
