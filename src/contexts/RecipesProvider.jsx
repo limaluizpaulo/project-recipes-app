@@ -3,13 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
-import {
-  getMealsRecipes,
-  // getMealsIngredients,
-  getMealsIngredientsFilter,
-  getMealsNameFilter,
-  getMealsFirstLetterFilter,
-} from '../helpers/MealsAPI';
+import { getMealsRecipes } from '../helpers/MealsAPI';
 import {
   getCocktailsRecipes,
 } from '../helpers/CocktailsAPI';
@@ -19,8 +13,7 @@ function RecipesProvider({ children }) {
   const [type, setType] = useState('meal');
   // const [mealsCategories, setMealsCategories] = useState([]);
   // const [mealsIngredients, setMealsIngredients] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [filterHeader, setFilterHeader] = useState({});
+  const [isFetching, setIsFetching] = useState(true);
 
   const maxCards = 12;
 
@@ -38,7 +31,6 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     const recipes = async () => {
-      setIsFetching(true);
       const results = (type === 'meal')
         ? await getMealsRecipes() : await getCocktailsRecipes();
       /*
@@ -63,22 +55,6 @@ function RecipesProvider({ children }) {
     // ingredients();
   }, []);
 
-  useEffect(() => {
-    const filterApi = () => {
-      if (filterHeader.radioInput === 'ingredients') {
-        getMealsIngredientsFilter(filterHeader.searchInput);
-      }
-      if (filterHeader.radioInput === 'name') {
-        getMealsNameFilter(filterHeader.searchInput);
-      }
-      if (filterHeader.radioInput === 'firstLetter') {
-        getMealsFirstLetterFilter(filterHeader.searchInput);
-      }
-    };
-    filterApi();
-    setData(filterHeader);
-  }, [filterHeader]);
-
   const context = {
     // mealsCategories,
     isFetching,
@@ -86,7 +62,6 @@ function RecipesProvider({ children }) {
     data,
     type,
     setType,
-    setFilterHeader,
     setIsFetching,
     setData,
   };
