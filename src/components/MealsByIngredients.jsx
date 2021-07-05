@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetchFood from '../services/FoodAPI';
 import fetchDrink from '../services/DrinkAPI';
-import Footer from './Footer';
 
 export default function MealsByIngredients() {
   const MEALS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -26,6 +25,14 @@ export default function MealsByIngredients() {
     }
   }, [path]);
 
+  if (ingredients === null) {
+    return (
+      <h2>
+        Loading...
+      </h2>
+    );
+  }
+
   return (
     <div>
       {console.log(ingredients)}
@@ -39,7 +46,6 @@ export default function MealsByIngredients() {
           />
         </div>
       ))}
-      <Footer />
     </div>
   );
 }

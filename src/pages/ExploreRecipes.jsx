@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function ExplorarReceitas() {
   const history = useHistory();
@@ -70,6 +71,7 @@ export default function ExplorarReceitas() {
   }
   return (
     <main>
+      <Header />
       { buttons() }
       <Footer />
     </main>
