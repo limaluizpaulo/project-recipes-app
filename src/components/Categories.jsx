@@ -1,27 +1,26 @@
-import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from '../helpers/Button';
 import RecipesContext from '../contexts/RecipesContext';
 import {
   getMealsRecipes,
   getMealsByCategory,
+  getMealsCategories,
 } from '../helpers/MealsAPI';
 import {
   getCocktailsRecipes,
   getCocktailsByCategory,
+  getCocktailsCategories,
 } from '../helpers/CocktailsAPI';
 
-export default function Categories(props) {
-  const { categories } = props;
-
+export default function Categories() {
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [toggle, setToggle] = useState(false);
   const maxCards = 12;
+  const maxCategories = 5;
 
   const {
-    selectedCategory,
     setData,
-    setSelectedCategory,
-    setToggle,
-    toggle,
     type,
   } = useContext(RecipesContext);
 
@@ -38,6 +37,15 @@ export default function Categories(props) {
   };
 
   useEffect(() => {
+    const getCategories = async () => {
+      const results = (type === 'meal')
+        ? await getMealsCategories() : await getCocktailsCategories();
+      setCategoriesData(results.filter((item, index) => index < maxCategories));
+    };
+    getCategories();
+  }, [type]);
+
+  useEffect(() => {
     const filterCategory = async () => {
       let results;
       if (selectedCategory === 'All') {
@@ -52,7 +60,7 @@ export default function Categories(props) {
       }
     };
     filterCategory();
-  }, [selectedCategory]);
+  }, [selectedCategory, setData, type]);
 
   return (
     <aside>
@@ -64,7 +72,7 @@ export default function Categories(props) {
         className=""
         disabled={ false }
       />
-      {categories.map(({ strCategory }) => (
+      {categoriesData.map(({ strCategory }) => (
         <Button
           key={ strCategory }
           label={ strCategory }
@@ -77,7 +85,3 @@ export default function Categories(props) {
     </aside>
   );
 }
-
-Categories.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
-};

@@ -9,26 +9,20 @@ import {
   getMealsIngredientsFilter,
   getMealsNameFilter,
   getMealsFirstLetterFilter,
-  getMealsCategories,
 } from '../helpers/MealsAPI';
 import {
-  getCocktailsCategories,
   getCocktailsRecipes,
 } from '../helpers/CocktailsAPI';
 
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [type, setType] = useState('meal');
-  const [categoriesData, setCategoriesData] = useState([]);
   // const [mealsCategories, setMealsCategories] = useState([]);
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [filterHeader, setFilterHeader] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [toggle, setToggle] = useState(false);
 
   const maxCards = 12;
-  const maxCategories = 5;
 
   const mustUpdateType = (strType, strPath, pathname) => (
     type !== strType && pathname.includes(strPath)
@@ -58,16 +52,6 @@ function RecipesProvider({ children }) {
       setIsFetching(false);
     };
 
-    const categories = async () => {
-      setIsFetching(true);
-      const results = (type === 'meal')
-        ? await getMealsCategories() : await getCocktailsCategories();
-      setCategoriesData(results.filter((item, index) => index < maxCategories));
-      // const results = await getMealsCategories();
-      // setMeals(results);
-      setIsFetching(false);
-    };
-
     // const ingredients = async () => {
     //   setIsFetching(true);
     //   const results = await getMealsIngredients();
@@ -76,7 +60,6 @@ function RecipesProvider({ children }) {
     // };
 
     recipes();
-    categories();
     // ingredients();
   }, []);
 
@@ -104,11 +87,6 @@ function RecipesProvider({ children }) {
     type,
     setType,
     setFilterHeader,
-    categoriesData,
-    selectedCategory,
-    setSelectedCategory,
-    setToggle,
-    toggle,
     setIsFetching,
     setData,
   };

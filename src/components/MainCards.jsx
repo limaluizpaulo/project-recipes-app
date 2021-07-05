@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Categories from './Categories';
-import RecipesContext from '../contexts/RecipesContext';
 
 export default function MainCards(props) {
   const {
@@ -12,11 +11,9 @@ export default function MainCards(props) {
     typeId,
   } = props;
 
-  const { categoriesData } = useContext(RecipesContext);
-
   return (
     <main>
-      <Categories categories={ categoriesData } />
+      <Categories />
       <section>
         {data.length
           && data.map((recipe, index) => (
