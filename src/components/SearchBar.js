@@ -12,13 +12,12 @@ export default function SearchBar() {
   const { setGlobalState, globalState } = useContext(RecipesContext);
 
   useEffect(() => {
-    function test() {
-      const targetId = path === '/comidas' ? 'idMeal' : 'idDrink';
+    const targetId = path === '/comidas' ? 'idMeal' : 'idDrink';
+    function redirectorOneResult() {
       history.push(`${path}/${globalState[0][targetId]}`);
     }
-
     if (globalState.length === 1) {
-      test();
+      redirectorOneResult();
     }
   }, [path, history, globalState]);
 
@@ -42,19 +41,18 @@ export default function SearchBar() {
     if (type === 'text') setFilter({ ...filter, content: value });
   }
 
-  async function handleClick(e) {
-    e.preventDefault();
-    let domain = 'themealdb';
-    if (path === '/bebidas') domain = 'thecocktaildb';
+  async function handleClick() {
+    const domain = path === '/bebidas' ? 'thecocktaildb' : 'themealdb';
 
     const { content, URL: { name, link } } = filter;
-    if (content.length >= 2 && name === 'char') {
+    if (content.length > 1 && name === 'char') {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     const data = await fetchAPI(link(domain, content));
+    const firstKey = (path === '/bebidas') ? 'drinks' : 'meals';
     if (content !== '' && URL !== '') {
-      setGlobalState(Object.values(data).shift());
+      setGlobalState(data[firstKey]);
     }
   }
 
@@ -107,7 +105,7 @@ export default function SearchBar() {
       <Button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ (e) => handleClick(e) }
+        onClick={ handleClick }
       >
         Search
       </Button>
