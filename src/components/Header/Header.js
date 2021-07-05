@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import pageTitleByLocation from '../services/pageTitleByLocation';
-import { allowedSearchIconRenderByPath } from '../services/AllowanceToRender';
+import './style/Header.css';
 
 import SearchForm from './SearchForm';
 import SearchIcon from './SearchIcon';
 
-import ProfileIcon from '../images/profileIcon.svg';
+import pageTitleByLocation from '../../services/pageTitleByLocation';
+import { allowedSearchIconPaths } from '../../services/allowanceToRender';
 
-import './style/Header.css';
+import ProfileIcon from '../../images/profileIcon.svg';
 
 function Header() {
-  const [searchForm, setSearchForm] = useState(false);
   const [searchIcon, setSearchIcon] = useState(true);
+  const [searchForm, setSearchForm] = useState(false);
   const [pageTitle, setPageTitle] = useState('Comidas');
   const location = useLocation();
 
@@ -22,7 +22,7 @@ function Header() {
   }, [location.pathname]);
 
   useEffect(() => {
-    setSearchIcon(allowedSearchIconRenderByPath.some((path) => (
+    setSearchIcon(allowedSearchIconPaths.some((path) => (
       path === location.pathname
     )));
   }, [location.pathname]);

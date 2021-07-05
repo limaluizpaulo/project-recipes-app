@@ -3,16 +3,16 @@ import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
 function Login() {
-  const { login } = useContext(RecipesContext);
+  const { setUser } = useContext(RecipesContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [redirectToComidas, setRedirectToComidas] = useState(false);
-  const [buttonAbled, setButtonDisabled] = useState(false);
+  const [buttonAbled, setButtonAbled] = useState(false);
 
   useEffect(() => {
     const minPasswordLength = 7;
     const regex = /\S+@\S+\.\S+/;
-    setButtonDisabled(email.match(regex)
+    setButtonAbled(email.match(regex)
         && password.length >= minPasswordLength);
   }, [email, password]);
 
@@ -28,7 +28,7 @@ function Login() {
   };
 
   const buttonLogin = () => {
-    login(email);
+    setUser(email);
     setLocalStorage();
     setRedirectToComidas(true);
   };
@@ -44,7 +44,7 @@ function Login() {
       <input
         type="password"
         data-testid="password-input"
-        onChange={ (e) => handleChange(e, setPassword) }
+        onChange={ (event) => handleChange(event, setPassword) }
       />
       <button
         type="button"

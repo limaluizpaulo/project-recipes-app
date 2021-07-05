@@ -7,9 +7,9 @@ import RecipesContext from '../context/RecipesContext';
 
 function ExploreMeals() {
   const {
-    redirectToRecipeDetails,
     recipeDetails,
     getRandomRecipe,
+    redirectToRecipeDetails,
     setRedirectToRecipeDetails,
   } = useContext(RecipesContext);
 

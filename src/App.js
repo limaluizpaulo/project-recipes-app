@@ -1,38 +1,41 @@
 import React from 'react';
 import { Route, Switch, useLocation } from 'react-router';
 
-import Login from './pages/Login';
-import Explore from './pages/Explore';
-import ExploreDrinks from './pages/ExploreDrinks';
-import IngredientDrink from './pages/IngredientDrink';
-import IngredientMeals from './pages/IngredientMeals';
-import RecipesProvider from './context/RecipesProvider';
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ExploreMeals from './pages/ExploreMeals';
-import FoodList from './pages/FoodList';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Login from './pages/Login';
+import Recipes from './pages/Recipes';
+import Explore from './pages/Explore';
+import ExploreMeals from './pages/ExploreMeals';
+import ExploreDrinks from './pages/ExploreDrinks';
+import MealsIngredients from './pages/MealsIngredients';
+import ExploreByArea from './pages/ExploreByArea';
+import DrinksIngredients from './pages/DrinksIngredients';
+import NotFound from './pages/NotFound';
+
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+
+import RecipesProvider from './context/RecipesProvider';
 
 import {
-  allowedHeaderRenderByPath,
-  allowedFooterRenderByPath,
-} from './services/AllowanceToRender';
+  allowedHeaderPaths,
+  allowedFooterPaths,
+} from './services/allowanceToRender';
 
 function App() {
   const location = useLocation();
 
   const verifyAllowanceToRenderHeader = () => {
-    const shouldRenderHeader = allowedHeaderRenderByPath.some(
+    const shouldRenderHeader = allowedHeaderPaths.some(
       (element) => element === location.pathname,
     );
     return shouldRenderHeader ? <Header /> : null;
   };
 
   const verifyAllowanceToRenderFooter = () => {
-    const shouldRenderFooter = allowedFooterRenderByPath.some(
+    const shouldRenderFooter = allowedFooterPaths.some(
       (element) => element === location.pathname,
     );
     return shouldRenderFooter ? <Footer /> : null;
@@ -43,21 +46,23 @@ function App() {
       { verifyAllowanceToRenderHeader() }
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ FoodList } />
+        <Route exact path="/comidas" component={ Recipes } />
+        <Route exact path="/bebidas" component={ Recipes } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
-          component={ IngredientMeals }
+          component={ MealsIngredients }
         />
+        <Route exact path="/explorar/comidas/area" component={ ExploreByArea } />
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
-          component={ IngredientDrink }
+          component={ DrinksIngredients }
         />
-        <Route exact path="/comidas" component={ FoodList } />
+        <Route component={ NotFound } />
       </Switch>
       { verifyAllowanceToRenderFooter() }
     </RecipesProvider>

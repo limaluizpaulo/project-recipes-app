@@ -1,6 +1,6 @@
 const foodByOrigin = '/explorar/comidas/area';
 
-export const allowedFooterRenderByPath = [
+export const allowedFooterPaths = [
   '/comidas',
   '/bebidas',
   '/explorar',
@@ -12,7 +12,7 @@ export const allowedFooterRenderByPath = [
   '/perfil',
 ];
 
-export const allowedHeaderRenderByPath = [
+export const allowedHeaderPaths = [
   '/comidas',
   '/bebidas',
   '/explorar',
@@ -26,8 +26,10 @@ export const allowedHeaderRenderByPath = [
   '/receitas-favoritas',
 ];
 
-export const allowedSearchIconRenderByPath = [
+export const allowedSearchIconPaths = [
   '/comidas',
   '/bebidas',
   foodByOrigin,
 ];
+
+export const MAX_CARDS_NUMBER = 12;

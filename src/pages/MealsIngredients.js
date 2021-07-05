@@ -1,20 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router';
+
+import './style/MealsIngredients.css';
+
+import { fetchIngredients } from '../services/recipesAPI';
+import { MAX_CARDS_NUMBER } from '../services/allowanceToRender';
+
 import RecipesContext from '../context/RecipesContext';
-import { fetchIngredientesRecipes } from '../services/RecipesAPI';
 
-import '../components/style/IngredientsMeal.css';
+function MealsIngredients() {
+  const {
+    mealsOrDrinks,
+    redirectToMainScreen,
+    setRedirectToMainScreen,
+    filterByIngredients,
+  } = useContext(RecipesContext);
 
-function IngredientMeals() {
-  const { filterByIngredients, redirectToMainScreen,
-    setRedirectToMainScreen } = useContext(RecipesContext);
-
-  const DOZE = 12;
   const [ingredients, setIngredients] = useState([]);
-  const [maxCards/* setMaxCards */] = useState(DOZE);
+  const [maxCards] = useState(MAX_CARDS_NUMBER);
 
   const getIngredients = async () => {
-    const { meals } = await fetchIngredientesRecipes('meals');
+    const { meals } = await fetchIngredients(mealsOrDrinks);
     setIngredients(meals);
   };
 
@@ -22,8 +29,7 @@ function IngredientMeals() {
     getIngredients();
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => setRedirectToMainScreen(false), []);
+  useEffect(() => () => setRedirectToMainScreen(false));
 
   const imgUrl = 'https://www.themealdb.com/images/ingredients/';
   return (
@@ -58,4 +64,4 @@ function IngredientMeals() {
   );
 }
 
-export default IngredientMeals;
+export default MealsIngredients;
