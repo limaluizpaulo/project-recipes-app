@@ -1,18 +1,30 @@
 import React from 'react';
 import RecipeCard from '../components/RecipeCard';
 
-const filterObj = (text, option) => Object.entries(option).filter(
-  ([key, value]) => key.match(text) && value,
-);
+const filterObj = (text, option) => Object.entries(option)
+  .filter(([key, value]) => key.match(text) && value);
 
 export const renderIngredients = (option) => {
   const ingredients = filterObj(/Ingredient/, option);
   const measures = filterObj(/Measure/, option);
-  console.log(ingredients);
   return ingredients.map(([key, ingredient], idx) => (
     <li key={ key } data-testid={ `${idx}-ingredient-name-and-measure` }>
-      { `${ingredient} - ${measures[idx][1]}` }
+      {`${ingredient} - ${measures[idx][1]}`}
     </li>
+  ));
+};
+
+export const renderCheckBox = (option) => {
+  const ingredients = filterObj(/Ingredient/, option);
+  return ingredients.map(([key, ingredient]) => (
+    <label htmlFor="checkbox" key={ `${key} - ${ingredient}` }>
+      {ingredient}
+      <input
+        data-testid="ingredient-step"
+        id="checkbox"
+        type="checkbox"
+      />
+    </label>
   ));
 };
 
