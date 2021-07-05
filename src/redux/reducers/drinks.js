@@ -1,4 +1,4 @@
-import { DRINKS } from '../actions/index';
+import { DRINKS, DRINK_CATEGORIES } from '../actions/index';
 
 const initialState = {
   list: [],
@@ -14,6 +14,11 @@ export default (state = initialState, { type, payload }) => {
       list: payload,
       goToDrinksPage: payload && payload.length === 1,
       drinkNotFound: !payload,
+    };
+  case DRINK_CATEGORIES:
+    return {
+      ...state,
+      list: payload,
     };
 
   default:
