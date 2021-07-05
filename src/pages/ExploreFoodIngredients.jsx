@@ -13,6 +13,7 @@ function ExploreFoodIngredients() {
       const ingredientsItens = await fetchIngredientsRecipes();
       const NUMBER_INGREDIENTS = 12;
       const twelveIngredients = ingredientsItens.meals.slice(0, NUMBER_INGREDIENTS);
+
       const filterIngredients = twelveIngredients
         .map((ingredient) => ingredient.strIngredient);
       setIngredients(filterIngredients);

@@ -19,6 +19,8 @@ function RecipesProvider({ children }) {
 
   const [ingredients, setIngredients] = useState([]);
 
+  const [isExplored, setIsExplored] = useState(false);
+
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
     setRecipesFilter({ filteredRecipes: recipesFilteredByIngredient });
@@ -73,6 +75,8 @@ function RecipesProvider({ children }) {
         setRandomRecipe,
         ingredients,
         setIngredients,
+        isExplored,
+        setIsExplored,
       } }
     >
       { children }
