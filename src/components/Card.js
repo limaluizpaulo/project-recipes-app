@@ -1,10 +1,10 @@
 import React from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Card({ mealOrDrink, index }) {
   const { path } = useRouteMatch();
-  const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
+  // const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
   const imgSrcKey = path === '/comidas' ? 'strMealThumb' : 'strDrinkThumb';
   const titleKey = path === '/comidas' ? 'strMeal' : 'strDrink';
   return (
@@ -14,9 +14,7 @@ export default function Card({ mealOrDrink, index }) {
         src={ mealOrDrink[`${imgSrcKey}`] }
         alt={ mealOrDrink[`${titleKey}`] }
       />
-      <Link to={ `${path}/${mealOrDrink[searchId]}` }>
-        <h3 data-testid={ `${index}-card-name` }>{mealOrDrink[`${titleKey}`]}</h3>
-      </Link>
+      <h3 data-testid={ `${index}-card-name` }>{mealOrDrink[`${titleKey}`]}</h3>
     </section>
   );
 }

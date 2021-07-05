@@ -1,11 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 
 export default function Foods() {
+  const { path } = useRouteMatch();
+  const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
+
   const TWELVE = 12;
   const { globalState } = useContext(RecipesContext);
   const [searchStatus, setSearchStatus] = useState(false);
@@ -27,7 +30,9 @@ export default function Foods() {
     <>
       <Header />
       {searchStatus && result.map((item, i) => (
-        <Card key={ item.idMeal } mealOrDrink={ item } index={ i } />))}
+        <Link key={ item.idMeal } to={ `${path}/${item[searchId]}` }>
+          <Card mealOrDrink={ item } index={ i } />
+        </Link>))}
       {searchStatus && (
         <button type="button" onClick={ handleMoreCards }>More Recipes</button>)}
       <Footer />
