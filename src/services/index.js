@@ -37,3 +37,14 @@ export async function getRecipeSearch(endpoint) {
   const result = await fetch(endpoint).then((data) => data.json());
   return result;
 }
+
+export async function getMealDetails(id) {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
+}
+export async function getDrinkDetails(id) {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { drinks } = await fetch(endpoint).then((data) => data.json());
+  return drinks;
+}
