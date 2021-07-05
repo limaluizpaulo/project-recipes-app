@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch, useLocation } from 'react-router';
 
 import './App.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './pages/Login';
