@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { recipeById } from '../services/requests';
 import { renderIngredients } from '../utils';
+import Carousel from '../components/Carousel';
 
 const Food = ({ match }) => {
   const history = useHistory();
@@ -27,7 +28,6 @@ const Food = ({ match }) => {
       </ul>
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
-      <p data-testid="0-recomendation-card">recomendation</p>
       <button type="button" data-testid="share-btn">
         Compartilhar
       </button>
@@ -35,12 +35,16 @@ const Food = ({ match }) => {
         Favoritar
       </button>
       <button
+        // className="footer"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
       >
         Iniciar Receita
       </button>
+      <Carousel food />
+      <br />
+      <Link to="/comidas"><button type="button">Voltar</button></Link>
     </div>
   );
 };

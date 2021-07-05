@@ -7,6 +7,7 @@
 
 .cards img {
   width: 100%;
+  
 }
 
 .card:hover {
@@ -68,6 +69,19 @@
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
+}
+
+/* Ajuda da Alessandra */
+
+.card-carousel {
+  display: flex;
+  overflow-x: scroll;
+}
+.recomendation-card {
+  width: 50vw;
+}
+.recomendation-card img {
+  width: 50vw;
 }
 
 @keyframes shake {

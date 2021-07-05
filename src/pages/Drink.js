@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { recipeById } from '../services/requests';
 import { renderIngredients } from '../utils';
+import Carousel from '../components/Carousel';
 
 const Drink = ({ match }) => {
   const history = useHistory();
@@ -30,7 +31,6 @@ const Drink = ({ match }) => {
         {renderIngredients(drink)}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
-      <p data-testid="0-recomendation-card">recomendation</p>
       <button type="button" data-testid="share-btn">
         Compartilhar
       </button>
@@ -44,6 +44,9 @@ const Drink = ({ match }) => {
       >
         Iniciar Receita
       </button>
+      <br />
+      <Carousel />
+      <Link to="/bebidas"><button type="button">Voltar</button></Link>
     </div>
   );
 };
