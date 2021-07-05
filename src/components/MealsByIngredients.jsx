@@ -28,8 +28,17 @@ export default function MealsByIngredients() {
 
   return (
     <div>
-      {/* {console.log(path)} */}
       {console.log(ingredients)}
+      {ingredients.map((el) => (
+        <div key={ el.idIngredient }>
+          <h3 data-testid={ `${el.strIngredient}-card-name` }>{ el.strIngredient }</h3>
+          <img
+            data-testid={ `${el.strIngredient}-card-img` }
+            src={ `https://www.themealdb.com/images/ingredients/${el.strIngredient}-Small.png` }
+            alt={ el.strIngredient }
+          />
+        </div>
+      ))}
       <Footer />
     </div>
   );
