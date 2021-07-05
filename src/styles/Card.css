@@ -18,8 +18,8 @@
 
 .card-field {
   display: flex;
-  margin-right: 15px;
   margin-bottom: 15px;
+  margin-right: 15px;
   max-width: 160px;
 }
 
