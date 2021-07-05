@@ -135,7 +135,7 @@ function DetalhesBebidas({ match }) {
                 Instruções de preparo:
                 <p data-testid="instructions">{item.strInstructions}</p>
               </label>
-              <p>Recomendações:</p>
+              <p>Recomendações: </p>
               {mapRecomm(recomm)}
               <button
                 className="start-button"
