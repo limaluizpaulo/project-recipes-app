@@ -29,13 +29,15 @@ class BeveragesInProgress extends React.Component {
           id: [],
         },
         meals: {
-          [idMeal]: [],
+          // [idMeal]: [],
+          teste: 'vazio',
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
     } else {
       const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      // prevStorage.meals[idMeal].push('teste');
+      prevStorage.meals[idMeal] = 'teste';
+      localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
     }
   }
 
