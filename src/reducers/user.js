@@ -1,4 +1,4 @@
-import { USERLOGIN } from '../actions';
+import { USERLOGIN } from '../redux/actions';
 
 const initialState = {
   email: '',
