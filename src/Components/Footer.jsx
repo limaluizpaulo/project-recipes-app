@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -6,9 +7,12 @@ import exploreIcon from '../images/exploreIcon.svg';
 
 class Footer extends React.Component {
   render() {
+    const bebidas = 'bebidas';
+    const comidas = 'comidas';
+
     return (
       <footer className="footer" data-testid="footer">
-        <Link to="/bebidas">
+        <Link to={ `/${bebidas}` }>
           <img
             src={ drinkIcon }
             alt="drinkIcone"
@@ -22,7 +26,7 @@ class Footer extends React.Component {
             data-testid="explore-bottom-btn"
           />
         </Link>
-        <Link to="/comidas">
+        <Link to={ `/${comidas}` }>
           <img
             src={ mealIcon }
             alt="mealtIcon"
