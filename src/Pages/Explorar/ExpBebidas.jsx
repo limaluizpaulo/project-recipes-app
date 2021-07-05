@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Container, Button, ButtonGroup } from 'react-bootstrap';
 import Context from '../../context/Context';
 
 import Header from '../../components/Header';
@@ -10,7 +10,7 @@ export default function ExpBebidas() {
   const { openSearchBar } = useContext(Context);
 
   return (
-    <div>
+    <Container>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
       <ButtonGroup vertical>
@@ -42,6 +42,6 @@ export default function ExpBebidas() {
         </Button> */}
       </ButtonGroup>
       <Footer />
-    </div>
+    </Container>
   );
 }
