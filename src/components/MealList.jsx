@@ -6,7 +6,7 @@ import ItemCard from './ItemCard';
 
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
-  const { mealsRecipes } = useContext(Context);
+  const { mealsRecipes, resquestMealsApi } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -17,6 +17,10 @@ export default function MealList() {
       setShowMeals(true);
     }
   }, [mealsRecipes]);
+
+  useEffect(() => {
+    resquestMealsApi();
+  }, []);
 
   const renderCards = () => {
     if (mealsRecipes && mealsRecipes.length === 1) {
