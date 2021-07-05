@@ -14,44 +14,36 @@ export default function Login() {
 
   const history = useHistory();
 
+  function loginValidation() {
+    // fonte: https://www.w3resource.com/javascript/form/email-validation.php
+
+    // eslint-disable-next-line max-len
+    const mail = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@\\"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    const passwordMinLenght = 6;
+    if (email.match(mail) && password.length > passwordMinLenght) {
+      return false;
+    }
+    return true;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
     successLogin(email, password);
-    localStorage.setItem('user', `{ email: ${email} }`);
+    const user = { email };
+    localStorage.setItem('user', JSON.stringify(user));
     history.push('/comidas');
-  }
-
-  function renderBtn() {
-    const SIX = 6;
-    if (email.length > 0 && password.length >= SIX) {
-      return (
-        <Button
-          variant="primary"
-          data-testid="login-submit-btn"
-          type="submit"
-        >
-          Login
-        </Button>
-      );
-    }
-    return (
-      <Button
-        variant="primary"
-        data-testid="login-submit-btn"
-        type="submit"
-        disabled
-      >
-        Login
-      </Button>
-    );
   }
 
   return (
     <main className="login-page">
       <h1>App de Receitas</h1>
       <Form onSubmit={ handleSubmit }>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
+        >
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -77,7 +69,14 @@ export default function Login() {
             required
           />
         </Form.Group>
-        { renderBtn() }
+        <Button
+          variant="primary"
+          data-testid="login-submit-btn"
+          type="submit"
+          disabled={ loginValidation() }
+        >
+          Login
+        </Button>
       </Form>
     </main>
   );

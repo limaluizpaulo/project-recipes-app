@@ -4,7 +4,7 @@ import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
   // const [state, newState] = useState();
-  const [email, setEmail] = useState('email@email.com');
+  const [email, setEmail] = useState('');
   const [password, setPassowd] = useState('');
 
   const successLogin = (emailText, passwordText) => {
