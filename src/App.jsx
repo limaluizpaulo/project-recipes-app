@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Login, MainPage, RecipeInProgress, Profile } from './pages';
+import { Login, MainPage, RecipeInProgress } from './pages';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -12,7 +12,6 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/profile" component={ Profile } />
           <Route exact path="/comidas" component={ MainPage } />
           <Route exact path="/bebidas" component={ MainPage } />
           <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
