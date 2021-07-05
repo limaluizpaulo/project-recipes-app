@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,8 +8,8 @@ import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
 import Explorar from './pages/Explore/Explore';
-import ExplorarComidas from './pages/ExploreFood/ExploreFood';
-import ExplorarBebidas from './pages/ExploreDrinks/ExploreDrinks';
+import ExplorerFoods from './pages/ExplorerFoods/ExplorerFoods';
+import ExplorerDrinks from './pages/ExplorerDrinks/ExplorerDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
 import DetalhesComidas from './pages/Detalhes/DetalhesComidas';
@@ -34,8 +33,8 @@ function App() {
           <Route path="/bebidas/:id" exact component={ DetalhesBebidas } />
           <Route path="/bebidas/:id/in-progress" exact component={ test } />
           <Route path="/explorar" exact component={ Explorar } />
-          <Route path="/explorar/comidas" exact component={ ExplorarComidas } />
-          <Route path="/explorar/bebidas" exact component={ ExplorarBebidas } />
+          <Route path="/explorar/comidas" exact component={ ExplorerFoods } />
+          <Route path="/explorar/bebidas" exact component={ ExplorerDrinks } />
           <Route
             path="/explorar/comidas/ingredientes"
             exact

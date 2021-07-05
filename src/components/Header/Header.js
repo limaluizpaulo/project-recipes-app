@@ -9,7 +9,6 @@ function Header({ title, haveSrc }) {
   const history = useHistory();
   const [searchField, setSearchField] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
-  console.log(haveSrc);
   const search = () => (
     <input
       type="text"
