@@ -6,10 +6,10 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import DrinksRecomendation from '../components/DrinksRecomendation';
+import FoodPreparation from '../components/FoodPreparation';
 // https://dev.to/marcelomatosdev/react-adding-a-video-player-to-play-youtube-videos-in-your-project-30p
 
 export default function FoodDetais() {
-  const twenty = 20;
   const { url } = useRouteMatch();
   const bottomFixed = {
     position: 'fixed',
@@ -20,13 +20,13 @@ export default function FoodDetais() {
   const [isCopy, setIsCopy] = useState(false);
   const history = useHistory();
   const { id } = useParams();
-  const { pathname } = history.location;
-  const recipeId = pathname.split('/')[2];
+  // const { pathname } = history.location;
+  // const recipeId = pathname.split('/')[2];
   const youtube = 'https://www.youtube.com/embed/watch?v=';
 
   useEffect(() => {
     const handleSelectedFood = async () => {
-      const response = await fetchRecipeByDetails(recipeId);
+      const response = await fetchRecipeByDetails(id);
       const result = await response.meals;
       setRecipeDetails(result[0]);
     };
@@ -51,21 +51,6 @@ export default function FoodDetais() {
   const handleCopyLink = () => {
     copy(window.location.href);
     setIsCopy(true);
-  };
-
-  const preparation = () => {
-    const ingredientsList = [];
-    for (let index = 1; index <= twenty; index += 1) {
-      if (recipeDetails[`strIngredient${index}`] !== ''
-      && recipeDetails[`strIngredient${index}`] !== null
-      ) {
-        ingredientsList.push(
-          `${recipeDetails[`strIngredient${index}`]}: 
-            ${recipeDetails[`strMeasure${index}`]}`,
-        );
-      }
-    }
-    return ingredientsList;
   };
 
   const handleFavorite = ({ idMeal, strArea, strCategory, strMeal, strMealThumb }) => {
@@ -126,14 +111,7 @@ export default function FoodDetais() {
       </button>
       <p data-testid="recipe-category">{ recipeDetails.strCategory }</p>
       <ul>
-        { preparation().map((ingredient, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            {ingredient}
-          </li>
-        ))}
+        <FoodPreparation recipeId={ id } />
       </ul>
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
       <embed

@@ -9,3 +9,5 @@ const fetchAllFoods = async () => {
 };
 
 export default fetchAllFoods;
+
+// Source https://imasters.com.br/front-end/entenda-tudo-sobre-asyncawait

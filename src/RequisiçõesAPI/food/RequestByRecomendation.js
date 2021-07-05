@@ -9,3 +9,5 @@ const fetchFoodsRecomendation = async () => {
 };
 
 export default fetchFoodsRecomendation;
+
+// Source https://imasters.com.br/front-end/entenda-tudo-sobre-asyncawait

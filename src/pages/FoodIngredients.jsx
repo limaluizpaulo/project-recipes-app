@@ -20,10 +20,6 @@ export default function FoodIngredients() {
     handleFoodIngredients();
   }, []);
 
-  // const handleClick = (id) => {
-  //   history.push(`/comidas/${id}`);
-  // }
-
   return (
     <div>
       {/* {console.log(foodIngredients)} */}

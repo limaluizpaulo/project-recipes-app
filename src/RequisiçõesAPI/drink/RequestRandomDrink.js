@@ -30,3 +30,5 @@ const fetchRandomDrink = async () => {
 };
 
 export default fetchRandomDrink;
+
+// Source https://imasters.com.br/front-end/entenda-tudo-sobre-asyncawait
