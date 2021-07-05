@@ -16,7 +16,7 @@ export default function ReceitaEmProcesso({ location }) {
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, []);
+  }, [storeCurrentRecipe, location.pathname]);
 
   // Atualiza o estatus de progresso, para habilitar o botão
   const stepsProgress = (steps) => {

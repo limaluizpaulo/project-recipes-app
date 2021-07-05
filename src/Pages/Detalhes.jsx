@@ -16,7 +16,7 @@ export default function DetalhesComida({ location }) {
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, []);
+  }, [storeCurrentRecipe, location.pathname]);
 
   const renderInProgressPage = () => {
     if (video) {
