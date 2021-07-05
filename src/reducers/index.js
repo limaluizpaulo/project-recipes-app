@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import done from './done';
-
-const listReducer = combineReducers({ user, done });
-
+import recipes from './recipes';
+const listReducer = combineReducers({ user, recipes, done });
 export default listReducer;
