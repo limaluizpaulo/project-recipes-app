@@ -1,27 +1,34 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeContext from '../context/Context';
 import { apiRequestFoods } from '../services/api/getMealsDrink';
 import { apiCategoriesFoods } from '../services/api/getList';
 import { requestCategoriesMael } from '../services/api/getCategories';
+import RenderMealIngredient from '../components/RenderMealIngredient';
+import RenderMeal from '../components/RenderMeal';
 
 // Tela principal de receitas de comidas: /comidas
 export default function MainFood({ history }) {
-  const { data } = useContext(RecipeContext);
-  const [valueButton, setValueButton] = useState('');
-  const [dataFood, setDataFood] = useState([]);
-  const [filterFood, setfilterFood] = useState([]);
-  const [dataCategoriesFood, setDataCategoriesFood] = useState([]);
-  const [filterCategoriesFood, setFilterCategoriesFood] = useState([]);
-  const [dataCategories, setDataCategories] = useState([]);
-  const [filterDataCategories, setFilterDataCategories] = useState([]);
-  const [toogle, setToogle] = useState(false);
-  const [allValue, setAllValue] = useState('');
-
-  console.log(dataFood);
+  const {
+    previousIsExploreIngredients,
+    valueButton,
+    setValueButton,
+    dataFood,
+    setDataFood,
+    setfilterFood,
+    dataCategoriesFood,
+    setDataCategoriesFood,
+    filterCategoriesFood,
+    setFilterCategoriesFood,
+    dataCategories,
+    setDataCategories,
+    setFilterDataCategories,
+    setToogle,
+    setAllValue,
+    setPreviousIsExploreIngredients,
+  } = useContext(RecipeContext);
 
   useEffect(() => {
     async function apiRequest() {
@@ -29,15 +36,24 @@ export default function MainFood({ history }) {
       setDataFood(meals);
     }
     apiRequest();
-  }, []);
-
-  useEffect(() => {
     async function apiRequestCategories() {
       const { meals } = await apiCategoriesFoods();
       setDataCategoriesFood(meals);
     }
     apiRequestCategories();
+
+    return () => {
+      setPreviousIsExploreIngredients(false);
+    };
   }, []);
+
+  // useEffect(() => {
+  //   async function apiRequestCategories() {
+  //     const { meals } = await apiCategoriesFoods();
+  //     setDataCategoriesFood(meals);
+  //   }
+  //   apiRequestCategories();
+  // }, []);
 
   useEffect(() => {
     async function categories() {
@@ -89,66 +105,6 @@ export default function MainFood({ history }) {
     ));
   }
 
-  function renderMeal() {
-    if (allValue === 'All' && valueButton === '') {
-      return filterFood.map((itemAll, indexAll) => (
-        <div key={ indexAll } data-testid={ `${indexAll}-recipe-card` }>
-          <Link to={ `/comidas/${itemAll.idMeal}` }>
-            <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
-            <img
-              src={ itemAll.strMealThumb }
-              alt={ itemAll.strMealThumb }
-              data-testid={ `${indexAll}-card-img` }
-            />
-          </Link>
-        </div>
-      ));
-    }
-    if (data.length === 0 && valueButton === '') {
-      return filterFood.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <Link to={ `/comidas/${item.idMeal}` }>
-            <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
-            <img
-              src={ item.strMealThumb }
-              alt={ item.strMealThumb }
-              data-testid={ `${index}-card-img` }
-            />
-          </Link>
-        </div>
-      ));
-    }
-    if (valueButton !== '' && toogle) {
-      return filterDataCategories.map((itemValue, i) => (
-        <div key={ i } data-testid={ `${i}-recipe-card` }>
-          <Link to={ `/comidas/${itemValue.idMeal}` }>
-            <p data-testid={ `${i}-card-name` }>{itemValue.strMeal}</p>
-            <img
-              src={ itemValue.strMealThumb }
-              alt={ itemValue.strMealThumb }
-              data-testid={ `${i}-card-img` }
-            />
-          </Link>
-        </div>
-      ));
-    }
-    if (data.length === 1) {
-      history.push(`/comidas/${data[0].idMeal}`);
-    }
-    return data.map((item, index) => (
-      <div key={ index } data-testid={ `${index}-recipe-card` }>
-        <Link to={ `/comidas/${item.idMeal}` }>
-          <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
-          <img
-            src={ item.strMealThumb }
-            alt={ item.strMealThumb }
-            data-testid={ `${index}-card-img` }
-          />
-        </Link>
-      </div>
-    ));
-  }
-
   return (
     <div>
       <h4>Meals</h4>
@@ -164,7 +120,7 @@ export default function MainFood({ history }) {
         </button>
         {buttonCategories()}
       </div>
-      {renderMeal()}
+      {previousIsExploreIngredients ? <RenderMealIngredient /> : <RenderMeal /> }
       <Footer />
     </div>
   );
