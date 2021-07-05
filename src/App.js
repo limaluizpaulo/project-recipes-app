@@ -12,6 +12,8 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import MealsIngredients from './pages/MealsIngredients';
 import ExploreByArea from './pages/ExploreByArea';
 import DrinksIngredients from './pages/DrinksIngredients';
+import MealsDetails from './pages/MealsDetails';
+import DrinksDetails from './pages/DrinksDetails';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -62,6 +64,8 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ DrinksIngredients }
         />
+        <Route exact path="/comidas/:id" component={ MealsDetails } />
+        <Route exact path="/bebidas/:id" component={ DrinksDetails } />
         <Route component={ NotFound } />
       </Switch>
       { verifyAllowanceToRenderFooter() }
