@@ -4,6 +4,7 @@ import '../styles/global.css';
 
 function IngredientsInProcess({ index, element, measures }) {
   const [checked, setchecked] = useState(false);
+  const [count, setCount] = useState(0);
 
   const divStyle1 = {
     textDecoration: 'line-through',
@@ -17,6 +18,8 @@ function IngredientsInProcess({ index, element, measures }) {
     setchecked(!checked);
   }
 
+  console.log(index, element);
+
   return (
     <div>
       <input
@@ -26,7 +29,9 @@ function IngredientsInProcess({ index, element, measures }) {
         key={ index }
         data-testid={ `${index}-ingredient-step` }
       />
-      <span style={ checked ? divStyle1 : divStyle2 }>
+      <span
+        style={ checked ? divStyle1 : divStyle2 }
+      >
         { `${element[1]}
                 - ${measures[index][1] === null
       ? 'as you like' : measures[index][1]}` }
