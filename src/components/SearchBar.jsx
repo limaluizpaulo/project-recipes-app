@@ -7,6 +7,8 @@ export default function SearchBar({ url }) {
   const [filter, setFilter] = useState({ searchText: '', filter: 'ingredient' });
   const { findMealsByFilter, findCocktailsByFilter } = useContext(Context);
 
+  const { findByFilter } = useContext(Context);
+  const vinteQuatro = 24;
   const handleChange = ({ name, value }) => {
     if (name !== 'searchText') {
       setFilter({ [name]: value, searchText: '' });
@@ -35,6 +37,7 @@ export default function SearchBar({ url }) {
   const alertChar = () => {
     const newAlert = 'Sua busca deve conter somente 1 (um) caracter';
     alert(newAlert);
+    return vinteQuatro;
   };
 
   return (

@@ -7,9 +7,13 @@ import ItemCard from './ItemCard';
 
 export default function CocktailList() {
   const [showCocktails, setShowCocktails] = useState(false);
-  const { cocktailsRecipes } = useContext(Context);
+  const { cocktailsRecipes, resquestCocktailsApi } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    resquestCocktailsApi();
+  }, []);
 
   useEffect(() => {
     if (isInitialMount.current) {

@@ -2,19 +2,25 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
-// import Meal from './Meal';
 import ItemCard from './ItemCard';
+
 
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
-  const { mealsRecipes } = useContext(Context);
+  const { mealsRecipes, resquestMealsApi } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
   useEffect(() => {
+    resquestMealsApi();
+  }, []);
+
+  useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
+      console.log(isInitialMount.current);
     } else {
+      console.log('show')
       setShowMeals(true);
     }
   }, [mealsRecipes]);

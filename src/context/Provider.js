@@ -42,10 +42,10 @@ export default function Provider({ children }) {
     setMealsRecipes(apiMeals);
   };
 
-  useEffect(() => {
-    resquestCocktailsApi();
-    resquestMealsApi();
-  }, []);
+  // useEffect(() => {
+  //   resquestCocktailsApi();
+  //   resquestMealsApi();
+  // }, []);
 
   // Popula o array de ingredients
   const populateIngredientsArray = (recipe) => {
@@ -127,6 +127,8 @@ export default function Provider({ children }) {
     cocktailsRecipes,
     storeCurrentRecipe,
     currentRecipe,
+    resquestCocktailsApi,
+    resquestMealsApi,
   };
   return (
     <Context.Provider value={ context }>

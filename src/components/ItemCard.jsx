@@ -52,10 +52,10 @@ export default function ItemCard({ item, i }) {
 ItemCard.propTypes = {
   i: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    idMeal: PropTypes.number,
+    idMeal: PropTypes.string,
     strMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
-    idDrink: PropTypes.number,
+    idDrink: PropTypes.string,
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
   }).isRequired,

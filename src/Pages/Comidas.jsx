@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
-
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import MealList from '../components/MealList';
@@ -14,6 +14,7 @@ export default function Comidas({ match: { url } }) {
       <Header title="Comidas" searchIcon />
       { openSearchBar ? <SearchBar url={ url } /> : null }
       <MealList />
+      <Footer />
     </div>
   );
 }

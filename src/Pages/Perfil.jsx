@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import Context from '../context/Context';
-
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 
@@ -54,6 +54,7 @@ export default function Perfil() {
       >
         Sair
       </Button>
+      <Footer />
     </div>
   );
 }
