@@ -6,6 +6,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const ALL_FOOD_CATEGORIES = 'ALL_FOOD_CATEGORIES';
 export const ALL_DRINK_CATEGORIES = 'ALL_DRINK_CATEGORIES';
 export const IS_LOADING = 'IS_LOADING';
+export const RAMDOM_RECIPE = 'RAMDOM_RECIPE';
 export const IS_SEARCHBAR = 'IS_SEARCHBAR';
 export const ALL_FOOD_RECIPES = 'ALL_FOOD_RECIPES';
 export const FOOD_BY_CATEGORIES = 'FOOD_BY_CATEGORIES';
@@ -20,6 +21,8 @@ export const getAllDrinkCategories = (allDrinkCategories) => ({
   type: ALL_DRINK_CATEGORIES, allDrinkCategories });
 export const getSearchBarResponse = (searchBarOn) => ({
   type: IS_SEARCHBAR, searchBarOn });
+export const getRamdomRecipe = (ramdomRecipe) => ({
+  type: RAMDOM_RECIPE, ramdomRecipe });
 export const getAllFoodRecipes = (recipes) => ({
   type: ALL_FOOD_RECIPES, recipes });
 export const getFoodByCategories = (meals) => ({
@@ -167,5 +170,17 @@ export const fetchDrinksRecipesByFirstLetter = (letter = 'a') => (dispatch) => {
       }
       const drinksRecipes = allDrinksRecipesByFirsLetter.drinks.slice(0, maxRecipes);
       dispatch(getAllDrinksRecipes(drinksRecipes));
+    });
+};
+
+export const fetchRamdomRecipe = (param = 'mealdb') => (dispatch) => {
+  dispatch(isLoading());
+
+  fetch(`https://www.the${param}.com/api/json/v1/1/random.php`)
+    .then((response) => response.json())
+    .then((ramdomRecipeData) => {
+      const ramdomRecipe = ramdomRecipeData;
+      console.log(ramdomRecipe);
+      // dispatch(getAllDrinksRecipes(ramdomRecipe));
     });
 };
