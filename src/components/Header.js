@@ -45,7 +45,7 @@ function Header({ title, display }) {
             />
           </div>)
       }
-      {isSerching && <SearchFood />}
+      {isSerching && <SearchFood recipe={ title } />}
     </div>
   );
 }

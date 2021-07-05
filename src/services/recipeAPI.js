@@ -1,11 +1,19 @@
-const RECIPE_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
+const RECIPE_API_FOOD = 'https://www.themealdb.com/api/json/v1/1/';
 
-const fetchRecipe = (type) => {
-  console.log(type);
-  return fetch(`${RECIPE_API}${type}`)
+const RECIPE_API_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/';
+
+const fetchRecipeFood = (type) => (
+  fetch(`${RECIPE_API_FOOD}${type}`)
     .then((res) => res.json())
-    .then((json) => console.log(json))
-    .catch((error) => console.log(error));
-};
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
 
-export default fetchRecipe;
+export const fetchRecipeDrink = (type) => (
+  fetch(`${RECIPE_API_DRINK}${type}`)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export default fetchRecipeFood;

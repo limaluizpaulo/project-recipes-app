@@ -1,24 +1,59 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import fetchRecipe from '../services/recipeAPI';
+import { useHistory } from 'react-router';
+import { connect } from 'react-redux';
+import fetchRecipeFood, { fetchRecipeDrink } from '../services/recipeAPI';
+import actionList from '../Redux/actions';
 
-function SearchFood() {
+function SearchFood({ recipe, dispRecipeList }) {
   const [choice, setChoice] = useState('');
   const [text, setText] = useState('');
-
+  const history = useHistory();
+  const resAPI = async (fun) => {
+    const func = await fun;
+    console.log(func);
+    if (func === undefined || func.meals === null || func.drinks === null) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else if (recipe === 'Comidas') {
+      if (func.meals.length === 1) {
+        history.push(`/comidas/${func.meals[0].idMeal}`);
+      } else {
+        console.log(func.meals);
+        dispRecipeList({
+          status: true,
+          list: func,
+        });
+      }
+    } else if (func.drinks.length === 1) {
+      history.push(`/bebidas/${func.drinks[0].idDrink}`);
+    } else {
+    //   console.log(func.drinks);
+      dispRecipeList({
+        status: true,
+        list: func,
+      });
+    }
+  };
   function clickAPI() {
-    console.log(choice, text);
+    // console.log(choice, text);
     if (choice === 'ingredient') {
-      fetchRecipe(`i=${text}`);
+      return recipe === 'Comidas'
+        ? resAPI(fetchRecipeFood(`filter.php?i=${text}`))
+        : resAPI(fetchRecipeDrink(`filter.php?i=${text}`));
     }
     if (choice === 'name') {
-      fetchRecipe(`s={${text}}`);
+      return recipe === 'Comidas'
+        ? resAPI(fetchRecipeFood(`search.php?s=${text}`))
+        : resAPI(fetchRecipeDrink(`search.php?s=${text}`));
     }
     if (choice === 'letter') {
       if (text.length > 1) {
         global.alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
-        console.log('passou');
-        fetchRecipe(`f=${text}`);
+        // console.log('passou')
+        return recipe === 'Comidas'
+          ? resAPI(fetchRecipeFood(`search.php?f=${text}`))
+          : resAPI(fetchRecipeDrink(`search.php?f=${text}`));
       }
     }
   }
@@ -74,4 +109,13 @@ function SearchFood() {
   );
 }
 
-export default SearchFood;
+SearchFood.propTypes = {
+  dispRecipeList: PropTypes.func.isRequired,
+  recipe: PropTypes.string.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispRecipeList: (object) => dispatch(actionList(object)),
+});
+
+export default connect(null, mapDispatchToProps)(SearchFood);
