@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { fetchRecipesById } from '../../services/recipesAPI';
+import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
 function Details({ id, mealsOrDrinks }) {
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
+  const [recommendations, setRecommendations] = useState([]);
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
+
+  const MAX_RECOMMENDATIONS = 6;
 
   const [maxIngredients, setMaxIngredients] = useState(MAX_DRINKS_INGREDIENTS);
   const [ingredients, setIngredients] = useState([]);
@@ -32,12 +35,21 @@ function Details({ id, mealsOrDrinks }) {
     setRecipe(gotRecipe);
   };
 
+  const getRecomendations = async (type) => {
+    const { [type]: recipeType } = await fetchAllRecipes(type);
+    setRecommendations(recipeType.slice(0, MAX_RECOMMENDATIONS));
+  };
+
   useEffect(() => {
     if (mealsOrDrinks === 'meals') {
       setRecipeKeyword('strMeal');
       setMaxIngredients(MAX_MEALS_INGREDIENTS);
+      getRecomendations('drinks');
     }
-    if (mealsOrDrinks === 'drinks') setRecipeKeyword('strDrink');
+    if (mealsOrDrinks === 'drinks') {
+      setRecipeKeyword('strDrink');
+      getRecomendations('meals');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,15 +78,24 @@ function Details({ id, mealsOrDrinks }) {
             <button type="button" data-testid="share-btn">share</button>
             <button type="button" data-testid="favorite-btn">fav</button>
           </div>
-          <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
+          <h3 data-testid="recipe-category">
+            {
+              mealsOrDrinks === 'meals'
+                ? recipe.strCategory
+                : recipe.strAlcoholic
+            }
+          </h3>
         </div>
       </header>
       <section>
         <p>Ingredients</p>
         <ul>
           {
-            ingredients.map(([ingredient, quantity]) => (
-              <li key={ ingredient }>
+            ingredients.map(([ingredient, quantity], index) => (
+              <li
+                key={ ingredient }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
                 {ingredient}
                 {', '}
                 {quantity}
