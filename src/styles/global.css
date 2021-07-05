@@ -46,11 +46,11 @@ body {
 }
 
 .cardTitle {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  /* -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
 }
 
 .btn-container {
