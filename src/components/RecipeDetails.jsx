@@ -46,7 +46,8 @@ class RecipeDetails extends React.Component {
 
     if (redirectInProgress) {
       const { foodById, drinksById } = this.props;
-      if (foodById && !drinksById) {
+
+      if (foodById.length !== 0 && drinksById.length === 0) {
         return <Redirect to={ `/comidas/${foodById[0].idMeal}/in-progress` } />;
       }
       return <Redirect to={ `/bebidas/${drinksById[0].idDrink}/in-progress` } />;
@@ -111,14 +112,16 @@ class RecipeDetails extends React.Component {
               <RecomendedCard recipes={ recipes } />
             </div>
           </div>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => this.setState({ redirectInProgress: true }) }
-          >
-            Iniciar Receita
-          </button>
-
+          <div>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => this.setState({ redirectInProgress: true }) }
+              className="button"
+            >
+              Iniciar Receita
+            </button>
+          </div>
         </section>
       ) : null
     );

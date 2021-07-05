@@ -1,0 +1,8 @@
+.completed {
+  text-decoration: line-through solid black;
+}
+
+.button {
+  bottom: 0;
+  position: fixed;
+}

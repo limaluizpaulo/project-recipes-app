@@ -5,15 +5,20 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
 
+import '../css/RecipeDetails.css';
+
 class RecipeInProgress extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       recipeDetails: {},
+      checked: false,
+      // ingredients: [],
     };
 
     this.getIngredients = this.getIngredients.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +40,7 @@ class RecipeInProgress extends React.Component {
   }
 
   getIngredients() {
-    const { recipeDetails } = this.state;
+    const { recipeDetails, checked } = this.state;
     if (recipeDetails[0]) {
       const chaves = Object.entries(recipeDetails[0]);
       const ingredientes = chaves.filter((key) => (
@@ -43,6 +48,7 @@ class RecipeInProgress extends React.Component {
       const medidas = chaves.filter((key) => (
         key[0].includes('strMeasure') && (key[1] !== null && key[1] !== ' ')));
       const apenasMedidas = medidas.map((medida) => medida[1]);
+      // this.setState({ ingredients: ingredientes });
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
           return (
@@ -50,11 +56,16 @@ class RecipeInProgress extends React.Component {
               key={ index }
               data-testid={ `${index}-ingredient-step` }
             >
-              <label htmlFor="key">
+              <label
+                htmlFor="key"
+                className={ ingredientes[index] && checked ? 'checked' : null }
+              >
                 <input
                   type="checkbox"
                   id="key"
                   data-testid={ `${index}-ingredient-name-and-measure` }
+                  defaultChecked={ checked }
+                  onClick={ () => this.changeState() }
                 />
                 {`${ingrediente[1]}-${apenasMedidas[index]}`}
               </label>
@@ -63,6 +74,13 @@ class RecipeInProgress extends React.Component {
         return null;
       });
     }
+  }
+
+  changeState() {
+    const { checked } = this.state;
+    this.setState({
+      checked: !checked,
+    });
   }
 
   render() {

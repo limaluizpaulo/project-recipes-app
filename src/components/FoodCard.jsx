@@ -20,7 +20,6 @@ function FoodCard(props) {
         />
         <h4 data-testid={ `${index}-card-name` }>{ recipe.strMeal }</h4>
       </div>
-
     </Link>
   ));
 }
