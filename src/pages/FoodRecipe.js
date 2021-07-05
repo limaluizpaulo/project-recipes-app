@@ -1,6 +1,6 @@
 import React from 'react';
 import fetchAPI from '../services/fetchApi';
-import shareIcon  from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 class FoodRecipe extends React.Component {
@@ -31,7 +31,6 @@ class FoodRecipe extends React.Component {
     const { detailsRecipe } = this.state;
     const arrayIngredients = [];
     for (let i = 1; i <= 20; i++ ) {
-      // arrayIngredients.push(`detailsRecipe[0].strIngredient${ i }`);
       // const ingredients = `detailsRecipe[0].strIngredient${ i }`;
       // const obejctIngredients = { [i]: ingredients };
       // arrayIngredients.push(obejctIngredients);
