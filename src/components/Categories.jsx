@@ -12,7 +12,7 @@ import {
 } from '../helpers/CocktailsAPI';
 
 export default function Categories(props) {
-  const { data } = props;
+  const { categories } = props;
 
   const maxCards = 12;
 
@@ -23,7 +23,6 @@ export default function Categories(props) {
     setToggle,
     toggle,
     type,
-    setIsFetching,
   } = useContext(RecipesContext);
 
   const filter = (strCategory) => {
@@ -40,7 +39,6 @@ export default function Categories(props) {
 
   useEffect(() => {
     const filterCategory = async () => {
-      setIsFetching(true);
       let results;
       if (selectedCategory === 'All') {
         results = (type === 'meal')
@@ -52,10 +50,9 @@ export default function Categories(props) {
       if (results && selectedCategory) {
         setData(results.filter((item, index) => index < maxCards));
       }
-      setIsFetching(false);
     };
     filterCategory();
-  }, [selectedCategory, toggle]);
+  }, [selectedCategory]);
 
   return (
     <aside>
@@ -67,7 +64,7 @@ export default function Categories(props) {
         className=""
         disabled={ false }
       />
-      {data.map(({ strCategory }) => (
+      {categories.map(({ strCategory }) => (
         <Button
           key={ strCategory }
           label={ strCategory }
@@ -82,5 +79,5 @@ export default function Categories(props) {
 }
 
 Categories.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

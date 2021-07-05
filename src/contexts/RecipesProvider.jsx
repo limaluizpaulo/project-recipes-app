@@ -109,6 +109,8 @@ function RecipesProvider({ children }) {
     setSelectedCategory,
     setToggle,
     toggle,
+    setIsFetching,
+    setData,
   };
 
   return (
