@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRecipeSearch } from '../services';
@@ -8,6 +9,7 @@ function SearchBar({ title }) {
   const [inputValue, setInputValue] = useState('');
   const [endpointSearch, setEndpointSearch] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const arrangeURL = () => {
@@ -40,7 +42,7 @@ function SearchBar({ title }) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (meals.length > 1) {
-      // ACTION PARA MANDAR AS RECEITAS PARA O REDUX
+      dispatch({ type: 'card content', content: meals });
     }
     if (meals.length === 1) {
       setRedirectTo(`/comidas/${meals[0].idMeal}`);
@@ -54,7 +56,7 @@ function SearchBar({ title }) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (drinks.length > 1) {
-      // ACTION PARA MANDAR AS RECEITAS PARA O REDUX
+      dispatch({ type: 'card content', content: drinks });
     }
     if (drinks.length === 1) {
       setRedirectTo(`/bebidas/${drinks[0].idDrink}`);
@@ -71,6 +73,7 @@ function SearchBar({ title }) {
   const handleApiUrl = async () => {
     const newURL = `${endpointSearch}${selectedRadio}${inputValue}`;
     const data = await getRecipeSearch(newURL);
+    console.log(data);
     redirectToConditionals(data);
   };
 
