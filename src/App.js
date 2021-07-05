@@ -7,11 +7,15 @@ import Food from './pages/Food/Food';
 import Provider from './Provider/provider';
 import Drinks from './pages/Drinks/Drinks';
 import Login from './pages/Login/Login';
-import Explorar from './pages/Explorar/Explorar';
+import Explorar from './pages/Explore/Explore';
 import ExplorerFoods from './pages/ExplorerFoods/ExplorerFoods';
 import ExplorerDrinks from './pages/ExplorerDrinks/ExplorerDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
+import Profile from './pages/Profile/Profile';
+import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
+import RecipesMade from './pages/RecipesMade/RecipesMade';
+import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
 const test = '';
 function App() {

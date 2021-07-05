@@ -140,7 +140,7 @@ function Drinks() {
             : (mapData(data))
         }
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
