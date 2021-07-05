@@ -46,8 +46,8 @@ body {
 }
 
 .cardTitle {
-  box-orient: vertical;
-  display: box;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -156,7 +156,7 @@ body {
   justify-content: space-between;
 }
 
-input[ type = 'checkbox' ] {
+.inputs {
   height: 20px;
   margin-right: 6px;
   width: 20px;
