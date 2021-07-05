@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { fetchAreaRecipes, fetchRecipesByArea } from '../services/RecipesServices';
+import RecipesContext from '../context/RecipesContext';
 
 function ExploreFoodsArea() {
   const [areas, setAreas] = useState([]);
   const [valueArea, setValueArea] = useState('All');
   const [recipesByArea, setRecipesByArea] = useState([]);
 
-  const history = useHistory();
+  const { allRecipes: { recipes } } = useContext(RecipesContext);
 
   useEffect(() => {
     async function getAreas() {
-      const NUMBER_OF_AREAS = 12;
       const data = await fetchAreaRecipes();
-      const twelveAreas = data.meals.slice(0, NUMBER_OF_AREAS);
-      const areasItens = twelveAreas.map((area) => area.strArea);
+      const areasItens = data.meals.map((area) => area.strArea);
       setAreas(areasItens);
     }
     getAreas();
@@ -24,23 +23,21 @@ function ExploreFoodsArea() {
 
   useEffect(() => {
     async function getRecipesByArea() {
+      const NUMBER_OF_RECIPES = 12;
       if (valueArea !== 'All') {
-        const NUMBER_OF_RECIPES = 12;
         const data = await fetchRecipesByArea(valueArea);
         const twelveRecipes = data.meals.slice(0, NUMBER_OF_RECIPES);
         setRecipesByArea(twelveRecipes);
+      } else {
+        setRecipesByArea(recipes.slice(0, NUMBER_OF_RECIPES));
       }
     }
     getRecipesByArea();
-  }, [valueArea]);
+  }, [valueArea, recipes]);
 
   function handleChange(event) {
     const { value } = event.target;
     setValueArea(value);
-  }
-
-  function handleClick(idMeal) {
-    history.push(`/comidas/${idMeal}`);
   }
 
   return (
@@ -64,20 +61,20 @@ function ExploreFoodsArea() {
       <section>
         {
           recipesByArea.map((recipe, index) => (
-            <button
-              type="button"
+            <div
+              className="card-field"
               data-testid={ `${index}-recipe-card` }
               key={ index }
-              onClick={ () => handleClick(recipe.idMeal) }
             >
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ recipe.strMealThumb }
-                alt={ recipe.strMeal }
-              />
-              <h6 data-testid={ `${index}-card-name` }>{ recipe.strMeal }</h6>
-
-            </button>
+              <Link to={ `/comidas/${recipe.idMeal}` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ recipe.strMealThumb }
+                  alt={ recipe.strMeal }
+                />
+                <h5 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h5>
+              </Link>
+            </div>
           ))
         }
       </section>
