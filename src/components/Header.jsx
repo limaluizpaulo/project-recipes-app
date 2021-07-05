@@ -5,7 +5,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-const Header = ({ name, search }) => {
+const Header = ({ name, search db }) => {
+
   const [bar, setBar] = useState(false);
 
   return (
@@ -26,7 +27,7 @@ const Header = ({ name, search }) => {
         </button>
       )}
 
-      {bar ? <SearchBar /> : ''}
+     {bar ? <SearchBar db={ db } /> : ''}
     </header>
   );
 };

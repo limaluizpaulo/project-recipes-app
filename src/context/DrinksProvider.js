@@ -33,7 +33,7 @@ const DrinksProvider = ({ children }) => {
     setDrinks(filtered);
   };
 
-  const context = { drinks, categories, setFilterCategory };
+  const context = { drinks, setDrinks, categories, setFilterCategory };
   return (
     <DrinksContext.Provider value={ context }>
       { children }
