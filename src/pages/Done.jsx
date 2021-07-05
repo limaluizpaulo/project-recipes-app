@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import { Header } from '../components';
+import { Header, Filters } from '../components';
 import shareIcon from '../images/shareIcon.svg';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
@@ -39,29 +39,7 @@ const Done = () => {
     <>
       <Header name="Receitas Feitas" />
 
-      <div className="filters">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => setFilter('') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => setFilter('comida') }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => setFilter('bebida') }
-        >
-          Drinks
-        </button>
-      </div>
+      <Filters clickFilter={ setFilter } />
 
       <div className="done-recipes">
         {copied ? 'Link copiado!' : ''}
