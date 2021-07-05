@@ -3,12 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
-
-<<<<<<< HEAD
-import { Bebidas, Comidas, ExpBebidas, ExpBebidasIngredientes, ExpComidas,
-  ExpComidasArea, ExpComidasIngredientes, Explorar, Login, Perfil,
-  DetalhesComida, DetalhesBebida } from './Pages';
-=======
 import { Bebidas,
   Comidas,
   ExpBebidas,
@@ -19,9 +13,7 @@ import { Bebidas,
   Explorar,
   Login,
   Perfil,
-  DetalhesComida,
-} from './Pages';
->>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
+  Detalhes, ReceitasFeitas, ReceitasFavoritas, ReceitaEmProcesso } from './Pages';
 
 function App() {
   return (
@@ -30,11 +22,11 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route path="/comidas/:id" component={ DetalhesComida } />
-        <Route path="/bebidas/:id" component={ DetalhesBebida } />
-        <Route exact path="/perfil" component={ Perfil } />
-        <Route exact path="/explorar" component={ Explorar } />
-        <Route exact path="/explorar/comidas" component={ ExpComidas } />
+        <Route exact path="/comidas/:id" component={ Detalhes } />
+        <Route exact path="/bebidas/:id" component={ Detalhes } />
+        <Route path="/perfil" component={ Perfil } />
+        <Route path="/explorar" component={ Explorar } />
+        <Route path="/explorar/comidas" component={ ExpComidas } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
@@ -46,6 +38,22 @@ function App() {
           exact
           path="/explorar/bebidas/ingredientes"
           component={ ExpBebidasIngredientes }
+        />
+        <Route
+          path="/receitas-feitas"
+          component={ ReceitasFeitas }
+        />
+        <Route
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
+        />
+        <Route
+          path="/comidas/:id/in-progress"
+          component={ ReceitaEmProcesso }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          component={ ReceitaEmProcesso }
         />
       </Switch>
     </Provider>

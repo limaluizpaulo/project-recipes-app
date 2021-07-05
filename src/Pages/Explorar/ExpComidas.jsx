@@ -13,7 +13,6 @@ export default function ExpComidas() {
     <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
-<<<<<<< HEAD
       <ButtonGroup vertical>
         <Button
           href="/explorar/comidas/ingredientes"
@@ -52,9 +51,7 @@ export default function ExpComidas() {
           Voltar
         </Button> */}
       </ButtonGroup>
-=======
       <Footer />
->>>>>>> 8ea6a4befe48fc5e030d51cb5fba4197d2e3f091
     </div>
   );
 }

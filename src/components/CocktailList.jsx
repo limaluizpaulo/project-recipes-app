@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
-// import Meal from './Meal';
 import ItemCard from './ItemCard';
 
 export default function CocktailList() {
   const [showCocktails, setShowCocktails] = useState(false);
-  const { cocktailsRecipes } = useContext(Context);
+  const { cocktailsRecipes, resquestCocktailsApi } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -18,6 +17,10 @@ export default function CocktailList() {
       setShowCocktails(true);
     }
   }, [cocktailsRecipes]);
+
+  useEffect(() => {
+    resquestCocktailsApi();
+  }, []);
 
   const renderCards = () => {
     if (cocktailsRecipes && cocktailsRecipes.length === 1) {
@@ -35,7 +38,7 @@ export default function CocktailList() {
       });
     }
 
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return null;
   };
 

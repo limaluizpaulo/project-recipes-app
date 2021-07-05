@@ -21,3 +21,9 @@ export async function fetchCocktailsRecomendation() {
   const { drinks } = await request.json();
   return drinks;
 }
+
+export async function fetchDrinksById(id) {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const { drinks } = await request.json();
+  return drinks;
+}
