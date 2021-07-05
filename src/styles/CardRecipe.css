@@ -1,0 +1,17 @@
+.recipe-card {
+  border-radius: 9px;
+  box-shadow: 3px 4px 4px rgba(8, 8, 8, 0.25);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  height: 200px;
+  margin: 10px;
+  overflow: hidden;
+  width: 150px;
+}
+
+.card_image {
+  width: 100%;
+}

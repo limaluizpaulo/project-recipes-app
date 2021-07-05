@@ -6,7 +6,7 @@ export default function MealsByIngre() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      <h1>comida por ingre</h1>
+      <h1>comida por ingredientes</h1>
       <Footer />
     </div>
   );
