@@ -22,7 +22,7 @@ export default function CategoryDrinks() {
     console.log('state', valor);
     console.log(value);
     setRedirect(false);
-    if (!toggleSearch) {
+    if (!toggleSearch || (valor !== value)) {
       fetchTypeCategoryFilter(value).then((result) => setResponseApiLupaDrink(result));
       setToggleSearch(true);
     } else {

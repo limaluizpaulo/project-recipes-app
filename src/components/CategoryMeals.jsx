@@ -7,9 +7,11 @@ export default function CategoryMeals() {
   const { categoryMeals, setCategoryMeals,
     setResponseApiLupaMeal, setRedirect } = useContext(RecipesContext);
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [valor, setValor] = useState('');
   const handleClick = ({ target: { value } }) => {
+    setValor(value);
     setRedirect(false);
-    if (!toggleSearch) {
+    if (!toggleSearch || (valor !== value)) {
       fetchTypeCotegoryMeals(value).then((result) => setResponseApiLupaMeal(result));
       setToggleSearch(true);
     } else {
