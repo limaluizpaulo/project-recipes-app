@@ -44,8 +44,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  drink: state.random.list,
-  shouldRedirect: state.random.shouldRedirect,
+  drink: state.drinks.list,
+  shouldRedirect: state.drinks.shouldRedirect,
 });
 
 ExploreDrinks.propTypes = {

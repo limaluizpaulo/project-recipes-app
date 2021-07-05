@@ -1,4 +1,4 @@
-import { DRINKS } from '../actions/index';
+import { DRINKS, RANDOM } from '../actions/index';
 
 const initialState = {
   list: [],
@@ -14,6 +14,12 @@ export default (state = initialState, { type, payload }) => {
       list: payload,
       goToDrinksPage: payload && payload.length === 1,
       drinkNotFound: !payload,
+    };
+  case RANDOM:
+    return {
+      ...state,
+      list: payload,
+      shouldRedirect: true,
     };
 
   default:
