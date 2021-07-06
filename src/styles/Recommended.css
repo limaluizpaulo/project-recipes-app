@@ -12,7 +12,7 @@
   justify-content: center;
 }
 
-.card {
+.card-details {
   box-shadow: 2px 4px 8px rgb(199, 202, 199);
   display: flex;
   margin: 5px;
@@ -20,7 +20,7 @@
   width: 35vw;
 }
 
-.card:hover {
+.card-details:hover {
   transform: scale(1.1);
   width: 35vw;
   z-index: 2;
@@ -30,7 +30,7 @@
   display: none;
 }
 
-.card img {
+.card-details img {
   border-radius: 5px 5px 0 0;
   height: 180px;
   width: 180px;
