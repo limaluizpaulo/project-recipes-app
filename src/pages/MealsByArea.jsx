@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AreasDropDown, Header } from '../components';
+import { Header } from '../components';
 import fetchAreas from '../services/api/fetchAreas';
 
 const MealsByArea = () => {
@@ -15,8 +15,7 @@ const MealsByArea = () => {
 
   return (
     <div>
-      <Header name="Explorar Origem" />
-      <AreasDropDown areas={ areas } />
+      <Header name="Explorar Origem" search dropDown areas={ areas } />
     </div>
   );
 };
