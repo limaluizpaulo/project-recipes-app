@@ -30,7 +30,7 @@ class comidas extends Component {
   }
 
   verifyRecipes() {
-    const { id } = this.props;
+    const { match: { params: { comidaId: id } } } = this.props;
     if (localStorage.doneRecipes) {
       const searchDone = JSON.parse(localStorage.doneRecipes);
       searchDone.find((item) => item.id === id);
