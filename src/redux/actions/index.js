@@ -1,4 +1,4 @@
-import fetchComidasEBebidas from '../../Services/index';
+import { fetchComidasEBebidas, fetchRandomRecipe } from '../../Services/index';
 
 export const clearRecipes = () => ({
   type: 'reset-recipes',
@@ -21,8 +21,20 @@ export const requestFetchSuccess = (recipes) => ({
   },
 });
 
+export const requestRandomRecipeSuccess = (randomRecipe) => ({
+  type: 'request-random-success',
+  payload: {
+    randomRecipe,
+  },
+});
+
 export const requestFetchError = (error) => ({
   type: 'request-error',
+  payload: { error },
+});
+
+export const requestRandomRecipeError = (error) => ({
+  type: 'request-random-error',
   payload: { error },
 });
 
@@ -33,4 +45,12 @@ export const fetchComidasOnComponentDidMount = (recipeType) => (dispatch) => {
       dispatch(requestFetchSuccess(response));
     })
     .catch((error) => dispatch(requestFetchError(error)));
+};
+
+export const fetchReceitaRandom = (recipeType) => (dispatch) => {
+  fetchRandomRecipe(recipeType)
+    .then((response) => {
+      dispatch(requestRandomRecipeSuccess(response));
+    })
+    .catch((error) => dispatch(requestRandomRecipeError(error)));
 };

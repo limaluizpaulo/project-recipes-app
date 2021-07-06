@@ -17,6 +17,16 @@ const conditionalEndpoint = (recipeType) => {
   }
 };
 
-const fetchComidasEBebidas = (recipeType) => conditionalEndpoint(recipeType);
+const conditionalEndpointRandom = (recipeType) => {
+  switch (recipeType) {
+  case 'comidas':
+    return fetchInfo('https://www.themealdb.com/api/json/v1/1/random.php');
+  case 'bebidas':
+    return fetchInfo('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  default:
+    break;
+  }
+};
 
-export default fetchComidasEBebidas;
+export const fetchComidasEBebidas = (recipeType) => conditionalEndpoint(recipeType);
+export const fetchRandomRecipe = (recipeType) => conditionalEndpointRandom(recipeType);

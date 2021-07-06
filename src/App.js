@@ -5,6 +5,8 @@ import Login from './Pages/Login';
 import ReceitasFeitas from './Pages/ReceitasFeitas';
 import Recipes from './Pages/Recipes';
 import GenericComponent from './Components/GenericComponent';
+import Explore from './Pages/Explore';
+import ExploreByType from './Pages/ExploreByType';
 
 function App() {
   // tudo com GenericComponent não foi implementado
@@ -16,8 +18,9 @@ function App() {
         render={ (props) => <GenericComponent { ...props } /> }
       />
       <Route
+        exact
         path="/explorar/:recipeType"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ExploreByType { ...props } /> }
       />
       <Route
         path="/explorar/comidas/area"
@@ -26,7 +29,7 @@ function App() {
       <Route
         exact
         path="/explorar"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <Explore { ...props } /> }
       />
 
       <Route
