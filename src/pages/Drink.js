@@ -3,9 +3,11 @@ import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
-import { checkRecypeId, checkProgress } from '../services/localStorage';
+import { checkRecypeId, checkProgress, checkFavoriteId } from '../services/localStorage';
 import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const Drink = ({ match }) => {
   const history = useHistory();
@@ -14,10 +16,23 @@ const Drink = ({ match }) => {
   } = match;
   const [drink, setDrink] = useState({});
   const [msgCopy, setMsgCopy] = useState(false);
+  const [iconFavorit, setIconFavorit] = useState(false);
+
+  const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
+  const isFavorite = checkFavoriteId(id);
+
+  useEffect(() => {
+    if (isFavorite) setIconFavorit(true);
+  }, []);
 
   useEffect(() => {
     recipeById(id).then(setDrink);
   }, [id, setDrink]);
+
+  const addFavorite = () => {
+    const favorites = localStorage.favoriteRecipes || [];
+    localStorage.favoriteRecipes = JSON.stringify([...favorites, id]);
+  };
 
   const textProgress = checkProgress(id) ? 'Continuar Receita' : 'Iniciar Receita';
   return (
@@ -43,8 +58,9 @@ const Drink = ({ match }) => {
       >
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
-      <button type="button" data-testid="favorite-btn">
-        Favoritar
+      {/* Favorito */}
+      <button onClick={ addFavorite } type="button">
+        <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
       </button>
       {!checkRecypeId(id) && (
         <button

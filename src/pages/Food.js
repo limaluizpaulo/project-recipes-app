@@ -3,9 +3,11 @@ import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
-import { checkRecypeId, checkProgress } from '../services/localStorage';
+import { checkRecypeId, checkProgress, checkFavoriteId } from '../services/localStorage';
 import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const Food = ({ match }) => {
   const history = useHistory();
@@ -14,12 +16,26 @@ const Food = ({ match }) => {
   } = match;
   const [meal, setMeal] = useState({});
   const [msgCopy, setMsgCopy] = useState(false);
+  const [iconFavorit, setIconFavorit] = useState(false);
+
+  const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
+  const isFavorite = checkFavoriteId(id);
+
+  useEffect(() => {
+    if (isFavorite) setIconFavorit(true);
+  }, [isFavorite]);
 
   useEffect(() => {
     recipeById(id, true).then(setMeal);
   }, [id, setMeal]);
 
+  const addFavorite = () => {
+    const favorites = localStorage.favoriteRecipes || [];
+    localStorage.favoriteRecipes = JSON.stringify([...favorites, id]);
+  };
+
   const textProgress = checkProgress(id, true) ? 'Continuar Receita' : 'Iniciar Receita';
+
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
@@ -40,8 +56,12 @@ const Food = ({ match }) => {
       >
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
-      <button type="button" data-testid="favorite-btn">
-        Favoritar
+      {/* Botão de favorito */}
+      <button
+        onClick={ addFavorite }
+        type="button"
+      >
+        <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
       </button>
       {!checkRecypeId(id) && (
         <button
@@ -72,3 +92,14 @@ Food.propTypes = {
 };
 
 export default Food;
+
+// useEffect(() => {
+// const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+// if (favorite) {
+// const isFavorite =favorite.find((favorite) => favorite.id === id);
+// if (isFavorite) setIconFavorite(true);
+// setFavorite({
+// favorites,
+// })
+// }
+// }, []);
