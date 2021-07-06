@@ -9,7 +9,7 @@ export const renderIngredients = (option) => {
   const measures = filterObj(/Measure/, option);
   return ingredients.map(([key, ingredient], idx) => (
     <li key={ key } data-testid={ `${idx}-ingredient-name-and-measure` }>
-      {`${ingredient} - ${measures[idx][1]}`}
+      {`${ingredient} - ${measures[idx] ? measures[idx][1] : ''}`}
     </li>
   ));
 };
@@ -19,11 +19,7 @@ export const renderCheckBox = (option) => {
   return ingredients.map(([key, ingredient]) => (
     <label htmlFor="checkbox" key={ `${key} - ${ingredient}` }>
       {ingredient}
-      <input
-        data-testid="ingredient-step"
-        id="checkbox"
-        type="checkbox"
-      />
+      <input data-testid="ingredient-step" id="checkbox" type="checkbox" />
     </label>
   ));
 };

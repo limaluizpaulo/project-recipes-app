@@ -70,6 +70,23 @@
   font-weight: 900;
 }
 
+/*
+Ajuda Alessandra
+*/
+
+.card-carousel {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.recomendation-card {
+  width: 50vw;
+}
+
+.recomendation-card img {
+  width: 50vw;
+}
+
 @keyframes shake {
 
   0% {

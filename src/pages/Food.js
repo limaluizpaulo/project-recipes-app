@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
+import { checkRecypeId, checkProgress } from '../services/localStorage';
 import { renderIngredients } from '../utils';
+import Carousel from '../components/Carousel';
 
 const Food = ({ match }) => {
   const history = useHistory();
@@ -10,12 +13,13 @@ const Food = ({ match }) => {
     params: { id },
   } = match;
   const [meal, setMeal] = useState({});
+  const [msgCopy, setMsgCopy] = useState(false);
 
   useEffect(() => {
     recipeById(id, true).then(setMeal);
   }, [id, setMeal]);
 
-  console.log(meal);
+  const textProgress = checkProgress(id, true) ? 'Continuar Receita' : 'Iniciar Receita';
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
@@ -27,20 +31,34 @@ const Food = ({ match }) => {
       </ul>
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
-      <p data-testid="0-recomendation-card">recomendation</p>
-      <button type="button" data-testid="share-btn">
-        Compartilhar
+      <button
+        onClick={ () => copy(`http://localhost:3000${history.location.pathname}`).then(() => {
+          setMsgCopy(true);
+        }) }
+        type="button"
+        data-testid="share-btn"
+      >
+        { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
       <button type="button" data-testid="favorite-btn">
         Favoritar
       </button>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {!checkRecypeId(id) && (
+        <button
+          className="footer"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
+        >
+          {textProgress}
+        </button>
+      )}
+      <Carousel food />
+      <br />
+      <Link to="/comidas"><button type="button">Voltar</button></Link>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
