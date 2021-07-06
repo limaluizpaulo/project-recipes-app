@@ -8,6 +8,8 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import fetchAPI from '../services/apiRequest';
 
+const SIX = 6;
+
 export default function FoodAndDrinkById() {
   const { path } = useRouteMatch();
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
@@ -28,7 +30,7 @@ export default function FoodAndDrinkById() {
       const resolved = await fetchAPI(URL);
       const recResolved = await fetchAPI(URL_RECOMENDATION);
       setSingleContent(...resolved[firstKey]);
-      setRecomentation(recResolved[recFirstKey]);
+      setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
       const list = [];
       Object.entries(...resolved[firstKey]).forEach((el) => {
         if (el[0].includes('Ingredient') && el[1]) { list.push(el[1]); }
@@ -77,7 +79,7 @@ export default function FoodAndDrinkById() {
           testId="recomendation"
         />
       ))}
-      <Button data-testid="start-recipe-btn">Start Recipe</Button>
+      <Button data-testid="start-recipe-btn">Iniciar Receita</Button>
     </>
   );
 }
