@@ -35,12 +35,27 @@ const MealsProvider = ({ children }) => {
     setMeals(filtered);
   };
 
+  const findMealRecipe = (id) => meals.find(({ idMeal }) => id === idMeal);
+
+  const filterIngredients = (id) => {
+    const newMeals = meals.find(({ idMeal }) => id === idMeal);
+    const teste = Object.entries(newMeals);
+    const teste2 = teste.filter((array) => array[0]
+      .includes('strIngredient') && array[1] !== '');
+    return teste2.map((array) => array[1]);
+  };
+
   const context = {
     meals,
     setMeals,
     categories,
     setFilterCategory,
+<<<<<<< HEAD
     setIngredientFilter,
+=======
+    findMealRecipe,
+    filterIngredients,
+>>>>>>> d6092079d668e0a8596d62ded9afcc864d7748e7
   };
 
   return (
