@@ -86,7 +86,7 @@ export default function Provider({ children }) {
         thumb: strMealThumb,
         video: strYoutube,
       };
-      setCurr('meal');
+      setCurr('meals');
       setCurrentRecipe(meal);
     }
 
@@ -109,7 +109,7 @@ export default function Provider({ children }) {
         instructions: strInstructions,
         thumb: strDrinkThumb,
       };
-      setCurr('drink');
+      setCurr('cocktail');
       setCurrentRecipe(drink);
     }
   };

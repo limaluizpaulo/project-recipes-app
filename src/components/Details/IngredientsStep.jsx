@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Context from '../../context/Context';
 
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
+  const { curr } = useContext(Context);
 
   // Pupula o estado que gerencia a classe CSS dos ingredientes
   const populateSteps = () => {
@@ -30,10 +32,13 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   const addLocalStorageIngredient = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id, video, title } = currentRecipe;
-    console.log(currentRecipe.value);
+    console.log(currentRecipe);
     if (inProgress === null) {
       localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ [id]: { [id]: [] } }));
+        .stringify({ [curr]: { [id]: [] } }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ ...inProgress, [curr]: { [id]: [] } }));
     }
   };
 
