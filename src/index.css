@@ -1,9 +1,11 @@
 :root {
   --bole-color: #7B493E;
   --orange-peel-color: #f79c17;
-  --light-yellow-color: ;
+  --light-yellow-color: #FFEEB4;
+  --yellow-color: #F1ECEA;
   --black-color: #170f0c;
   --melon-color: #e8af9f;
+  --b-o: rgba(232, 175, 159, 0);
 }
 
 *{
