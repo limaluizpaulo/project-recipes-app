@@ -5,8 +5,7 @@ import AppReceitasProvider from './context/AppReceitasProvider';
 import Login from './pages/Login';
 import Erro404 from './pages/Page404';
 import Explorar from './pages/Explorar';
-import ExplorarComidas from './pages/ExplorarComidas';
-import ExplorarBebidas from './pages/ExplorarBebidas';
+import ExplorarComidasOuBebidas from './pages/ExplorarComidasOuBebidas';
 import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
@@ -37,9 +36,9 @@ function App() {
           />
           <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}/in-progress" component={ Erro404 } />
-          <Route exect path="/explorar" component={ Explorar } />
-          <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
-          <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route exact path="/explorar" component={ Explorar } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidasOuBebidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarComidasOuBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExplorarComidasPorIngredientes }
