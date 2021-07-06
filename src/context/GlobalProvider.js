@@ -44,6 +44,24 @@ function GlobalProvider({ children }) {
     setRequestParams({ ...requestParams, [name]: value });
   };
 
+  const generateIngredientsAndMeasure = (object) => {
+    const FatherObject = {
+      ingredient: {},
+      measure: {},
+    };
+    Object.keys(object).forEach((eachKey) => {
+      if ((eachKey.includes('strMeasure'))
+      && (object[eachKey] !== '' && object[eachKey] !== null)) {
+        FatherObject.measure[eachKey] = object[eachKey];
+      }
+      if ((eachKey.includes('strIngredient'))
+      && (object[eachKey] !== '' && object[eachKey] !== null)) {
+        FatherObject.ingredient[eachKey] = object[eachKey];
+      }
+    });
+    return FatherObject;
+  };
+
   const syncSetState = async (baseEndPoint) => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
@@ -91,6 +109,7 @@ function GlobalProvider({ children }) {
     manageRenderDrink,
     setDetails,
     detailsSyncSetState,
+    generateIngredientsAndMeasure,
   };
 
   return (

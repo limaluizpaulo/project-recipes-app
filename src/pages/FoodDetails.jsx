@@ -5,7 +5,11 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function FoodDetails({ match: { params: { id } } }) {
-  const { details, detailsSyncSetState } = useContext(Context);
+  const {
+    details,
+    detailsSyncSetState,
+    generateIngredientsAndMeasure,
+  } = useContext(Context);
 
   useEffect(() => {
     if (!details.meals) {
@@ -16,7 +20,7 @@ function FoodDetails({ match: { params: { id } } }) {
 
   function loopArray() {
     const mealArray = Object.entries(details.meals[0]);
-    let count = 0;
+    let count = -1;
     const EIGHT = 8;
     return (
       mealArray.map((forEachArray, index) => {
@@ -32,6 +36,7 @@ function FoodDetails({ match: { params: { id } } }) {
               <div data-testid={ `${count}-ingredient-name-and-measure` }>
                 {details.meals[0][`strMeasure${count}`]}
               </div>
+              <div data-testid={ `${count}-recomendation-card` } />
             </section>
           );
         }
@@ -65,13 +70,17 @@ function FoodDetails({ match: { params: { id } } }) {
         </button>
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
-        <button type="button" data-testid="start-recipe-btn">Começar</button>
         {loopArray()}
         <iframe
+          data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
           width="300px"
           title="Recipe"
         />
+        <button type="button" data-testid="start-recipe-btn">
+          Começar
+        </button>
+        {generateIngredientsAndMeasure(details.meals[0])}
       </main>
     );
   }
@@ -87,5 +96,4 @@ FoodDetails.propTypes = {
 
 export default FoodDetails;
 
-// O vídeo, presente somente na tela de comidas, deve possuir o atributo data-testid="video";
 // O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
