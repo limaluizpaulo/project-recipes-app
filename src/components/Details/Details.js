@@ -4,6 +4,8 @@ import Carousel from 'react-elastic-carousel';
 
 import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
+import './style/Details.css';
+
 function Details({ id, mealsOrDrinks }) {
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
@@ -45,11 +47,20 @@ function Details({ id, mealsOrDrinks }) {
   const renderRecommendation = () => {
     const recommendationsKeyThumb = `${recommendationsKey}Thumb`;
     return (
-      <Carousel itemsToShow={ 2 }>
+      <Carousel itemsToShow={ 2 } pagination={ false } disableArrowsOnEnd={ false }>
         {
           recommendations.map((
             { [recommendationsKey]: title, [recommendationsKeyThumb]: thumb },
-          ) => <img key={ title } src={ thumb } alt={ title } style={ { width: 200 } } />)
+            index,
+          ) => (
+            <img
+              key={ title }
+              src={ thumb }
+              alt={ title }
+              style={ { width: 200 } }
+              data-testid={ `${index}-recomendation-card` }
+            />
+          ))
         }
       </Carousel>
     );
@@ -126,7 +137,7 @@ function Details({ id, mealsOrDrinks }) {
         </div>
         <div>
           <h2>Instructions</h2>
-          <p>{recipe.strInstructions}</p>
+          <p data-testid="instructions">{recipe.strInstructions}</p>
         </div>
         <div>
           <h2>Recommendations</h2>
@@ -150,7 +161,14 @@ function Details({ id, mealsOrDrinks }) {
             )
             : null
         }
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+        >
+          Iniciar Receita
+
+        </button>
       </section>
     </>
   );
