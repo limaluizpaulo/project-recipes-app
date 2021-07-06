@@ -34,7 +34,8 @@ class Detalhes extends Component {
   }
 
   render() {
-    const numero = 5550;
+    const ingredientsNumber = 5550;
+    const recomendationCardNumber = 550;
     const { favIconColor } = this.state;
     return (
       <section>
@@ -72,7 +73,7 @@ class Detalhes extends Component {
               <img src={ favIconColor } alt={ favIconColor } />
             </button>
           </section>
-          <section data-testid={ `${numero}-ingredient-name-and-measure` }>
+          <section data-testid={ `${ingredientsNumber}-ingredient-name-and-measure` }>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
               AQUI FICARÁ OS IGREDIENTES
@@ -88,7 +89,7 @@ class Detalhes extends Component {
             <h3>Video</h3>
             <section className="video">AQUI FICARÁ O VIDEO</section>
           </section>
-          <section data-testid={ `${550}-recomendation-card` }>
+          <section data-testid={ `${recomendationCardNumber}-recomendation-card` }>
             <h3>Recomendadas</h3>
             CARROSEUL
           </section>
