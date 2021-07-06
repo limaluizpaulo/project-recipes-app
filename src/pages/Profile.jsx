@@ -7,6 +7,7 @@ import { getFromLocalStorage } from '../services/helpers/localStorage';
 const Profile = () => {
   const history = useHistory();
   const { email } = getFromLocalStorage('user');
+
   return (
     <main>
       <Header name="Perfil" search />
