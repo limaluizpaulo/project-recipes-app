@@ -10,3 +10,4 @@ export { default as MealsByIngredients } from './MealsByIngredients';
 export { default as MealsByArea } from './MealsByArea';
 export { default as DrinksDetails } from './DrinksDetails';
 export { default as DrinksByIngredients } from './DrinksByIngredients';
+export { default as Done } from './Done';

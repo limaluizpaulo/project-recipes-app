@@ -5,7 +5,8 @@ import Provider from './context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login, Meals, Drinks, Profile, Explore, ExploreMeals, ExploreDrinks,
   MealsDetails, MealsByIngredients, DrinksDetails, DrinksByIngredients,
-  MealsByArea } from './pages';
+  MealsByArea, Done } from './pages';
+
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
@@ -24,9 +25,9 @@ function App() {
         <Route path="/explorar/comidas/ingredientes" component={ MealsByIngredients } />
         <Route path="/explorar/bebidas/ingredientes" component={ DrinksByIngredients } />
         <Route path="/explorar/comidas/area" component={ MealsByArea } />
+        <Route path="/receitas-feitas" component={ Done } />
         { /* <Route exact path="/comidas/:id/in-progress" component={} />
         <Route exact path="/bebidas/:id/in-progress" component={} />
-        <Route path="/receitas-feitas" component={} />
         <Route path="/receitas-favoritas" component={} /> */}
       </Provider>
     </Switch>
