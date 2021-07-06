@@ -33,11 +33,6 @@ const foodCategories = (state = INITIAL_STATE, action) => {
       ...state,
       meals: action.meals,
     };
-  case RECIPE_DETAILS:
-    return {
-      ...state,
-      recipeDetails: action.mealsDetails,
-    };
   default:
     return state;
   }
