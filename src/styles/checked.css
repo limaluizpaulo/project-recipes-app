@@ -51,8 +51,8 @@
 
 ul {
   background: rgb(206, 206, 206);
-  list-style: none;
   border-radius: 4px;
+  list-style: none;
   margin-left: 10px;
   margin-right: 10px;
   padding: 10px;
@@ -76,9 +76,9 @@ ul {
   background: #6ce34f;
   border: none;
   height: 50px;
+  border-radius: 4px;
   margin-left: 10px;
   margin-right: 10px;
-  border-radius: 4px;
-  width: 99%;
   font-weight: 600;
+  width: 99%;
 }
