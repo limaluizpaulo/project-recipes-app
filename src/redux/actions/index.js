@@ -8,7 +8,15 @@ export const [
   INGREDIENTS,
   FOOD_CATEGORIES,
   DRINK_CATEGORIES,
-] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM', 'INGREDIENTS', 'FOOD_CATEGORIES', 'DRINK_CATEGORIES'];
+] = [
+  'USERLOGIN',
+  'DRINKS',
+  'FOODS',
+  'RANDOM',
+  'INGREDIENTS',
+  'FOOD_CATEGORIES',
+  'DRINK_CATEGORIES',
+];
 
 export function userLogin(payload) {
   return {
