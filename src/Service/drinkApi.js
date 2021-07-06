@@ -1,3 +1,9 @@
+export const fetchIdDrink = async (id) => {
+  const drinkDetails = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const { drinks } = await drinkDetails.json();
+  return drinks;
+};
+
 export const fetchDrinkCategori = async () => {
   const categoryDirnks = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const { drinks } = await categoryDirnks.json();
