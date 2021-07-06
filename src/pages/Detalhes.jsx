@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
+import { addFavicon } from '../action';
 
 import '../css/Details.css';
 import shareIcon from '../images/shareIcon.svg';
@@ -108,8 +109,12 @@ class Detalhes extends Component {
 
 const mapStateToProps = (state) => ({
   mealsDetails: state.foodCategories.recipeDetails,
+  getFavIcon: state.recipeDetails.favIcon,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addFavIcon: (favIcon) => dispatch(addFavicon(favIcon)),
+});
 // Detalhes.propTypes = {
 //   idMeal: PropTypes.string.isRequired,
 //   strMealThumb: PropTypes.string.isRequired,
@@ -119,4 +124,4 @@ const mapStateToProps = (state) => ({
 //   strInstructions: PropTypes.string.isRequired,
 // };
 
-export default connect(mapStateToProps)(Detalhes);
+export default connect(mapStateToProps, mapDispatchToProps)(Detalhes);
