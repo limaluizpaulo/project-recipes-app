@@ -13,45 +13,45 @@ function FavoritesRecipes() {
   const [category, setCategory] = useState('all');
 
   useEffect(() => {
-    const favoriteRecipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-      {
-        id: '151555',
-        type: 'comida',
-        area: 'blabla',
-        category: 'blabla',
-        alcoholicOrNot: '',
-        name: 'blabla',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '121',
-        type: 'bebida',
-        area: '',
-        category: 'blibli',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'blibli',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-    ];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    // const favoriteRecipes = [
+    //   {
+    //     id: '52771',
+    //     type: 'comida',
+    //     area: 'Italian',
+    //     category: 'Vegetarian',
+    //     alcoholicOrNot: '',
+    //     name: 'Spicy Arrabiata Penne',
+    //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    //   },
+    //   {
+    //     id: '178319',
+    //     type: 'bebida',
+    //     area: '',
+    //     category: 'Cocktail',
+    //     alcoholicOrNot: 'Alcoholic',
+    //     name: 'Aquamarine',
+    //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    //   },
+    //   {
+    //     id: '151555',
+    //     type: 'comida',
+    //     area: 'blabla',
+    //     category: 'blabla',
+    //     alcoholicOrNot: '',
+    //     name: 'blabla',
+    //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    //   },
+    //   {
+    //     id: '121',
+    //     type: 'bebida',
+    //     area: '',
+    //     category: 'blibli',
+    //     alcoholicOrNot: 'Alcoholic',
+    //     name: 'blibli',
+    //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    //   },
+    // ];
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorites) {
