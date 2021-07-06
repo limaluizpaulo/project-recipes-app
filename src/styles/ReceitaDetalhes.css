@@ -2,7 +2,7 @@ iframe {
   width: 360px;
 }
 
-img {
+.detail-image {
   height: 150px;
   object-fit: cover;
   width: 360px;
