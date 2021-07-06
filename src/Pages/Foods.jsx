@@ -33,6 +33,7 @@ function Foods(props) {
     <div>
       <HeadBar title="Comidas" />
       <CategoryButtons
+        setFirstFoods={ setFirstFoods }
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
