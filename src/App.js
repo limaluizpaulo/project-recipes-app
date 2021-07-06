@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
 import Ingredients from './pages/Ingredientes';
-
 import Comidas from './pages/Comidas';
 
 function App() {
@@ -27,10 +26,8 @@ function App() {
         { /* <Route path="/explorar" component={ Explorar } /> */ }
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-        <Route exact path="/explorar/comidas/ingredientes"
-        component={ ComidasIngredientes } />
-        <Route exact path="/explorar/bebidas/ingredientes"
-        component={ BebidasIngredientes } />
+        <Route exact path="/explorar/comidas/ingredientes" component={ ComidasIngredientes } />
+        <Route exact path="/explorar/bebidas/ingredientes" component={ BebidasIngredientes } />
         <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
         { /* <Route path="/perfil" component={Perfil} /> */ }
         { /* <Route path="/receitas-feitas" component={ReceitasFeitas} /> */ }
