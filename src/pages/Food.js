@@ -19,6 +19,7 @@ const Food = ({ match }) => {
   const [iconFavorit, setIconFavorit] = useState(false);
 
   const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
+
   const isFavorite = checkFavoriteId(id);
 
   useEffect(() => {
@@ -34,7 +35,16 @@ const Food = ({ match }) => {
       ? JSON.parse(localStorage.favoriteRecipes) : [];
 
     if (!iconFavorit) {
-      const add = [...favorites, { id }];
+      const { idMeal, strArea, strCategory, strMeal, strMealThumb } = meal;
+      const add = [...favorites, {
+        id: idMeal,
+        type: 'comida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      }];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {
       const remove = favorites.filter(({ id: idL }) => idL !== id);

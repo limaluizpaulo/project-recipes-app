@@ -34,7 +34,16 @@ const Drink = ({ match }) => {
       ? JSON.parse(localStorage.favoriteRecipes) : [];
 
     if (!iconFavorit) {
-      const add = [...favorites, { id }];
+      const { idDrink, strArea, strCategory, strDrink, strDrinkThumb } = drink;
+      const add = [...favorites, {
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot:  'Alcoholic',
+        name: strDrink,
+        image: strDrinkThumb,
+      }];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {
       const remove = favorites.filter(({ id: idL }) => idL !== id);
