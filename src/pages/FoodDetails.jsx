@@ -24,15 +24,14 @@ function FoodDetails({ match: { params: { id } } }) {
   }, [details.meals, detailsSyncSetState, id]);
 
   function loopArray() {
-    console.log(IngredientsAndMeasures);
     const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
-      mealArray.map((index) => (
+      mealArray.map((_a, index) => (
         <section key={ `ingredientAndMeasure${index + 1}` }>
-          <div data-testid={ `${index + 1}-ingredient-name-and-measure` }>
+          <div data-testid={ `${index}-ingredient-name-and-measure` }>
             {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
           </div>
-          <div data-testid={ `${index + 1}-ingredient-name-and-measure` }>
+          <div data-testid={ `${index}-ingredient-name-and-measure` }>
             {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
           </div>
           <div data-testid={ `${index}-recomendation-card` } />
