@@ -105,7 +105,11 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
         <i data-testid="recipe-category">{ subtitle }</i>
       </section>
       <section>
-        <Button onClick={ handleShare } data-testid="share-btn" variant="primary">
+        <Button
+          data-testid="share-btn"
+          onClick={ handleShare }
+          variant="primary"
+        >
           <Image src={ shareIcon } />
           { isCopied && <Alert variant="primary">Link copiado!</Alert> }
         </Button>

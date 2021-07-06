@@ -34,7 +34,12 @@ export default function ReceitaEmProcesso({ location }) {
   return (
     <Container>
       <Thumb title={ title } thumb={ thumb } />
-      <Title id={ id } title={ title } subtitle={ subtitle } />
+      <Title
+        currentRecipe={ currentRecipe }
+        id={ id }
+        title={ title }
+        subtitle={ subtitle }
+      />
       <IngredientsStep
         currentRecipe={ currentRecipe }
         ingredients={ ingredients }
