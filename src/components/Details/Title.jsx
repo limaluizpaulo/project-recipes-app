@@ -16,7 +16,7 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const urlId = url.split('/')[4];
 
-    if (!favorites || !favorites[0]) {
+    if (!favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     } else {
       const exist = favorites.find(({ id: idFavorito }) => idFavorito === urlId);
@@ -41,16 +41,18 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
   // Gera o objeto que será adicionado no localstorage
   const generateLocalStorageObject = (type) => {
     const { area, thumb, category } = currentRecipe;
-    if (type === 'comida') {
+
+    switch (type) {
+    case 'comida':
       return {
         id, type, area, category: subtitle, alcoholicOrNot: '', name: title, image: thumb,
       };
-    }
-
-    if (type === 'bebida') {
+    case 'bebida':
       return {
         id, type, area: '', category, alcoholicOrNot: subtitle, name: title, image: thumb,
       };
+    default:
+      return {};
     }
   };
 
@@ -59,7 +61,7 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
   };
 
-  // Adiciona/Remove item do local storage
+  // Adiciona/Remove item do local
   const addFavoriteToLocalStorage = (favorites, newFavorite) => {
     const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
 
@@ -78,10 +80,13 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const newFavorite = generateLocalStorageObject(type);
 
-    if (!favorites || !favorites[0]) {
+    switch (!favorites) {
+    case true:
       createFavoriteToLocalStorage(newFavorite);
-    } else {
+      break;
+    default:
       addFavoriteToLocalStorage(favorites, newFavorite);
+      break;
     }
   };
 
