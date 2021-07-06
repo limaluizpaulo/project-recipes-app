@@ -22,8 +22,6 @@ export default function Card(props) {
         />
         {' '}
         <br />
-        <a href="/#" className="card-link">link 1</a>
-        <a href="/#" className="card-link">link 2</a>
       </div>
     </div>
   );
