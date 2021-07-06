@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import RecipesContext from '../Context/RecipesContext';
 import CategoryMeals from './CategoryMeals';
@@ -28,15 +28,17 @@ export default function CardMeal() {
       <CategoryMeals />
       <ul>
         {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
-            <img
-              width="80px"
-              src={ strMealThumb }
-              alt="imagem receita"
-              data-testid={ `${index}-card-img` }
-            />
-            <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
-          </li>
+          <Link to={ `/comidas/${idMeal}` } key={ index }>
+            <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
+              <img
+                width="80px"
+                src={ strMealThumb }
+                alt="imagem receita"
+                data-testid={ `${index}-card-img` }
+              />
+              <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
+            </li>
+          </Link>
         ))}
       </ul>
       {/*  // ) */}
