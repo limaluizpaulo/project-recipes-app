@@ -30,8 +30,17 @@ const Food = ({ match }) => {
   }, [id, setMeal]);
 
   const addFavorite = () => {
-    const favorites = localStorage.favoriteRecipes || [];
-    localStorage.favoriteRecipes = JSON.stringify([...favorites, id]);
+    const favorites = localStorage.favoriteRecipes
+      ? JSON.parse(localStorage.favoriteRecipes) : [];
+
+    if (!iconFavorit) {
+      const add = [...favorites, { id }];
+      localStorage.favoriteRecipes = JSON.stringify(add);
+    } else {
+      const remove = favorites.filter(({ id: idL }) => idL !== id);
+      localStorage.favoriteRecipes = JSON.stringify(remove);
+    }
+    setIconFavorit(!iconFavorit);
   };
 
   const textProgress = checkProgress(id, true) ? 'Continuar Receita' : 'Iniciar Receita';

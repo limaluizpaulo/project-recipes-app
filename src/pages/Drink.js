@@ -23,15 +23,24 @@ const Drink = ({ match }) => {
 
   useEffect(() => {
     if (isFavorite) setIconFavorit(true);
-  }, []);
+  }, [isFavorite]);
 
   useEffect(() => {
     recipeById(id).then(setDrink);
   }, [id, setDrink]);
 
   const addFavorite = () => {
-    const favorites = localStorage.favoriteRecipes || [];
-    localStorage.favoriteRecipes = JSON.stringify([...favorites, id]);
+    const favorites = localStorage.favoriteRecipes
+      ? JSON.parse(localStorage.favoriteRecipes) : [];
+
+    if (!iconFavorit) {
+      const add = [...favorites, { id }];
+      localStorage.favoriteRecipes = JSON.stringify(add);
+    } else {
+      const remove = favorites.filter(({ id: idL }) => idL !== id);
+      localStorage.favoriteRecipes = JSON.stringify(remove);
+    }
+    setIconFavorit(!iconFavorit);
   };
 
   const textProgress = checkProgress(id) ? 'Continuar Receita' : 'Iniciar Receita';
