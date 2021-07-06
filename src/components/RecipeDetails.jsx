@@ -5,9 +5,15 @@ import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/whiteHeartIcon.svg';
+import white from '../images/whiteHeartIcon.svg';
+import black from '../images/blackHeartIcon.svg';
 
 import RecomendedCard from './RecomendedCard';
+
+import {
+  setFavoriteRecipes,
+  getFavoriteRecipes,
+  removeFavoriteRecipe } from './RecipeDetailsFunc';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -16,21 +22,20 @@ class RecipeDetails extends React.Component {
     this.state = {
       redirectInProgress: false,
       copied: false,
-      buttonVisible: true,
-      btnMessage: 'Iniciar Receita',
+      favorite: false,
     };
 
     this.getIngredients = this.getIngredients.bind(this);
     this.copyLink = this.copyLink.bind(this);
-    this.verifyRecipes = this.verifyRecipes.bind(this);
+    this.verifyFavorite = this.verifyFavorite.bind(this);
+    this.renderRecommendedCard = this.renderRecommendedCard.bind(this);
+    this.renderPage = this.renderPage.bind(this);
+    this.stateSet = this.stateSet.bind(this);
   }
 
   componentDidMount() {
-    try {
-      this.verifyRecipes();
-    } catch (error) {
-      console.log(error);
-    }
+    const { id } = this.props;
+    this.stateSet(getFavoriteRecipes(id));
   }
 
   getIngredients() {
@@ -54,6 +59,10 @@ class RecipeDetails extends React.Component {
     }
   }
 
+  stateSet(status) {
+    this.setState({ favorite: status });
+  }
+
   copyLink() {
     this.setState({ copied: true });
 
@@ -61,26 +70,111 @@ class RecipeDetails extends React.Component {
     copy(`http://localhost:3000${link}`);
   }
 
-  verifyRecipes() {
-    const { id } = this.props;
-    if (localStorage.doneRecipes) {
-      const searchDone = JSON.parse(localStorage.doneRecipes);
-      searchDone.find((item) => item.id === id);
-      this.setState({ buttonVisible: false });
+  verifyFavorite(recipe) {
+    const { id, title } = this.props;
+    const isFav = getFavoriteRecipes(id);
+
+    if (isFav) {
+      this.setState({ favorite: false });
+      return removeFavoriteRecipe(id);
     }
-    if (localStorage.inProgressRecipes) {
-      const getRecipes = JSON.parse(localStorage.inProgressRecipes);
-      const inProgres = Object.keys(getRecipes)
-        .map((key) => Object.keys(getRecipes[key]).includes(id));
-      if (inProgres.includes(true)) {
-        this.setState({ btnMessage: 'Continuar Receita' });
-      }
-    }
+    setFavoriteRecipes(recipe, title);
+    this.setState({ favorite: true });
+  }
+
+  renderButton(btnMessage) {
+    return (
+      <div>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => this.setState({ redirectInProgress: true }) }
+          className="button"
+        >
+          { btnMessage }
+        </button>
+      </div>
+    );
+  }
+
+  renderRecommendedCard(recipes) {
+    return (
+      <div>
+        <h4>Recomendadas</h4>
+        <div className="card-list">
+          <RecomendedCard recipes={ recipes } />
+        </div>
+      </div>
+    );
+  }
+
+  renderPage(recipeDetails) {
+    const { title, recipes, btnVisible, btnMessage } = this.props;
+    const { copied, favorite } = this.state;
+    return (
+      <section>
+        <div>
+          <img
+            data-testid="recipe-photo"
+            src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
+            alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+            width="250px"
+          />
+          <h1 data-testid="recipe-title">
+            { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+          </h1>
+          <div>
+            <span data-testid="recipe-category">
+              { recipeDetails[0].strAlcoholic }
+            </span>
+          </div>
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ this.copyLink }
+          >
+            <img src={ shareIcon } alt="shareIcon" />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => this.verifyFavorite(recipeDetails[0]) }
+          >
+            <img src={ favorite ? black : white } alt="favoriteIcon" />
+          </button>
+          {copied ? <span>Link copiado!</span> : null}
+          <div>
+            <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
+          </div>
+        </div>
+        <div>
+          <h4>Ingredientes</h4>
+          {this.getIngredients()}
+          <ul />
+        </div>
+        <div>
+          <h4>Instruções</h4>
+          <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
+        </div>
+        {title === 'Bebidas' ? null
+          : (
+            <div>
+              <h4>Video</h4>
+              <iframe
+                data-testid="video"
+                title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+                src={ recipeDetails[0].strYoutube }
+              />
+            </div>)}
+        {this.renderRecommendedCard(recipes)}
+        {btnVisible ? this.renderButton(btnMessage) : null }
+      </section>
+    );
   }
 
   render() {
-    const { recipeDetails, title, recipes } = this.props;
-    const { redirectInProgress, copied, btnMessage, buttonVisible } = this.state;
+    const { recipeDetails } = this.props;
+    const { redirectInProgress } = this.state;
 
     if (redirectInProgress) {
       const { foodById, drinksById } = this.props;
@@ -92,80 +186,8 @@ class RecipeDetails extends React.Component {
     }
 
     return (
-      recipeDetails[0] ? (
-        <section>
-          <div>
-            <img
-              data-testid="recipe-photo"
-              src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
-              alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-              width="250px"
-            />
-            <h1 data-testid="recipe-title">
-              { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-            </h1>
-            <div>
-              <span data-testid="recipe-category">
-                { recipeDetails[0].strAlcoholic }
-              </span>
-            </div>
-            <button
-              data-testid="share-btn"
-              type="button"
-              onClick={ this.copyLink }
-            >
-              <img src={ shareIcon } alt="shareIcon" />
-            </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              <img src={ favoriteIcon } alt="favoriteIcon" />
-            </button>
-            {copied ? <span>Link copiado!</span> : null}
-            <div>
-              <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
-            </div>
-          </div>
-          <div>
-            <h4>Ingredientes</h4>
-            {this.getIngredients()}
-            <ul />
-          </div>
-          <div>
-            <h4>Instruções</h4>
-            <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
-          </div>
-          {title === 'Bebidas' ? null
-            : (
-              <div>
-                <h4>Video</h4>
-                <iframe
-                  data-testid="video"
-                  title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-                  src={ recipeDetails[0].strYoutube }
-                />
-              </div>)}
-          <div>
-            <h4>Recomendadas</h4>
-            <div className="card-list">
-              <RecomendedCard recipes={ recipes } />
-            </div>
-          </div>
-          {buttonVisible ? (
-            <div>
-              <button
-                type="button"
-                data-testid="start-recipe-btn"
-                onClick={ () => this.setState({ redirectInProgress: true }) }
-                className="button"
-              >
-                { btnMessage }
-              </button>
-            </div>)
-            : null }
-        </section>
-      ) : null
+      recipeDetails[0] ? this.renderPage(recipeDetails)
+        : null
     );
   }
 }
