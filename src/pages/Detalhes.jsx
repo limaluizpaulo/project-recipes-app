@@ -16,6 +16,22 @@ class Detalhes extends Component {
     };
   }
 
+  handleFavClick() {
+    const { favIcon } = this.state;
+    if (!favIcon) {
+      this.setState({
+        favIconColor: blackHeartIcon,
+        favIcon: true,
+      });
+    }
+    if (favIcon) {
+      this.setState({
+        favIconColor: whiteHeartIcon,
+        favIcon: false,
+      });
+    }
+  }
+
   render() {
     const numero = 5550;
     const { favIconColor } = this.state;
