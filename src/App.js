@@ -11,6 +11,7 @@ import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
 import Ingredients from './pages/Ingredientes';
 import Comidas from './pages/Comidas';
+import Bebidas from './pages/Bebidas';
 
 function App() {
   return (

@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 import '../styles/header.css';
 
@@ -64,14 +65,7 @@ function Header() {
           )
           : <div /> }
       </header>
-      { inputDisplay
-        ? (
-          <input
-            placeholder="Buscar Receita"
-            className="search-bar"
-            data-testid="search-input"
-          />)
-        : null }
+      { inputDisplay ? <SearchBar /> : null }
     </div>
   );
 }
