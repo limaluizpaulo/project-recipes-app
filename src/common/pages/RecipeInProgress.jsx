@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import store, { addRecDetail, setLoading } from '../../context/store';
-import { getStorage, setStorage } from '../../functions';
+import { getStorage, newDoneRecipe, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import RecipeIngredients from '../components/RecipeIngredients';
 import LikeButton from '../components/LikeButton';
@@ -32,12 +32,9 @@ export default function RecipeInProgress() {
     delete removedInProgress[id];
     setStorage('inProgressRecipes', removedInProgress);
 
-    setStorage('doneRecipes', [...doneRecipes, { id }]);
-    // const doneRecipeInLS = getStorage('doneRecipes');
-    // const checkDoneRecipe = doneRecipeInLS.find((item) => item.id === id);
-    // if (!checkDoneRecipe) {
-    //   setStorage('doneRecipes', [...doneRecipes, { id }]);
-    // }
+    const newDoneRecipE = newDoneRecipe(recipeDetail, foods);
+
+    setStorage('doneRecipes', [...doneRecipes, newDoneRecipE]);
   };
 
   const renderRecipe = () => (
