@@ -30,19 +30,17 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   const addLocalStorageIngredient = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id, video } = currentRecipe;
-
-    // if (!video) {
-
-    // } else {
-
-    // }
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(id, video, inProgress));
+    console.log(currentRecipe);
+    if (inProgress === null) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ [id]: { [id]: [] } }));
+    }
   };
 
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
     let step = 'step-checked';
+    console.log(targetId);
 
     if (stepsClassName[targetId].checked) {
       step = 'step-not-checked';

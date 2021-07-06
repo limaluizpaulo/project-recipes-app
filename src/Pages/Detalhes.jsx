@@ -19,6 +19,16 @@ export default function DetalhesComida({ location }) {
   }, [storeCurrentRecipe, location.pathname]);
 
   const renderInProgressPage = () => {
+    // localStorage.setItem( // add key no localStorage
+    //   'inProgressRecipes',
+    //   JSON.stringify(
+    //     {
+    //       cocktails: {},
+    //       meals: {},
+    //     },
+    //   ),
+    // );
+
     if (video) {
       history.push(`/comidas/${id}/in-progress`);
     } else {
