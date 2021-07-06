@@ -18,8 +18,6 @@ const Drink = ({ match }) => {
   }, [id, setDrink]);
 
   const textProgress = checkProgress(id) ? 'Continuar Receita' : 'Iniciar Receita';
-
-  console.log(drink);
   return (
     <div>
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
