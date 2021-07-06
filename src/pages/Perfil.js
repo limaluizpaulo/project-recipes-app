@@ -15,10 +15,12 @@ class Perfil extends Component {
     const emailStorage = localStorage.getItem('user');
     const objEmail = JSON.parse(emailStorage);
     const { email } = objEmail;
-    if (email !== null) {
-      return email;
+    if (objEmail) {
+      if (email !== null) {
+        return email;
+      }
+      return null;
     }
-    return null;
   }
 
   clearStorage() {

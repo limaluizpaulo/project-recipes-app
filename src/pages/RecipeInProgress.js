@@ -13,9 +13,9 @@ class RecipeInProgress extends React.Component {
 
     this.state = {
       recipeDetails: {},
-      checked: false,
+      checked: [],
       copied: false,
-      // ingredient: [],
+      // ingredients: [],
     };
 
     this.getIngredients = this.getIngredients.bind(this);
@@ -50,6 +50,9 @@ class RecipeInProgress extends React.Component {
       const apenasMedidas = medidas.map((medida) => medida[1]);
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
+          const findChecked = checked.find(
+            (e) => e === index || 0,
+          ) === index || 0 ? true : null;
           return (
             <li
               key={ index }
@@ -57,13 +60,12 @@ class RecipeInProgress extends React.Component {
             >
               <label
                 htmlFor="key"
-                // className={ checked ? 'checked' : null }
+                className={ findChecked && 'checked' }
               >
                 <input
                   type="checkbox"
                   id="key"
                   data-testid={ `${index}-ingredient-name-and-measure` }
-                  defaultChecked={ checked }
                   onClick={ () => this.changeState(index) }
                 />
                 {`${ingrediente[1]}-${apenasMedidas[index]}`}
@@ -80,31 +82,41 @@ class RecipeInProgress extends React.Component {
     const { location: { pathname } } = this.props;
     const path = pathname.split('/in-progress');
 
-    console.log(`http://localhost:3000${path[0]}`);
     copy(`http://localhost:3000${path[0]}`);
   }
 
   changeState(param) {
     const { checked } = this.state;
-    this.setState({
-      checked: !checked,
-    });
+    const verificaChecked = checked.find(
+      (e) => e === param || 0,
+    ) === param || 0 ? true : null;
 
-    const { meals } = this.props;
-    const { match: { params: { comidaId } } } = this.props;
-    const { match: { params: { bebidaId } } } = this.props;
-    const id = meals ? comidaId : bebidaId;
-    if (meals) {
-      localStorage.inProgressRecipes = JSON.stringify({
-        meals: {
-          [id]: [param],
-        },
+    if (verificaChecked) {
+      this.setState({
+        checked: checked.filter((e) => e !== param || 0),
       });
+    } else {
+      this.setState((prev) => ({
+        checked: [...prev.checked, param],
+      }));
     }
+
+    // const { meals } = this.props;
+    // const { match: { params: { comidaId } } } = this.props;
+    // const { match: { params: { bebidaId } } } = this.props;
+    // const id = meals ? comidaId : bebidaId;
+    // if (meals) {
+    //   localStorage.inProgressRecipes = JSON.stringify({
+    //     meals: {
+    //       [id]: [param],
+    //     },
+    //   });
+    // }
   }
 
   render() {
-    const { recipeDetails, copied } = this.state;
+    const { recipeDetails, checked } = this.state;
+    console.log('checa', checked);
     return (
       recipeDetails[0] ? (
         <section>
@@ -126,7 +138,6 @@ class RecipeInProgress extends React.Component {
             <button
               data-testid="share-btn"
               type="button"
-              onClick={ this.copyLink }
             >
               <img src={ shareIcon } alt="shareIcon" />
             </button>
@@ -136,7 +147,6 @@ class RecipeInProgress extends React.Component {
             >
               <img src={ favoriteIcon } alt="favoriteIcon" />
             </button>
-            {copied ? <span>Link copiado!</span> : null}
             <div>
               <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
             </div>
