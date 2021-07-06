@@ -13,7 +13,7 @@ const DropDownList = () => {
       setPlaces(countries);
     };
     fetchPlaces();
-  }, []);
+  }, [setPlaces]);
 
   useEffect(() => {
     if (area) {
@@ -27,7 +27,7 @@ const DropDownList = () => {
       };
       fetchRecipeByPlace();
     }
-  }, [area]);
+  }, [area, setRecipesByPlace]);
 
   const handleChange = ({ target }) => {
     setArea(target.value);

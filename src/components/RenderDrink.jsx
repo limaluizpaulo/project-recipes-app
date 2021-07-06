@@ -25,26 +25,16 @@ export default function MainDrink() {
     async function apiRequest() {
       const { drinks } = await apiRequestDrinks();
       setDataDrinks(drinks);
-    }
-    apiRequest();
-  }, []);
 
-  useEffect(() => {
-    async function apiRequestCategories() {
-      const { drinks } = await apiCategoriesDrinks();
-      setCategoriesDrinks(drinks);
-    }
-    apiRequestCategories();
-  }, []);
+      const { drinks: drinksCategoriesList } = await apiCategoriesDrinks();
+      setCategoriesDrinks(drinksCategoriesList);
 
-  useEffect(() => {
-    async function categories() {
       if (valueButton !== '') {
         const { drinks: cateDrinks } = await requestCategoriesDrink(valueButton) || [];
         setDataCategories(cateDrinks);
       }
     }
-    categories();
+    apiRequest();
   }, [valueButton]);
 
   useEffect(() => {
@@ -158,8 +148,6 @@ export default function MainDrink() {
 
   return (
     <div>
-      {/* <h4>Drinks</h4>
-      <Header history={ history } title="Bebidas" /> */}
       <div>
         <button
           data-testid="All-category-filter"
@@ -172,7 +160,6 @@ export default function MainDrink() {
         {buttonCategories()}
       </div>
       {renderDrinks()}
-      {/* <Footer /> */}
     </div>
   );
 }
