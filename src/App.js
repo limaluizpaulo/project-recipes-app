@@ -44,9 +44,9 @@ function App() {
             path="/bebidas/:id"
             render={ (props) => <DetailsReceita { ...props } /> }
           />
-          <Route exect path="/explorar" component={ Explorar } />
-          <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
-          <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route exact path="/explorar" component={ Explorar } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExplorarComidasPorIngredientes }
@@ -56,9 +56,9 @@ function App() {
             component={ ExplorarBebidasPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
-          <Route exect path="/perfil" component={ Perfil } />
-          <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
-          <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
           {/* <Route component={ Erro404 } /> */}
         </Switch>
       </BrowserRouter>
