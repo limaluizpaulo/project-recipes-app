@@ -1,13 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import { fetchAPI, SUPRISE_ME_MEALS } from '../../services/index';
-import { addRecDetail } from '../../context/store';
+import store, { addRecDetail, setLoading } from '../../context/store';
 
 export default function ExploreMeals() {
-  function handleClic() {
-    fetchAPI(SUPRISE_ME_MEALS).then((res) => addRecDetail(res.meals));
+  const history = useHistory();
+  const { setRecipes } = useContext(store);
+  async function handleClic() {
+    const mealsDetails = await fetchAPI(SUPRISE_ME_MEALS);
+    setRecipes(addRecDetail(mealsDetails.meals));
+    setRecipes(setLoading(true));
+    history.push(`/comidas/${mealsDetails.meals[0].idMeal}`);
   }
   return (
     <div>
@@ -26,16 +31,13 @@ export default function ExploreMeals() {
         <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
       </Link>
       <br />
-      <Link to="/">
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          onClick={ () => handleClic() }
-        >
-          Me Surpreenda!
-
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ () => handleClic() }
+      >
+        Me Surpreenda!
+      </button>
       <Footer />
     </div>
   );
