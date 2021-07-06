@@ -3,15 +3,25 @@ import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 import '../css/Details.css';
-// import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class Detalhes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favIcon: false,
+      favIconColor: whiteHeartIcon,
+    };
+  }
+
   render() {
+    const numero = 5550;
+    const { favIconColor } = this.state;
     return (
       <section>
-
-        {/* <section className="recipe-details">
+        <section className="recipe-details">
           <img
             data-testid="recipe-photo"
             src=""
@@ -41,10 +51,10 @@ class Detalhes extends Component {
               type="button"
               data-testid="favorite-btn"
             >
-              <img src={ whiteHeartIcon } alt={ whiteHeartIcon } />
+              <img src={ favIconColor } alt={ favIconColor } />
             </button>
           </section>
-          <section data-testid={ `${5550}-ingredient-name-and-measure` }>
+          <section data-testid={ `${numero}-ingredient-name-and-measure` }>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
               AQUI FICARÁ OS IGREDIENTES
@@ -71,7 +81,7 @@ class Detalhes extends Component {
           >
             Iniciar Receita
           </button>
-        </section> */}
+        </section>
       </section>
     );
   }
