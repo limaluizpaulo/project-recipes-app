@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipe({ recipe: {
-  id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
+  type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
   console.log(type);
   return (
     <div>
@@ -15,7 +15,12 @@ function DoneRecipe({ recipe: {
         />
       </div>
       <div>
-        <p data-testid={ `${index}-horizontal-top-text` }>{type === 'comida' ? `${area} - ${category}` : `${alcoholicOrNot} - ${category}` }</p>
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          {
+            type === 'comida' ? `${area} - ${category}`
+              : `${alcoholicOrNot} - ${category}`
+          }
+        </p>
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
         {tags.map((tag, i) => (
@@ -48,6 +53,7 @@ DoneRecipe.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+    doneDate: PropTypes.string.isRequired,
   }).isRequired,
 };
 
