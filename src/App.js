@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AppReceitasProvider from './context/AppReceitasProvider';
 
 import Login from './pages/Login';
-import Erro404 from './pages/Page404';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
@@ -33,7 +32,7 @@ function App() {
             render={ (props) => <ReceitaEmProgresso { ...props } /> }
           />
           <Route
-            path="/comidas/:id/in-progress"
+            path="/bebidas/:id/in-progress"
             render={ (props) => <ReceitaEmProgresso { ...props } /> }
           />
           <Route
@@ -44,9 +43,9 @@ function App() {
             path="/bebidas/:id"
             render={ (props) => <DetailsReceita { ...props } /> }
           />
-          <Route exect path="/explorar" component={ Explorar } />
-          <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
-          <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route exact path="/explorar" component={ Explorar } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExplorarComidasPorIngredientes }
@@ -56,10 +55,9 @@ function App() {
             component={ ExplorarBebidasPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
-          <Route exect path="/perfil" component={ Perfil } />
-          <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
-          <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
-          <Route component={ Erro404 } />
+          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>

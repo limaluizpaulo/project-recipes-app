@@ -16,7 +16,7 @@ function DetailsReceita(props) {
     const didMount = async () => {
       const respostaApi = await buscaReceita(teste);
       setReceita(respostaApi);
-      // console.log(respostaApi);
+      console.log(respostaApi);
     };
     didMount();
   }, [teste]);
@@ -27,36 +27,53 @@ function DetailsReceita(props) {
     for (let index = 0; index < vinte; index += 1) {
       const strIngredient = receita[`strIngredient${index}`];
       const strMeasure = receita[`strMeasure${index}`];
-      if (strIngredient !== '' && strIngredient !== undefined) {
+      if (strIngredient !== '' && strIngredient !== undefined && strIngredient !== null) {
         ingredientes.push({ strIngredient, strMeasure });
       }
     }
-    return ingredientes.map((item, i) => (
-      <li
-        key={ i }
-        data-testid={ `${i}-ingredient-name-and-measure` }
-      >
-        {item.strIngredient}
-        {' - '}
-        {item.strMeasure}
-      </li>));
+    console.log(ingredientes);
+    return ingredientes.map((item, i) => {
+      console.log(item);
+      return (
+        <li
+          key={ i }
+          data-testid={ `${i}-ingredient-name-and-measure` }
+        >
+          {item.strIngredient}
+          {' - '}
+          {item.strMeasure}
+        </li>);
+    });
+  }
+
+  function titulo() {
+    console.log(apelidoAPI);
+    let type = ['Meal', 'Area'];
+    if (apelidoAPI === 'bebidas') {
+      type = ['Drink', 'Drink'];
+    }
+
+    return (
+      <div>
+        <h2 data-testid="recipe-title">{ receita[`str${type[1]}`] }</h2>
+        <h3 data-testid="recipe-category">{receita.strCategory}</h3>
+        <img
+          data-testid="recipe-photo"
+          src={ receita[`str${type[0]}Thumb`] }
+          alt={ receita[`str${type[1]}`] }
+        />
+        <ul>
+          {ingrFunction()}
+        </ul>
+        <p data-testid="instructions">{receita.strInstructions}</p>
+        <iframe title={ receita[`str${type[1]}`] } src={ receita.strYoutube } />
+      </div>);
   }
 
   return (
     <div data-testid="0-">
 
-      <h2 data-testid="recipe-title">{receita.strArea}</h2>
-      <h3 data-testid="recipe-category">{receita.strCategory}</h3>
-      <img
-        data-testid="recipe-photo"
-        src={ receita.strMealThumb }
-        alt={ receita.strArea }
-      />
-      <ul>
-        {ingrFunction()}
-      </ul>
-      <p data-testid="instructions">{receita.strInstructions}</p>
-      <iframe title={ receita.strArea } src={ receita.strYoutube } />
+      {titulo()}
 
       <Link to="/">
         <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />

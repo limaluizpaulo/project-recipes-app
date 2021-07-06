@@ -9,7 +9,7 @@ function ReceitaEmProgresso(props) {
   const { match: { params: { id } } } = props;
   const rotaAtual = useLocation().pathname;
   const [apelidoAPI] = rotaAtual.match(/\w+/);
-  const [parametrosBusca, setParametrosBusca] = useState({ apelidoAPI, input: id });
+  const [parametrosBusca] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
 
   useEffect(() => {
@@ -20,27 +20,28 @@ function ReceitaEmProgresso(props) {
     didMount();
   }, [parametrosBusca]);
 
-  const renderizaImagemReceita = () => (
-    <img
-      data-testid="recipe-photo"
-      src={ `${receita.strMealThumb}` }
-      alt={ `${receita.strMeal}` }
-    />
-  );
-
-  const renderizaIngredientes = () => {
-    // const ingredientes = Object.keys(receita).filter((key) => key.match(/strIngredient/));
-    const ingredientes = Object.keys(receita).reduce((newArr, key) => {
-      const keyStr = key.match(/strIngredient/);
-      return newArr.concat();
-    }, []);
-    console.log(ingredientes);
+  const renderizaImagemReceita = () => {
+    const src = (
+      (apelidoAPI === 'comidas') ? receita.strMealThumb : receita.strDrinkThumb);
+    const alt = ((apelidoAPI === 'comidas') ? receita.strMeal : receita.strDrink);
+    return (
+      <img
+        data-testid="recipe-photo"
+        src={ `${src}` }
+        alt={ `${alt}` }
+      />
+    );
   };
 
-  return (
+  const renderizaTituloReceitas = () => {
+    const titulo = ((apelidoAPI === 'comidas') ? receita.strMeal : receita.strDrink);
+    return (
+      <h2 data-testid="recipe-title">{titulo}</h2>
+    );
+  };
+
+  const renderizaBotoesTitulo = () => (
     <>
-      { renderizaImagemReceita() }
-      <h2 data-testid="recipe-title">{receita.strMeal}</h2>
       <button type="button">
         <img
           data-testid="share-btn"
@@ -55,10 +56,60 @@ function ReceitaEmProgresso(props) {
           alt="favorite-btn"
         />
       </button>
-      <div data-testid="recipe-category">{receita.strCategory}</div>
+    </>
+  );
+
+  const renderizaCategoriaReceita = () => (
+    <div data-testid="recipe-category">{receita.strCategory}</div>
+  );
+
+  const renderizaIngredientes = () => {
+    const ingredientesEMedidas = Object.keys(receita).reduce((acc, key) => {
+      if (key.match(/strIngredient\d+/) && receita[key]) {
+        acc[0].push(receita[key]);
+      }
+
+      if (key.match(/strMeasure\d+/) && receita[key]) {
+        acc[1].push(receita[key]);
+      }
+      return acc;
+    }, [[], []]);
+    return (
+      <>
+        {ingredientesEMedidas[0].map((ingrediente, index) => (
+          <div key={ ingrediente } className="mb-3">
+            <label htmlFor={ ingrediente } data-testid={ `${index}-ingredient-step` }>
+              <input
+                type="checkbox"
+                id={ ingrediente }
+                name={ ingrediente }
+                value={ ingrediente }
+              />
+              { `${ingredientesEMedidas[1][index]} ${ingrediente}` }
+            </label>
+          </div>
+        ))}
+      </>
+    );
+  };
+
+  const renderizaInstrucoes = () => (
+    <div data-testid="instructions">{receita.strInstructions}</div>
+  );
+
+  const renderizaBotaoFinalizar = () => (
+    <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+  );
+
+  return (
+    <>
+      { renderizaImagemReceita() }
+      { renderizaTituloReceitas() }
+      { renderizaBotoesTitulo() }
+      { renderizaCategoriaReceita() }
       { renderizaIngredientes() }
-      <div data-testid="instructions">{receita.strInstructions}</div>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+      { renderizaInstrucoes() }
+      { renderizaBotaoFinalizar() }
     </>
   );
 }
