@@ -39,7 +39,10 @@ function FinishedRecipes() {
     // ];
     // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
     // até aqui
-    setDoneRecipesList(JSON.parse(localStorage.getItem('doneRecipes')));
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      setDoneRecipesList(doneRecipes);
+    }
   }, []);
 
   const shareRecipe = (recipe, index) => {
@@ -51,7 +54,8 @@ function FinishedRecipes() {
 
   const renderAllRecipes = () => (
     <main>
-      {doneRecipesList.map((doneRecipe, index) => (
+      { doneRecipesList
+      && doneRecipesList.map((doneRecipe, index) => (
         <div key={ index } className="card">
           <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
             <img
@@ -96,7 +100,8 @@ function FinishedRecipes() {
 
   const renderByCategory = () => (
     <main>
-      {doneRecipesList.filter((recipe) => recipe.type === category)
+      {doneRecipesList
+      && doneRecipesList.filter((recipe) => recipe.type === category)
         .map((doneRecipe, index) => (
           <div key={ index } className="card">
             <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
