@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import './searchBar.css';
 import { useLocation } from 'react-router-dom';
+import { searchMeal } from '../../helpers/searchDrinkOrMeal';
 
 function SearchBar() {
   const [inputSearch, setInputSearch] = useState('');
   const [selectedOptino, setSelectedOptino] = useState('');
   const { pathname } = useLocation();
-  const routeName = pathname;
-  console.log(routeName);
+  const routeName = pathname.split('/')[1];
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    console.log(inputSearch, selectedOptino);
+    console.log(routeName);
+    if (routeName === 'comidas') {
+      const result = await searchMeal(selectedOptino, inputSearch);
+      console.log(result);
+    } else if (routeName === 'bebidas') {
+      console.log('voce esta na rota de bebidas');
+    }
   };
 
   return (
@@ -19,6 +25,7 @@ function SearchBar() {
       <form onSubmit={ submit }>
         <input
           type="text"
+          className="search-input"
           value={ inputSearch }
           data-testid="search-input"
           onChange={ ({ target: { value } }) => setInputSearch(value) }
