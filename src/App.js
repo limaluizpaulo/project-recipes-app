@@ -24,6 +24,7 @@ function App() {
         render={ (props) => <GenericComponent { ...props } /> }
       />
       <Route
+        exact
         path="/explorar"
         render={ (props) => <GenericComponent { ...props } /> }
       />

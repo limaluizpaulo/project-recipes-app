@@ -2,17 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Footer from './Footer';
+import Explore from './Explore';
 
 class GenericComponent extends React.Component {
   render() {
     const { location: { pathname } } = this.props;
-    const isFavoriteRecipes = pathname.includes('favorita');
+    const isExploreScreen = pathname.includes('explorar');
 
     return (
-      <main>
+      <div>
         <Header pathname={ pathname } />
-        {!isFavoriteRecipes && <Footer />}
-      </main>
+        <main>
+          {isExploreScreen && <Explore />}
+        </main>
+        <Footer />
+      </div>
     );
   }
 }
