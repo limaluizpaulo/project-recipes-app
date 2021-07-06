@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'copy-to-clipboard';
 import shareIcon from '../images/shareIcon.svg';
@@ -13,14 +13,17 @@ class RecipeInProgress extends React.Component {
 
     this.state = {
       recipeDetails: {},
-      checked: false,
+      checked: [],
       copied: false,
+      finaliza: false,
+      redireciona: false,
       // ingredients: [],
     };
 
     this.getIngredients = this.getIngredients.bind(this);
     this.changeState = this.changeState.bind(this);
     this.copyLink = this.copyLink.bind(this);
+    this.redireciona = this.redireciona.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +32,8 @@ class RecipeInProgress extends React.Component {
     const { match: { params: { bebidaId } } } = this.props;
     const db = meals ? 'themealdb' : 'thecocktaildb';
     const id = meals ? comidaId : bebidaId;
+    localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
+
     const URL = `https://www.${db}.com/api/json/v1/1/lookup.php?i=${id}`;
     fetch(URL)
       .then((response) => response.json())
@@ -50,6 +55,9 @@ class RecipeInProgress extends React.Component {
       const apenasMedidas = medidas.map((medida) => medida[1]);
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
+          const findChecked = checked.find(
+            (e) => e === index || 0,
+          ) === index || 0 ? true : null;
           return (
             <li
               key={ index }
@@ -57,13 +65,12 @@ class RecipeInProgress extends React.Component {
             >
               <label
                 htmlFor="key"
-                // className={ checked ? 'checked' : null }
+                className={ findChecked && 'checked' }
               >
                 <input
                   type="checkbox"
                   id="key"
                   data-testid={ `${index}-ingredient-name-and-measure` }
-                  defaultChecked={ checked }
                   onClick={ () => this.changeState(index) }
                 />
                 {`${ingrediente[1]}-${apenasMedidas[index]}`}
@@ -78,33 +85,64 @@ class RecipeInProgress extends React.Component {
   copyLink() {
     this.setState({ copied: true });
     const { location: { pathname } } = this.props;
-    const path = pathname.split('/in-progress');
-
-    console.log(`http://localhost:3000${path[0]}`);
-    copy(`http://localhost:3000${path[0]}`);
+    const link = pathname.split('/in-progress');
+    copy(`http://localhost:3000${link[0]}`);
   }
 
   changeState(param) {
-    const { checked } = this.state;
-    this.setState({
-      checked: !checked,
-    });
+    const { checked, recipeDetails } = this.state;
+    const verificaChecked = checked.find(
+      (e) => e === param || 0,
+    ) === param || 0 ? true : null;
+
+    if (verificaChecked) {
+      this.setState({
+        checked: checked.filter((e) => e !== param || 0),
+      });
+    } else {
+      this.setState((prev) => ({
+        checked: [...prev.checked, param],
+      }));
+    }
+
+    const chaves = Object.entries(recipeDetails[0]);
+    const ingredientes = chaves.filter((key) => (
+      key[0].includes('strIngredient') && (key[1] !== null && key[1] !== '')));
+
+    if (ingredientes.length === checked.length + 1) {
+      this.setState({
+        finaliza: true,
+      });
+    }
 
     const { meals } = this.props;
     const { match: { params: { comidaId } } } = this.props;
     const { match: { params: { bebidaId } } } = this.props;
     const id = meals ? comidaId : bebidaId;
+
     if (meals) {
       localStorage.inProgressRecipes = JSON.stringify({
         meals: {
-          [id]: [param],
+          [id]: [...checked, param],
+        },
+      });
+    } else {
+      localStorage.inProgressRecipes = JSON.stringify({
+        cocktails: {
+          [id]: [...checked, param],
         },
       });
     }
   }
 
+  redireciona() {
+    this.setState({ redireciona: true });
+  }
+
   render() {
-    const { recipeDetails, copied } = this.state;
+    const { recipeDetails, copied, finaliza, redireciona } = this.state;
+    if (redireciona) return <Redirect to="/receitas-feitas" />;
+
     return (
       recipeDetails[0] ? (
         <section>
@@ -128,7 +166,8 @@ class RecipeInProgress extends React.Component {
               type="button"
               onClick={ this.copyLink }
             >
-              <img src={ shareIcon } alt="shareIcon" />
+              {copied ? 'Link copiado!'
+                : <img src={ shareIcon } alt="shareIcon" />}
             </button>
             <button
               type="button"
@@ -153,6 +192,8 @@ class RecipeInProgress extends React.Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
+            disabled={ !finaliza }
+            onClick={ this.redireciona }
           >
             Finalizar Receita
           </button>
