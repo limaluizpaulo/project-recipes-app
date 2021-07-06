@@ -1,7 +1,11 @@
 .header-body {
   display: flex;
-  position: absolute;
+  position: relative;
   top: 0;
+}
+
+.header-body div {
+  display: flex;
 }
 
 .footer-body {

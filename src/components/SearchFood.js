@@ -11,14 +11,14 @@ function SearchFood({ recipe, dispRecipeList }) {
   const history = useHistory();
   const resAPI = async (fun) => {
     const func = await fun;
-    console.log(func);
+    // .log(func);
     if (func === undefined || func.meals === null || func.drinks === null) {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipe === 'Comidas') {
       if (func.meals.length === 1) {
         history.push(`/comidas/${func.meals[0].idMeal}`);
       } else {
-        console.log(func.meals);
+        // console.log(func.meals);
         dispRecipeList({
           status: true,
           list: func,

@@ -16,22 +16,24 @@ function Header({ title, display }) {
 */
   return (
     <div className="header-body">
-      <a
-        href="/perfil"
-      >
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile icon"
+      <div>
 
-        />
-      </a>
+        <a
+          href="/perfil"
+        >
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile icon"
 
-      <div data-testid="page-title">
-        {title}
-      </div>
-      {
-        display === 'true'
+          />
+        </a>
+
+        <div data-testid="page-title">
+          {title}
+        </div>
+        {
+          display === 'true'
         && (
           <div
             role="button"
@@ -44,7 +46,8 @@ function Header({ title, display }) {
               role="presentation"
             />
           </div>)
-      }
+        }
+      </div>
       {isSerching && <SearchFood recipe={ title } />}
     </div>
   );

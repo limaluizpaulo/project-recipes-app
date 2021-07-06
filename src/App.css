@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -13,6 +18,11 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
+}
+
+.header-body {
+  display: flex;
+  flex-direction: column;
 }
 
 /*
