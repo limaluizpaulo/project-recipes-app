@@ -1,12 +1,17 @@
 import {
   RECIPE_DETAILS_FOOD,
   RECIPE_DETAILS_DRINK,
+  FAV_ICON,
 } from '../action';
+
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const INITIAL_STATE = {
   details: [],
   foodDatails: {},
   drinkDatails: {},
+  favIcon: false,
+  favIconColor: whiteHeartIcon,
 };
 
 const recipeDetails = (state = INITIAL_STATE, action) => {
@@ -20,6 +25,11 @@ const recipeDetails = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       drinkDatails: action.drinksDetails,
+    };
+  case FAV_ICON:
+    return {
+      ...state,
+      favIconColor: action.favIcon,
     };
   default:
     return state;
