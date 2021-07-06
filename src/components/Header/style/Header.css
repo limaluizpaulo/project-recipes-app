@@ -21,7 +21,7 @@ label {
   height: fit-content;
   justify-content: space-around;
   position: fixed;
-  top: 3px;
+  top: 0;
   width: 100%;
 }
 

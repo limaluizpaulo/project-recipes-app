@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-elastic-carousel';
 
 import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
 import './style/Details.css';
+import RecipesContext from '../../context/RecipesContext';
 
 function Details({ id, mealsOrDrinks }) {
+  const { startedRecipes, startRecipe } = useContext(RecipesContext);
+
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationsKey, setRecommendationsKey] = useState('');
+  const [alreadyStarted, setAlreadyStarted] = useState(false);
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
@@ -66,6 +70,32 @@ function Details({ id, mealsOrDrinks }) {
     );
   };
 
+  const renderStartButton = () => {
+    if (alreadyStarted) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+        >
+          Continuar Receita
+
+        </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe"
+        onClick={ () => { startRecipe(recipe); } }
+      >
+        Iniciar Receita
+
+      </button>
+    );
+  };
+
   useEffect(() => {
     const MEALS = 'meals';
     const DRINKS = 'drinks';
@@ -85,12 +115,20 @@ function Details({ id, mealsOrDrinks }) {
 
   useEffect(() => {
     organizeIngredients();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipe]);
 
   useEffect(() => {
     getRecipe();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const found = startedRecipes.find((element) => (
+      element.idMeal === id || element.idDrink === id
+    ));
+    if (found) setAlreadyStarted(true);
+  }, [startedRecipes]);
 
   return (
     <>
@@ -161,14 +199,10 @@ function Details({ id, mealsOrDrinks }) {
             )
             : null
         }
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-        >
-          Iniciar Receita
+        {
+          renderStartButton()
+        }
 
-        </button>
       </section>
     </>
   );

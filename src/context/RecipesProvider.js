@@ -19,6 +19,7 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [startedRecipes, setStartedRecipes] = useState([]);
 
   const location = useLocation();
 
@@ -59,6 +60,16 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
+  const startRecipe = (recipe) => {
+    let tempArray = [...startedRecipes];
+    tempArray = [
+      ...tempArray,
+      recipe,
+    ];
+
+    setStartedRecipes(tempArray);
+  };
+
   const context = {
     mealsOrDrinks,
     user,
@@ -75,6 +86,8 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
+    startedRecipes,
+    startRecipe,
   };
 
   useEffect(() => {

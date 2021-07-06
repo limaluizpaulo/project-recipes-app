@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, useLocation } from 'react-router';
 
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './pages/Login';
@@ -14,6 +15,7 @@ import ExploreByArea from './pages/ExploreByArea';
 import DrinksIngredients from './pages/DrinksIngredients';
 import MealsDetails from './pages/MealsDetails';
 import DrinksDetails from './pages/DrinksDetails';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -48,6 +50,7 @@ function App() {
       { verifyAllowanceToRenderHeader() }
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/comidas" component={ Recipes } />
         <Route exact path="/bebidas" component={ Recipes } />
         <Route exact path="/explorar" component={ Explore } />
