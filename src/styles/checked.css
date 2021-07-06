@@ -4,8 +4,8 @@
 
 .recipe-image {
   height: 300px;
-  width: 100%;
   object-fit: cover;
+  width: 100%;
 }
 
 .alcolico {
@@ -39,8 +39,8 @@
 }
 
 .recipe-category {
-  margin-left: 10px;
   color: rgb(152, 152, 152);
+  margin-left: 10px;
   margin-top: -12px;
 }
 
@@ -53,8 +53,8 @@ ul {
   background: rgb(206, 206, 206);
   list-style: none;
   margin-left: 10px;
-  margin-right: 10px;
   border-radius: 4px;
+  margin-right: 10px;
   padding: 10px;
 }
 
@@ -68,17 +68,17 @@ ul {
   border-radius: 4px;
   font-size: 16px;
   margin-left: 10px;
-  padding: 10px;
   margin-right: 10px;
+  padding: 10px;
 }
 
 .finish-recipe {
+  background: #6ce34f;
   margin-left: 10px;
-  margin-right: 10px;
   border: none;
+  margin-right: 10px;
   height: 50px;
   width: 99%;
-  background: #6ce34f;
   border-radius: 4px;
   font-weight: 600;
 }
