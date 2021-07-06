@@ -14,7 +14,12 @@ export default function Card({ mealOrDrink, index, testId }) {
         src={ mealOrDrink[`${imgSrcKey}`] }
         alt={ mealOrDrink[`${titleKey}`] }
       />
-      <h3 data-testid={ `${index}-card-name` }>{mealOrDrink[`${titleKey}`]}</h3>
+      <h3
+        data-testid={ (testId === 'recipe') ? `${index}-card-name`
+          : `${index}-recomendation-title` }
+      >
+        {mealOrDrink[`${titleKey}`]}
+      </h3>
     </section>
   );
 }

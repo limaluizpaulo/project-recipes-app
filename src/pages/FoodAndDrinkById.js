@@ -19,7 +19,7 @@ export default function FoodAndDrinkById() {
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
   const { Id } = useParams();
-  const [singleContent, setSingleContent] = useState({});
+  const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
 
@@ -30,49 +30,56 @@ export default function FoodAndDrinkById() {
       const resolved = await fetchAPI(URL);
       const recResolved = await fetchAPI(URL_RECOMENDATION);
 
-      setSingleContent(resolved[firstKey]);
+      setSingleContent(resolved[firstKey] || []);
+
       setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
       const list = [];
-      Object.entries(...resolved[firstKey]).forEach((el) => {
+      Object.entries(resolved[firstKey][0]).forEach((el) => {
         if (el[0].includes('Ingredient') && el[1]) { list.push(el[1]); }
-        // if (el[0].includes('Measure') && el[1]) { list.push(el[1]); }
+        // if (el[0].includes('Measure') && el[1]) { list.push(el[1]); }S
       });
       setIngridientsList(list);
     }
-    getRecipeDetails();
-  }, [Id, firstKey, domain, recDomain, recFirstKey]);
+    getRecipeDetails().catch(console.log);
+  }, [Id, domain, firstKey, recDomain, recFirstKey]);
 
   const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
 
   function handleFavorite() {
-    console.log(recomendations);
+    // console.log(recomendations);
   }
-
+  if (!singleContent[0]) return <h1>Loading...</h1>;
   return (
     <>
-      <img
-        data-testid="recipe-photo"
-        src={ singleContent[imgSrc] }
-        alt={ singleContent[title] }
-      />
-      <h3 data-testid="recipe-title">{singleContent[title]}</h3>
-      <Button><img data-testid="share-btn" src={ shareIcon } alt="" /></Button>
-      <Button onClick={ handleFavorite }>
-        <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
-      </Button>
-      <p data-testid="recipe-category">{singleContent.strCategory}</p>
-      {ingredientsList.map((ingridient, i) => (
-        <p
-          key={ i }
-          data-testid={ `${i}-ingredient-name-and-measure` }
-        >
-          {ingridient}
-        </p>
-      ))}
-      <p data-testid="instructions">{singleContent.strInstructions}</p>
-      <p data-testid="video">{singleContent.strYoutube}</p>
-      {recomendations.map((item, i) => (
+      { singleContent.length > 0
+      && (
+        <>
+          <img
+            data-testid="recipe-photo"
+            src={ singleContent[0][imgSrc] }
+            alt={ singleContent[0][title] }
+          />
+          <h3 data-testid="recipe-title">{singleContent[0][title]}</h3>
+          <Button><img data-testid="share-btn" src={ shareIcon } alt="" /></Button>
+          <Button onClick={ handleFavorite }>
+            <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
+          </Button>
+          <p data-testid="recipe-category">{singleContent[0].strCategory}</p>
+          {ingredientsList.map((ingridient, i) => (
+            <p
+              key={ i }
+              data-testid={ `${i}-ingredient-name-and-measure` }
+            >
+              {ingridient}
+            </p>
+          ))}
+          <p data-testid="instructions">{singleContent[0].strInstructions}</p>
+          <p data-testid="video">{singleContent[0].strYoutube}</p>
+        </>
+      )}
+
+      { recomendations.map((item, i) => (
         <Card
           key={ i }
           mealOrDrink={ item }
