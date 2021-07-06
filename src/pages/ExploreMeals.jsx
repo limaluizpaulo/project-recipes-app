@@ -1,42 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Header, Footer } from '../components';
 import fetchRandomRecipe from '../services/api/fetchRandom';
 
 const ExploreMeals = () => {
-  const history = useHistory();
-  const [meals, setMeals] = useState();
+  const [meal, setMeal] = useState();
 
   useEffect(() => {
-    const data = async () => setMeals(await fetchRandomRecipe(true));
+    const data = async () => setMeal(await fetchRandomRecipe(true));
     data();
   }, []);
 
   return (
     <main>
       <Header name="Explorar Comidas" />
-      <button
-        type="button"
+      <Link
         data-testid="explore-by-ingredient"
-        onClick={ () => history.push('./explorar/comidas/ingredientes') }
+        to="/explorar/comidas/ingredientes"
       >
         Por Ingredientes
-      </button>
-      <button
-        type="button"
+      </Link>
+      <Link
         data-testid="explore-by-area"
-        onClick={ () => history.push('./explorar/comidas/areas') }
+        to="/explorar/comidas/areas"
       >
         Por Local de Origem
-      </button>
-      <button
-        type="button"
+      </Link>
+      <Link
         data-testid="explore-surprise"
-        onClick={ () => history.push(`./comidas/${meals.meals[0].idMeal}`) }
+        to={ meal ? `/comidas/${meal.idMeal}` : '/' }
       >
         Me Surpreenda!
-      </button>
+      </Link>
       <Footer />
     </main>
   );

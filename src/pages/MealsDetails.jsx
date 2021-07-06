@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MealsDetails = () => {
-  const meals = 'meals';
+  const meals = 'surprise';
   return (
     <div>
       {meals}
