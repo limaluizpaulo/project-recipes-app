@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+/* import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import { GlobalContext } from '../context/Provider';
@@ -52,3 +52,4 @@ Carrousel.propTypes = {
 };
 
 export default Carrousel;
+ */
