@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
-import { renderCheckBox } from '../utils';
+import { filterObj } from '../utils';
 import { checkFavoriteId } from '../services/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const blackOrWhite = (favorited) => (favorited ? blackHeartIcon : whiteHeartIcon);
 
 const DrinkProgress = ({ match }) => {
   const {
     params: { id },
   } = match;
   const [drink, setDrink] = useState({});
+  const [selecteds, setSelects] = useState([]);
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
 
@@ -22,7 +25,32 @@ const DrinkProgress = ({ match }) => {
     recipeById(id).then(setDrink);
   }, [id, setDrink]);
 
-  const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
+  const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
+
+  const handleSelect = (item) => {
+    if (!findSelecteds(item)) {
+      setSelects([...selecteds, item]);
+    } else {
+      const removeSelected = selecteds.filter((ingredient) => ingredient !== item);
+      setSelects(removeSelected);
+    }
+  };
+
+  const renderCheckBox = () => {
+    const ingredients = filterObj(/Ingredient/, drink);
+    return ingredients.map(([key, ingredient]) => (
+      <label
+        className={ findSelecteds(key) && 'checked' }
+        checked={ findSelecteds(key) && 'checked' }
+        data-testid="ingredient-step"
+        htmlFor="ingredient"
+        key={ `${key} - ${ingredient}` }
+      >
+        {ingredient}
+        <input onClick={ () => handleSelect(key) } type="checkbox" id="ingredient" />
+      </label>
+    ));
+  };
 
   useEffect(() => {
     if (isFavorite) setIconFavorit(true);
@@ -55,7 +83,6 @@ const DrinkProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
-  console.log(drink);
   return (
     <div>
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
@@ -67,7 +94,7 @@ const DrinkProgress = ({ match }) => {
       />
       <ul>
         Ingredientes:
-        {renderCheckBox(drink)}
+        {renderCheckBox()}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
       <p data-testid="0-recomendation-card">recomendation</p>
@@ -81,7 +108,11 @@ const DrinkProgress = ({ match }) => {
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
       <button onClick={ addFavorite } type="button">
-        <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
+        <img
+          data-testid="favorite-btn"
+          src={ blackOrWhite(iconFavorit) }
+          alt={ blackOrWhite(iconFavorit) }
+        />
       </button>
       <Link to="/receitas-feitas">
         <button type="button" data-testid="finish-recipe-btn">

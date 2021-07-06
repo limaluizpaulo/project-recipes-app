@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
-import { renderCheckBox } from '../utils';
+import { filterObj } from '../utils';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { checkFavoriteId } from '../services/localStorage';
+
+const blackOrWhite = (favorited) => (favorited ? blackHeartIcon : whiteHeartIcon);
 
 const FoodProgress = ({ match }) => {
   const {
@@ -14,10 +16,9 @@ const FoodProgress = ({ match }) => {
   } = match;
 
   const [meal, setMeal] = useState({});
+  const [selecteds, setSelects] = useState([]);
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
-
-  const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
 
   const isFavorite = checkFavoriteId(id);
 
@@ -28,6 +29,33 @@ const FoodProgress = ({ match }) => {
   useEffect(() => {
     recipeById(id, true).then(setMeal);
   }, [id, setMeal]);
+
+  const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
+
+  const handleSelect = (item) => {
+    if (!findSelecteds(item)) {
+      setSelects([...selecteds, item]);
+    } else {
+      const removeSelected = selecteds.filter((ingredient) => ingredient !== item);
+      setSelects(removeSelected);
+    }
+  };
+
+  const renderCheckBox = () => {
+    const ingredients = filterObj(/Ingredient/, meal);
+    return ingredients.map(([key, ingredient]) => (
+      <label
+        className={ findSelecteds(key) && 'checked' }
+        checked={ findSelecteds(key) && 'checked' }
+        data-testid="ingredient-step"
+        htmlFor="ingredient"
+        key={ `${key} - ${ingredient}` }
+      >
+        {ingredient}
+        <input onClick={ () => handleSelect(key) } type="checkbox" id="ingredient" />
+      </label>
+    ));
+  };
 
   const addFavorite = () => {
     const favorites = localStorage.favoriteRecipes
@@ -57,10 +85,8 @@ const FoodProgress = ({ match }) => {
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <h3 data-testid="recipe-category">{meal.strCategory}</h3>
       <img data-testid="recipe-photo" src={ meal.strMealThumb } alt={ meal.strMeal } />
-      <ul>
-        Ingredientes:
-        {renderCheckBox(meal)}
-      </ul>
+      Ingredientes:
+      {renderCheckBox()}
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
       <p data-testid="0-recomendation-card">recomendation</p>
@@ -72,12 +98,17 @@ const FoodProgress = ({ match }) => {
         data-testid="share-btn"
       >
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
+
       </button>
       <button
         onClick={ addFavorite }
         type="button"
       >
-        <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
+        <img
+          data-testid="favorite-btn"
+          src={ blackOrWhite(iconFavorit) }
+          alt={ blackOrWhite(iconFavorit) }
+        />
       </button>
       <Link to="/receitas-feitas">
         <button disable type="button" data-testid="finish-recipe-btn">
@@ -95,4 +126,5 @@ FoodProgress.propTypes = {
     }),
   }).isRequired,
 };
+
 export default FoodProgress;
