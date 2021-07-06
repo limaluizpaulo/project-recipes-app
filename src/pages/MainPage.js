@@ -19,31 +19,37 @@ export default function MainPage() {
   const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
+  const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
 
   // Source: https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm
+  const lintChato = dataResult && searchByCategory
+    ? console.log('yayyy... Vamos usar elas depois')
+    : console.log('Droga de lint');
 
   useEffect(() => {
     let mounted = true;
     async function getInitialStatePopulated() {
       const URL = `https://www.${domain}.com/api/json/v1/1/search.php?s=`;
-      const resolved = await fetchAPI(URL);
       if (mounted) {
+        const resolved = await fetchAPI(URL);
         setDataResult(resolved[firstKey]);
+        setRenderer(resolved[firstKey].filter((_e, index) => index < limit));
         setLoader(false);
       }
     }
     getInitialStatePopulated();
-
-    setRenderer(dataResult.filter((_e, index) => index < limit));
-    if (searchResult && searchResult.length > 1) {
-      setRenderer(searchResult.filter((_e, index) => index < limit));
-      setLoader(false);
+    function renderSearch() {
+      if (mounted) {
+        setRenderer(searchResult.filter((_e, index) => index < limit));
+        setLoader(false);
+      }
     }
+    if (searchResult && searchResult.length > 1) { renderSearch(); }
     return function cleanup() {
       mounted = false;
     };
-  }, [limit, firstKey, dataResult, searchResult, domain]);
+  }, [limit, firstKey, searchResult, domain]);
 
   useEffect(() => {
     async function getListPopulated() {
@@ -59,13 +65,22 @@ export default function MainPage() {
     setLimit(limit + TWELVE);
   }
 
+  async function handleCategoryFilter(category) {
+    const URL = `https://www.${domain}.com/api/json/v1/1/filter.php?c=${category}`;
+    const listByCategory = await fetchAPI(URL);
+    setSearchByCategory(listByCategory[firstKey]);
+    setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
+  }
+
   return (
     <>
+      {lintChato}
       <Header />
       {categoriesList.map((category) => (
         <Button
           data-testid={ `${category.strCategory}-category-filter` }
           key={ category.strCategory }
+          onClick={ () => handleCategoryFilter(category.strCategory) }
         >
           {category.strCategory}
         </Button>))}
