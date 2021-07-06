@@ -4,7 +4,7 @@ import { checkDoneRecipes, checkProgress } from '../services/localStorageManager
 import './FoodDetails.css';
 import {
   RecDrinks,
-  RecFoods,
+  RecMeals,
   MealClip,
   IngList,
   FavoriteBtn,
@@ -103,7 +103,7 @@ function FoodDetails({ match, history }) {
         {
           pathname.includes('/comida')
             ? <RecDrinks id={ id } />
-            : <RecFoods id={ id } />
+            : <RecMeals id={ id } />
         }
       </div>
       <button

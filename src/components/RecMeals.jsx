@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getDrinkRecipes } from '../services';
+import { getMealDetails } from '../services';
 import './RecDrinks.css';
 
 const SIX = 6;
 
-function RecDrinks() {
-  const [recDrinks, setRecDrinks] = useState([]);
+function RecMeals() {
+  const [recFoods, setRecFoods] = useState([]);
 
   useEffect(() => {
-    const fetchRecDrinks = async () => {
-      const drink = await getDrinkRecipes();
-      setRecDrinks(drink.slice(0, SIX));
+    const fetchRecFoods = async () => {
+      const meals = await getMealDetails();
+      setRecFoods(meals.slice(0, SIX));
     };
-    fetchRecDrinks();
+    fetchRecFoods();
   }, []);
 
   return (
@@ -20,22 +20,22 @@ function RecDrinks() {
       <section className="carousel">
         <div className="carousel--slides">
           {
-            recDrinks.map(({ strDrinkThumb, strDrink }, index) => (
+            recFoods.map(({ strMealThumb, strMeal }, index) => (
               <>
                 <div
-                  key={ strDrink }
+                  key={ strMeal }
                   data-testid={ `${index}-recomendation-card` }
                   className="carousel--slide"
                 >
                   <img
-                    src={ strDrinkThumb }
-                    alt={ strDrink }
+                    src={ strMealThumb }
+                    alt={ strMeal }
                   />
                 </div>
                 <h4
                   data-testid={ `${index}-recomendation-title` }
                 >
-                  {strDrink}
+                  {strMeal}
                 </h4>
               </>
             ))
@@ -48,4 +48,4 @@ function RecDrinks() {
   );
 }
 
-export default RecDrinks;
+export default RecMeals;

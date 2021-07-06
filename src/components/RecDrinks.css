@@ -1,0 +1,30 @@
+.carousel {
+  background-color: #fff009;
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+  width: 500px;
+}
+
+.carousel--slides {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel--slide {
+  display: flex;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel--slide img {
+  height: 200px;
+  object-fit: cover;
+  width: 217px;
+}
+
+.carousel--slide h4 {
+  justify-content: center;
+}
+
