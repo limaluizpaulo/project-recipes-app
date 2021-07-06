@@ -7,7 +7,8 @@ import { Login,
   Meals,
   Drinks,
   Profile,
-  Done } from './pages';
+  Done,
+  Favorites } from './pages';
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ Done } />
-        {/* <Route exact path="/comidas/:id" component={} />
+        <Route path="/receitas-favoritas" component={ Favorites } />
+        {/*
+        <Route exact path="/comidas/:id" component={} />
         <Route exact path="/bebidas/:id" component={} />
         <Route exact path="/comidas/:id/in-progress" component={} />
         <Route exact path="/bebidas/:id/in-progress" component={} />
@@ -29,7 +32,7 @@ function App() {
         <Route path="/explorar/comidas/area" component={} />
         <Route path="/explorar/comidas/ingredientes" component={} />
         <Route path="/explorar/bebidas/ingredientes" component={} />
-        <Route path="/receitas-favoritas" component={} /> */}
+         */}
       </Provider>
     </Switch>
   );

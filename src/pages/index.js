@@ -3,3 +3,4 @@ export { default as Meals } from './Meals';
 export { default as Drinks } from './Drinks';
 export { default as Profile } from './Profile';
 export { default as Done } from './Done';
+export { default as Favorites } from './Favorites';
