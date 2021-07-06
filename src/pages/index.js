@@ -5,3 +5,8 @@ export { default as Profile } from './Profile';
 export { default as Explore } from './Explore';
 export { default as ExploreMeals } from './ExploreMeals';
 export { default as ExploreDrinks } from './ExploreDrinks';
+export { default as MealsDetails } from './MealsDetails';
+export { default as MealsByIngredients } from './MealsByIngredients';
+export { default as MealsByArea } from './MealsByArea';
+export { default as DrinksDetails } from './DrinksDetails';
+export { default as DrinksByIngredients } from './DrinksByIngredients';

@@ -25,8 +25,8 @@ const UserProvider = ({ children }) => {
     const { email, password } = user;
     const regex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const Email = regex.test(email);
-    const six = 6;
-    if (Email && password.length >= six) return false;
+    const seven = 7;
+    if (Email && password.length >= seven) return false;
     return true;
   };
 
