@@ -75,16 +75,21 @@ function ReceitaEmProgresso(props) {
       return acc;
     }, [[], []]);
     return (
-      <ul>
+      <>
         {ingredientesEMedidas[0].map((ingrediente, index) => (
-          <li
-            key={ ingrediente }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            {`${ingredientesEMedidas[1][index]} ${ingrediente}`}
-          </li>
+          <div key={ ingrediente } className="mb-3">
+            <label htmlFor={ ingrediente } data-testid={ `${index}-ingredient-step` }>
+              <input
+                type="checkbox"
+                id={ ingrediente }
+                name={ ingrediente }
+                value={ ingrediente }
+              />
+              { `${ingredientesEMedidas[1][index]} ${ingrediente}` }
+            </label>
+          </div>
         ))}
-      </ul>
+      </>
     );
   };
 
