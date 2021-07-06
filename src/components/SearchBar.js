@@ -39,7 +39,7 @@ function SearchBar() {
         onChange={ ({ target: { value } }) => {
           setSearchInput(value);
           if (endpoint === foodOrDrink.letter && value.length > 1) {
-            alert('Sua busca deve conter somente 1 (um) caracter');
+            global.alert('Sua busca deve conter somente 1 (um) caracter');
           }
         } }
       />
