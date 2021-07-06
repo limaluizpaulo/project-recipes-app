@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Header, IngredientCard } from '../components';
+import { DrinksContext } from '../context/DrinksProvider';
+import fetchIngredients from '../services/api/fetchIngredients';
 
 const DrinksByIngredients = () => {
-  const meals = 'meals';
+  const { setIngredientFilter } = useContext(DrinksContext);
+  const [ingredients, setIngredients] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const res = await fetchIngredients('drinks');
+      setIngredients(res);
+    };
+    load();
+  }, []);
+
   return (
     <div>
-      {meals}
+      <Header name="Explorar Ingredientes" />
+      {ingredients
+        .map((ingredient, i) => (
+          <IngredientCard
+            key={ i }
+            type="cocktail"
+            ingredient={ ingredient }
+            index={ i }
+            set={ setIngredientFilter }
+          />
+        ))}
     </div>
   );
 };
