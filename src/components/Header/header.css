@@ -5,6 +5,7 @@
   height: 55px;
   justify-content: space-between;
   width: 100%;
+  z-index: 9999;
 }
 
 .Header button {
