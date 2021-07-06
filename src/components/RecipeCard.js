@@ -2,11 +2,11 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import '../styles/card.css';
 
-function RecipeCard({ imagePath, name }) {
+function RecipeCard({ imagePath, name, index }) {
   return (
-    <div className="recipe-card">
-      <img src={ imagePath } alt="prato" />
-      <h4>{ name }</h4>
+    <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
+      <img data-testid={ `${index}-card-img` } src={ imagePath } alt="prato" />
+      <span data-testid={ `${index}-card-name` }>{ name }</span>
     </div>
   );
 }
