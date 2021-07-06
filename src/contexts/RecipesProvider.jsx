@@ -54,7 +54,7 @@ function RecipesProvider({ children }) {
 
     recipes();
     // ingredients();
-  }, []);
+  }, [type]);
 
   const context = {
     // mealsCategories,

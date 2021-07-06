@@ -28,7 +28,7 @@ function SearchBar() {
   };
 
   // useEffect(() => {
-  const filterApi = async () => {
+  const filterApi = async () => { //  tentar refatorar: jogar alerts dentro do getApi
     const alertMessage = (fn, message) => {
       fn(message);
     };

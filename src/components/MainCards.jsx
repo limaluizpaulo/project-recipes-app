@@ -17,9 +17,9 @@ export default function MainCards(props) {
   const { pathname } = useLocation();
 
   if (data.length === 1) {
-    history.push(`${pathname}${data[0][typeId]}`);
-    // console.log(data);
+    history.push(`${pathname}/${data[0][typeId]}`);
   }
+  console.log(data);
 
   return (
     <main>
