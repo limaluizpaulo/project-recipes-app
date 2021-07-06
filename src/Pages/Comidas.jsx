@@ -14,7 +14,7 @@ export default function Comidas({ match: { url } }) {
     <div>
       <Header title="Comidas" searchIcon />
       { openSearchBar ? <SearchBar url={ url } /> : null }
-      <CategoryFilter />
+      <CategoryFilter type="meals" />
       <MealList />
       <Footer />
     </div>
