@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MealsByArea = () => {
-  const meals = 'meals';
+  const meals = 'areas';
   return (
     <div>
       {meals}

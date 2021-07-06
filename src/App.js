@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login, Meals, Drinks, Done,
   Favorites, Profile, Explore, ExploreMeals, ExploreDrinks,
   MealsDetails, MealsByIngredients, DrinksDetails, DrinksByIngredients,
-  MealsByArea } from './pages';
+  MealsByAreas } from './pages';
 
 // import rockGlass from './images/rockGlass.svg';
 
@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/bebidas/:id" component={ DrinksDetails } />
         <Route path="/explorar/comidas/ingredientes" component={ MealsByIngredients } />
         <Route path="/explorar/bebidas/ingredientes" component={ DrinksByIngredients } />
-        <Route path="/explorar/comidas/area" component={ MealsByArea } />
+        <Route path="/explorar/comidas/areas" component={ MealsByAreas } />
         <Route path="/receitas-feitas" component={ Done } />
         <Route path="/receitas-favoritas" component={ Favorites } />
 
