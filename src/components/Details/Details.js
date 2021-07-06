@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Carousel from 'react-elastic-carousel';
 
 import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
@@ -43,9 +44,15 @@ function Details({ id, mealsOrDrinks }) {
 
   const renderRecommendation = () => {
     const recommendationsKeyThumb = `${recommendationsKey}Thumb`;
-    return recommendations.map((
-      { [recommendationsKey]: title, [recommendationsKeyThumb]: thumb },
-    ) => <img key={ title } src={ thumb } alt={ title } style={ { width: 200 } } />);
+    return (
+      <Carousel itemsToShow={ 2 }>
+        {
+          recommendations.map((
+            { [recommendationsKey]: title, [recommendationsKeyThumb]: thumb },
+          ) => <img key={ title } src={ thumb } alt={ title } style={ { width: 200 } } />)
+        }
+      </Carousel>
+    );
   };
 
   useEffect(() => {
