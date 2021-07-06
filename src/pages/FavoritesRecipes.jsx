@@ -71,6 +71,14 @@ function FavoritesRecipes() {
     setIndexNumber(index);
   };
 
+  const unfavoriteRecipe = (indexNum) => {
+    const favoritos = favoriteList;
+    favoritos.splice(indexNum, 1);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritos));
+    const newFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavoriteList(newFav);
+  };
+
   const renderAllRecipes = () => (
     <main>
       {favoriteList.map((favoriteRecipe, index) => (
