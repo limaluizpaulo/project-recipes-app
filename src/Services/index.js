@@ -11,7 +11,7 @@ const conditionalEndpoint = (recipeType) => {
   case 'comidas':
     return fetchInfo('https://www.themealdb.com/api/json/v1/1/search.php?s');
   case 'bebidas':
-    return fetchInfo('https://www.thecocktaildb.com/api/json/v1/1/search.php?s');
+    return fetchInfo('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   default:
     break;
   }
