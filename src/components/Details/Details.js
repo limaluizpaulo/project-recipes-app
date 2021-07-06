@@ -70,32 +70,6 @@ function Details({ id, mealsOrDrinks }) {
     );
   };
 
-  const renderStartButton = () => {
-    if (alreadyStarted) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-        >
-          Continuar Receita
-
-        </button>
-      );
-    }
-    return (
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="start-recipe"
-        onClick={ () => { startRecipe(recipe); } }
-      >
-        Iniciar Receita
-
-      </button>
-    );
-  };
-
   useEffect(() => {
     const MEALS = 'meals';
     const DRINKS = 'drinks';
@@ -200,7 +174,19 @@ function Details({ id, mealsOrDrinks }) {
             : null
         }
         {
-          renderStartButton()
+          !alreadyStarted
+            ? (
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="start-recipe"
+                onClick={ () => { startRecipe(recipe); } }
+              >
+                Iniciar Receita
+
+              </button>
+            )
+            : null
         }
 
       </section>

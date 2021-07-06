@@ -55,19 +55,49 @@ function RecipesProvider({ children }) {
     }
   };
 
+  //   [{
+  //     id: id-da-receita,
+  //     type: comida-ou-bebida,
+  //     area: area-da-receita-ou-texto-vazio,
+  //     category: categoria-da-receita-ou-texto-vazio,
+  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+  //     name: nome-da-receita,
+  //     image: imagem-da-receita,
+  //     doneDate: quando-a-receita-foi-concluida,
+  //     tags: array-de-tags-da-receita-ou-array-vazio
+  // }]
+
   const lookDetailsRecipe = (recipe) => {
     setRecipeDetails(recipe);
     setRedirectToRecipeDetails(true);
   };
 
+  const localstorageSaveRecipe = (recipe) => {
+    const recipeObj = {
+      id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
+      type: (recipe.idMeal) ? 'meal' : 'drink',
+      area: (recipe.strArea) ? recipe.strArea : '',
+      category: (recipe.strCategory) ? recipe.strCategory : '',
+      alcoholicOrNot: (recipe.strAlcoholic) ? recipe.strAlcoholic : '',
+      name: (recipe.strMeal) ? recipe.strMeal : recipe.strDrink,
+      image: (recipe.strMealThumb) ? recipe.strMealThumb : recipe.strDrinkThumb,
+      doneDate: (recipe.dateModified) ? recipe.dateModified : '',
+      tags: (recipe.strTags) ? recipe.strTags : [],
+    };
+    let arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    arrayOfRecipes = [...arrayOfRecipes, recipeObj];
+    localStorage.setItem('doneRecipes', JSON.stringify(arrayOfRecipes));
+  };
+
   const startRecipe = (recipe) => {
-    let tempArray = [...startedRecipes];
-    tempArray = [
-      ...tempArray,
+    let arrayOfRecipes = [...startedRecipes];
+    arrayOfRecipes = [
+      ...arrayOfRecipes,
       recipe,
     ];
 
-    setStartedRecipes(tempArray);
+    setStartedRecipes(arrayOfRecipes);
+    localstorageSaveRecipe(recipe);
   };
 
   const context = {
@@ -89,6 +119,10 @@ function RecipesProvider({ children }) {
     startedRecipes,
     startRecipe,
   };
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }, []);
 
   useEffect(() => {
     getInitialRecipes();
