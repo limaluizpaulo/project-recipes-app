@@ -10,7 +10,6 @@ const Meals = () => {
     setFilterCategory,
   } = useContext(MealsContext);
 
-  const recipesShow = 12;
   return (
     <div>
 
@@ -21,21 +20,16 @@ const Meals = () => {
         onClick={ setFilterCategory }
       />
       {meals.length === 1 && <Redirect to={ `comidas/${meals[0].idMeal}` } />}
-      {meals.map(({ idMeal, strMeal, strMealThumb }, index) => {
-        if (index < recipesShow) {
-          return (
-            <Card
-              id={ idMeal }
-              key={ idMeal }
-              title={ strMeal }
-              img={ strMealThumb }
-              index={ index }
-              type="comidas"
-            />
-          );
-        }
-        return null;
-      })}
+      {meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
+        <Card
+          id={ idMeal }
+          key={ idMeal }
+          title={ strMeal }
+          img={ strMealThumb }
+          index={ index }
+          type="comidas"
+        />
+      ))}
       <Footer />
     </div>
   );
