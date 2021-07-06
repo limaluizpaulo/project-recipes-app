@@ -14,8 +14,8 @@ class Perfil extends Component {
     // codigo para localStorage conseguido https://josiaspereira.com.br/como-usar-localstorage-no-reactjs/
     const emailStorage = localStorage.getItem('user');
     const objEmail = JSON.parse(emailStorage);
-    const { email } = objEmail;
     if (objEmail) {
+      const { email } = objEmail;
       if (email !== null) {
         return email;
       }
