@@ -6,15 +6,25 @@ class SearchBar extends React.Component {
       <fieldset>
         <label htmlFor="Primeira letra">
           Primeira letra
-          <input type="radio" name="filterOptions" id="Primeira letra" />
+          <input
+            type="radio"
+            data-testid="search-input"
+            name="filterOptions"
+            id="Primeira letra"
+          />
         </label>
         <label htmlFor="Nome">
           Nome
-          <input type="radio" name="filterOptions" id="Nome" />
+          <input type="radio" data-testid="search-input" name="filterOptions" id="Nome" />
         </label>
         <label htmlFor="Ingrediente">
           Ingrediente
-          <input type="radio" name="filterOptions" id="Ingrediente" />
+          <input
+            type="radio"
+            data-testid="search-input"
+            name="filterOptions"
+            id="Ingrediente"
+          />
         </label>
       </fieldset>
     );

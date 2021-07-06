@@ -10,6 +10,7 @@ function App() {
   // tudo com GenericComponent não foi implementado
   return (
     <Switch>
+      <Route exact path="/" component={ Login } />
       <Route
         path="/explorar/:recipeType/ingredientes"
         render={ (props) => <GenericComponent { ...props } /> }
@@ -27,17 +28,26 @@ function App() {
         render={ (props) => <GenericComponent { ...props } /> }
       />
 
-      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route
+        path="/receitas-feitas"
+        render={ (props) => <ReceitasFeitas { ...props } /> }
+      />
       <Route
         path="/receitas-favoritas"
         render={ (props) => <GenericComponent { ...props } /> }
       />
 
-      <Route exact path="/" component={ Login } />
-      <Route path="/perfil" component={ GenericComponent } />
+      <Route
+        path="/perfil"
+        render={ (props) => <GenericComponent { ...props } /> }
+      />
 
       <Route
         path="/:recipeType/:id-da-receita/in-progress"
+        component={ GenericComponent }
+      />
+      <Route
+        path="/:recipeType/:id-da-receita"
         component={ GenericComponent }
       />
       <Route
@@ -45,7 +55,6 @@ function App() {
         path="/:recipeType"
         render={ (props) => (<Recipes { ...props } />) }
       />
-      <Route path="/:recipeType/:id-da-receita" component={ GenericComponent } />
     </Switch>
   );
 }

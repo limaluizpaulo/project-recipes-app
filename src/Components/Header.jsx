@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import Paths from '../Pages/Paths';
 
 export default class Header extends React.Component {
   constructor() {
@@ -21,8 +22,9 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const { title, search } = this.props;
+    const { search, pathname } = this.props;
     const { disable } = this.state;
+    const isArea = pathname.includes('area');
 
     return (
       <main>
@@ -34,14 +36,18 @@ export default class Header extends React.Component {
               data-testid="profile-top-btn"
             />
           </Link>
-          <h1 data-testid="page-title">{ title || 'Comidas' }</h1>
-          { search && (
+          <h1 data-testid="page-title">{ Paths[pathname] }</h1>
+          { (search || isArea) && (
             <button
               type="submit"
               data-testid="search-top-btn"
               onClick={ this.handleClick }
+              src={ searchIcon }
             >
-              <img src={ searchIcon } alt="search icon" />
+              <img
+                src={ searchIcon }
+                alt="search icon"
+              />
             </button>
           )}
 

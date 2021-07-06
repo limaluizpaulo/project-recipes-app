@@ -10,7 +10,7 @@ class GenericComponent extends React.Component {
 
     return (
       <main>
-        <Header />
+        <Header pathname={ pathname } />
         {!isFavoriteRecipes && <Footer />}
       </main>
     );

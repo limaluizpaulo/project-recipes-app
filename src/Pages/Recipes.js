@@ -8,10 +8,10 @@ import { requestCurrentRoute } from '../redux/actions';
 
 class Recipes extends React.Component {
   render() {
-    const { match: { params: { recipeType } } } = this.props;
+    const { location: { pathname }, match: { params: { recipeType } } } = this.props;
     return (
       <div>
-        <Header search />
+        <Header pathname={ pathname } title={ recipeType } search />
         <RecipeCard recipeType={ recipeType } />
         <Footer />
       </div>);
