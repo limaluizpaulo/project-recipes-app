@@ -16,35 +16,31 @@ function RecDrinks() {
   }, []);
 
   return (
-    <>
-      <section className="carousel">
-        <div className="carousel--slides">
-          {
-            recDrinks.map(({ strDrinkThumb, strDrink }, index) => (
-              <>
-                <div
-                  key={ strDrink }
-                  data-testid={ `${index}-recomendation-card` }
-                  className="carousel--slide"
-                >
-                  <img
-                    src={ strDrinkThumb }
-                    alt={ strDrink }
-                  />
-                </div>
-                <h4
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {strDrink}
-                </h4>
-              </>
-            ))
-          }
-        </div>
-      </section>
-      <button>esquerda</button>
-      <button>direita</button>
-    </>
+    <section className="carousel">
+      <div className="carousel--slides">
+        {
+          recDrinks.map(({ strDrinkThumb, strDrink }, index) => (
+            <>
+              <div
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                className="carousel--slide"
+              >
+                <img
+                  src={ strDrinkThumb }
+                  alt={ strDrink }
+                />
+              </div>
+              <h4
+                data-testid={ `${index}-recomendation-title` }
+              >
+                {strDrink}
+              </h4>
+            </>
+          ))
+        }
+      </div>
+    </section>
   );
 }
 
