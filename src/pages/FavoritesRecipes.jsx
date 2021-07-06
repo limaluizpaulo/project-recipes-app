@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import unfavIcon from '../images/blackHeartIcon.svg';
 
+import '../styles/DoneRecipes.css';
+
 function FavoritesRecipes() {
   const [favoriteList, setFavoriteList] = useState([]);
   const [copied, setCopied] = useState(false);
@@ -30,6 +32,24 @@ function FavoritesRecipes() {
         name: 'Aquamarine',
         image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
       },
+      {
+        id: '151555',
+        type: 'comida',
+        area: 'blabla',
+        category: 'blabla',
+        alcoholicOrNot: '',
+        name: 'blabla',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      },
+      {
+        id: '121',
+        type: 'bebida',
+        area: '',
+        category: 'blibli',
+        alcoholicOrNot: 'Alcoholic',
+        name: 'blibli',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      },
     ];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
@@ -38,6 +58,11 @@ function FavoritesRecipes() {
       setFavoriteList(favorites);
     }
   }, []);
+
+  // useEffect(() => {
+  //   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   setFavoriteList(favorites);
+  // }, [favoriteList]);
 
   const shareRecipe = (recipe, index) => {
     // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
@@ -65,7 +90,7 @@ function FavoritesRecipes() {
             {' - '}
             {favoriteRecipe.category}
           </h6>
-          <button type="button">
+          <button type="button" onClick={ () => unfavoriteRecipe(index) }>
             <img
               src={ unfavIcon }
               alt="unfav"
@@ -111,6 +136,13 @@ function FavoritesRecipes() {
               {' - '}
               {favoriteRecipe.category}
             </h6>
+            <button type="button" onClick={ () => unfavoriteRecipe(index) }>
+              <img
+                src={ unfavIcon }
+                alt="unfav"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
+            </button>
             <button type="button" onClick={ () => shareRecipe(favoriteRecipe, index) }>
               <img
                 src={ shareIcon }
