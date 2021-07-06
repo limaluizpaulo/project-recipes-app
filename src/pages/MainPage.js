@@ -21,6 +21,7 @@ export default function MainPage() {
   const [categoriesList, setCategoriesList] = useState([]);
   const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
+  const [toggle, setToggle] = useState({ status: false, category: '' });
 
   const lintChato = searchByCategory
     ? console.log('yayyy... Vamo usar ela depois')
@@ -35,6 +36,7 @@ export default function MainPage() {
       setLoader(false);
     }
     getInitialStatePopulated();
+
     async function getListPopulated() {
       const URL = `https://www.${domain}.com/api/json/v1/1/list.php?c=list`;
       const list = await fetchAPI(URL);
@@ -53,22 +55,22 @@ export default function MainPage() {
     if (searchResult && searchResult.length > 1) { renderSearch(); }
   }, [searchResult, limit]);
 
-  function handleMoreCards() {
-    setLimit(limit + TWELVE);
-  }
-
   async function handleCategoryFilter(category) {
     const URL = `https://www.${domain}.com/api/json/v1/1/filter.php?c=${category}`;
     const listByCategory = await fetchAPI(URL);
     setSearchByCategory(listByCategory[firstKey]);
-    // setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
-    setRenderer((prevState) => (prevState === listByCategory[firstKey]
-      .filter((_e, index) => index < limit)
-      ? dataResult.filter((_e, index) => index < limit)
-      : listByCategory[firstKey].filter((_e, index) => index < limit)));
-    // console.log(dataResult);
-    // console.log(searchByCategory);
-    // console.log(renderer);
+    setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
+
+    if (toggle.category === category) {
+      setToggle({ status: false, category: '' });
+      setRenderer(dataResult.filter((_e, index) => index < limit));
+    } else {
+      setToggle({ status: true, category });
+    }
+  }
+
+  function handleMoreCards() {
+    setLimit(limit + TWELVE);
   }
 
   function handleAllClick() {
