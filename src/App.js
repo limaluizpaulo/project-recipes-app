@@ -4,19 +4,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import FoodPage from './components/FoodPage';
+import DrinkPage from './components/DrinkPage';
 import Profile from './components/Profile';
-<<<<<<< HEAD
-
-function App() {
-  return (
-    // <div className="meals">
-    <Switch>
-      <Route exact path="/" render={ (props) => <Login { ...props } /> } />
-      <Route exact path="/comidas" component={ FoodPage } />
-      <Route exact path="/profile" render={ (props) => <Profile { ...props } /> } />
-    </Switch>
-    // </div>
-=======
+import ExplorePage from './components/ExplorePage';
 import ProviderRecipes from './context/ProviderRecipes';
 
 function App() {
@@ -26,11 +16,12 @@ function App() {
       <Switch>
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
         <Route exact path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
+        <Route exact path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
+        <Route exact path="/explore" render={ (props) => <ExplorePage { ...props } /> } />
         <Route exact path="/profile" render={ (props) => <Profile { ...props } /> } />
       </Switch>
       {/* </div> */}
     </ProviderRecipes>
->>>>>>> 45351b397b203f3f06f2d220117a82bc2a1163bf
   );
 }
 
