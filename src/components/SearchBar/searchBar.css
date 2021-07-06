@@ -1,0 +1,25 @@
+.searchBar {
+  background-color: #a37357;
+  padding: 3px;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
+.searchBar form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 120px;
+  width: 100%;
+}
+
+.searchBar input[ type = text ] {
+  width: 95%;
+}
+
+
+.radio-buttons input[ type = radio ] {
+  margin: 3px;
+}
