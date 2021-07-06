@@ -8,7 +8,6 @@ export default function ButtonStartRecipe() {
   const [text, setText] = useState('Iniciar Receita');
   const {
     DoneRecipes,
-    idsInProgress,
   } = useContext(LoginContext);
 
   const { pathname } = useLocation();
@@ -22,28 +21,25 @@ export default function ButtonStartRecipe() {
   };
 
   const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
-  const sizeInPro = idsInProgress.length;
 
   const verifyId = useCallback(() => {
     const searchDone = DoneRecipes.find((item) => item.id === id);
     if (searchDone) {
       setButtonVisible(false);
     }
-  }, [DoneRecipes, id]);
-
-  const teste123 = useCallback(() => {
-    if (sizeInPro > 0) {
-      const searchInProgress = idsInProgress.find((item) => item === id);
-      if (searchInProgress) {
+    if (localStorage.inProgressRecipes) {
+      const getRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const inProgres = Object.keys(getRecipes)
+        .map((key) => Object.keys(getRecipes[key]).includes(id));
+      if (inProgres.includes(true)) {
         setText('Continuar Receita');
       }
     }
-  }, [id, idsInProgress, sizeInPro]);
+  }, [DoneRecipes, id]);
 
   useEffect(() => {
-    teste123();
     verifyId();
-  }, [buttonVisible, teste123, verifyId]);
+  }, [buttonVisible, verifyId]);
 
   return getDrinksDetails ? (
 
