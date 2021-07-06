@@ -8,13 +8,14 @@ import './style/Details.css';
 import RecipesContext from '../../context/RecipesContext';
 
 function Details({ id, mealsOrDrinks }) {
-  const { startedRecipes, localstorageSaveRecipe } = useContext(RecipesContext);
+  const { startedRecipes, localstorageSaveStartedRecipe } = useContext(RecipesContext);
 
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationsKey, setRecommendationsKey] = useState('');
   const [alreadyStarted, setAlreadyStarted] = useState(false);
+  const [isInProgressRecipe, setIsInProgressRecipe] = useState(false);
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
@@ -99,11 +100,21 @@ function Details({ id, mealsOrDrinks }) {
 
   useEffect(() => {
     const arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const objInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
     if (arrayOfRecipes) {
       const found = arrayOfRecipes.find((element) => (
         element.id === id
       ));
       if (found) setAlreadyStarted(true);
+    }
+
+    if (objInProgress) {
+      const isVerified = (mealsOrDrinks === 'meals' && objInProgress.meals[id])
+      || (mealsOrDrinks === 'drinks' && objInProgress.cocktails[id]);
+      if (isVerified) {
+        setIsInProgressRecipe(true);
+      }
     }
   }, [startedRecipes]);
 
@@ -180,11 +191,10 @@ function Details({ id, mealsOrDrinks }) {
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe"
-          onClick={ () => { localstorageSaveRecipe(recipe); } }
-          hidden={ alreadyStarted }
+          onClick={ () => { localstorageSaveStartedRecipe(recipe, ingredients); } }
+          hidden={ alreadyStarted && !isInProgressRecipe }
         >
-          Iniciar Receita
-
+          { isInProgressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
 
       </section>

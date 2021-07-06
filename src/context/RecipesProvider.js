@@ -55,24 +55,19 @@ function RecipesProvider({ children }) {
     }
   };
 
-  //   [{
-  //     id: id-da-receita,
-  //     type: comida-ou-bebida,
-  //     area: area-da-receita-ou-texto-vazio,
-  //     category: categoria-da-receita-ou-texto-vazio,
-  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-  //     name: nome-da-receita,
-  //     image: imagem-da-receita,
-  //     doneDate: quando-a-receita-foi-concluida,
-  //     tags: array-de-tags-da-receita-ou-array-vazio
-  // }]
-
   const lookDetailsRecipe = (recipe) => {
     setRecipeDetails(recipe);
     setRedirectToRecipeDetails(true);
   };
 
-  const localstorageSaveRecipe = (recipe) => {
+  const localstorageSaveInProgressRecipe = (ingredients, type, id) => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const RECIPE = (type === 'meal') ? 'meals' : 'cocktails';
+    inProgress[RECIPE][id] = ingredients;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+  };
+
+  const localstorageSaveStartedRecipe = (recipe, ingredients) => {
     const recipeObj = {
       id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
       type: (recipe.idMeal) ? 'meal' : 'drink',
@@ -84,10 +79,13 @@ function RecipesProvider({ children }) {
       doneDate: (recipe.dateModified) ? recipe.dateModified : '',
       tags: (recipe.strTags) ? recipe.strTags : [],
     };
+
     let arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     arrayOfRecipes = [...arrayOfRecipes, recipeObj];
     setStartedRecipes(arrayOfRecipes);
     localStorage.setItem('doneRecipes', JSON.stringify(arrayOfRecipes));
+
+    localstorageSaveInProgressRecipe(ingredients, recipeObj.type, recipeObj.id);
   };
 
   const context = {
@@ -107,12 +105,18 @@ function RecipesProvider({ children }) {
     lookDetailsRecipe,
     getInitialRecipes,
     startedRecipes,
-    localstorageSaveRecipe,
+    localstorageSaveStartedRecipe,
   };
 
   useEffect(() => {
     if (!(localStorage.getItem('doneRecipes'))) {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+    if (!(localStorage.getItem('inProgressRecipes'))) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
     }
   }, []);
 
