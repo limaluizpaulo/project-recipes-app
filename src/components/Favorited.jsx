@@ -12,7 +12,7 @@ function Favorited(props) {
     indexNumber, setCopied, shareRecipe,
     unfavoriteRecipe, unfavoriteFilteredRecipe } = props;
   const renderAllRecipes = () => (
-    <main>
+    <main className="maincards">
       {favoriteList.map((favoriteRecipe, index) => (
         <div key={ index } className="card">
           <Link to={ `${favoriteRecipe.type}s/${favoriteRecipe.id}` }>
