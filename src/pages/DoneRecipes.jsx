@@ -7,27 +7,6 @@ function DoneRecipes() {
     <div>
       RECEITAS FEITAS
       <HeaderExplore title="Receitas Feitas" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        // onClick={ }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        // onClick={ }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        // onClick={ }
-      >
-        Drinks
-      </button>
       <DoneRecipesList />
     </div>
   );

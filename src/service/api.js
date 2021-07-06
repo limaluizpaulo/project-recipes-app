@@ -4,30 +4,30 @@ const BASE_URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const BASE_URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const BASE_URL_CATEGORIES_MEAL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const BASE_URL_CATEGORIES_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-const BASE_URL_FILTER_CTGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
-const BASE_URL_FILTER_CTGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+// const BASE_URL_FILTER_CTGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+// const BASE_URL_FILTER_CTGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 const BASE_URL_DETAIL_MEAL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const BASE_URL_DETAIL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-const BASE_URL_RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php';
-const BASE_URL_RANDOM_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+// const BASE_URL_RANDOM_MEAL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+// const BASE_URL_RANDOM_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const BASE_URL_MEAL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const BASE_URL_DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const BASE_URL_SEARCH_AREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const MAX_NUMBER_OF_ITEMS = 12;
 
-export async function recipesListApi(pathname) {
-  let fetchSearch;
-  if (pathname === '/comidas') {
-    fetchSearch = await fetch(BASE_URL_MEAL);
-    const response = await fetchSearch.json();
-    return response.meals;
-  }
-  if (pathname === '/bebidas') {
-    fetchSearch = await fetch(BASE_URL_DRINKS);
-    const response = await fetchSearch.json();
-    return response.drinks;
-  }
-}
+// export async function recipesListApi(pathname) {
+//   let fetchSearch;
+//   if (pathname === '/comidas') {
+//     fetchSearch = await fetch(BASE_URL_MEAL);
+//     const response = await fetchSearch.json();
+//     return response.meals;
+//   }
+//   if (pathname === '/bebidas') {
+//     fetchSearch = await fetch(BASE_URL_DRINKS);
+//     const response = await fetchSearch.json();
+//     return response.drinks;
+//   }
+// }
 
 export async function recipesListRecomendationApi(pathname) {
   let fetchSearch;
@@ -57,19 +57,19 @@ export async function categoriesListApi(pathname) {
   }
 }
 
-export async function filterCategoryApi(selectedCategory, pathname) {
-  let fetchSearch;
-  if (pathname === '/comidas') {
-    fetchSearch = await fetch(`${BASE_URL_FILTER_CTGORY_MEAL}${selectedCategory}`);
-    const response = await fetchSearch.json();
-    return response.meals;
-  }
-  if (pathname === '/bebidas') {
-    fetchSearch = await fetch(`${BASE_URL_FILTER_CTGORY_DRINKS}${selectedCategory}`);
-    const response = await fetchSearch.json();
-    return response.drinks;
-  }
-}
+// export async function filterCategoryApi(selectedCategory, pathname) {
+//   let fetchSearch;
+//   if (pathname === '/comidas') {
+//     fetchSearch = await fetch(`${BASE_URL_FILTER_CTGORY_MEAL}${selectedCategory}`);
+//     const response = await fetchSearch.json();
+//     return response.meals;
+//   }
+//   if (pathname === '/bebidas') {
+//     fetchSearch = await fetch(`${BASE_URL_FILTER_CTGORY_DRINKS}${selectedCategory}`);
+//     const response = await fetchSearch.json();
+//     return response.drinks;
+//   }
+// }
 
 export async function searchByIngredientsApi(inputValue, pathname) {
   let fetchSearch;
@@ -131,19 +131,19 @@ export async function detailRecipeMeal(id) {
   return [];
 }
 
-export async function randomRecipe(pathname) {
-  let fetchSearch;
-  if (pathname.match(/comidas/)) {
-    fetchSearch = await fetch(BASE_URL_RANDOM_MEAL);
-    const response = await fetchSearch.json();
-    return response.meals[0].idMeal;
-  }
-  if (pathname.match(/bebidas/)) {
-    fetchSearch = await fetch(BASE_URL_RANDOM_DRINKS);
-    const response = await fetchSearch.json();
-    return response.drinks[0].idDrink;
-  }
-}
+// export async function randomRecipe(pathname) {
+//   let fetchSearch;
+//   if (pathname.match(/comidas/)) {
+//     fetchSearch = await fetch(BASE_URL_RANDOM_MEAL);
+//     const response = await fetchSearch.json();
+//     return response.meals[0].idMeal;
+//   }
+//   if (pathname.match(/bebidas/)) {
+//     fetchSearch = await fetch(BASE_URL_RANDOM_DRINKS);
+//     const response = await fetchSearch.json();
+//     return response.drinks[0].idDrink;
+//   }
+// }
 
 export async function searchIngredients(pathname) {
   let fetchSearch;

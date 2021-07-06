@@ -4,13 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import RecipeRandomProvider from './context/RecipeRandomProvider';
 
 ReactDOM.render(
   <BrowserRouter>
-    <RecipeRandomProvider>
-      <App />
-    </RecipeRandomProvider>
+    <App />
   </BrowserRouter>,
   document.getElementById('root'),
 );
