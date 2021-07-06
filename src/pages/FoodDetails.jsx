@@ -120,7 +120,6 @@ function FoodDetails({ match, history }) {
             : 'Iniciar Receita'
         }
       </button>
-      )
     </>
   );
 }
@@ -132,7 +131,7 @@ FoodDetails.propTypes = {
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };
