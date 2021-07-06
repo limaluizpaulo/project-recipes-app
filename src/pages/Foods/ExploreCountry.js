@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 export default function ExploreCountry() {
   return (
     <div>
-      <Header title="Explorar Origem" classname="display" />
+      <Header title="Explorar Origem" display="true" />
       <Footer />
     </div>
   );

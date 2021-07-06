@@ -5,8 +5,9 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 import './components.css';
+import SearchFood from './SearchFood';
 
-function Header({ title, classname }) {
+function Header({ title, display }) {
   const [isSerching, setIsSerching] = useState(false);
   /* const history = useHistory();
   function onclickImage() {
@@ -15,23 +16,24 @@ function Header({ title, classname }) {
 */
   return (
     <div className="header-body">
+      <div>
 
-      <a
-        href="/perfil"
-      >
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile icon"
+        <a
+          href="/perfil"
+        >
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile icon"
 
-        />
-      </a>
+          />
+        </a>
 
-      <div data-testid="page-title">
-        {title}
-      </div>
-      {
-        classname === 'display'
+        <div data-testid="page-title">
+          {title}
+        </div>
+        {
+          display === 'true'
         && (
           <div
             role="button"
@@ -43,18 +45,16 @@ function Header({ title, classname }) {
               onClick={ () => setIsSerching(!isSerching) }
               role="presentation"
             />
-            {isSerching && <input
-              data-testid="search-input"
-              type="text"
-            />}
           </div>)
-      }
+        }
+      </div>
+      {isSerching && <SearchFood recipe={ title } />}
     </div>
   );
 }
 
 Header.propTypes = {
-  classname: PropTypes.string.isRequired,
+  display: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
