@@ -6,11 +6,21 @@ function DetailsImage(props) {
   const food = /comida/gi;
   if (url.match(food)) {
     return (
-      <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="prato pronto" />
+      <img
+        className="detail-image"
+        data-testid="recipe-photo"
+        src={ recipe.strMealThumb }
+        alt="prato pronto"
+      />
     );
   }
   return (
-    <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="prato pronto" />
+    <img
+      className="detail-image"
+      data-testid="recipe-photo"
+      src={ recipe.strDrinkThumb }
+      alt="prato pronto"
+    />
   );
 }
 
