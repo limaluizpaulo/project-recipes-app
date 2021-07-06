@@ -15,7 +15,21 @@ function DoneRecipe({ image, index, category, recipeName, recipeDate, recipeTags
         <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
         <p data-testid={ `${index}-horizontal-name` }>{recipeName}</p>
         <p data-testid={ `${index}-horizontal-done-date` }>{recipeDate}</p>
-        <p data-testid={ `${index}-${recipeTags}-horizontal-tag` }>{recipeTags}</p>
+        {recipeTags.map((tag, i) => (
+          <p
+            key={ i }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+          >
+            {tag}
+          </p>))}
+        <button
+          type="button"
+          data-testid={
+            `${index}-horizontal-share-btn`
+          }
+        >
+          Compartilhar
+        </button>
       </div>
     </div>
   );
