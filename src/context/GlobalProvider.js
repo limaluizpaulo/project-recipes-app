@@ -56,6 +56,14 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const filterToggler = async (baseEndPoint) => {
+    const { chosenFilter, searchText } = initialParams;
+    const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
+    if (result) {
+      setRequestResult(result);
+    }
+  };
+
   const manageRenderMeal = (cardList) => {
     if (meals.length === 1 && requestParams.searchText.length > 0) {
       const mealId = meals[0].idMeal;
@@ -101,6 +109,7 @@ function GlobalProvider({ children }) {
     manageRenderDrink,
     filterCategory,
     filterCategoryDrinks,
+    filterToggler,
   };
 
   return (
