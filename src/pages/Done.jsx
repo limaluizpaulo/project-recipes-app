@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import { Header } from '../components';
-import shareIcon from '../images/shareIcon.svg';
+import { Header, Filters, Tags, ShareButton, RecipeHeaderList } from '../components';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Done = () => {
@@ -39,29 +37,7 @@ const Done = () => {
     <>
       <Header name="Receitas Feitas" />
 
-      <div className="filters">
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => setFilter('') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => setFilter('comida') }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => setFilter('bebida') }
-        >
-          Drinks
-        </button>
-      </div>
+      <Filters clickFilter={ setFilter } />
 
       <div className="done-recipes">
         {copied ? 'Link copiado!' : ''}
@@ -83,50 +59,35 @@ const Done = () => {
                   type,
                 },
                 index,
-              ) => (
-                <div key={ index }>
-                  <Link to={ `/${type}s/${id}` }>
-                    <img
-                      src={ image }
-                      width="200px"
-                      alt=""
-                      data-testid={ `${index}-horizontal-image` }
-                    />
-                  </Link>
-                  <div>
-                    <span data-testid={ `${index}-horizontal-top-text` }>
-                      {alcoholicOrNot || `${area} - ${category}`}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={ () => {
-                        clipboardCopy(`http://localhost:3000/${type}s/${id}`);
-                        setCopied(true);
-                      } }
-                    >
-                      <img
-                        src={ shareIcon }
-                        alt=""
-                        data-testid={ `${index}-horizontal-share-btn` }
-                      />
-                    </button>
+              ) => {
+                const header = { index, alcoholicOrNot, area, category, type, id, name };
+                return (
+                  <div key={ index }>
                     <Link to={ `/${type}s/${id}` }>
-                      <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+                      <img
+                        src={ image }
+                        width="200px"
+                        alt=""
+                        data-testid={ `${index}-horizontal-image` }
+                      />
                     </Link>
+                    <RecipeHeaderList header={ header } />
+
+                    <ShareButton
+                      type={ type }
+                      id={ id }
+                      changeCopy={ setCopied }
+                      index={ index }
+                    />
+
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}
                     </h4>
-                    {tags.map((tag, tagIndex) => (tagIndex <= 1 ? (
-                      <span
-                        key={ tagIndex }
-                        data-testid={ `${index}-${tag}-horizontal-tag` }
-                      >
-                        {tag}
-                      </span>
-                    ) : null))}
+                    <Tags tags={ tags } recipeIndex={ index } />
+
                   </div>
-                </div>
-              ),
+                );
+              },
             )}
       </div>
     </>
