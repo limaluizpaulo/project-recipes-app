@@ -70,3 +70,9 @@
 .step-checked {
   text-decoration: line-through;
 }
+
+.button-fixed {
+  bottom: 0;
+  position: fixed;
+}
+

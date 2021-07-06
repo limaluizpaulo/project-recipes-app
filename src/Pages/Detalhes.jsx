@@ -16,7 +16,7 @@ export default function DetalhesComida({ location }) {
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, [storeCurrentRecipe, location.pathname]);
+  }, []);
 
   const renderInProgressPage = () => {
     if (video) {
@@ -29,11 +29,17 @@ export default function DetalhesComida({ location }) {
   return (
     <Container>
       <Thumb title={ title } thumb={ thumb } />
-      <Title id={ id } title={ title } subtitle={ subtitle } />
+      <Title
+        currentRecipe={ currentRecipe }
+        id={ id }
+        title={ title }
+        subtitle={ subtitle }
+      />
       <Ingredients ingredients={ ingredients } />
       <Instructions instructions={ instructions } />
       { video && <Video video={ video } /> }
       <Button
+        className="button-fixed"
         onClick={ () => renderInProgressPage() }
         data-testid="start-recipe-btn"
         variant="warning"

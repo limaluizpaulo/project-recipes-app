@@ -73,6 +73,7 @@ export default function Provider({ children }) {
         strInstructions,
         strMealThumb,
         strYoutube,
+        strArea,
       } = mealById[0];
 
       // Constrói o obejeto de comias
@@ -84,6 +85,8 @@ export default function Provider({ children }) {
         instructions: strInstructions,
         thumb: strMealThumb,
         video: strYoutube,
+        area: strArea,
+        type: 'comida',
       };
 
       setCurrentRecipe(meal);
@@ -97,6 +100,8 @@ export default function Provider({ children }) {
         strAlcoholic,
         strInstructions,
         strDrinkThumb,
+        strArea,
+        strCategory,
       } = drinkById[0];
 
       // Constrói o objeto de bebida
@@ -107,6 +112,9 @@ export default function Provider({ children }) {
         ingredients: populateIngredientsArray(drinkById[0]),
         instructions: strInstructions,
         thumb: strDrinkThumb,
+        area: strArea,
+        type: 'bebida',
+        category: strCategory,
       };
 
       setCurrentRecipe(drink);
