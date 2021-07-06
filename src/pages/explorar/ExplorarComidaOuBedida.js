@@ -9,8 +9,7 @@ import Footer from '../../components/Footer';
 // endpoint bebidas https://www.thecocktaildb.com/api/json/v1/1/random.php
 
 function ExplorarComidaOuBebida() {
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
   const title = isDrinks ? 'Bebidas' : 'Comidas';
@@ -23,24 +22,20 @@ function ExplorarComidaOuBebida() {
         <button
           type="button"
           data-testid="explore-by-ingredient"
-          onClick={ () => history.push(`/explorar/${path}/ingredientes`) }
+          onClick={ () => push(`/explorar/${path}/ingredientes`) }
         >
           Por Ingredientes
         </button>
-        { isDrinks
-          ? null
-          : <button
-              type="button"
-              data-testid="explore-by-area"
-              onClick={ () => history.push(`/explorar/${path}/area`) }
+        {isDrinks ? null : (
+          <button
+            type="button"
+            data-testid="explore-by-area"
+            onClick={ () => push(`/explorar/${path}/area`) }
           >
             Por Local de Origem
-            </button>
-      }
-        <button
-          type="button"
-          data-testid="explore-surprise"
-        >
+          </button>
+        )}
+        <button type="button" data-testid="explore-surprise">
           Me Surpreenda!
         </button>
       </div>

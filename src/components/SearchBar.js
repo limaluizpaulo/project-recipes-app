@@ -39,7 +39,6 @@ function SearchBar() {
           <input
             type="radio"
             id="ingredient-search-radio"
-            className="text-input"
             name="search-radio"
             onChange={ () => setFilter('ingredient') }
             defaultChecked

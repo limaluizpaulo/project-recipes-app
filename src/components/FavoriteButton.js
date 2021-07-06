@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import UserContext from '../context/user.context';
 import { toggleFavorite } from '../helpers/provider';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../svg/blackHeartIcon.svg';
+import whiteHeartIcon from '../svg/whiteHeartIcon.svg';
 
 function FavoriteButton({ recipe }) {
   const { favorites, setFavorites } = useContext(UserContext);
@@ -15,10 +15,11 @@ function FavoriteButton({ recipe }) {
   return (
     <button
       type="button"
-      className="button-svg"
+      className="button-svg-alt"
       onClick={ () => toggleFavorite({ favorites, setFavorites, recipe }) }
     >
       <img
+        className="svg-small"
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Add to Favorites"
         data-testid="favorite-btn"

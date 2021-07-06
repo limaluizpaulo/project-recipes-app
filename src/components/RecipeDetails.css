@@ -1,5 +1,19 @@
+.details-image-container {
+  height: 360px;
+  position: relative;
+}
+
 .details-image {
-  width: 100vw;
+  height: 360px;
+  width: 360px;
+}
+
+.details-image-container > div {
+  bottom: 0;
+  display: flex;
+  padding: 10px;
+  position: absolute;
+  right: 0;
 }
 
 .youtube-video {

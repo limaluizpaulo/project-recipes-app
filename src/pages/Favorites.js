@@ -4,10 +4,10 @@ import Header from '../components/Header';
 
 function Favorites() {
   return (
-    <div>
+    <main>
       <Header title="Receitas Favoritas" showSearchIcon={ false } />
       <p>ReceitasFavoritas</p>
-    </div>
+    </main>
   );
 }
 

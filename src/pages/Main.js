@@ -6,7 +6,7 @@ import CategoryButtons from '../components/CategoryButtons';
 import RecipesList from '../components/RecipesList';
 import Footer from '../components/Footer';
 
-function PrincipalBebidas() {
+function Main() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -23,4 +23,4 @@ function PrincipalBebidas() {
   );
 }
 
-export default PrincipalBebidas;
+export default Main;

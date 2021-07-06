@@ -28,7 +28,7 @@ function InProgress() {
     return (
       <button
         type="button"
-        className="button-start"
+        className="button-recipe"
         onClick={ handleClick }
         disabled={ !isFinished }
         data-testid="finish-recipe-btn"

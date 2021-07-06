@@ -29,7 +29,7 @@ function Login() {
   }, [input]);
 
   return (
-    <div>
+    <main>
       <label className="email" htmlFor="email-input">
         Email
         <input
@@ -60,7 +60,7 @@ function Login() {
       >
         Login
       </button>
-    </div>
+    </main>
   );
 }
 

@@ -66,19 +66,19 @@ function RecipeDetails({ ingredients, setIngredients }) {
 
   return (
     <div>
-      <img
-        className="details-image"
-        src={ details[imgKey] }
-        alt={ details[nameKey] }
-        data-testid="recipe-photo"
-      />
-      <div>
-        <h2 data-testid="recipe-title">{details[nameKey]}</h2>
+      <div className="details-image-container">
+        <img
+          className="details-image"
+          src={ details[imgKey] }
+          alt={ details[nameKey] }
+          data-testid="recipe-photo"
+        />
         <div>
-          <ShareButton />
           <FavoriteButton recipe={ details } />
+          <ShareButton />
         </div>
       </div>
+      <h2 data-testid="recipe-title">{details[nameKey]}</h2>
       <h4 data-testid="recipe-category">
         <span>{details.strCategory}</span>
         {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}

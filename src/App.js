@@ -6,7 +6,7 @@ import UserContext from './context/user.context';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import WarningMessage from './components/WarningMessage';
 import Login from './pages/Login';
-import Principal from './pages/Principal';
+import Main from './pages/Main';
 import Details from './pages/Details';
 import InProgress from './pages/InProgress';
 import Explorar from './pages/explorar';
@@ -25,8 +25,8 @@ function App() {
       {warningMessage && <WarningMessage />}
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Principal } />
-        <Route exact path="/bebidas" component={ Principal } />
+        <Route exact path="/comidas" component={ Main } />
+        <Route exact path="/bebidas" component={ Main } />
         <Route exact path="/comidas/:id" component={ Details } />
         <Route exact path="/bebidas/:id" component={ Details } />
         <Route exact path="/comidas/:id/in-progress" component={ InProgress } />

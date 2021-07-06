@@ -34,11 +34,11 @@ function Details() {
     push(`/${typePt}/${id}/in-progress`);
   }
 
-  function renderStartButton() {
+  function renderRecipeButton() {
     return (
       <button
         type="button"
-        className="button-start"
+        className="button-recipe"
         onClick={ handleClick }
         data-testid="start-recipe-btn"
       >
@@ -51,7 +51,7 @@ function Details() {
     <main>
       <RecipeDetails />
       <RecipesCarousel />
-      {!isDone && renderStartButton()}
+      {!isDone && renderRecipeButton()}
     </main>
   );
 }

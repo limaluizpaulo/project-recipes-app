@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 
 import UserContext from '../context/user.context';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../svg/shareIcon.svg';
 
 function ShareButton() {
   const { setWarningMessage } = useContext(UserContext);
@@ -13,14 +13,14 @@ function ShareButton() {
   return (
     <button
       type="button"
-      className="button-svg"
+      className="button-svg-alt"
       onClick={ () => {
         copy(`http://localhost:3000${pathname}`.replace('/in-progress', ''));
         setWarningMessage('Link copiado!');
       } }
       data-testid="share-btn"
     >
-      <img src={ shareIcon } alt="Share" />
+      <img className="svg-small" src={ shareIcon } alt="Share" />
     </button>
   );
 }
