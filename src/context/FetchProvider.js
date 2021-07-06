@@ -8,6 +8,7 @@ function FetchProvider({ children }) {
   const [imgRecipes, setImgRecipes] = useState('');
   const [nameRecipes, setNameRecipes] = useState('');
   const [categories, setCategories] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
@@ -80,6 +81,8 @@ function FetchProvider({ children }) {
     setNameRecipes,
     categories,
     setCategories,
+    toggle,
+    setToggle,
   };
 
   return (

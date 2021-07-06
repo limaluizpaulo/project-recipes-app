@@ -46,6 +46,13 @@ function Foods() {
       { setTypeFunc('Foods')}
       {console.log(categories)}
       <Header title={ Foods.displayName } />
+      <button
+        type="button"
+        onClick={ renderRecipes }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       <Category />
       { data.length === 0 && renderRecipes() }
       <Cards />

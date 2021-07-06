@@ -45,6 +45,13 @@ function Drinks() {
     <div>
       { setTypeFunc('Drinks') }
       <Header title={ Drinks.displayName } />
+      <button
+        type="button"
+        onClick={ renderDrinks }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       <Category />
       { data.length === 0 && renderDrinks() }
       <Cards />
