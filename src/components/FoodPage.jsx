@@ -9,6 +9,7 @@ function FoodPage() {
     <div>
       <Header />
       { goSearch && <SBElements /> }
+
     </div>
   );
 }
