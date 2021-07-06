@@ -1,27 +1,3 @@
-// import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-
-// import LoginContext from './LoginContext';
-
-// function LoginProvider({ children }) {
-//   const [login, setLogin] = useState('');
-
-//   function successLogin(email) {
-//     setLogin(email);
-//   }
-
-//   return (
-//     <LoginContext.Provider value={ { successLogin, login } }>
-//       { children }
-//     </LoginContext.Provider>
-//   );
-// }
-
-// LoginProvider.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
-
-// export default LoginProvider;
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
@@ -91,6 +67,31 @@ function LoginProvider({ children }) {
     }
   }, []);
 
+  const addLocalStorage = useCallback((id, condition, drink, food) => {
+    const newFavorite = {
+      id,
+      type:
+      `${condition ? 'bebida' : 'comida'}`,
+      area:
+      `${condition ? '' : food.strArea}`,
+      category:
+      `${condition ? drink.strCategory : food.strCategory}`,
+      alcoholicOrNot:
+      `${condition ? drink.strAlcoholic : ''}`,
+      name:
+      `${condition ? drink.strDrink : food.strMeal}`,
+      image:
+      `${condition ? drink.strDrinkThumb : food.strMealThumb}`,
+    };
+    if (localStorage.favoriteRecipes) {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      favorites.push(newFavorite);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+    }
+  }, []);
+
   const removeLocalStorage = useCallback((id) => {
     if (localStorage.favoriteRecipes) {
       const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -122,6 +123,7 @@ function LoginProvider({ children }) {
         getLocalStorage,
         addLocalStorageFood,
         addLocalStorageDrink,
+        addLocalStorage,
         removeLocalStorage,
       } }
     >

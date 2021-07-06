@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import {
   fetchRecipesByIngredient, fetchRecipesByName, fetchRecipesByFirstLetter,
-  fetchAllRecipes, fetchCategoriesRecipes, fetchRecipesByCategory,
+  fetchAllRecipes, fetchCategoriesRecipes, fetchRecipesByCategory, fetchRecipesById,
 } from '../services/RecipesServices';
 
 function RecipesProvider({ children }) {
@@ -15,7 +15,13 @@ function RecipesProvider({ children }) {
     setRecipesFilteredByCategory] = useState({ recipesByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
+  const [foodDetails, setFoodDetails] = useState([]);
+  const [ingredientsFood, setIngredientsFood] = useState([]);
   const [randomRecipe, setRandomRecipe] = useState([]);
+
+  const [ingredients, setIngredients] = useState([]);
+
+  const [isExplored, setIsExplored] = useState(false);
 
   async function filterRecipesByIngredient(ingredient) {
     const recipesFilteredByIngredient = await fetchRecipesByIngredient(ingredient);
@@ -67,8 +73,17 @@ function RecipesProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
+        foodDetails,
+        fetchRecipesById,
+        setFoodDetails,
+        ingredientsFood,
+        setIngredientsFood,
         randomRecipe,
         setRandomRecipe,
+        ingredients,
+        setIngredients,
+        isExplored,
+        setIsExplored,
       } }
     >
       { children }

@@ -1,0 +1,10 @@
+.ingredients:last-child {
+  margin-bottom: 50px;
+}
+
+.card-button {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.33);
+  border-radius: 15px;
+  margin: 5px 0;
+}

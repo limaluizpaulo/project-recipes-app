@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,7 +10,7 @@ function Explore() {
   const history = useHistory();
 
   return (
-    <Container>
+    <section>
       <Header profile name="Explorar" />
       <div className="buttons-explore d-grid gap-2">
         <Button
@@ -31,7 +31,7 @@ function Explore() {
         </Button>
       </div>
       <Footer />
-    </Container>
+    </section>
   );
 }
 

@@ -5,7 +5,7 @@ import DrinksContext from './DrinksContext';
 import {
   fetchAllDrinks, fetchCategoriesDrinks,
   fetchDrinksByCategory, fetchDrinksByFirstLetter,
-  fetchDrinksByIngredient, fetchDrinksByName,
+  fetchDrinksByIngredient, fetchDrinksByName, fetchDrinksById,
 } from '../services/DrinksServices';
 
 function DrinksProvider({ children }) {
@@ -16,7 +16,11 @@ function DrinksProvider({ children }) {
     setDrinksFilteredByCategory] = useState({ drinksByCategory: [] });
   const [category, setCategory] = useState('All');
   const [isFiltred, setIsFiltred] = useState(false);
+  const [drinkDetails, setDrinkDetails] = useState([]);
+  const [ingredientsDrink, setIngredientsDrink] = useState([]);
   const [randomDrink, setRandomDrink] = useState([]);
+
+  const [ingredients, setIngredients] = useState([]);
 
   async function filterDrinksByIngredient(ingredient) {
     const drinksFilteredByIngredient = await fetchDrinksByIngredient(ingredient);
@@ -69,8 +73,15 @@ function DrinksProvider({ children }) {
         category,
         isFiltred,
         setIsFiltred,
+        drinkDetails,
+        fetchDrinksById,
+        setDrinkDetails,
+        ingredientsDrink,
+        setIngredientsDrink,
         randomDrink,
         setRandomDrink,
+        ingredients,
+        setIngredients,
       } }
     >
       { children }
