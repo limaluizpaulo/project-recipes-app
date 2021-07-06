@@ -5,7 +5,8 @@ export const FOOD_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filte
 
 function fetchFood(endpoint, query) {
   return fetch(`${endpoint}${query}`)
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .then((res) => res.meals);
 }
 
 export default fetchFood;

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router';
-import './Login.css';
+import '../styles/Login.css';
 import RecipesContext from '../context/RecipesContext';
 
 // Ref: https://react-bootstrap.netlify.app/components/forms/#forms
@@ -14,43 +14,35 @@ export default function Login() {
 
   const history = useHistory();
 
+  function loginValidation() {
+    // fonte: https://www.w3resource.com/javascript/form/email-validation.php
+
+    const mail = /\S+@\S+\.\S+/;
+
+    const passwordMinLenght = 6;
+    if (email.match(mail) && password.length > passwordMinLenght) {
+      return false;
+    }
+    return true;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
     successLogin(email, password);
+    const user = { email };
+    localStorage.setItem('user', JSON.stringify(user));
     history.push('/comidas');
-  }
-
-  function renderBtn() {
-    const SIX = 6;
-    if (email.length > 0 && password.length >= SIX) {
-      return (
-        <Button
-          variant="primary"
-          data-testid="login-submit-btn"
-          type="submit"
-        >
-          Login
-        </Button>
-      );
-    }
-    return (
-      <Button
-        variant="primary"
-        data-testid="login-submit-btn"
-        type="submit"
-        disabled
-      >
-        Login
-      </Button>
-    );
   }
 
   return (
     <main className="login-page">
       <h1>App de Receitas</h1>
       <Form onSubmit={ handleSubmit }>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
+        >
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -76,7 +68,14 @@ export default function Login() {
             required
           />
         </Form.Group>
-        { renderBtn() }
+        <Button
+          variant="primary"
+          data-testid="login-submit-btn"
+          type="submit"
+          disabled={ loginValidation() }
+        >
+          Login
+        </Button>
       </Form>
     </main>
   );
