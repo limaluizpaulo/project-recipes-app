@@ -54,7 +54,8 @@ function FinishedRecipes() {
 
   const renderAllRecipes = () => (
     <main>
-      {doneRecipesList.map((doneRecipe, index) => (
+      { doneRecipesList
+      && doneRecipesList.map((doneRecipe, index) => (
         <div key={ index } className="card">
           <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
             <img
@@ -99,7 +100,8 @@ function FinishedRecipes() {
 
   const renderByCategory = () => (
     <main>
-      {doneRecipesList.filter((recipe) => recipe.type === category)
+      {doneRecipesList
+      && doneRecipesList.filter((recipe) => recipe.type === category)
         .map((doneRecipe, index) => (
           <div key={ index } className="card">
             <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>

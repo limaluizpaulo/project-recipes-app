@@ -48,8 +48,9 @@ function IngredientCard({ index, ingredient }) {
 
   function renderDrinks() {
     return (
-      <div>
+      <div className="card-field">
         <button
+          className="card-button"
           data-testid={ `${index}-ingredient-card` }
           type="button"
           onClick={ () => redirectToDrinks() }
@@ -66,7 +67,7 @@ function IngredientCard({ index, ingredient }) {
   }
   return (
 
-    <section>
+    <section className="ingredients">
       {
         pathname.includes('/comidas')
           ? renderRecipes()
