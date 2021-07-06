@@ -13,7 +13,7 @@ function App() {
       {/* <div className="meals"> */}
       <Switch>
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
-        <Route exact path="/comidas" component={ FoodPage } />
+        <Route exact path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route exact path="/profile" render={ (props) => <Profile { ...props } /> } />
       </Switch>
       {/* </div> */}
