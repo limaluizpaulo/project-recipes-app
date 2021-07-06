@@ -3,7 +3,6 @@ import {
   IS_LOADING,
   ALL_FOOD_RECIPES,
   FOOD_BY_CATEGORIES,
-  RECIPE_DETAILS,
 } from '../action';
 
 const INITIAL_STATE = {
@@ -32,11 +31,6 @@ const foodCategories = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       meals: action.meals,
-    };
-  case RECIPE_DETAILS:
-    return {
-      ...state,
-      recipeDetails: action.mealsDetails,
     };
   default:
     return state;
