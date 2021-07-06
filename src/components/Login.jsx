@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import rockGlass from '../images/rockGlass.svg';
+// import ContextRecipes from '../context/contextRecipes';
 
 function Login({ history }) {
+  // const { setTitle } = useContext(ContextRecipes);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisable, setIsDisable] = useState(true);
@@ -30,6 +32,7 @@ function Login({ history }) {
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/comidas');
+    // setTitle('Comidas');
   };
 
   return (

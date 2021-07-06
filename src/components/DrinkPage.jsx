@@ -1,24 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Footer from './Footer';
 import Header from './Header';
+import Footer from './Footer';
 import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
 
-function Profile({ history }) {
-  const { goSearch } = useContext(ContextRecipes);
+function DrinkPage({ history }) {
+  const { goSearch, setTitle } = useContext(ContextRecipes);
+
+  useEffect(() => {
+    setTitle('Bebidas');
+  }, [setTitle]);
+
   return (
     <div>
       <Header history={ history } />
       { goSearch && <SBElements /> }
-      <h1 data-testid="page-title">Perfil</h1>
       <Footer history={ history } />
     </div>
   );
 }
 
-Profile.propTypes = {
+DrinkPage.propTypes = {
   history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
-export default Profile;
+export default DrinkPage;
