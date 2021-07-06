@@ -16,4 +16,18 @@
   align-items: flex-start;
   margin-left: 3px;
   margin-top: 10px;
+  width: 350px;
+}
+
+.maincards {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.card img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
