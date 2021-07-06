@@ -10,6 +10,7 @@ import {
 import {
   fetchCocktailsApi,
   fetchDrinksById,
+  fetchCocktailsCategories,
   fetchCocktailsRecomendation,
 } from '../apis/CocktailsApis';
 
@@ -18,32 +19,45 @@ export default function Provider({ children }) {
   const [mealsRecipes, setMealsRecipes] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
+  const [cocktailsCategories, setCocktailsCategories] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
 
+  // boolean: searchBar appears or not
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
   };
 
+  // update state of cocktails categories
+  const requestCocktailsCategories = async () => {
+    const cocktailsCat = await fetchCocktailsCategories();
+    setCocktailsCategories(cocktailsCat);
+  };
+
+  // update array of cocktails based on the filter
   const findCocktailsByFilter = async (filter) => {
     const apiCocktails = await fetchCocktailsApi(filter);
     setCocktailsRecipes(apiCocktails);
   };
 
+  // update array of cocktails with all cocktails
   const resquestCocktailsApi = async () => {
     const apiCocktails = await fetchCocktailsRecomendation();
     setCocktailsRecipes(apiCocktails);
   };
 
+  // update state of meals categories
   const requestMealCategories = async () => {
     const mealsCat = await fetchMealsCategories();
     setMealsCategories(mealsCat);
   };
 
+  // update array of meals based on the filter
   const findMealsByFilter = async (filter) => {
     const apiMeals = await fetchMealsApi(filter);
     setMealsRecipes(apiMeals);
   };
 
+  // update array of meals with all meals
   const resquestMealsApi = async () => {
     const apiMeals = await fetchMealsRecomendation();
     setMealsRecipes(apiMeals);
@@ -133,6 +147,8 @@ export default function Provider({ children }) {
     resquestMealsApi,
     requestMealCategories,
     mealsCategories,
+    requestCocktailsCategories,
+    cocktailsCategories,
   };
   return (
     <Context.Provider value={ context }>
