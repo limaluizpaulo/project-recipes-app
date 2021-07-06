@@ -10,6 +10,33 @@ const UserProvider = ({ children }) => {
     password: '',
   });
   const [verifyLogin, setVerifyLogin] = useState(false);
+  const [favorites, setFavorites] = useState([
+    {
+      id: '52771',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image:
+        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    },
+    {
+      id: '178319',
+      type: 'bebida',
+      area: '',
+      category: 'Cocktail',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'Aquamarine',
+      image:
+        'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    },
+  ]);
+
+  const removeFavorites = (id) => {
+    const filteredFavorites = favorites.filter((recipe) => recipe.id !== id);
+    setFavorites(filteredFavorites);
+  };
 
   const handleLogin = () => {
     const { email } = user;
@@ -25,8 +52,8 @@ const UserProvider = ({ children }) => {
     const { email, password } = user;
     const regex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const Email = regex.test(email);
-    const six = 6;
-    if (Email && password.length >= six) return false;
+    const seven = 7;
+    if (Email && password.length >= seven) return false;
     return true;
   };
 
@@ -39,6 +66,8 @@ const UserProvider = ({ children }) => {
   };
 
   const context = {
+    favorites,
+    removeFavorites,
     verifyLogin,
     handleChange,
     validationUser,

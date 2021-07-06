@@ -2,11 +2,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { DetailsRecipes, Ingredients, Instructions, HeaderRecipes } from '../components';
 import { MealsContext } from '../context/MealsProvider';
+import { DrinksContext } from '../context/DrinksProvider';
 
 const MealsDetails = ({ match: { params: { id } } }) => {
-  const [mealsDetails, setMealsDetail] = useState([]);
+  const [mealsDetails, setMealsDetail] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
 
-  const { meals } = useContext(MealsContext);
+  const { findMealRecipe, filterIngredients } = useContext(MealsContext);
+
+  const { drinks } = useContext(DrinksContext);
 
   const { strMeal,
     strCategory,
@@ -21,22 +26,31 @@ const MealsDetails = ({ match: { params: { id } } }) => {
     urlVideo: strYoutube,
     instructions: strInstructions,
     type: 'meals',
-    // ingredients: mealsDetails.filter((key, i) => (
-    //   Object.keys(key) === `strIngredient${i + 1}`
-    // && Object.values(key) !== ''
-    // )),
+    ingredients,
+    recomendations: drinks,
   };
 
-  // useEffect(() => {
-  //   const meal = meals.filter(({ idMeal }) => id === idMeal);
-  //   setMealsDetail(meal);
-  // }, []);
+  useEffect(() => {
+    const findMeal = () => {
+      const meal = findMealRecipe(id);
+      setMealsDetail(meal);
+      const ingredient = filterIngredients(id);
+      setIngredients(ingredient);
+      setLoading(true);
+    };
+    findMeal();
+  }, []);
+
+  if (!loading) {
+    return <div />;
+  }
 
   return (
+
     <div>
       <HeaderRecipes newObj={ newObj } />
-      <Ingredients newObj={ newObj } />
       <Instructions newObj={ newObj } />
+      <Ingredients newObj={ newObj } />
       <DetailsRecipes newObj={ newObj } />
     </div>
   );

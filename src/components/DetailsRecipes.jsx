@@ -1,35 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import RecomendationApi from '../services/api/RecomendationApi';
 
 const DetailsRecipes = ({ newObj }) => {
-  const [recomendations, setRecomendations] = useState([]);
-
-  const { urlVideo, type } = newObj;
+  const { urlVideo, type, recomendations } = newObj;
   console.log(urlVideo);
 
-  useEffect(() => {
-    const getApi = async () => {
-      const recomend = await RecomendationApi(type);
-      await setRecomendations(recomend);
-    };
-    getApi();
-  }, []);
-
+  const SEIS = 6;
   return (
     <div>
       <section>
         { type === 'meals' && (
           <iframe
             data-testid="video"
-            width="640"
-            height="597"
+            width="425"
+            height="240"
             src={ urlVideo }
-            title="Receita video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media;
-            gyroscope; picture-in-picture"
-            allowFullScreen
+            title="Video"
           />
         ) }
       </section>
@@ -39,20 +25,36 @@ const DetailsRecipes = ({ newObj }) => {
         <h2>Recomendations</h2>
         {
           (type === 'meals')
-            ? recomendations.map(({ idMeal, strMeal, strCategory, strSource }) => (
-              <div key={ idMeal }>
-                <img src={ strSource } alt="recomendation" />
-                <p>{strCategory }</p>
-                <h3>{strMeal}</h3>
-              </div>
-            ))
-            : recomendations.map(({ idDrink, strDrink, strCategory, strSource }) => (
-              <div key={ idDrink }>
-                <img src={ strSource } alt="recomendation" />
-                <p>{strCategory }</p>
-                <h3>{strDrink}</h3>
-              </div>
-            ))
+            ? recomendations.map(({ idDrink,
+              strDrink,
+              strAlcoholic,
+              strDrinkThumb }, index) => {
+              if (index < SEIS) {
+                return (
+                  <div key={ idDrink }>
+                    <img src={ strDrinkThumb } alt="recomendation" />
+                    <p>{strAlcoholic }</p>
+                    <h3>{strDrink}</h3>
+                  </div>
+                );
+              }
+              return null;
+            })
+            : recomendations.map(({ idMeal,
+              strMeal,
+              strCategory,
+              strMealThumb }, index) => {
+              if (index < SEIS) {
+                return (
+                  <div key={ idMeal }>
+                    <img src={ strMealThumb } alt="recomendation" />
+                    <p>{strCategory }</p>
+                    <h3>{strMeal}</h3>
+                  </div>
+                );
+              }
+              return null;
+            })
         }
 
       </section>

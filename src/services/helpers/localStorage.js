@@ -33,3 +33,8 @@ export const updateLocalStorage = (key, value) => {
     localStorage.setItem(key, value);
   }
 };
+
+export const removeFromLocalStorage = (key, objKey, value) => {
+  const filteredItem = getFromLocalStorage(key).filter((obj) => obj[objKey] !== value);
+  setOnLocalStorage(key, filteredItem);
+};

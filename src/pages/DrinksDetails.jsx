@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import HeaderRecipes from '../components/HeaderRecipes';
-import { DetailsRecipes } from '../components/index';
-import Ingredients from '../components/Ingredients';
-import Instructions from '../components/Instructions';
+import { DetailsRecipes, Ingredients, Instructions, HeaderRecipes } from '../components';
 import RecipesApi from '../services/api/RecipesApi';
+import { MealsContext } from '../context/MealsProvider';
 
 const DrinksDetails = ({ match: { params: { id } } }) => {
   const [drinksDetails, setDrinksDetails] = useState([]);
+
+  const { meals } = useContext(MealsContext);
 
   const { strDrink,
     strCategory,
     strInstructions,
     strDrinkThumb } = drinksDetails;
+
   const newObj = {
     id,
     title: strDrink,
@@ -20,10 +21,8 @@ const DrinksDetails = ({ match: { params: { id } } }) => {
     category: strCategory,
     instructions: strInstructions,
     imageHeader: strDrinkThumb,
-    ingredients: drinksDetails.filter((key, i) => (
-      Object.keys(key) === `strIngredient${i + 1}`
-    && Object.values(key) !== ''
-    )),
+    // ingredients,
+    recomendations: meals,
   };
 
   useEffect(() => {
