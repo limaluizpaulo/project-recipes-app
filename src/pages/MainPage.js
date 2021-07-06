@@ -28,38 +28,30 @@ export default function MainPage() {
     : console.log('Droga de lint');
 
   useEffect(() => {
-    let mounted = true;
     async function getInitialStatePopulated() {
       const URL = `https://www.${domain}.com/api/json/v1/1/search.php?s=`;
-      if (mounted) {
-        const resolved = await fetchAPI(URL);
-        setDataResult(resolved[firstKey]);
-        setRenderer(resolved[firstKey].filter((_e, index) => index < limit));
-        setLoader(false);
-      }
+      const resolved = await fetchAPI(URL);
+      setDataResult(resolved[firstKey]);
+      setRenderer(resolved[firstKey].filter((_e, index) => index < limit));
+      setLoader(false);
     }
     getInitialStatePopulated();
-    function renderSearch() {
-      if (mounted) {
-        setRenderer(searchResult.filter((_e, index) => index < limit));
-        setLoader(false);
-      }
-    }
-    if (searchResult && searchResult.length > 1) { renderSearch(); }
-    return function cleanup() {
-      mounted = false;
-    };
-  }, [limit, firstKey, searchResult, domain]);
-
-  useEffect(() => {
     async function getListPopulated() {
-      setLoader(true);
       const URL = `https://www.${domain}.com/api/json/v1/1/list.php?c=list`;
       const list = await fetchAPI(URL);
       setCategoriesList(list[firstKey].filter((_e, index) => index < FIVE));
+      setLoader(false);
     }
     getListPopulated();
-  }, [domain, firstKey]);
+  }, [limit, firstKey, domain]);
+
+  useEffect(() => {
+    function renderSearch() {
+      setRenderer(searchResult.filter((_e, index) => index < limit));
+      setLoader(false);
+    }
+    if (searchResult && searchResult.length > 1) { renderSearch(); }
+  }, [searchResult, limit]);
 
   function handleMoreCards() {
     setLimit(limit + TWELVE);
