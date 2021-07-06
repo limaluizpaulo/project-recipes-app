@@ -1,3 +1,4 @@
+import { indexOf } from 'lodash-es';
 import React from 'react';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import sharedIcon from '../images/shareIcon.svg';
@@ -16,9 +17,20 @@ class BeveragesInProgress extends React.Component {
 
   handleChecked({ target }) {
     const li = target.parentNode;
-    localStorage.setItem('valor', 'teste');
+    const ing = li.innerText;
     if (target.checked === true) li.className = 'checked';
     if (target.checked === false) li.className = '';
+
+    const { idMeal } = testeData[0];
+    const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const notFound = -1;
+    if (prevStorage.meals[idMeal].indexOf(ing) === notFound) {
+      prevStorage.meals[idMeal].push(ing);
+    } else {
+      const pos = prevStorage.meals[idMeal].indexOf(ing);
+      prevStorage.meals[idMeal].splice(pos, 1);
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
   }
 
   setInitialLocal() {
@@ -29,17 +41,32 @@ class BeveragesInProgress extends React.Component {
           id: [],
         },
         meals: {
-          // [idMeal]: [],
-          teste: 'vazio',
+          [idMeal]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
     } else {
       const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      prevStorage.meals[idMeal] = 'teste';
-      localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
+      if (idMeal in prevStorage.meals === false) {
+        prevStorage.meals[idMeal] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
+      } else {
+        console.log('ja existe!');
+      }
     }
   }
+
+  // addOrRemoveIng(ing) {
+  //   const { idMeal } = testeData[0];
+  //   const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const notFound = -1;
+  //   if (prevStorage.meals[idMeal].indexOf(ing) === notFound) {
+  //     prevStorage.meals[idMeal].push(ing);
+  //   } else {
+  //     const pos = prevStorage.meals[idMeal].indexOf(ing);
+  //     prevStorage.meals[idMeal].splice(pos, 1);
+  //   }
+  // }
 
   renderIngredients() {
     const { detailsRecipe } = this.state;
