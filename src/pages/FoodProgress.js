@@ -19,10 +19,8 @@ const FoodProgress = ({ match }) => {
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <h3 data-testid="recipe-category">{meal.strCategory}</h3>
       <img data-testid="recipe-photo" src={ meal.strMealThumb } alt={ meal.strMeal } />
-      <ul>
-        Ingredientes:
-        {renderCheckBox(meal)}
-      </ul>
+      Ingredientes:
+      {renderCheckBox(meal)}
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
       <p data-testid="0-recomendation-card">recomendation</p>

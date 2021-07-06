@@ -17,9 +17,13 @@ export const renderIngredients = (option) => {
 export const renderCheckBox = (option) => {
   const ingredients = filterObj(/Ingredient/, option);
   return ingredients.map(([key, ingredient]) => (
-    <label htmlFor="checkbox" key={ `${key} - ${ingredient}` }>
+    <label
+      data-testid="ingredient-step"
+      htmlFor="ingredient"
+      key={ `${key} - ${ingredient}` }
+    >
       {ingredient}
-      <input data-testid="ingredient-step" id="checkbox" type="checkbox" />
+      <input type="checkbox" id="ingredient" />
     </label>
   ));
 };
