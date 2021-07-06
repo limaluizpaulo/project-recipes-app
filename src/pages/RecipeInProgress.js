@@ -24,6 +24,7 @@ class RecipeInProgress extends React.Component {
     this.changeState = this.changeState.bind(this);
     this.copyLink = this.copyLink.bind(this);
     this.redireciona = this.redireciona.bind(this);
+    this.salvaLocal = this.salvaLocal.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +33,6 @@ class RecipeInProgress extends React.Component {
     const { match: { params: { bebidaId } } } = this.props;
     const db = meals ? 'themealdb' : 'thecocktaildb';
     const id = meals ? comidaId : bebidaId;
-    localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
 
     const URL = `https://www.${db}.com/api/json/v1/1/lookup.php?i=${id}`;
     fetch(URL)
@@ -41,6 +41,23 @@ class RecipeInProgress extends React.Component {
         const { meals: comida, drinks } = retorno;
         const recipeDetails = comida || drinks;
         this.setState({ recipeDetails });
+      })
+      .then(() => {
+        const mealsLocal = JSON.parse(localStorage.inProgressRecipes);
+        console.log(mealsLocal);
+        const drinksLocal = JSON.parse(localStorage.inProgressRecipes);
+        console.log(drinksLocal);
+        if (mealsLocal.meals[id] || drinksLocal.cocktails[id]) {
+          if (meals && mealsLocal.meals[id]) {
+            this.setState({
+              checked: mealsLocal.meals[id],
+            });
+          } else if (!meals && drinksLocal.cocktails[id]) {
+            this.setState({
+              checked: drinksLocal.cocktails[id],
+            });
+          }
+        }
       });
   }
 
@@ -71,6 +88,7 @@ class RecipeInProgress extends React.Component {
                   type="checkbox"
                   id="key"
                   data-testid={ `${index}-ingredient-name-and-measure` }
+                  defaultChecked={ findChecked }
                   onClick={ () => this.changeState(index) }
                 />
                 {`${ingrediente[1]}-${apenasMedidas[index]}`}
@@ -99,10 +117,12 @@ class RecipeInProgress extends React.Component {
       this.setState({
         checked: checked.filter((e) => e !== param || 0),
       });
+      this.salvaLocal(checked.filter((e) => e !== param || 0));
     } else {
       this.setState((prev) => ({
         checked: [...prev.checked, param],
       }));
+      this.salvaLocal(param);
     }
 
     const chaves = Object.entries(recipeDetails[0]);
@@ -114,24 +134,40 @@ class RecipeInProgress extends React.Component {
         finaliza: true,
       });
     }
+  }
 
+  salvaLocal(param) {
+    const { checked } = this.state;
     const { meals } = this.props;
     const { match: { params: { comidaId } } } = this.props;
     const { match: { params: { bebidaId } } } = this.props;
     const id = meals ? comidaId : bebidaId;
+    const remove = typeof param === 'object';
 
     if (meals) {
-      localStorage.inProgressRecipes = JSON.stringify({
-        meals: {
-          [id]: [...checked, param],
-        },
-      });
+      const mealsLocal = JSON.parse(localStorage.inProgressRecipes);
+      console.log(mealsLocal);
+      if (mealsLocal) {
+        localStorage.inProgressRecipes = JSON.stringify({
+          ...mealsLocal,
+          meals: {
+            ...mealsLocal.meals,
+            [id]: remove ? param : [...checked, param],
+          },
+        });
+      }
     } else {
-      localStorage.inProgressRecipes = JSON.stringify({
-        cocktails: {
-          [id]: [...checked, param],
-        },
-      });
+      const drinksLocal = JSON.parse(localStorage.inProgressRecipes);
+      console.log(drinksLocal);
+      if (drinksLocal) {
+        localStorage.inProgressRecipes = JSON.stringify({
+          ...drinksLocal,
+          cocktails: {
+            ...drinksLocal.cocktails,
+            [id]: remove ? param : [...checked, param],
+          },
+        });
+      }
     }
   }
 
