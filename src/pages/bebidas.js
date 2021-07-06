@@ -16,7 +16,7 @@ class bebidas extends Component {
 
   render() {
     const { location: { pathname } } = this.props;
-    const { recipeDetails, recipes } = this.props;
+    const { recipeDetails, recipes, match: { params: { bebidaId } } } = this.props;
     return (
       recipeDetails && recipes ? (
         <section>
@@ -26,6 +26,7 @@ class bebidas extends Component {
             title="Bebidas"
             recipes={ recipes }
             link={ pathname }
+            id={ bebidaId }
           />
         </section>
       )

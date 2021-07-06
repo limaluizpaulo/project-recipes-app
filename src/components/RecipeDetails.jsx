@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import copy from 'copy-to-clipboard';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
@@ -16,10 +16,21 @@ class RecipeDetails extends React.Component {
     this.state = {
       redirectInProgress: false,
       copied: false,
+      buttonVisible: true,
+      btnMessage: 'Iniciar Receita',
     };
 
     this.getIngredients = this.getIngredients.bind(this);
     this.copyLink = this.copyLink.bind(this);
+    this.verifyRecipes = this.verifyRecipes.bind(this);
+  }
+
+  componentDidMount() {
+    try {
+      this.verifyRecipes();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getIngredients() {
@@ -50,9 +61,25 @@ class RecipeDetails extends React.Component {
     copy(`http://localhost:3000${link}`);
   }
 
+  verifyRecipes() {
+    const { id } = this.props;
+    if (localStorage.doneRecipes) {
+      const searchDone = JSON.parse(localStorage.doneRecipes);
+      searchDone.find((item) => item.id === id);
+      this.setState({ buttonVisible: false });
+    }
+    if (localStorage.inProgressRecipes) {
+      const getRecipes = JSON.parse(localStorage.inProgressRecipes);
+      const recipeInProgress = getRecipes.find((item) => item.id === id);
+      if (recipeInProgress) {
+        this.setState({ btnMessage: 'Continuar Receita' });
+      }
+    }
+  }
+
   render() {
     const { recipeDetails, title, recipes } = this.props;
-    const { redirectInProgress, copied } = this.state;
+    const { redirectInProgress, copied, btnMessage, buttonVisible } = this.state;
 
     if (redirectInProgress) {
       const { foodById, drinksById } = this.props;
@@ -124,16 +151,18 @@ class RecipeDetails extends React.Component {
               <RecomendedCard recipes={ recipes } />
             </div>
           </div>
-          <div>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => this.setState({ redirectInProgress: true }) }
-              className="button"
-            >
-              Iniciar Receita
-            </button>
-          </div>
+          {buttonVisible ? (
+            <div>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                onClick={ () => this.setState({ redirectInProgress: true }) }
+                className="button"
+              >
+                { btnMessage }
+              </button>
+            </div>)
+            : null }
         </section>
       ) : null
     );
