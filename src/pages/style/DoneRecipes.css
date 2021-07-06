@@ -1,0 +1,11 @@
+.doneRecipes {
+  margin-top: 40px;
+}
+
+.imgCard {
+  height: 100px;
+}
+
+.share-btn, .goToDetail {
+  display: none;
+}

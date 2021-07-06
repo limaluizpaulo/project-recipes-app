@@ -5,6 +5,7 @@ import {
   ingredientsUrls,
   areasUrl,
   recipesByArea,
+  searchRecipesById,
 } from './endpoints';
 
 export const fetchAllRecipes = async (mealsOrDrinks) => {
@@ -45,4 +46,11 @@ export const fetchRecipesByArea = async (area) => {
   const request = await fetch(endpoint);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
+};
+
+export const fetchRecipesById = async (id, type) => {
+  const request = await fetch(searchRecipesById[type] + id);
+  const response = await request.json();
+  return request.ok
+    ? Promise.resolve(response[type][0]) : Promise.reject(response[type][0]);
 };
