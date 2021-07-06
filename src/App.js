@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AppReceitasProvider from './context/AppReceitasProvider';
 
 import Login from './pages/Login';
-import Erro404 from './pages/Page404';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
@@ -33,7 +32,7 @@ function App() {
             render={ (props) => <ReceitaEmProgresso { ...props } /> }
           />
           <Route
-            path="/comidas/:id/in-progress"
+            path="/bebidas/:id/in-progress"
             render={ (props) => <ReceitaEmProgresso { ...props } /> }
           />
           <Route
