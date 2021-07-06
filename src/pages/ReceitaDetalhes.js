@@ -6,11 +6,16 @@ import { fetchRecipe, fetchRelated } from '../services/RecipeDetailsFetch';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import checkFavorite from '../services/CheckFavorites';
+import checkInProgress from '../services/CheckInProgress';
+import saveWithFavorites from '../services/SaveWithFavorites';
 import CardsCarousel from '../components/CardsCarousel';
 import DetailsImage from '../components/DetailsImage';
 import EmbedVideo from '../components/EmbedVideo';
 import Ingredients from '../components/Ingredients';
 import Instructions from '../components/Instructions';
+import Title from '../components/Title';
+import DetailsButton from './DetailsButton';
 import './ReceitaDetalhes.css';
 
 function ReceitaDetalhes({ match }) {
@@ -21,68 +26,50 @@ function ReceitaDetalhes({ match }) {
   const [favorite, setFavorite] = useState(false);
   const [related, setRelated] = useState([]);
   const [copied, setCopied] = useState(false);
-
-  function checkFavorite() {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (url.match(food) && favorites) {
-      const { idMeal } = recipe;
-      favorites.forEach((favoriteItem) => {
-        if (idMeal === favoriteItem.id && favorite === false) {
-          setFavorite(true);
-        }
-      });
-    } else if (favorites) {
-      const { idDrink } = recipe;
-      favorites.forEach((favoriteItem) => {
-        if (idDrink === favoriteItem.id && favorite === false) {
-          setFavorite(true);
-        }
-      });
-    }
-  }
+  const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
     fetchRelated(url, food)
       .then((response) => setRelated(response));
     fetchRecipe(url, food, id)
-      .then((response2) => setRecipe(response2));
+      .then((response) => setRecipe(response));
   }, []);
 
-  function saveWithFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (url.match(food)) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
-        id: recipe.idMeal,
-        type: recipe.strCategory,
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: null,
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-        doneDate: null,
-        tags: recipe.strTags,
-      }]));
-      setFavorite(true);
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
-        id: recipe.idDrink,
-        type: recipe.strCategory,
-        area: null,
-        category: recipe.strCategory,
-        alcoholicOrNot: recipe.strAlcoholic,
-        name: recipe.strDrink,
-        image: recipe.strDrinkThumb,
-        doneDate: null,
-        tags: recipe.strTags,
-      }]));
-      setFavorite(true);
-    }
-  }
+  // function saveWithFavorites() {
+  //   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   if (url.match(food)) {
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
+  //       id: recipe.idMeal,
+  //       type: recipe.strCategory,
+  //       area: recipe.strArea,
+  //       category: recipe.strCategory,
+  //       alcoholicOrNot: null,
+  //       name: recipe.strMeal,
+  //       image: recipe.strMealThumb,
+  //       doneDate: null,
+  //       tags: recipe.strTags,
+  //     }]));
+  //     setFavorite(true);
+  //   } else {
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
+  //       id: recipe.idDrink,
+  //       type: recipe.strCategory,
+  //       area: null,
+  //       category: recipe.strCategory,
+  //       alcoholicOrNot: recipe.strAlcoholic,
+  //       name: recipe.strDrink,
+  //       image: recipe.strDrinkThumb,
+  //       doneDate: null,
+  //       tags: recipe.strTags,
+  //     }]));
+  //     setFavorite(true);
+  //   }
+  // }
 
   function saveToFavorites() {
     const favorites = localStorage.getItem('favoriteRecipes');
     if (favorites) {
-      saveWithFavorites();
+      saveWithFavorites(url, food, recipe, setFavorite);
     } else if (url.match(food) && !favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idMeal,
@@ -132,71 +119,20 @@ function ReceitaDetalhes({ match }) {
     setCopied(true);
   }
 
-  function title() {
-    const recipeTitle = recipe.strMeal;
-    const favoriteIcon = (favorite)
-      ? blackHeart : whiteHeart;
-    const category = recipe.strCategory;
-    if (url.match(food)) {
-      return (
-        <div className="title">
-          <div className="title-left">
-            <h4 data-testid="recipe-title">{recipeTitle}</h4>
-            <h6 data-testid="recipe-category">{category}</h6>
-          </div>
-          <div className="title-right">
-            <button
-              src={ favoriteIcon }
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ (favorite) ? removeFromFavorites : saveToFavorites }
-            >
-              <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
-            </button>
-            <button
-              onClick={ copyUrl }
-              src={ shareIcon }
-              type="button"
-              data-testid="share-btn"
-            >
-              <img src={ shareIcon } alt="compartilhar receita" />
-            </button>
-            <br />
-            { copied ? <span>Link copiado!</span> : ''}
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="title">
-        <div className="title-left">
-          <h4 data-testid="recipe-title">{recipe.strDrink}</h4>
-          <h6 data-testid="recipe-category">{recipe.strAlcoholic}</h6>
-        </div>
-        <div className="title-right">
-          <button
-            src={ favoriteIcon }
-            type="button"
-            data-testid="favorite-btn"
-            onClick={ (favorite) ? removeFromFavorites : saveToFavorites }
-          >
-            <img src={ favoriteIcon } alt="adicionar ou remover dos favoritos" />
-          </button>
-          <button
-            onClick={ copyUrl }
-            src={ shareIcon }
-            type="button"
-            data-testid="share-btn"
-          >
-            <img src={ shareIcon } alt="compartilhar receita" />
-          </button>
-          <br />
-          { copied ? <span>Link copiado!</span> : ''}
-        </div>
-      </div>
-    );
-  }
+  const titleParams = {
+    url,
+    food,
+    recipe,
+    blackHeart,
+    whiteHeart,
+    shareIcon,
+    copied,
+    saveToFavorites,
+    removeFromFavorites,
+    copyUrl,
+    favorite,
+    setFavorite,
+  };
 
   if (!recipe) {
     return (<h4 className="loading">Carregando...</h4>);
@@ -206,25 +142,50 @@ function ReceitaDetalhes({ match }) {
     url,
     related,
   };
-  console.log(recipe);
+  // console.log(recipe);
 
-  checkFavorite();
+  const checkFavoriteParams = {
+    url,
+    food,
+    recipe,
+    favorite,
+    setFavorite,
+  };
+  checkFavorite(checkFavoriteParams);
+
+  const checkInProgressParams = {
+    url,
+    food,
+    recipe,
+    inProgress,
+    setInProgress,
+  };
+  checkInProgress(checkInProgressParams);
+
+  const buttonParams = {
+    url,
+    food,
+    recipe,
+    inProgress,
+    setInProgress,
+  };
 
   return (
     <main>
       <DetailsImage value={ { recipe, url } } />
-      {title()}
+      <Title value={ titleParams } />
       <Ingredients value={ recipe } />
       <Instructions value={ recipe } />
       <EmbedVideo value={ recipe.strVideo } />
       <CardsCarousel value={ params } />
-      <button
+      <DetailsButton value={ buttonParams } />
+      {/* <button
         className="start"
         data-testid="start-recipe-btn"
         type="button"
       >
         <a href={ `${url}/in-progress` }>Iniciar Receita</a>
-      </button>
+      </button> */}
     </main>
   );
 }
