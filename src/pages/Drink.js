@@ -38,9 +38,9 @@ const Drink = ({ match }) => {
       const add = [...favorites, {
         id: idDrink,
         type: 'bebida',
-        area: '',
+        area: strArea || '',
         category: strCategory,
-        alcoholicOrNot:  'Alcoholic',
+        alcoholicOrNot: 'Alcoholic',
         name: strDrink,
         image: strDrinkThumb,
       }];
