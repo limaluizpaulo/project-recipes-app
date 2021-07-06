@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import store from '../../context/store';
 
-const recipesMadeButton = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
+const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
 
 export default function CategoryButton({ clickCategory, clickAll, path }) { // Desestruturação de props
   const { recipes: { foods, categoriesMeals,
@@ -12,7 +12,7 @@ export default function CategoryButton({ clickCategory, clickAll, path }) { // D
   const renderButtons = () => {
     let newCategories;
     if (path) {
-      newCategories = recipesMadeButton;
+      newCategories = foodDrinkButtons;
     } else {
       newCategories = (foods) ? (
         categoriesMeals.slice(0, categoriesLimit)) : (

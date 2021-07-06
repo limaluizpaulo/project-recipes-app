@@ -3,7 +3,6 @@ import {
   DIRECT_PAGE,
   ADD_RECIPE_DETAIL,
   UPDATE_LOADING,
-  // DONE_RECIPE,
 } from '../store';
 
 const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action

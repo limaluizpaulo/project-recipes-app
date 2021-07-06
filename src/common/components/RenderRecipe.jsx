@@ -8,7 +8,7 @@ import ShareButton from './ShareButton';
 export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestruturando Props
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [doneRecipes] = useState(() => getStorage('doneRecipes'));
-  const { recipes: { recipeDetail } } = useContext(store);
+  const { recipes: { recipeDetail, foods } } = useContext(store);
 
   const validationButton = () => {
     const ingredients = Object.keys(recipeDetail)
@@ -23,9 +23,25 @@ export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestr
     }
   };
 
+  const whatDayIsToday = () => {
+    const todayIs = new Date();
+    return `${todayIs.getDate()}/${todayIs.getMonth() + 1}/${todayIs.getFullYear()}`;
+  };
+
   const addDoneRecipe = () => {
-    console.log('doneRecipes: ', doneRecipes);
-    setStorage('doneRecipes', [...doneRecipes, recipeDetail]);
+    const r = recipeDetail; // só pra reduzir a verbosidade
+    const newDoneRecipe = {
+      id: r.idMeal || r.idDrink,
+      type: foods ? 'comida' : 'bebida',
+      area: r.strArea || '',
+      category: r.strCategory || '',
+      alcoholicOrNot: r.strAlcoholic || '',
+      name: r.strMeal || r.strDrink,
+      image: r.strMealThumb || r.strDrinkThumb,
+      doneDate: whatDayIsToday(),
+      tags: r.strTags.split(','),
+    };
+    setStorage('doneRecipes', [...doneRecipes, newDoneRecipe]);
   };
 
   const renderRecipe = () => (
