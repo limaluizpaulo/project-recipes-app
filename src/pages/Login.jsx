@@ -46,7 +46,7 @@ class Login extends Component {
     const { saveUser } = this.props;
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    localStorage.setItem('user', email);
+    localStorage.setItem('user', JSON.stringify({ email }));
     this.setState({ redirect: true });
     saveUser(email);
   }
