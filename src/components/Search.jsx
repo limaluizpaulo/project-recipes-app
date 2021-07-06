@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import
 { actionRecipesByIngredients,
-  actionRecipesByName, actionRecipesByFirstLetter } from '../actions';
+  actionRecipesByName,
+  actionRecipesByFirstLetter,
+  actionDrinksByIngredients,
+  actionDrinksByName, actionDrinksByFirstLetter } from '../actions';
 
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -16,7 +19,6 @@ class Search extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.saveInputRedux = this.saveInputRedux.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
   }
 
@@ -27,28 +29,38 @@ class Search extends Component {
   }
 
   handleFilter() {
-    const { ingredientes, name, firstName } = this.props;
+    const { header, ingredientes, name, firstName,
+      ingredientesBebidas, nameBebidas, firstNameBebidas } = this.props;
     const { search, filter } = this.state;
+    if (header === 'Comidas') {
+      switch (filter) {
+      case 'ingredients':
+        return ingredientes(search);
+      case 'name':
+        return name(search);
+      case 'firstLetter':
+        if (search.length > 1) {
+          return global.alert('Sua busca deve conter somente 1 (um) caracter');
+        }
+        return firstName(search);
+      default:
+        return global.alert(messageAlert);
+      }
+    }
     switch (filter) {
     case 'ingredients':
-      return ingredientes(search);
+      return ingredientesBebidas(search);
     case 'name':
-      return name(search);
+      return nameBebidas(search);
     case 'firstLetter':
       if (search.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      return firstName(search);
+      return firstNameBebidas(search);
     default:
       return global.alert(messageAlert);
     }
   }
-
-  // saveInputRedux() {
-  //   const { search } = this.state;
-  //   const { input } = this.props;
-  //   input(search);
-  // }
 
   render() {
     const { search } = this.state;
@@ -114,7 +126,6 @@ class Search extends Component {
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => {
-            console.log(this.state);
             this.handleFilter();
           } }
         >
@@ -126,24 +137,22 @@ class Search extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // inputIngredientes: (input) => dispatch(saveInputIngredientes(input)),
   ingredientes: (ingredientes) => dispatch(actionRecipesByIngredients(ingredientes)),
   name: (name) => dispatch(actionRecipesByName(name)),
   firstName: (firstName) => dispatch(actionRecipesByFirstLetter(firstName)),
+  ingredientesBebidas: (par) => dispatch(actionDrinksByIngredients(par)),
+  nameBebidas: (name) => dispatch(actionDrinksByName(name)),
+  firstNameBebidas: (firstName) => dispatch(actionDrinksByFirstLetter(firstName)),
 });
 
-// const mapStateToProps = (state) => ({
-//   // listRecipes: state.recipes.recipes,
-//   // input: state.recipes.inputIngredientes,
-// });
-
 Search.propTypes = {
-  // inputIngredientes: PropTypes.func.isRequired,
+  header: PropTypes.string.isRequired,
   ingredientes: PropTypes.func.isRequired,
   name: PropTypes.func.isRequired,
   firstName: PropTypes.func.isRequired,
-  // input: PropTypes.string.isRequired,
-  // listRecipes: PropTypes.arrayOf().isRequired,
+  ingredientesBebidas: PropTypes.func.isRequired,
+  nameBebidas: PropTypes.func.isRequired,
+  firstNameBebidas: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Search);

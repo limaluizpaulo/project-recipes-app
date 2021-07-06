@@ -48,7 +48,7 @@ class Header extends Component {
             : null}
         </div>
 
-        { search ? <Search /> : null }
+        { search ? <Search header={ header } /> : null }
       </header>
     );
   }

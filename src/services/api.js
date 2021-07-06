@@ -1,7 +1,7 @@
 const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
 // const URL_SEARCH_MEALS_LOCATION = 'www.themealdb.com/api/json/v1/1/list.php?a=list'
-const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s';
+const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
 const LENGTH_DOZE = 12;
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
@@ -55,6 +55,16 @@ export const getRecipesByFirstLetter = async (firstLetter) => {
   }
 };
 
+export const getCategoriesRecipes = async () => {
+  try {
+    const result = await fetch(`${URL_SEARCH_MEALS}list.php?c=list`);
+    const { meals } = await result.json();
+    return meals.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
 // ---------------------DRINKS-----------------------------------------------------------
 
 export const getDrinks = async () => {
@@ -79,7 +89,7 @@ export const getDrinksByIngredients = async (ingredient) => {
 
 export const getDrinksByName = async (name) => {
   try {
-    const result = await fetch(`${URL_DRINKS}=${name}`);
+    const result = await fetch(`${URL_DRINKS}${name}`);
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
@@ -89,7 +99,17 @@ export const getDrinksByName = async (name) => {
 
 export const getDrinksByFirstLetter = async (firstLetter) => {
   try {
-    const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?f=${firstLetter}`);
+    const result = await fetch(`${URL_SEARCH_DRINKS}search.php?f=${firstLetter}`);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getCategoriesDrinks = async () => {
+  try {
+    const result = await fetch(`${URL_SEARCH_DRINKS}list.php?c=list`);
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {

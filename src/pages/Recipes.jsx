@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
@@ -26,6 +27,9 @@ class Recipes extends Component {
     const { listRecipes } = this.props;
     console.log(listRecipes);
     if (!listRecipes) return (<h3>Loading...</h3>); // OBS possível bug
+    if (listRecipes.length === 1) {
+      return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;
+    }
     return (
       <>
         <Header header="Comidas" explorer />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
@@ -24,7 +25,11 @@ class Drinks extends Component {
 
   render() {
     const { listDrinks } = this.props;
+    console.log(listDrinks);
     if (!listDrinks) return (<h3>Loading...</h3>);
+    if (listDrinks.length === 1) {
+      return <Redirect to={ `/bebidas/${listDrinks[0].idDrink}` } />;
+    }
     return (
       <>
         <Header header="Bebidas" explorer />
