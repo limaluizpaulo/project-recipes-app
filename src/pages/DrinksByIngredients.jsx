@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Header, IngredientCard } from '../components';
+import { DrinksContext } from '../context/DrinksProvider';
 import fetchIngredients from '../services/api/fetchIngredients';
 
 const DrinksByIngredients = () => {
+  const { setIngredientFilter } = useContext(DrinksContext);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ const DrinksByIngredients = () => {
             type="cocktail"
             ingredient={ ingredient }
             index={ i }
+            set={ setIngredientFilter }
           />
         ))}
     </div>

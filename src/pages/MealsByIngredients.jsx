@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Header, IngredientCard } from '../components';
+import { MealsContext } from '../context/MealsProvider';
 import fetchIngredients from '../services/api/fetchIngredients';
 
 const MealsByIngredients = () => {
+  const { setIngredientFilter } = useContext(MealsContext);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ const MealsByIngredients = () => {
             type="meal"
             ingredient={ ingredient }
             index={ i }
+            set={ setIngredientFilter }
           />
         ))}
     </div>
