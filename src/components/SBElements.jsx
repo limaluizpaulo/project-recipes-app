@@ -12,7 +12,7 @@ function SBElements() {
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setIngredients(results.meals)));
-    console.log('feito requisição 1');
+    console.log(`Requisição 1, ${ingredients}`);
   };
 
   const getRecipes = () => {
@@ -20,7 +20,7 @@ function SBElements() {
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setRecipes(results.meals)));
-    console.log('feito requisição 2');
+    console.log(`Requisição 1, ${recipes}`);
   };
 
   const getFirstLetter = () => {
@@ -28,7 +28,7 @@ function SBElements() {
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setFirstLetter(results.meals)));
-    console.log('feito requisição 3');
+    console.log(`Requisição 1, ${FirstLetter}`);
   };
 
   const handleClick = () => {
