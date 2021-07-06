@@ -48,7 +48,7 @@ export default function ReceitaEmProcesso({ location }) {
         variant="warning"
         block
       >
-        { (allStepsOk) ? 'Coninuar Receita' : 'Finalizar Receita' }
+        Finalizar Receita
       </Button>
     </Container>
   );

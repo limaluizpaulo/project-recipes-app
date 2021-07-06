@@ -38,7 +38,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         .stringify({ [curr]: { [id]: [] } }));
     } else {
       localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ ...inProgress, [curr]: { [id]: [] } }));
+        .stringify({ ...inProgress, [curr]: { ...inProgress[curr], [id]: [] } }));
     }
   };
 
