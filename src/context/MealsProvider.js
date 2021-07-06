@@ -50,12 +50,9 @@ const MealsProvider = ({ children }) => {
     setMeals,
     categories,
     setFilterCategory,
-<<<<<<< HEAD
     setIngredientFilter,
-=======
     findMealRecipe,
     filterIngredients,
->>>>>>> d6092079d668e0a8596d62ded9afcc864d7748e7
   };
 
   return (
