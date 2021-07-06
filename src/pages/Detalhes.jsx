@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { startRecipe } from '../action';
 
+import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -34,6 +36,7 @@ class Detalhes extends Component {
   }
 
   render() {
+    const { isStart, details } = this.props;
     const ingredientsNumber = 5550;
     const recomendationCardNumber = 550;
     const { favIconColor } = this.state;
@@ -76,7 +79,7 @@ class Detalhes extends Component {
           <section data-testid={ `${ingredientsNumber}-ingredient-name-and-measure` }>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
-              AQUI FICARÁ OS IGREDIENTES
+              <Ingredients data={ details } />
             </span>
           </section>
           <section data-testid="instructions">
@@ -97,6 +100,7 @@ class Detalhes extends Component {
             className="details-btn-startRecipe"
             type="button"
             data-testid="start-recipe-btn"
+            onClick={ () => isStart() }
           >
             Iniciar Receita
           </button>
@@ -106,17 +110,17 @@ class Detalhes extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  mealsDetails: state.foodCategories.recipeDetails,
+const mapDispatchToProps = (dispatch) => ({
+  isStart: () => dispatch(startRecipe()),
 });
 
-// Detalhes.propTypes = {
-//   idMeal: PropTypes.string.isRequired,
-//   strMealThumb: PropTypes.string.isRequired,
-//   strMeal: PropTypes.string.isRequired,
-//   strCategory: PropTypes.string.isRequired,
-//   mealsDetails: PropTypes.shape.isRequired,
-//   strInstructions: PropTypes.string.isRequired,
-// };
+const mapStateToProps = (state) => ({
+  details: state.recipeDetails.details,
+});
 
-export default connect(mapStateToProps)(Detalhes);
+Detalhes.propTypes = {
+  isStart: PropTypes.func.isRequired,
+  details: PropTypes.shape.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detalhes);

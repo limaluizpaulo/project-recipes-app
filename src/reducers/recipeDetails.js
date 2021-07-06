@@ -1,12 +1,12 @@
 import {
   RECIPE_DETAILS_FOOD,
   RECIPE_DETAILS_DRINK,
+  START_RECIPE,
 } from '../action';
 
 const INITIAL_STATE = {
-  details: [],
-  foodDatails: {},
-  drinkDatails: {},
+  details: {},
+  isStart: false,
 };
 
 const recipeDetails = (state = INITIAL_STATE, action) => {
@@ -14,12 +14,17 @@ const recipeDetails = (state = INITIAL_STATE, action) => {
   case RECIPE_DETAILS_FOOD:
     return {
       ...state,
-      foodDatails: action.mealsDetails,
+      details: action.mealsDetails,
     };
   case RECIPE_DETAILS_DRINK:
     return {
       ...state,
-      drinkDatails: action.drinksDetails,
+      details: action.drinksDetails,
+    };
+  case START_RECIPE:
+    return {
+      ...state,
+      isStart: action.isStart,
     };
   default:
     return state;
