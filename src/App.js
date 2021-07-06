@@ -16,9 +16,13 @@ function App() {
       <Route path="/explorar" component={ GenericComponent } />
 
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route path="/receitas-favoritas" component={ GenericComponent } />
+      <Route
+        path="/receitas-favoritas"
+        render={ (props) => <GenericComponent { ...props } /> }
+      />
 
       <Route exact path="/" component={ Login } />
+      <Route path="/perfil" component={ GenericComponent } />
 
       <Route
         path="/:recipeType/:id-da-receita/in-progress"
@@ -30,7 +34,6 @@ function App() {
         render={ (props) => (<Recipes { ...props } />) }
       />
       <Route path="/:recipeType/:id-da-receita" component={ GenericComponent } />
-      <Route path="/perfil" component={ GenericComponent } />
     </Switch>
   );
 }
