@@ -4,7 +4,8 @@ import { Redirect } from 'react-router';
 import './style/Profile.css';
 
 function Perfil() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const email = JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('user')).email : null;
   const [goDoneRecipes, setGoDoneRecipes] = useState(false);
   const [goFavoriteRecipes, setGoFavoriteRecipes] = useState(false);
   const [logoff, setLogoff] = useState(false);
