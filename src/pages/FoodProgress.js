@@ -1,26 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { recipeById } from '../services/requests';
-import { renderCheckBox } from '../utils';
+import { filterObj } from '../utils';
 
 const FoodProgress = ({ match }) => {
   const {
     params: { id },
   } = match;
+
   const [meal, setMeal] = useState({});
+  const [selecteds, setSelects] = useState([]);
 
   useEffect(() => {
     recipeById(id, true).then(setMeal);
   }, [id, setMeal]);
 
-  console.log(meal);
+  const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
+
+  const handleSelect = (item) => {
+    if (!findSelecteds(item)) {
+      setSelects([...selecteds, item]);
+    } else {
+      const removeSelected = selecteds.filter((ingredient) => ingredient !== item);
+      setSelects(removeSelected);
+    }
+  };
+
+  const renderCheckBox = () => {
+    const ingredients = filterObj(/Ingredient/, meal);
+    return ingredients.map(([key, ingredient]) => (
+      <label
+        className={ findSelecteds(key) && 'checked' }
+        checked={ findSelecteds(key) && 'checked' }
+        data-testid="ingredient-step"
+        htmlFor="ingredient"
+        key={ `${key} - ${ingredient}` }
+      >
+        {ingredient}
+        <input onClick={ () => handleSelect(key) } type="checkbox" id="ingredient" />
+      </label>
+    ));
+  };
+
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <h3 data-testid="recipe-category">{meal.strCategory}</h3>
       <img data-testid="recipe-photo" src={ meal.strMealThumb } alt={ meal.strMeal } />
       Ingredientes:
-      {renderCheckBox(meal)}
+      {renderCheckBox()}
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
       <p data-testid="0-recomendation-card">recomendation</p>
