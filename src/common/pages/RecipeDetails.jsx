@@ -15,16 +15,20 @@ export default function RecipeDetails() {
       setRecipes(setLoading(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
+      console.log(mealsDetails);
       const Drinks = await fetchAPI(DRINKS);
+      console.log(Drinks);
       setRecipes(addRecDetail(mealsDetails.meals[0]));
       setRecipes(addRecommended(Drinks.drinks));
       setRecipes(setLoading(false));
+      console.log(loading);
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
       const Meals = await fetchAPI(MEALS);
       setRecipes(addRecDetail(drinksDetails.drinks[0]));
       setRecipes(addRecommended(Meals.meals));
       setRecipes(setLoading(false));
+      console.log(loading);
     }
   };
 
@@ -33,7 +37,8 @@ export default function RecipeDetails() {
     const inProgressInLS = getStorage('inProgressRecipes');
 
     const checkDoneRecipes = doneRecipeInLS.find((item) => item.id === id);
-    const checkinProgress = inProgressInLS[id];
+    const checkinProgress = Object.keys(inProgressInLS).length;
+    console.log(checkinProgress, 'inProgress');
     // !checkcheckDoneRecipes &&  !checkinProgress: undefined = "Iniciar Receita"
     // checkcheckDoneRecipes : true = "Receita Feita" -> Desaparecer com o botão
     // checkcheckinProgress : true = "Receita Iniciada" -> Continuar receita

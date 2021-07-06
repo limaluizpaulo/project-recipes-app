@@ -6,11 +6,8 @@
 /*========== VARIABLES CSS ====================================================================================================*/
 :root {
   /*========== Colors =========================================================================================================*/
-  --first-color: #4D49BF;
-  /* --second-color: #05DBF2; */
-  /* --white-color: #E9EAEC; */
-  /* --dark-color: #272d40; */
-  --dark-color: #314279;
+  --first-color: #9D4BFF;
+  --first-color-dark: #314279;
   /* --dark-color-lighten: #F2F5FF; */
   --title-color: #F2A20C;
 
@@ -46,9 +43,8 @@ body, button {
 .recipe {
   width: 200px;
   height: 230px;
-  background-color: var(--dark-color);
+  background-color: var(--first-color-dark);
   border-radius: 1rem;
-  /* padding: 4rem 2rem 0; */
   overflow-y: hidden;
   cursor: pointer;
   margin: 15px 5px 0 5px;
