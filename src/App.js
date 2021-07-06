@@ -28,9 +28,10 @@ function App() {
       <Route path="/receitas-feitas" component={ Done } />
       <Route path="/receitas-favoritas" component={ Favorites } />
 
-      { /* <Route exact path="/comidas/:id/in-progress" component={} />
+      {/*
+      <Route exact path="/comidas/:id/in-progress" component={} />
         <Route exact path="/bebidas/:id/in-progress" component={} />
-        <Route path="/receitas-favoritas" component={} /> */}
+        */}
 
     </Switch>
   );
