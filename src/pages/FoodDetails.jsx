@@ -20,24 +20,33 @@ function FoodDetails({ match: { params: { id } } }) {
     const EIGHT = 8;
     return (
       mealArray.map((forEachArray, index) => {
-        console.log(`${forEachArray[0]}`, `strIngredient${index}`);
         if (forEachArray[0] === `strIngredient${index - EIGHT}`
           && forEachArray[1] !== ''
           && forEachArray[1] !== null) {
           count += 1;
           return (
-            <div key={ count }>
-              {details.meals[0][`strIngredient${count}`]}
-              {' - '}
-              {details.meals[0][`strMeasure${count}`]}
-            </div>);
+            <section key={ `ingredientAndMeasure${count}` }>
+              <div data-testid={ `${count}-ingredient-name-and-measure` }>
+                {details.meals[0][`strIngredient${count}`]}
+              </div>
+              <div data-testid={ `${count}-ingredient-name-and-measure` }>
+                {details.meals[0][`strMeasure${count}`]}
+              </div>
+            </section>
+          );
         }
         return null;
       }));
   }
 
   if (details.meals) {
-    const { strMealThumb, strMeal, strInstructions, strCategory } = details.meals[0];
+    const {
+      strMealThumb,
+      strMeal,
+      strInstructions,
+      strCategory,
+      strYoutube,
+    } = details.meals[0];
     return (
       <main>
         <img data-testid="recipe-photo" src={ strMealThumb } alt="Meal" width="200px" />
@@ -58,6 +67,11 @@ function FoodDetails({ match: { params: { id } } }) {
         <span data-testid="instructions">{strInstructions}</span>
         <button type="button" data-testid="start-recipe-btn">Começar</button>
         {loopArray()}
+        <iframe
+          src={ strYoutube.replace('watch?v=', 'embed/') }
+          width="300px"
+          title="Recipe"
+        />
       </main>
     );
   }
@@ -73,6 +87,5 @@ FoodDetails.propTypes = {
 
 export default FoodDetails;
 
-// Os ingredientes devem possuir o atributo data-testid="${index}-ingredient-name-and-measure";
 // O vídeo, presente somente na tela de comidas, deve possuir o atributo data-testid="video";
 // O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
