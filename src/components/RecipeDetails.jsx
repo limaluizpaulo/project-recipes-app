@@ -137,10 +137,13 @@ class RecipeDetails extends React.Component {
           </button>
           <button
             type="button"
-            data-testid="favorite-btn"
             onClick={ () => this.verifyFavorite(recipeDetails[0]) }
           >
-            <img src={ favorite ? black : white } alt="favoriteIcon" />
+            <img
+              data-testid="favorite-btn"
+              src={ favorite ? black : white }
+              alt="favoriteIcon"
+            />
           </button>
           {copied ? <span>Link copiado!</span> : null}
           <div>
