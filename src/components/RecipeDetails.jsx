@@ -70,8 +70,9 @@ class RecipeDetails extends React.Component {
     }
     if (localStorage.inProgressRecipes) {
       const getRecipes = JSON.parse(localStorage.inProgressRecipes);
-      const recipeInProgress = getRecipes.find((item) => item.id === id);
-      if (recipeInProgress) {
+      const inProgres = Object.keys(getRecipes)
+        .map((key) => Object.keys(getRecipes[key]).includes(id));
+      if (inProgres.includes(true)) {
         this.setState({ btnMessage: 'Continuar Receita' });
       }
     }
