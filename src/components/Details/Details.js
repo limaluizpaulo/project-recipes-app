@@ -2,20 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-elastic-carousel';
 
+import { useHistory, useLocation } from 'react-router-dom';
 import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
 import './style/Details.css';
 import RecipesContext from '../../context/RecipesContext';
 
+import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+
+const copy = require('clipboard-copy');
+
 function Details({ id, mealsOrDrinks }) {
   const { startedRecipes, localstorageSaveStartedRecipe } = useContext(RecipesContext);
-
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationsKey, setRecommendationsKey] = useState('');
   const [alreadyStarted, setAlreadyStarted] = useState(false);
   const [isInProgressRecipe, setIsInProgressRecipe] = useState(false);
+  const [isFav, setIsFav] = useState(false);
+
+  const { push } = useHistory();
+  const { pathname } = useLocation();
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
@@ -85,6 +95,7 @@ function Details({ id, mealsOrDrinks }) {
       getRecomendations(MEALS);
       setRecommendationsKey('strMeal');
     }
+    getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,11 +103,6 @@ function Details({ id, mealsOrDrinks }) {
     organizeIngredients();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipe]);
-
-  useEffect(() => {
-    getRecipe();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -116,6 +122,7 @@ function Details({ id, mealsOrDrinks }) {
         setIsInProgressRecipe(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startedRecipes]);
 
   return (
@@ -131,8 +138,28 @@ function Details({ id, mealsOrDrinks }) {
         <div>
           <h1 data-testid="recipe-title">{recipe[recipeKeyword]}</h1>
           <div>
-            <button type="button" data-testid="share-btn">share</button>
-            <button type="button" data-testid="favorite-btn">fav</button>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={
+                () => { copy(`http://localhost:3000/${pathname}`); }
+              }
+            >
+              <img src={ shareIcon } alt="Share Icon" />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={
+                () => setIsFav(!isFav)
+              }
+            >
+              {
+                isFav
+                  ? <img src={ blackHeartIcon } alt="Favorited" />
+                  : <img src={ whiteHeartIcon } alt="Not Favorited" />
+              }
+            </button>
           </div>
           <h3 data-testid="recipe-category">
             {
@@ -173,7 +200,7 @@ function Details({ id, mealsOrDrinks }) {
         </div>
         {
           recipe.strYoutube
-            ? (
+            && (
               <div>
                 <h2>Video</h2>
                 <iframe
@@ -185,13 +212,18 @@ function Details({ id, mealsOrDrinks }) {
                 />
               </div>
             )
-            : null
         }
         <button
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe"
-          onClick={ () => { localstorageSaveStartedRecipe(recipe, ingredients); } }
+          onClick={ () => {
+            if (!isInProgressRecipe) {
+              localstorageSaveStartedRecipe(recipe, ingredients);
+            }
+
+            push(`${pathname}/in-progress`);
+          } }
           hidden={ alreadyStarted && !isInProgressRecipe }
         >
           { isInProgressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
