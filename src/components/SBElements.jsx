@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 
-/* function foo() {
-  const alert = myCustomLib.customAlert;
-  alert();
-} */
-
 function SBElements() {
   const [ingredients, setIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [FirstLetter, setFirstLetter] = useState([]);
   const [filter, setFilter] = useState('');
+  const [searchInput, setsearchInput] = useState('');
 
   const getIngredients = () => {
-    const endpoint = 'https://www.themealdb.com/api/json/v1/1/filter.php?i={ingrediente}';
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setIngredients(results.meals)));
@@ -20,7 +16,7 @@ function SBElements() {
   };
 
   const getRecipes = () => {
-    const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s={nome}';
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setRecipes(results.meals)));
@@ -28,7 +24,7 @@ function SBElements() {
   };
 
   const getFirstLetter = () => {
-    const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}';
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setFirstLetter(results.meals)));
@@ -36,7 +32,6 @@ function SBElements() {
   };
 
   const handleClick = () => {
-    const searchInput = document.getElementById('searchInput').innerText;
     switch (filter) {
     case 'ingredientes':
       getIngredients();
@@ -45,6 +40,7 @@ function SBElements() {
       getRecipes();
       break;
     case 'firstLetter':
+      // const searchInput = document.getElementById('searchInput').innerText;
       if (searchInput.length !== 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -63,6 +59,7 @@ function SBElements() {
         id="searchInput"
         type="text"
         data-testid="search-input"
+        onChange={ (event) => setsearchInput(event.target.value) }
       />
       <label
         htmlFor="ingredientes"
