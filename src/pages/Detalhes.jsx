@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import '../css/Details.css';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 class Detalhes extends Component {
   render() {
     return (
       <section>
 
-        <section className="recipe-details">
+        {/* <section className="recipe-details">
           <img
             data-testid="recipe-photo"
             src=""
@@ -71,7 +71,7 @@ class Detalhes extends Component {
           >
             Iniciar Receita
           </button>
-        </section>
+        </section> */}
       </section>
     );
   }
@@ -81,13 +81,13 @@ const mapStateToProps = (state) => ({
   mealsDetails: state.foodCategories.recipeDetails,
 });
 
-Detalhes.propTypes = {
-  idMeal: PropTypes.string.isRequired,
-  strMealThumb: PropTypes.string.isRequired,
-  strMeal: PropTypes.string.isRequired,
-  strCategory: PropTypes.string.isRequired,
-  mealsDetails: PropTypes.shape.isRequired,
-  strInstructions: PropTypes.string.isRequired,
-};
+// Detalhes.propTypes = {
+//   idMeal: PropTypes.string.isRequired,
+//   strMealThumb: PropTypes.string.isRequired,
+//   strMeal: PropTypes.string.isRequired,
+//   strCategory: PropTypes.string.isRequired,
+//   mealsDetails: PropTypes.shape.isRequired,
+//   strInstructions: PropTypes.string.isRequired,
+// };
 
 export default connect(mapStateToProps)(Detalhes);
