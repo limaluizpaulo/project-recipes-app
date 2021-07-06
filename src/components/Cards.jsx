@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import FetchContext from '../context/FetchContext';
 
 function Cards() {
-  const { data, nameRecipes, imgRecipes } = useContext(FetchContext);
+  const { data, nameRecipes, imgRecipes, idRecip, typeFunc } = useContext(FetchContext);
   const ELEVEN = 11;
   return (
     <div>
@@ -10,8 +11,14 @@ function Cards() {
         data.filter((el, index) => index <= ELEVEN)
           .map((food, index) => (
             <div key={ food } data-testid={ `${index}-recipe-card` }>
-              <img data-testid={ `${index}-card-img` } src={ food[imgRecipes] } alt="" />
-              <p data-testid={ `${index}-card-name` }>{ food[nameRecipes] }</p>
+              <Link to={ `/${typeFunc}/${data[0][idRecip]}` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ food[imgRecipes] }
+                  alt={ food[nameRecipes] }
+                />
+                <p data-testid={ `${index}-card-name` }>{ food[nameRecipes] }</p>
+              </Link>
             </div>
           ))
       }

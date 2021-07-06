@@ -1,14 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import FetchContext from '../context/FetchContext';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
+import { categoryListMeal, fetchRecipesList } from '../services/Api';
+import Category from '../components/Category';
 
 function Foods() {
-  const { setTypeFunc, data } = useContext(FetchContext);
+  const {
+    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, setIdRecip,
+  } = useContext(FetchContext);
 
   Foods.displayName = 'Comidas';
+
+  useEffect(() => {
+    const renderCategorys = () => {
+      categoryListMeal().then((res) => setCategories(res));
+    };
+
+    renderCategorys();
+  }, [setCategories]);
 
   const fnAlert = (func, message) => {
     func(message);
@@ -19,15 +31,31 @@ function Foods() {
     return fnAlert(alert, msg);
   }
 
-  if (data.length === 1) {
+  if (data.length === 1 && data[0].idMeal !== '52968') {
     return <Redirect to={ `/comidas/${data[0].idMeal}` } />;
   }
 
+  const renderRecipes = () => {
+    setNameRecipes('strMeal');
+    setImgRecipes('strMealThumb');
+    setIdRecip('idMeal');
+    fetchRecipesList().then((res) => setData(res));
+  };
+
   return (
     <div>
-      { setTypeFunc('Foods')}
+      { setTypeFunc('comidas')}
       <Header title={ Foods.displayName } />
-      { data.length > 0 && <Cards />}
+      <button
+        type="button"
+        onClick={ renderRecipes }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
+      <Category />
+      { data.length === 0 && renderRecipes() }
+      <Cards />
       <Footer />
     </div>
   );

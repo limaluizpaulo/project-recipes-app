@@ -67,12 +67,12 @@
   }
 }
 
-.header {
+/* .header {
   display: flex;
   justify-content: space-between;
   position: fixed;
   width: 100%;
-}
+} */
 
 .footer {
   bottom: 0;
