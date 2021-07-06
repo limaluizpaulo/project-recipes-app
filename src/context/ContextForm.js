@@ -27,8 +27,10 @@ function Provider({ children }) {
   };
 
   useEffect(() => {
-    const Favorite = [];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      const Favorite = [];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
+    }
   }, []);
 
   return (
