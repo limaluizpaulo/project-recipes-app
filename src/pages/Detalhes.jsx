@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import { startRecipe } from '../action';
 
+import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
-// import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import dictionaryFood from '../help/dictionaryApi';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 class Detalhes extends Component {
   render() {
+    const { details, isStart } = this.props;
     return (
       <section>
-
-        {/* <section className="recipe-details">
+        <section className="details-header" />
+        <section className="recipe-details">
           <img
             data-testid="recipe-photo"
             src=""
@@ -44,10 +48,14 @@ class Detalhes extends Component {
               <img src={ whiteHeartIcon } alt={ whiteHeartIcon } />
             </button>
           </section>
-          <section data-testid={ `${5550}-ingredient-name-and-measure` }>
+          <section
+            data-testid={
+              `${details[dictionaryFood.info.Id]}-ingredient-name-and-measure`
+            }
+          >
             <h3>Ingredients</h3>
             <span className="details-ingredients">
-              AQUI FICARÁ OS IGREDIENTES
+              <Ingredients data={ details } />
             </span>
           </section>
           <section data-testid="instructions">
@@ -60,7 +68,9 @@ class Detalhes extends Component {
             <h3>Video</h3>
             <section className="video">AQUI FICARÁ O VIDEO</section>
           </section>
-          <section data-testid={ `${550}-recomendation-card` }>
+          <section
+            data-testid={ `${details[dictionaryFood.info.Id]}-recomendation-card` }
+          >
             <h3>Recomendadas</h3>
             CARROSEUL
           </section>
@@ -68,26 +78,27 @@ class Detalhes extends Component {
             className="details-btn-startRecipe"
             type="button"
             data-testid="start-recipe-btn"
+            onClick={ () => isStart() }
           >
             Iniciar Receita
           </button>
-        </section> */}
+        </section>
       </section>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  mealsDetails: state.foodCategories.recipeDetails,
+const mapDispatchToProps = (dispatch) => ({
+  isStart: () => dispatch(startRecipe()),
 });
 
-// Detalhes.propTypes = {
-//   idMeal: PropTypes.string.isRequired,
-//   strMealThumb: PropTypes.string.isRequired,
-//   strMeal: PropTypes.string.isRequired,
-//   strCategory: PropTypes.string.isRequired,
-//   mealsDetails: PropTypes.shape.isRequired,
-//   strInstructions: PropTypes.string.isRequired,
-// };
+const mapStateToProps = (state) => ({
+  details: state.recipeDetails.details,
+});
 
-export default connect(mapStateToProps)(Detalhes);
+Detalhes.propTypes = {
+  isStart: PropTypes.func.isRequired,
+  details: PropTypes.shape.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detalhes);

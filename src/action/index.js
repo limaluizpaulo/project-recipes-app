@@ -15,6 +15,7 @@ export const ALL_DRINKS_RECIPES = 'ALL_DRINKS_RECIPES';
 export const DRINK_BY_CATEGORIES = 'DRINK_BY_CATEGORIES';
 export const RECIPE_DETAILS_FOOD = 'RECIPE_DETAILS_FOOD';
 export const RECIPE_DETAILS_DRINK = 'RECIPE_DETAILS_DRINK';
+export const START_RECIPE = 'START_RECIPE';
 
 export const addEmail = (email) => ({ type: USER_EMAIL, email });
 export const isLoading = () => ({ type: IS_LOADING });
@@ -38,6 +39,8 @@ export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
+export const startRecipe = () => ({
+  type: START_RECIPE, isStart: true });
 
 export const fetchApiFoodCategories = () => (dispatch) => {
   dispatch(isLoading());
