@@ -17,6 +17,7 @@ export default function Provider({ children }) {
   const [mealsRecipes, setMealsRecipes] = useState([]);
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
+  const [curr, setCurr] = useState('false');
 
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
@@ -85,7 +86,7 @@ export default function Provider({ children }) {
         thumb: strMealThumb,
         video: strYoutube,
       };
-
+      setCurr('meal');
       setCurrentRecipe(meal);
     }
 
@@ -108,7 +109,7 @@ export default function Provider({ children }) {
         instructions: strInstructions,
         thumb: strDrinkThumb,
       };
-
+      setCurr('drink');
       setCurrentRecipe(drink);
     }
   };
@@ -124,6 +125,7 @@ export default function Provider({ children }) {
     currentRecipe,
     resquestCocktailsApi,
     resquestMealsApi,
+    curr,
   };
   return (
     <Context.Provider value={ context }>
