@@ -11,28 +11,32 @@ function DetailsReceita(props) {
   const [apelidoAPI] = rotaAtual.match(/\w+/);
   const [teste] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
+  const ingredientes = [];
 
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(teste);
       setReceita(respostaApi);
-      console.log(respostaApi);
+      // console.log(respostaApi);
     };
     didMount();
   }, [teste]);
 
-  function ingredientes(i) {
+  useEffect(() => {
     const vinte = 20;
     for (let index = 0; index < vinte; index += 1) {
-      if (i[`strIngredient${index}`] !== '') {
-        console.log(i[`strIngredient${index}`], i[`strMeasure${index}`]);
-        // <div>oi</div>;
+      const strIngredient = receita[`strIngredient${index}`];
+      const strMeasure = receita[`strMeasure${index}`];
+      if (strIngredient !== '' && strIngredient !== undefined) {
+        ingredientes.push({ strIngredient, strMeasure });
       }
     }
-  }
+    // console.log(ingredientes);
+  }, [receita]);
 
   return (
     <div data-testid="0-">
+
       <h2 data-testid="recipe-title">{receita.strArea}</h2>
       <h3 data-testid="recipe-category">{receita.strCategory}</h3>
       <img
@@ -40,7 +44,9 @@ function DetailsReceita(props) {
         src={ receita.strMealThumb }
         alt={ receita.strArea }
       />
-      {ingredientes(receita)}
+      {ingredientes.forEach((item, i) => {
+        console.log(item, i, 'ou');
+      })}
       <p data-testid="instructions">{receita.strInstructions}</p>
       <iframe title={ receita.strArea } src={ receita.strYoutube } />
 
