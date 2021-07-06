@@ -46,31 +46,40 @@ function DetailsReceita(props) {
     });
   }
 
+  function videoRender() {
+    if (apelidoAPI === 'comidas') {
+      return (
+        <iframe
+          data-testid="video"
+          title={ receita.strArea }
+          src={ receita.strYoutube }
+        />
+      );
+    }
+  }
+
   function titulo() {
     console.log(apelidoAPI);
-    let type = ['Meal', 'Area'];
+    let type = ['Meal', 'Category', 'Area'];
     if (apelidoAPI === 'bebidas') {
-      type = ['Drink', 'Drink'];
+      type = ['Drink', 'Alcoholic', 'Category'];
     }
 
     return (
       <div>
-        <h2 data-testid="recipe-title">{ receita[`str${type[1]}`] }</h2>
-        <h3 data-testid="recipe-category">{receita.strCategory}</h3>
+        <h2 data-testid="recipe-title">{ receita[`str${type[0]}`] }</h2>
+        <h4>{receita[`str${type[2]}`]}</h4>
+        <h4 data-testid="recipe-category">{receita[`str${type[1]}`]}</h4>
         <img
           data-testid="recipe-photo"
           src={ receita[`str${type[0]}Thumb`] }
-          alt={ receita[`str${type[1]}`] }
+          alt={ receita[`str${type[0]}`] }
         />
         <ul>
           {ingrFunction()}
         </ul>
         <p data-testid="instructions">{receita.strInstructions}</p>
-        <iframe
-          data-testid="video"
-          title={ receita[`str${type[1]}`] }
-          src={ receita.strYoutube }
-        />
+        {videoRender()}
       </div>);
   }
 
