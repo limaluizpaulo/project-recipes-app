@@ -4,6 +4,7 @@ import Context from './Context';
 import {
   fetchMealsApi,
   fetchMealsById,
+  fetchMealsCategories,
   fetchMealsRecomendation,
 } from '../apis/MealsApis';
 import {
@@ -15,6 +16,7 @@ import {
 export default function Provider({ children }) {
   const [openSearchBar, setOpenSearchBar] = useState(false);
   const [mealsRecipes, setMealsRecipes] = useState([]);
+  const [mealsCategories, setMealsCategories] = useState([]);
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
 
@@ -30,6 +32,11 @@ export default function Provider({ children }) {
   const resquestCocktailsApi = async () => {
     const apiCocktails = await fetchCocktailsRecomendation();
     setCocktailsRecipes(apiCocktails);
+  };
+
+  const requestMealCategories = async () => {
+    const mealsCat = await fetchMealsCategories();
+    setMealsCategories(mealsCat);
   };
 
   const findMealsByFilter = async (filter) => {
@@ -124,6 +131,8 @@ export default function Provider({ children }) {
     currentRecipe,
     resquestCocktailsApi,
     resquestMealsApi,
+    requestMealCategories,
+    mealsCategories,
   };
   return (
     <Context.Provider value={ context }>

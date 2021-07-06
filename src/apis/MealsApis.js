@@ -27,3 +27,9 @@ export async function fetchMealsById(id) {
   const { meals } = await request.json();
   return meals;
 }
+
+export async function fetchMealsCategories() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const { meals } = await request.json();
+  return meals;
+}
