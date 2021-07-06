@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
 import RecipesContext from '../context/RecipesContext';
 import LoginContext from '../context/LoginContext';
-import '../styles/DoneRecipes.css';
+import '../styles/HeaderDetails.css';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -56,13 +56,26 @@ function HeaderDetails() {
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
+        className="thumb"
       />
-      <section>
-        <div className="Title-and-Category">
-          <span data-testid="recipe-title">{ drinkDetails.strDrink}</span>
-          <span data-testid="recipe-category">{ drinkDetails.strAlcoholic }</span>
+      <section className="title-and-buttons">
+        <div className="title-and-category">
+          <span
+            className="title"
+            data-testid="recipe-title"
+          >
+            { drinkDetails.strDrink}
+
+          </span>
+          <span
+            className="subtitle"
+            data-testid="recipe-category"
+          >
+            { drinkDetails.strAlcoholic }
+
+          </span>
         </div>
-        <div className="Like-and-Share">
+        <div className="like-and-share">
           <button
             type="button"
             data-testid="share-btn"
@@ -70,13 +83,16 @@ function HeaderDetails() {
           >
             <img src={ shareIcon } alt="Icon Share" />
           </button>
-          <span
-            className={ `${copied
-              ? 'alert-show' : 'alert-hidden'}` }
-            onTransitionEnd={ () => setCopied(false) }
-          >
-            Link copiado!
-          </span>
+          <div className="popup">
+            <div
+              className={ `${copied
+                ? 'alert-show' : 'alert-hidden'}` }
+              onTransitionEnd={ () => setCopied(false) }
+            >
+              Link copiado!
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={ () => (isFavorite ? removeLS() : setLS()) }
@@ -96,14 +112,27 @@ function HeaderDetails() {
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
+        className="thumb"
       />
 
-      <section>
-        <div className="Title-and-Category">
-          <span data-testid="recipe-title">{ foodDetails.strMeal }</span>
-          <span data-testid="recipe-category">{ foodDetails.strCategory }</span>
+      <section className="title-and-buttons">
+        <div className="title-and-category">
+          <span
+            className="title"
+            data-testid="recipe-title"
+          >
+            { foodDetails.strMeal }
+
+          </span>
+          <span
+            className="subtitle"
+            data-testid="recipe-category"
+          >
+            { foodDetails.strCategory }
+
+          </span>
         </div>
-        <div className="Like-and-Share">
+        <div className="like-and-share">
           <button
             type="button"
             data-testid="share-btn"
@@ -111,13 +140,15 @@ function HeaderDetails() {
           >
             <img src={ shareIcon } alt="Icon Share" />
           </button>
-          <span
-            className={ `${copied
-              ? 'alert-show' : 'alert-hidden'}` }
-            onTransitionEnd={ () => setCopied(false) }
-          >
-            Link copiado!
-          </span>
+          <div className="popup">
+            <span
+              className={ `${copied
+                ? 'alert-show' : 'alert-hidden'}` }
+              onTransitionEnd={ () => setCopied(false) }
+            >
+              Link copiado!
+            </span>
+          </div>
           <button
             type="button"
             onClick={ () => (isFavorite ? removeLS() : setLS()) }

@@ -6,7 +6,7 @@ import LoginContext from '../context/LoginContext';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { successLogin, getDoneRecipes, getInProgressRecipes } = useContext(LoginContext);
+  const { successLogin, getDoneRecipes } = useContext(LoginContext);
   const history = useHistory();
 
   function handleSumit(event) {
@@ -17,7 +17,6 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     getDoneRecipes();
-    getInProgressRecipes();
     history.push('/comidas');
   }
 
