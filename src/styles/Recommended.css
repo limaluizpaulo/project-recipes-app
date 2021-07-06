@@ -9,7 +9,7 @@
   justify-content: center;
 }
 
-.card {
+.card-rec {
   display: block;
   height: 250px;
   margin: 5px;
@@ -23,7 +23,7 @@
   max-width: 200px;
 }
 
-.card img {
+.card-rec img {
   height: 180px;
   width: 180px;
 }
