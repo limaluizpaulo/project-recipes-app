@@ -24,7 +24,7 @@ export default function Categories() {
     type,
   } = useContext(RecipesContext);
 
-  const filter = (strCategory) => {
+  const strFilter = (strCategory) => {
     if (!toggle) {
       setToggle(true);
       setSelectedCategory(strCategory);
@@ -38,7 +38,7 @@ export default function Categories() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const results = (type === 'meal')
+      const results = (type === 'meals')
         ? await getMealsCategories() : await getCocktailsCategories();
       setCategoriesData(results.filter((item, index) => index < maxCategories));
     };
@@ -49,10 +49,10 @@ export default function Categories() {
     const filterCategory = async () => {
       let results;
       if (selectedCategory === 'All') {
-        results = (type === 'meal')
+        results = (type === 'meals')
           ? await getMealsRecipes() : await getCocktailsRecipes();
       } else {
-        results = (type === 'meal') ? await getMealsByCategory(selectedCategory)
+        results = (type === 'meals') ? await getMealsByCategory(selectedCategory)
           : await getCocktailsByCategory(selectedCategory);
       }
       if (results && selectedCategory) {
@@ -67,7 +67,7 @@ export default function Categories() {
       <Button
         key="All"
         label="All"
-        func={ () => filter('All') }
+        func={ () => strFilter('All') }
         testid="All-category-filter"
         className=""
         disabled={ false }
@@ -76,7 +76,7 @@ export default function Categories() {
         <Button
           key={ strCategory }
           label={ strCategory }
-          func={ () => filter(strCategory) }
+          func={ () => strFilter(strCategory) }
           testid={ `${strCategory}-category-filter` }
           className=""
           disabled={ false }

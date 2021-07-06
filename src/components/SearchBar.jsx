@@ -16,13 +16,9 @@ const selectedFilter = {
 };
 
 function SearchBar() {
-  const { setData } = useContext(RecipesContext);
+  const { setData, type } = useContext(RecipesContext);
   const [searchInput, setSearchInput] = useState('');
-  const [radioInput, setRadioInput] = useState('ingredients');
-  // const [filterHeader, setFilterHeader] = useState({
-  //   search: '',
-  //   radio: 'ingredients',
-  // });
+  const [radioInput, setRadioInput] = useState('');
 
   const isDisabled = () => {
     if (searchInput === '' || radioInput === '') {
@@ -33,10 +29,19 @@ function SearchBar() {
 
   // useEffect(() => {
   const filterApi = async () => {
-    const result = await selectedFilter[radioInput](searchInput);
-    if (result.length) {
-      setData(result);
+    const alertMessage = (fn, message) => {
+      fn(message);
+    };
+    if (radioInput === 'firstLetter' && searchInput.length > 1) {
+      return alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
+    const result = await selectedFilter[radioInput](searchInput, type);
+    if (result === null) {
+      return alertMessage(alert,
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    console.log('cu');
+    setData(result);
   };
 
   // }, [filterHeader]);
@@ -85,12 +90,7 @@ function SearchBar() {
       />
       <Button
         func={ () => {
-          if (radioInput === 'firstLetter' && searchInput.length > 1) {
-            const alertMessage = (fn, message) => {
-              fn(message);
-            };
-            alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
-          } else filterApi();
+          filterApi();
         } }
         disabled={ isDisabled() }
         testid="exec-search-btn"
