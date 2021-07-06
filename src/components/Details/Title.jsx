@@ -9,69 +9,83 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 export default function Title({ currentRecipe, id, title, subtitle }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const url = window.location.href;
 
+  // Carrega todo o localstorage
   const loadFavoritesLocalStorage = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const urlId = window.location.href.split('/')[4];
+    const urlId = url.split('/')[4];
 
     if (!favorites || !favorites[0]) {
-      console.log('n exist');
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     } else {
-      console.log('s exist');
-
       const exist = favorites.find(({ id: idFavorito }) => idFavorito === urlId);
       if (exist) {
         setIsFavorite(true);
       }
     }
-  }
+  };
 
   useEffect(() => {
     loadFavoritesLocalStorage();
   }, []);
 
+  // Ação de clicar no botão compartilhar
   const handleShare = () => {
     const SECONDS = 3000;
-    const url = window.location.href;
     copy(url);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), SECONDS);
   };
 
-  const updateFavoritesLocalStorage = () => {
-    const { area, type, thumb, category } = currentRecipe;
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    let newFavorite = {};
-
-    if (currentRecipe.video) {
-      newFavorite = {
-        id, type, area, category: subtitle, alcoholicOrNot: '', name: title, image: thumb
-      };
-    } else {
-      newFavorite = {
-        id, type, area: '', category, alcoholicOrNot: subtitle, name: title, image: thumb
+  // Gera o objeto que será adicionado no localstorage
+  const generateLocalStorageObject = (type) => {
+    const { area, thumb, category } = currentRecipe;
+    if (type === 'comida') {
+      return {
+        id, type, area, category: subtitle, alcoholicOrNot: '', name: title, image: thumb,
       };
     }
 
-    if (!favorites || !favorites[0]) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
-    } else {
-      const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
-
-      if (!exist) {
-        favorites.push(newFavorite);
-        localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-      } else {
-        localStorage.setItem(
-          'favoriteRecipes', JSON.stringify(
-            favorites.filter(({ id: idFavorito }) => idFavorito !== id),
-          ),
-        );
-      }
+    if (type === 'bebida') {
+      return {
+        id, type, area: '', category, alcoholicOrNot: subtitle, name: title, image: thumb,
+      };
     }
   };
 
+  // Cria um localStorage, caso não exista
+  const createFavoriteToLocalStorage = (newFavorite) => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+  };
+
+  // Adiciona/Remove item do local storage
+  const addFavoriteToLocalStorage = (favorites, newFavorite) => {
+    const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
+
+    if (!exist) {
+      favorites.push(newFavorite);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
+      const removed = favorites.filter(({ id: idFavorito }) => idFavorito !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(removed));
+    }
+  };
+
+  // Atualiza o localStorage
+  const updateFavoritesLocalStorage = () => {
+    const { type } = currentRecipe;
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFavorite = generateLocalStorageObject(type);
+
+    if (!favorites || !favorites[0]) {
+      createFavoriteToLocalStorage(newFavorite);
+    } else {
+      addFavoriteToLocalStorage(favorites, newFavorite);
+    }
+  };
+
+  // Ação ao clicar em favoritar
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
     updateFavoritesLocalStorage();
@@ -92,9 +106,9 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
         </Button>
         <Button onClick={ handleFavorite } variant="success">
           <Image
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        />
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          />
         </Button>
       </section>
       <br />

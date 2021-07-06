@@ -59,11 +59,8 @@ export default function Provider({ children }) {
     return ingredients;
   };
 
-  // Busca uma bebida ou comida através do ID
-  const storeCurrentRecipe = async (id) => {
-    const mealById = await fetchMealsById(id);
-    const drinkById = await fetchDrinksById(id);
-
+  // Trata se deve gerar um estado com uma comida ou bebida
+  const generateMealOrDrinkState = (mealById, drinkById) => {
     // Verifica se é uma comida válida
     if (mealById) {
       const {
@@ -75,7 +72,6 @@ export default function Provider({ children }) {
         strYoutube,
         strArea,
       } = mealById[0];
-
       // Constrói o obejeto de comias
       const meal = {
         id: idMeal,
@@ -88,10 +84,8 @@ export default function Provider({ children }) {
         area: strArea,
         type: 'comida',
       };
-
       setCurrentRecipe(meal);
     }
-
     // Verifica se é uma bebida válida
     if (drinkById) {
       const {
@@ -103,7 +97,6 @@ export default function Provider({ children }) {
         strArea,
         strCategory,
       } = drinkById[0];
-
       // Constrói o objeto de bebida
       const drink = {
         id: idDrink,
@@ -116,9 +109,16 @@ export default function Provider({ children }) {
         type: 'bebida',
         category: strCategory,
       };
-
       setCurrentRecipe(drink);
     }
+  };
+
+  // Busca uma bebida ou comida através do ID
+  const storeCurrentRecipe = async (id) => {
+    const mealById = await fetchMealsById(id);
+    const drinkById = await fetchDrinksById(id);
+
+    generateMealOrDrinkState(mealById, drinkById);
   };
 
   const context = {
