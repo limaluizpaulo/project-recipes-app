@@ -47,7 +47,7 @@ class Header extends Component {
           <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ profileIcon } alt="profileImagem" />
           </Link>
-          <h1 data-testid="page-title">{ title }</h1>
+          <h1 data-testid="page-title">{ title.replace('/', ' ') }</h1>
 
           {searchBar === true && this.searchBarTrue()}
 
