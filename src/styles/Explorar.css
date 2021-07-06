@@ -1,0 +1,13 @@
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.explore-btn {
+  border: 3px black outset;
+  border-radius: 20px;
+  height: 60px;
+  margin: 5% 2%;
+  width: 96%;
+}

@@ -25,7 +25,7 @@ function SearchBar() {
   };
 
   function handleSingleReturn(data) {
-    const recipe = data[foodOrDrink.idType][0];
+    const recipe = data[0];
     const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
     history.push(link);
   }
@@ -83,14 +83,16 @@ function SearchBar() {
         data-testid="exec-search-btn"
         onClick={ () => {
           foodOrDrink.fetchRecipe(endpoint, searchInput).then((data) => {
-            console.log(data[foodOrDrink.idType]);
-            if (data[foodOrDrink.idType] === null) {
-              alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-            } else if (data[foodOrDrink.idType].length === 1) {
+            console.log(data);
+            if (data === null) {
+              global.alert(
+                'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+              );
+            } else if (data.length === 1) {
               handleSingleReturn(data);
             } else {
               const doze = 12;
-              setResults(data[foodOrDrink.idType].slice(0, doze).map((recipe, i) => (
+              setResults(data.slice(0, doze).map((recipe, i) => (
                 <RecipeCard
                   imagePath={ recipe[`str${foodOrDrink.idRecipe}Thumb`] }
                   name={ recipe[`str${foodOrDrink.idRecipe}`] }

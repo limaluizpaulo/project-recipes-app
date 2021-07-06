@@ -12,6 +12,7 @@ import ComidasArea from './pages/ComidasArea';
 import Ingredients from './components/Ingredients';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
+import Explorar from './pages/Explorar';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route exact path="/bebidas/:id" component={ ReceitaDetalhes } />
         {/* <Route path="/comidas/:id/in-progress" component={ ReceitaEmProgresso } />
         <Route path="/bebidas/:id/in-progress" component={ ReceitaEmProgresso } /> */}
-        { /* <Route path="/explorar" component={ Explorar } /> */ }
+        <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarReceitas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarReceitas } />
         <Route exact path="/explorar/comidas/ingredientes" component={ Ingredients } />

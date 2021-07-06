@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Carousel } from 'react-bootstrap';
-import './CardsCarousel.css';
+import '../styles/CardsCarousel.css';
 
 function CardsCarousel(props) {
   const { value: { url, related } } = props;
