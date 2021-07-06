@@ -59,11 +59,6 @@ function FavoritesRecipes() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   setFavoriteList(favorites);
-  // }, [favoriteList]);
-
   const shareRecipe = (recipe, index) => {
     // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
@@ -126,7 +121,7 @@ function FavoritesRecipes() {
 
   const renderByCategory = () => (
     <main>
-      {favoriteList.filter((recipe) => recipe.type === category)
+      {favoriteList.filter((recipe, index) => recipe.type === category)
         .map((favoriteRecipe, index) => (
           <div key={ index } className="card">
             <Link to={ `${favoriteRecipe.type}s/${favoriteRecipe.id}` }>
