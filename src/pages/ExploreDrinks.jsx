@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Header, Footer } from '../components';
 import fetchRandomRecipe from '../services/api/fetchRandom';
 
 const ExploreDrinks = () => {
-  const history = useHistory();
-  const [drinks, setDrinks] = useState();
+  const [drink, setDrink] = useState();
 
   useEffect(() => {
-    const data = async () => setDrinks(await fetchRandomRecipe(false));
+    const data = async () => setDrink(await fetchRandomRecipe(false));
     data();
   }, []);
 
   return (
     <main>
       <Header name="Explorar Bebidas" />
-      <button
-        type="button"
+      <Link
         data-testid="explore-by-ingredient"
-        onClick={ () => history.push('./explorar/bebidas/ingredientes') }
+        to="/explorar/bebidas/ingredientes"
       >
         Por Ingredientes
-      </button>
-      <button
-        type="button"
+      </Link>
+      <Link
         data-testid="explore-surprise"
-        onClick={ () => history.push(`./bebidas/${drinks.drinks[0].idDrink}`) }
+        to={ (drink) ? `/bebidas/${drink.idDrink}` : '' }
       >
         Me Surpreenda!
-      </button>
+      </Link>
       <Footer />
     </main>
   );

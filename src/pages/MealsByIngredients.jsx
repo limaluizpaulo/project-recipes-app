@@ -1,12 +1,10 @@
 import React from 'react';
+import { Header } from '../components';
 
-const MealsByIngredients = () => {
-  const meals = 'ingredients';
-  return (
-    <div>
-      {meals}
-    </div>
-  );
-};
+const MealsByIngredients = () => (
+  <div>
+    <Header name="Explorar Ingredientes" />
+  </div>
+);
 
 export default MealsByIngredients;
