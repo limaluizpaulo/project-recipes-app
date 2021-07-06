@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import store, { addRecDetail, setLoading } from '../../context/store';
+import React, { useContext, useState } from 'react';
+import store from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
-import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
-import RenderRecipe from './RenderRecipe';
 
-export default function RecipeInProgress() {
-  const { id } = useParams();
-  const [ingrOK, setIngrOK] = useState(() => (getStorage('inProgressRecipes')[id] || []));
+export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }) {
+  const { recipes: { recipeDetail } } = useContext(store);
+
+  // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
   const [taskOK, setTaskOK] = useState({});
-  const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
+  const [inProgress] = useState(() => getStorage('inProgressRecipes'));
 
   const addTaskCompleted = ({ target: { checked, name } }) => {
     const setTaskCompleted = { ...taskOK, [name]: checked };
@@ -24,11 +22,11 @@ export default function RecipeInProgress() {
         return '';
       });
     setIngrOK(ingredientsOK);
-    setStorage('inProgressRecipes', {
+    setStorage('inProgressRecipes', { ...inProgress,
       [recipeDetail.idMeal || recipeDetail.idDrink]: ingredientsOK });
   };
 
-  const renderIngredients = () => {
+  const renderIngredientsInProgress = () => {
     const ingredients = Object.keys(recipeDetail)
       .filter((item) => item.includes('strIngredient'))
       .map((ingredient) => recipeDetail[ingredient])
@@ -65,34 +63,40 @@ export default function RecipeInProgress() {
     );
   };
 
-  const getRecipeDetailByID = async () => {
-    if (foods === null) {
-      setRecipes(setLoading(true));
-    } else if (foods) {
-      const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
-      setRecipes(addRecDetail(mealsDetails.meals[0]));
-      setRecipes(setLoading(false));
-    } else {
-      const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
-      setRecipes(addRecDetail(drinksDetails.drinks[0]));
-      setRecipes(setLoading(false));
-    }
+  // INGREDIENTS FOR DETAILS PAGE ---------------------------------------------------------------------------------------------
+
+  const renderIngredientsInDetails = () => {
+    const ingredients = Object.keys(recipeDetail)
+      .filter((item) => item.includes('strIngredient'))
+      .map((ingredient) => recipeDetail[ingredient])
+      .filter((ingredient) => ingredient);
+
+    const measures = Object.keys(recipeDetail)
+      .filter((item) => item.includes('strMeasure'))
+      .map((measure) => recipeDetail[measure])
+      .filter((measure) => measure);
+
+    return (
+      ingredients.map((ingredient, i) => {
+        const task = `${ingredient}: ${measures[i]}`;
+        return (
+          <div key={ i }>
+            <p
+              data-testid={ `${i}-ingredient-name-and-measure` }
+            >
+              {task}
+            </p>
+          </div>
+        );
+      })
+    );
   };
 
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    if (loading) getRecipeDetailByID();
-  });
-
   // ---------------------------------------------------------------------------------------------
-
-  if (loading) return (<h5>Loading...</h5>);
-  return (
-    <RenderRecipe
-      renderIngredients={ renderIngredients }
-      ingrOK={ ingrOK }
-    />
-  );
+  // RENDERS
+  if (inProg) return (renderIngredientsInProgress());
+  if (Details) return (renderIngredientsInDetails());
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Explorer from './common/pages/Explorer';
-import RecipeDetails from './common/components/RecipeDetails';
-import RecipeInProgress from './common/components/RecipeInProgress';
+import RecipeDetails from './common/pages/RecipeDetails';
+import RecipeInProgress from './common/pages/RecipeInProgress';
 import DoneRecipes from './common/pages/DoneRecipes';
 import Login from './common/pages/Login';
 import Profile from './common/pages/Profile';
