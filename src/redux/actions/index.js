@@ -76,6 +76,7 @@ export function getIngredient(callback) {
   return (dispatch) => callback()
     .then((ingredient) => dispatch(actionGetIngredients(ingredient)));
 }
+
 export function getCategory(category, type) {
   const actionCallback = type === 'meal'
     ? actionSortCategoriesFood : actionSortCategoriesDrink;

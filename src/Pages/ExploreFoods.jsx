@@ -1,17 +1,23 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../Components/Header';
-import { getRandom } from '../redux/actions';
+import { getIngredient, getRandom } from '../redux/actions';
 import MealRecipes from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreFoods(props) {
-  const { surpriseFood, shouldRedirect, food } = props;
+  const { ingredientsCatcher, surpriseFood, shouldRedirect, food } = props;
+
+  useEffect(() => {
+    if (!shouldRedirect) {
+      ingredientsCatcher();
+    }
+  }, [ingredientsCatcher, shouldRedirect]);
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
-    <div>
+    <>
       <Header />
       <Link
         to="/explorar/comidas/ingredientes"
@@ -36,12 +42,13 @@ function ExploreFoods(props) {
       >
         Me Surpreenda!
       </button>
-    </div>
+    </>
   );
 }
 
 const mapDispatchToProps = (dispatch) => ({
   surpriseFood: () => dispatch(getRandom(MealRecipes.surpriseFood)),
+  ingredientsCatcher: () => dispatch(getIngredient(MealRecipes.foodIngredients)),
 });
 
 const mapStateToProps = (state) => ({

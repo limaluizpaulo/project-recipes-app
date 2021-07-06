@@ -44,11 +44,18 @@ const SurpriseDrinksAPI = async () => {
   }
 };
 
+const drinksIngredientsAPI = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const response = await fetch(endpoint).then((data) => data.json());
+  return response.drinks;
+};
+
 export default {
   ingredient: BeverageServiceIngredientsAPI,
   name: BeverageServiceNameAPI,
   letter: BeverageServiceFirstLetterAPI,
   surpriseDrink: SurpriseDrinksAPI,
+  drinksIngredient: drinksIngredientsAPI,
   getByCategory: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.drinks),
