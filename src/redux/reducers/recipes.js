@@ -7,17 +7,23 @@ const recipes = (state = INITIAL_STATE, action) => {
   case 'request-success':
     return {
       ...state,
-      recipes: Object.values(action.payload)[0],
+      recipes: action.payload.recipes,
+      isFetching: action.payload.isFetching,
     };
   case 'request-error':
     return {
       ...state,
       error: action.payload.error,
     };
-  case 'is-loading':
+  case 'is-fetching':
     return {
       ...state,
-      isFetching: !state.isFetching,
+      isFetching: true,
+    };
+  case 'request-route':
+    return {
+      ...state,
+      currentRoute: action.payload,
     };
   case 'reset-recipes':
     return {

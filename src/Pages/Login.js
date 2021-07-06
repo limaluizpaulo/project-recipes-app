@@ -54,7 +54,7 @@ class Login extends React.Component {
 
     if (redirecionaParaRotaComidas) {
       return (
-        <Redirect to="/comidas" />
+        <Redirect to="/bebidas" />
       );
     }
 

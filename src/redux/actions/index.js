@@ -1,17 +1,23 @@
-import fetchComidasOuBebidas from '../../Services/index';
+import fetchComidasEBebidas from '../../Services/index';
 
 export const clearRecipes = () => ({
   type: 'reset-recipes',
 });
 
-export const requestRecipes = () => ({
-  type: 'is-loading',
+export const requestCurrentRoute = (route) => ({
+  type: 'request-route',
+  payload: route,
 });
 
-export const requestFetchSuccess = (resolve) => ({
+export const isFetching = () => ({
+  type: 'is-fetching',
+});
+
+export const requestFetchSuccess = (recipes) => ({
   type: 'request-success',
   payload: {
-    resolve,
+    recipes,
+    isFetching: false,
   },
 });
 
@@ -20,10 +26,11 @@ export const requestFetchError = (error) => ({
   payload: { error },
 });
 
-export const fetchComidasOnComponentDidMount = () => (dispatch) => {
-  dispatch(requestRecipes());
-  fetchComidasOuBebidas()
-    .then((response) => dispatch(requestFetchSuccess(response)))
-    .catch((error) => dispatch(requestFetchError(error)))
-    .then(() => dispatch(requestRecipes()));
+export const fetchComidasOnComponentDidMount = (recipeType) => (dispatch) => {
+  dispatch(isFetching());
+  fetchComidasEBebidas(recipeType)
+    .then((response) => {
+      dispatch(requestFetchSuccess(response));
+    })
+    .catch((error) => dispatch(requestFetchError(error)));
 };
