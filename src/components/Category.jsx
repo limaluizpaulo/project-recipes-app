@@ -1,15 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import FetchContext from '../context/FetchContext';
-import { filterCategoryMeals, filterCategoryDrinks } from '../services/Api';
+import {
+  filterCategoryMeals,
+  filterCategoryDrinks, fetchRecipesList, fetchDrinksList } from '../services/Api';
 
 function Category() {
   const { categories, setData, typeFunc } = useContext(FetchContext);
+  const [filters, setFilters] = useState('');
 
   const handleClick = ({ target: { value } }) => {
-    if (typeFunc === 'Foods') {
-      return filterCategoryMeals(value).then((res) => setData(res));
+    setFilters(value);
+    if (filters !== value) {
+      if (typeFunc === 'comidas') {
+        return filterCategoryMeals(value).then((res) => setData(res));
+      }
+      return filterCategoryDrinks(value).then((res) => setData(res));
     }
-    return filterCategoryDrinks(value).then((res) => setData(res));
+
+    if (typeFunc === 'comidas') {
+      return fetchRecipesList().then((res) => setData(res));
+    }
+    return fetchDrinksList().then((res) => setData(res));
   };
 
   const FOUR = 4;

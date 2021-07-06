@@ -9,18 +9,17 @@ import Category from '../components/Category';
 
 function Drinks() {
   const {
-    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories,
+    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, setIdRecip,
   } = useContext(FetchContext);
 
   Drinks.displayName = 'Bebidas';
 
-  const renderCategorys = () => {
-    categoryListDrink().then((res) => setCategories(res));
-  };
-
   useEffect(() => {
+    const renderCategorys = () => {
+      categoryListDrink().then((res) => setCategories(res));
+    };
     renderCategorys();
-  }, []);
+  }, [setCategories]);
 
   const fnAlert = (func, message) => {
     func(message);
@@ -31,19 +30,20 @@ function Drinks() {
     return fnAlert(alert, msg);
   }
 
-  if (data.length === 1 && data[0].idMeal !== '52968') {
-    return <Redirect to={ `/bebidas/${data[0].idMeal}` } />;
+  if (data.length === 1) {
+    return <Redirect to={ `/bebidas/${data[0].idDrink}` } />;
   }
 
   const renderDrinks = () => {
     setNameRecipes('strDrink');
     setImgRecipes('strDrinkThumb');
+    setIdRecip('idDrink');
     fetchDrinksList().then((res) => setData(res));
   };
 
   return (
     <div>
-      { setTypeFunc('Drinks') }
+      { setTypeFunc('bebidas') }
       <Header title={ Drinks.displayName } />
       <button
         type="button"

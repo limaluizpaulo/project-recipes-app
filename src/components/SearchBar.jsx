@@ -7,11 +7,11 @@ function SearchBar() {
   const { typeFunc, handleFoods, handleDrinks } = useContext(FetchContext);
 
   const handleClick = () => {
-    if (typeFunc === 'Foods') {
+    if (typeFunc === 'comidas') {
       return handleFoods(radioButton, searchText);
     }
 
-    if (typeFunc === 'Drinks') {
+    if (typeFunc === 'bebidas') {
       return handleDrinks(radioButton, searchText);
     }
   };

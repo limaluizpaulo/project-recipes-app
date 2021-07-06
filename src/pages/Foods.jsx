@@ -9,18 +9,18 @@ import Category from '../components/Category';
 
 function Foods() {
   const {
-    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, categories,
+    setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, setIdRecip,
   } = useContext(FetchContext);
 
   Foods.displayName = 'Comidas';
 
-  const renderCategorys = () => {
-    categoryListMeal().then((res) => setCategories(res));
-  };
-
   useEffect(() => {
+    const renderCategorys = () => {
+      categoryListMeal().then((res) => setCategories(res));
+    };
+
     renderCategorys();
-  }, []);
+  }, [setCategories]);
 
   const fnAlert = (func, message) => {
     func(message);
@@ -38,13 +38,13 @@ function Foods() {
   const renderRecipes = () => {
     setNameRecipes('strMeal');
     setImgRecipes('strMealThumb');
+    setIdRecip('idMeal');
     fetchRecipesList().then((res) => setData(res));
   };
 
   return (
     <div>
-      { setTypeFunc('Foods')}
-      {console.log(categories)}
+      { setTypeFunc('comidas')}
       <Header title={ Foods.displayName } />
       <button
         type="button"
