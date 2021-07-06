@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { buscaReceita } from '../services/servicesApi';
 
-function DetailsReceita() {
-  // const { match: { params: { id } } } = props;
-  // console.log(id);
+function DetailsReceita(props) {
+  const { match: { params: { id } } } = props;
+  const rotaAtual = useLocation().pathname;
+  const [apelidoAPI] = rotaAtual.match(/\w+/);
+  const [teste, setTeste] = useState({ apelidoAPI, input: id });
+  const [receita, setReceita] = useState({});
+
+  useEffect(() => {
+    const didMount = async () => {
+      const respostaApi = await buscaReceita(teste);
+      setReceita(respostaApi);
+    };
+    didMount();
+    console.log(receita);
+  }, [teste]);
+
   return (
     <div data-testid="0-">
       {/* {id} */}
@@ -13,8 +29,12 @@ function DetailsReceita() {
   );
 }
 
-// DetailsReceita.propTypes = {
-//   match: PropTypes.objectOf(id.any).isRequired,
-// };
+DetailsReceita.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default DetailsReceita;

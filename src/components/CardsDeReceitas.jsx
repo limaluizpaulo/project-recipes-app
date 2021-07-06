@@ -1,33 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function CardsDeReceitas({ receitas, typeReceita }) {
-  const renderCard = (id, strThumb, str) => (
-    <Col key={ id }>
-      <Card data-testid={ `${id}-recipe-card` }>
-        <Card.Img
-          variant="top"
-          src={ strThumb }
-          alt={ str }
-          data-testid={ `${id}-card-img` }
-        />
-        <Card.Body>
-          <Card.Title
-            data-testid={ `${id}-card-name` }
-          >
-            { str }
-          </Card.Title>
-        </Card.Body>
-      </Card>
-    </Col>
+  const renderCard = (key, strThumb, str, id) => (
+    <Link to={ `/${typeReceita}/${id}` }>
+      <Col key={ key }>
+        <Card data-testid={ `${key}-recipe-card` }>
+          <Card.Img
+            variant="top"
+            src={ strThumb }
+            alt={ str }
+            data-testid={ `${key}-card-img` }
+          />
+          <Card.Body>
+            <Card.Title
+              data-testid={ `${key}-card-name` }
+            >
+              { str }
+            </Card.Title>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Link>
   );
 
   if (typeReceita === 'bebidas') {
     return (
       <Row xs={ 2 } md={ 4 }>
-        {receitas.map(({ strDrinkThumb, strDrink }, index) => (
-          renderCard(index, strDrinkThumb, strDrink)
+        {receitas.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+          renderCard(index, strDrinkThumb, strDrink, idDrink)
         ))}
       </Row>
     );
@@ -36,8 +39,8 @@ function CardsDeReceitas({ receitas, typeReceita }) {
   if (typeReceita === 'comidas') {
     return (
       <Row xs={ 2 } md={ 4 }>
-        {receitas.map(({ strMealThumb, strMeal }, index) => (
-          renderCard(index, strMealThumb, strMeal)
+        {receitas.map(({ strMealThumb, strMeal, idMeal }, index) => (
+          renderCard(index, strMealThumb, strMeal, idMeal)
         ))}
       </Row>
     );

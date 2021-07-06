@@ -59,7 +59,7 @@ function App() {
           <Route exect path="/perfil" component={ Perfil } />
           <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
-          {/* <Route component={ Erro404 } /> */}
+          <Route component={ Erro404 } />
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>
