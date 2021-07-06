@@ -37,6 +37,13 @@
   font-weight: 900;
 }
 
+.footer {
+  background-color: aliceblue;
+  bottom: 0;
+  display: block;
+  position: fixed;
+}
+
 @keyframes shake {
 
   0% {
@@ -51,6 +58,7 @@
     transform: rotate(5deg);
   }
 }
+
 
 @keyframes clink {
 

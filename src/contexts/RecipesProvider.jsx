@@ -70,7 +70,6 @@ function RecipesProvider({ children }) {
 
   return (
     <RecipesContext.Provider value={ context }>
-      {/* {console.log(pathname)} */}
       {children}
     </RecipesContext.Provider>
   );

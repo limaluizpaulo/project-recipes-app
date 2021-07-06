@@ -17,7 +17,7 @@ function App() {
       {/* <Route path="/explorar/comidas/area" component={ ExplorarArea } /> */}
       {/* <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } /> */}
-      <Route exact path="/explorar" component={ Explorar } />
+      <Route path="/explorar" component={ Explorar } />
       <Route exact path="/perfil" component={ Perfil } />
       {/* <Route path="/receitas-feitas" component={ ReceitasFeitas } /> */}
       {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
