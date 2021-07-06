@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login, Meals, Drinks, Done,
   Favorites, Profile, Explore, ExploreMeals, ExploreDrinks,
   MealsDetails, MealsByIngredients, DrinksDetails, DrinksByIngredients,
-  MealsByArea, Done } from './pages';
+  MealsByArea } from './pages';
 
 // import rockGlass from './images/rockGlass.svg';
 
