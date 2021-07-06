@@ -12,6 +12,7 @@ function DetalhesComidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -29,8 +30,7 @@ function DetalhesComidas({ match }) {
 
   function copyFunction() {
     clipboardCopy(`http://localhost:3000${pathToCopy}`);
-
-    return alert('Link copiado!');
+    setCopied(true);
   }
 
   function renderButtons() {
@@ -39,6 +39,7 @@ function DetalhesComidas({ match }) {
         <button data-testid="share-btn" type="button" onClick={ copyFunction }>
           <img src={ shareIcon } alt="share icon" />
         </button>
+        {copied ? <span>Link copiado!</span> : null}
         <button type="button">
           <img src={ whiteHeartIcon } alt="favorite icon" data-testid="favorite-btn" />
         </button>
