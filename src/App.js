@@ -13,6 +13,7 @@ import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Perfil from './pages/Perfil';
+import DetailsReceita from './pages/DetailsReceita';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,8 +27,14 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Receitas } />
           <Route exact path="/bebidas" component={ Receitas } />
-          <Route path="/comidas/{id-da-receita}" component={ Erro404 } />
-          <Route path="/bebidas/{id-da-receita}" component={ Erro404 } />
+          <Route
+            path="/comidas/:id"
+            render={ (props) => <DetailsReceita { ...props } /> }
+          />
+          <Route
+            path="/bebidas/:id"
+            render={ (props) => <DetailsReceita { ...props } /> }
+          />
           <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route exect path="/explorar" component={ Explorar } />
@@ -45,6 +52,7 @@ function App() {
           <Route exect path="/perfil" component={ Perfil } />
           <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          {/* <Route component={ Erro404 } /> */}
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>
