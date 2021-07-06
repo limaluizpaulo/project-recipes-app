@@ -26,8 +26,9 @@ function DoneRecipes() {
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
 
   useEffect(() => {
-    setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
-    setAllRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+    const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+    setDoneRecipes(!doneRecipesLocal ? [] : doneRecipesLocal);
+    setAllRecipes(!doneRecipesLocal ? [] : doneRecipesLocal);
   }, []);
 
   const shareClick = (id, type) => {
