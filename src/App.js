@@ -18,6 +18,7 @@ import DetailsReceita from './pages/DetailsReceita';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Receitas from './pages/Receitas';
+import ReceitaEmProgresso from './pages/ReceitaEmProgresso';
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
           <Route exact path="/comidas" component={ Receitas } />
           <Route exact path="/bebidas" component={ Receitas } />
           <Route
+            path="/comidas/:id/in-progress"
+            render={ (props) => <ReceitaEmProgresso { ...props } /> }
+          />
+          <Route
+            path="/comidas/:id/in-progress"
+            render={ (props) => <ReceitaEmProgresso { ...props } /> }
+          />
+          <Route
             path="/comidas/:id"
             render={ (props) => <DetailsReceita { ...props } /> }
           />
@@ -35,8 +44,6 @@ function App() {
             path="/bebidas/:id"
             render={ (props) => <DetailsReceita { ...props } /> }
           />
-          <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />
-          <Route path="/bebidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route exect path="/explorar" component={ Explorar } />
           <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
