@@ -1,6 +1,6 @@
 .login {
   align-items: center;
-  background-color: var(--melon-color);
+  background: linear-gradient(180deg, var(--melon-color) 39.06%, rgba(232, 175, 159, 0) 100%);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -79,7 +79,7 @@
 }
 
 .login__button:hover {
-  
+
 }
 
 /*
