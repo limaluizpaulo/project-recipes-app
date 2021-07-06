@@ -20,32 +20,20 @@ export default function Recommended() {
 
   function next() {
     if (visible[1] === NUMBER_OF_ITEMS - 1) {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([NUMBER_OF_ITEMS - 1, 0]);
     } else if (visible[1] === 0) {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([1, 2]);
     } else {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([visible[0] + 1, visible[1] + 1]);
     }
   }
 
   function prev() {
     if (visible[0] === 0) {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([NUMBER_OF_ITEMS - 1, 0]);
     } else if (visible[1] === 0) {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([visible[0] - 1, NUMBER_OF_ITEMS - 1]);
     } else {
-      console.log(visible[0]);
-      console.log(visible[1]);
       setVisible([visible[0] - 1, visible[1] - 1]);
     }
   }
@@ -56,8 +44,10 @@ export default function Recommended() {
         <button
           type="button"
           onClick={ () => prev() }
+          className="btn-prev"
         >
-          prev
+          &gt;
+
         </button>
         {
           recipes.slice(0, NUMBER_OF_ITEMS)
@@ -67,18 +57,28 @@ export default function Recommended() {
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
-                <Link to={ `/comidas/${recipe.idMeal}` }>
+                <Link
+                  to={ `/comidas/${recipe.idMeal}` }
+                  style={ { textDecoration: 'none' } }
+                >
                   <img
                     data-testid={ `${index}-recomendation-card` }
                     src={ recipe.strMealThumb }
                     alt={ recipe.strMeal }
                   />
                   <span
+                    data-testid="recipe-category"
+                    className="recomendation-category"
+                  >
+                    { recipe.strCategory }
+
+                  </span>
+                  <span
                     data-testid={ `${index}-recomendation-title` }
+                    className="recomendation-title"
                   >
                     {recipe.strMeal}
                   </span>
-                  <span data-testid="recipe-category">{ recipe.strCategory }</span>
                 </Link>
               </div>
             ))
@@ -86,8 +86,9 @@ export default function Recommended() {
         <button
           type="button"
           onClick={ () => next() }
+          className="btn-next"
         >
-          next
+          &lt;
         </button>
       </div>
     </section>
@@ -98,8 +99,9 @@ export default function Recommended() {
         <button
           type="button"
           onClick={ () => prev() }
+          className="btn-prev"
         >
-          prev
+          &gt;
         </button>
         {
           drinks.slice(0, NUMBER_OF_ITEMS)
@@ -116,11 +118,18 @@ export default function Recommended() {
                     alt={ drink.strDrink }
                   />
                   <span
+                    data-testid="recipe-category"
+                    className="recomendation-category"
+                  >
+                    { drink.strCategory }
+
+                  </span>
+                  <span
                     data-testid={ `${index}-recomendation-title` }
+                    className="recomendation-title"
                   >
                     {drink.strDrink}
                   </span>
-                  <span data-testid="recipe-category">{ drink.strCategory }</span>
                 </Link>
               </div>
             ))
@@ -128,8 +137,9 @@ export default function Recommended() {
         <button
           type="button"
           onClick={ () => prev() }
+          className="btn-next"
         >
-          prev
+          &lt;
         </button>
       </div>
     </section>

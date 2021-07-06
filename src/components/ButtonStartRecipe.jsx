@@ -18,6 +18,7 @@ export default function ButtonStartRecipe() {
   const style = {
     position: 'fixed',
     bottom: 0,
+    left: '50vw',
   };
 
   const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
