@@ -101,7 +101,7 @@ function Food() {
               alt={ `imagem de ${item}` }
               id={ item.idMeal }
             />
-            <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+            {/* <p data-testid={ `${index}-card-name` }>{item.strMeal}</p> */}
             <h5
               data-testid={ `${index}-card-name` }
               className="card-title"

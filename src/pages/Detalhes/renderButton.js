@@ -5,8 +5,10 @@ function renderButton(page, item, history) {
   if (page === 'comidas') {
     const redirection = () => {
       history.push(`/comidas/${item.idMeal}/in-progress`);
+      const savedRecipes = JSON.parse(localStorage.inProgressRecipes);
       const inProgressRecipes = {
         meals: {
+          ...savedRecipes.meals,
           [item.idMeal]: [],
         },
       };
@@ -34,8 +36,10 @@ function renderButton(page, item, history) {
   if (page === 'bebidas') {
     const redirection = () => {
       history.push(`/bebidas/${item.idDrink}/in-progress`);
+      const savedRecipes = JSON.parse(localStorage.inProgressRecipes);
       const inProgressRecipes = {
         drinks: {
+          ...savedRecipes.drinks,
           [item.idDrink]: [],
         },
       };
