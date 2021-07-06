@@ -22,30 +22,34 @@ const Login = ({ history }) => {
   };
   return (
     <div>
-      <h1>Login</h1>
       <div>
-        <input
-          data-testid="email-input"
-          value={ email }
-          onChange={ ({ target: { value } }) => handleInputChange(
-            setEmail, checkEmail, value,
-          ) }
-          type="email"
-          name="email"
-          placeholder="Email"
-        />
+        <label htmlFor="email">
+          <input
+            id="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ ({ target: { value } }) => handleInputChange(
+              setEmail, checkEmail, value,
+            ) }
+            type="email"
+            name="email"
+            placeholder="Email"
+          />
+        </label>
       </div>
       <div>
-        <input
-          data-testid="password-input"
-          value={ password }
-          onChange={ ({ target: { value } }) => handleInputChange(
-            setPassword, checkPassword, value,
-          ) }
-          type="password"
-          name="password"
-          placeholder="Senha"
-        />
+        <label htmlFor="password">
+          <input
+            data-testid="password-input"
+            value={ password }
+            onChange={ ({ target: { value } }) => handleInputChange(
+              setPassword, checkPassword, value,
+            ) }
+            type="password"
+            name="password"
+            placeholder="Senha"
+          />
+        </label>
       </div>
       <button
         data-testid="login-submit-btn"
