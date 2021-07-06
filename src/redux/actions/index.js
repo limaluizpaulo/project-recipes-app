@@ -55,6 +55,8 @@ const actionSortCategoriesDrink = (payload) => ({
   payload,
 });
 
+// const actionGetDefault = (payload) => ({})
+
 export function getFoods(value, callback) {
   return (dispatch) => callback(value)
     .then((food) => dispatch(actionGetFoods(food)));
