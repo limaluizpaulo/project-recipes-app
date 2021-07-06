@@ -5,10 +5,16 @@ import {
   fetchByFirstLetter,
 } from '../services';
 
+export async function getRecipes(params) {
+  const { type, setFn } = params;
+  const result = await fetchByName(type);
+  setFn(result);
+}
+
 export async function getFilteredRecipes(params) {
   const { filter, type, searchTerm, setFn } = params;
-
   let result;
+
   if (filter === 'ingredient') {
     result = await fetchByIngredient(type, searchTerm);
   } else if (filter === 'name') {
@@ -17,20 +23,16 @@ export async function getFilteredRecipes(params) {
     result = await fetchByFirstLetter(type, searchTerm);
   } else {
     invokeAlert('Sua busca deve conter somente 1 (um) caracter');
+    return [];
   }
 
   if (!result) {
     invokeAlert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return [];
   }
+
   setFn(result);
   return result;
-}
-
-export async function getRecipes(params) {
-  const { type, setFn } = params;
-  const result = await fetchByName(type);
-  setFn(result);
 }
 
 export function toggleFavorite(params) {
@@ -42,13 +44,13 @@ export function toggleFavorite(params) {
   const imgKey = isDrink ? 'strDrinkThumb' : 'strMealThumb';
 
   const formattedRecipe = {
-    id: recipe[idKey],
-    type: typeCypress,
+    alcoholicOrNot: recipe.strAlcoholic || '',
     area: recipe.strArea || '',
     category: recipe.strCategory,
-    alcoholicOrNot: recipe.strAlcoholic || '',
-    name: recipe[nameKey],
+    id: recipe[idKey],
     image: recipe[imgKey],
+    name: recipe[nameKey],
+    type: typeCypress,
   };
 
   const isFavorite = favorites.some((item) => item.id === recipe[idKey]);

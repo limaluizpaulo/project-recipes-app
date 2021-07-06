@@ -17,9 +17,9 @@ function DrinksProvider({ children }) {
 
   async function getCategories() {
     const MAX_ITEMS = 5;
-    const data = await fetchCategories('drinks');
+    const result = await fetchCategories('drinks');
 
-    const categoryNames = data
+    const categoryNames = result
       .filter((item, index) => item && index < MAX_ITEMS)
       .map((item) => item.strCategory);
 

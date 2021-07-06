@@ -4,16 +4,17 @@ import { useHistory, useParams } from 'react-router-dom';
 import UserContext from '../context/user.context';
 import RecipeInProgress from '../components/RecipeInProgress';
 
-function DetalhesBebida() {
-  const { location: { pathname }, push } = useHistory();
-  let [ingredients, setIngredients] = useState([]);
+function InProgress() {
   const { inProgress } = useContext(UserContext);
+  let [ingredients, setIngredients] = useState([]);
+  const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
   const typeKey = isDrinks ? 'cocktails' : 'meals';
   let usedIngredients = inProgress[typeKey][id];
 
+  // Cypress bug
   if (!ingredients) ingredients = [];
   if (!usedIngredients) usedIngredients = [];
 
@@ -45,4 +46,4 @@ function DetalhesBebida() {
   );
 }
 
-export default DetalhesBebida;
+export default InProgress;

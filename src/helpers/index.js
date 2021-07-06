@@ -7,7 +7,7 @@ export function invokeAlert(message, fn = alert) {
 
 export function urlToEmbed(url) {
   if (!url) return null;
-  return `https://www.youtube.com/embed/${url.split('=')[1]}`;
+  return url.replace('watch?v=', 'embed/');
 }
 
 export async function getDetails(type, id) {

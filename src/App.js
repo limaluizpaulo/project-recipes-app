@@ -13,9 +13,9 @@ import Explorar from './pages/explorar';
 import ExplorarComidaOuBebida from './pages/explorar/ExplorarComidaOuBedida';
 import ExplorarPorIngredientes from './pages/explorar/ingredientes';
 import ExplorarPorArea from './pages/explorar/area';
-import Perfil from './pages/perfil';
-import ReceitasFeitas from './pages/receitas-feitas';
-import ReceitasFavoritas from './pages/receitas-favoritas';
+import Profile from './pages/Profile';
+import Done from './pages/Done';
+import Favorites from './pages/Favorites';
 import './App.css';
 
 function App() {
@@ -46,9 +46,9 @@ function App() {
         />
         <Route exact path="/explorar/comidas/area" component={ ExplorarPorArea } />
         <Route exact path="/explorar/bebidas/area" component={ ExplorarPorArea } />
-        <Route exact path="/perfil" component={ Perfil } />
-        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/receitas-feitas" component={ Done } />
+        <Route exact path="/receitas-favoritas" component={ Favorites } />
       </Switch>
     </BrowserRouter>
   );

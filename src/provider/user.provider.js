@@ -8,7 +8,7 @@ function UserProvider({ children }) {
   const localDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const initialObj = { cocktails: {}, meals: {} };
   const localInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
-    || initialObj;
+      || initialObj;
 
   const [userEmail, setUserEmail] = useState('');
   const [favorites, setFavorites] = useState(localFavorites);
@@ -30,20 +30,6 @@ function UserProvider({ children }) {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-
-    if (!localStorage.getItem('inProgressRecipes')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
-    }
-
-    if (!localStorage.getItem('doneRecipes')) {
-      localStorage.setItem('doneRecipes', JSON.stringify([]));
-    }
-  }, [initialObj]);
-
-  useEffect(() => {
     localStorage.setItem('user', JSON.stringify({ email: userEmail }));
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('mealsToken', 1);
@@ -58,7 +44,6 @@ function UserProvider({ children }) {
   }, [done]);
 
   useEffect(() => {
-    console.log('setei: ', inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   }, [inProgress]);
 

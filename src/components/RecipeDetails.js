@@ -7,7 +7,7 @@ import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  const [details, setDetails] = useState({});
+  let [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const { location: { pathname } } = useHistory();
@@ -18,7 +18,7 @@ function RecipeDetails() {
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
 
-  // if (!details) setDetails({ imgKey }); // Cypress bug
+  if (!details) details = {}; // Cypress bug
 
   useEffect(() => {
     async function setter() {

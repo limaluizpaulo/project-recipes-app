@@ -1,7 +1,8 @@
 import React from 'react';
-import Header from '../../components/Header';
 
-function ReceitasFavoritas() {
+import Header from '../components/Header';
+
+function Favorites() {
   return (
     <div>
       <Header title="Receitas Favoritas" showSearchIcon={ false } />
@@ -10,4 +11,4 @@ function ReceitasFavoritas() {
   );
 }
 
-export default ReceitasFavoritas;
+export default Favorites;

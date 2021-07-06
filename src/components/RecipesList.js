@@ -8,13 +8,13 @@ import './RecipesList.css';
 
 function RecipesList() {
   const MAX_CARDS = 12;
-  const { drinks, setDrinks } = useContext(DrinksContext);
-  const { meals, setMeals } = useContext(MealsContext);
+  let { drinks, setDrinks } = useContext(DrinksContext);
+  let { meals, setMeals } = useContext(MealsContext);
   const { location: { pathname }, push } = useHistory();
 
   // Cypress bug
-  // if (!drinks) drinks = [];
-  // if (!meals) meals = [];
+  if (!drinks) drinks = [];
+  if (!meals) meals = [];
 
   const isDrinks = pathname.includes('bebidas');
   const recipes = isDrinks ? [...drinks] : [...meals];

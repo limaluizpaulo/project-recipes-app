@@ -11,11 +11,9 @@ import './RecipeDetails.css';
 
 function RecipeDetails({ ingredients, setIngredients }) {
   const { inProgress, setInProgress } = useContext(UserContext);
-  const [details, setDetails] = useState({});
+  let [details, setDetails] = useState({});
   const [measures, setMeasures] = useState([]);
-  const {
-    location: { pathname },
-  } = useHistory();
+  const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
@@ -25,7 +23,7 @@ function RecipeDetails({ ingredients, setIngredients }) {
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
   const usedIngredients = inProgress[typeObj][id] || [];
 
-  // if (!details) setDetails({ imgKey }); // Cypress bug
+  if (!details) details = {}; // Cypress bug
 
   useEffect(() => {
     async function setter() {
@@ -36,16 +34,6 @@ function RecipeDetails({ ingredients, setIngredients }) {
     }
     setter();
   }, [id, setIngredients, type]);
-
-  function handleCheck({ target: { name } }) {
-    const params = {
-      recipe: details,
-      ingredient: name,
-      inProgress,
-      setInProgress,
-    };
-    toggleIngredient(params);
-  }
 
   function renderIngredients() {
     return (
@@ -59,11 +47,16 @@ function RecipeDetails({ ingredients, setIngredients }) {
                 name={ ingredient }
                 key={ index }
                 type="checkbox"
-                onClick={ (e) => handleCheck(e) }
+                onClick={ ({ target: { name } }) => toggleIngredient({
+                  recipe: details,
+                  ingredient: name,
+                  inProgress,
+                  setInProgress,
+                }) }
                 defaultChecked={ wasUsed }
               />
               {ingredient}
-              {measures[index] && `- ${measures[index]}`}
+              {measures[index] && ` - ${measures[index]}`}
             </li>
           );
         })}

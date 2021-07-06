@@ -18,10 +18,6 @@ function SearchBar() {
   const idKey = isDrinks ? 'idDrink' : 'idMeal';
   const setFn = isDrinks ? setDrinks : setMeals;
 
-  function handleChange({ target: { value } }) {
-    setSearchTerm(value);
-  }
-
   async function handleClick() {
     const recipes = await getFilteredRecipes({ filter, type, searchTerm, setFn });
     if (recipes.length === 1) push(`/${typePt}/${recipes[0][idKey]}`);
@@ -34,7 +30,7 @@ function SearchBar() {
           type="text"
           id="search-input"
           name="search-input"
-          onChange={ handleChange }
+          onChange={ ({ target: { value } }) => setSearchTerm(value) }
           data-testid="search-input"
         />
       </div>
@@ -43,6 +39,7 @@ function SearchBar() {
           <input
             type="radio"
             id="ingredient-search-radio"
+            className="text-input"
             name="search-radio"
             onChange={ () => setFilter('ingredient') }
             defaultChecked

@@ -1,41 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
+import UserContext from '../context/user.context';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesCarousel from '../components/RecipesCarousel';
 
 function Details() {
-  const history = useHistory();
-  const { location: { pathname }, push } = history;
+  const { done, inProgress, setInProgress } = useContext(UserContext);
+  const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
   const typeKey = isDrinks ? 'cocktails' : 'meals';
+  const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const isDone = done.some((item) => item.id === id);
 
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const isDone = doneRecipes.some((item) => item.id === id);
-
-  const initialObj = { cocktails: {}, meals: {} };
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
-    || initialObj;
-  const inProgressIds = [];
-
-  if (Object.keys(inProgressRecipes).includes('cocktails')) {
-    inProgressIds.push(Object.keys(inProgressRecipes.cocktails));
+  let inProgressIds = [];
+  if (Object.keys(inProgress).includes('cocktails')) {
+    inProgressIds = [...Object.keys(inProgress.cocktails)];
   }
-  if (Object.keys(inProgressRecipes).includes('meals')) {
-    inProgressIds.push(Object.keys(inProgressRecipes.meals));
+  if (Object.keys(inProgress).includes('meals')) {
+    inProgressIds = [...inProgressIds, ...Object.keys(inProgress.meals)];
   }
 
-  const inProgress = inProgressIds.some((item) => Number(item) === Number(id));
+  const isInProgress = inProgressIds.some((item) => Number(item) === Number(id));
 
   function handleClick() {
-    if (!inProgress) {
-      console.log(inProgressRecipes, typeKey);
-      inProgressRecipes[typeKey][id] = [];
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    if (!isInProgress) {
+      const newObj = { ...inProgress };
+      newObj[typeKey][id] = [];
+      setInProgress(newObj);
     }
-    push(`${pathname}/in-progress`);
+    push(`/${typePt}/${id}/in-progress`);
   }
 
   function renderStartButton() {
@@ -46,7 +42,7 @@ function Details() {
         onClick={ handleClick }
         data-testid="start-recipe-btn"
       >
-        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+        {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     );
   }
