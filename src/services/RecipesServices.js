@@ -64,6 +64,12 @@ export async function fetchRandomRecipe() {
   return response;
 }
 
+export async function fetchRecipeById(id) {
+  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(URL)
+    .then((res) => res.json())
+    .then(({ meals = [] }) => meals[0]);
+}
 export async function fetchIngredientsRecipes() {
   const request = await fetch(API_URL_INGREDIENTS);
   const response = await request.json();

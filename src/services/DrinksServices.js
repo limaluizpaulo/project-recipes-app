@@ -64,6 +64,12 @@ export async function fetchRandomDrink() {
   return response;
 }
 
+export async function fetchDrinkById(id) {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(URL)
+    .then((res) => res.json())
+    .then(({ drinks = [] }) => drinks[0]);
+}
 export async function fetchIngredientsDrinks() {
   const request = await fetch(API_URL_INGREDIENTS);
   const response = await request.json();
