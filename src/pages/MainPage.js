@@ -22,8 +22,8 @@ export default function MainPage() {
   const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
 
-  const lintChato = dataResult && searchByCategory
-    ? console.log('yayyy... Vamos usar elas depois')
+  const lintChato = searchByCategory
+    ? console.log('yayyy... Vamo usar ela depois')
     : console.log('Droga de lint');
 
   useEffect(() => {
