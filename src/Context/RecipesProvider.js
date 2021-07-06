@@ -6,6 +6,10 @@ function RecipesProvider({ children }) {
   const [login, setLogin] = useState([]);
   const [responseApiLupaMeal, setResponseApiLupaMeal] = useState([]);
   const [resposeApiLupaDrink, setResponseApiLupaDrink] = useState([]);
+  const [categoryMeals, setCategoryMeals] = useState([]);
+  const [categoryDrink, setCategoryDrink] = useState([]);
+  const [redirect, setRedirect] = useState(true);
+  const [toogle, setToogle] = useState(false);
 
   const context = {
     login,
@@ -14,6 +18,14 @@ function RecipesProvider({ children }) {
     setResponseApiLupaMeal,
     resposeApiLupaDrink,
     setResponseApiLupaDrink,
+    categoryMeals,
+    setCategoryMeals,
+    categoryDrink,
+    setCategoryDrink,
+    redirect,
+    setRedirect,
+    toogle,
+    setToogle,
   };
   return (
     <RecipesContext.Provider value={ context }>

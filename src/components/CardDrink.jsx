@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import RecipesContext from '../Context/RecipesContext';
+import CategoryDrinks from './CategoryDrinks';
 
 export default function CardDrink() {
-  const { resposeApiLupaDrink } = useContext(RecipesContext);
-  const history = useHistory();
+  const { resposeApiLupaDrink, redirect } = useContext(RecipesContext);
   const twelve = 12;
   let arrayDrink = resposeApiLupaDrink;
 
@@ -15,23 +15,27 @@ export default function CardDrink() {
   if (resposeApiLupaDrink.length > twelve) {
     arrayDrink = resposeApiLupaDrink.filter((_e, index) => index < twelve);
   }
-  if (resposeApiLupaDrink.length === 1) {
+  if (resposeApiLupaDrink.length === 1 && redirect) {
     const { idDrink } = resposeApiLupaDrink[0];
-    return history.push(`/bebidas/${idDrink}`);
+    return <Redirect to={ `/bebidas/${idDrink}` } />;
   }
   return (
     <main>
+      <CategoryDrinks />
       <ul>
         {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-          <li key={ idDrink } data-testid={ `${index}-recipe-card` }>
-            <img
-              width="80px"
-              src={ strDrinkThumb }
-              alt="imagem da bebida"
-              data-testid={ `${index}-card-img` }
-            />
-            <div data-testid={ `${index}-card-name` }>{ strDrink }</div>
-          </li>))}
+          <Link to={ `/bebidas/${idDrink}` } key={ index }>
+            <li key={ idDrink } data-testid={ `${index}-recipe-card` }>
+              <img
+                width="80px"
+                src={ strDrinkThumb }
+                alt="imagem da bebida"
+                data-testid={ `${index}-card-img` }
+              />
+              <div data-testid={ `${index}-card-name` }>{ strDrink }</div>
+            </li>
+          </Link>
+        ))}
       </ul>
     </main>
   );

@@ -3,9 +3,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Lupa from './Lupa';
+// import RecipesContext from '../Context/RecipesContext';
 
 function Header() {
   const [toggleSearch, setToggleSearch] = useState(false);
+  // const { setRedirect } = useContext(RecipesContext);
   const history = useHistory();
   const { pathname } = useLocation();
   const condicionRenderingTitle = () => {
