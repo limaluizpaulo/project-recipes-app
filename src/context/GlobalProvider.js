@@ -18,12 +18,14 @@ function GlobalProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
   const [details, setDetails] = useState({});
+  const [recomendationsDrinks, setRecomendationsDrinks] = useState();
 
   useEffect(() => {
     async function fetchState() {
       setCategories(await getCategories());
       setMeals(await getMealsRecipes());
       setDrinks(await getDrinksRecipes());
+      setRecomendationsDrinks(await getDrinksRecipes());
     } fetchState();
   }, []);
 
@@ -103,6 +105,7 @@ function GlobalProvider({ children }) {
     drinks,
     categories,
     details,
+    recomendationsDrinks,
     handleChange,
     syncSetState,
     manageRenderMeal,

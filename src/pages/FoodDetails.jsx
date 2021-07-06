@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -9,12 +10,15 @@ function FoodDetails({ match: { params: { id } } }) {
     details,
     detailsSyncSetState,
     generateIngredientsAndMeasure,
+    recomendationsDrinks,
   } = useContext(Context);
 
   let IngredientsAndMeasures = {};
-  if (details.meals) {
-    IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
-  }
+  // if (details.meals && recomendationsDrinks) {
+  //   IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
+  //   const a = recomendationsDrinks.slice(0, 5);
+  //   console.log(a);
+  // }
 
   useEffect(() => {
     if (!details.meals) {
@@ -23,7 +27,7 @@ function FoodDetails({ match: { params: { id } } }) {
     }
   }, [details.meals, detailsSyncSetState, id]);
 
-  function loopArray() {
+  function loopIngredientsAndMeasure() {
     const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
       mealArray.map((_a, index) => (
@@ -34,13 +38,26 @@ function FoodDetails({ match: { params: { id } } }) {
           <div data-testid={ `${index}-ingredient-name-and-measure` }>
             {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
           </div>
-          <div data-testid={ `${index}-recomendation-card` } />
         </section>
       ))
     );
   }
 
-  if (details.meals) {
+  const loopRecomendationsDrinks = () => (
+    recomendationsDrinks.map((eachDrink, index) => (
+      <div
+        key={ index }
+        data-testid={ `${index}-recomendation-card` }
+      >
+        <h3 data-testid={ `${index}-recomendation-title` }>
+
+          Teste
+        </h3>
+      </div>
+    ))
+  );
+
+  if (details.meals && recomendationsDrinks) {
     const {
       strMealThumb,
       strMeal,
@@ -48,6 +65,9 @@ function FoodDetails({ match: { params: { id } } }) {
       strCategory,
       strYoutube,
     } = details.meals[0];
+    IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
+    const a = recomendationsDrinks.slice(0, 5);
+    console.log(a);
     return (
       <main>
         <img data-testid="recipe-photo" src={ strMealThumb } alt="Meal" width="200px" />
@@ -66,7 +86,8 @@ function FoodDetails({ match: { params: { id } } }) {
         </button>
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
-        {loopArray()}
+        {loopIngredientsAndMeasure()}
+        {loopRecomendationsDrinks()}
         <iframe
           data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
@@ -76,6 +97,43 @@ function FoodDetails({ match: { params: { id } } }) {
         <button type="button" data-testid="start-recipe-btn">
           Começar
         </button>
+        <Carousel activeIndex="2">
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="holder.js/800x400?text=First slide&bg=373940"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="holder.js/800x400?text=Second slide&bg=282c34"
+              alt="Second slide"
+            />
+
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src="holder.js/800x400?text=Third slide&bg=20232a"
+              alt="Third slide"
+            />
+
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
       </main>
     );
   }
