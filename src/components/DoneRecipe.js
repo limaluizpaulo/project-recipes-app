@@ -15,7 +15,7 @@ function DoneRecipe({ recipe: {
         />
       </div>
       <div>
-        <p data-testid={ `${index}-horizontal-top-text` }>{type === 'comida' ? `${area} - ${category}` : category }</p>
+        <p data-testid={ `${index}-horizontal-top-text` }>{type === 'comida' ? `${area} - ${category}` : `${alcoholicOrNot} - ${category}` }</p>
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
         {tags.map((tag, i) => (
