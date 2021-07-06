@@ -14,6 +14,7 @@ class Detalhes extends Component {
       favIcon: false,
       favIconColor: whiteHeartIcon,
     };
+    this.handleFavClick = this.handleFavClick.bind(this);
   }
 
   handleFavClick() {
@@ -66,6 +67,7 @@ class Detalhes extends Component {
               className="details-btn-favorite"
               type="button"
               data-testid="favorite-btn"
+              onClick={ this.handleFavClick }
             >
               <img src={ favIconColor } alt={ favIconColor } />
             </button>
