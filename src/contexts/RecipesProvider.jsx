@@ -11,7 +11,6 @@ import {
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [type, setType] = useState('meals');
-  // const [mealsCategories, setMealsCategories] = useState([]);
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 

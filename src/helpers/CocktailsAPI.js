@@ -2,6 +2,9 @@ import getAPI from './api';
 
 const COCKTAILS_API = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
+// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
+// https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+
 export const getCocktailsRecipes = () => (
   getAPI(COCKTAILS_API, 'search.php?s=', 'drinks')
 );

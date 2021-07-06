@@ -7,16 +7,16 @@ const MEALS_API = {
 // https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
 
 export const getMealsRecipes = (type = 'meals') => getAPI(
-  MEALS_API[type], 'search.php?s=', 'meals',
+  MEALS_API[type], 'search.php?s=', type,
 );
 export const getMealsCategories = (type = 'meals') => getAPI(
-  MEALS_API[type], 'list.php?c=list', 'meals',
+  MEALS_API[type], 'list.php?c=list', type,
 );
 export const getMealsAreas = (type = 'meals') => getAPI(
-  MEALS_API[type], 'list.php?a=list', 'meals',
+  MEALS_API[type], 'list.php?a=list', type,
 );
 export const getMealsIngredients = (type = 'meals') => getAPI(
-  MEALS_API[type], 'list.php?i=list', 'meals',
+  MEALS_API[type], 'list.php?i=list', type,
 );
 export const getMealsIngredientsFilter = (filter, type = 'meals') => getAPI(
   MEALS_API[type],
@@ -30,3 +30,7 @@ export const getMealsFirstLetterFilter = (filter, type = 'meals') => getAPI(
 );
 export const getMealsByCategory = (category, type = 'meals') => getAPI(MEALS_API[type],
   'filter.php?c=', type, category);
+
+export const getMealById = (id, type = 'meals') => getAPI(MEALS_API[type],
+  'lookup.php?i=',
+  type, id);
