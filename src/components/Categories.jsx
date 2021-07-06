@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '../helpers/Button';
 import RecipesContext from '../contexts/RecipesContext';
