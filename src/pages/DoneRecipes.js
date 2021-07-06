@@ -17,13 +17,9 @@ function DoneRecipes() {
       </div>
       {recipesToMap.map((recipe, index) => (
         <DoneRecipe
-          key={ recipe.id }
-          image={ recipe.image }
+          key={ index }
+          recipe={ recipe }
           index={ index }
-          category={ recipe.category }
-          recipeName={ recipe.name }
-          recipeDate={ recipe.doneDate }
-          recipeTags={ recipe.tags }
         />))}
     </div>
   );

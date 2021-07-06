@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shareIcon from '../images/shareIcon.svg';
 
-function DoneRecipe({ image, index, category, recipeName, recipeDate, recipeTags }) {
+function DoneRecipe({ recipe: {
+  id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
+  console.log(type);
   return (
     <div>
       <div>
@@ -12,24 +15,23 @@ function DoneRecipe({ image, index, category, recipeName, recipeDate, recipeTags
         />
       </div>
       <div>
-        <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-        <p data-testid={ `${index}-horizontal-name` }>{recipeName}</p>
-        <p data-testid={ `${index}-horizontal-done-date` }>{recipeDate}</p>
-        {recipeTags.map((tag, i) => (
+        <p data-testid={ `${index}-horizontal-top-text` }>{type === 'comida' ? `${area} - ${category}` : category }</p>
+        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+        {tags.map((tag, i) => (
           <p
             key={ i }
             data-testid={ `${index}-${tag}-horizontal-tag` }
           >
             {tag}
           </p>))}
-        <button
-          type="button"
+        <img
+          src={ shareIcon }
+          alt="share icon"
           data-testid={
             `${index}-horizontal-share-btn`
           }
-        >
-          Compartilhar
-        </button>
+        />
       </div>
     </div>
   );
@@ -37,11 +39,16 @@ function DoneRecipe({ image, index, category, recipeName, recipeDate, recipeTags
 
 DoneRecipe.propTypes = {
   index: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  recipeDate: PropTypes.string.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  recipeTags: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    area: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
 };
 
 export default DoneRecipe;
