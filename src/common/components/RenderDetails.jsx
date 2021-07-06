@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import RecipeIngredients from './RecipeIngredients';
@@ -6,8 +6,10 @@ import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 import RecommendedRecipes from './RecommendedRecipes';
 import store from '../../context/store';
+import { getStorage, setStorage } from '../../functions';
 
-export default function RenderDetails() {
+export default function RenderDetails({ btnFinish }) {
+  const [inProgress] = useState(() => getStorage('inProgressRecipes'));
   const { recipes: { foods, recipeDetail } } = useContext(store);
 
   const renderRecipe = () => (
@@ -30,7 +32,9 @@ export default function RenderDetails() {
         </div>
         <h5 data-testid="recipe-category">
           Categoria:
-          { recipeDetail.strCategory }
+          { (foods) ? recipeDetail.strCategory : (
+            recipeDetail.strAlcoholic
+          ) }
         </h5>
       </div>
       <div>
@@ -68,8 +72,11 @@ export default function RenderDetails() {
         <button
           type="button"
           data-testid="start-recipe-btn"
+          className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
+          onClick={ () => setStorage('inProgressRecipes', { ...inProgress,
+            [recipeDetail.idMeal || recipeDetail.idDrink]: [] }) }
         >
-          Iniciar Receita
+          {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
       </Link>
     </div>

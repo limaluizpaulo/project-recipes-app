@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import store from '../../context/store';
-import { setStorage } from '../../functions';
+import { getStorage, setStorage } from '../../functions';
 
 export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }) {
   const { recipes: { recipeDetail } } = useContext(store);
 
   // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
   const [taskOK, setTaskOK] = useState({});
+  const [inProgress] = useState(() => getStorage('inProgressRecipes'));
 
   const addTaskCompleted = ({ target: { checked, name } }) => {
     const setTaskCompleted = { ...taskOK, [name]: checked };
@@ -21,7 +22,7 @@ export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }
         return '';
       });
     setIngrOK(ingredientsOK);
-    setStorage('inProgressRecipes', {
+    setStorage('inProgressRecipes', { ...inProgress,
       [recipeDetail.idMeal || recipeDetail.idDrink]: ingredientsOK });
   };
 

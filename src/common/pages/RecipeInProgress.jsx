@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import store, { addRecDetail, setLoading } from '../../context/store';
-import { getStorage } from '../../functions';
+import { getStorage, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import RecipeIngredients from '../components/RecipeIngredients';
 import LikeButton from '../components/LikeButton';
@@ -10,6 +10,7 @@ import ShareButton from '../components/ShareButton';
 export default function RecipeInProgress() {
   const { id } = useParams();
   const [disabledBtn, setDisabledBtn] = useState(true);
+  const [doneRecipes] = useState(() => getStorage('doneRecipes'));
   const [ingrOK, setIngrOK] = useState(() => (getStorage('inProgressRecipes')[id] || []));
   const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
 
@@ -24,6 +25,19 @@ export default function RecipeInProgress() {
     } else {
       setDisabledBtn(true);
     }
+  };
+
+  const addDoneRecipe = () => {
+    const removedInProgress = getStorage('inProgressRecipes');
+    delete removedInProgress[id];
+    setStorage('inProgressRecipes', removedInProgress);
+
+    setStorage('doneRecipes', [...doneRecipes, { id }]);
+    // const doneRecipeInLS = getStorage('doneRecipes');
+    // const checkDoneRecipe = doneRecipeInLS.find((item) => item.id === id);
+    // if (!checkDoneRecipe) {
+    //   setStorage('doneRecipes', [...doneRecipes, { id }]);
+    // }
   };
 
   const renderRecipe = () => (
@@ -66,6 +80,8 @@ export default function RecipeInProgress() {
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ disabledBtn }
+          onClick={ addDoneRecipe }
+          style={ { cursor: 'pointer' } }
         >
           Finalizar Receita
         </button>

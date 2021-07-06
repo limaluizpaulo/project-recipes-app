@@ -50,24 +50,23 @@ export default function RecommendedRecipes() {
               'slide active') : ('slide') }
             data-testid={ `${index}-recomendation-card` }
           >
-            {((index === firstImg || index === secondImg) && (
-              <div className="imgTitle">
-                <img
-                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                  alt="recipe-img"
-                  className="recommendedImg"
-                />
-                <h4
-                  data-testid={ `${index}-recomendation-title` }
-                  className="recommendedTitle"
-                >
-                  {
-                    recipe.strMeal || recipe.strDrink
-                  }
-                </h4>
-              </div>
-            )
-            )}
+            <div
+              className="imgTitle"
+            >
+              <img
+                src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                alt="recipe-img"
+                className="recommendedImg"
+              />
+              <h4
+                data-testid={ `${index}-recomendation-title` }
+                className="recommendedTitle"
+              >
+                {
+                  recipe.strMeal || recipe.strDrink
+                }
+              </h4>
+            </div>
           </div>
         ))}
         <FaArrowAltCircleRight className="right-arrow" onClick={ nextSlide } />

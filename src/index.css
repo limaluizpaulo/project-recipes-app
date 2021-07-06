@@ -156,13 +156,6 @@ body, button {
   width: 850px;
 }
 
-.imgTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .recommendedImg {
   width: 300px;
   margin: 30px 30px -10px 30px;
@@ -198,17 +191,41 @@ body, button {
   z-index: 1;
 }
 
+.imgTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .slide {
-  opacity: 0;
+  display: none;
+  /* opacity: 0; */
   transition: all 1.5s ease;
 }
 
 .active {
-  opacity: 1;
+  display: block;
+  /* opacity: 1; */
   height: 380px;
   border-radius: 10px;
   transform: scale(1.08);
   transition: all 1.5s ease;
+}
+
+
+/*  ====================================================================================================================================*/
+/* DETAILS PAGE ===========================================================================================================*/
+.btnFinishNone {
+  display: none;
+  cursor: pointer;
+}
+
+.btnFinish {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
 }
 
 /*  ====================================================================================================================================*/
