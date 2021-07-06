@@ -34,6 +34,7 @@ function SearchFood({ recipe, dispRecipeList }) {
       });
     }
   };
+
   function clickAPI() {
     // console.log(choice, text);
     if (choice === 'ingredient') {

@@ -3,10 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function RecipeList({ status, list }) {
-  console.log(list);
+  // console.log(list);
+
   const type = Object.keys(list)[0];
   const NUMBER = 12;
-  console.log(type);
+  // console.log(type);
   return (
     <div>
       { status && list[type].slice(0, NUMBER).map((element, index) => (
@@ -28,9 +29,9 @@ function RecipeList({ status, list }) {
 }
 
 RecipeList.propTypes = {
-  list: PropTypes.shape.isRequired,
-  status: PropTypes.bool.isRequired,
-};
+  list: PropTypes.shape,
+  status: PropTypes.bool,
+}.isRequired;
 
 const mapStateToProps = ({ recipeList: { status, list } }) => ({
   status,

@@ -2,7 +2,7 @@ import { SHOW_RECIPE_LIST } from '../actions';
 
 const INITIAL_STATE = {
   status: false,
-  list: [],
+  list: {},
 };
 
 const recipeList = (state = INITIAL_STATE, action) => {
