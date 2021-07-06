@@ -14,7 +14,7 @@ class RecipeInProgress extends React.Component {
     this.state = {
       recipeDetails: {},
       checked: [],
-      copied: false,
+      // copied: false,
       // ingredients: [],
     };
 
@@ -78,7 +78,7 @@ class RecipeInProgress extends React.Component {
   }
 
   copyLink() {
-    this.setState({ copied: true });
+    //  this.setState({ copied: true });
     const { location: { pathname } } = this.props;
     const path = pathname.split('/in-progress');
 
