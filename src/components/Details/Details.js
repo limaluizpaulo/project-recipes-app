@@ -8,7 +8,7 @@ import './style/Details.css';
 import RecipesContext from '../../context/RecipesContext';
 
 function Details({ id, mealsOrDrinks }) {
-  const { startedRecipes, startRecipe } = useContext(RecipesContext);
+  const { startedRecipes, localstorageSaveRecipe } = useContext(RecipesContext);
 
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
@@ -98,10 +98,13 @@ function Details({ id, mealsOrDrinks }) {
   }, []);
 
   useEffect(() => {
-    const found = startedRecipes.find((element) => (
-      element.idMeal === id || element.idDrink === id
-    ));
-    if (found) setAlreadyStarted(true);
+    const arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (arrayOfRecipes) {
+      const found = arrayOfRecipes.find((element) => (
+        element.id === id
+      ));
+      if (found) setAlreadyStarted(true);
+    }
   }, [startedRecipes]);
 
   return (
@@ -173,21 +176,16 @@ function Details({ id, mealsOrDrinks }) {
             )
             : null
         }
-        {
-          !alreadyStarted
-            ? (
-              <button
-                type="button"
-                data-testid="start-recipe-btn"
-                className="start-recipe"
-                onClick={ () => { startRecipe(recipe); } }
-              >
-                Iniciar Receita
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+          onClick={ () => { localstorageSaveRecipe(recipe); } }
+          hidden={ alreadyStarted }
+        >
+          Iniciar Receita
 
-              </button>
-            )
-            : null
-        }
+        </button>
 
       </section>
     </>

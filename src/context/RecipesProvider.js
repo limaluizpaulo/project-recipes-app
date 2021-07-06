@@ -86,18 +86,8 @@ function RecipesProvider({ children }) {
     };
     let arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     arrayOfRecipes = [...arrayOfRecipes, recipeObj];
-    localStorage.setItem('doneRecipes', JSON.stringify(arrayOfRecipes));
-  };
-
-  const startRecipe = (recipe) => {
-    let arrayOfRecipes = [...startedRecipes];
-    arrayOfRecipes = [
-      ...arrayOfRecipes,
-      recipe,
-    ];
-
     setStartedRecipes(arrayOfRecipes);
-    localstorageSaveRecipe(recipe);
+    localStorage.setItem('doneRecipes', JSON.stringify(arrayOfRecipes));
   };
 
   const context = {
@@ -117,11 +107,13 @@ function RecipesProvider({ children }) {
     lookDetailsRecipe,
     getInitialRecipes,
     startedRecipes,
-    startRecipe,
+    localstorageSaveRecipe,
   };
 
   useEffect(() => {
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    if (!(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
   }, []);
 
   useEffect(() => {
