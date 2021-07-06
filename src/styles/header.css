@@ -7,8 +7,12 @@
 
 .search-container {
   align-items: center;
+  border-bottom: 1px rgb(161, 155, 155) solid;
+  box-shadow: 3px 3px 2px rgba(150, 144, 144, 0.932) ;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 1%;
+  padding-bottom: 2%;
   justify-content: center;
 }
 
@@ -34,6 +38,6 @@
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   width: 98%;
 }
