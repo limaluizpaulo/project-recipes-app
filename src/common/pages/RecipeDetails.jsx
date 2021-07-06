@@ -38,7 +38,6 @@ export default function RecipeDetails() {
 
     const checkDoneRecipes = doneRecipeInLS.find((item) => item.id === id);
     const checkinProgress = Object.keys(inProgressInLS).length;
-    console.log(checkinProgress, 'inProgress');
     // !checkcheckDoneRecipes &&  !checkinProgress: undefined = "Iniciar Receita"
     // checkcheckDoneRecipes : true = "Receita Feita" -> Desaparecer com o botão
     // checkcheckinProgress : true = "Receita Iniciada" -> Continuar receita
