@@ -75,10 +75,10 @@ ul {
 .finish-recipe {
   background: #6ce34f;
   border: none;
-  height: 50px;
   border-radius: 4px;
+  height: 50px;
+  font-weight: 600;
   margin-left: 10px;
   margin-right: 10px;
-  font-weight: 600;
   width: 99%;
 }
