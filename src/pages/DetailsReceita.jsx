@@ -1,30 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita } from '../services/servicesApi';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
   const rotaAtual = useLocation().pathname;
   const [apelidoAPI] = rotaAtual.match(/\w+/);
-  const [teste, setTeste] = useState({ apelidoAPI, input: id });
+  const [teste] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
 
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(teste);
       setReceita(respostaApi);
+      console.log(respostaApi);
     };
     didMount();
-    console.log(receita);
   }, [teste]);
+
+  function ingredientes(i) {
+    const vinte = 20;
+    for (let index = 0; index < vinte; index += 1) {
+      if (i[`strIngredient${index}`] !== '') {
+        console.log(i[`strIngredient${index}`], i[`strMeasure${index}`]);
+        // <div>oi</div>;
+      }
+    }
+  }
 
   return (
     <div data-testid="0-">
-      {/* {id} */}
-      <button type="button" data-testid="start-recipe-btn">
-        Go
-      </button>
+      <h2 data-testid="recipe-title">{receita.strArea}</h2>
+      <h3 data-testid="recipe-category">{receita.strCategory}</h3>
+      <img
+        data-testid="recipe-photo"
+        src={ receita.strMealThumb }
+        alt={ receita.strArea }
+      />
+      {ingredientes(receita)}
+      <p data-testid="instructions">{receita.strInstructions}</p>
+      <iframe title={ receita.strArea } src={ receita.strYoutube } />
+
+      <Link to="/">
+        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+      </Link>
+
+      <Link to="/">
+        <img data-testid="share-btn" src={ shareIcon } alt="" />
+      </Link>
+
+      {/*
+
+Os ingredientes devem possuir o atributo data-testid="${index}-ingredient-name-and-measure";
+
+ */}
+
+      <Link data-testid="start-recipe-btn" to="/">
+        iniciar receita
+      </Link>
+      {/* <spam data-testid="${index}-recomendation-card">receitas recomendadas</spam> */}
+
     </div>
   );
 }
