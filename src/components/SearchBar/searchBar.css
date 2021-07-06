@@ -1,7 +1,9 @@
 .searchBar {
   background-color: #a37357;
   padding: 3px;
+  position: absolute;
   width: 100%;
+  z-index: 1;
 }
 
 .searchBar form {
@@ -13,10 +15,10 @@
   width: 100%;
 }
 
-.searchBar input[ type = text ] {
+.search-input {
   width: 95%;
 }
 
-.radio-buttons input[ type = radio ] {
+.radio-buttons input {
   margin: 3px;
 }
