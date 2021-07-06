@@ -1,20 +1,20 @@
 // data[newFoodRecipe.Id]
-const foodRecipe = {
+const dictionaryFood = {
   info: {
     Id: 'idMeal',
-    Name: '',
-    DrinkAlternate: '',
-    Category: '',
-    Area: '',
-    MealThumb: '',
-    Tags: '',
-    Youtube: '',
+    Name: 'strMeal',
+    DrinkAlternate: 'strDrinkAlternate',
+    Category: 'strCategory',
+    Area: 'strArea',
+    MealThumb: 'strMealThumb',
+    Tags: 'strTags',
+    Youtube: 'strYoutube',
     Source: '',
     ImageSource: '',
     CreativeCommonsConfirmed: '',
     dateModified: '',
   },
-  Instructions: '',
+  Instructions: 'strInstructions',
   Igredients: {
     Ingredient1: '',
     Ingredient2: '',
@@ -59,4 +59,4 @@ const foodRecipe = {
   },
 };
 
-export default foodRecipe;
+export default dictionaryFood;

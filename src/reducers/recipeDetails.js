@@ -5,6 +5,8 @@ import {
 
 const INITIAL_STATE = {
   details: [],
+  foodDatails: {},
+  drinkDatails: {},
 };
 
 const recipeDetails = (state = INITIAL_STATE, action) => {
@@ -12,12 +14,12 @@ const recipeDetails = (state = INITIAL_STATE, action) => {
   case RECIPE_DETAILS_FOOD:
     return {
       ...state,
-      details: action.mealsDetails,
+      foodDatails: action.mealsDetails,
     };
   case RECIPE_DETAILS_DRINK:
     return {
       ...state,
-      details: action.drinksDetails,
+      drinkDatails: action.drinksDetails,
     };
   default:
     return state;

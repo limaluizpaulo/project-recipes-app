@@ -199,9 +199,7 @@ export const fetchFoodDetails = (id) => (dispatch) => {
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((response) => response.json())
     .then((foodDetails) => {
-      const details = foodDetails.meals[0];
-      console.log(Object.assign(details, foodData));
-      // dispatch(getFoodDetails(foodDetails.meals[0]));
+      dispatch(getFoodDetails(foodDetails.meals[0]));
     });
 };
 

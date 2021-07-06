@@ -3,7 +3,6 @@ import {
   IS_LOADING,
   ALL_FOOD_RECIPES,
   FOOD_BY_CATEGORIES,
-  RECIPE_DETAILS,
 } from '../action';
 
 const INITIAL_STATE = {
