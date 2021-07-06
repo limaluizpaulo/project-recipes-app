@@ -19,8 +19,9 @@ class Detalhes extends Component {
   }
 
   handleFavClick() {
-    const { favIcon } = this.state;
-    if (!favIcon) {
+    const { getFavIcon, addFavIcon } = this.props;
+    if (!getFavIcon) {
+      addFavicon(false);
       this.setState({
         favIconColor: blackHeartIcon,
         favIcon: true,
