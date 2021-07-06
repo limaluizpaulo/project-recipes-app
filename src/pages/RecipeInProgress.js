@@ -4,27 +4,24 @@ import PropTypes from 'prop-types';
 import copy from 'copy-to-clipboard';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/whiteHeartIcon.svg';
-
 import '../css/RecipeDetails.css';
 
 class RecipeInProgress extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       recipeDetails: {},
       checked: [],
       copied: false,
       finaliza: false,
       redireciona: false,
-      // ingredients: [],
     };
-
     this.getIngredients = this.getIngredients.bind(this);
     this.changeState = this.changeState.bind(this);
     this.copyLink = this.copyLink.bind(this);
     this.redireciona = this.redireciona.bind(this);
     this.salvaLocal = this.salvaLocal.bind(this);
+    this.recuperaItens = this.recuperaItens.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +30,6 @@ class RecipeInProgress extends React.Component {
     const { match: { params: { bebidaId } } } = this.props;
     const db = meals ? 'themealdb' : 'thecocktaildb';
     const id = meals ? comidaId : bebidaId;
-
     const URL = `https://www.${db}.com/api/json/v1/1/lookup.php?i=${id}`;
     fetch(URL)
       .then((response) => response.json())
@@ -41,21 +37,8 @@ class RecipeInProgress extends React.Component {
         const { meals: comida, drinks } = retorno;
         const recipeDetails = comida || drinks;
         this.setState({ recipeDetails });
-      })
-      .then(() => {
-        const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        if (recipes && (recipes.meals[id] || recipes.cocktails[id])) {
-          if (meals && recipes.meals[id]) {
-            this.setState({
-              checked: recipes.meals[id],
-            });
-          } else if (!meals && recipes.cocktails[id]) {
-            this.setState({
-              checked: recipes.cocktails[id],
-            });
-          }
-        }
       });
+    this.recuperaItens();
   }
 
   getIngredients() {
@@ -97,6 +80,25 @@ class RecipeInProgress extends React.Component {
     }
   }
 
+  recuperaItens() {
+    const { meals } = this.props;
+    const { match: { params: { comidaId } } } = this.props;
+    const { match: { params: { bebidaId } } } = this.props;
+    const id = meals ? comidaId : bebidaId;
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (recipes && (recipes.meals[id] || recipes.cocktails[id])) {
+      if (meals && recipes.meals[id]) {
+        this.setState({
+          checked: recipes.meals[id],
+        });
+      } else if (!meals && recipes.cocktails[id]) {
+        this.setState({
+          checked: recipes.cocktails[id],
+        });
+      }
+    }
+  }
+
   copyLink() {
     this.setState({ copied: true });
     const { location: { pathname } } = this.props;
@@ -110,7 +112,6 @@ class RecipeInProgress extends React.Component {
     const verificaChecked = checked.find(
       (e) => e === param || 0,
     ) === param || 0 ? true : null;
-
     if (verificaChecked) {
       this.setState({
         checked: checked.filter((e) => e !== param || 0),
@@ -122,11 +123,9 @@ class RecipeInProgress extends React.Component {
       }));
       this.salvaLocal(param);
     }
-
     const chaves = Object.entries(recipeDetails[0]);
     const ingredientes = chaves.filter((key) => (
       key[0].includes('strIngredient') && (key[1] !== null && key[1] !== '')));
-
     if (ingredientes.length === checked.length + 1) {
       this.setState({
         finaliza: true,
@@ -141,7 +140,6 @@ class RecipeInProgress extends React.Component {
     const { match: { params: { bebidaId } } } = this.props;
     const id = meals ? comidaId : bebidaId;
     const remove = typeof param === 'object';
-
     if (meals) {
       const mealsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (mealsLocal) {
@@ -175,7 +173,6 @@ class RecipeInProgress extends React.Component {
   render() {
     const { recipeDetails, copied, finaliza, redireciona } = this.state;
     if (redireciona) return <Redirect to="/receitas-feitas" />;
-
     return (
       recipeDetails[0] ? (
         <section>
@@ -230,7 +227,6 @@ class RecipeInProgress extends React.Component {
           >
             Finalizar Receita
           </button>
-
         </section>
       ) : null
     );
