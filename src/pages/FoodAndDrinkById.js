@@ -29,7 +29,8 @@ export default function FoodAndDrinkById() {
       const URL_RECOMENDATION = `https://www.${recDomain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
       const recResolved = await fetchAPI(URL_RECOMENDATION);
-      setSingleContent(...resolved[firstKey]);
+
+      setSingleContent(resolved[firstKey]);
       setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
       const list = [];
       Object.entries(...resolved[firstKey]).forEach((el) => {
