@@ -43,18 +43,15 @@ class RecipeInProgress extends React.Component {
         this.setState({ recipeDetails });
       })
       .then(() => {
-        const mealsLocal = JSON.parse(localStorage.inProgressRecipes);
-        console.log(mealsLocal);
-        const drinksLocal = JSON.parse(localStorage.inProgressRecipes);
-        console.log(drinksLocal);
-        if (mealsLocal.meals[id] || drinksLocal.cocktails[id]) {
-          if (meals && mealsLocal.meals[id]) {
+        const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        if (recipes && (recipes.meals[id] || recipes.cocktails[id])) {
+          if (meals && recipes.meals[id]) {
             this.setState({
-              checked: mealsLocal.meals[id],
+              checked: recipes.meals[id],
             });
-          } else if (!meals && drinksLocal.cocktails[id]) {
+          } else if (!meals && recipes.cocktails[id]) {
             this.setState({
-              checked: drinksLocal.cocktails[id],
+              checked: recipes.cocktails[id],
             });
           }
         }
@@ -88,7 +85,7 @@ class RecipeInProgress extends React.Component {
                   type="checkbox"
                   id="key"
                   data-testid={ `${index}-ingredient-name-and-measure` }
-                  defaultChecked={ findChecked }
+                  checked={ findChecked }
                   onClick={ () => this.changeState(index) }
                 />
                 {`${ingrediente[1]}-${apenasMedidas[index]}`}
@@ -108,6 +105,7 @@ class RecipeInProgress extends React.Component {
   }
 
   changeState(param) {
+    localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
     const { checked, recipeDetails } = this.state;
     const verificaChecked = checked.find(
       (e) => e === param || 0,
@@ -145,8 +143,7 @@ class RecipeInProgress extends React.Component {
     const remove = typeof param === 'object';
 
     if (meals) {
-      const mealsLocal = JSON.parse(localStorage.inProgressRecipes);
-      console.log(mealsLocal);
+      const mealsLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (mealsLocal) {
         localStorage.inProgressRecipes = JSON.stringify({
           ...mealsLocal,
@@ -157,7 +154,7 @@ class RecipeInProgress extends React.Component {
         });
       }
     } else {
-      const drinksLocal = JSON.parse(localStorage.inProgressRecipes);
+      const drinksLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
       console.log(drinksLocal);
       if (drinksLocal) {
         localStorage.inProgressRecipes = JSON.stringify({
