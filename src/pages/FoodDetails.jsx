@@ -11,6 +11,11 @@ function FoodDetails({ match: { params: { id } } }) {
     generateIngredientsAndMeasure,
   } = useContext(Context);
 
+  let IngredientsAndMeasures = {};
+  if (details.meals) {
+    IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
+  }
+
   useEffect(() => {
     if (!details.meals) {
       detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -19,29 +24,21 @@ function FoodDetails({ match: { params: { id } } }) {
   }, [details.meals, detailsSyncSetState, id]);
 
   function loopArray() {
-    const mealArray = Object.entries(details.meals[0]);
-    let count = -1;
-    const EIGHT = 8;
+    console.log(IngredientsAndMeasures);
+    const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
-      mealArray.map((forEachArray, index) => {
-        if (forEachArray[0] === `strIngredient${index - EIGHT}`
-          && forEachArray[1] !== ''
-          && forEachArray[1] !== null) {
-          count += 1;
-          return (
-            <section key={ `ingredientAndMeasure${count}` }>
-              <div data-testid={ `${count}-ingredient-name-and-measure` }>
-                {details.meals[0][`strIngredient${count}`]}
-              </div>
-              <div data-testid={ `${count}-ingredient-name-and-measure` }>
-                {details.meals[0][`strMeasure${count}`]}
-              </div>
-              <div data-testid={ `${count}-recomendation-card` } />
-            </section>
-          );
-        }
-        return null;
-      }));
+      mealArray.map((index) => (
+        <section key={ `ingredientAndMeasure${index + 1}` }>
+          <div data-testid={ `${index + 1}-ingredient-name-and-measure` }>
+            {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
+          </div>
+          <div data-testid={ `${index + 1}-ingredient-name-and-measure` }>
+            {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
+          </div>
+          <div data-testid={ `${index}-recomendation-card` } />
+        </section>
+      ))
+    );
   }
 
   if (details.meals) {
@@ -80,7 +77,6 @@ function FoodDetails({ match: { params: { id } } }) {
         <button type="button" data-testid="start-recipe-btn">
           Começar
         </button>
-        {generateIngredientsAndMeasure(details.meals[0])}
       </main>
     );
   }
