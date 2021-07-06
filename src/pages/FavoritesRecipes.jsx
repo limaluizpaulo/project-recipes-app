@@ -74,6 +74,21 @@ function FavoritesRecipes() {
     setFavoriteList(newFav);
   };
 
+  const unfavoriteFilteredRecipe = (id) => {
+    const favoritos = favoriteList;
+    const filtered = favoritos.find((rcp) => rcp.id === id);
+    console.log(filtered);
+    for (let i = 0; i < favoritos.length; i += 1) {
+      if (favoritos[i] === filtered) {
+        favoritos.splice(i, 1);
+      }
+    }
+    console.log(favoritos);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritos));
+    const newFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavoriteList(newFav);
+  };
+
   const renderAllRecipes = () => (
     <main>
       {favoriteList.map((favoriteRecipe, index) => (
@@ -139,7 +154,7 @@ function FavoritesRecipes() {
               {' - '}
               {favoriteRecipe.category}
             </h6>
-            <button type="button" onClick={ () => unfavoriteRecipe(index) }>
+            <button type="button" onClick={ () => unfavoriteFilteredRecipe(favoriteRecipe.id) }>
               <img
                 src={ unfavIcon }
                 alt="unfav"
