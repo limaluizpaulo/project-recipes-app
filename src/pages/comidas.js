@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import RecipeDetails from '../components/RecipeDetails';
 
 import { fetchFoodIdAction, fetchDrinkAction } from '../actions';
@@ -16,7 +15,9 @@ class comidas extends Component {
   }
 
   render() {
-    const { recipeDetails, recipes } = this.props;
+    const { location: { pathname } } = this.props;
+    const { recipeDetails, recipes, match: { params: { comidaId } } } = this.props;
+
     return (
       recipeDetails && recipes ? (
         <section>
@@ -25,6 +26,8 @@ class comidas extends Component {
             recipeDetails={ recipeDetails }
             title="Comidas"
             recipes={ recipes }
+            link={ pathname }
+            id={ comidaId }
           />
         </section>
       )

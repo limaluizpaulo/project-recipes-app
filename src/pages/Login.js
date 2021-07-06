@@ -31,6 +31,7 @@ class Login extends React.Component {
       localStorage.user = JSON.stringify({
         email,
       });
+      localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
       history.push('/comidas');
     };
 
