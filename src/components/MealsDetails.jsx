@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
-import RecipesContext from '../Context/RecipesContext';
+import { fetchAllDrinks } from '../Service/drinkApi';
 
 export default function MealsDetails() {
   const [stateMeals, setStateMeals] = useState([{}]);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
   const { pathname } = useLocation();
-  const { resposeApiLupaDrink } = useContext(RecipesContext);
+  const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -29,6 +29,7 @@ export default function MealsDetails() {
   const getApiDetails = () => {
     const id = pathname.split('/')[2];
     fetchIdMeals(id).then((result) => setStateMeals(result));
+    fetchAllDrinks().then((result) => setDrinksAll(result.filter((_e, i) => i < 6));
   };
 
   useEffect(getApiDetails, []);
@@ -84,39 +85,19 @@ export default function MealsDetails() {
         autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-pict"
       />
       <Carousel>
-        <Carousel.Item interval={ 1000 }>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item interval={ 500 }>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="Second slide"
-          />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {drinksAll.map((drink, index) => (
+          <Carousel.Item interval={ 1000 } key={ index }>
+            <img
+              className="d-block w-100"
+              src={ drink.strDrinkThumb }
+              alt="First slide"
+              width="100px"
+
+            />
+            <Carousel.Caption>
+              <h3>{drink.strDrink}</h3>
+            </Carousel.Caption>
+          </Carousel.Item>))}
       </Carousel>
       {/* slide de receitas recomendadas de drinks
        com data-testid="${index}-recomendation-card" */}

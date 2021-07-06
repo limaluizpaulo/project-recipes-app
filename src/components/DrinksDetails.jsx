@@ -63,9 +63,7 @@ export default function DrinksDetails() {
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ measur }
-          >
-            { measur }
-          </li>))}
+          />))}
       </ul>
       <h2>Instruções</h2>
       <p data-testid="instructions">
