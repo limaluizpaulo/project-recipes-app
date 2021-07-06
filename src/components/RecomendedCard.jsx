@@ -8,7 +8,6 @@ function RecomendedCard(props) {
 
   const totalCards = 6;
   const cards = recipes.filter((elem, index) => index < totalCards);
-  console.log(cards);
 
   return cards.map((recipe, index) => (
     <div
