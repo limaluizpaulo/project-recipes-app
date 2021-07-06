@@ -10,7 +10,7 @@ function ListaCategoriasReceitas() {
   const { setParametrosBusca, parametrosBusca } = useContext(AppReceitasContext);
 
   const handleClick = (strCategory) => {
-    if (parametrosBusca.input !== strCategory) {
+    if ((strCategory !== 'All') && (parametrosBusca.input !== strCategory)) {
       setParametrosBusca({ flag: 'c', apelidoAPI, input: strCategory });
     } else {
       setParametrosBusca({ apelidoAPI, flag: 's', input: '' });
@@ -29,6 +29,13 @@ function ListaCategoriasReceitas() {
           {strCategory}
         </button>
       ))}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => handleClick('All') }
+      >
+        All
+      </button>
     </>
   );
 }
