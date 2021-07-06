@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
 import { getDetails } from '../helpers';
 import { toggleIngredient } from '../helpers/provider';
@@ -9,24 +9,26 @@ import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
-function RecipeDetails({ ingredients, setIngredients }) {
+function RecipeDetails() {
   const { inProgress, setInProgress } = useContext(UserContext);
-  const [details, setDetails] = useState({});
-  const [measures, setMeasures] = useState([]);
-  const { location: { pathname } } = useHistory();
-  const { id } = useParams();
-
-  const isDrinks = pathname.includes('bebidas');
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typeObj = isDrinks ? 'cocktails' : 'meals';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const usedIngredients = inProgress[typeObj][id] || [];
+  const {
+    type,
+    details,
+    setDetails,
+    ingredients,
+    setIngredients,
+    contentParams,
+    measures,
+    setMeasures,
+    imgKey,
+    nameKey,
+    usedIngredients,
+    isDrinks,
+  } = useContext(DetailsContext);
 
   useEffect(() => {
     async function setter() {
-      const result = await getDetails(type, id);
-      console.log(result);
+      const result = await getDetails(type, contentParams.id);
       if (result[0]) {
         setDetails(result[0]);
         setIngredients(result[1]);
@@ -34,7 +36,7 @@ function RecipeDetails({ ingredients, setIngredients }) {
       }
     }
     setter();
-  }, [id, setIngredients, type]);
+  }, [contentParams.id, setDetails, setIngredients, setMeasures, type]);
 
   function renderIngredients() {
     return (

@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
-import { urlToEmbed, getDetails } from '../helpers';
+import DetailsContext from '../context/details.context';
+import { urlToEmbed } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  const [details, setDetails] = useState({});
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
+  const {
+    details,
+    ingredients,
+    measures,
+    imgKey,
+    nameKey,
+    isDrinks,
+    setContentParams,
+  } = useContext(DetailsContext);
+
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  const isDrinks = pathname.includes('bebidas');
-  const type = isDrinks ? 'drinks' : 'meals';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-
   useEffect(() => {
-    async function setter() {
-      const result = await getDetails(type, id);
-      console.log(result);
-      if (result[0]) {
-        setDetails(result[0]);
-        setIngredients(result[1]);
-        setMeasures(result[2]);
-      }
-    }
-    setter();
-  }, [id, type]);
+    setContentParams({ id, pathname });
+  }, [id, pathname, setContentParams]);
 
   function renderIngredients() {
     return (

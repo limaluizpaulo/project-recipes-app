@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
+import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
 import RecipeInProgress from '../components/RecipeInProgress';
 
 function InProgress() {
   const { inProgress } = useContext(UserContext);
-  const [ingredients, setIngredients] = useState([]);
+  const { ingredients } = useContext(DetailsContext);
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
 
@@ -47,7 +48,7 @@ function InProgress() {
 
   return (
     <main>
-      <RecipeInProgress ingredients={ ingredients } setIngredients={ setIngredients } />
+      <RecipeInProgress />
       {renderFinishButton()}
     </main>
   );
