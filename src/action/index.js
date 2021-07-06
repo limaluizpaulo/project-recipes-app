@@ -12,6 +12,7 @@ export const ALL_FOOD_RECIPES = 'ALL_FOOD_RECIPES';
 export const FOOD_BY_CATEGORIES = 'FOOD_BY_CATEGORIES';
 export const ALL_DRINKS_RECIPES = 'ALL_DRINKS_RECIPES';
 export const DRINK_BY_CATEGORIES = 'DRINK_BY_CATEGORIES';
+export const RECIPE_DETAILS = 'RECIPE_DETAILS';
 
 export const addEmail = (email) => ({ type: USER_EMAIL, email });
 export const isLoading = () => ({ type: IS_LOADING });
@@ -27,6 +28,8 @@ export const getAllFoodRecipes = (recipes) => ({
   type: ALL_FOOD_RECIPES, recipes });
 export const getFoodByCategories = (meals) => ({
   type: FOOD_BY_CATEGORIES, meals });
+export const getFoodDetails = (mealsDetails) => ({
+  type: RECIPE_DETAILS, mealsDetails });
 export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
@@ -55,8 +58,8 @@ export const fetchApiDrinkCategories = () => (dispatch) => {
 };
 
 export const fetchFoodRecipes = (name = '') => (dispatch) => {
-  const maxRecipes = 12;
   dispatch(isLoading());
+  const maxRecipes = 12;
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
     .then((response) => response.json())
     .then((allFood) => {
@@ -103,7 +106,6 @@ export const fetchFoodRecipesByIngredients = (ingrediente = '') => (dispatch) =>
           alert, RESPONSE_ERROR,
         );
       }
-      console.log(allFoodRecipes);
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
       console.log(recipes);
       dispatch(getAllFoodRecipes(recipes));
@@ -173,14 +175,25 @@ export const fetchDrinksRecipesByFirstLetter = (letter = 'a') => (dispatch) => {
     });
 };
 
-export const fetchRamdomRecipe = (param = 'mealdb') => (dispatch) => {
+export const fetchRamdomRecipe = (param = 'mealdb', param2 = 'meals') => (dispatch) => {
   dispatch(isLoading());
 
   fetch(`https://www.the${param}.com/api/json/v1/1/random.php`)
     .then((response) => response.json())
     .then((ramdomRecipeData) => {
-      const ramdomRecipe = ramdomRecipeData;
-      console.log(ramdomRecipe);
-      // dispatch(getAllDrinksRecipes(ramdomRecipe));
+      // const ramdomRecipe = ramdomRecipeData;
+      // console.log(ramdomRecipeData[param2][0]);
+      console.log(param2);
+      console.log(ramdomRecipeData);
+      console.log(ramdomRecipeData[param2]);
+      dispatch(getFoodDetails(ramdomRecipeData[param2][0]));
+    });
+};
+export const fetchFoodDetails = (id) => (dispatch) => {
+  dispatch(isLoading());
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .then((foodDetails) => {
+      dispatch(getFoodDetails(foodDetails.meals[0]));
     });
 };

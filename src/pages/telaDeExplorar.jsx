@@ -4,14 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import { getSearchBarResponse } from '../action';
+import { getSearchBarResponse } from '../action/index';
 
 export class TelaDeExplorar extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   componentDidMount() {
     const { hasSearchBar } = this.props;
 

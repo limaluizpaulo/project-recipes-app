@@ -1,4 +1,4 @@
-import { RAMDOM_RECIPE } from '../action';
+import { RAMDOM_RECIPE } from '../action/index';
 
 const INITIAL_STATE = {
   recipe: [],
