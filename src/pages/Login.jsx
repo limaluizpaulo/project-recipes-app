@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import logoGif from '../images/logonosso.gif';
 import useValidation from '../hooks/useValidation';
 import { setOnLocalStorage } from '../services/helpers/localStorage';
+import '../styles/login.css';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -21,40 +22,61 @@ const Login = ({ history }) => {
     history.push('/comidas');
   };
   return (
-    <div>
-      <h1>Login</h1>
-      <div>
-        <input
-          data-testid="email-input"
-          value={ email }
-          onChange={ ({ target: { value } }) => handleInputChange(
-            setEmail, checkEmail, value,
-          ) }
-          type="email"
-          name="email"
-          placeholder="Email"
-        />
+    <div className="login">
+      <img src={ logoGif } className="login__logo" alt="logo receitas" />
+      <div className="login__form">
+        <div className="login__input__container">
+
+          <input
+            id="email"
+            className="login__input"
+            data-testid="email-input"
+            value={ email }
+            onChange={ ({ target: { value } }) => handleInputChange(
+              setEmail, checkEmail, value,
+            ) }
+            type="email"
+            name="email"
+            placeholder="."
+          />
+          <label className="login__label" htmlFor="email">
+            {' '}
+            Digite seu email
+            {' '}
+            <input className="hidden" type="text" />
+          </label>
+        </div>
+        <div className="login__input__container">
+          <input
+            className="login__input"
+            id="password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ ({ target: { value } }) => handleInputChange(
+              setPassword, checkPassword, value,
+            ) }
+            type="password"
+            name="password"
+            placeholder="."
+          />
+          <label className="login__label" htmlFor="password">
+            {' '}
+            Digite sua senha
+            <input className="hidden" type="text" />
+
+          </label>
+        </div>
+        <button
+          className="login__button"
+          data-testid="login-submit-btn"
+          disabled={ error }
+          onClick={ handleSubmit }
+          type="button"
+        >
+          Entrar
+        </button>
       </div>
-      <div>
-        <input
-          data-testid="password-input"
-          value={ password }
-          onChange={ ({ target: { value } }) => handleInputChange(
-            setPassword, checkPassword, value,
-          ) }
-          type="password"
-          name="password"
-          placeholder="Senha"
-        />
-      </div>
-      <button
-        data-testid="login-submit-btn"
-        disabled={ error }
-        onClick={ handleSubmit }
-        type="button"
-      >
-        Entrar
-      </button>
+
     </div>
   );
 };
