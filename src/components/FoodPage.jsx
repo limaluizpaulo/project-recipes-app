@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Footer from './Footer';
@@ -6,7 +6,13 @@ import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
 
 function FoodPage({ history }) {
-  const { goSearch } = useContext(ContextRecipes);
+  console.log(history);
+  const { goSearch, setTitle } = useContext(ContextRecipes);
+
+  useEffect(() => {
+    setTitle('Comidas');
+  }, [setTitle]);
+
   return (
     <div>
       <Header history={ history } />
@@ -17,7 +23,7 @@ function FoodPage({ history }) {
 }
 
 FoodPage.propTypes = {
-  history: PropTypes.node.isRequired,
+  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
 export default FoodPage;

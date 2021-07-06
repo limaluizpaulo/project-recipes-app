@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import ContextRecipes from '../context/contextRecipes';
+// import ContextRecipes from '../context/contextRecipes';
 
 import '../App.css';
 import './footer.css';
 // import ContextRecipes from '../context/contextRecipes';
 
 function Footer({ history }) {
-  const { setTitle } = useContext(ContextRecipes);
+  // const { setTitle } = useContext(ContextRecipes);
   const goDrinks = () => {
     history.push('/bebidas');
-    setTitle('Bebidas');
+    // setTitle('Bebidas');
   };
   const goExplore = () => {
     history.push('/explore');
-    setTitle('Explore');
+    // setTitle('Explore');
   };
   const goFood = () => {
     history.push('/comidas');
-    setTitle('Comidas');
+    // setTitle('Comidas');
   };
 
   return (
@@ -56,7 +56,7 @@ function Footer({ history }) {
 }
 
 Footer.propTypes = {
-  history: PropTypes.node.isRequired,
+  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
 export default Footer;

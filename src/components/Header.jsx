@@ -12,6 +12,16 @@ function Header({ history }) {
     history.push('/profile')
   );
 
+  // const { location: { pathname } } = history;
+  // switch (title) {
+  //   case pathname === title
+
+  //     break;
+
+  //   default:
+  //     break;
+  // }
+
   return (
     <header className="food-header">
       <button
@@ -36,7 +46,7 @@ function Header({ history }) {
 }
 
 Header.propTypes = {
-  history: PropTypes.node.isRequired,
+  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
 export default Header;

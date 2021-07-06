@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Footer from './Footer';
@@ -6,7 +6,12 @@ import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
 
 function ExplorePage({ history }) {
-  const { goSearch } = useContext(ContextRecipes);
+  const { goSearch, setTitle } = useContext(ContextRecipes);
+
+  useEffect(() => {
+    setTitle('Explore');
+  }, [setTitle]);
+
   return (
     <div>
       <Header history={ history } />
@@ -17,7 +22,7 @@ function ExplorePage({ history }) {
 }
 
 ExplorePage.propTypes = {
-  history: PropTypes.node.isRequired,
+  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
 export default ExplorePage;
