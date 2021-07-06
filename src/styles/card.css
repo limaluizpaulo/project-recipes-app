@@ -1,7 +1,21 @@
 .recipe-card {
+  align-items: center;
+  background-color: white;
+  border: 1px rgb(161, 155, 155) solid;
+  border-radius: 15px;
+  box-shadow: 3px 3px 2px rgba(150, 144, 144, 0.932);
   display: flex;
   flex-direction: column;
-  height: 15%;
-  margin: 4%;
-  width: 15%;
+  justify-content: space-between;
+  margin: 1%;
+  width: 48%;
+}
+
+.card-img {
+  height: 80%;
+  width: 100%;
+}
+
+.card-text {
+  width: 100%;
 }
