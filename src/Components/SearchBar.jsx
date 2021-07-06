@@ -10,7 +10,7 @@ function SearchBar(props) {
   const {
     getFoodsApi, getDrinksApi, foods,
     goToFoodsPage, drinks, goToDrinksPage,
-    foodNotFound, drinkNotFound, title } = props;
+    title } = props;
   const shouldRedirect = goToFoodsPage || goToDrinksPage;
   const itemPage = title === 'Comidas' ? foods : drinks;
   const itemID = title === 'Comidas' ? 'idMeal' : 'idDrink';
@@ -44,9 +44,9 @@ function SearchBar(props) {
     configState();
   };
   const pageTitle = title.toLowerCase();
-  if (foodNotFound || drinkNotFound) {
-    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
+  // if (foodNotFound || drinkNotFound) {
+  //   global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  // }
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (

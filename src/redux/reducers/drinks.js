@@ -3,7 +3,7 @@ import { DRINKS, DRINK_CATEGORIES } from '../actions/index';
 const initialState = {
   list: [],
   goToDrinksPage: false,
-  drinkNotFound: false,
+  // drinkNotFound: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -13,12 +13,13 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       list: payload,
       goToDrinksPage: payload && payload.length === 1,
-      drinkNotFound: !payload,
+      // drinkNotFound: !payload,
     };
   case DRINK_CATEGORIES:
     return {
       ...state,
       list: payload,
+      // drinkNotFound: false,
     };
 
   default:
