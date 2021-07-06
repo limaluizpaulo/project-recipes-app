@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { recipeById } from '../services/requests';
 import { renderCheckBox } from '../utils';
 
@@ -35,9 +36,11 @@ const DrinkProgress = ({ match }) => {
       <button type="button" data-testid="favorite-btn">
         Favoritar
       </button>
-      <button type="button" data-testid="finish-recipe-btn">
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button type="button" data-testid="finish-recipe-btn">
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 };
