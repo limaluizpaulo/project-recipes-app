@@ -33,11 +33,8 @@ export default function FoodAndDrinkById() {
       setSingleContent(resolved[firstKey] || []);
 
       setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
-      const list = [];
-      Object.entries(resolved[firstKey][0]).forEach((el) => {
-        if (el[0].includes('Ingredient') && el[1]) { list.push(el[1]); }
-        // if (el[0].includes('Measure') && el[1]) { list.push(el[1]); }S
-      });
+      const list = Object.entries(resolved[firstKey][0]).map((el) => (
+        (el[0].includes('Ingredient') || el[0].includes('Measure')) && el[1]));
       setIngridientsList(list);
     }
     getRecipeDetails().catch(console.log);
@@ -67,12 +64,13 @@ export default function FoodAndDrinkById() {
           </Button>
           <p data-testid="recipe-category">{singleContent[0].strCategory}</p>
           {ingredientsList.map((ingridient, i) => (
-            <p
-              key={ i }
-              data-testid={ `${i}-ingredient-name-and-measure` }
-            >
-              {ingridient}
-            </p>
+            ingridient && (
+              <p
+                key={ i }
+                data-testid={ `${i}-ingredient-name-and-measure` }
+              >
+                {ingridient}
+              </p>)
           ))}
           <p data-testid="instructions">{singleContent[0].strInstructions}</p>
           <p data-testid="video">{singleContent[0].strYoutube}</p>
