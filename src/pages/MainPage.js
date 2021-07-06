@@ -22,7 +22,6 @@ export default function MainPage() {
   const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
 
-  // Source: https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm
   const lintChato = dataResult && searchByCategory
     ? console.log('yayyy... Vamos usar elas depois')
     : console.log('Droga de lint');
@@ -42,6 +41,7 @@ export default function MainPage() {
       setCategoriesList(list[firstKey].filter((_e, index) => index < FIVE));
       setLoader(false);
     }
+
     getListPopulated();
   }, [limit, firstKey, domain]);
 
@@ -61,7 +61,18 @@ export default function MainPage() {
     const URL = `https://www.${domain}.com/api/json/v1/1/filter.php?c=${category}`;
     const listByCategory = await fetchAPI(URL);
     setSearchByCategory(listByCategory[firstKey]);
-    setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
+    // setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
+    setRenderer((prevState) => (prevState === listByCategory[firstKey]
+      .filter((_e, index) => index < limit)
+      ? dataResult.filter((_e, index) => index < limit)
+      : listByCategory[firstKey].filter((_e, index) => index < limit)));
+    // console.log(dataResult);
+    // console.log(searchByCategory);
+    // console.log(renderer);
+  }
+
+  function handleAllClick() {
+    setRenderer(dataResult.filter((_e, index) => index < limit));
   }
 
   return (
@@ -76,6 +87,7 @@ export default function MainPage() {
         >
           {category.strCategory}
         </Button>))}
+      <Button data-testid="All-category-filter" onClick={ handleAllClick }>All</Button>
       {isLoading
         ? <p>Loading...</p>
         : renderer.map((item, i) => (
