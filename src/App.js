@@ -28,7 +28,7 @@ function App() {
         <Route path="/explorar/bebidas/ingredientes" component={ DrinksByIngredients } />
         <Route path="/explorar/comidas/area" component={ MealsByArea } />
         <Route path="/receitas-feitas" component={ Done } />
-         <Route path="/receitas-favoritas" component={ Favorites } />
+        <Route path="/receitas-favoritas" component={ Favorites } />
 
         { /* <Route exact path="/comidas/:id/in-progress" component={} />
         <Route exact path="/bebidas/:id/in-progress" component={} />
