@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getRecipeSearch } from '../services';
+import { getRecipeSearch } from '../services/index';
 
-function SearchBar({ title }) {
+function SearchBar({ title, recipes }) {
   const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');
   const [inputValue, setInputValue] = useState('');
   const [endpointSearch, setEndpointSearch] = useState('');
   const [redirectTo, setRedirectTo] = useState(false);
-  const dispatch = useDispatch();
-
+  const TWELVE = 12;
   useEffect(() => {
     const arrangeURL = () => {
       let URL = '';
@@ -42,7 +40,7 @@ function SearchBar({ title }) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (meals.length > 1) {
-      dispatch({ type: 'card content', content: meals });
+      recipes(meals.slice(0, TWELVE));
     }
     if (meals.length === 1) {
       setRedirectTo(`/comidas/${meals[0].idMeal}`);
@@ -50,13 +48,12 @@ function SearchBar({ title }) {
   };
 
   const drinksConditionals = ({ drinks }) => {
-    console.log(drinks);
     if (drinks === null) {
       return makeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (drinks.length > 1) {
-      dispatch({ type: 'card content', content: drinks });
+      recipes(drinks.slice(0, TWELVE));
     }
     if (drinks.length === 1) {
       setRedirectTo(`/bebidas/${drinks[0].idDrink}`);
@@ -73,7 +70,6 @@ function SearchBar({ title }) {
   const handleApiUrl = async () => {
     const newURL = `${endpointSearch}${selectedRadio}${inputValue}`;
     const data = await getRecipeSearch(newURL);
-    console.log(data);
     redirectToConditionals(data);
   };
 
@@ -147,6 +143,7 @@ function SearchBar({ title }) {
 
 SearchBar.propTypes = {
   title: PropTypes.string.isRequired,
+  recipes: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

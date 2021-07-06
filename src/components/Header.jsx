@@ -5,7 +5,9 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ pathname }) {
+function Header({ history, recipes }) {
+  console.log(recipes);
+  const { pathname } = history.location;
   const [shouldShearchBar, setShouldSearchBar] = useState(false);
   const [pageTitle, setPageTitle] = useState(pathname);
   const showSearchBar = () => setShouldSearchBar(!shouldShearchBar);
@@ -48,14 +50,21 @@ function Header({ pathname }) {
         </button>
       </main>
       <article>
-        { shouldShearchBar && <SearchBar title={ pageTitle } /> }
+        { shouldShearchBar && <SearchBar
+          title={ pageTitle }
+          history={ history }
+          recipes={ recipes }
+        /> }
       </article>
     </header>
   );
 }
 
 Header.propTypes = {
-  pathname: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+  recipes: PropTypes.func.isRequired,
 };
 
 export default Header;
