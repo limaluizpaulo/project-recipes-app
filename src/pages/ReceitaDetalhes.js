@@ -35,37 +35,6 @@ function ReceitaDetalhes({ match }) {
       .then((response) => setRecipe(response));
   }, []);
 
-  // function saveWithFavorites() {
-  //   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   if (url.match(food)) {
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
-  //       id: recipe.idMeal,
-  //       type: recipe.strCategory,
-  //       area: recipe.strArea,
-  //       category: recipe.strCategory,
-  //       alcoholicOrNot: null,
-  //       name: recipe.strMeal,
-  //       image: recipe.strMealThumb,
-  //       doneDate: null,
-  //       tags: recipe.strTags,
-  //     }]));
-  //     setFavorite(true);
-  //   } else {
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
-  //       id: recipe.idDrink,
-  //       type: recipe.strCategory,
-  //       area: null,
-  //       category: recipe.strCategory,
-  //       alcoholicOrNot: recipe.strAlcoholic,
-  //       name: recipe.strDrink,
-  //       image: recipe.strDrinkThumb,
-  //       doneDate: null,
-  //       tags: recipe.strTags,
-  //     }]));
-  //     setFavorite(true);
-  //   }
-  // }
-
   function saveToFavorites() {
     const favorites = localStorage.getItem('favoriteRecipes');
     if (favorites) {
@@ -142,7 +111,6 @@ function ReceitaDetalhes({ match }) {
     url,
     related,
   };
-  // console.log(recipe);
 
   const checkFavoriteParams = {
     url,
