@@ -7,12 +7,10 @@ import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  let [details, setDetails] = useState({});
+  const [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const {
-    location: { pathname },
-  } = useHistory();
+  const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
@@ -20,14 +18,15 @@ function RecipeDetails() {
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
 
-  if (!details) details = {}; // Cypress bug
-
   useEffect(() => {
     async function setter() {
       const result = await getDetails(type, id);
-      setDetails(result[0]);
-      setIngredients(result[1]);
-      setMeasures(result[2]);
+      console.log(result);
+      if (result[0]) {
+        setDetails(result[0]);
+        setIngredients(result[1]);
+        setMeasures(result[2]);
+      }
     }
     setter();
   }, [id, type]);

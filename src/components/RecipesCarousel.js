@@ -8,13 +8,9 @@ import './RecipesCarousel.css';
 
 function RecipesCarousel() {
   const MAX_CARDS = 6;
-  let { drinks, setDrinks } = useContext(DrinksContext);
-  let { meals, setMeals } = useContext(MealsContext);
+  const { drinks, setDrinks } = useContext(DrinksContext);
+  const { meals, setMeals } = useContext(MealsContext);
   const { location: { pathname }, push } = useHistory();
-
-  // Cypress bug
-  if (!drinks) drinks = [];
-  if (!meals) meals = [];
 
   const isDrinks = pathname.includes('comidas');
   const recipes = isDrinks ? [...drinks] : [...meals];

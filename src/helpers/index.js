@@ -13,6 +13,8 @@ export function urlToEmbed(url) {
 export async function getDetails(type, id) {
   const result = await fetchDetails(type, id);
 
+  if (!result) return [];
+
   const formattedIngredients = Object.entries(result)
     .filter((item) => item[0].includes('Ingredient') && item[1])
     .map((item) => item[1]);

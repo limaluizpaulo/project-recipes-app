@@ -6,21 +6,28 @@ import RecipeInProgress from '../components/RecipeInProgress';
 
 function InProgress() {
   const { inProgress } = useContext(UserContext);
-  let [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
   const typeKey = isDrinks ? 'cocktails' : 'meals';
-  let usedIngredients = inProgress[typeKey][id];
-
-  // Cypress bug
-  if (!ingredients) ingredients = [];
-  if (!usedIngredients) usedIngredients = [];
+  const usedIngredients = inProgress[typeKey][id] || [];
 
   const isFinished = ingredients.length === usedIngredients.length;
 
   function handleClick() {
+    // const doneRecipe = {
+    //   id:
+    //   type:
+    //   area:
+    //   category:
+    //   alcoholicOrNot:
+    //   name:
+    //   image:
+    //   doneDate:
+    //   tags:
+    // }
     push('/receitas-feitas');
   }
 

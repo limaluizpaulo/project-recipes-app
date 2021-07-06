@@ -11,7 +11,7 @@ import './RecipeDetails.css';
 
 function RecipeDetails({ ingredients, setIngredients }) {
   const { inProgress, setInProgress } = useContext(UserContext);
-  let [details, setDetails] = useState({});
+  const [details, setDetails] = useState({});
   const [measures, setMeasures] = useState([]);
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
@@ -23,14 +23,15 @@ function RecipeDetails({ ingredients, setIngredients }) {
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
   const usedIngredients = inProgress[typeObj][id] || [];
 
-  if (!details) details = {}; // Cypress bug
-
   useEffect(() => {
     async function setter() {
       const result = await getDetails(type, id);
-      setDetails(result[0]);
-      setIngredients(result[1]);
-      setMeasures(result[2]);
+      console.log(result);
+      if (result[0]) {
+        setDetails(result[0]);
+        setIngredients(result[1]);
+        setMeasures(result[2]);
+      }
     }
     setter();
   }, [id, setIngredients, type]);
