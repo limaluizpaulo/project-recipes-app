@@ -1,42 +1,53 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import drinkIncon from '../images/drinkIcon.svg';
-import exploreIncon from '../images/exploreIcon.svg';
-import mealIncon from '../images/mealIcon.svg';
+
+import mealIncon from '../svg/mealIcon.svg';
+import exploreIncon from '../svg/exploreIcon.svg';
+import drinkIncon from '../svg/drinkIcon.svg';
 import './Footer.css';
 
 function Footer() {
-  const history = useHistory();
+  const { push } = useHistory();
+
   return (
     <footer data-testid="footer">
       <button
-        className="button-svg"
-        onClick={ () => history.push('/bebidas') }
         type="button"
+        className="button-svg"
+        onClick={ () => push('/comidas') }
       >
         <img
-          data-testid="drinks-bottom-btn"
+          className="svg-med"
+          src={ mealIncon }
+          alt="Meals Icon"
+          data-testid="food-bottom-btn"
+        />
+      </button>
+      <div className="button-explore-container">
+        <button
+          type="button"
+          className="button-svg"
+          onClick={ () => push('/explorar') }
+        >
+          <img
+            className="svg-large"
+            src={ exploreIncon }
+            alt="Explore Icon"
+            data-testid="explore-bottom-btn"
+          />
+        </button>
+      </div>
+      <button
+        type="button"
+        className="button-svg"
+        onClick={ () => push('/bebidas') }
+      >
+        <img
+          className="svg-med"
           src={ drinkIncon }
           alt="Drinks Icon"
+          data-testid="drinks-bottom-btn"
         />
-      </button>
-      <button
-        className="button-svg"
-        onClick={ () => history.push('/explorar') }
-        type="button"
-      >
-        <img
-          data-testid="explore-bottom-btn"
-          src={ exploreIncon }
-          alt="Explore Icon"
-        />
-      </button>
-      <button
-        className="button-svg"
-        onClick={ () => history.push('/comidas') }
-        type="button"
-      >
-        <img data-testid="food-bottom-btn" src={ mealIncon } alt="Foods Icon" />
       </button>
     </footer>
   );

@@ -4,13 +4,16 @@ import App from './App';
 import UserProvider from './provider/user.provider';
 import DrinksProvider from './provider/drinks.provider';
 import MealsProvider from './provider/meals.provider';
+import DetailsProvider from './provider/details.provider';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <UserProvider>
     <DrinksProvider>
       <MealsProvider>
-        <App />
+        <DetailsProvider>
+          <App />
+        </DetailsProvider>
       </MealsProvider>
     </DrinksProvider>
   </UserProvider>,

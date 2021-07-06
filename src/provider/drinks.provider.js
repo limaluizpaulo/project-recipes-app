@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import DrinksContext from '../context/drinks.context';
-import { fetchByName, fetchCategories } from '../services';
+import { fetchCategories } from '../services';
 
 function DrinksProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
@@ -17,23 +17,17 @@ function DrinksProvider({ children }) {
 
   async function getCategories() {
     const MAX_ITEMS = 5;
-    const data = await fetchCategories('drinks');
+    const result = await fetchCategories('drinks');
 
-    const categoryNames = data
+    const categoryNames = result
       .filter((item, index) => item && index < MAX_ITEMS)
       .map((item) => item.strCategory);
 
     setCategories(categoryNames);
   }
 
-  async function getDrinks() {
-    const result = await fetchByName('drinks');
-    setDrinks(result);
-  }
-
   useEffect(() => {
     getCategories();
-    getDrinks();
   }, []);
 
   return (

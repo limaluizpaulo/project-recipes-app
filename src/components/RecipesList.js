@@ -1,23 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
+import { getRecipes } from '../helpers/provider';
 import './RecipesList.css';
 
-function DrinksList() {
+function RecipesList() {
   const MAX_CARDS = 12;
-  const { drinks } = useContext(DrinksContext);
-  const { meals } = useContext(MealsContext);
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  let { drinks, setDrinks } = useContext(DrinksContext);
+  let { meals, setMeals } = useContext(MealsContext);
+  const { location: { pathname }, push } = useHistory();
+
+  // Cypress bug
+  if (!drinks) drinks = [];
+  if (!meals) meals = [];
 
   const isDrinks = pathname.includes('bebidas');
   const recipes = isDrinks ? [...drinks] : [...meals];
+  const type = isDrinks ? 'drinks' : 'meals';
   const typePt = isDrinks ? 'bebidas' : 'comidas';
   const idKey = isDrinks ? 'idDrink' : 'idMeal';
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
+  const setFn = isDrinks ? setDrinks : setMeals;
+
+  useEffect(() => {
+    getRecipes({ type, setFn });
+  }, [type, setFn]);
 
   return (
     <div className="card-list">
@@ -28,7 +38,7 @@ function DrinksList() {
               type="button"
               className="card"
               key={ index }
-              onClick={ () => history.push(`/${typePt}/${item[idKey]}`) }
+              onClick={ () => push(`/${typePt}/${item[idKey]}`) }
               data-testid={ `${index}-recipe-card` }
             >
               <img
@@ -47,4 +57,4 @@ function DrinksList() {
   );
 }
 
-export default DrinksList;
+export default RecipesList;
