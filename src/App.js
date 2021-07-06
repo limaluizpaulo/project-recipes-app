@@ -13,6 +13,7 @@ import MealsIngredients from './pages/MealsIngredients';
 import ExploreByArea from './pages/ExploreByArea';
 import DrinksIngredients from './pages/DrinksIngredients';
 import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -53,6 +54,7 @@ function App() {
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
