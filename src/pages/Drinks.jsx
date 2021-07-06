@@ -6,6 +6,7 @@ import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import { categoryListDrink, fetchDrinksList } from '../services/Api';
 import Category from '../components/Category';
+import '../App.css';
 
 function Drinks() {
   const {
@@ -47,6 +48,7 @@ function Drinks() {
       <Header title={ Drinks.displayName } />
       <button
         type="button"
+        className="category"
         onClick={ renderDrinks }
         data-testid="All-category-filter"
       >
