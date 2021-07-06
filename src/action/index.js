@@ -1,5 +1,5 @@
 import invokeAlert from '../helper/alertMsg';
-import foodData from '../help/foodData';
+// import foodData from '../help/foodData';
 
 const RESPONSE_ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
