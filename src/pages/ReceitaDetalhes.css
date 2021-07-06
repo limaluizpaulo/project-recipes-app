@@ -2,11 +2,11 @@ iframe {
   width: 360px;
 }
 
-img {
+/* img {
   height: 150px;
   object-fit: cover;
   width: 360px;
-}
+} */
 
 .carousel-items {
   display: flex;

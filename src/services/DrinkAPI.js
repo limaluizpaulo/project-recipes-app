@@ -5,7 +5,8 @@ export const DRINK_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/
 
 function fetchDrink(endpoint, query) {
   return fetch(`${endpoint}${query}`)
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .then((res) => res.drinks);
 }
 
 export default fetchDrink;
