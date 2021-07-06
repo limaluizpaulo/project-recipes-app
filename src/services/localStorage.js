@@ -9,6 +9,12 @@ export const checkRecypeId = (idRecipe) => {
   return dones.find(({ id }) => id === idRecipe);
 };
 
+export const checkFavoriteId = (idRecipe) => {
+  const favorite = localStorage.favoriteRecipes
+    ? JSON.parse(localStorage.favoriteRecipes) : [];
+  return favorite.find(({ id }) => id === idRecipe);
+};
+
 export const checkProgress = (idRecipe, meals) => {
   const recipe = meals ? 'meals' : 'cocktails';
   return localStorage.inProgressRecipes
