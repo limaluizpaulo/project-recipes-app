@@ -66,7 +66,11 @@ function DetailsReceita(props) {
           {ingrFunction()}
         </ul>
         <p data-testid="instructions">{receita.strInstructions}</p>
-        <iframe title={ receita[`str${type[1]}`] } src={ receita.strYoutube } />
+        <iframe
+          data-testid="video"
+          title={ receita[`str${type[1]}`] }
+          src={ receita.strYoutube }
+        />
       </div>);
   }
 
@@ -86,7 +90,7 @@ function DetailsReceita(props) {
       <Link data-testid="start-recipe-btn" to="/">
         iniciar receita
       </Link>
-      <div data-testid={ `${id}-recomendation-card` }>receitas recomendadas</div>
+      <div data-testid={ `${0}-recomendation-card` }>receitas recomendadas</div>
 
     </div>
   );
