@@ -109,7 +109,7 @@ export default function Provider({ children }) {
         instructions: strInstructions,
         thumb: strDrinkThumb,
       };
-      setCurr('cocktail');
+      setCurr('cocktails');
       setCurrentRecipe(drink);
     }
   };
