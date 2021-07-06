@@ -7,7 +7,7 @@ function DetailsImage(props) {
   if (url.match(food)) {
     return (
       <img
-        className="detail-image"
+        className="details-image"
         data-testid="recipe-photo"
         src={ recipe.strMealThumb }
         alt="prato pronto"
@@ -16,7 +16,7 @@ function DetailsImage(props) {
   }
   return (
     <img
-      className="detail-image"
+      className="details-image"
       data-testid="recipe-photo"
       src={ recipe.strDrinkThumb }
       alt="prato pronto"

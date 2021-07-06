@@ -14,6 +14,7 @@ function Header() {
   const paginas = {
     '/comidas': 'Comidas',
     '/bebidas': 'Bebidas',
+    '/explorar': 'Explorar',
     '/explorar/comidas/area': 'Explorar Origem',
     '/explorar/comidas': 'Explorar Comidas',
     '/explorar/bebidas': 'Explorar Bebidas',
@@ -22,7 +23,6 @@ function Header() {
     '/receitas-feitas': 'Receitas Feitas',
     '/receitas-favoritas': 'Receitas Favoritas',
     '/perfil': 'Perfil',
-    '/explorar': 'Explorar',
   };
 
   function handleSearch() {
