@@ -100,8 +100,6 @@ function GlobalProvider({ children }) {
   };
 
   const contextValue = {
-    FoodsEndPoint,
-    DrinksEndPoint,
     baseEndPoint,
     requestParams,
     meals,

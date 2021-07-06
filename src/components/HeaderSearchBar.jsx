@@ -4,7 +4,6 @@ import Context from '../context/Context';
 function HeaderSearchBar() {
   const {
     requestParams: { chosenFilter, searchText },
-    resetParams,
     handleChange,
     asyncSetState,
   } = useContext(Context);
@@ -18,10 +17,6 @@ function HeaderSearchBar() {
       setBlockRequest(false);
     }
   }, [searchText, chosenFilter]);
-
-  useEffect(() => {
-    resetParams();
-  }, [resetParams]);
 
   return (
     <form>
@@ -51,6 +46,7 @@ function HeaderSearchBar() {
         <label htmlFor="name">
           Nome
           <input
+            checked
             value="search.php?s="
             onChange={ handleChange }
             name="chosenFilter"
