@@ -1,3 +1,5 @@
 src/App.test.js
 src/serviceWorker.js 
 cypress/*
+src/components/Header.jsx
+src/pages/DetalhesBebidas.jsx
