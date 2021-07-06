@@ -27,7 +27,6 @@ function RecipesProvider({ children }) {
   }
   if (mustUpdateType('drinks', 'bebidas', pathname)) {
     setType('drinks');
-    console.log(pathname);
   }
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import Card from './Card';
 import Categories from './Categories';
 import RecipesContext from '../contexts/RecipesContext';
@@ -12,9 +13,14 @@ export default function MainCards(props) {
     title,
     typeId,
   } = props;
+  const history = useHistory();
+  const { pathname } = useLocation();
 
-  console.log(data);
-  console.log('cu2');
+  if (data.length === 1) {
+    history.push(`${pathname}/${data[0][typeId]}`);
+    // console.log(data);
+  }
+
   return (
     <main>
       <Categories />

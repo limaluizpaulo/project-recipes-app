@@ -33,15 +33,16 @@ function SearchBar() {
       fn(message);
     };
     if (radioInput === 'firstLetter' && searchInput.length > 1) {
-      return alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
     const result = await selectedFilter[radioInput](searchInput, type);
     if (result === null) {
-      return alertMessage(alert,
+      alertMessage(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    console.log('cu');
-    setData(result);
+    if (result.length) { //  tentei refatorar, a aplicação funcionou normal mas cypress QUEBROU
+      setData(result);
+    }
   };
 
   // }, [filterHeader]);
@@ -51,7 +52,7 @@ function SearchBar() {
     https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Search_role#prefer_html
   */
   return (
-    <form role="search" htmlFor="seachBar">
+    <form role="search" htmlFor="searchBar">
       <Input
         func={ setSearchInput }
         id="searchBar"
@@ -89,9 +90,7 @@ function SearchBar() {
         value="firstLetter"
       />
       <Button
-        func={ () => {
-          filterApi();
-        } }
+        func={ () => filterApi() }
         disabled={ isDisabled() }
         testid="exec-search-btn"
         label="Buscar"
