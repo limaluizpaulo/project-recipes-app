@@ -11,7 +11,6 @@ function DetailsReceita(props) {
   const [apelidoAPI] = rotaAtual.match(/\w+/);
   const [teste] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
-  const ingredientes = [];
 
   useEffect(() => {
     const didMount = async () => {
@@ -22,8 +21,9 @@ function DetailsReceita(props) {
     didMount();
   }, [teste]);
 
-  useEffect(() => {
+  function ingrFunction() {
     const vinte = 20;
+    const ingredientes = [];
     for (let index = 0; index < vinte; index += 1) {
       const strIngredient = receita[`strIngredient${index}`];
       const strMeasure = receita[`strMeasure${index}`];
@@ -31,8 +31,16 @@ function DetailsReceita(props) {
         ingredientes.push({ strIngredient, strMeasure });
       }
     }
-    // console.log(ingredientes);
-  }, [receita]);
+    return ingredientes.map((item, i) => (
+      <li
+        key={ i }
+        data-testid={ `${i}-ingredient-name-and-measure` }
+      >
+        {item.strIngredient}
+        {' - '}
+        {item.strMeasure}
+      </li>));
+  }
 
   return (
     <div data-testid="0-">
@@ -44,9 +52,9 @@ function DetailsReceita(props) {
         src={ receita.strMealThumb }
         alt={ receita.strArea }
       />
-      {ingredientes.forEach((item, i) => {
-        console.log(item, i, 'ou');
-      })}
+      <ul>
+        {ingrFunction()}
+      </ul>
       <p data-testid="instructions">{receita.strInstructions}</p>
       <iframe title={ receita.strArea } src={ receita.strYoutube } />
 
@@ -58,16 +66,10 @@ function DetailsReceita(props) {
         <img data-testid="share-btn" src={ shareIcon } alt="" />
       </Link>
 
-      {/*
-
-Os ingredientes devem possuir o atributo data-testid="${index}-ingredient-name-and-measure";
-
- */}
-
       <Link data-testid="start-recipe-btn" to="/">
         iniciar receita
       </Link>
-      {/* <spam data-testid="${index}-recomendation-card">receitas recomendadas</spam> */}
+      <div data-testid={ `${id}-recomendation-card` }>receitas recomendadas</div>
 
     </div>
   );
