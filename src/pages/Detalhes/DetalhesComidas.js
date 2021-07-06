@@ -6,6 +6,7 @@ import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
+import renderButton from './renderButton';
 import './Detalhes.css';
 
 function DetalhesComidas({ match }) {
@@ -169,14 +170,7 @@ function DetalhesComidas({ match }) {
                   <span className="visually-hidden">Next</span>
                 </button>
               </div>
-              <button
-                className="start-button"
-                type="button"
-                data-testid="start-recipe-btn"
-                onClick={ () => history.push(`/comidas/${item.idMeal}/in-progress`) }
-              >
-                Iniciar Receita
-              </button>
+              { renderButton('comidas', item, history) }
             </>
           );
         }

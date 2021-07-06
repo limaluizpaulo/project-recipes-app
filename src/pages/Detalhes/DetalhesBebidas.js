@@ -7,6 +7,7 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
 import './Detalhes.css';
+import renderButton from './renderButton';
 
 function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
@@ -146,14 +147,7 @@ function DetalhesBebidas({ match }) {
               </label>
               <p>Recomendações: </p>
               {mapRecomm(recomm)}
-              <button
-                className="start-button"
-                type="button"
-                data-testid="start-recipe-btn"
-                onClick={ () => history.push(`/bebidas/${item.idDrink}/in-progress`) }
-              >
-                Iniciar Receita
-              </button>
+              {renderButton('bebidas', item, history)}
             </>
           );
         }

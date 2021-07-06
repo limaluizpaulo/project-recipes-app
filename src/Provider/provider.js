@@ -7,8 +7,13 @@ function Provider({ children }) {
     userEmail: '',
     password: '',
   });
+  const [inProgress, setInProgress] = useState(false);
 
-  const context = { user, setUser };
+  const context = {
+    user,
+    setUser,
+    inProgress,
+    setInProgress };
 
   return (
     <Context.Provider value={ context }>
