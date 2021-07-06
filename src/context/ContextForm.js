@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('Nome');
   const [firstMeals, setFirstMeals] = useState([]);
   const [firstDrinks, setFirstDrinks] = useState([]);
+  const [paramId, setParamId] = useState('');
 
   const object = {
     email,
@@ -24,6 +25,8 @@ function Provider({ children }) {
     setFirstMeals,
     firstDrinks,
     setFirstDrinks,
+    paramId,
+    setParamId,
   };
 
   useEffect(() => {

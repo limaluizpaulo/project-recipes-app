@@ -8,6 +8,14 @@ export default function List({ array, drinks }) {
   const history = useHistory();
   const { pathname } = history.location;
 
+  function ingredientPersistent() {
+    const object = {
+      cocktails: {},
+      meals: {},
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(object));
+  }
+
   function filterIngredients(arrayList) {
     const ingredients = Object.entries(arrayList)
       .filter((ingredient) => ingredient[0].includes('strIngredient'));
@@ -15,7 +23,7 @@ export default function List({ array, drinks }) {
       .filter((measure) => measure[0].includes('strMeasure'));
     return ingredients.map((element, index) => {
       if (element[1] !== null) {
-        console.log();
+        ingredientPersistent();
         if (element[1].length > 0) {
           return (
             <div key={ index }>

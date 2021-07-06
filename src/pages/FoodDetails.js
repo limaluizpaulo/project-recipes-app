@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function FoodDetails() {
   const params = useParams();
+  const { setParamId, paramId } = useContext(Context);
   const [item, setItem] = useState([]);
 
   useEffect(() => {
     const request = async () => {
+      setParamId(params.id);
       const result = await requestByDetailsMeal(params.id);
       setItem(result.meals);
     };
     request();
-  }, [params.id]);
+  }, [params.id, setParamId]);
+
+  console.log(paramId);
 
   return (
     item && (

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function IngredientsInProcess({ index, element, measures }) {
   const [checked, setchecked] = useState(false);
-  const [count, setCount] = useState(0);
+  const { paramId } = useContext(Context);
 
   const divStyle1 = {
     textDecoration: 'line-through',
@@ -14,19 +15,27 @@ function IngredientsInProcess({ index, element, measures }) {
     textDecoration: 'none',
   };
 
-  function toogleClass() {
+  function toogleClass({ target }) {
     setchecked(!checked);
+    const elements = target.id;
+    const objectItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (document.URL.includes('comidas')) {
+      const progress = { ...objectItems, meals: { elements: [target] } };
+    } else if (document.URL.includes('bebidas')) {
+      const progress = { ...objectItems, cocktails: { elements: [] } };
+    }
   }
 
-  console.log(index, element);
+  // console.log(index, element);
 
   return (
     <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
         className="inputs"
-        onChange={ () => toogleClass() }
+        onChange={ (ev) => toogleClass(ev) }
         key={ index }
+        id={ index }
       />
       <span
         style={ checked ? divStyle1 : divStyle2 }
