@@ -66,3 +66,22 @@
     transform: rotate(-10deg);
   }
 }
+
+.header {
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  margin-left: 0;
+  margin-top: 0;
+  width: 100%;
+}
+
+.footer {
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  margin-left: 0;
+  position: fixed;
+  width: 100%;
+}

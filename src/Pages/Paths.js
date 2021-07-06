@@ -1,0 +1,17 @@
+export default {
+  '/comidas': 'Comidas',
+  '/bebidas': 'Bebidas',
+  // '/comidas/:id': ,
+  // '/bebidas/:id',
+  // '/comidas/:id/in-progress',
+  // '/bebidas/:id/in-progress',
+  '/explorar': 'Explorar',
+  '/explorar/comidas': 'Explorar Comidas',
+  '/explorar/bebidas': 'Explorar Bebidas',
+  '/explorar/comidas/ingredientes': 'Explorar Ingredientes',
+  '/explorar/bebidas/ingredientes': 'Explorar Ingredientes',
+  '/explorar/comidas/area': 'Explorar Origem',
+  '/perfil': 'Perfil',
+  '/receitas-feitas': 'Receitas Feitas',
+  '/receitas-favoritas': 'Receitas Favoritas',
+};
