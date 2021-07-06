@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -13,6 +14,7 @@ function DetalhesComidas({ match }) {
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
+  const pathToCopy = history.location.pathname;
   const { id } = match.params;
 
   useEffect(() => {
@@ -25,11 +27,17 @@ function DetalhesComidas({ match }) {
     }());
   }, []);
 
+  function copyFunction() {
+    clipboardCopy(`http://localhost:3000${pathToCopy}`);
+
+    return alert('Link copiado!');
+  }
+
   function renderButtons() {
     return (
       <>
-        <button type="button">
-          <img src={ shareIcon } alt="share icon" data-testid="share-btn" />
+        <button data-testid="share-btn" type="button" onClick={ copyFunction }>
+          <img src={ shareIcon } alt="share icon" />
         </button>
         <button type="button">
           <img src={ whiteHeartIcon } alt="favorite icon" data-testid="favorite-btn" />
@@ -40,7 +48,6 @@ function DetalhesComidas({ match }) {
 
   function mapRecomm(param) {
     const { drinks } = param;
-    console.log(drinks);
     const magicNumber = 6;
     return drinks
       .filter((_, index) => index < magicNumber)

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import Proptypes from 'prop-types';
 import { requestDrinkById, requestMeal } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
@@ -13,6 +14,7 @@ function DetalhesBebidas({ match }) {
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
+  const pathToCopy = history.location.pathname;
   const { id } = match.params;
 
   useEffect(() => {
@@ -26,11 +28,16 @@ function DetalhesBebidas({ match }) {
     }());
   }, []);
 
+  function copyFunction() {
+    clipboardCopy(`http://localhost:3000${pathToCopy}`);
+    alert('Link copiado!');
+  }
+
   function renderButtons() {
     return (
       <>
-        <button type="button">
-          <img src={ shareIcon } alt="share icon" data-testid="share-btn" />
+        <button data-testid="share-btn" type="button" onClick={ copyFunction }>
+          <img src={ shareIcon } alt="share icon" />
         </button>
         <button type="button">
           <img src={ whiteHeartIcon } alt="favorite icon" data-testid="favorite-btn" />
