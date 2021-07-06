@@ -7,17 +7,8 @@ const TWELVE = 12;
 export default function RecipesProvider({ children }) {
   const [searchResult, setSearchResult] = useState([]);
   const [userInfo, setInfo] = useState({ email: '' });
-  const [recomendations, setRecomentation] = useState([]);
   const [limit, setLimit] = useState(TWELVE);
-  const context = {
-    setInfo,
-    userInfo,
-    searchResult,
-    setSearchResult,
-    limit,
-    setLimit,
-    recomendations,
-    setRecomentation };
+  const context = { setInfo, userInfo, searchResult, setSearchResult, limit, setLimit };
 
   return (
     <RecipesContext.Provider value={ context }>

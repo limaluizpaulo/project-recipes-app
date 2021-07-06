@@ -92,7 +92,7 @@ export default function MainPage() {
         ? <p>Loading...</p>
         : renderer.map((item, i) => (
           <Link key={ item[searchId] } to={ `${path}/${item[searchId]}` }>
-            <Card mealOrDrink={ item } index={ i } />
+            <Card mealOrDrink={ item } index={ i } testId="recipe" />
           </Link>))}
       <button type="button" onClick={ handleMoreCards }>More Recipes</button>
       <Footer />

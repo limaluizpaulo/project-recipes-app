@@ -1,47 +1,49 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch } from 'react-router-dom';
+import Card from '../components/Card';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import fetchAPI from '../services/apiRequest';
 
-import RecipesContext from '../context/RecipesContext';
-
 export default function FoodAndDrinkById() {
   const { path } = useRouteMatch();
-  // const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
+  const recDomain = path.includes('/comidas')
+    ? 'thecocktaildb' : 'themealdb';
+  const recFirstKey = path.includes('/comidas')
+    ? 'drinks' : 'meals';
   const { Id } = useParams();
   const [singleContent, setSingleContent] = useState({});
   const [ingredientsList, setIngridientsList] = useState([]);
-
-  const { recomendations } = useContext(RecipesContext);
+  const [recomendations, setRecomentation] = useState([]);
 
   useEffect(() => {
     async function getRecipeDetails() {
       const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${Id}`;
+      const URL_RECOMENDATION = `https://www.${recDomain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
+      const recResolved = await fetchAPI(URL_RECOMENDATION);
       setSingleContent(...resolved[firstKey]);
-      console.log(resolved[firstKey]);
+      setRecomentation(recResolved[recFirstKey]);
       const list = [];
       Object.entries(...resolved[firstKey]).forEach((el) => {
         if (el[0].includes('Ingredient') && el[1]) { list.push(el[1]); }
-        if (el[0].includes('Measure') && el[1]) { list.push(el[1]); }
+        // if (el[0].includes('Measure') && el[1]) { list.push(el[1]); }
       });
       setIngridientsList(list);
     }
     getRecipeDetails();
-  }, [Id, firstKey, domain]);
+  }, [Id, firstKey, domain, recDomain, recFirstKey]);
 
   const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
 
   function handleFavorite() {
     console.log(recomendations);
-    // setRecomentation([...recomendations, singleContent]);
   }
 
   return (
@@ -67,8 +69,14 @@ export default function FoodAndDrinkById() {
       ))}
       <p data-testid="instructions">{singleContent.strInstructions}</p>
       <p data-testid="video">{singleContent.strYoutube}</p>
-      {recomendations.map((card, i) => (
-        <p key={ i } data-testid={ `${i}-recomendation-card` }>{card}</p>))}
+      {recomendations.map((item, i) => (
+        <Card
+          key={ i }
+          mealOrDrink={ item }
+          index={ i }
+          testId="recomendation"
+        />
+      ))}
       <Button data-testid="start-recipe-btn">Start Recipe</Button>
     </>
   );
