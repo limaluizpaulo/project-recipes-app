@@ -1,0 +1,84 @@
+.checked {
+  text-decoration: line-through;  
+}
+
+.recipe-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.alcolico {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  padding: 0px 10px;
+}
+
+.recipe-title {
+  padding: 0 10px;
+  font-size: 30px;
+}
+
+.recipe-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttons {
+  margin-right: 10px;
+}
+
+.buttons button {
+  background: transparent;
+  border: none;
+}
+
+.buttons button:nth-child(1) {
+  margin-right: 5px;
+}
+
+.recipe-category {
+  margin-left: 10px;
+  margin-top: -12px;
+  color: rgb(152, 152, 152);
+}
+
+.ingredients {
+  margin-left: 10px;
+  font-size: 26px;
+}
+
+ul {
+  list-style: none;
+  background: rgb(206, 206, 206);
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.instructions {
+  margin-left: 10px;
+  font-size: 26px;
+}
+
+.instructions-details {
+  background: rgb(206, 206, 206);
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.finish-recipe {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 99%;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  background: #6CE34F;
+  font-weight: 600;
+}

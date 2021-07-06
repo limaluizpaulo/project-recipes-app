@@ -52,3 +52,10 @@ export async function fetchRandomRecipe() {
   const response = await request.json();
   return response;
 }
+
+export async function fetchRecipeById(id) {
+  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(URL)
+    .then((res) => res.json())
+    .then(({ meals = [] }) => meals[0]);
+}
