@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import Context from '../context/Context';
 
-function HeaderSearchBar({ baseEndPoint }) {
+function HeaderSearchBar() {
   const {
     requestParams: { chosenFilter, searchText },
+    resetParams,
     handleChange,
     asyncSetState,
   } = useContext(Context);
@@ -18,6 +18,10 @@ function HeaderSearchBar({ baseEndPoint }) {
       setBlockRequest(false);
     }
   }, [searchText, chosenFilter]);
+
+  useEffect(() => {
+    resetParams();
+  }, [resetParams]);
 
   return (
     <form>
@@ -71,7 +75,7 @@ function HeaderSearchBar({ baseEndPoint }) {
         <button
           onClick={ blockRequest
             ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
-            : () => asyncSetState(baseEndPoint) }
+            : () => asyncSetState() }
           type="button"
           data-testid="exec-search-btn"
         >
@@ -83,7 +87,3 @@ function HeaderSearchBar({ baseEndPoint }) {
 }
 
 export default HeaderSearchBar;
-
-HeaderSearchBar.propTypes = {
-  baseEndPoint: PropTypes.string.isRequired,
-};

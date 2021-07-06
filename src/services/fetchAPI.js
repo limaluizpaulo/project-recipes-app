@@ -15,18 +15,16 @@ export const getCategories = async () => {
     .then((responses) => Promise.all(responses.map((res) => res.json()))));
 };
 
-export const categoryFilter = async (category) => {
-  const categoryURL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+export const categoryFilter = async (baseEndPoint, category) => {
+  const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
   const promiseCategory = await fetch(categoryURL);
   const result = await promiseCategory.json();
-  console.log(result);
   return result.meals;
 };
 
-export const categoryDrinks = async (category) => {
-  const categoryURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+export const categoryDrinks = async (baseEndPoint, category) => {
+  const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
   const promiseCategory = await fetch(categoryURL);
   const result = await promiseCategory.json();
-  console.log(result);
   return result.drinks;
 };

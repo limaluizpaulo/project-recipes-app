@@ -21,6 +21,7 @@ function GlobalProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   // armazena o requestResult sob a condição da sua chave (drinks ou meals).
   const [meals, setMeals] = useState([]);
+  const [baseEndPoint, setBaseEndPoint] = useState(FoodsEndPoint);
 
   useEffect(() => {
     const { chosenFilter, searchText } = initialParams;
@@ -48,7 +49,17 @@ function GlobalProvider({ children }) {
     setRequestParams({ ...requestParams, [name]: value });
   };
 
-  const asyncSetState = async (baseEndPoint) => {
+  const resetParams = () => {
+    setRequestParams(initialParams);
+  };
+
+  const updateEndPoint = (type) => {
+    if (type === 'drinks') {
+      setBaseEndPoint(DrinksEndPoint);
+    } else setBaseEndPoint(FoodsEndPoint);
+  };
+
+  const asyncSetState = async () => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
     if (result) {
@@ -75,14 +86,14 @@ function GlobalProvider({ children }) {
   };
 
   const filterCategory = async (category) => {
-    const resultFilter = await categoryFilter(category);
+    const resultFilter = await categoryFilter(baseEndPoint, category);
     if (resultFilter) {
       setMeals(resultFilter);
     }
   };
 
   const filterCategoryDrinks = async (category) => {
-    const resultFilter = await categoryDrinks(category);
+    const resultFilter = await categoryDrinks(baseEndPoint, category);
     if (resultFilter) {
       setDrinks(resultFilter);
     }
@@ -91,10 +102,13 @@ function GlobalProvider({ children }) {
   const contextValue = {
     FoodsEndPoint,
     DrinksEndPoint,
+    baseEndPoint,
     requestParams,
     meals,
     drinks,
     categories,
+    resetParams,
+    updateEndPoint,
     handleChange,
     asyncSetState,
     manageRenderMeal,

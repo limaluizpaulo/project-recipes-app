@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
@@ -12,14 +12,20 @@ function Drinks() {
     categories,
     manageRenderDrink,
     filterCategoryDrinks,
+    updateEndPoint,
   } = useContext(Context);
+
+  useEffect(() => {
+    updateEndPoint('drinks');
+  }, [updateEndPoint]);
 
   const maxRecipe = 12;
   const maxCategory = 5;
   const render = drinks.length > 0 && categories;
-  console.log(drinks);
+
   const drinkList = () => drinks.slice(0, maxRecipe).map((drink, index) => (
     RecipeCard(drink, index)));
+
   const categoryList = () => categories.drinks.slice(0, maxCategory)
     .map(({ strCategory }) => (
       CategoryBtn(strCategory, filterCategoryDrinks)));
@@ -38,7 +44,7 @@ function Drinks() {
     <>
       <div>Tela de Bebidas</div>
       <Header title="Bebidas" />
-      <HeaderSearchButton baseEndPoint="https://www.thecocktaildb.com/api/json/v1/1/" />
+      <HeaderSearchButton />
       {render ? manageRenderDrink(renderList) : <div>Loading...</div>}
       <Footer />
     </>
