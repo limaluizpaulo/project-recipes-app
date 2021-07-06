@@ -4,30 +4,33 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import RecipesDrinkList from '../components/RecipesDrinksList';
+import useFetchRecipesApi from '../utils/useFetchRecipesApi';
+
+const SEARCH_GENERAL_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const SEARCH_BY_CATEGORY_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
 function Drink() {
-  const {
-    showSearch,
-    categories,
-    setSelectedCategory,
-    selectedCategory,
-    setToggleBtnCategories,
-  } = useContext(RecipeContext);
+  const [setRecipeUrl] = useFetchRecipesApi();
+  const { showSearch, categories, setSelectedCategory,
+    selectedCategory, setToggleBtnCategories } = useContext(RecipeContext);
 
-  function handleClick(category) {
-    if (selectedCategory === category) {
+  function handleClick(category = '') {
+    if (selectedCategory === category || category === '') {
       setToggleBtnCategories(false);
       setSelectedCategory('');
+      setRecipeUrl(SEARCH_GENERAL_DRINK);
     } else {
       setToggleBtnCategories(true);
       setSelectedCategory(category);
+      setRecipeUrl(`${SEARCH_BY_CATEGORY_DRINK}${category}`);
     }
   }
 
-  function handleAll() {
-    setToggleBtnCategories(false);
-    setSelectedCategory('');
-  }
+  // function handleAll() {
+  //   setToggleBtnCategories(false);
+  //   setSelectedCategory('');
+  //   setRecipeUrl(SEARCH_GENERAL_DRINK);
+  // }
 
   return (
     <div>
@@ -36,7 +39,7 @@ function Drink() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => handleAll() }
+        onClick={ () => handleClick('') }
       >
         All
       </button>
@@ -50,7 +53,7 @@ function Drink() {
           { strCategory }
         </button>
       ))}
-      <RecipesDrinkList />
+      <RecipesDrinkList url={ SEARCH_GENERAL_DRINK } />
       <Footer />
     </div>
   );

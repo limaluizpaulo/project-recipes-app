@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams, useRouteMatch, Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
-import { useParams, useHistory, useRouteMatch } from 'react-router-dom';
-import { RecipeDetailContext } from '../context';
+import RecipeContext, { RecipeDetailContext } from '../context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import useFetchRecipesApi from '../utils/useFetchRecipesApi';
 
 export default function DetailDrink() {
   const bottomFixed = {
@@ -12,28 +13,41 @@ export default function DetailDrink() {
     bottom: '0px',
   };
 
-  const history = useHistory();
   const { id } = useParams();
   const { url } = useRouteMatch();
+  const [setRecipeUrl] = useFetchRecipesApi();
+  const { recipes, idProgress, setIdProgress,
+    setCheckedIngredients } = useContext(RecipeContext);
+  const { idDrink, strCategory, strAlcoholic, strDrinkThumb,
+    strDrink, strInstructions } = recipes[0] || [];
   const {
-    recipeDetail,
-    setIdDetail,
     setIsRecomendation,
   } = useContext(RecipeDetailContext);
   const [isFavorite, setIsFavorite] = useState();
   const [isCopy, setIsCopy] = useState(false);
+  const BASE_URL_DETAIL_DRINK = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   useEffect(() => {
-    setIdDetail(id);
+    setRecipeUrl(BASE_URL_DETAIL_DRINK);
+  }, [recipes]);
+
+  useEffect(() => {
+    const recipesInProgress = JSON.parse(localStorage
+      .getItem('inProgressRecipes')) || { cocktails: {}, meals: {} };
+    const storedDrink = Object.entries(recipesInProgress.cocktails)
+      .find((drinkId) => drinkId[0] === id);
+    if (storedDrink) {
+      setIdProgress(storedDrink[0]);
+      setCheckedIngredients(storedDrink[1]);
+    }
+    setIsRecomendation(true);
     setIsRecomendation(true);
   }, []);
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (storage !== null && storage.find((findId) => findId.id === id)) {
-      setIsFavorite(true);
-    }
-  }, []);
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favRecipes) setIsFavorite(favRecipes.some((favId) => favId.id === id));
+  }, [isFavorite]);
 
   function listIngredients(recipe) {
     const list = [];
@@ -74,11 +88,10 @@ export default function DetailDrink() {
     return !measure ? '' : measure;
   }
 
-  function handleFavorite({
-    idDrink, strCategory, strAlcoholic, strDrinkThumb, strDrink }) {
-    setIsFavorite(!isFavorite);
-    localStorage.setItem('favoriteRecipes', JSON.stringify([
-      {
+  function handleFavorite() {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (!isFavorite) {
+      const favRecipe = {
         id: idDrink,
         type: 'bebida',
         area: '',
@@ -86,69 +99,87 @@ export default function DetailDrink() {
         alcoholicOrNot: strAlcoholic,
         name: strDrink,
         image: strDrinkThumb,
-      },
-    ]));
-    if (isFavorite) {
-      const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const newStorage = storage.filter((findId) => findId.id !== id);
+      };
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
+    } else {
+      const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
+      const newStorage = [...favRecipes.slice(0, favIndex),
+        ...favRecipes.slice(favIndex + 1)];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-      setIsFavorite(false);
+    }
+    setIsFavorite(!isFavorite);
+  }
+
+  function handleRecipeInProgress() {
+    // setIdProgress(idDetail);
+    // setRecipeInProgress(recipes);
+    if (!idProgress) {
+      // const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const recipesInProgress = JSON.parse(localStorage
+        .getItem('inProgressRecipes')) || { cocktails: {}, meals: {} };
+      const drinksInProgress = {
+        ...recipesInProgress,
+        cocktails: {
+          ...recipesInProgress.cocktails,
+          [id]: [],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(drinksInProgress));
     }
   }
 
   return (
     <div>
-      {recipeDetail.length > 0 && (
+      {recipes.length > 0 && (
         <div>
-          <h2 data-testid="recipe-title">{ recipeDetail[0].strDrink }</h2>
+          <h2 data-testid="recipe-title">{ strDrink }</h2>
           <img
-            src={ recipeDetail[0].strDrinkThumb }
-            alt={ recipeDetail[0].strDrink }
+            src={ strDrinkThumb }
+            alt={ strDrink }
             data-testid="recipe-photo"
           />
           <button
             type="button"
-            data-testid="share-btn"
-            src={ shareIcon }
             onClick={ () => handleShare() }
           >
-            <img src={ shareIcon } alt="profile icon" />
+            <img src={ shareIcon } alt="share icon" data-testid="share-btn" />
           </button>
           {isCopy && (<p>Link copiado!</p>)}
           <button
             type="button"
-            data-testid="favorite-btn"
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            onClick={ () => handleFavorite(recipeDetail[0]) }
+            onClick={ () => handleFavorite() }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="profile icon"
+              alt="heart icon"
+              data-testid="favorite-btn"
             />
           </button>
-          <p data-testid="recipe-category">{ recipeDetail[0].strAlcoholic }</p>
+          <p data-testid="recipe-category">{ strAlcoholic }</p>
           <ul>
             {
-              listIngredients(recipeDetail[0])[0].map((ing, index) => (
+              listIngredients(recipes[0])[0].map((ing, index) => (
                 <li
                   key={ index }
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
-                  {` ${ing}: ${ternary(listIngredients(recipeDetail[0])[1][index])} `}
+                  {` ${ing}: ${ternary(listIngredients(recipes[0])[1][index])} `}
                 </li>
               ))
             }
           </ul>
-          <p data-testid="instructions">{recipeDetail[0].strInstructions}</p>
+          <p data-testid="instructions">{strInstructions}</p>
           <div data-testid="0-recomendation-card"> Falta criar</div>
-          <button
-            style={ bottomFixed }
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history.push(`${url}/in-progress`) }
-          >
-            Iniciar Receita
-          </button>
+          <Link to={ `${url}/in-progress` }>
+            <button
+              style={ bottomFixed }
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ handleRecipeInProgress }
+            >
+              {idProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+            </button>
+          </Link>
         </div>
       )}
     </div>

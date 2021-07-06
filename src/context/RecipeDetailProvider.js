@@ -28,15 +28,17 @@ export default function RecipeDetailProvider({ children }) {
     const requestDetail = async () => {
       if (pathname === `/bebidas/${idDetail}`) {
         const returnDetail = await detailRecipeDrinks(idDetail);
+        // console.log(returnDetail);
         setRecipeDetail(returnDetail);
       }
       if (pathname === `/comidas/${idDetail}`) {
         const returnDetail = await detailRecipeMeal(idDetail);
+        // console.log(returnDetail);
         setRecipeDetail(returnDetail);
       }
     };
     requestDetail();
-  }, [idDetail]);
+  }, []);
 
   // Progress
   useEffect(() => {
