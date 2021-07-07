@@ -11,19 +11,24 @@ class BeveragesInProgress extends React.Component {
 
     this.state = {
       detailsRecipe: testeData,
+      checkedInputs: false,
     };
     this.renderIngredients = this.renderIngredients.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
+    this.setInitialProgress = this.setInitialProgress.bind(this);
   }
+
 
   handleChecked({ target }) {
     const li = target.parentNode;
     const ing = li.innerText;
-    if (target.checked === true) li.className = 'checked';
-    if (target.checked === false) li.className = '';
-
     const { idMeal } = testeData[0];
     const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const notFound = -1;
+
+    if (target.checked === true) li.className = 'checked';
+    if (target.checked === false) li.className = '';
+
     if (prevStorage.meals[idMeal].indexOf(ing) === notFound) {
       prevStorage.meals[idMeal].push(ing);
     } else {
@@ -31,6 +36,8 @@ class BeveragesInProgress extends React.Component {
       prevStorage.meals[idMeal].splice(pos, 1);
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
+
+    this.setInitialProgress(ing);
   }
 
   setInitialLocal() {
@@ -50,23 +57,43 @@ class BeveragesInProgress extends React.Component {
       if (idMeal in prevStorage.meals === false) {
         prevStorage.meals[idMeal] = [];
         localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
-      } else {
-        console.log('ja existe!');
-      }
+      } 
     }
   }
 
-  // addOrRemoveIng(ing) {
+  // setInitialProgress(ing) {
   //   const { idMeal } = testeData[0];
   //   const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   //   const notFound = -1;
-  //   if (prevStorage.meals[idMeal].indexOf(ing) === notFound) {
-  //     prevStorage.meals[idMeal].push(ing);
-  //   } else {
-  //     const pos = prevStorage.meals[idMeal].indexOf(ing);
-  //     prevStorage.meals[idMeal].splice(pos, 1);
+  //   if (prevStorage.meals[idMeal].length !== 0) {
+  //     if (prevStorage.meals[idMeal].indexOf(ing) === notFound) return false;
+  //     if (prevStorage.meals[idMeal].indexOf(ing) !== notFound) return true;
   //   }
   // }
+
+  setInitialProgress(ing) {
+    console.log('aqui');
+    const { idMeal } = testeData[0];
+    const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (prevStorage.meals[idMeal]) {
+      const targetIng = prevStorage.meals[idMeal].find((name) => name === ing);
+      if (targetIng) {
+        console.log('true');
+        return this.setState({
+          checkedInputs: true,
+
+        });
+      }
+      return this.setState({
+        checkedInputs: false,
+
+      });
+    }
+    return this.setState({
+      checkedInputs: false,
+
+    });
+  }
 
   renderIngredients() {
     const { detailsRecipe } = this.state;
@@ -75,6 +102,7 @@ class BeveragesInProgress extends React.Component {
     return arrayIngredients.map((position) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
+      const ing = `${measure} ${ingredients}`;
       if (ingredients === '' || ingredients === null) {
         return null;
       }
@@ -83,7 +111,7 @@ class BeveragesInProgress extends React.Component {
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
         >
-          <input type="checkbox" onChange={ this.handleChecked } />
+          <input type="checkbox" checked={ this.state.checkedInputs } onChange={ this.handleChecked } />
           { `${measure} ${ingredients}` }
         </li>
       );
