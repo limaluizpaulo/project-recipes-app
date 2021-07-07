@@ -5,6 +5,7 @@ import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import '../App.css';
+import { getItemLocalStorage, setItemLocalStorage } from '../services/localStorage';
 
 function ReceitaEmProgresso(props) {
   const { match: { params: { id } } } = props;
@@ -13,6 +14,7 @@ function ReceitaEmProgresso(props) {
   const [parametrosBusca] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
   const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
+  const [contadorFinalizados, setContadorFinalizados] = useState(0);
 
   const inicializarIngredientes = (objReceitas) => {
     let indexAuxiliar = 0;
@@ -82,9 +84,28 @@ function ReceitaEmProgresso(props) {
     <div data-testid="recipe-category">{receita.strCategory}</div>
   );
 
-  const handleChange = ({ target: { checked } }) => {
+  const handleChange = ({ target: { checked, name } }) => {
+    const key = ((apelidoAPI === 'comidas') ? 'meals' : 'cocktails');
+    const idReceita = ((apelidoAPI === 'comidas') ? receita.idMeal : receita.idDrink);
+    const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
     if (checked) {
-      console.log('olá');
+      setContadorFinalizados(contadorFinalizados + 1);
+      if (!receitasEmProgresso) {
+        setItemLocalStorage('inProgressRecipes', { [key]: { [idReceita]: [name] } });
+      } else {
+        setItemLocalStorage('inProgressRecipes', {
+          ...receitasEmProgresso,
+          [key]: {
+            ...receitasEmProgresso[key],
+            [idReceita]: [
+              ...receitasEmProgresso[key][idReceita],
+              name,
+            ],
+          },
+        });
+      }
+    } else {
+      setContadorFinalizados(contadorFinalizados - 1);
     }
   };
 
