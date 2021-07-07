@@ -127,9 +127,9 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
           width="300px"
           title="Recipe"
         />
-        {localStorageVerifier()}
         <h3>Recomendações de Drinks</h3>
         {loopRecomendationsDrinks()}
+        {localStorageVerifier()}
       </main>
     );
   }
