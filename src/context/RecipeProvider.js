@@ -116,7 +116,7 @@ export default function RecipeProvider({ children }) {
     async function requestByIngredients() {
       const returnIngredients = await searchByIngredientsApi(inputValue, routeFromSearch);
       if (returnIngredients === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
@@ -124,7 +124,7 @@ export default function RecipeProvider({ children }) {
     const requestByName = async () => {
       const returnName = await searchByNameApi(inputValue, routeFromSearch);
       if (returnName === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnName.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
@@ -132,7 +132,7 @@ export default function RecipeProvider({ children }) {
     const requestByLetter = async () => {
       const returnLetter = await searchByFirstLetterApi(inputValue, routeFromSearch);
       if (returnLetter === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnLetter.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);

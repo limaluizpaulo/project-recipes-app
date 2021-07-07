@@ -5,7 +5,7 @@ import useFetchRecipesApi from '../utils/useFetchRecipesApi';
 import RecipesMealCard from './RecipesMealCard';
 
 export default function RecipesMealList({ url }) {
-  const { recipes, searchIngredient, setSearchIngredient } = useContext(RecipeContext);
+  const { recipes, searchIngredient } = useContext(RecipeContext);
   const [setRecipeUrl] = useFetchRecipesApi();
   const SEARCH_MEAL_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 

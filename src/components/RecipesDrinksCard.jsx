@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipeContext from '../context';
-import useFetchRecipesApi from '../utils/useFetchRecipesApi';
 
 function RecipesDrinksCard({ recipe, index }) {
   const { strDrinkThumb, strDrink, idDrink } = recipe;
-  const [setRecipeUrl] = useFetchRecipesApi();
-  const BASE_URL_DETAIL_DRINK = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`;
   const { setIdDetail } = useContext(RecipeContext);
 
   // useEffect(() => {
