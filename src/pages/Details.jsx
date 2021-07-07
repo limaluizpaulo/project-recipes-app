@@ -10,6 +10,7 @@ import Recommended from '../components/Recommended';
 
 function Details() {
   const { id } = useParams();
+  // const [idDetails, setIdDetails] = useState(id);
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
 
@@ -31,17 +32,33 @@ function Details() {
       setDetailsData(result[0]);
     };
     getData();
-  }, []);
+  }, [type]);
   const thirtyTwo = 32;
-  const videoId = detailsData === undefined ? null
-    : detailsData.strYoutube.slice(thirtyTwo);
-  const video = type === 'meals' ? (
-    <section data-testid="video">
-      <h3>Video</h3>
-      <YouTube
-        videoId={ videoId }
-      />
-    </section>) : null;
+  console.log(detailsData);
+  // const videoId = type === 'meals'?(
+  // videoId = detailsData.strYoutube === undefined ? null
+  //   : detailsData.strYoutube.slice(thirtyTwo);
+  // const video = (
+  //   <section data-testid="video">
+  //     <h3>Video</h3>
+  //     <YouTube
+  //       videoId={ videoId }
+  //     />
+  //   </section>)) : '';
+  const video = () => {
+    if (type === 'drinks') {
+      return null;
+    }
+    const videoId = detailsData.strYoutube === undefined ? ''
+      : detailsData.strYoutube.slice(thirtyTwo);
+    return (
+      <section data-testid="video">
+        <h3>Video</h3>
+        <YouTube
+          videoId={ videoId }
+        />
+      </section>);
+  };
 
   // if (type === 'meals') {
   //   title = 'Comidas';
@@ -99,7 +116,7 @@ function Details() {
           <p data-testid="instructions">{detailsData[instructions]}</p>
         </section>
         {// https://www.npmjs.com/package/react-youtube
-          video
+          video()
         }
         <Recommended />
       </main>

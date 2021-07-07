@@ -32,9 +32,9 @@ function Recommended() {
       const results = await getMealsRecipes(recommendedType);
       setRecommendedData(results.filter((item, index) => index < maxCards));
     };
-
+    console.log('recommended');
     getData();
-  }, []);
+  }, [type]);
 
   return (
     <section>
