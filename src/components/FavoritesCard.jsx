@@ -1,19 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import ShareButton from './Details/ShareButton';
 import FavoriteButton from './Details/FavoriteButton';
 
-export default function FavoritesCard({ favorite }) {
+// *SOURCE* Semantic Value = https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-noninteractive-element-interactions.md
+
+export default function FavoritesCard({ favorite, index, updateCards, setUpdateCards }) {
+  const history = useHistory();
+
   const generateMealOrDrinkTitle = () => {
     switch (favorite.type) {
     case 'comida':
-      return <h5>{`${favorite.area} - ${favorite.category}`}</h5>;
+      return (
+        <h5>
+          <span data-testid={ `${index}-horizontal-top-text` }>
+            { `${favorite.area} - ${favorite.category}` }
+          </span>
+        </h5>
+      );
     case 'bebida':
-      return <h5>{`${favorite.alcoholicOrNot}`}</h5>;
+      return (
+        <h5 data-testid={ `${index}-horizontal-top-text` }>
+          {`${favorite.alcoholicOrNot}`}
+        </h5>
+      );
     default:
       break;
     }
+  };
+
+  const handleOpenRecipe = () => {
+    const route = `${favorite.type}s/${favorite.id}`;
+    history.push(route);
   };
 
   const generateFavoriteTable = () => (
@@ -21,19 +41,43 @@ export default function FavoritesCard({ favorite }) {
       <tbody>
         <tr>
           <td rowSpan="4">
-            <img alt={ favorite.name } width="140" src={ favorite.image } />
+            <img
+              role="presentation"
+              onClick={ handleOpenRecipe }
+              data-testid={ `${index}-horizontal-image` }
+              alt={ favorite.name }
+              width="140"
+              src={ favorite.image }
+            />
           </td>
         </tr>
         <tr>
           <td>{ generateMealOrDrinkTitle() }</td>
         </tr>
         <tr>
-          <td><h5>{ favorite.name }</h5></td>
+          <td>
+            <h5
+              role="presentation"
+              onClick={ handleOpenRecipe }
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { favorite.name }
+            </h5>
+          </td>
         </tr>
         <tr>
           <td>
-            <ShareButton id={ favorite.id } type={ favorite.type } />
-            <FavoriteButton recipe={ favorite } />
+            <ShareButton
+              index={ index }
+              id={ favorite.id }
+              type={ favorite.type }
+            />
+            <FavoriteButton
+              updateCards={ updateCards }
+              setUpdateCards={ setUpdateCards }
+              dataTestId={ `${index}-horizontal-favorite-btn` }
+              recipe={ favorite }
+            />
           </td>
         </tr>
       </tbody>
@@ -56,5 +100,8 @@ FavoritesCard.propTypes = {
     category: PropTypes.string,
     image: PropTypes.string,
     alcoholicOrNot: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  updateCards: PropTypes.bool,
+  setUpdateCards: PropTypes.func,
+  index: PropTypes.number,
+}.isRequired;

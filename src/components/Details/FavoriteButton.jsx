@@ -4,7 +4,9 @@ import { Container, Button, Image } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-export default function FavoriteButton({ recipe }) {
+export default function FavoriteButton(
+  { recipe, dataTestId, updateCards, setUpdateCards },
+) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   // Atualiza o estado de item favoritado
@@ -91,14 +93,19 @@ export default function FavoriteButton({ recipe }) {
   // // Ação ao clicar em favoritar
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
+    setUpdateCards(!updateCards);
     updateFavoritesLocalStorage();
   };
 
   return (
     <Container>
-      <Button block onClick={ handleFavorite } variant="success">
+      <Button
+        block
+        onClick={ handleFavorite }
+        variant="success"
+      >
         <Image
-          data-testid="favorite-btn"
+          data-testid={ dataTestId }
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         />
       </Button>
@@ -115,5 +122,8 @@ FavoriteButton.propTypes = {
     category: PropTypes.string,
     image: PropTypes.string,
     alcoholicOrNot: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  dataTestId: PropTypes.string,
+  updateCards: PropTypes.bool,
+  setUpdateCards: PropTypes.func,
+}.isRequired;

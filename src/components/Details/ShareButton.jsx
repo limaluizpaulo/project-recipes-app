@@ -4,7 +4,7 @@ import copy from 'clipboard-copy';
 import { Container, Button, Image } from 'react-bootstrap';
 import shareIcon from '../../images/shareIcon.svg';
 
-export default function ShareButton({ id, type }) {
+export default function ShareButton({ id, type, index }) {
   const [isCopied, setIsCopied] = useState(false);
 
   // Ação de clicar no botão compartilhar
@@ -21,7 +21,7 @@ export default function ShareButton({ id, type }) {
     if (isCopied) {
       return <span variant="primary">Link copiado!</span>;
     }
-    return <Image src={ shareIcon } />;
+    return <Image data-testid={ `${index}-horizontal-share-btn` } src={ shareIcon } />;
   };
 
   return (
