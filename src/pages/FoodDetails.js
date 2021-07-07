@@ -9,19 +9,19 @@ import { Context } from '../context/ContextForm';
 
 function FoodDetails() {
   const params = useParams();
-  const { setParamId } = useContext(Context);
+  const { setParam } = useContext(Context);
   const [item, setItem] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
+    setParam(params.id);
     const request = async () => {
-      setParamId(params.id);
       const result = await requestByDetailsMeal(params.id);
       setItem(result.meals);
     };
     request();
-  }, [params.id, setParamId]);
+  }, [params.id]);
 
   function progressFunction() {
     const { idMeal } = item[0];

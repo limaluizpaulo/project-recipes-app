@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function DrinkDetails() {
   const params = useParams();
+  const { setParam } = useContext(Context);
   const [drink, setDrink] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
+    setParam(params.id);
     const request = async () => {
       const result = await requestByDetailsDrink(params.id);
       setDrink(result.drinks);
