@@ -22,6 +22,7 @@ function Footer() {
         <button
           type="button"
           onClick={ (event) => redirectToRespectivelyPages(event) }
+          name="bebidas"
         >
           <img
             src={ Drink }
@@ -33,6 +34,7 @@ function Footer() {
         <button
           type="button"
           onClick={ (event) => redirectToRespectivelyPages(event) }
+          name="explorar"
         >
           <img
             src={ Explore }
@@ -44,6 +46,7 @@ function Footer() {
         <button
           type="button"
           onClick={ (event) => redirectToRespectivelyPages(event) }
+          name="comidas"
         >
           <img
             src={ teste }

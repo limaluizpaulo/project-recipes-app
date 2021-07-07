@@ -55,6 +55,7 @@ function Routes() {
       <Route exact path="/receitas-feitas" component={ FinishedRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
       <Route exact path="/explorar/bebidas/area" component={ NotFound } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

@@ -26,9 +26,6 @@ function Drinks() {
   }, [filteredDrinks, history]);
 
   function renderDrinksDefault() {
-    // no evaluator usar esse:
-    /* if (!drinksByCategory && isFiltred === false) { */
-    // na tela usar esse:
     if ((!drinksByCategory && isFiltred === false)
     || (drinksByCategory.length === 0 && isFiltred === false)) {
       return (
@@ -68,7 +65,7 @@ function Drinks() {
       <section className="category-field">
         <button
           type="button"
-          className="btn-category btn btn-primary"
+          className="btn btn-danger btn-category"
           data-testid="All-category-filter"
           onClick={ (event) => resetDrinkCategory(event) }
         >
@@ -79,7 +76,7 @@ function Drinks() {
             .map((categoryDrinks, index) => (
               <button
                 type="button"
-                className="btn-category btn btn-primary"
+                className="btn btn-danger btn-category"
                 key={ index }
                 data-testid={ `${categoryDrinks.strCategory}-category-filter` }
                 onClick={ (event) => {
@@ -100,7 +97,7 @@ function Drinks() {
   }
 
   return (
-    <>
+    <section className="main-page">
       <Header profile name="Bebidas" search />
 
       {renderButtonCategories()}
@@ -110,7 +107,7 @@ function Drinks() {
           : renderDrinksDefault()
       }
       <Footer />
-    </>
+    </section>
   );
 }
 

@@ -74,6 +74,7 @@ function SearchBar() {
       <div>
         <div controlId="formBasicEmail">
           <input
+            className="form-control"
             value={ textFilter }
             data-testid="search-input"
             type="text"
@@ -128,6 +129,7 @@ function SearchBar() {
         </div>
       </div>
       <button
+        className="btn btn-info btn-category"
         data-testid="exec-search-btn"
         type="submit"
       >
