@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import Embed from 'react-embed';
+import Embed from 'react-embed';
 import '../Style/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -69,7 +69,7 @@ class RecipeDetails extends Component {
       idMeal,
       strMeal,
       strCategory,
-      // strYoutube,
+      strYoutube,
       strInstructions } = recipe;
 
     console.log(strMealThumb);
@@ -100,7 +100,7 @@ class RecipeDetails extends Component {
           {strInstructions}
         </p>
 
-        {/* <Embed className="video" url={ strYoutube } data-testid="video" /> */}
+        <Embed className="video" url={ strYoutube } data-testid="video" />
 
         <h3>Receitas Recomendadas</h3>
         <div
