@@ -24,7 +24,7 @@
 .iniciarReceita {
   bottom: 0;
   position: fixed;
-  width:100%
+  width:100%;
 }
 
 /*
@@ -40,6 +40,7 @@
   transform-origin: 60px 78px;
 }
 */
+
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
