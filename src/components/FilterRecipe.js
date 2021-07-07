@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { actionFilterList } from '../Redux/actions';
-import { fetchRecipeAllDrink, fetchRecipeAllFood, fetchRecipeFilterDrinks, fetchRecipeFilterFood } from '../services/recipeAPI';
+import { fetchRecipeAllDrink,
+  fetchRecipeAllFood,
+  fetchRecipeFilterDrinks,
+  fetchRecipeFilterFood } from '../services/recipeAPI';
 
 function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
   const [object, setObject] = useState(list);
