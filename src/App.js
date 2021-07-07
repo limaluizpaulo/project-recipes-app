@@ -1,47 +1,44 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import RecipesProvider from './context/RecipesProvider';
-import RecipesMade from './pages/RecipesMade';
+import ReceitaDetalhes from './pages/ReceitaDetalhes';
+// import ReceitaEmProgresso from './pages/ReceitaEmProgresso';
 import Login from './pages/Login';
+import ExplorarReceitas from './pages/ExploreRecipes';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesFavorite from './pages/RecipesFavorite';
+import RecipesMade from './pages/RecipesMade';
+import RecipesProvider from './context/RecipesProvider';
+import ComidasArea from './pages/ComidasArea';
+import Ingredients from './components/Ingredients';
+import Comidas from './pages/Comidas';
+import Bebidas from './pages/Bebidas';
+import Explorar from './pages/Explorar';
+import Perfil from './pages/Perfil';
 
 function App() {
   return (
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route path="/comidas" component={Comidas} /> */}
-        {/* <Route path="/bebidas" component={Bebidas} /> */}
-        {/* <Route path="/comidas/:id" component={ReceitaDetalhes} /> */}
-        {/* <Route path="/bebidas/:id" component={ReceitaDetalhes} /> */}
-        {/* <Route path="/comidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
-        {/* <Route path="/bebidas/:id/in-progress" component={ReceitaEmProgresso} /> */}
-        {/* <Route path="/explorar" component={Explorar} /> */}
-        {/* <Route path="/explorar/comidas" component={ExplorarComidas} /> */}
-        {/* <Route path="/explorar/bebidas" component={ExplorarBebidas} /> */}
-        {/* <Route path="/explorar/comidas/ingredientes"
-        component={ComidasIngredientes} /> */}
-        {/* <Route path="/explorar/bebidas/ingredientes"
-        component={BebidasIngredientes} /> */}
-        {/* <Route path="/explorar/comidas/area" component={ComidasArea} /> */}
-        {/* <Route path="/perfil" component={Perfil} /> */}
+        <Route exact path="/comidas" component={ Comidas } />
+        <Route exact path="/bebidas" component={ Bebidas } />
+        <Route exact path="/comidas/:id" component={ ReceitaDetalhes } />
+        <Route exact path="/bebidas/:id" component={ ReceitaDetalhes } />
+        {/* <Route path="/comidas/:id/in-progress" component={ ReceitaEmProgresso } />
+        <Route path="/bebidas/:id/in-progress" component={ ReceitaEmProgresso } /> */}
+        <Route exact path="/explorar" component={ Explorar } />
+        <Route exact path="/explorar/comidas" component={ ExplorarReceitas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarReceitas } />
+        <Route exact path="/explorar/comidas/ingredientes" component={ Ingredients } />
+        <Route exact path="/explorar/bebidas/ingredientes" component={ Ingredients } />
+        <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
+        <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ RecipesMade } />
         <Route path="/receitas-favoritas" component={ RecipesFavorite } />
       </Switch>
     </RecipesProvider>
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
   );
 }
 

@@ -1,37 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import FilterButtons from '../components/FilterButtons';
 import CardRecipesFavorite from '../components/CardsRecipes/CardRecipesFavorite';
 
-export default class RecipesFavorite extends Component {
-  render() {
-    return (
-      <div className="d-flex flex-column">
-        <div className="d-flex justify-content-around">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            data-testid="filter-by-all-btn"
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            data-testid="filter-by-food-btn"
-          >
-            Food
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            data-testid="filter-by-drink-btn"
-          >
-            Drinks
-          </button>
-        </div>
-        <div>
-          <CardRecipesFavorite />
-        </div>
+function RecipesFavorite() {
+  const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
+  return (
+    <div>
+      <Header />
+      <FilterButtons
+        initialFavorites={ initialFavorites }
+        filterFavorites={ filterFavorites }
+        setFilterFavorites={ setFilterFavorites }
+      />
+      <div>
+        {filterFavorites.map((aux, index) => (
+          <CardRecipesFavorite
+            key={ index }
+            aux={ aux }
+            index={ index }
+          />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default RecipesFavorite;

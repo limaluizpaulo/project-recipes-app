@@ -1,0 +1,13 @@
+div .card {
+  width: 100px;
+}
+
+.gallery {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery .card {
+  scroll-snap-align: center;
+}
