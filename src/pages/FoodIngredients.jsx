@@ -7,6 +7,7 @@ import FoodVideoAndRecomendation
 import RecipeContext from '../context/Context';
 import FoodDetailsButton from '../components/foodDetailsPage/FoodDetailsButton';
 import useFood from '../hooks/useFood';
+import loadingIcon from '../images/loading.gif';
 
 // Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes
 export default function FoodIngredients() {
@@ -16,18 +17,18 @@ export default function FoodIngredients() {
 
   if (!selectedFood) {
     return (
-      <p>loading</p>
+      <div className="foodDetails__loading">
+        <img src={ loadingIcon } alt="loading" />
+      </div>
     );
   }
   return (
-    <div>
-      <section>
-        <FoodDetails>
-          <FoodDetailsIngredientList />
-        </FoodDetails>
-        <FoodVideoAndRecomendation />
-        <FoodDetailsButton />
-      </section>
-    </div>
+    <section className="foodDetails">
+      <FoodDetails>
+        <FoodDetailsIngredientList />
+      </FoodDetails>
+      <FoodVideoAndRecomendation />
+      <FoodDetailsButton />
+    </section>
   );
 }
