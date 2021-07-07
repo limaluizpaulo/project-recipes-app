@@ -57,7 +57,7 @@ function Recipes() {
       <section className="category-field">
         <button
           type="button"
-          className="btn-category btn btn-primary"
+          className="btn btn-danger btn-category"
           data-testid="All-category-filter"
           onClick={ (event) => setCategory(event.target.innerText) }
         >
@@ -68,7 +68,7 @@ function Recipes() {
             .map((categoryRecipes, index) => (
               <button
                 type="button"
-                className="btn-category btn btn-primary"
+                className="btn btn-danger btn-category"
                 key={ index }
                 data-testid={ `${categoryRecipes.strCategory}-category-filter` }
                 onClick={ (event) => {
@@ -89,7 +89,7 @@ function Recipes() {
   }
 
   return (
-    <>
+    <section className="main-page">
       <Header profile name="Comidas" search />
 
       {renderButtonCategories()}
@@ -100,7 +100,7 @@ function Recipes() {
       }
 
       <Footer />
-    </>
+    </section>
 
   );
 }

@@ -56,7 +56,8 @@ function Login() {
         </Form.Group>
         <Button
           data-testid="login-submit-btn"
-          variant="danger"
+          className="btn-login"
+          variant="info"
           type="submit"
           disabled={ !validateLogin() }
         >
