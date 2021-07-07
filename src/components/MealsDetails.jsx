@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
+import { fetchAllDrinks } from '../Service/drinkApi';
+
+import ShareButton from './ShareButton';
 import RecipesContext from '../Context/RecipesContext';
+import FavoriteButton from './FavoriteButton';
 
 export default function MealsDetails() {
-  const [stateMeals, setStateMeals] = useState([{}]);
+  const { stateMeals, setStateMeals } = useContext(RecipesContext);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
   const { pathname } = useLocation();
-  const { resposeApiLupaDrink } = useContext(RecipesContext);
+  const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -18,57 +22,48 @@ export default function MealsDetails() {
     );
     const ingredient = [];
     const measures = [];
+
     const arrayKeysMeasure = keysIngredientes.filter((e) => e.includes('strMeasure'));
     arrayKeysMeasure.forEach((element) => measures.push(stateMeals[0][element]));
     arrayKeysIngredients.forEach((element) => ingredient.push(stateMeals[0][element]));
-
-    setIngredients(ingredients.filter((e) => e !== null));
-    setMeasure(measure.filter((e) => e !== null));
+    const filtroIngredients = ingredient.filter((word) => word !== '');
+    const filtroMeasure = measures.filter((word) => word !== ' ');
+    setIngredients(filtroIngredients);
+    setMeasure(filtroMeasure);
   };
 
   const getApiDetails = () => {
+    const SIX = 6;
     const id = pathname.split('/')[2];
     fetchIdMeals(id).then((result) => setStateMeals(result));
+    fetchAllDrinks().then((result) => setDrinksAll(result.filter((_e, i) => i < SIX)));
   };
 
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateMeals]);
   const { strMealThumb, strMeal,
-    strCategory, strInstructions, strVideo } = stateMeals[0];
+    strCategory, strInstructions, strVideo, idMeal } = stateMeals[0];
   return (
     <div>
-      <img src={ strMealThumb } alt="foto da comida" data-testid="recipe-photo" />
+      <img
+        src={ strMealThumb }
+        alt="foto da comida"
+        data-testid="recipe-photo"
+        width="100px"
+      />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
-      <button type="button">
-        <img
-          src="../images/shareIcon.svg"
-          alt="imagem de compartilhamento"
-          data-testid="share-btn"
-        />
-      </button>
-      <button type="button">
-        <img
-          src="../images/whiteHeartIcon.svg"
-          alt="imagem de favoritar"
-          data-testid="favorite-btn"
-        />
-      </button>
+      <ShareButton />
+      <FavoriteButton />
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
-        {ingredients.map((e, index) => (
+        {console.log(ingredients)}
+        {ingredients.map((ingredient, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ e }
+            key={ index }
           >
-            { e }
-          </li>))}
-        {measure.map((measur, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ measur }
-          >
-            { measur }
+            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
           </li>))}
       </ul>
       <h2>Instructions</h2>
@@ -84,43 +79,32 @@ export default function MealsDetails() {
         autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-pict"
       />
       <Carousel>
-        <Carousel.Item interval={ 1000 }>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item interval={ 500 }>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="Second slide"
-          />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src=""
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {drinksAll.map((drink, index) => (
+          <Carousel.Item
+            interval={ 1000 }
+            key={ index }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img
+              className="d-block w-60"
+              src={ drink.strDrinkThumb }
+              alt="slide"
+            />
+            <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
+              <h3>{drink.strDrink}</h3>
+            </Carousel.Caption>
+          </Carousel.Item>))}
       </Carousel>
-      {/* slide de receitas recomendadas de drinks
-       com data-testid="${index}-recomendation-card" */}
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <Link to={ `/comidas/${idMeal}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="iniciarReceita"
+        >
+          Iniciar Receita
+
+        </button>
+      </Link>
     </div>
   );
 }

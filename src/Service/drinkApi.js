@@ -40,3 +40,10 @@ export const fetchTypeCategoryFilter = async (category) => {
   const { drinks } = await typeCategory.json();
   return drinks;
 };
+
+export const fetchRandomDrink = async () => {
+  const randomDrink = await
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const { drinks } = await randomDrink.json();
+  return drinks;
+};
