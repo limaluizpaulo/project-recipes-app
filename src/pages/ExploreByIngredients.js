@@ -22,7 +22,7 @@ function ExploreFoodsByIngredients() {
   }, [domain, firstKey, limit]);
 
   const handleClick = (ingredient) => {
-    setIngredientsResults(ingredient.replace(' ', '_').toLowerCase());
+    setIngredientsResults(ingredient.replace(' ', '_'));
   };
 
   return (
