@@ -8,6 +8,8 @@ import ContextRecipes from '../context/contextRecipes';
 function FoodPage({ history }) {
   const { goSearch, setTitle, recipes } = useContext(ContextRecipes);
   const maxLength = 11;
+  // const recipesFiltered = recipes
+  //   .filter((recipe) => recipe.strMeal.includes(searchInput));
 
   useEffect(() => {
     setTitle('Comidas');

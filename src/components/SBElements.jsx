@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import ContextRecipes from '../context/contextRecipes';
 
 function SBElements({ history }) {
   const [ingredients, setIngredients] = useState([]);
-  const [recipes, setRecipes] = useState([]);
   const [FirstLetter, setFirstLetter] = useState([]);
   const [filter, setFilter] = useState('');
-  const [searchInput, setsearchInput] = useState('');
+  const { searchInput, setsearchInput,
+    recipes, setRecipes, drinks } = useContext(ContextRecipes);
 
   const { location: { pathname } } = history;
 
@@ -77,6 +78,18 @@ function SBElements({ history }) {
       getFirstLetter();
 
       break;
+    case searchInput:
+      if (pathname === '/comidas') {
+        const recipesFiltered = recipes
+          .filter((recipe) => recipe.strMeal.includes(searchInput));
+        return recipesFiltered;
+      }
+      if (pathname === '/bebidas') {
+        const drinksFiltered = drinks
+          .filter((recipe) => recipe.strDrink.includes(searchInput));
+        return drinksFiltered;
+      }
+      break;
     default:
       console.log('nada aconteceu');
       break;
@@ -89,7 +102,10 @@ function SBElements({ history }) {
         id="searchInput"
         type="text"
         data-testid="search-input"
-        onChange={ (event) => setsearchInput(event.target.value) }
+        // value={searchInput.name}
+        onChange={ (event) => setsearchInput({
+          name: event.target.value,
+        }) }
       />
       <label
         htmlFor="ingredientes"

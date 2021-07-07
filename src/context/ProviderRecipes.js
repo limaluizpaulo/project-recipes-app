@@ -8,6 +8,10 @@ function ProviderRecipes({ children }) {
   const [title, setTitle] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [searchInput, setsearchInput] = useState({
+    name: '',
+  });
+
   const obj = {
     goSearch,
     goProfile,
@@ -17,6 +21,8 @@ function ProviderRecipes({ children }) {
     setTitle,
     recipes,
     drinks,
+    searchInput,
+    setsearchInput,
   };
 
   const fetchFoodRecipes = () => {
