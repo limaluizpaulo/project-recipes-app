@@ -17,9 +17,9 @@ export default function CocktailList() {
       setShowCocktails(true);
     }
   }, [cocktailsRecipes]);
-
   useEffect(() => {
     resquestCocktailsApi();
+    // eslint-disable-next-line
   }, []);
 
   const renderCards = () => {

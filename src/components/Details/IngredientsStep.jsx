@@ -24,6 +24,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
   useEffect(() => {
     populateSteps();
+    // eslint-disable-next-line
   }, [ingredients]);
 
   // Adiciona o progresso da receita em localstorage

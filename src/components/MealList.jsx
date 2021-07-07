@@ -20,6 +20,7 @@ export default function MealList() {
 
   useEffect(() => {
     resquestMealsApi();
+    // eslint-disable-next-line
   }, []);
 
   const renderCards = () => {
