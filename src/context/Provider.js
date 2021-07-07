@@ -192,9 +192,7 @@ export default function Provider({ children }) {
     currentRecipe,
     resquestCocktailsApi,
     resquestMealsApi,
-<<<<<<< HEAD
     curr,
-=======
     requestMealCategories,
     mealsCategories,
     requestCocktailsCategories,
@@ -202,7 +200,6 @@ export default function Provider({ children }) {
     selectedCategory,
     setSelectedCategory,
     filterByCategory,
->>>>>>> 8850565f740404e47d1e54de2355c2d3c7d428e0
   };
   return (
     <Context.Provider value={ context }>
