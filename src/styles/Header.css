@@ -1,0 +1,18 @@
+.main-header {
+  background-color: #f93602;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-family: Galindo , cursive;
+  font-weight: 400;
+  margin-right: 25px;
+  margin-top: 10px;
+}
+
+.search-pic {
+  margin-left: -25px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Galindo&display=swap') ;
