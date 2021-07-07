@@ -1,42 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import favoriteRecipes from '../favoriteRecipes';
+import doneRecipes from '../doneRecipes';
+import { Header } from '../Components';
 // O array acima é apenas ilustrativo para passar nos testes. Conforme a evolução do projeto iremos substituí-los pelos dados corretos posteriormente
 
-export default class ReceitasFavoritas extends Component {
+export default class ReceitasFeitas extends Component {
   constructor() {
     super();
 
     this.state = {
-      favoriteRecipes: [],
+      doneRecipes,
       filtered: [],
       linkCopied: false,
       intervalId: '',
       count: 2,
     };
 
+    this.renderDoneRecipes = this.renderDoneRecipes.bind(this);
     this.filterByType = this.filterByType.bind(this);
-    this.copyToClipboard = this.copyToClipboard.bind(this);
-    this.disfavorRecipe = this.disfavorRecipe.bind(this);
-    this.setFavState = this.setFavState.bind(this);
-    this.renderFavRecipes = this.renderFavRecipes.bind(this);
+    this.copyToClipboardAndAlert = this.copyToClipboardAndAlert.bind(this);
     this.setIntervalState = this.setIntervalState.bind(this);
     this.timer = this.timer.bind(this);
-  }
-
-  componentDidMount() {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    // Essa parte de colocar no localStorage talvez seja desnecessária no decorrer do projeto, visto que provavelmente isso será feito no componente que favorita uma receita, e não nessa página. Apenas fiz dessa maneira para passar no teste dos requisitos.
-    this.setFavState();
-  }
-
-  setFavState() {
-    const favRecipesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    this.setState({
-      favoriteRecipes: favRecipesLocalStorage,
-    });
   }
 
   setIntervalState() {
@@ -60,27 +46,7 @@ export default class ReceitasFavoritas extends Component {
     }
   }
 
-  filterByType({ target }) {
-    const { favoriteRecipes: AllRecipes } = this.state;
-    switch (target.textContent) {
-    case 'Food':
-      this.setState({
-        filtered: AllRecipes.filter(({ type }) => type === 'comida'),
-      });
-      break;
-    case 'Drinks':
-      this.setState({
-        filtered: AllRecipes.filter(({ type }) => type === 'bebida'),
-      });
-      break;
-    default:
-      this.setState({
-        filtered: [],
-      });
-    }
-  }
-
-  copyToClipboard(type, id) {
+  copyToClipboardAndAlert(type, id) {
     switch (type) {
     case 'comida':
       navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
@@ -101,21 +67,31 @@ export default class ReceitasFavoritas extends Component {
     }
   }
 
-  disfavorRecipe(id) {
-    const favRecipesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const disfavorRecipes = favRecipesLocalStorage.filter((recipe) => recipe.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(disfavorRecipes));
-    this.setState({
-      filtered: disfavorRecipes,
-    });
-    this.setFavState();
+  filterByType({ target }) {
+    const { doneRecipes: AllRecipes } = this.state;
+    switch (target.textContent) {
+    case 'Food':
+      this.setState({
+        filtered: AllRecipes.filter(({ type }) => type === 'comida'),
+      });
+      break;
+    case 'Drinks':
+      this.setState({
+        filtered: AllRecipes.filter(({ type }) => type === 'bebida'),
+      });
+      break;
+    default:
+      this.setState({
+        filtered: [],
+      });
+    }
   }
 
-  renderFavRecipes(favRecipes) {
+  renderDoneRecipes(recipesToRender) {
     const { linkCopied } = this.state;
-    const recipes = favRecipes
+    const recipes = recipesToRender
       .map(({ id, type, area, alcoholicOrNot, image,
-        name, category }, index) => {
+        name, category, doneDate, tags }, index) => {
         const bothTypes = () => (
           <section>
             <Link to={ `/${type}s/${id}` }>
@@ -129,9 +105,10 @@ export default class ReceitasFavoritas extends Component {
             <Link to={ `/${type}s/${id}` }>
               <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
             </Link>
+            <span data-testid={ `${index}-horizontal-done-date` }>{doneDate}</span>
             <button
               type="button"
-              onClick={ () => this.copyToClipboard(type, id) }
+              onClick={ () => this.copyToClipboardAndAlert(type, id) }
             >
               <img
                 src={ shareIcon }
@@ -139,24 +116,28 @@ export default class ReceitasFavoritas extends Component {
                 data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
-            <button
-              type="button"
-              onClick={ () => this.disfavorRecipe(id) }
-            >
-              <img
-                src={ blackHeartIcon }
-                alt="disfavor-button"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-              />
-            </button>
             { linkCopied && <span>Link copiado!</span> }
           </section>
         );
+        const mapTags = tags.map((tag, indexTag) => {
+          if (indexTag < 2) {
+            return (
+              <span
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            );
+          }
+          return null;
+        });
         const renderFood = () => (
           <section>
             <span data-testid={ `${index}-horizontal-top-text` }>
               { `${area} - ${category}` }
             </span>
+            { mapTags }
           </section>
         );
         const renderDrink = () => (
@@ -173,10 +154,12 @@ export default class ReceitasFavoritas extends Component {
   }
 
   render() {
-    const { favoriteRecipes: AllRecipes, filtered } = this.state;
+    const { location: { pathname } } = this.props;
+    const { doneRecipes: AllRecipes, filtered } = this.state;
     return (
       <div>
         <main>
+          <Header pathname={ pathname } />
           <button
             type="button"
             onClick={ (e) => this.filterByType(e) }
@@ -198,10 +181,16 @@ export default class ReceitasFavoritas extends Component {
           >
             Drinks
           </button>
-          { filtered.length === 0 ? this.renderFavRecipes(AllRecipes)
-            : this.renderFavRecipes(filtered) }
+          { filtered.length === 0 ? this.renderDoneRecipes(AllRecipes)
+            : this.renderDoneRecipes(filtered) }
         </main>
       </div>
     );
   }
 }
+
+ReceitasFeitas.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+};
