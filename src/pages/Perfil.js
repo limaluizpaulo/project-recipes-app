@@ -14,11 +14,13 @@ class Perfil extends Component {
     // codigo para localStorage conseguido https://josiaspereira.com.br/como-usar-localstorage-no-reactjs/
     const emailStorage = localStorage.getItem('user');
     const objEmail = JSON.parse(emailStorage);
-    const { email } = objEmail;
-    if (email !== null) {
-      return email;
+    if (objEmail) {
+      const { email } = objEmail;
+      if (email !== null) {
+        return email;
+      }
+      return null;
     }
-    return null;
   }
 
   clearStorage() {
@@ -33,7 +35,7 @@ class Perfil extends Component {
         </section>
         <section>
           <p data-testid="profile-email">
-            {this.mailUser}
+            {this.mailUser()}
           </p>
           <Link
             to="/receitas-feitas"
