@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Perfil extends Component {
   constructor() {
@@ -26,24 +27,33 @@ class Perfil extends Component {
             { this.pegaEmail() }
           </span>
         </div>
-        <button
-          data-testid="profile-done-btn"
-          type="button"
-        >
-          Receitas Feitas
-        </button>
-        <button
-          data-testid="profile-favorite-btn"
-          type="button"
-        >
-          Receitas Favoritas
-        </button>
-        <button
-          data-testid="profile-logout-btn"
-          type="button"
-        >
-          Sair
-        </button>
+        <div>
+          <Link
+            data-testid="profile-done-btn"
+            to="receitas-feitas"
+          >
+            Receitas Feitas
+          </Link>
+          <Link
+            data-testid="profile-favorite-btn"
+            to="receitas-favoritas"
+          >
+            Receitas Favoritas
+          </Link>
+          <Link
+            to="/"
+          >
+            <button
+              data-testid="profile-logout-btn"
+              type="button"
+              onClick={ () => localStorage.clear() }
+            >
+              Sair
+            </button>
+
+          </Link>
+        </div>
+
       </div>
     );
   }
