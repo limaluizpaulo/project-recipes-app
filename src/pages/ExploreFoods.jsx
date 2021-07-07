@@ -31,7 +31,6 @@ function ExploreFoods() {
         <Container>
           <ButtonGroup className="buttons-explore-foods">
             <Button
-              id="explore-button"
               data-testid="explore-by-ingredient"
               variant="danger"
               size="lg"
@@ -53,7 +52,6 @@ function ExploreFoods() {
               data-testid="explore-surprise"
               variant="danger"
               size="lg"
-              id="last-button-food"
               onClick={ () => redirectToFoodDetails() }
             >
               Me Surpreenda!
