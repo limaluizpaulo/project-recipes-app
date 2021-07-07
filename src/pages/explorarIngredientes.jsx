@@ -4,14 +4,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import IngredientCards from '../components/ingredientCards';
 import { fetchByIngredient,
-  fetchFoodRecipesByIngredients, fetchFoodRecipes,
+  fetchFoodRecipesByIngredients, fetchFoodRecipes, getSearchBarResponse,
   fetchDrinksRecipesByIngredient } from '../action/index';
 import Footer from '../components/footer';
 import Header from '../components/header';
 
 export class explorarIngredientes extends Component {
   componentDidMount() {
-    const { fetchApi, location } = this.props;
+    const { fetchApi, location, hasSearchBar } = this.props;
+    hasSearchBar(false);
+
     if (location.pathname.includes('comida')) {
       console.log('sou comida');
       return fetchApi('meal');
@@ -71,6 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApiByIngredient: (e) => dispatch(fetchFoodRecipesByIngredients(e)),
   fetchApiDrinksByingredient: (e) => dispatch(fetchDrinksRecipesByIngredient(e)),
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
 
 });
 
@@ -90,6 +93,8 @@ explorarIngredientes.propTypes = {
   getApiIngredient: PropTypes.func.isRequired,
   location: PropTypes.shape.isRequired,
   fetchApi: PropTypes.func.isRequired,
+  hasSearchBar: PropTypes.func.isRequired,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(explorarIngredientes);
