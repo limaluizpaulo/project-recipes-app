@@ -84,6 +84,7 @@ class Detalhes extends Component {
           </section>
           <section data-testid="instructions">
             <h3>Instructions</h3>
+            <
             <span className="details-intructions-text">
               AQUI FICARÁ AS INSTRUÇÕES
             </span>

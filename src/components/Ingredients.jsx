@@ -16,9 +16,8 @@ class Ingredients extends Component {
   render() {
     const { data, isStart } = this.props;
     const dictionary = identification(data);
-    // console.log(dictionary);
     return (
-      <section>
+      <section data-testid={`${data[dictionary.Id]}-ingredient-name-and-measure`}>
         <Table responsive="sm">
           <tbody>
             {
