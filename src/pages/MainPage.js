@@ -6,7 +6,10 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 import { getRandomData,
-  getCategoriesList, getDataByCategory } from '../services/apiRequest';
+  getCategoriesList,
+  getDataByCategory,
+  getDataIngredients,
+} from '../services/apiRequest';
 
 const TWELVE = 12;
 const FIVE = 5;
@@ -16,7 +19,12 @@ export default function MainPage() {
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
 
-  const { searchResult, limit, setLimit } = useContext(RecipesContext);
+  const {
+    searchResult,
+    limit,
+    setLimit,
+    ingredientsResults,
+  } = useContext(RecipesContext);
   const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
@@ -37,7 +45,7 @@ export default function MainPage() {
         });
       setLoader(false);
     }
-    getInitialStatePopulated();
+    if (ingredientsResults.length === 0) { getInitialStatePopulated(); }
 
     async function getListPopulated() {
       getCategoriesList(domain)
@@ -47,7 +55,7 @@ export default function MainPage() {
       setLoader(false);
     }
     getListPopulated();
-  }, [limit, firstKey, domain]);
+  }, [limit, firstKey, domain, ingredientsResults]);
 
   useEffect(() => {
     function renderSearch() {
@@ -78,6 +86,16 @@ export default function MainPage() {
   function handleAllClick() {
     setRenderer(dataResult.filter((_e, index) => index < limit));
   }
+
+  useEffect(() => {
+    async function fetchApiData() {
+      console.log(ingredientsResults);
+      getDataIngredients(domain, ingredientsResults).then((res) => {
+        setRenderer(res[firstKey].filter((_e, index) => index < limit));
+      });
+    }
+    if (ingredientsResults.length !== 0) { fetchApiData(); }
+  }, [ingredientsResults, domain, firstKey, limit]);
 
   return (
     <>

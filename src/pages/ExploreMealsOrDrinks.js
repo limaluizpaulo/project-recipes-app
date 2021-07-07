@@ -13,10 +13,14 @@ function ExploreFoods() {
     setVerifyPath(path.includes('/comidas'));
   }, [path]);
 
+  const ingridientPath = path.includes('/comidas')
+    ? '/explorar/comidas/ingredientes'
+    : '/explorar/bebidas/ingredientes';
+
   return (
     <>
       <Header />
-      <Link to="/explorar/comidas/ingredientes">
+      <Link to={ ingridientPath }>
         <Button variant="primary" data-testid="explore-by-ingredient">
           Por Ingredientes
         </Button>

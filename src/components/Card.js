@@ -10,6 +10,7 @@ export default function Card({ mealOrDrink, index, testId }) {
   return (
     <section data-testid={ `${index}-${testId}-card` }>
       <img
+        width="150px"
         data-testid={ `${index}-card-img` }
         src={ mealOrDrink[`${imgSrcKey}`] }
         alt={ mealOrDrink[`${titleKey}`] }

@@ -50,4 +50,16 @@ export async function getDataIngredientsList(domain) {
     console.log(e.toString());
   }
 }
+
+export async function getDataIngredients(domain, ingredient) {
+  try {
+    const URL_INGREDIENTS = `https://www.${domain}.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const res = await fetch(URL_INGREDIENTS);
+    const jsonRes = await res.json();
+    console.log(jsonRes, 'json');
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
 // export default fetchAPI;
