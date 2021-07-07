@@ -16,3 +16,7 @@
 .form-login input {
   margin-bottom: 10px;
 }
+
+.btn-login {
+  width: 70%;
+}

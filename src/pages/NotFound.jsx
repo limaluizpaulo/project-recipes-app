@@ -1,11 +1,14 @@
 import React from 'react';
 
+import notFound from '../images/notfound.png';
+import '../styles/NotFound.css';
+
 function NotFound() {
   return (
-    <section>
-      <h2 style={ { textAlign: 'center' } }>Not Found</h2>
+    <section className="not-found">
       {/* { imagem retirada no site: https://geekblog.com.br/error-404-veja-o-que-e-e-como-resolver/} */}
-      <img src="https://geekblog.com.br/wp-content/uploads/2021/02/Erro-404-1-1-1024x645-1-700x441.jpg" alt="Página não encontrada" width="100%" />
+      <img src={ notFound } alt="Página não encontrada" width="100%" />
+      <a href="http://localhost:3000/comidas">Volte para o início</a>
     </section>
   );
 }

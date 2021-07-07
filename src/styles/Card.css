@@ -1,6 +1,7 @@
 .category-field {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 10px;
 }
 
@@ -13,7 +14,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-bottom: 50px;
   max-width: 100vh;
+  min-height: 100vh;
 }
 
 .card-field {
@@ -26,3 +29,19 @@
 .card-field img {
   width: 160px;
 }
+
+.main-page {
+  background-color: #eea371;
+
+}
+
+.card-name {
+  color: black;
+  font-family: Montserrat Alternates, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap') ;
