@@ -16,6 +16,11 @@ export const searchRecipesUrls = {
   },
 };
 
+export const searchRecipesById = {
+  meals: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
+  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
+};
+
 export const randomRecipeUrls = {
   meals: 'https://www.themealdb.com/api/json/v1/1/random.php',
   drinks: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
