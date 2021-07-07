@@ -1,17 +1,18 @@
-import { RAMDOM_RECIPE } from '../action/index';
+import { INGREDIENTS } from '../action/index';
 
 const INITIAL_STATE = {
   recipe: [],
 };
-const exploreScreen = (state = INITIAL_STATE, action) => {
+const exploreIngredient = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case RAMDOM_RECIPE:
+  case INGREDIENTS:
     return {
       ...state,
-      recipe: action.RandomRecipe,
+      recipe: action.ingrediente,
     };
+
   default:
     return state;
   }
 };
-export default exploreScreen;
+export default exploreIngredient;
