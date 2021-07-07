@@ -60,6 +60,9 @@ function Details() {
       </section>);
   };
 
+  const ingredientsAndMeasures = (ingredient, measure) => {
+    return measure !== null ? `${ingredient} - ${measure}` : ingredient;
+  };
   // if (type === 'meals') {
   //   title = 'Comidas';
   //   strTitle = 'strMeal';
@@ -105,7 +108,7 @@ function Details() {
                     key={ index }
                     data-testid={ `${index}-ingredient-name-and-measure` }
                   >
-                    {detailsData[ingredient]}
+                    { ingredientsAndMeasures(detailsData[ingredient], detailsData[`strMeasure${index}`]) }
                   </li>),
               )
             }
