@@ -1,6 +1,6 @@
 const INTIAL_STATE = {
   drinks: [],
-  inputIngredientes: '',
+  byCategories: [],
 };
 
 const drinks = (state = INTIAL_STATE, action) => {
@@ -13,6 +13,8 @@ const drinks = (state = INTIAL_STATE, action) => {
     return { ...state, drinks: action.payload.data };
   case 'DRINKS_FIRST_LETTER':
     return { ...state, drinks: action.payload.data };
+  case 'DRINKS_CATEGORY':
+    return { ...state, byCategories: action.payload.input };
   default:
     return state;
   }

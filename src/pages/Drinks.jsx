@@ -4,27 +4,29 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
-import { actionDrinks } from '../actions';
+import { actionCategoriesDrinks, actionDrinks } from '../actions';
 import CardItem from '../components/CardItem';
+import ButtonCategories from '../components/ButtonCategories';
 
 class Drinks extends Component {
   constructor(props) {
     super(props);
 
-    this.fetchDrinks = this.fetchDrinks.bind(this);
+    this.fetchs = this.fetchs.bind(this);
   }
 
   componentDidMount() {
-    this.fetchDrinks();
+    this.fetchs();
   }
 
-  fetchDrinks() {
-    const { drinks } = this.props;
+  fetchs() {
+    const { drinks, categories } = this.props;
     drinks();
+    categories();
   }
 
   render() {
-    const { listDrinks } = this.props;
+    const { listDrinks, listCategories } = this.props;
     console.log(listDrinks);
     if (!listDrinks) return (<h3>Loading...</h3>);
     if (listDrinks.length === 1) {
@@ -34,6 +36,11 @@ class Drinks extends Component {
       <>
         <Header header="Bebidas" explorer />
         <h2>Drinks</h2>
+        {listCategories
+          ? listCategories.map(({ strCategory }, index) => (
+            <ButtonCategories key={ index } name={ strCategory } />
+          ))
+          : <h3>Loading...</h3> }
         {listDrinks.map(({ strDrinkThumb, strDrink }, index) => (
           <CardItem
             key={ index }
@@ -49,14 +56,18 @@ class Drinks extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   drinks: () => dispatch(actionDrinks()),
+  categories: () => dispatch(actionCategoriesDrinks()),
 });
 const mapStateToProps = (state) => ({
   listDrinks: state.drinks.drinks,
+  listCategories: state.categories.categories,
 });
 
 Drinks.propTypes = {
   drinks: PropTypes.func.isRequired,
   listDrinks: PropTypes.shape().isRequired,
+  categories: PropTypes.func.isRequired,
+  listCategories: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

@@ -19,7 +19,7 @@ class Perfil extends Component {
   }
 
   getEmail() {
-    const email = JSON.parse(localStorage.getItem('user'));
+    const { email } = JSON.parse(localStorage.getItem('user'));
     this.setState({
       email,
     });
