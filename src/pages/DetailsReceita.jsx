@@ -4,26 +4,36 @@ import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita } from '../services/servicesApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import Titulo from './detailsElements/Titulo';
+import IngredientsList from './detailsElements/IngredientsList';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
   const rotaAtual = useLocation().pathname;
   const [apelidoAPI] = rotaAtual.match(/\w+/);
-  const [teste] = useState({ apelidoAPI, input: id });
+  const [receitas] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
+  const [sugestoes, setSugestoes] = useState({});
+  const ingredientes = [];
 
   useEffect(() => {
+    let apelido = 'comida';
+    if (apelidoAPI === 'comida') {
+      apelido = 'bebida';
+    }
     const didMount = async () => {
-      const respostaApi = await buscaReceita(teste);
+      const respostaApi = await buscaReceita(receitas);
       setReceita(respostaApi);
-      console.log(respostaApi);
+
+      const respostaApi2 = await buscaReceita({ apelidoAPI: apelido });
+      setSugestoes(respostaApi2);
     };
     didMount();
-  }, [teste]);
+  }, [receitas]);
 
+  console.log(sugestoes);
   function ingrFunction() {
     const vinte = 20;
-    const ingredientes = [];
     for (let index = 0; index < vinte; index += 1) {
       const strIngredient = receita[`strIngredient${index}`];
       const strMeasure = receita[`strMeasure${index}`];
@@ -31,19 +41,7 @@ function DetailsReceita(props) {
         ingredientes.push({ strIngredient, strMeasure });
       }
     }
-    console.log(ingredientes);
-    return ingredientes.map((item, i) => {
-      console.log(item);
-      return (
-        <li
-          key={ i }
-          data-testid={ `${i}-ingredient-name-and-measure` }
-        >
-          {item.strIngredient}
-          {' - '}
-          {item.strMeasure}
-        </li>);
-    });
+    return <h4>Ingredientes</h4>;
   }
 
   function videoRender() {
@@ -58,49 +56,31 @@ function DetailsReceita(props) {
     }
   }
 
-  function titulo() {
-    console.log(apelidoAPI);
-    let type = ['Meal', 'Category', 'Area'];
-    if (apelidoAPI === 'bebidas') {
-      type = ['Drink', 'Alcoholic', 'Category'];
-    }
-
-    return (
-      <div>
-        <h2 data-testid="recipe-title">{ receita[`str${type[0]}`] }</h2>
-        <h4>{receita[`str${type[2]}`]}</h4>
-        <h4 data-testid="recipe-category">{receita[`str${type[1]}`]}</h4>
-        <img
-          data-testid="recipe-photo"
-          src={ receita[`str${type[0]}Thumb`] }
-          alt={ receita[`str${type[0]}`] }
-        />
-        <ul>
-          {ingrFunction()}
-        </ul>
-        <p data-testid="instructions">{receita.strInstructions}</p>
-        {videoRender()}
-      </div>);
+  let type = ['Meal', 'Category', 'Area'];
+  if (apelidoAPI === 'bebidas') {
+    type = ['Drink', 'Alcoholic', 'Category'];
   }
 
   return (
     <div data-testid="0-">
-
-      {titulo()}
+      <Titulo type={ [receita, type] } />
+      <ul>
+        {ingrFunction()}
+        {ingredientes.map((ing, i) => <IngredientsList key={ i } ingr={ [ing, i] } />)}
+      </ul>
+      <p data-testid="instructions">{receita.strInstructions}</p>
+      {videoRender()}
 
       <Link to="/">
         <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
       </Link>
-
       <Link to="/">
         <img data-testid="share-btn" src={ shareIcon } alt="" />
       </Link>
-
-      <Link data-testid="start-recipe-btn" to="/">
+      <Link data-testid="start-recipe-btn" to={ `/${apelidoAPI}/${id}/in-progress` }>
         iniciar receita
       </Link>
       <div data-testid={ `${0}-recomendation-card` }>receitas recomendadas</div>
-
     </div>
   );
 }
