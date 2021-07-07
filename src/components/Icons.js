@@ -39,14 +39,12 @@ function Icons(item) {
   const DOISMIL = 2000;
 
   function isFavorite() {
-    if (item.code !== undefined) {
-      const { idDrink, idMeal } = item.code;
-      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      let flag = 0;
-      favorites
-        .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
-      if (flag > 0) setChangeIcon(!changeIcon);
-    }
+    const { idDrink, idMeal } = item.code;
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let flag = 0;
+    favorites
+      .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
+    if (flag > 0) setChangeIcon(!changeIcon);
   }
   if (!first) {
     isFavorite();
