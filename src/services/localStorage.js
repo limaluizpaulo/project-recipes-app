@@ -62,3 +62,10 @@ export const addRecipeDone = (recipe) => {
     localStorage.dones = JSON.stringify(newDones);
   }
 };
+
+export const getDonesRecipe = () => {
+  if (localStorage.dones) {
+    const dones = JSON.parse(localStorage.dones);
+    return dones;
+  }
+};
