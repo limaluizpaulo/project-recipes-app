@@ -35,7 +35,10 @@ function IngredientCard({ index, ingredient }) {
         type="button"
         onClick={ () => redirectToRecipes() }
       >
-        <Card border="danger" id="card-ingredient">
+        <Card
+          style={ { background: '#dc35463d', height: '12rem', width: '12rem' } }
+          border="danger"
+        >
           <Card.Img
             className="card-image"
             data-testid={ `${index}-card-img` }
@@ -65,7 +68,10 @@ function IngredientCard({ index, ingredient }) {
         type="button"
         onClick={ () => redirectToDrinks() }
       >
-        <Card border="danger" id="card-ingredient">
+        <Card
+          style={ { background: '#dc35463d', height: '12rem', width: '12rem' } }
+          border="danger"
+        >
           <Card.Img
             className="card-image"
             data-testid={ `${index}-card-img` }
