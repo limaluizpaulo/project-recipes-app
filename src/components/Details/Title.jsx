@@ -10,7 +10,6 @@ export default function Title({ currentRecipe, subtitle }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const url = window.location.href;
   const { id, type, area, category, alcoholicOrNot, name, image } = currentRecipe;
-  console.log(currentRecipe);
 
   // Atualiza o estado de item favoritado
   const updateFavoriteState = (favorites) => {
