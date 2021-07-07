@@ -15,7 +15,9 @@ const ingredientsAPI = async (filter, search, mealOrDrink = 'meals') => {
     return;
   }
 
-  return (response[mealOrDrink]);
+  const resLength = 12;
+
+  return (response[mealOrDrink].filter((res, i) => i < resLength));
 };
 
 export default ingredientsAPI;

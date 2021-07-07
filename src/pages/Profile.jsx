@@ -6,11 +6,11 @@ import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Profile = () => {
   const history = useHistory();
-  const { email } = getFromLocalStorage('user');
+  const { email } = getFromLocalStorage('user') || '';
 
   return (
     <main>
-      <Header name="Perfil" search />
+      <Header name="Perfil" />
 
       <h2 data-testid="profile-email">{ email }</h2>
 

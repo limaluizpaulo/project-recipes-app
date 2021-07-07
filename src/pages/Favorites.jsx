@@ -21,7 +21,7 @@ const Favorites = () => {
 
   return (
     <div>
-      <Header name="Receitas Feitas" />
+      <Header name="Receitas Favoritas" />
 
       <Filters clickFilter={ setFilter } />
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AreasDropDown, Card, Header } from '../components';
+import { AreasDropDown, Card, Footer, Header } from '../components';
 import { MealsContext } from '../context/MealsProvider';
 
 const MealsByArea = () => {
@@ -19,6 +19,7 @@ const MealsByArea = () => {
           type="comidas"
         />
       ))}
+      <Footer />
     </div>
   );
 };
