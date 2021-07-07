@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import copy from 'copy-to-clipboard';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/whiteHeartIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
 import '../css/RecipeDetails.css';
 
 class RecipeInProgress extends React.Component {
@@ -172,6 +172,11 @@ class RecipeInProgress extends React.Component {
 
   render() {
     const { recipeDetails, copied, finaliza, redireciona } = this.state;
+    const { meals } = this.props;
+    const { match: { params: { comidaId } } } = this.props;
+    const { match: { params: { bebidaId } } } = this.props;
+    const { location: { pathname } } = this.props;
+    const id = meals ? comidaId : bebidaId;
     if (redireciona) return <Redirect to="/receitas-feitas" />;
     return (
       recipeDetails[0] ? (
@@ -199,12 +204,11 @@ class RecipeInProgress extends React.Component {
               {copied ? 'Link copiado!'
                 : <img src={ shareIcon } alt="shareIcon" />}
             </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              <img src={ favoriteIcon } alt="favoriteIcon" />
-            </button>
+            <FavoriteButton
+              recipeDetails={ recipeDetails[0] }
+              id={ id }
+              pathname={ pathname }
+            />
             {copied ? <span>Link copiado!</span> : null}
             <div>
               <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
