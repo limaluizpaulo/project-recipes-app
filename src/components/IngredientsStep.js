@@ -18,10 +18,12 @@ function IngredientsStep(props) {
 
   function loadDoneItems() {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (url.match(/comidas/gi)) {
-      return inProgress.meals[id];
+    if (inProgress) {
+      if (url.match(/comidas/gi)) {
+        return inProgress.meals[id];
+      }
+      return inProgress.cocktails[id];
     }
-    return inProgress.cocktails[id];
   }
 
   useEffect(() => {
@@ -33,11 +35,16 @@ function IngredientsStep(props) {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!event.target.nextSibling.classList.value) {
       event.target.nextSibling.classList.toggle('tachado');
-      missingIngredients[event.target.value] = '';
+      const newMissingIngredients = missingIngredients;
+      // newMissingIngredients[event.target.value] = '';
+      // setMissingIngredients(newMissingIngredients);
+      console.log(newMissingIngredients);
     } else {
       event.target.nextSibling.classList = '';
-      missingIngredients[event.target.value] = `${event.target.value}`;
-      event.target.checked = false;
+      const newMissingIngredients = missingIngredients;
+      // newMissingIngredients[event.target.value] = `${event.target.value}`;
+      // setMissingIngredients(newMissingIngredients);
+      console.log(newMissingIngredients);
     }
     if (url.match(/comidas/gi)) {
       inProgress.meals[id] = missingIngredients;
@@ -48,50 +55,49 @@ function IngredientsStep(props) {
     }
   }
 
-  if (!recipeIngredientsList || !missingIngredients) {
-    return (<h4 className="loading">Carregando...</h4>);
-  }
-
-  return (
-    <div
-      className="ingredients-step"
-    >
-      <h5>Ingredients</h5>
-      <ul className="ingredients-list">
-        {recipeIngredientsList.map((entry, index) => {
-          if (index === parseInt(missingIngredients[index], 10)) {
+  if (recipeIngredientsList && missingIngredients) {
+    return (
+      <div
+        className="ingredients-step"
+      >
+        <h5>Ingredients</h5>
+        <ul className="ingredients-list">
+          {recipeIngredientsList.map((entry, index) => {
+            if (index === parseInt(missingIngredients[index], 10)) {
+              return (
+                <li key={ index }>
+                  <input
+                    value={ index }
+                    type="checkbox"
+                    data-testid={ `${index}-ingredient-step` }
+                    onClick={ handleClick }
+                  />
+                  <label htmlFor={ index }>{ entry }</label>
+                </li>
+              );
+            }
             return (
               <li key={ index }>
                 <input
-                  value={ index }
                   type="checkbox"
                   data-testid={ `${index}-ingredient-step` }
                   onClick={ handleClick }
+                  checked
                 />
-                <label htmlFor={ index }>{ entry }</label>
+                <label
+                  className="tachado"
+                  htmlFor={ index }
+                >
+                  { entry }
+                </label>
               </li>
             );
-          }
-          return (
-            <li key={ index }>
-              <input
-                type="checkbox"
-                data-testid={ `${index}-ingredient-step` }
-                onClick={ handleClick }
-                checked
-              />
-              <label
-                className="tachado"
-                htmlFor={ index }
-              >
-                { entry }
-              </label>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+          })}
+        </ul>
+      </div>
+    );
+  }
+  return <h4>Carregando</h4>;
 }
 
 IngredientsStep.propTypes = {
