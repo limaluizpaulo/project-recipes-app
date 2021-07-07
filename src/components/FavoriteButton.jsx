@@ -1,48 +1,71 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import RecipesContext from '../Context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const FavoriteButton = () => {
+function FavoriteButton() {
   const { pathname } = useLocation();
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
-  const [stateChangeHeart, setStateChangeHeart] = useState(false);
+  const [stateChangeHeart, setStateChangeHeart] = useState(true);
+
   const saveStorage = () => {
-    const type = pathname.includes('comida') ? 'comida' : 'bebida';
-    setSaveRecipe({ id: type === 'comida' ? stateMeals[0].idMeal : stateDrink[0].idDrink,
-      name: type === 'comida' ? stateMeals[0].strMeal : stateDrink[0].strDrink,
-      image: type === 'comida' ? stateMeals[0].strMealThumb : stateDrink[0].strDrinkThumb,
-      category: type === 'comida' ? stateMeals[0].strCategory : stateDrink[0].strCategory,
-      alcoholicOrNot: type === 'comida' ? '' : stateDrink[0].strAlcoholic,
-      area: type === 'comida' ? stateMeals[0].strArea : '',
-      type,
-    });
+    const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
+      strAlcoholic } = stateDrink[0];
+    const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+
+    if (type === 'comidas') {
+      const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
+
+      setSaveRecipe({
+        id: idMeal,
+        name: strMeal,
+        image: strMealThumb,
+        category: strCategory,
+        alcoholicOrNot: '',
+        area: strArea,
+        type,
+      });
+    } else {
+      setSaveRecipe({
+        id: idDrink,
+        name: strDrink,
+        image: strDrinkThumb,
+        category: drinkCategory,
+        alcoholicOrNot: strAlcoholic,
+        type,
+        area: '',
+      });
+    }
   };
+
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);
+    // if (stateChangeHeart) {
+    //   removeFavorited();
+    // }
   };
   const setInlocalStorage = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favorited);
     if (saveRecipe !== '' && favorited === null) {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([saveRecipe]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([saveRecipe]));
     } else if (saveRecipe !== '') {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([...favorited, saveRecipe]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorited, saveRecipe]));
     }
   };
   useEffect(setInlocalStorage, [saveRecipe]);
   return (
     <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
       <img
-        src={ stateChangeHeart ? blackHeartIcon : whiteHeartIcon }
+        src={ stateChangeHeart ? whiteHeartIcon : blackHeartIcon }
         alt="imagem de favoritar"
         data-testid="favorite-btn"
       />
     </button>
   );
-};
+}
 
 export default FavoriteButton;
