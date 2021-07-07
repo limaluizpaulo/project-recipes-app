@@ -14,10 +14,7 @@ describe('Checks Page Login', () => {
       </LoginProvider>,
     );
 
-    const heading = screen.getByRole('heading', {
-      level: 1,
-      name: 'Login',
-    });
+    const heading = screen.getByAltText('logo');
 
     expect(heading).toBeInTheDocument();
   });
