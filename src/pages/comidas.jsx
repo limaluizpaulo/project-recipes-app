@@ -96,7 +96,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
   hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
   foodByCategories: (category) => dispatch(fetchFilterFoodByCategories(category)),
-  foodDetails: (id) => dispatch(fetchFoodDetails(id)),
 });
 
 const mapStateToProps = (state) => ({

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import identification from '../helper/dictionaryApi';
 
-export class Instructions extends Component {
+class Instructions extends Component {
   render() {
+    const { data } = this.props;
+    const dictionary = identification(data);
     return (
-      <div>
-        
-      </div>
+      <section data-testid="instructions">
+        <p>{data[dictionary.Instructions]}</p>
+      </section>
     );
   }
 }
+
+Instructions.propTypes = {
+  data: PropTypes.shape.isRequired,
+};
 
 export default Instructions;
