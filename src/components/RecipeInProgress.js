@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { getDetails } from '../helpers';
 import { toggleIngredient } from '../helpers/provider';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
@@ -12,31 +13,23 @@ import './RecipeDetails.css';
 function RecipeDetails() {
   const { inProgress, setInProgress } = useContext(UserContext);
   const {
-    type,
     details,
-    setDetails,
     ingredients,
-    setIngredients,
-    contentParams,
     measures,
-    setMeasures,
     imgKey,
     nameKey,
+    typePt,
     usedIngredients,
+    setContentParams,
     isDrinks,
   } = useContext(DetailsContext);
 
+  const { location: { pathname } } = useHistory();
+  const { id } = useParams();
+
   useEffect(() => {
-    async function setter() {
-      const result = await getDetails(type, contentParams.id);
-      if (result[0]) {
-        setDetails(result[0]);
-        setIngredients(result[1]);
-        setMeasures(result[2]);
-      }
-    }
-    setter();
-  }, [contentParams.id, setDetails, setIngredients, setMeasures, type]);
+    setContentParams({ id, pathname });
+  }, [id, pathname, setContentParams]);
 
   function renderIngredients() {
     return (
@@ -78,7 +71,7 @@ function RecipeDetails() {
         />
         <div>
           <FavoriteButton recipe={ details } />
-          <ShareButton />
+          <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
       <h2 data-testid="recipe-title">{details[nameKey]}</h2>

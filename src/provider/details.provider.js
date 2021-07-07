@@ -14,24 +14,31 @@ function DetailsProvider({ children }) {
 
   const isDrinks = contentParams.pathname.includes('bebidas');
   const type = isDrinks ? 'drinks' : 'meals';
-  const typeObj = isDrinks ? 'cocktails' : 'meals';
+  const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const typeCypress = isDrinks ? 'bebida' : 'comida';
+  const typeKey = isDrinks ? 'cocktails' : 'meals';
   const nameKey = isDrinks ? 'strDrink' : 'strMeal';
   const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const usedIngredients = inProgress[typeObj][contentParams.id] || [];
+  const usedIngredients = contentParams.id
+    ? inProgress[typeKey][contentParams.id] || []
+    : [];
 
   const shared = {
     details,
     setDetails,
     ingredients,
     setIngredients,
-    isDrinks,
     measures,
     setMeasures,
-    type,
-    nameKey,
-    imgKey,
     contentParams,
     setContentParams,
+    isDrinks,
+    type,
+    typePt,
+    nameKey,
+    imgKey,
+    typeKey,
+    typeCypress,
     usedIngredients,
   };
 

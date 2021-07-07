@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import DetailsContext from '../context/details.context';
@@ -6,31 +6,49 @@ import UserContext from '../context/user.context';
 import RecipeInProgress from '../components/RecipeInProgress';
 
 function InProgress() {
-  const { inProgress } = useContext(UserContext);
-  const { ingredients } = useContext(DetailsContext);
+  const { done, setDone, inProgress, setInProgress } = useContext(UserContext);
+  const {
+    details,
+    ingredients,
+    setContentParams,
+    nameKey,
+    typeCypress,
+    typeKey,
+    imgKey,
+    usedIngredients,
+  } = useContext(DetailsContext);
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
-
-  const isDrinks = pathname.includes('bebidas');
-  const typeKey = isDrinks ? 'cocktails' : 'meals';
-  const usedIngredients = inProgress[typeKey][id] || [];
 
   const isFinished = ingredients.length === usedIngredients.length;
 
   function handleClick() {
-    // const doneRecipe = {
-    //   id:
-    //   type:
-    //   area:
-    //   category:
-    //   alcoholicOrNot:
-    //   name:
-    //   image:
-    //   doneDate:
-    //   tags:
-    // }
+    const recipesInProgress = { ...inProgress };
+    delete recipesInProgress[typeKey][id];
+    setInProgress(recipesInProgress);
+
+    console.log(details);
+
+    const newRecipe = {
+      alcoholicOrNot: details.strAlcoholic || '',
+      area: details.strArea || '',
+      category: details.strCategory,
+      doneDate: new Date().toLocaleDateString(),
+      id,
+      image: details[imgKey],
+      name: details[nameKey],
+      tags: details.strTags ? details.strTags.split(',') : [],
+      type: typeCypress,
+    };
+    const doneRecipes = done.concat(newRecipe);
+    setDone(doneRecipes);
+
     push('/receitas-feitas');
   }
+
+  useEffect(() => {
+    setContentParams({ id, pathname });
+  }, [id, pathname, setContentParams]);
 
   function renderFinishButton() {
     return (

@@ -14,6 +14,7 @@ function RecipeDetails() {
     imgKey,
     nameKey,
     isDrinks,
+    typePt,
     setContentParams,
   } = useContext(DetailsContext);
 
@@ -59,7 +60,7 @@ function RecipeDetails() {
         />
         <div>
           <FavoriteButton recipe={ details } />
-          <ShareButton />
+          <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
       <h2 data-testid="recipe-title">{details[nameKey]}</h2>
