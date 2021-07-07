@@ -13,7 +13,6 @@ function RecipesProvider({ children }) {
   const [type, setType] = useState('meals');
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [idRecipe, setIdRecipe] = useState();
 
   const maxCards = 12;
 
@@ -66,8 +65,6 @@ function RecipesProvider({ children }) {
     setIsFetching,
     setData,
     maxCards,
-    idRecipe,
-    setIdRecipe,
   };
 
   return (

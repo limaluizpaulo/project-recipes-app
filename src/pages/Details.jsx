@@ -22,7 +22,7 @@ function Details() {
   const singleType = capitalize(type.slice(0, minusOne));
   const thumbnail = `str${singleType}Thumb`;
   const title = `str${singleType}`;
-  const category = 'strCategory';
+  const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
   const { pathname } = useLocation();
   console.log(pathname);
@@ -34,7 +34,7 @@ function Details() {
     getData();
   }, [type]);
   const thirtyTwo = 32;
-  console.log(detailsData);
+  // console.log(thumbnail);
   // const videoId = type === 'meals'?(
   // videoId = detailsData.strYoutube === undefined ? null
   //   : detailsData.strYoutube.slice(thirtyTwo);
@@ -60,9 +60,8 @@ function Details() {
       </section>);
   };
 
-  const ingredientsAndMeasures = (ingredient, measure) => {
-    return measure !== null ? `${ingredient} - ${measure}` : ingredient;
-  };
+  const ingredientsAndMeasures = (ingredient, measure) => (measure !== null
+    ? `${ingredient} - ${measure}` : ingredient);
   // if (type === 'meals') {
   //   title = 'Comidas';
   //   strTitle = 'strMeal';
@@ -75,61 +74,63 @@ function Details() {
   //   typeId = 'idDrink';
   // }
 
-  return (
-    <>
-      <header>
-        <img
-          width="300"
-          src={ detailsData[thumbnail] }
-          alt={ detailsData[title] }
-          data-testid="recipe-photo"
-        />
-      </header>
-      <main>
-        <h1 data-testid="recipe-title">{detailsData[title]}</h1>
-        <h2 data-testid="recipe-category">{detailsData[category]}</h2>
-        <button type="button">
-          <img src={ shareIcon } alt="Share" data-testid="share-btn" />
-        </button>
+  return (detailsData === undefined ? <div /> : Object.keys(detailsData).length !== 0
+  && <>
+    <header>
+      <img
+        width="300"
+        src={ detailsData[thumbnail] }
+        alt={ detailsData[title] }
+        data-testid="recipe-photo"
+      />
+      {console.log(Object.keys(detailsData).length)}
+    </header>
+    <main>
+      <h1 data-testid="recipe-title">{detailsData[title]}</h1>
+      <h2 data-testid="recipe-category">{detailsData[category]}</h2>
+      <button type="button">
+        <img src={ shareIcon } alt="Share" data-testid="share-btn" />
+      </button>
 
-        <button type="button">
-          <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-        </button>
-        <section>
-          <h3>Ingredients</h3>
-          <ul>
-            {/* data-testid="${index}-ingredient-name-and-measure" */
+      <button type="button">
+        <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
+      </button>
+      <section>
+        <h3>Ingredients</h3>
+        <ul>
+          {/* data-testid="${index}-ingredient-name-and-measure" */
 
-              Object.keys(detailsData).filter(
-                (key) => (key.includes('strIngredient') && detailsData[key]),
-              ).map(
-                (ingredient, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    { ingredientsAndMeasures(detailsData[ingredient], detailsData[`strMeasure${index}`]) }
-                  </li>),
-              )
-            }
-          </ul>
-        </section>
-        <section>
-          <h3>Instructions</h3>
-          <p data-testid="instructions">{detailsData[instructions]}</p>
-        </section>
-        {// https://www.npmjs.com/package/react-youtube
-          video()
-        }
-        <Recommended />
-      </main>
-      <footer>
-        <Button
-          label="Iniciar Receita"
-          testid="start-recipe-btn"
-        />
-      </footer>
-    </>
+            Object.keys(detailsData).filter(
+              (key) => (key.includes('strIngredient') && detailsData[key]),
+            ).map(
+              (ingredient, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  { ingredientsAndMeasures(detailsData[ingredient],
+                    detailsData[`strMeasure${index + 1}`]) }
+                </li>),
+            )
+          }
+        </ul>
+      </section>
+      <section>
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{detailsData[instructions]}</p>
+      </section>
+      {// https://www.npmjs.com/package/react-youtube
+        video()
+      }
+      <Recommended />
+    </main>
+    <footer>
+      <Button
+        label="Iniciar Receita"
+        testid="start-recipe-btn"
+      />
+    </footer>
+  </>
   );
 }
 

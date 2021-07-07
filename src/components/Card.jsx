@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation, useParams, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import pathTreament from '../helpers/HelperFunctions';
-import RecipesContext from '../contexts/RecipesContext';
 
 export default function Card(props) {
   const history = useHistory();
-  const { setIdRecipe, idRecipe } = useContext(RecipesContext);
   const { id, thumbnail, title, index, category } = props;
   const { pathname } = useLocation();
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
@@ -17,7 +15,6 @@ export default function Card(props) {
       data-testid={ dataTestId }
       type="button"
       onClick={ () => {
-        setIdRecipe(id);
         history.push(`${newPathname}/${id}`);
       } }
     >
