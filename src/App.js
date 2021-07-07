@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Login from './Pages/Login';
 import ReceitasFeitas from './Pages/ReceitasFeitas';
+import ReceitasFavoritas from './Pages/ReceitasFavoritas';
 import Recipes from './Pages/Recipes';
 import GenericComponent from './Components/GenericComponent';
 import Explore from './Pages/Explore';
@@ -38,7 +39,7 @@ function App() {
       />
       <Route
         path="/receitas-favoritas"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ReceitasFavoritas { ...props } /> }
       />
 
       <Route
