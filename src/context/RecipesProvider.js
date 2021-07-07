@@ -20,6 +20,7 @@ function RecipesProvider({ children }) {
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
   const [startedRecipes, setStartedRecipes] = useState([]);
+  const [favoritedRecipes, setFavoritedRecipes] = useState([]);
 
   const location = useLocation();
 
@@ -67,7 +68,7 @@ function RecipesProvider({ children }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   };
 
-  const localstorageSaveStartedRecipe = (recipe, ingredients) => {
+  const localstorageSaveStartedRecipe = (recipe, ingredients = []) => {
     const recipeObj = {
       id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
       type: (recipe.idMeal) ? 'meal' : 'drink',
@@ -88,6 +89,36 @@ function RecipesProvider({ children }) {
     localstorageSaveInProgressRecipe(ingredients, recipeObj.type, recipeObj.id);
   };
 
+  const localstorageSaveFavoriteRecipe = (recipe, isFav) => {
+    const recipeObj = {
+      id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
+      type: (recipe.idMeal) ? 'meal' : 'drink',
+      area: (recipe.strArea) ? recipe.strArea : '',
+      category: (recipe.strCategory) ? recipe.strCategory : '',
+      alcoholicOrNot: (recipe.strAlcoholic) ? recipe.strAlcoholic : '',
+      name: (recipe.strMeal) ? recipe.strMeal : recipe.strDrink,
+      image: (recipe.strMealThumb) ? recipe.strMealThumb : recipe.strDrinkThumb,
+      doneDate: (recipe.dateModified) ? recipe.dateModified : '',
+      tags: (recipe.strTags) ? recipe.strTags : [],
+    };
+    let arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (isFav) {
+      arrayOfRecipes = [...arrayOfRecipes, recipeObj];
+    }
+
+    if (!isFav) {
+      // SOURCE: https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
+      const foundByIndex = arrayOfRecipes
+        .map((element) => element.id)
+        .indexOf(recipeObj.id);
+      const NEGATIVE = -1;
+      if (foundByIndex !== NEGATIVE) arrayOfRecipes.splice(foundByIndex, 1);
+    }
+    setFavoritedRecipes(arrayOfRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(arrayOfRecipes));
+  };
+
   const context = {
     mealsOrDrinks,
     user,
@@ -105,7 +136,9 @@ function RecipesProvider({ children }) {
     lookDetailsRecipe,
     getInitialRecipes,
     startedRecipes,
+    favoritedRecipes,
     localstorageSaveStartedRecipe,
+    localstorageSaveFavoriteRecipe,
   };
 
   useEffect(() => {
@@ -117,6 +150,9 @@ function RecipesProvider({ children }) {
         cocktails: {},
         meals: {},
       }));
+    }
+    if (!(localStorage.getItem('favoriteRecipes'))) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
   }, []);
 

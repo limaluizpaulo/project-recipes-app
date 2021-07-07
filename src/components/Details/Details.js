@@ -15,7 +15,11 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function Details({ id, mealsOrDrinks }) {
-  const { startedRecipes, localstorageSaveStartedRecipe } = useContext(RecipesContext);
+  const {
+    startedRecipes,
+    localstorageSaveStartedRecipe,
+    favoritedRecipes,
+    localstorageSaveFavoriteRecipe } = useContext(RecipesContext);
   const [recipe, setRecipe] = useState({});
   const [recipeKeyword, setRecipeKeyword] = useState('');
   const [recommendations, setRecommendations] = useState([]);
@@ -125,6 +129,20 @@ function Details({ id, mealsOrDrinks }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startedRecipes]);
 
+  useEffect(() => {
+    const arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (arrayOfRecipes) {
+      const found = arrayOfRecipes.find((element) => (
+        element.id === id
+      ));
+      if (found) {
+        setIsFav(true);
+      } else {
+        setIsFav(false);
+      }
+    }
+  }, [favoritedRecipes]);
+
   return (
     <>
       <header>
@@ -151,7 +169,7 @@ function Details({ id, mealsOrDrinks }) {
               type="button"
               data-testid="favorite-btn"
               onClick={
-                () => setIsFav(!isFav)
+                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
               }
             >
               {
