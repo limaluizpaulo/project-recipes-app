@@ -54,20 +54,19 @@ function SBElements({ history }) {
           .then((results) => setDrinks(results.drinks)));
     }
   };
-
   const handleClick = () => {
     switch (searchInput.searchBy) {
-    case 'Ingredientes':
+    case 'ingredientes':
       getIngredients();
       break;
-    case 'Receita':
+    case 'receita':
       getRecipes();
       break;
-    case 'Primeira letra':
+    case 'primeira letra':
       if (searchInput.name.length === 1) {
         getFirstLetter();
       } else {
-        return global.alert(alertCaracterNumber);
+        global.alert(alertCaracterNumber);
       }
       break;
     case searchInput:
@@ -83,7 +82,7 @@ function SBElements({ history }) {
       }
       break;
     default:
-      console.log('nada aconteceu');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       break;
     }
   };
@@ -102,7 +101,7 @@ function SBElements({ history }) {
   };
 
   const setFunctions = ({ target: { name, value } }) => {
-    setsearchInput({ ...searchInput, [name]: value });
+    setsearchInput({ ...searchInput, [name]: (value).toLowerCase() });
   };
 
   return (
