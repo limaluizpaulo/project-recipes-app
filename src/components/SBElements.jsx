@@ -37,13 +37,16 @@ function SBElements({ history }) {
     }
   };
 
+  const alertCaracterNumber = 'Sua busca deve conter somente 1 (um) caracter';
   const getFirstLetter = () => {
     if (pathname === '/comidas') {
+      console.log(searchInput.name.length);
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
           .then((results) => setRecipes(results.meals)));
     }
+
     if (pathname === '/bebidas') {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
       fetch(endpoint)
@@ -61,12 +64,11 @@ function SBElements({ history }) {
       getRecipes();
       break;
     case 'Primeira letra':
-      // const searchInput = document.getElementById('searchInput').innerText;
-      if (searchInput.length !== 1) {
-        return global.alert('Sua busca deve conter somente 1 (um) caracter');
+      if (searchInput.name.length === 1) {
+        getFirstLetter();
+      } else {
+        return global.alert(alertCaracterNumber);
       }
-      getFirstLetter();
-
       break;
     case searchInput:
       if (pathname === '/comidas') {
