@@ -37,3 +37,38 @@ export function removeFavoriteRecipe(id) {
     return newFavorites;
   }
 }
+
+export function setDoneRecipes(recipe, pathname) {
+  const verifyPath = pathname.includes('comida');
+  let title = 'Bebidas';
+  if (verifyPath) {
+    title = 'Comidas';
+  }
+  const date = new Date();
+  const actualDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+  const tag = [];
+  if (recipe.strTags !== null) {
+    tag.push(recipe.strTags);
+  }
+
+  const done = {
+    id: recipe.idDrink || recipe.idMeal,
+    type: title === 'Comidas' ? 'comida' : 'bebida',
+    area: recipe.strArea || '',
+    category: recipe.strCategory || '',
+    alcoholicOrNot: recipe.strAlcoholic || '',
+    name: recipe.strMeal || recipe.strDrink,
+    image: recipe.strMealThumb || recipe.strDrinkThumb,
+    doneDate: actualDate,
+    tags: tag || [],
+  };
+
+  if (localStorage.doneRecipes) {
+    const recipes = JSON.parse(localStorage.doneRecipes);
+    const addDone = [...recipes, done];
+    localStorage.doneRecipes = JSON.stringify(addDone);
+    return addDone;
+  }
+  localStorage.doneRecipes = JSON.stringify([done]);
+}

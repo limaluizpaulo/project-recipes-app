@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import { setDoneRecipes } from '../components/RecipeDetailsFunc';
 import '../css/RecipeDetails.css';
 
 class RecipeInProgress extends React.Component {
@@ -153,7 +154,6 @@ class RecipeInProgress extends React.Component {
       }
     } else {
       const drinksLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      console.log(drinksLocal);
       if (drinksLocal) {
         localStorage.inProgressRecipes = JSON.stringify({
           ...drinksLocal,
@@ -166,8 +166,9 @@ class RecipeInProgress extends React.Component {
     }
   }
 
-  redireciona() {
+  redireciona(recipe, pathname) {
     this.setState({ redireciona: true });
+    setDoneRecipes(recipe, pathname);
   }
 
   render() {
@@ -227,7 +228,7 @@ class RecipeInProgress extends React.Component {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ !finaliza }
-            onClick={ this.redireciona }
+            onClick={ () => this.redireciona(recipeDetails[0], pathname) }
           >
             Finalizar Receita
           </button>
