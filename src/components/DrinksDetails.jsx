@@ -77,16 +77,16 @@ export default function DrinksDetails() {
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ ingredient }
           >
-            { ingredient }
+            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
           </li>))}
-        {measure.map((measur, index) => (
+        {/* {measure.map((measur, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ measur }
           >
             {measur}
 
-          </li>))}
+          </li>))} */}
       </ul>
       <h2>Instruções</h2>
       <p data-testid="instructions">

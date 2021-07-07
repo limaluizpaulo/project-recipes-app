@@ -69,20 +69,20 @@ export default function MealsDetails() {
       <h2>Ingredients</h2>
       <ul>
         {console.log(ingredients)}
-        {ingredients.map((e, index) => (
+        {ingredients.map((ingredient, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ e }
+            key={ index }
           >
-            { e }
+            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
           </li>))}
-        {measure.map((measur, index) => (
+        {/* {measure.map((measur, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ measur }
           >
             { measur }
-          </li>))}
+          </li>))} */}
       </ul>
       <h2>Instructions</h2>
       <p data-testid="instructions">{ strInstructions }</p>
