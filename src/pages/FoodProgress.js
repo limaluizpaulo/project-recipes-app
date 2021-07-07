@@ -6,7 +6,11 @@ import { recipeById } from '../services/requests';
 import { filterObj } from '../utils';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { checkFavoriteId, updateStorageRecipe, getStorageRecipe } from '../services/localStorage';
+import {
+  checkFavoriteId,
+  updateStorageRecipe,
+  getStorageRecipe,
+} from '../services/localStorage';
 
 const blackOrWhite = (favorited) => (favorited ? blackHeartIcon : whiteHeartIcon);
 
@@ -19,8 +23,11 @@ const FoodProgress = ({ match }) => {
   const [selecteds, setSelects] = useState([]);
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
+  const [quantIngred, setQuantIngred] = useState();
 
   const isFavorite = checkFavoriteId(id);
+
+  const qtd = filterObj(/Ingredient/, meal).length;
 
   useEffect(() => {
     if (isFavorite) setIconFavorit(true);
@@ -29,7 +36,8 @@ const FoodProgress = ({ match }) => {
   useEffect(() => {
     recipeById(id, true).then(setMeal);
     setSelects(getStorageRecipe(id, true) || []);
-  }, [id, setMeal]);
+    setQuantIngred(qtd);
+  }, [id, setMeal, qtd]);
 
   const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
 
@@ -66,19 +74,23 @@ const FoodProgress = ({ match }) => {
 
   const addFavorite = () => {
     const favorites = localStorage.favoriteRecipes
-      ? JSON.parse(localStorage.favoriteRecipes) : [];
+      ? JSON.parse(localStorage.favoriteRecipes)
+      : [];
 
     if (!iconFavorit) {
       const { idMeal, strArea, strCategory, strMeal, strMealThumb } = meal;
-      const add = [...favorites, {
-        id: idMeal,
-        type: 'comida',
-        area: strArea,
-        category: strCategory,
-        alcoholicOrNot: '',
-        name: strMeal,
-        image: strMealThumb,
-      }];
+      const add = [
+        ...favorites,
+        {
+          id: idMeal,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strMeal,
+          image: strMealThumb,
+        },
+      ];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {
       const remove = favorites.filter(({ id: idL }) => idL !== id);
@@ -87,6 +99,7 @@ const FoodProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
+  console.log(selecteds.length, quantIngred);
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
@@ -104,13 +117,9 @@ const FoodProgress = ({ match }) => {
         type="button"
         data-testid="share-btn"
       >
-        { msgCopy ? 'Link copiado!' : 'Compartilhar' }
-
+        {msgCopy ? 'Link copiado!' : 'Compartilhar'}
       </button>
-      <button
-        onClick={ addFavorite }
-        type="button"
-      >
+      <button onClick={ addFavorite } type="button">
         <img
           data-testid="favorite-btn"
           src={ blackOrWhite(iconFavorit) }
@@ -118,7 +127,11 @@ const FoodProgress = ({ match }) => {
         />
       </button>
       <Link to="/receitas-feitas">
-        <button type="button" data-testid="finish-recipe-btn">
+        <button
+          type="button"
+          disabled={ selecteds.length !== quantIngred }
+          data-testid="finish-recipe-btn"
+        >
           Finalizar Receita
         </button>
       </Link>

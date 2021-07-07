@@ -18,12 +18,24 @@ const DrinkProgress = ({ match }) => {
   const [selecteds, setSelects] = useState([]);
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
+  const [quantIngred, setQuantIngred] = useState();
 
   const isFavorite = checkFavoriteId(id);
+
+  const qtd = filterObj(/Ingredient/, drink).length;
 
   useEffect(() => {
     recipeById(id).then(setDrink);
   }, [id, setDrink]);
+
+  useEffect(() => {
+    if (isFavorite) setIconFavorit(true);
+  }, [isFavorite]);
+
+  useEffect(() => {
+    recipeById(id).then(setDrink);
+    setQuantIngred(qtd);
+  }, [id, setDrink, qtd]);
 
   const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
 
@@ -53,14 +65,6 @@ const DrinkProgress = ({ match }) => {
       </label>
     ));
   };
-
-  useEffect(() => {
-    if (isFavorite) setIconFavorit(true);
-  }, [isFavorite]);
-
-  useEffect(() => {
-    recipeById(id).then(setDrink);
-  }, [id, setDrink]);
 
   const addFavorite = () => {
     const favorites = localStorage.favoriteRecipes
@@ -117,7 +121,11 @@ const DrinkProgress = ({ match }) => {
         />
       </button>
       <Link to="/receitas-feitas">
-        <button type="button" data-testid="finish-recipe-btn">
+        <button
+          type="button"
+          disabled={ selecteds.length !== quantIngred }
+          data-testid="finish-recipe-btn"
+        >
           Finalizar Receita
         </button>
       </Link>

@@ -19,8 +19,8 @@ export const checkFavoriteId = (idRecipe) => {
 export const checkProgress = (idRecipe, meals) => {
   const recipe = meals ? 'meals' : 'cocktails';
   return (
-    localStorage.inProgressRecipes &&
-    JSON.parse(localStorage.inProgressRecipes)[recipe][idRecipe]
+    localStorage.inProgressRecipes
+    && JSON.parse(localStorage.inProgressRecipes)[recipe][idRecipe]
   );
 };
 
