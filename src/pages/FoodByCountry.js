@@ -24,8 +24,6 @@ function FoodByCountry() {
 
   async function handleClick({ target }) {
     const { value } = target;
-    console.log('teste');
-    // setFilterBy(value);
     const mealsOfTheArea = await requestMealByAreas(value);
     setFirstMeals(mealsOfTheArea);
     console.log(mealsOfTheArea);
@@ -53,34 +51,31 @@ function FoodByCountry() {
         </select>
       </div>
       <div className="card-container">
-        {firstMeals.filter((meal, index) => index < numOfMeals).map((meal, index) => {
-          console.log(meal);
-          return (
-            <Link
-              to={ `/comidas/${meal.idMeal}` }
-              key={ meal.strMeal }
+        {firstMeals.filter((meal, index) => index < numOfMeals).map((meal, index) => (
+          <Link
+            to={ `/comidas/${meal.idMeal}` }
+            key={ meal.strMeal }
+          >
+            <Card
+              data-testid={ `${index}-recipe-card` }
+              className="card"
             >
-              <Card
-                data-testid={ `${index}-recipe-card` }
-                className="card"
-              >
-                <Card.Img
-                  data-testid={ `${index}-card-img` }
-                  src={ meal.strMealThumb }
-                  alt={ meal.strMeal }
-                />
-                <Card.Body>
-                  <Card.Title
-                    className="cardTitle"
-                    data-testid={ `${index}-card-name` }
-                  >
-                    {meal.strMeal}
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Link>
-          );
-        })}
+              <Card.Img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+              <Card.Body>
+                <Card.Title
+                  className="cardTitle"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {meal.strMeal}
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Link>
+        ))}
       </div>
       <Footer />
     </div>
