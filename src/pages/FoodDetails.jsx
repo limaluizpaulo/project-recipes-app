@@ -14,10 +14,7 @@ import {
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
   const { location: { pathname } } = history;
-
   const [details, setDetails] = useState([{}]);
-  const [ingredientsList, setIngredientsList] = useState([]);
-  const [measures, setMeasure] = useState([]);
   const [wasCopied, setWasCopied] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [donerecipe, setDoneRecipe] = useState(true);
@@ -40,30 +37,6 @@ function FoodDetails({ match, history }) {
     fetchDetails();
     setDoneRecipe(checkDoneRecipes(id));
   }, [pathname, id]);
-
-  useEffect(() => {
-    const objKeys = Object.keys(details[0]);
-
-    const ingredientName = objKeys.filter((key) => key.includes('strIngredient'));
-    const ingredientMeasures = objKeys.filter((key) => key.includes('strMeasure'));
-
-    const ingredientItems = [];
-    const ingredientQuanti = [];
-
-    ingredientName.forEach((item) => {
-      if (details[0][item] !== '' || undefined) {
-        ingredientItems.push(details[0][item]);
-      }
-    });
-    setIngredientsList(ingredientItems);
-
-    ingredientMeasures.forEach((item) => {
-      if (details[0][item] !== '' || undefined) {
-        ingredientQuanti.push(details[0][item]);
-      }
-    });
-    setMeasure(ingredientQuanti);
-  }, [details]);
 
   const startRecipe = () => {
     history.push(`${pathname}/in-progress`);
@@ -97,7 +70,7 @@ function FoodDetails({ match, history }) {
             : <h4 data-testid="recipe-category">{strCategory}</h4>
         }
         <p data-testid="instructions">{strInstructions}</p>
-        <IngList ingredientsList={ ingredientsList } measures={ measures } />
+        <IngList details={ details[0] } />
         <div>
           <MealClip strYoutube={ strYoutube } />
         </div>
