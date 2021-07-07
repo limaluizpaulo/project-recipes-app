@@ -57,7 +57,7 @@ describe('Realize as seguintes verificações nos campos de email, senha e botã
     const buttonLogin = getByTestId(BUTTON_LOGIN_ID);
     expect(buttonLogin).toBeDisabled();
   });
-  it('button desabilitado com senha mas sem email', () => {
+  it('button desabilitado com senha mas sem email valito', () => {
     const { getByTestId } = renderWithRouter(<App />);
     const inputPassword = getByTestId(PASSWORD_INPUT_TEST_ID);
     fireEvent.change(inputPassword, { target: { value: VALID_PASSWORD } });
