@@ -42,7 +42,6 @@ class DoneRecipes extends Component {
 
   render() {
     const { recipes } = this.state;
-    const { location: { pathname } } = this.props;
     return (
       <section>
         <Header title="Receitas Feitas" searchIcon />
@@ -52,7 +51,6 @@ class DoneRecipes extends Component {
             key={ index }
             recipe={ recipe }
             index={ index }
-            pathname={ pathname }
           />)) : null }
       </section>
     );
