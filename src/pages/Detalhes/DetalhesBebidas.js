@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import Proptypes from 'prop-types';
 import { requestDrinkById, requestMeal } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
-import './Detalhes.css';
 import startButton from './startButton';
+import favButton from './favButton';
+import './Detalhes.css';
+import Context from '../../Provider/context';
 
 function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const { favorited, setFavorited } = useContext(Context);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -35,15 +37,34 @@ function DetalhesBebidas({ match }) {
     setCopied(true);
   }
 
-  function renderButtons() {
+  const saveFavorite = (favoriteRecipes) => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setFavorited(!favorited);
+  };
+
+  async function favorite() {
+    const DrinkToFav = data.drinks[0];
+    const favoriteRecipes = [{
+      id: DrinkToFav.idDrink,
+      type: 'bebida',
+      area: '',
+      category: DrinkToFav.strCategory,
+      alcoholicOrNot: DrinkToFav.strAlcoholic,
+      name: DrinkToFav.strDrink,
+      image: DrinkToFav.strDrinkThumb,
+    }];
+    saveFavorite(favoriteRecipes);
+  }
+
+  function renderButtons(item) {
     return (
       <>
         <button data-testid="share-btn" type="button" onClick={ copyFunction }>
           <img src={ shareIcon } alt="share icon" />
         </button>
         {copied ? <span>Link copiado!</span> : null}
-        <button type="button">
-          <img src={ whiteHeartIcon } alt="favorite icon" data-testid="favorite-btn" />
+        <button type="button" onClick={ favorite }>
+          {favButton(favorited, item.idDrink)}
         </button>
       </>
     );
@@ -133,7 +154,7 @@ function DetalhesBebidas({ match }) {
                 alt={ item.strDrink }
               />
               <h3 data-testid="recipe-title">{item.strDrink}</h3>
-              {renderButtons()}
+              {renderButtons(item)}
               {AlcoholVerify(item)}
               <label htmlFor="ingredients-list">
                 Ingredientes:
