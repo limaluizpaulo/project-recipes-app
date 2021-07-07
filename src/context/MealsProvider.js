@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchRecipes from '../services/api/fetchRecipes';
 import fetchCategories from '../services/api/fetchCategories';
+import fetchById from '../services/api/fetchById';
 import fetchFilteredByCategory from '../services/api/fetchFilteredByCategory';
 
 const MealsContext = createContext();
@@ -35,14 +36,27 @@ const MealsProvider = ({ children }) => {
     setMeals(filtered);
   };
 
-  const findMealRecipe = (id) => meals.find(({ idMeal }) => id === idMeal);
+  const filterById = async (type, id) => {
+    const response = await fetchById(type, id);
+    return response;
+  };
 
-  const filterIngredients = (id) => {
-    const newMeals = meals.find(({ idMeal }) => id === idMeal);
-    const teste = Object.entries(newMeals);
-    const teste2 = teste.filter((array) => array[0]
+  const filterIngredients = async (type, id) => {
+    const filterRecipe = await fetchById(type, id);
+    const arrayMeal = Object.entries(filterRecipe);
+    const filterMeal = arrayMeal.filter((array) => array[0]
       .includes('strIngredient') && array[1] !== '');
-    return teste2.map((array) => array[1]);
+    const result = filterMeal.map((array) => array[1]);
+    return result;
+  };
+
+  const filterAllMeasure = async (type, id) => {
+    const filterRecipe = await fetchById(type, id);
+    const arrayMeal = Object.entries(filterRecipe);
+    const filterMeasure = arrayMeal.filter((array) => array[0]
+      .includes('strMeasure') && array[1] !== null);
+    const result = filterMeasure.map((array) => array[1]);
+    return result;
   };
 
   const context = {
@@ -52,6 +66,8 @@ const MealsProvider = ({ children }) => {
     setFilterCategory,
     findMealRecipe,
     filterIngredients,
+    filterById,
+    filterAllMeasure,
     setIngredientFilter,
   };
 

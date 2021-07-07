@@ -1,4 +1,3 @@
-export { default as Header } from './Header';
 export { default as SearchBar } from './SearchBar';
 export { default as DetailsRecipes } from './DetailsRecipes';
 export { default as Footer } from './Footer';
@@ -14,3 +13,4 @@ export { default as RecipeHeaderList } from './RecipeHeaderList';
 export { default as FavoriteButton } from './FavoriteButton';
 export { default as IngredientCard } from './IngredientCard';
 export { default as AreasDropDown } from './AreasDropDown';
+export { default as Header } from './Header';

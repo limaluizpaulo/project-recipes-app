@@ -8,8 +8,9 @@ const MealsDetails = ({ match: { params: { id } } }) => {
   const [mealsDetails, setMealsDetail] = useState({});
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
 
-  const { findMealRecipe, filterIngredients } = useContext(MealsContext);
+  const { filterById, filterIngredients, filterAllMeasure } = useContext(MealsContext);
 
   const { drinks } = useContext(DrinksContext);
 
@@ -27,19 +28,22 @@ const MealsDetails = ({ match: { params: { id } } }) => {
     instructions: strInstructions,
     type: 'meals',
     ingredients,
+    measures,
     recomendations: drinks,
   };
 
   useEffect(() => {
-    const findMeal = () => {
-      const meal = findMealRecipe(id);
-      setMealsDetail(meal);
-      const ingredient = filterIngredients(id);
-      setIngredients(ingredient);
+    const findMeal = async () => {
+      const fetchRecipe = await filterById('meals', id);
+      setMealsDetail(fetchRecipe);
+      const arrayIngredients = await filterIngredients('meals', id);
+      setIngredients(arrayIngredients);
+      const arrayMeasures = await filterAllMeasure('meals', id);
+      setMeasures(arrayMeasures);
       setLoading(true);
     };
     findMeal();
-  }, []);
+  }, [filterAllMeasure, filterById, filterIngredients, id]);
 
   if (!loading) {
     return <div />;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Ingredients = ({ newObj }) => {
-  const { ingredients } = newObj;
+  const { ingredients, measures } = newObj;
 
   return (
     <section>
@@ -13,8 +13,9 @@ const Ingredients = ({ newObj }) => {
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            {`- ${ingredient}`}
-          </li>))}
+            {`- ${ingredient} ${measures[index]}`}
+          </li>
+        ))}
       </ol>
     </section>
   );
