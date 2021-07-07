@@ -31,7 +31,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   // Adiciona o progresso da receita em localstorage
   const addLocalStorageIngredient = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id, video } = currentRecipe;
+    const { id } = currentRecipe;
     console.log(currentRecipe);
     if (inProgress === null) {
       localStorage.setItem('inProgressRecipes', JSON

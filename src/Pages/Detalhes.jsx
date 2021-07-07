@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -11,7 +11,6 @@ import Video from '../components/Details/Video';
 
 export default function DetalhesComida({ location }) {
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
-  const [inProgress, setInProgress] = useState(false);
   const { id, title, subtitle, instructions, thumb, video, ingredients } = currentRecipe;
   const history = useHistory();
 
@@ -29,7 +28,6 @@ export default function DetalhesComida({ location }) {
     //     },
     //   ),
     // );
-
     if (video) {
       history.push(`/comidas/${id}/in-progress`);
     } else {
