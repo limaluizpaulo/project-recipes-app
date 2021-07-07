@@ -6,10 +6,6 @@
   margin-bottom: 70px;
 }
 
-#title-container {
-  width: 100%;
-}
-
 #card-ingredient {
   background-color: #dc35463d;
   height: 10rem;
@@ -19,6 +15,10 @@
 #card-image {
   margin-top: 8px;
   width: 50%;
+}
+
+#title-container {
+  width: 100%;
 }
 
 #card-title {

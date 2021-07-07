@@ -5,7 +5,7 @@ import { fetchIngredientsRecipes } from '../services/RecipesServices';
 import RecipesContext from '../context/RecipesContext';
 import IngredientCard from '../components/IngredientCard';
 
-import '../styles/ExploreFoodIngredients.css';
+import '../styles/ExploreRecipesIngredients.css';
 
 function ExploreFoodIngredients() {
   const { setIngredients, ingredients } = useContext(RecipesContext);

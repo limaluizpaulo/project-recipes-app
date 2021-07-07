@@ -31,7 +31,6 @@ function IngredientCard({ index, ingredient }) {
     return (
       <Button
         variant
-        className="card-button"
         data-testid={ `${index}-ingredient-card` }
         type="button"
         onClick={ () => redirectToRecipes() }
@@ -77,20 +76,20 @@ function IngredientCard({ index, ingredient }) {
     return (
       <Button
         variant
-        className="card-button"
         data-testid={ `${index}-ingredient-card` }
         type="button"
         onClick={ () => redirectToDrinks() }
       >
-        <Card border="danger">
+        <Card border="danger" id="card-ingredient">
           <Card.Img
             id="card-image"
             data-testid={ `${index}-card-img` }
             src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
             alt={ ingredient }
           />
-          <Card.Body>
+          <Card.Body id="title-container">
             <Card.Title
+              id="card-title"
               className="card-title"
               data-testid={ `${index}-card-name` }
             >

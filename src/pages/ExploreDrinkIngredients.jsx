@@ -5,6 +5,8 @@ import { fetchIngredientsDrinks } from '../services/DrinksServices';
 import DrinksContext from '../context/DrinksContext';
 import IngredientCard from '../components/IngredientCard';
 
+import '../styles/ExploreRecipesIngredients.css';
+
 function ExploreDrinkIngredients() {
   const { setIngredients, ingredients } = useContext(DrinksContext);
 
@@ -22,9 +24,9 @@ function ExploreDrinkIngredients() {
   }, [setIngredients]);
 
   return (
-    <section>
+    <section className="explore-section-ingredients">
       <Header profile name="Explorar Ingredientes" />
-      <section className="cards-field">
+      <section className="cards-field-ingredients">
         {
           ingredients.map((ingredient, index) => (<IngredientCard
             key={ index }
