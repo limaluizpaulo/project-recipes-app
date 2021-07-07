@@ -14,16 +14,17 @@
 
 
 .card-rec {
-  box-shadow: 2px 4px 8px rgb(199, 202, 199);
+  background: #ffa778;
+  border-radius: 5px;
+  box-shadow: 2px 4px 8px  #ff9967;
   display: flex;
-  display: block;
   height: 250px;
   margin: 5px;
   transition: transform 0.5s;
   width: 35vw;
 }
 
-.card-details:hover {
+.card-rec:hover {
   transform: scale(1.2);
   width: 35vw;
   z-index: 2;

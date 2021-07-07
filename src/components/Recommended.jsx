@@ -53,11 +53,7 @@ export default function Recommended() {
           recipes.slice(0, NUMBER_OF_ITEMS)
             .map((recipe, index) => (
               <div
-<<<<<<< HEAD
-                className={ visible.includes(index) ? 'card-details' : 'card-hidden' }
-=======
                 className={ visible.includes(index) ? 'card-rec' : 'card-hidden' }
->>>>>>> 53de34772fbe04e94631633ca6eb768fc8ca1993
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
@@ -111,11 +107,7 @@ export default function Recommended() {
           drinks.slice(0, NUMBER_OF_ITEMS)
             .map((drink, index) => (
               <div
-<<<<<<< HEAD
-                className={ visible.includes(index) ? 'card-details' : 'card-hidden' }
-=======
                 className={ visible.includes(index) ? 'card-rec' : 'card-hidden' }
->>>>>>> 53de34772fbe04e94631633ca6eb768fc8ca1993
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
@@ -127,7 +119,7 @@ export default function Recommended() {
                   />
                   <span
                     data-testid="recipe-category"
-                    cclassName="recomendation-category"
+                    className="recomendation-category"
                   >
                     { drink.strCategory }
 

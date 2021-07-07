@@ -13,16 +13,16 @@ export default function InstructionsDetails() {
 
   const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
   return getDrinksDetails ? (
-    <section className="Instructions">
+    <section className="instructions">
       <h1>Instructions</h1>
-      <div>
+      <div className="instructions-details">
         <p data-testid="instructions">{drinkDetails.strInstructions}</p>
       </div>
     </section>
   ) : (
-    <section className="Instructions">
+    <section className="instructions">
       <h1>Instructions</h1>
-      <div>
+      <div className="instructions-details">
         <p data-testid="instructions">{foodDetails.strInstructions}</p>
       </div>
     </section>

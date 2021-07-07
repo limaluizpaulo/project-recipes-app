@@ -23,21 +23,36 @@
 }
 
 header {
-  background: rgb(199, 202, 199);
+  background: #ce2029;
   border-radius: 0 0 20px 20px;
   box-sizing: border-box;
   display: flex;
+  height: 100vh;
   max-width: 100vw;
+}
+
+.thumb-3 {
+  background-size: contain;
+  max-height: 60vh;
+  width: auto;
+}
+
+.thumb-2 {
+  background-size: contain;
+  max-height: 70vh;
+  width: auto;
 }
 
 .thumb {
   background-size: contain;
-  height: 70vh;
+  height: 80vh;
   width: 100%;
 }
 
 .title-and-buttons {
+  box-sizing: border-box;
   display: flex;
+  max-height: 15vh;
 }
 
 .title-and-category {
@@ -50,8 +65,8 @@ header {
 .title {
   box-sizing: border-box;
   color: black;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   padding: 0;
 }
 

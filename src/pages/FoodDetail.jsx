@@ -47,7 +47,7 @@ function FoodDetails() {
     setIngredientsFood(full);
   }, [foodDetails, setIngredientsFood]);
   return !load ? (
-    <>
+    <section style={ { background: '#ffb034' } }>
       <HeaderDetails />
       <main>
         <IngredientsDetails />
@@ -67,7 +67,7 @@ function FoodDetails() {
         <Recommended />
       </main>
       <ButtonStartRecipe />
-    </>
+    </section>
   ) : <h1>Loading</h1>;
 }
 

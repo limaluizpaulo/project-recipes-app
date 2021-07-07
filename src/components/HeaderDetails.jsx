@@ -18,10 +18,12 @@ function HeaderDetails() {
     getLocalStorage,
     addLocalStorage,
     removeLocalStorage,
+    classThumb,
   } = useContext(LoginContext);
 
   const [copied, setCopied] = useState(false);
   const [isFavorite, setISFavorite] = useState(false);
+  const [styleThumb, setClassThumb] = useState('thumb');
 
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -47,8 +49,11 @@ function HeaderDetails() {
 
   useEffect(() => {
     const xablau = getLocalStorage(id);
+    const returnClass = classThumb(getDrinksDetails, drinkDetails, foodDetails);
+    console.log(returnClass);
+    setClassThumb(returnClass);
     setISFavorite(xablau);
-  }, [getLocalStorage, id]);
+  }, [classThumb, drinkDetails, foodDetails, getDrinksDetails, getLocalStorage, id]);
 
   return getDrinksDetails ? (
     <header>
@@ -56,7 +61,7 @@ function HeaderDetails() {
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
-        className="thumb"
+        className={ styleThumb }
       />
       <section className="title-and-buttons">
         <div className="title-and-category">
@@ -112,7 +117,7 @@ function HeaderDetails() {
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
-        className="thumb"
+        className={ styleThumb }
       />
 
       <section className="title-and-buttons">

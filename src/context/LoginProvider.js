@@ -109,6 +109,30 @@ function LoginProvider({ children }) {
     }
   }, []);
 
+  const classThumb = useCallback((condition, drink, food) => {
+    const SIZE_TITLE_ONE = 17;
+    const SIZE_TITLE_TWO = 28;
+    if (condition) {
+      if (
+        drink.strDrink.length >= SIZE_TITLE_ONE
+        && drink.strDrink.length < SIZE_TITLE_TWO) {
+        return 'thumb-2';
+      } if (drink.strDrink.length >= SIZE_TITLE_TWO) {
+        return 'thumb-3';
+      }
+      return 'thumb';
+    }
+    if (
+      food.strMeal.length >= SIZE_TITLE_ONE
+      && food.strMeal.length < SIZE_TITLE_TWO) {
+      return 'thumb-2';
+    }
+    if (food.strMeal.length >= SIZE_TITLE_TWO) {
+      return 'thumb-3';
+    }
+    return 'thumb';
+  }, []);
+
   useEffect(() => {
     getDoneRecipes();
   }, [getDoneRecipes]);
@@ -125,6 +149,7 @@ function LoginProvider({ children }) {
         addLocalStorageDrink,
         addLocalStorage,
         removeLocalStorage,
+        classThumb,
       } }
     >
       { children }
