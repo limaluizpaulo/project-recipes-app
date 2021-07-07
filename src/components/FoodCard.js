@@ -2,27 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function FoodCard({ recipes, order }) {
-  const { strMeal, idMeal, strMealThumb } = recipes;
+import './style/FoodCard.css';
+
+export default function FoodCard({ recipes, order, type }) {
+  const name = type === 'comidas' ? 'strMeal' : 'strDrink';
+  const id = type === 'comidas' ? 'idMeal' : 'idDrink';
+  const urlImage = type === 'comidas' ? 'strMealThumb' : 'strDrinkThumb';
 
   return (
-    <Link to={ `comidas/${idMeal} ` }>
-      <div key={ strMeal } data-testid={ `${order}-recipe-card` }>
+    <Link to={ `${type}/${recipes[id]} ` }>
+      <div key={ recipes[name] } data-testid={ `${order}-recipe-card` }>
         <img
-          src={ strMealThumb }
-          alt={ strMeal }
+          src={ recipes[urlImage] }
+          alt={ recipes[name] }
           data-testid={ `${order}-card-img` }
+          className="imageRecipes"
         />
-        <p data-testid={ `${order}-card-name` }>{strMeal}</p>
+        <p data-testid={ `${order}-card-name` }>{recipes[name]}</p>
       </div>
     </Link>
   );
 }
 FoodCard.propTypes = {
-  recipes: PropTypes.shape({
-    strMeal: PropTypes.string.isRequired,
-    idMeal: PropTypes.string.isRequired,
-    strMealThumb: PropTypes.string.isRequired,
-  }).isRequired,
+  recipes: PropTypes.objectOf(PropTypes.string).isRequired,
+  type: PropTypes.string.isRequired,
   order: PropTypes.number.isRequired,
 };

@@ -22,12 +22,13 @@ function RecipesProvider({ children }) {
 
   const location = useLocation();
 
-  const getInitialRecipes = async () => {
-    const allRecipes = await fetchAllRecipes(mealsOrDrinks);
-    setRecipes(allRecipes.meals);
+  const getInitialRecipes = async (mealsDrinks) => {
+    const allRecipes = await fetchAllRecipes(mealsDrinks);
+    setRecipes(allRecipes[mealsDrinks]);
   };
 
   const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
+    console.log(mealsOrDrinks, searchParameter, searchPayload);
     const recipesBySearch = await fetchRecipesBySearch(
       mealsOrDrinks, searchParameter, searchPayload,
     );
@@ -76,10 +77,6 @@ function RecipesProvider({ children }) {
     lookDetailsRecipe,
     getInitialRecipes,
   };
-
-  useEffect(() => {
-    getInitialRecipes();
-  }, []);
 
   useEffect(() => {
     if (location.pathname.includes('comidas')) {

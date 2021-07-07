@@ -50,6 +50,7 @@ function FavoriteRecipes() {
     setFavoriteRecipes(allFavoriteRecipes);
   };
 
+  // retirar get Full
   const getFullRecipe = async (id, type) => {
     setRedirectType(type);
     setIdType(type === 'comida' ? 'idMeal' : 'idDrink');
