@@ -71,3 +71,13 @@
   background: none;
   border: none;
 }
+
+footer {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  position: fixed;
+  width: 100%;
+}

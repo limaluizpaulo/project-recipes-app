@@ -15,7 +15,7 @@ function ExplorePage({ history }) {
   return (
     <div>
       <Header history={ history } />
-      { goSearch && <SBElements /> }
+      { goSearch && <SBElements history={ history } /> }
       <Footer history={ history } />
     </div>
   );

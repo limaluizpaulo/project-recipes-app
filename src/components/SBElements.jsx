@@ -1,34 +1,64 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function SBElements() {
+function SBElements({ history }) {
   const [ingredients, setIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [FirstLetter, setFirstLetter] = useState([]);
   const [filter, setFilter] = useState('');
   const [searchInput, setsearchInput] = useState('');
 
+  const { location: { pathname } } = history;
+
   const getIngredients = () => {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
-    fetch(endpoint)
-      .then((response) => response.json()
-        .then((results) => setIngredients(results.meals)));
-    console.log(`Requisição 1, ${ingredients}`);
+    if (pathname === '/comidas') {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setIngredients(results.meals)));
+      console.log(`Requisição 1 comidas, ${ingredients}`);
+    }
+    if (pathname === '/bebidas') {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setIngredients(results.drinks)));
+      console.log(`Requisição 1 bebidas, ${ingredients}`);
+    }
   };
 
   const getRecipes = () => {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
-    fetch(endpoint)
-      .then((response) => response.json()
-        .then((results) => setRecipes(results.meals)));
-    console.log(`Requisição 1, ${recipes}`);
+    if (pathname === '/comidas') {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setRecipes(results.meals)));
+      console.log(`Requisição 2 comidas, ${recipes}`);
+    }
+    if (pathname === '/bebidas') {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setIngredients(results.drinks)));
+      console.log(`Requisição 2 bebidas, ${ingredients}`);
+    }
   };
 
   const getFirstLetter = () => {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
-    fetch(endpoint)
-      .then((response) => response.json()
-        .then((results) => setFirstLetter(results.meals)));
-    console.log(`Requisição 1, ${FirstLetter}`);
+    if (pathname === '/comidas') {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setFirstLetter(results.meals)));
+      console.log(`Requisição 1, ${FirstLetter}`);
+    }
+    if (pathname === '/bebidas') {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      fetch(endpoint)
+        .then((response) => response.json()
+          .then((results) => setIngredients(results.drinks)));
+      console.log(`Requisição 2 bebidas, ${ingredients}`);
+    }
   };
 
   const handleClick = () => {
@@ -107,5 +137,9 @@ function SBElements() {
     </div>
   );
 }
+
+SBElements.propTypes = {
+  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
+};
 
 export default SBElements;
