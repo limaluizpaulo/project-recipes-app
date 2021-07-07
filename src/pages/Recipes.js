@@ -11,7 +11,7 @@ function Recipes() {
       <Header title="Comidas" search="" />
       {
         recipes
-          && RecipesContext.map((recipe, i) => (
+          && recipes.map((recipe, i) => (
             i < cardMaximun
              && <FoodCard key={ i } order={ i } recipes={ recipe } />
           ))
