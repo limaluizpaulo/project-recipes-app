@@ -14,6 +14,7 @@ class Recipes extends Component {
     super(props);
     this.state = {
       filter: false,
+      categories: '',
     };
 
     this.mapearLista = this.mapearLista.bind(this);
@@ -32,9 +33,16 @@ class Recipes extends Component {
   }
 
   async fetchRecipesCategory(category) {
-    const { recipesByCategory } = this.props;
-    recipesByCategory(category);
-    this.setState({ filter: true });
+    const { filter, categories } = this.state;
+    const { recipesByCategory, recipes } = this.props;
+    this.setState({ categories: category });
+    if (!filter || categories !== category) {
+      recipesByCategory(category);
+      this.setState({ filter: true });
+    } else {
+      recipes();
+      this.setState({ filter: false });
+    }
   }
 
   mapearLista({ strMealThumb, strMeal, idMeal }, index) {
