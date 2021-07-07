@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import UseListaCategorias from '../hooks/UseListaCategorias';
 import AppReceitasContext from '../context/AppReceitasContext';
@@ -7,16 +7,13 @@ function ListaCategoriasReceitas() {
   const rotaAtual = useLocation().pathname;
   const apelidoAPI = rotaAtual.replace('/', '');
   const categorias = UseListaCategorias(apelidoAPI);
-  const { setParametrosBusca } = useContext(AppReceitasContext);
-  const [toggle, settoggle] = useState(true);
+  const { setParametrosBusca, parametrosBusca } = useContext(AppReceitasContext);
 
   const handleClick = (strCategory) => {
-    if (toggle) {
+    if ((strCategory !== 'All') && (parametrosBusca.input !== strCategory)) {
       setParametrosBusca({ flag: 'c', apelidoAPI, input: strCategory });
-      settoggle(!toggle);
     } else {
       setParametrosBusca({ apelidoAPI, flag: 's', input: '' });
-      settoggle(!toggle);
     }
   };
 
@@ -32,6 +29,13 @@ function ListaCategoriasReceitas() {
           {strCategory}
         </button>
       ))}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => handleClick('All') }
+      >
+        All
+      </button>
     </>
   );
 }
