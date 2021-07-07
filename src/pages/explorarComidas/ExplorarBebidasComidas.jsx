@@ -14,9 +14,19 @@ export class ExplorarComidasBebidas extends Component {
       type: '',
       id: '',
       isRedirect: false,
+      shouldRamdom: '',
     };
     this.updateState = this.updateState.bind(this);
     this.handleApi = this.handleApi.bind(this);
+    this.redirectVerify = this.redirectVerify.bind(this);
+  }
+
+  componentWillUnmount() {
+    console.log('entrei no unmount');
+    return this.setState({ id: undefined,
+      isRedirect: false,
+      type: undefined,
+      shouldRamdom: '' });
   }
 
   async handleApi() {
@@ -24,7 +34,7 @@ export class ExplorarComidasBebidas extends Component {
 
     if (location.pathname.includes('comida')) {
       await fetchApi('mealdb', 'meals');
-      return this.setState({ type: 'comidas' });
+      return this.setState({ type: 'comidas', shouldRamdom: 'yes' });
     }
     await fetchApi('cocktaildb', 'drinks');
     return this.setState({ type: 'bebidas' });
@@ -32,16 +42,29 @@ export class ExplorarComidasBebidas extends Component {
 
   updateState(param) {
     const { getDetailsRecipe } = this.props;
-    console.log(getDetailsRecipe, 'updateState');
-    console.log(getDetailsRecipe.length);
-    if (getDetailsRecipe.length !== 0 && param === 'comidas') {
+    const { shouldRamdom } = this.state;
+    // console.log(getDetailsRecipe, 'updateState');
+    // console.log(shouldRamdom.length);
+    // console.log(shouldRamdom);
+    if (shouldRamdom.length !== 0 && param === 'comidas') {
       console.log('pão');
-      return this.setState({ id: getDetailsRecipe.idMeal, isRedirect: true });
+      console.log(getDetailsRecipe);
+      return this.setState({ id: getDetailsRecipe.idMeal });
     }
     if (getDetailsRecipe.length !== 0 && param === 'bebidas') {
-      console.log('bebidas');
+      // console.log('bebidas');
       return this.setState({ id: getDetailsRecipe.idDrink, isRedirect: true });
     }
+  }
+
+  redirectVerify() {
+    const { id } = this.state;
+    console.log(id);
+    // if (id.length !== 0) {
+    //   console.log('entrei no verify');
+    //   return this.setState({ isRedirect: true,
+    //   });
+    // }
   }
 
   renderButtons(param) {
@@ -82,6 +105,7 @@ export class ExplorarComidasBebidas extends Component {
     const { isRedirect, type, id } = this.state;
     const PAGE_LOCATION = location.pathname.includes('comida');
     console.log(type);
+    console.log(id);
     return (
       <div>
         <Header location={ location } />
@@ -89,6 +113,7 @@ export class ExplorarComidasBebidas extends Component {
           : this.renderButtons('bebidas') }
         { type !== undefined && this.updateState(type)}
         { isRedirect && <Redirect to={ `/${type}/${id}` } />}
+        {this.redirectVerify()}
         <Footer />
       </div>
     );
@@ -103,7 +128,8 @@ ExplorarComidasBebidas.propTypes = {
 
 const mapStateToProps = (state) => ({
   // getRamdomRecipe: state.exploreScreen.recipe,
-  getDetailsRecipe: state.foodCategories.recipeDetails,
+  // getDetailsRecipe: state.recipeDetails.details,
+  getDetailsRecipe: state,
 
 });
 const mapDispatchToProps = (dispatch) => ({

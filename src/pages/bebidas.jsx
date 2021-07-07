@@ -10,7 +10,7 @@ import {
   fetchDrinksRecipes,
   fetchFilterDrinkByCategories,
   getSearchBarResponse,
-} from '../action';
+} from '../action/index';
 
 class Bebidas extends Component {
   componentDidMount() {

@@ -6,7 +6,7 @@ import invokeAlert from '../helper/alertMsg';
 import { fetchFoodRecipes, fetchFoodRecipesByIngredients,
   fetchFoodRecipesByfirstLetter, fetchDrinksRecipesByIngredient,
   fetchDrinksRecipes,
-  fetchDrinksRecipesByFirstLetter } from '../action';
+  fetchDrinksRecipesByFirstLetter } from '../action/index';
 
 class SearchBar extends Component {
   constructor() {

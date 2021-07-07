@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import { fetchApiFoodCategories,
   fetchFilterFoodByCategories,
-  fetchFoodDetails,
-  fetchFoodRecipes, getSearchBarResponse } from '../action';
+  fetchFoodRecipes,
+  getSearchBarResponse,
+} from '../action/index';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
 
@@ -60,7 +61,6 @@ class Comidas extends Component {
       dispatchFoodRecipes,
       foodByCategories,
       match,
-      foodDetails,
     } = this.props;
     return (
       <div>
@@ -82,7 +82,6 @@ class Comidas extends Component {
                   img={ measl.strMealThumb }
                   title={ measl.strMeal }
                   index={ index }
-                  details={ foodDetails }
                 />
               ))
             }
@@ -100,7 +99,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchFoodRecipes: () => dispatch(fetchFoodRecipes()),
   hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
   foodByCategories: (category) => dispatch(fetchFilterFoodByCategories(category)),
-  foodDetails: (id) => dispatch(fetchFoodDetails(id)),
 });
 
 const mapStateToProps = (state) => ({

@@ -1,4 +1,5 @@
 import invokeAlert from '../helper/alertMsg';
+// import foodData from '../help/foodData';
 
 const RESPONSE_ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -12,7 +13,9 @@ export const ALL_FOOD_RECIPES = 'ALL_FOOD_RECIPES';
 export const FOOD_BY_CATEGORIES = 'FOOD_BY_CATEGORIES';
 export const ALL_DRINKS_RECIPES = 'ALL_DRINKS_RECIPES';
 export const DRINK_BY_CATEGORIES = 'DRINK_BY_CATEGORIES';
-export const RECIPE_DETAILS = 'RECIPE_DETAILS';
+export const RECIPE_DETAILS_FOOD = 'RECIPE_DETAILS_FOOD';
+export const RECIPE_DETAILS_DRINK = 'RECIPE_DETAILS_DRINK';
+export const START_RECIPE = 'START_RECIPE';
 
 export const addEmail = (email) => ({ type: USER_EMAIL, email });
 export const isLoading = () => ({ type: IS_LOADING });
@@ -29,11 +32,15 @@ export const getAllFoodRecipes = (recipes) => ({
 export const getFoodByCategories = (meals) => ({
   type: FOOD_BY_CATEGORIES, meals });
 export const getFoodDetails = (mealsDetails) => ({
-  type: RECIPE_DETAILS, mealsDetails });
+  type: RECIPE_DETAILS_FOOD, mealsDetails });
+export const getDrinkDetails = (drinksDetails) => ({
+  type: RECIPE_DETAILS_DRINK, drinksDetails });
 export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
+export const startRecipe = () => ({
+  type: START_RECIPE, isStart: true });
 
 export const fetchApiFoodCategories = () => (dispatch) => {
   dispatch(isLoading());
@@ -182,13 +189,14 @@ export const fetchRamdomRecipe = (param = 'mealdb', param2 = 'meals') => (dispat
     .then((response) => response.json())
     .then((ramdomRecipeData) => {
       // const ramdomRecipe = ramdomRecipeData;
-      // console.log(ramdomRecipeData[param2][0]);
-      console.log(param2);
-      console.log(ramdomRecipeData);
-      console.log(ramdomRecipeData[param2]);
+      console.log(ramdomRecipeData[param2][0]);
+      // console.log(param2);
+      // console.log(ramdomRecipeData);
+      // console.log(ramdomRecipeData[param2]);
       dispatch(getFoodDetails(ramdomRecipeData[param2][0]));
     });
 };
+
 export const fetchFoodDetails = (id) => (dispatch) => {
   dispatch(isLoading());
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -205,20 +213,28 @@ export const fetchByIngredient = (param) => (dispatch) => {
   fetch(`https://www.the${param}db.com/api/json/v1/1/list.php?i=list`)
     .then((response) => response.json())
     .then((ingredientDetails) => {
-      console.log(ingredientDetails);
+      // console.log(ingredientDetails);
       if (param === 'cocktail') {
-        console.log('arroz');
+        // console.log('arroz');
         const type = 'drinks';
         const ingredients = ingredientDetails[type].slice(0, maxRecipes);
-        console.log(ingredients);
+        // console.log(ingredients);
         dispatch(getIngredients(ingredients));
       }
       if (param === 'meal') {
         const type = `${param}s`;
 
         const ingredients = ingredientDetails[type].slice(0, maxRecipes);
-        console.log(ingredients);
+        // console.log(ingredients);
         dispatch(getIngredients(ingredients));
       }
+    });
+};
+export const fetchDrinkDetails = (id) => (dispatch) => {
+  dispatch(isLoading());
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .then((drinkDetails) => {
+      dispatch(getDrinkDetails(drinkDetails.drinks[0]));
     });
 };
