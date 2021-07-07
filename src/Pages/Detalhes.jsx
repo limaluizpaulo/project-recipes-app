@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
 import Thumb from '../components/Details/Thumb';
@@ -29,27 +29,29 @@ export default function DetalhesComida({ location }) {
   };
 
   return (
-    <Container>
-      <Thumb title={ name } thumb={ image } />
-      <Title
-        currentRecipe={ currentRecipe }
-        id={ id }
-        title={ name }
-        subtitle={ !alcoholicOrNot ? category : alcoholicOrNot }
-      />
-      <Ingredients ingredients={ ingredients } />
-      <Instructions instructions={ instructions } />
-      { video && <Video video={ video } /> }
-      <Button
-        className="button-fixed"
-        onClick={ () => renderInProgressPage() }
-        data-testid="start-recipe-btn"
-        variant="warning"
-        block
-      >
-        Iniciar Receita
-      </Button>
-    </Container>
+    image ? (
+      <Container>
+        <Thumb title={ name } thumb={ image } />
+        <Title
+          currentRecipe={ currentRecipe }
+          id={ id }
+          title={ name }
+          subtitle={ !alcoholicOrNot ? category : alcoholicOrNot }
+        />
+        <Ingredients ingredients={ ingredients } />
+        <Instructions instructions={ instructions } />
+        { video && <Video video={ video } /> }
+        <Button
+          className="button-fixed"
+          onClick={ () => renderInProgressPage() }
+          data-testid="start-recipe-btn"
+          variant="warning"
+          block
+        >
+          Iniciar Receita
+        </Button>
+      </Container>
+    ) : <Spinner variant="danger" animation="border" />
   );
 }
 
