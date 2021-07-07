@@ -22,7 +22,6 @@ export class ExplorarArea extends Component {
 
   handleChange({ target: { value } }) {
     const { dispatchFoodRecipesByArea, dispatchFoodRecipes } = this.props;
-    console.log(value);
     if (value === 'All') {
       return dispatchFoodRecipes();
     }
@@ -31,8 +30,6 @@ export class ExplorarArea extends Component {
 
   render() {
     const { location, country, meals } = this.props;
-    console.log(country);
-    console.log(meals);
     return (
       <div>
         <Header location={ location } />

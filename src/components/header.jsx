@@ -41,6 +41,31 @@ class Header extends Component {
   }
 
   header(title = 'Comidas', searchBar = true) {
+    console.log(title.replace('/', ' ').replace('/', ' '));
+    console.log(title.includes('Explorar'));
+    if (title.includes('area')) {
+      title = 'Explorar/Origem';
+    }
+
+    if (title.includes('ingredientes') && title.includes('comidas')) {
+      title = 'Explorar/Ingredientes';
+      console.log('entrei');
+    }
+
+    if (title.includes('Explorar') && title.includes('comidas')) {
+      title = 'Explorar/Comidas';
+      // console.log(title.replace('/', ' '));
+      // console.log('entrei');
+    }
+    if (title.includes('ingredientes') && title.includes('bebidas')) {
+      title = 'Explorar/Ingredientes';
+      console.log('entrei');
+    }
+    if (title.includes('Explorar') && title.includes('bebidas')) {
+      title = 'Explorar/Bebidas';
+      console.log('entrei');
+    }
+
     return (
       <div>
         <header className="header">
@@ -59,8 +84,7 @@ class Header extends Component {
   render() {
     const { isSearchBar } = this.state;
     const { location, searchBarOn } = this.props;
-
-    console.log(isSearchBar);
+    console.log(location);
 
     return (
       <div>

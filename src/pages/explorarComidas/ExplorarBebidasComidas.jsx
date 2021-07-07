@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import { fetchRamdomRecipe } from '../../action';
+import { fetchRamdomRecipe, getSearchBarResponse } from '../../action';
 
 export class ExplorarComidasBebidas extends Component {
   constructor(props) {
@@ -18,6 +18,11 @@ export class ExplorarComidasBebidas extends Component {
     this.updateState = this.updateState.bind(this);
     this.handleApi = this.handleApi.bind(this);
     this.verifyToRedirect = this.verifyToRedirect.bind(this);
+  }
+
+  componentDidMount() {
+    const { hasSearchBar } = this.props;
+    hasSearchBar(false);
   }
 
   componentWillUnmount() {
@@ -140,6 +145,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   // sendRamdomRecipe: (e) => dispatch(getRamdomRecipe(e)),
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
   fetchApi: (e, a) => dispatch(fetchRamdomRecipe(e, a)),
 });
 
