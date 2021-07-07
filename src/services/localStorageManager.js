@@ -63,3 +63,16 @@ export const updateLocalStorage = (param) => {
     setIsBtnDisable(true);
   }
 };
+
+export const checkDoneRecipes = (id) => {
+  const data = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (data) {
+    return data.some(({ id: recipeDone }) => recipeDone === id);
+  }
+  return false;
+};
+
+export const checkProgress = (id, type) => {
+  const data = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  return Object.keys(data[type]).some((recipeInProgress) => recipeInProgress === id);
+};

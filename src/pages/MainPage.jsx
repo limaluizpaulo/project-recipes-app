@@ -10,7 +10,7 @@ import {
 } from '../services';
 
 import '../main.css';
-import { RecipeCards, Footer } from '../components';
+import { RecipeCards, Footer, Header } from '../components';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
@@ -64,6 +64,9 @@ function MainPage({ history }) {
   return (
     <>
       <main>
+        <section>
+          <Header pathname={ pathname } />
+        </section>
         <section>
           <button
             type="button"

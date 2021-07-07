@@ -46,6 +46,17 @@ function Login() {
     localStorage.setItem('user', JSON.stringify(userFormat));
     localStorage.setItem('mealsToken', JSON.stringify(mealToken));
     localStorage.setItem('cocktailsToken', JSON.stringify(cockTailsToken));
+    localStorage.setItem('doneRecipes', JSON.stringify([{
+      id: '',
+      type: '',
+      area: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      image: '',
+      doneDate: '',
+      tags: '',
+    }]));
     setRedirect(true);
   };
 
@@ -62,6 +73,7 @@ function Login() {
           type="text"
           name="email"
           onChange={ handleChange }
+          placeholder="example@email.com"
         />
       </label>
       <label htmlFor="password">
@@ -70,6 +82,7 @@ function Login() {
           data-testid="password-input"
           type="password"
           name="password"
+          placeholder="password"
           onChange={ handleChange }
         />
       </label>
