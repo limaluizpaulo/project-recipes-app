@@ -59,11 +59,17 @@ export async function requestNameDrink(name) {
 }
 
 export async function requesIngredientDrink(name) {
+  // presisamos melhorar o tratamento de erro
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
   const grup = url + name;
-  const request = await fetch(grup);
-  const resolve = await request.json();
-  return resolve;
+
+  try {
+    const request = await fetch(grup);
+    const resolve = await request.json();
+    return resolve;
+  } catch (erro) {
+    global.alert('Ingredient não encontrado');
+  }
 }
 
 export async function requesfirsLettertDrink(name = '') {
