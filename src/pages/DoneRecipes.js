@@ -30,10 +30,12 @@ class DoneRecipes extends Component {
 
   statusButton({ target }) {
     if (target.innerText === 'Food') {
-      const foods = this.getDoneRecipes().filter((recipe) => recipe.type === 'comida');
+      const foods = this.getDoneRecipes() ? (
+        this.getDoneRecipes().filter((recipe) => recipe.type === 'comida')) : null;
       this.setState({ recipes: foods });
     } else if (target.innerText === 'Drink') {
-      const drinks = this.getDoneRecipes().filter((recipe) => recipe.type === 'bebida');
+      const drinks = this.getDoneRecipes() ? (
+        this.getDoneRecipes().filter((recipe) => recipe.type === 'bebida')) : null;
       this.setState({ recipes: drinks });
     } else {
       this.getDoneRecipes();
