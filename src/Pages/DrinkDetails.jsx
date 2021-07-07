@@ -23,51 +23,66 @@ class DrinkDetails extends React.Component {
   getIngredients() {
     const { valueDrink } = this.state;
     const arrayIngredients = [];
-    const DRINK = valueDrink[0];
-    const index = 1;
-    const key = `strIngredient${index}`;
-    // if (DRINK[key]) {
-    // console.log(DRINK[key]);
-    // let u = 1;
-    // const valor = `strIngredient${u}`;
-    // for (let i = 1; DRINK[valor] !== ''; i += 1) {
-    //   arrayIngredients.push(DRINK[valor]);
-    //   u += 1;
-    // }
-    // }
+    const DRINK = Object.entries(valueDrink[0]);
+
+    if (DRINK) {
+      DRINK.forEach(([key, value]) => {
+        if (key.includes('strIngredient') && value) {
+          arrayIngredients.push(value);
+        }
+      });
+    }
     this.setState({ ingredients: arrayIngredients });
   }
 
   async resultDrink() {
-    const { getDrinkId, drink } = this.props;
-    const { idDrink } = drink[0];
-    const { payload } = await getDrinkId(idDrink, BeverageAPI.getDrinkById);
+    const { getDrinkId, match } = this.props;
+    const { id } = match.params;
+    const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
     this.setState({ valueDrink: payload }, () => this.getIngredients());
   }
 
   render() {
     const { valueDrink, ingredients } = this.state;
-    // console.log(ingredients);
-    return (
-      <div>
-        {valueDrink.map((drink, index) => (
-          <img data-testid="recipe-photo" src={ drink.strDrinkThumb } alt="drink" width="300" />
-        // <h1 data-testid="recipe-title">{drink.strDrink}</h1>
-        // <button type="button" data-testid="share-btn">share</button>
-        // <button type="button" data-testid="favorite-btn">favorite</button>
-        // <h6 data-testid="recipe-category">{drink.strCategory}</h6>
-        // <ul>
-        //     <li data-testid={ `${index}-ingredient-name-and-measure` }>show</li>
-        // </ul>
-        // <p data-testid="instructions">instructions</p>
-        // <img data-testid="video" alt="video" />
-        // <div data-testid={ `${index}-recomendation-card` }>
-        //   cards
-        // </div>
-        ))}
-        <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
-      </div>
-    );
+    console.log(valueDrink);
+    if (valueDrink[0]) {
+      return (
+        <div>
+          {valueDrink.map((drink, index) => (
+            <>
+              <img
+                key={ index }
+                data-testid="recipe-photo"
+                src={ drink.strDrinkThumb }
+                alt="drink"
+                width="300"
+              />
+              <h1 data-testid="recipe-title">{drink.strDrink}</h1>
+              <h6 data-testid="recipe-category">{drink.strCategory}</h6>
+              <ul>
+                {ingredients.map((ingredient, i) => (
+                  <li
+                    key={ i }
+                    data-testid={ `${i}-ingredient-name-and-measure` }
+                  >
+                    {ingredient}
+                  </li>
+                ))}
+              </ul>
+              <p data-testid="instructions">{drink.strInstructions}</p>
+              <img data-testid="video" src={ drink.strVideo } alt="video" />
+              <div data-testid={ `${index}-recomendation-card` }>
+                cards
+              </div>
+            </>
+          ))}
+          <button type="button" data-testid="share-btn">share</button>
+          <button type="button" data-testid="favorite-btn">favorite</button>
+          <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
+        </div>
+      );
+    }
+    return null;
   }
 }
 
