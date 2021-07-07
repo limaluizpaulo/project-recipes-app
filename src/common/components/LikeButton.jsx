@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getStorage, setStorage } from '../../functions';
+import { getStorage, infoFavorite, setStorage } from '../../functions';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import store from '../../context/store';
@@ -11,15 +11,7 @@ export default function LikeButton({ recipe }) { // Desestruturando props
   const [favorited, setFavorited] = useState(false);
 
   const clickLike = () => {
-    const infoFav = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: (foods) ? 'comida' : 'bebida',
-      area: recipe.strArea || '',
-      category: recipe.strCategory || '',
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
+    const infoFav = infoFavorite(recipe, foods);
 
     const favInLS = getStorage('favoriteRecipes');
     const findFavInLS = favInLS.find((item) => item.id === infoFav.id);

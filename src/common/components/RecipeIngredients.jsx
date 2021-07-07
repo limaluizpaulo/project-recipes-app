@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import store from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 
-export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }) {
+export default function RecipeIngredients({
+  inProg, setIngrLS, ingrLS, Details }) { // Desestruturação da Props
   const { recipes: { recipeDetail } } = useContext(store);
 
   // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
+  // const [taskOK, setTaskOK] = useState({ [ingrLS.map((item) => item)]: true });
   const [taskOK, setTaskOK] = useState({});
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
 
@@ -21,7 +23,7 @@ export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }
         }
         return '';
       });
-    setIngrOK(ingredientsOK);
+    setIngrLS(ingredientsOK);
     setStorage('inProgressRecipes', { ...inProgress,
       [recipeDetail.idMeal || recipeDetail.idDrink]: ingredientsOK });
   };
@@ -51,7 +53,7 @@ export default function RecipeIngredients({ inProg, setIngrOK, ingrOK, Details }
                 type="checkbox"
                 name={ task }
                 id={ `${i}-ingredient-step` }
-                checked={ ingrOK.includes(task) }
+                checked={ ingrLS.includes(task) }
                 onClick={ addTaskCompleted }
                 onChange={ () => {} }
               />

@@ -24,3 +24,17 @@ export const newDoneRecipe = (recipeDetail, foods) => {
   };
   return newDoneRecipE;
 };
+
+export const infoFavorite = (recipeDetail, foods) => {
+  const r = recipeDetail; // só pra reduzir a verbosidade
+  const infoFav = {
+    id: r.idMeal || r.idDrink,
+    type: (foods) ? 'comida' : 'bebida',
+    area: r.strArea || '',
+    category: r.strCategory || '',
+    alcoholicOrNot: r.strAlcoholic || '',
+    name: r.strMeal || r.strDrink,
+    image: r.strMealThumb || r.strDrinkThumb,
+  };
+  return infoFav;
+};
