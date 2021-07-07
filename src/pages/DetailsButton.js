@@ -16,12 +16,13 @@ function DetailsButton(props) {
     const object = Object.entries(recipe);
     const recipeIngredients = object.filter((entry) => (
       entry[0].match(/strIngredient/) && entry[1] !== '' && entry[1] !== null));
+    const amountOfIngredients = Object.keys(recipeIngredients);
     if (url.match(food)) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
           ...recipeInProgress,
           meals: {
-            [recipe.idMeal]: [...recipeIngredients],
+            [recipe.idMeal]: [...amountOfIngredients],
           },
         }));
       setInProgress(true);
@@ -30,7 +31,7 @@ function DetailsButton(props) {
         JSON.stringify({
           ...recipeInProgress,
           cocktails: {
-            [recipe.idDrink]: [...recipeIngredients],
+            [recipe.idDrink]: [...amountOfIngredients],
           },
         }));
       setInProgress(true);

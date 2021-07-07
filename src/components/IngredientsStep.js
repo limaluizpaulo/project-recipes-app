@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Ingredients(props) {
+function IngredientsStep(props) {
   const { value: recipe } = props;
   const object = Object.entries(recipe);
   const recipeIngredients = object.filter((entry) => (
@@ -11,31 +11,38 @@ function Ingredients(props) {
   const recipeIngredientsList = [];
   for (let i = 0; i < recipeIngredients.length; i += 1) {
     recipeIngredientsList.push(
-      `- ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
+      ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
     );
   }
 
   return (
     <div
-      className="ingredients"
+      className="ingredients-step"
     >
       <h5>Ingredients</h5>
-      <ul>
+      <div className="ingredients-list">
         {recipeIngredientsList.map((entry, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
+          <label
+            htmlFor={ index }
             key={ index }
           >
+            <input
+              type="checkbox"
+              data-testid={ `${index}-ingredient-step` }
+              name={ index }
+              key={ index }
+              value={ index }
+            />
             { entry }
-          </li>
+          </label>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
-Ingredients.propTypes = {
+IngredientsStep.propTypes = {
   value: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default Ingredients;
+export default IngredientsStep;

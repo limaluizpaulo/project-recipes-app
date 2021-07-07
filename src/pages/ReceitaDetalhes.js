@@ -103,10 +103,6 @@ function ReceitaDetalhes({ match }) {
     setFavorite,
   };
 
-  if (!recipe) {
-    return (<h4 className="loading">Carregando...</h4>);
-  }
-
   const params = {
     url,
     related,
@@ -137,6 +133,10 @@ function ReceitaDetalhes({ match }) {
     inProgress,
     setInProgress,
   };
+
+  if (!recipe) {
+    return (<h4 className="loading">Carregando...</h4>);
+  }
 
   return (
     <main>
