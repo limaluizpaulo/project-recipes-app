@@ -8,9 +8,9 @@ export default function RecipeIngredients({
 
   // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
   console.log(ingrLS);
-  // const [taskOK, setTaskOK] = useState((ingrLS.length) ? (
-  //   { [ingrLS.map((item) => item)]: true }) : {});
-  const [taskOK, setTaskOK] = useState({});
+  const [taskOK, setTaskOK] = useState((ingrLS) ? (
+    { [ingrLS.map((item) => item)]: true }) : {});
+  // const [taskOK, setTaskOK] = useState({});
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
 
   const addTaskCompleted = ({ target: { checked, name } }) => {

@@ -55,6 +55,6 @@ export default function RecipeDetails() {
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    <RenderDetails btnFinish={ btnFinish } />
+    <RenderDetails btnFinish={ btnFinish } id={ id } />
   );
 }
