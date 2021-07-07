@@ -8,7 +8,7 @@ import { apiCategoriesFoods } from '../services/api/getList';
 import { requestCategoriesMael } from '../services/api/getCategories';
 import RenderMealIngredient from '../components/RenderMealIngredient';
 import RenderMeal from '../components/RenderMeal';
-
+import '../styles/mainPage.css';
 // Tela principal de receitas de comidas: /comidas
 export default function MainFood({ history }) {
   const {
@@ -94,6 +94,7 @@ export default function MainFood({ history }) {
   function buttonCategories() {
     return filterCategoriesFood.map((categ, i) => (
       <button
+        className="food__category__button"
         type="button"
         key={ i }
         value={ categ.strCategory }
@@ -107,20 +108,25 @@ export default function MainFood({ history }) {
 
   return (
     <div>
-      <h4>Meals</h4>
       <Header history={ history } title="Comidas" />
-      <div>
-        <button
-          data-testid="All-category-filter"
-          type="button"
-          value="All"
-          onClick={ handleAllOnclick }
-        >
-          All
-        </button>
-        {buttonCategories()}
+      <div className="foodPage">
+        <div className="food__category__container">
+          <button
+            className="food__category__button"
+            data-testid="All-category-filter"
+            type="button"
+            value="All"
+            onClick={ handleAllOnclick }
+          >
+            All
+          </button>
+          {buttonCategories()}
+        </div>
+        <div className="food__cards__container">
+          {previousIsExploreIngredients ? <RenderMealIngredient /> : <RenderMeal /> }
+        </div>
       </div>
-      {previousIsExploreIngredients ? <RenderMealIngredient /> : <RenderMeal /> }
+
       <Footer />
     </div>
   );

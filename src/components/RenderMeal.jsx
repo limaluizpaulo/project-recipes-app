@@ -17,44 +17,61 @@ const RenderMealIngredient = () => {
   function renderMeal() {
     if (allValue === 'All' && valueButton === '') {
       return filterFood.map((itemAll, indexAll) => (
-        <div key={ indexAll } data-testid={ `${indexAll}-recipe-card` }>
-          <Link to={ `/comidas/${itemAll.idMeal}` }>
-            <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+        <Link
+          className="food__card"
+          data-testid={ `${indexAll}-recipe-card` }
+          key={ indexAll }
+          to={ `/comidas/${itemAll.idMeal}` }
+        >
+          <div className="food__card__img">
             <img
               src={ itemAll.strMealThumb }
               alt={ itemAll.strMealThumb }
               data-testid={ `${indexAll}-card-img` }
             />
-          </Link>
-        </div>
+          </div>
+          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+        </Link>
       ));
     }
     if (data.length === 0 && valueButton === '') {
       return filterFood.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <Link to={ `/comidas/${item.idMeal}` }>
-            <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+        <Link
+          className="food__card"
+          data-testid={ `${index}-recipe-card` }
+          key={ index }
+          to={ `/comidas/${item.idMeal}` }
+        >
+          <div className="food__card__img">
             <img
               src={ item.strMealThumb }
               alt={ item.strMealThumb }
               data-testid={ `${index}-card-img` }
             />
-          </Link>
-        </div>
+          </div>
+          <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+        </Link>
       ));
     }
     if (valueButton !== '' && toogle) {
       return filterDataCategories.map((itemValue, i) => (
-        <div key={ i } data-testid={ `${i}-recipe-card` }>
-          <Link to={ `/comidas/${itemValue.idMeal}` }>
-            <p data-testid={ `${i}-card-name` }>{itemValue.strMeal}</p>
+        <Link
+          className="food__card"
+          key={ i }
+          data-testid={ `${i}-recipe-card` }
+          to={ `/comidas/${itemValue.idMeal}` }
+        >
+          <div className="food__card__img">
+
             <img
               src={ itemValue.strMealThumb }
               alt={ itemValue.strMealThumb }
               data-testid={ `${i}-card-img` }
             />
-          </Link>
-        </div>
+
+          </div>
+          <p data-testid={ `${i}-card-name` }>{itemValue.strMeal}</p>
+        </Link>
       ));
     }
     if (data.length === 1) {
@@ -75,7 +92,7 @@ const RenderMealIngredient = () => {
   }
 
   return (
-    <div>{renderMeal()}</div>
+    renderMeal()
   );
 };
 
