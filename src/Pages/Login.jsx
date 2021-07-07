@@ -35,7 +35,7 @@ export default function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('doneRecipes', JSON.stringify([{}]));
-    localStorage.setItem('favoriteRecipes', JSON.stringify([{}]));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     localStorage.setItem(
       'inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }),
     );
