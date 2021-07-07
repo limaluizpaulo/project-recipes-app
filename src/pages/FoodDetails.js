@@ -9,7 +9,7 @@ import { Context } from '../context/ContextForm';
 
 function FoodDetails() {
   const params = useParams();
-  const { setParamId, paramId } = useContext(Context);
+  const { setParamId } = useContext(Context);
   const [item, setItem] = useState([]);
 
   useEffect(() => {
@@ -20,8 +20,6 @@ function FoodDetails() {
     };
     request();
   }, [params.id, setParamId]);
-
-  console.log(paramId);
 
   return (
     item && (

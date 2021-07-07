@@ -17,6 +17,10 @@ body {
   min-width: 100vw;
 }
 
+.marcado {
+  text-decoration: line-through;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
