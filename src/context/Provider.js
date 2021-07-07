@@ -12,14 +12,19 @@ const Provider = ({ children }) => {
   const [drinks, setDrinks] = useState([]);
   const [ctgMeals, setCtgMeals] = useState([]);
   const [ctgDrinks, setCtgDrinks] = useState([]);
+  const [ingMeals, setIngMeals] = useState([]);
+  const [ingDrinks, setIngDrinks] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const { meals: m, drinks: d, ctgMeals: cm, ctgDrinks: cd } = await requests();
+      const { meals: m, drinks: d, ctgMeals: cm, ctgDrinks: cd,
+        ingMeals: im, ingDrinks: id } = await requests();
       setMeals(m.meals);
       setDrinks(d.drinks);
       setCtgMeals(cm.meals);
       setCtgDrinks(cd.drinks);
+      setIngMeals(im.meals);
+      setIngDrinks(id.drinks);
     })();
   }, []);
 
@@ -40,6 +45,8 @@ const Provider = ({ children }) => {
     ctgMeals,
     ctgDrinks,
     setRecipes,
+    ingMeals,
+    ingDrinks,
   };
 
   return <GlobalContext.Provider value={ value }>{children}</GlobalContext.Provider>;
