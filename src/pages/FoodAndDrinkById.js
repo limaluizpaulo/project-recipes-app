@@ -4,7 +4,7 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import Card from '../components/Card';
 
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import fetchAPI from '../services/apiRequest';
 
@@ -66,7 +66,7 @@ export default function FoodAndDrinkById() {
           <h3 data-testid="recipe-title">{singleContent[0][title]}</h3>
           <Button><img data-testid="share-btn" src={ shareIcon } alt="" /></Button>
           <Button onClick={ handleFavorite }>
-            <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
+            <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
           </Button>
           <p data-testid="recipe-category">{singleContent[0].strCategory}</p>
           {ingredientsList.map((el, i) => (
