@@ -39,7 +39,7 @@ function DrinkProcess() {
                   <h1 data-testid="recipe-title">{ strDrink }</h1>
                   <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
-                <Icons />
+                <Icons code={ drink[0] } />
               </section>
               <List drinks={ drinks } />
               <h2>Instructions</h2>
