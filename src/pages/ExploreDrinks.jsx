@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,31 +25,34 @@ function ExploreDrinks() {
   }
 
   return (
-    <section>
-      <Header profile name="Explorar Bebidas" />
-      <ButtonGroup className="buttons-explore-drinks">
+    <>
+      <section className="explore-section">
+        <Header profile name="Explorar Bebidas" />
+        <Container>
+          <ButtonGroup className="buttons-explore-drinks">
+            <Button
+              data-testid="explore-by-ingredient"
+              variant="danger"
+              size="lg"
+              onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+            >
+              Por Ingredientes
+            </Button>
 
-        <Button
-          data-testid="explore-by-ingredient"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => history.push('/explorar/bebidas/ingredientes') }
-        >
-          Por Ingredientes
-        </Button>
+            <Button
+              data-testid="explore-surprise"
+              variant="danger"
+              size="lg"
+              onClick={ () => redirectToDrinkDetails() }
+            >
+              Me Surpreenda!
+            </Button>
+          </ButtonGroup>
+        </Container>
+      </section>
 
-        <Button
-          data-testid="explore-surprise"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => redirectToDrinkDetails() }
-        >
-          Me Surpreenda!
-        </Button>
-
-      </ButtonGroup>
       <Footer />
-    </section>
+    </>
   );
 }
 

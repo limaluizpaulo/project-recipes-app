@@ -60,6 +60,7 @@ function ExploreFoods() {
           </ButtonGroup>
         </Container>
       </section>
+
       <Footer />
     </>
   );
