@@ -1,16 +1,55 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/global.css';
 
+function favoriteStructure(item) {
+  if (item.code !== undefined) {
+    const
+      { idMeal,
+        strArea,
+        idDrink,
+        strCategory,
+        strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
+
+    const favoriteElement = {
+      id: idMeal || idDrink,
+      type: idMeal === undefined ? 'bebida' : 'comida',
+      area: idMeal === undefined ? '' : strArea,
+      category: strCategory,
+      alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
+      name: strDrink || strMeal,
+      image: strMealThumb || strDrinkThumb,
+    };
+    return favoriteElement;
+  }
+}
+
 function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(true);
   const [changeCopy, setChangeCopy] = useState(false);
+  const [first, setFirst] = useState(false);
   const target = useRef(null);
+  const history = useHistory();
+  const { pathname } = history.location;
 
   const DOISMIL = 2000;
+
+  function isFavorite() {
+    const { idDrink, idMeal } = item.code;
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let flag = 0;
+    favorites
+      .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
+    if (flag > 0) setChangeIcon(!changeIcon);
+  }
+  if (!first) {
+    isFavorite();
+    setFirst(true);
+  }
 
   function copyClipboard() {
     const url = document.URL;
@@ -23,25 +62,9 @@ function Icons(item) {
 
   function favorite() {
     setChangeIcon(!changeIcon);
-    const
-      { idMeal,
-        strArea,
-        idDrink,
-        strCategory,
-        strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
 
     let favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteElement = {
-      id: idMeal || idDrink,
-      type: idMeal === undefined ? 'bebida' : 'comida',
-      area: idMeal === undefined ? '' : strArea,
-      category: strCategory,
-      alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
-      name: strDrink || strMeal,
-      image: strMealThumb || strDrinkThumb,
-    };
-    // let isFavoriteBefore = 0;
-    // favorites.forEach((fav) => { isFavoriteBefore += fav.id === favoriteElement.id; });
+    const favoriteElement = favoriteStructure(item);
 
     favorites = favorites.filter((fav) => fav.id !== favoriteElement.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
@@ -64,8 +87,6 @@ function Icons(item) {
     );
   }
 
-  console.log(speakCopy);
-
   return (
     <div>
       <div className="shareAndLike">
@@ -73,12 +94,13 @@ function Icons(item) {
           ref={ target }
           type="button"
           className="share"
-          onClick={ copyClipboard }
+          onClick={ () => { copyClipboard(); speakCopy(); } }
         >
           <img
             src={ shareIcon }
             alt="share icon"
-            data-testid="share-btn"
+            data-testid={ pathname.includes('receitas-favoritas')
+              ? '{index}-horizontal-share-btn' : 'share-btn' }
           />
         </button>
         <button

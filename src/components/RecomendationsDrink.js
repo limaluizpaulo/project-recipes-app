@@ -20,7 +20,7 @@ function RecomendationsDrink() {
 
   return (
     <div>
-      <Carousel fade interval={ null } controls="true" className="carousel">
+      <Carousel fade interval={ null } controls className="carousel">
         <Carousel.Item>
           <div className="card-recomendations">
             {recomendationsDrink.slice(0, 2).map((drink, index) => (

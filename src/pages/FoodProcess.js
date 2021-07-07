@@ -39,7 +39,7 @@ function FoodProcess() {
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <span data-testid="recipe-category">{ strCategory }</span>
                 </div>
-                <Icons />
+                <Icons code={ item[0] } />
               </section>
               <List array={ array } />
               <h2>Instructions</h2>

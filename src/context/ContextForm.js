@@ -9,8 +9,10 @@ function Provider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [radio, setRadio] = useState('Nome');
   const [firstMeals, setFirstMeals] = useState([]);
+  const [area, setArea] = useState([]);
   const [firstDrinks, setFirstDrinks] = useState([]);
-  const [paramId, setParamId] = useState('');
+  const [firstFoodIngredients, setFirstFoodIngredients] = useState([]);
+  const [firstDrinkIngredients, setFirstDrinkIngredients] = useState([]);
 
   const object = {
     email,
@@ -25,14 +27,27 @@ function Provider({ children }) {
     setFirstMeals,
     firstDrinks,
     setFirstDrinks,
-    paramId,
-    setParamId,
+    area,
+    setArea,
+    firstFoodIngredients,
+    setFirstFoodIngredients,
+    firstDrinkIngredients,
+    setFirstDrinkIngredients,
   };
 
   useEffect(() => {
     if (localStorage.getItem('favoriteRecipes') === null) {
       const Favorite = [];
       localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
+    }
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const inProgressRecipes = {
+        meals: {
+        },
+        cocktails: {
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     }
   }, []);
 

@@ -11,6 +11,8 @@ function FoodDetails() {
   const params = useParams();
   const { setParamId } = useContext(Context);
   const [item, setItem] = useState([]);
+  const [first, setFirst] = useState(false);
+  const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
     const request = async () => {
@@ -20,6 +22,32 @@ function FoodDetails() {
     };
     request();
   }, [params.id, setParamId]);
+
+  function progressFunction() {
+    const { idMeal } = item[0];
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(meals);
+    let flag = 0;
+    Object
+      .keys(meals).forEach((id) => { if (id === idMeal) flag += 1; });
+    console.log(flag);
+    if (flag !== 0) setProgress('Continuar Receita');
+    setFirst(true);
+  }
+
+  function start() {
+    const { idMeal } = item[0];
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    inProgress.meals[`${idMeal}`] = [];
+    console.log(inProgress);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    setProgress('Continuar Receita');
+  }
+
+  if (!first && item[0] !== undefined) {
+    progressFunction();
+  }
 
   return (
     item && (
@@ -71,8 +99,9 @@ function FoodDetails() {
                   type="button"
                   className="startRecipeBtn"
                   data-testid="start-recipe-btn"
+                  onClick={ start }
                 >
-                  Iniciar Receita
+                  {progress}
                 </button>
               </Link>
             </div>

@@ -46,4 +46,10 @@ export async function searchByCategoryDrink(category) {
   return result;
 }
 
+export async function searchByAreaFood(area) {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json()).then((resultObject) => resultObject);
+  return result;
+}
+
 export default searchByNameFood;

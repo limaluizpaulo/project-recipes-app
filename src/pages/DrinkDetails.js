@@ -9,6 +9,8 @@ import '../styles/global.css';
 function DrinkDetails() {
   const params = useParams();
   const [drink, setDrink] = useState([]);
+  const [first, setFirst] = useState(false);
+  const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
     const request = async () => {
@@ -17,6 +19,28 @@ function DrinkDetails() {
     };
     request();
   }, [params.id]);
+
+  function progressFunction() {
+    const { idDrink } = drink[0];
+    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let flag = 0;
+    Object
+      .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
+    if (flag !== 0) setProgress('Continuar Receita');
+    setFirst(true);
+  }
+
+  function start() {
+    const { idDrink } = drink[0];
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    inProgress.cocktails[`${idDrink}`] = [];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    setProgress('Continuar Receita');
+  }
+
+  if (!first && drink[0] !== undefined) {
+    progressFunction();
+  }
 
   return (
     drink && (
@@ -59,8 +83,9 @@ function DrinkDetails() {
                   type="button"
                   className="startRecipeBtn"
                   data-testid="start-recipe-btn"
+                  onClick={ start }
                 >
-                  Iniciar Receita
+                  {progress}
                 </button>
               </Link>
             </div>
