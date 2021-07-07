@@ -107,14 +107,14 @@ export default function MealsDetails() {
               className="d-block w-60"
               src={ drink.strDrinkThumb }
               alt="slide"
-              width="100px"
-
             />
             <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{drink.strDrink}</h3>
             </Carousel.Caption>
           </Carousel.Item>))}
       </Carousel>
+      {/* slide de receitas recomendadas de drinks
+       com data-testid="${index}-recomendation-card" */}
       <Link to={ `/comidas/${idMeal}/in-progress` }>
         <button
           type="button"
