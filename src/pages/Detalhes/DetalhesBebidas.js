@@ -7,7 +7,7 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
 import './Detalhes.css';
-import renderButton from './renderButton';
+import startButton from './startButton';
 
 function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
@@ -147,7 +147,7 @@ function DetalhesBebidas({ match }) {
               </label>
               <p>Recomendações: </p>
               {mapRecomm(recomm)}
-              {renderButton('bebidas', item, history)}
+              {startButton('bebidas', item, history)}
             </>
           );
         }

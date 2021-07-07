@@ -1,14 +1,12 @@
 import React from 'react';
 
-function renderButton(page, item, history) {
+function startButton(page, item, history) {
   let btnName = 'Iniciar Receita';
   if (page === 'comidas') {
     const redirection = () => {
       history.push(`/comidas/${item.idMeal}/in-progress`);
-      const savedRecipes = JSON.parse(localStorage.inProgressRecipes);
       const inProgressRecipes = {
         meals: {
-          ...savedRecipes.meals,
           [item.idMeal]: [],
         },
       };
@@ -36,10 +34,8 @@ function renderButton(page, item, history) {
   if (page === 'bebidas') {
     const redirection = () => {
       history.push(`/bebidas/${item.idDrink}/in-progress`);
-      const savedRecipes = JSON.parse(localStorage.inProgressRecipes);
       const inProgressRecipes = {
         drinks: {
-          ...savedRecipes.drinks,
           [item.idDrink]: [],
         },
       };
@@ -55,7 +51,7 @@ function renderButton(page, item, history) {
     }
     return (
       <button
-        className="start-button"
+        className="btn btn-info"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ redirection }
@@ -66,4 +62,4 @@ function renderButton(page, item, history) {
   }
 }
 
-export default renderButton;
+export default startButton;

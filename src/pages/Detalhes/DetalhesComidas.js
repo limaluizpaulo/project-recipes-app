@@ -6,7 +6,7 @@ import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
-import renderButton from './renderButton';
+import startButton from './startButton';
 import './Detalhes.css';
 
 function DetalhesComidas({ match }) {
@@ -41,8 +41,8 @@ function DetalhesComidas({ match }) {
           <img src={ shareIcon } alt="share icon" />
         </button>
         {copied ? <span>Link copiado!</span> : null}
-        <button type="button">
-          <img src={ whiteHeartIcon } alt="favorite icon" data-testid="favorite-btn" />
+        <button data-testid="favorite-btn" type="button">
+          <img src={ whiteHeartIcon } alt="favorite icon" />
         </button>
       </>
     );
@@ -170,7 +170,7 @@ function DetalhesComidas({ match }) {
                   <span className="visually-hidden">Next</span>
                 </button>
               </div>
-              { renderButton('comidas', item, history) }
+              { startButton('comidas', item, history) }
             </>
           );
         }
