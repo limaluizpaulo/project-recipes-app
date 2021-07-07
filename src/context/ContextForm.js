@@ -31,6 +31,15 @@ function Provider({ children }) {
       const Favorite = [];
       localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
     }
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const inProgressRecipes = {
+        meals: {
+        },
+        cocktails: {
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
   }, []);
 
   return (
