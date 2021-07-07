@@ -9,6 +9,7 @@ import { requestCurrentRoute } from '../redux/actions';
 class Recipes extends React.Component {
   render() {
     const { location: { pathname }, match: { params: { recipeType } } } = this.props;
+
     return (
       <div>
         <Header pathname={ pathname } title={ recipeType } search />
