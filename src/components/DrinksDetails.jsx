@@ -12,7 +12,6 @@ export default function DrinksDetails() {
   const [mealsAll, setMealsAll] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
-  const [colorHeart, setColorHeart] = useState(false);
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
 
@@ -29,9 +28,6 @@ export default function DrinksDetails() {
     const filtroMeasure = measures.filter((word) => word !== null);
     setIngredients(filtroIngredients);
     setMeasure(filtroMeasure);
-  };
-  const changeHeart = () => {
-    setColorHeart(!colorHeart);
   };
 
   const getApiDetails = () => {

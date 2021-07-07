@@ -4,16 +4,14 @@ import RecipesContext from '../Context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function FavoriteButton() {
+const FavoriteButton = () => {
   const { pathname } = useLocation();
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
   const [stateChangeHeart, setStateChangeHeart] = useState(false);
   const saveStorage = () => {
     const type = pathname.includes('comida') ? 'comida' : 'bebida';
-
-    setSaveRecipe({
-      id: type === 'comida' ? stateMeals[0].idMeal : stateDrink[0].idDrink,
+    setSaveRecipe({ id: type === 'comida' ? stateMeals[0].idMeal : stateDrink[0].idDrink,
       name: type === 'comida' ? stateMeals[0].strMeal : stateDrink[0].strDrink,
       image: type === 'comida' ? stateMeals[0].strMealThumb : stateDrink[0].strDrinkThumb,
       category: type === 'comida' ? stateMeals[0].strCategory : stateDrink[0].strCategory,
@@ -22,13 +20,11 @@ export default function FavoriteButton() {
       type,
     });
   };
-
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);
   };
   const setInlocalStorage = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favorited);
     if (saveRecipe !== '' && favorited === null) {
       localStorage.setItem('favoriteRecipes', JSON
         .stringify([saveRecipe]));
@@ -39,13 +35,7 @@ export default function FavoriteButton() {
   };
   useEffect(setInlocalStorage, [saveRecipe]);
   return (
-    <button
-      type="button"
-      onClick={ () => {
-        saveStorage();
-        changeHeart();
-      } }
-    >
+    <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
       <img
         src={ stateChangeHeart ? blackHeartIcon : whiteHeartIcon }
         alt="imagem de favoritar"
@@ -53,4 +43,6 @@ export default function FavoriteButton() {
       />
     </button>
   );
-}
+};
+
+export default FavoriteButton;

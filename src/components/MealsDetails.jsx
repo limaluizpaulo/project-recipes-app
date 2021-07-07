@@ -4,8 +4,6 @@ import { Carousel } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
 import { fetchAllDrinks } from '../Service/drinkApi';
 
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
 import RecipesContext from '../Context/RecipesContext';
 import FavoriteButton from './FavoriteButton';
@@ -16,7 +14,6 @@ export default function MealsDetails() {
   const [measure, setMeasure] = useState([]);
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
-  const [colorHeart, setColorHeart] = useState(false);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -33,10 +30,6 @@ export default function MealsDetails() {
     const filtroMeasure = measures.filter((word) => word !== ' ');
     setIngredients(filtroIngredients);
     setMeasure(filtroMeasure);
-  };
-
-  const changeHeart = () => {
-    setColorHeart(!colorHeart);
   };
 
   const getApiDetails = () => {
