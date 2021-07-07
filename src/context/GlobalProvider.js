@@ -40,13 +40,17 @@ function GlobalProvider({ children }) {
   useEffect(() => {
     if (requestResult.meals) {
       setMeals(requestResult.meals);
-      setToggle({
-        ...toggle, backup: { ...toggle.backup, meals: requestResult.meals } });
+      if (!toggle.backup) {
+        setToggle({
+          ...toggle, backup: { ...toggle.backup, meals: requestResult.meals } });
+      }
     }
     if (requestResult.drinks) {
       setDrinks(requestResult.drinks);
-      setToggle({
-        ...toggle, backup: { ...toggle.backup, drinks: requestResult.drinks } });
+      if (!toggle.backup) {
+        setToggle({
+          ...toggle, backup: { ...toggle.backup, drinks: requestResult.drinks } });
+      }
     }
     if (!requestResult[Object.keys(requestResult)[0]]) {
       global
