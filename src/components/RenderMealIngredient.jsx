@@ -7,22 +7,28 @@ const RenderMealIngredient = () => {
     filterDrinksIngredients,
   } = useContext(RecipeContext);
 
-  return filterDrinksIngredients.map((itemAll, indexAll) => (
-    <div
-      className="food__card"
-      key={ indexAll }
-      data-testid={ `${indexAll}-recipe-card` }
-    >
-      <Link to={ `/comidas/${itemAll.idMeal}` }>
-        <img
-          src={ itemAll.strMealThumb }
-          alt={ itemAll.strMealThumb }
-          data-testid={ `${indexAll}-card-img` }
-        />
-        <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
-      </Link>
-    </div>
-  ));
+  function mealIngredient() {
+    return filterDrinksIngredients.map((itemAll, indexAll) => (
+      <div
+        className="food__card"
+        key={ indexAll }
+        data-testid={ `${indexAll}-recipe-card` }
+      >
+        <Link to={ `/comidas/${itemAll.idMeal}` }>
+          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+          <img
+            src={ itemAll.strMealThumb }
+            alt={ itemAll.strMealThumb }
+            data-testid={ `${indexAll}-card-img` }
+          />
+        </Link>
+      </div>
+    ));
+  }
+
+  return (
+    mealIngredient()
+  );
 };
 
 export default RenderMealIngredient;

@@ -23,7 +23,7 @@ export default function ExploreDrinksIngredients({ history }) {
       setIngredientsList(ingredients);
     };
     fetchMealsByIngredients();
-  }, []);
+  }, [setIngredientsList]);
 
   const fetchRecipesByIngredient = async (ingredient) => {
     const DOZE = 12;
@@ -32,7 +32,6 @@ export default function ExploreDrinksIngredients({ history }) {
     const { drinks } = await request.json();
     const recipes = drinks.filter((_ingredient, idx) => idx < DOZE);
     setFilterDrinksIngredients(recipes);
-    console.log(recipes);
   };
 
   const handleClick = ({ target: { id } }) => {
