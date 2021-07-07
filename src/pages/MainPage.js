@@ -5,7 +5,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
-import { getRandomData, getCategoriesList, getDataByCategory } from '../services/apiRequest';
+import { getRandomData,
+  getCategoriesList, getDataByCategory } from '../services/apiRequest';
 
 const TWELVE = 12;
 const FIVE = 5;
