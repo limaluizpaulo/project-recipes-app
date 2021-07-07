@@ -11,12 +11,43 @@ export const checkRecypeId = (idRecipe) => {
 
 export const checkFavoriteId = (idRecipe) => {
   const favorite = localStorage.favoriteRecipes
-    ? JSON.parse(localStorage.favoriteRecipes) : [];
+    ? JSON.parse(localStorage.favoriteRecipes)
+    : [];
   return favorite.find(({ id }) => id === idRecipe);
 };
 
 export const checkProgress = (idRecipe, meals) => {
   const recipe = meals ? 'meals' : 'cocktails';
-  return localStorage.inProgressRecipes
-  && JSON.parse(localStorage.inProgressRecipes)[recipe][idRecipe];
+  return (
+    localStorage.inProgressRecipes &&
+    JSON.parse(localStorage.inProgressRecipes)[recipe][idRecipe]
+  );
+};
+
+export const getStorageRecipe = (id, meals) => {
+  const option = meals ? 'meals' : 'cocktails';
+  if (localStorage.inProgressRecipes) {
+    const local = JSON.parse(localStorage.inProgressRecipes);
+    return local[option][id];
+  }
+};
+
+export const updateStorageRecipe = (id, recipe, meals) => {
+  const option = meals ? 'meals' : 'cocktails';
+  if (localStorage.inProgressRecipes) {
+    const local = JSON.parse(localStorage.inProgressRecipes);
+    localStorage.inProgressRecipes = JSON.stringify({
+      ...local,
+      [option]: {
+        ...local[option],
+        [id]: recipe,
+      },
+    });
+  } else {
+    localStorage.inProgressRecipes = JSON.stringify({
+      [option]: {
+        [id]: recipe,
+      },
+    });
+  }
 };
