@@ -40,4 +40,14 @@ export async function fetchAPI(URL) {
   return data;
 }
 
+export async function getDataIngredientsList(domain) {
+  try {
+    const URL_DATA_INGREDIENTS_LIST = `https://www.${domain}.com/api/json/v1/1/list.php?i=list`;
+    const res = await fetch(URL_DATA_INGREDIENTS_LIST);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
 // export default fetchAPI;

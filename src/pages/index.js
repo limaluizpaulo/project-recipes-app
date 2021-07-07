@@ -4,10 +4,8 @@ import FavoritesRecipes from './FavoriteRecipes';
 import Login from './Login';
 import Profile from './Profile';
 import NotFound from './NotFound';
-import ExploreFoods from './ExploreFoods';
-import ExploreDrinks from './ExploreDrinks';
-import ExploreDrinksByIngredients from './ExploreDrinksByIngredients';
-import ExploreFoodsByIngredients from './ExploreFoodsByIngredients';
+import ExploreMealsOrDrinks from './ExploreMealsOrDrinks';
+import ExploreByIngredients from './ExploreByIngredients';
 import ExploreFoodsByLocation from './ExploreFoodsByLocation';
 import FoodRecipeByIdProgress from './FoodRecipeByIdProgress';
 import DrinkRecipeByIdProgress from './DrinkRecipeByIdProgress';
@@ -21,10 +19,8 @@ export default {
   Login,
   Profile,
   NotFound,
-  ExploreFoods,
-  ExploreDrinks,
-  ExploreDrinksByIngredients,
-  ExploreFoodsByIngredients,
+  ExploreMealsOrDrinks,
+  ExploreByIngredients,
   ExploreFoodsByLocation,
   FoodRecipeByIdProgress,
   DrinkRecipeByIdProgress,

@@ -34,7 +34,7 @@ export default function App() {
         />
         <Route
           path="/explorar/comidas/ingredientes"
-          component={ Pages.ExploreFoodsByIngredients }
+          component={ Pages.ExploreByIngredients }
         />
         <Route
           path="/explorar/comidas/area"
@@ -42,16 +42,16 @@ export default function App() {
         />
         <Route
           path="/explorar/comidas"
-          component={ Pages.ExploreFoods }
+          component={ Pages.ExploreMealsOrDrinks }
         />
         <Route
           path="/explorar/bebidas/ingredientes"
-          component={ Pages.ExploreDrinksByIngredients }
+          component={ Pages.ExploreByIngredients }
         />
         <Route
           exact
           path="/explorar/bebidas"
-          component={ Pages.ExploreDrinks }
+          component={ Pages.ExploreMealsOrDrinks }
         />
         <Route
           path="/explorar"
