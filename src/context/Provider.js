@@ -75,11 +75,11 @@ export default function Provider({ children }) {
       // Constrói o obejeto de comias
       const meal = {
         id: idMeal,
-        title: strMeal,
-        subtitle: strCategory,
+        name: strMeal,
+        category: strCategory,
         ingredients: populateIngredientsArray(mealById[0]),
         instructions: strInstructions,
-        thumb: strMealThumb,
+        image: strMealThumb,
         video: strYoutube,
         area: strArea,
         type: 'comida',
@@ -100,11 +100,11 @@ export default function Provider({ children }) {
       // Constrói o objeto de bebida
       const drink = {
         id: idDrink,
-        title: strDrink,
-        subtitle: strAlcoholic,
+        name: strDrink,
+        alcoholicOrNot: strAlcoholic,
         ingredients: populateIngredientsArray(drinkById[0]),
         instructions: strInstructions,
-        thumb: strDrinkThumb,
+        image: strDrinkThumb,
         area: strArea,
         type: 'bebida',
         category: strCategory,

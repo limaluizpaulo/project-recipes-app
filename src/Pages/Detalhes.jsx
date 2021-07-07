@@ -11,7 +11,9 @@ import Video from '../components/Details/Video';
 
 export default function DetalhesComida({ location }) {
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
-  const { id, title, subtitle, instructions, thumb, video, ingredients } = currentRecipe;
+  const {
+    id, name, category, alcoholicOrNot, instructions, image, video, ingredients,
+  } = currentRecipe;
   const history = useHistory();
 
   useEffect(() => {
@@ -28,12 +30,12 @@ export default function DetalhesComida({ location }) {
 
   return (
     <Container>
-      <Thumb title={ title } thumb={ thumb } />
+      <Thumb title={ name } thumb={ image } />
       <Title
         currentRecipe={ currentRecipe }
         id={ id }
-        title={ title }
-        subtitle={ subtitle }
+        title={ name }
+        subtitle={ !alcoholicOrNot ? category : alcoholicOrNot }
       />
       <Ingredients ingredients={ ingredients } />
       <Instructions instructions={ instructions } />

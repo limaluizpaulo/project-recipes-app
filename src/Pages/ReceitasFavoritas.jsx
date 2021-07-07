@@ -1,9 +1,19 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import FavoritesCard from '../components/FavoritesCard';
+import Header from '../components/Header';
 
 export default function ReceitasFavoritas() {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
   return (
-    <div>
-      <h1>Só as melhores, uhull</h1>
-    </div>
+    <Container>
+      <Header title="Receitas Favoritas" />
+      {
+        favorites && favorites.map((favorite) => (
+          <FavoritesCard key={ favorite.id } favorite={ favorite } />
+        ))
+      }
+    </Container>
   );
 }
