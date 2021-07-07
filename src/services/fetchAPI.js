@@ -19,6 +19,5 @@ export const categoryFilter = async (baseEndPoint, category) => {
   const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
   const promiseCategory = await fetch(categoryURL);
   const result = await promiseCategory.json();
-  console.log(result);
   return result;
 };

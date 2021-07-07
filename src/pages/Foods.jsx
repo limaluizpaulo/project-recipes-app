@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import Header from '../components/Header';
@@ -13,11 +14,13 @@ function Foods() {
     manageRenderMeal,
     filterCategory,
     updateEndPoint,
+    toggle,
+    handleToggle,
   } = useContext(Context);
 
   useEffect(() => {
     updateEndPoint('food');
-  }, [updateEndPoint]);
+  }, []);
 
   const maxRecipe = 12;
   const maxCategory = 5;
@@ -28,7 +31,7 @@ function Foods() {
 
   const categoryList = () => categories.meals.slice(0, maxCategory)
     .map(({ strCategory }) => (
-      CategoryBtn(strCategory, filterCategory)));
+      CategoryBtn(strCategory, filterCategory, handleToggle, toggle)));
   const renderList = (
     <div>
       <div>
