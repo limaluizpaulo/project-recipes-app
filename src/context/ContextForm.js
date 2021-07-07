@@ -9,7 +9,10 @@ function Provider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [radio, setRadio] = useState('Nome');
   const [firstMeals, setFirstMeals] = useState([]);
+  const [area, setArea] = useState([]);
   const [firstDrinks, setFirstDrinks] = useState([]);
+  const [firstFoodIngredients, setFirstFoodIngredients] = useState([]);
+  const [firstDrinkIngredients, setFirstDrinkIngredients] = useState([]);
 
   const object = {
     email,
@@ -24,6 +27,12 @@ function Provider({ children }) {
     setFirstMeals,
     firstDrinks,
     setFirstDrinks,
+    area,
+    setArea,
+    firstFoodIngredients,
+    setFirstFoodIngredients,
+    firstDrinkIngredients,
+    setFirstDrinkIngredients,
   };
 
   useEffect(() => {

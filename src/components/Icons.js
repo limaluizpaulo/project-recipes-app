@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -6,23 +7,25 @@ import shareIcon from '../images/shareIcon.svg';
 import '../styles/global.css';
 
 function favoriteStructure(item) {
-  const
-    { idMeal,
-      strArea,
-      idDrink,
-      strCategory,
-      strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
+  if (item.code !== undefined) {
+    const
+      { idMeal,
+        strArea,
+        idDrink,
+        strCategory,
+        strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
 
-  const favoriteElement = {
-    id: idMeal || idDrink,
-    type: idMeal === undefined ? 'bebida' : 'comida',
-    area: idMeal === undefined ? '' : strArea,
-    category: strCategory,
-    alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
-    name: strDrink || strMeal,
-    image: strMealThumb || strDrinkThumb,
-  };
-  return favoriteElement;
+    const favoriteElement = {
+      id: idMeal || idDrink,
+      type: idMeal === undefined ? 'bebida' : 'comida',
+      area: idMeal === undefined ? '' : strArea,
+      category: strCategory,
+      alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
+      name: strDrink || strMeal,
+      image: strMealThumb || strDrinkThumb,
+    };
+    return favoriteElement;
+  }
 }
 
 function Icons(item) {
@@ -30,6 +33,8 @@ function Icons(item) {
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
   const target = useRef(null);
+  const history = useHistory();
+  const { pathname } = history.location;
 
   const DOISMIL = 2000;
 
@@ -41,7 +46,6 @@ function Icons(item) {
       .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
     if (flag > 0) setChangeIcon(!changeIcon);
   }
-
   if (!first) {
     isFavorite();
     setFirst(true);
@@ -83,8 +87,6 @@ function Icons(item) {
     );
   }
 
-  console.log(speakCopy);
-
   return (
     <div>
       <div className="shareAndLike">
@@ -92,12 +94,13 @@ function Icons(item) {
           ref={ target }
           type="button"
           className="share"
-          onClick={ copyClipboard }
+          onClick={ () => { copyClipboard(); speakCopy(); } }
         >
           <img
             src={ shareIcon }
             alt="share icon"
-            data-testid="share-btn"
+            data-testid={ pathname.includes('receitas-favoritas')
+              ? '{index}-horizontal-share-btn' : 'share-btn' }
           />
         </button>
         <button
