@@ -15,59 +15,30 @@ function Header({ search, profile, name }) {
   }
 
   return (
-    <>
-      <div className="mt-2">
-        <div className="row">
-          <div className="col">
-            {profile && (
-              <button type="button">
-                <Link to="/perfil">
-                  <img
-                    src={ profileImg }
-                    alt="Ir para perfil"
-                    data-testid="profile-top-btn"
-                  />
-                </Link>
-              </button>
-            )}
-
-          </div>
-          <div className="col mt-1">
-            {name && (
-              <p data-testid="page-title">{ name }</p>
-            )}
-
-          </div>
-          <div className="col">
-            {search && (
-              <button type="button" onClick={ showSearchBar }>
-                <img
-                  src={ searchImg }
-                  alt="Buscar receita"
-                  data-testid="search-top-btn"
-                />
-              </button>
-            )}
-          </div>
-        </div>
+    <div>
+      <div className="mt-2 d-flex justify-content-around">
+        {profile && (
+          <button type="button">
+            <Link to="/perfil">
+              <img
+                src={ profileImg }
+                alt="Ir para perfil"
+                data-testid="profile-top-btn"
+              />
+            </Link>
+          </button>
+        )}
+        {name && (
+          <p data-testid="page-title">{ name }</p>
+        )}
+        {search && (
+          <button type="button" onClick={ showSearchBar }>
+            <img src={ searchImg } alt="Buscar receita" data-testid="search-top-btn" />
+          </button>
+        )}
       </div>
-      {/* {profile && (
-        <button type="button">
-          <Link to="/perfil">
-            <img src={ profileImg } alt="Ir para perfil" data-testid="profile-top-btn" />
-          </Link>
-        </button>
-      )}
-      {name && (
-        <p data-testid="page-title">{ name }</p>
-      )}
-      {search && (
-        <button type="button" onClick={ showSearchBar }>
-          <img src={ searchImg } alt="Buscar receita" data-testid="search-top-btn" />
-        </button>
-      )} */}
       { dropDown && <SearchBar />}
-    </>
+    </div>
   );
 }
 

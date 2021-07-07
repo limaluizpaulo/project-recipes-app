@@ -3,6 +3,9 @@ import { useHistory } from 'react-router';
 import { Button, Form } from 'react-bootstrap';
 import LoginContext from '../context/LoginContext';
 
+import logo from '../images/logo-login.png';
+import '../styles/Login.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +24,7 @@ function Login() {
   }
 
   function validateLogin() {
-    const validator = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const validator = /^[A-Za-z0-9_.]+@[a-zA-Z_]+?\.[a-zA-Z_.]{2,7}$/;
     const PASSWORD_MIN_LENGHT = 6;
     if (password.length > PASSWORD_MIN_LENGHT && validator.test(email)) {
       return true;
@@ -30,9 +33,9 @@ function Login() {
   }
 
   return (
-    <section>
-      <h1>Login</h1>
-      <Form onSubmit={ handleSumit }>
+    <section className="login-section">
+      <h1><img src={ logo } alt="logo" width="300px" /></h1>
+      <Form className="form-login" onSubmit={ handleSumit }>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control
             value={ email }
@@ -53,7 +56,7 @@ function Login() {
         </Form.Group>
         <Button
           data-testid="login-submit-btn"
-          variant="primary"
+          variant="danger"
           type="submit"
           disabled={ !validateLogin() }
         >

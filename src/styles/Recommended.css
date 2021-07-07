@@ -12,9 +12,12 @@
   justify-content: center;
 }
 
-.card-details {
+
+.card-rec {
   box-shadow: 2px 4px 8px rgb(199, 202, 199);
   display: flex;
+  display: block;
+  height: 250px;
   margin: 5px;
   transition: transform 0.5s;
   width: 35vw;
@@ -30,7 +33,7 @@
   display: none;
 }
 
-.card-details img {
+.card-rec img {
   border-radius: 5px 5px 0 0;
   height: 180px;
   width: 180px;
