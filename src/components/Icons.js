@@ -52,8 +52,14 @@ function Icons(item) {
   }
 
   function copyClipboard() {
-    const url = document.URL;
-    navigator.clipboard.writeText(url);
+    let url;
+    if (document.URL.includes('in-progress')) {
+      url = document.URL.split('/in-progress');
+      navigator.clipboard.writeText(url[0]);
+    } else {
+      url = document.URL;
+      navigator.clipboard.writeText(url);
+    }
     setChangeCopy(true);
     setTimeout(() => {
       setChangeCopy(false);

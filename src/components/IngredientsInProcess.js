@@ -9,12 +9,19 @@ import start, { request } from '../helper/addIdStorage';
 import { requestByDetailsDrink, requestByDetailsMeal } from '../services/api';
 
 function IngredientsInProcess({ index, element, measures }) {
-  const { param, setParam } = useContext(Context);
+  const { param, setParam, setActive } = useContext(Context);
   const params = useParams();
+
+  function countInputs() {
+    const array = [...document.querySelectorAll('input')];
+    const count = 0;
+    console.log(array);
+  }
 
   useEffect(() => {
     setParam(params.id);
     request(requestByDetailsDrink, requestByDetailsMeal, start, params);
+    countInputs();
   }, [params.id]);
 
   function renderChecks(array, objectItems) {
@@ -35,7 +42,7 @@ function IngredientsInProcess({ index, element, measures }) {
   }
 
   async function renderProgress() {
-    const objectItems = awaitJSON.parse(localStorage.getItem('inProgressRecipes'));
+    const objectItems = await JSON.parse(localStorage.getItem('inProgressRecipes'));
     desrenderNull(objectItems);
     const inputs = document.querySelectorAll('input');
     const array = [...inputs];
