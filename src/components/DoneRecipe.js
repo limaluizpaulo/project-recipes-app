@@ -1,18 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/global.css';
 
 function DoneRecipe({ recipe: {
-  type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
-  console.log(type);
+  id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
+  const imgStyle = { width: '100%' };
   return (
     <div>
       <div>
-        <img
-          src={ image }
-          alt="recipe representation"
-          data-testid={ `${index}-horizontal-image` }
-        />
+        <Link to={ `/${type}s/${id}` }>
+          <img
+            src={ image }
+            alt="recipe representation"
+            data-testid={ `${index}-horizontal-image` }
+            style={ imgStyle }
+          />
+
+        </Link>
       </div>
       <div>
         <p data-testid={ `${index}-horizontal-top-text` }>
@@ -21,7 +27,9 @@ function DoneRecipe({ recipe: {
               : `${alcoholicOrNot} - ${category}`
           }
         </p>
-        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        <Link to={ `/${type}s/${id}` }>
+          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        </Link>
         <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
         {tags.map((tag, i) => (
           <p
