@@ -9,6 +9,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
+import DetailsHeader from '../components/DetailsHeader';
 
 class Detalhes extends Component {
   constructor(props) {
@@ -49,40 +50,23 @@ class Detalhes extends Component {
     const { favIconColor } = this.state;
     return (
       <section>
-        <section className="recipe-details">
-          <img
-            data-testid="recipe-photo"
-            src=""
-            alt=""
-          />
-        </section>
+        <DetailsHeader data={ details } />
+        <button
+          className="details-btn-share"
+          type="button"
+          data-testid="share-btn"
+        >
+          <img src={ shareIcon } alt={ shareIcon } />
+        </button>
+        <button
+          className="details-btn-favorite"
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ this.handleFavClick }
+        >
+          <img src={ favIconColor } alt={ favIconColor } />
+        </button>
         <section className="details-content">
-          <section className="details-header">
-            <div>
-              <h2 className="details-title" data-testid="recipe-title">Title</h2>
-              <span
-                className="details-category"
-                data-testid="recipe-category"
-              >
-                SubTitle
-              </span>
-            </div>
-            <button
-              className="details-btn-share"
-              type="button"
-              data-testid="share-btn"
-            >
-              <img src={ shareIcon } alt={ shareIcon } />
-            </button>
-            <button
-              className="details-btn-favorite"
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ this.handleFavClick }
-            >
-              <img src={ favIconColor } alt={ favIconColor } />
-            </button>
-          </section>
           <section>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
