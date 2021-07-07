@@ -59,45 +59,48 @@ function SearchFood({ recipe, dispRecipeList }) {
     }
   }
   return (
-    <div>
-      <input
-        onChange={ ({ target }) => setText(target.value) }
-        data-testid="search-input"
-        type="text"
-      />
-      <label htmlFor="ingredient">
+    <div className="search">
+      <div>
         <input
-          onClick={ ({ target }) => setChoice(target.value) }
-          name="choice"
-          type="radio"
-          value="ingredient"
-          id="ingredient"
-          data-testid="ingredient-search-radio"
+          onChange={ ({ target }) => setText(target.value) }
+          data-testid="search-input"
+          type="text"
+          style={ { margin: '20px' } }
         />
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        <input
-          onClick={ ({ target }) => setChoice(target.value) }
-          name="choice"
-          type="radio"
-          value="name"
-          id="name"
-          data-testid="name-search-radio"
-        />
-        Nome
-      </label>
-      <label htmlFor="letter">
-        <input
-          onClick={ ({ target }) => setChoice(target.value) }
-          name="choice"
-          type="radio"
-          value="letter"
-          id="letter"
-          data-testid="first-letter-search-radio"
-        />
-        Primeira letra
-      </label>
+        <label htmlFor="ingredient">
+          <input
+            onClick={ ({ target }) => setChoice(target.value) }
+            name="choice"
+            type="radio"
+            value="ingredient"
+            id="ingredient"
+            data-testid="ingredient-search-radio"
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="name">
+          <input
+            onClick={ ({ target }) => setChoice(target.value) }
+            name="choice"
+            type="radio"
+            value="name"
+            id="name"
+            data-testid="name-search-radio"
+          />
+          Nome
+        </label>
+        <label htmlFor="letter">
+          <input
+            onClick={ ({ target }) => setChoice(target.value) }
+            name="choice"
+            type="radio"
+            value="letter"
+            id="letter"
+            data-testid="first-letter-search-radio"
+          />
+          Primeira letra
+        </label>
+      </div>
       <button
         onClick={ clickAPI }
         type="button"

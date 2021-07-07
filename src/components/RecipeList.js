@@ -38,7 +38,11 @@ function RecipeList({ list, listAll, filterList }) {
   return (
     <div className="show-recipe">
       { show && object[type].slice(0, NUMBER).map((element, index) => (
-        <div className="papai" key={ index } data-testid={ `${index}-recipe-card` }>
+        <div
+          className="papai"
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+        >
           <img
             className="filhinho"
             src={ type === 'meals'
