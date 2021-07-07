@@ -22,12 +22,10 @@ function DrinkDetails() {
 
   function progressFunction() {
     const { idDrink } = drink[0];
-    const {cocktails} = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let flag = 0;
-    // console.log(inProgressDB.inProgress.cocktails);
     Object
-      .keys(cocktails).forEach((id) =>  { if (id === idDrink) flag += 1; });
-    // console.log(flag)
+      .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
     if (flag !== 0) setProgress('Continuar Receita');
     setFirst(true);
   }
