@@ -14,7 +14,7 @@ export default function Profile() {
   const email = localStorage.getItem('user', 'value').split('"')[3];
   return (
     <div>
-      <Header title="Perfil" classname="displaynone" />
+      <Header title="Perfil" display="false" />
       <p data-testid="profile-email">{email}</p>
       <button
         type="button"
