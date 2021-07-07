@@ -5,7 +5,7 @@ import RecipesProvider from '../context/RecipesProvider';
 import renderWithRouter from '../renderWithRouter';
 import Profile from '../pages/Profile';
 
-describe('Checks Page Login', () => {
+describe('Checks Login Page', () => {
   it('Cheks if the page has a profile button', () => {
     renderWithRouter(
       <RecipesProvider>
