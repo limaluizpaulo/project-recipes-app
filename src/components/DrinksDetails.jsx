@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { fetchIdDrink } from '../Service/drinkApi';
 import { fetchAllMeals } from '../Service/foodApi';
-import shareIcon from '../images/shareIcon.svg';
+
+import ShareButton from './ShareButton';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function DrinksDetails() {
   const [mealsAll, setMealsAll] = useState([]);
   const [stateDrink, setStateDrink] = useState([{}]);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
+  const [colorHeart, setColorHeart] = useState(false);
   const { pathname } = useLocation();
 
   const filterDetails = () => {
+    console.log(stateDrink);
     const keysIngredientes = Object.keys(stateDrink[0]);
     const arrayKeysIngredients = keysIngredientes
       .filter((e) => e.includes('strIngredient'));
@@ -28,6 +32,9 @@ export default function DrinksDetails() {
     setIngredients(filtroIngredients);
     setMeasure(filtroMeasure);
   };
+  const changeHeart = () => {
+    setColorHeart(!colorHeart);
+  };
 
   const getApiDetails = () => {
     const SIX = 6;
@@ -38,7 +45,7 @@ export default function DrinksDetails() {
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateDrink]);
   const { strDrinkThumb, strDrink,
-    strInstructions, strAlcoholic,
+    strInstructions, strAlcoholic, idDrink,
 
   } = stateDrink[0];
   return (
@@ -51,17 +58,17 @@ export default function DrinksDetails() {
       />
       <h1 data-testid="recipe-title">{strDrink}</h1>
 
-      <button type="button" data-testid="share-btn">
-        <img src={ shareIcon } alt="botão de compartilhar" />
-      </button>
-      <button type="button" data-testid="favorite-btn">
-        <img src={ whiteHeartIcon } alt="botão de favoritar" />
+      <ShareButton />
+      <button type="button" data-testid="favorite-btn" onClick={ changeHeart }>
+        <img
+          src={ colorHeart ? blackHeartIcon : whiteHeartIcon }
+          alt="botão de favoritar"
+        />
       </button>
       <p data-testid="recipe-category">
         {
           strAlcoholic
         }
-
       </p>
       <h2>Ingredientes</h2>
       <ul>
@@ -84,7 +91,6 @@ export default function DrinksDetails() {
       <h2>Instruções</h2>
       <p data-testid="instructions">
         {strInstructions}
-
       </p>
       <Carousel>
         {mealsAll.map((meals, index) => (
@@ -94,9 +100,9 @@ export default function DrinksDetails() {
             data-testid={ `${index}-recomendation-card` }
           >
             <img
-              className="d-block w-100"
+              className="d-block w-60"
               src={ meals.strMealThumb }
-              alt="First slide"
+              alt="slide"
               width="100px"
 
             />
@@ -105,13 +111,15 @@ export default function DrinksDetails() {
             </Carousel.Caption>
           </Carousel.Item>))}
       </Carousel>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="iniciarReceita"
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `/bebidas/${idDrink}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="iniciarReceita"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }

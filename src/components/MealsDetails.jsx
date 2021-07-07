@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
 import { fetchAllDrinks } from '../Service/drinkApi';
+
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareButton from './ShareButton';
 
 export default function MealsDetails() {
   const [stateMeals, setStateMeals] = useState([{}]);
@@ -10,6 +14,7 @@ export default function MealsDetails() {
   const [measure, setMeasure] = useState([]);
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
+  const [colorHeart, setColorHeart] = useState(false);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -28,6 +33,10 @@ export default function MealsDetails() {
     setMeasure(filtroMeasure);
   };
 
+  const changeHeart = () => {
+    setColorHeart(!colorHeart);
+  };
+
   const getApiDetails = () => {
     const SIX = 6;
     const id = pathname.split('/')[2];
@@ -38,7 +47,7 @@ export default function MealsDetails() {
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateMeals]);
   const { strMealThumb, strMeal,
-    strCategory, strInstructions, strVideo } = stateMeals[0];
+    strCategory, strInstructions, strVideo, idMeal } = stateMeals[0];
   return (
     <div>
       <img
@@ -48,16 +57,10 @@ export default function MealsDetails() {
         width="100px"
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
-      <button type="button">
+      <ShareButton />
+      <button type="button" onClick={ changeHeart }>
         <img
-          src="../images/shareIcon.svg"
-          alt="imagem de compartilhamento"
-          data-testid="share-btn"
-        />
-      </button>
-      <button type="button">
-        <img
-          src="../images/whiteHeartIcon.svg"
+          src={ colorHeart ? blackHeartIcon : whiteHeartIcon }
           alt="imagem de favoritar"
           data-testid="favorite-btn"
         />
@@ -101,9 +104,9 @@ export default function MealsDetails() {
             data-testid={ `${index}-recomendation-card` }
           >
             <img
-              className="d-block w-100"
+              className="d-block w-60"
               src={ drink.strDrinkThumb }
-              alt="First slide"
+              alt="slide"
               width="100px"
 
             />
@@ -112,16 +115,16 @@ export default function MealsDetails() {
             </Carousel.Caption>
           </Carousel.Item>))}
       </Carousel>
-      {/* slide de receitas recomendadas de drinks
-       com data-testid="${index}-recomendation-card" */}
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="iniciarReceita"
-      >
-        Iniciar Receita
+      <Link to={ `/comidas/${idMeal}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="iniciarReceita"
+        >
+          Iniciar Receita
 
-      </button>
+        </button>
+      </Link>
     </div>
   );
 }
