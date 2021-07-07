@@ -36,12 +36,12 @@ const DetailsRecipes = ({ newObj }) => {
                   return (
                     <div
                       key={ idDrink }
-                      className="recommendation-card"
                       data-testid={ `${index}-recomendation-card` }
+                      className="recommendation-card"
                     >
                       <img src={ strDrinkThumb } alt="recomendation" />
                       <p>{strAlcoholic }</p>
-                      <h3>{strDrink}</h3>
+                      <h3 data-testid={ `${index}-recomendation-title` }>{strDrink}</h3>
                     </div>
                   );
                 }
@@ -56,11 +56,11 @@ const DetailsRecipes = ({ newObj }) => {
                     <div
                       key={ idMeal }
                       data-testid={ `${index}-recomendation-card` }
-                      className=".recommendation-card"
+                      className="recommendation-card"
                     >
                       <img src={ strMealThumb } alt="recomendation" />
                       <p>{strCategory }</p>
-                      <h3>{strMeal}</h3>
+                      <h3 data-testid={ `${index}-recomendation-title` }>{strMeal}</h3>
                     </div>
                   );
                 }
