@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 import {
   fetchMealsApi,
+  fetchMealsByCategory,
   fetchMealsById,
   fetchMealsCategories,
   fetchMealsRecomendation,
@@ -12,10 +13,12 @@ import {
   fetchDrinksById,
   fetchCocktailsCategories,
   fetchCocktailsRecomendation,
+  fetchCocktailsByCategory,
 } from '../apis/CocktailsApis';
 
 export default function Provider({ children }) {
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [mealsRecipes, setMealsRecipes] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
@@ -33,7 +36,7 @@ export default function Provider({ children }) {
     setCocktailsCategories(cocktailsCat);
   };
 
-  // update array of cocktails based on the filter
+  // update array of cocktails based on the searchBar filter
   const findCocktailsByFilter = async (filter) => {
     const apiCocktails = await fetchCocktailsApi(filter);
     setCocktailsRecipes(apiCocktails);
@@ -51,7 +54,7 @@ export default function Provider({ children }) {
     setMealsCategories(mealsCat);
   };
 
-  // update array of meals based on the filter
+  // update array of meals based on the searchBar filter
   const findMealsByFilter = async (filter) => {
     const apiMeals = await fetchMealsApi(filter);
     setMealsRecipes(apiMeals);
@@ -61,6 +64,41 @@ export default function Provider({ children }) {
   const resquestMealsApi = async () => {
     const apiMeals = await fetchMealsRecomendation();
     setMealsRecipes(apiMeals);
+  };
+
+  // ---------- Filter By Category
+
+  // update array of cocktails based on the category filter
+  const findCocktailsByCategory = async () => {
+    const apiCocktails = await fetchCocktailsByCategory(selectedCategory);
+    setCocktailsRecipes([]);
+    setCocktailsRecipes(apiCocktails);
+  };
+
+  // update array of meals based on the category filter
+  const findMealsByCategory = async () => {
+    const apiMeals = await fetchMealsByCategory(selectedCategory);
+    setCocktailsRecipes([]);
+    setMealsRecipes(apiMeals);
+  };
+
+  // check if the page is for meals or cocktails
+  const filterByCategory = async (type) => {
+    if (selectedCategory === 'All') {
+      if (type === 'meals') {
+        resquestMealsApi();
+      }
+      if (type === 'drinks') {
+        resquestCocktailsApi();
+      }
+    } else {
+      if (type === 'meals') {
+        findMealsByCategory();
+      }
+      if (type === 'drinks') {
+        findCocktailsByCategory();
+      }
+    }
   };
 
   // Popula o array de ingredients
@@ -149,6 +187,9 @@ export default function Provider({ children }) {
     mealsCategories,
     requestCocktailsCategories,
     cocktailsCategories,
+    selectedCategory,
+    setSelectedCategory,
+    filterByCategory,
   };
   return (
     <Context.Provider value={ context }>

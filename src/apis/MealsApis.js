@@ -31,6 +31,13 @@ export async function fetchMealsById(id) {
   return meals;
 }
 
+// filter meals based on Category
+export async function fetchMealsByCategory(cat) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?f=a&c=${cat}`);
+  const { meals } = await request.json();
+  return meals;
+}
+
 // return all meal Categories
 export async function fetchMealsCategories() {
   const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');

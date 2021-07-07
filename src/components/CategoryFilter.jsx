@@ -41,15 +41,16 @@ export default function CategoryFilter({ type }) {
     <Container>
       <ButtonToolbar bsPrefix="categories-list">
         <CategoryButton
-          value="All"
+          text="All"
         />
         { categories.map((cat, index) => {
           const five = 5;
           if (index < five) {
             return (
               <CategoryButton
+                type={ type }
                 key={ index }
-                value={ cat.strCategory }
+                text={ cat.strCategory }
               />);
           }
           return null;
