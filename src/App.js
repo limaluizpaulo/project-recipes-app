@@ -8,6 +8,8 @@ import Detalhes from './pages/Detalhes';
 import Explorarcomidas from './pages/explorarComidas/ExplorarBebidasComidas';
 import Explorar from './pages/telaDeExplorar';
 import ExplorarIngredientes from './pages/explorarIngredientes';
+import explorarArea from './pages/explorarArea';
+import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -15,7 +17,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/explorar/comidas/area" />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
+          <Route path="/explorar/comidas/area" component={ explorarArea } />
           <Route
             path="/explorar/bebidas/ingredientes"
             component={ ExplorarIngredientes }

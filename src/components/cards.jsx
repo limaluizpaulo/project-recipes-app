@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 class cards extends Component {
   render() {
     const { id, img, title, index, url } = this.props;
+    console.log(id, title, url);
     return (
       <Link to={ `${url}/${id}` }>
         <Card
