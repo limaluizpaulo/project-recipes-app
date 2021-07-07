@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes, { string } from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
@@ -24,24 +25,31 @@ class DoneRecipesCard extends Component {
 
   render() {
     const { recipe, index } = this.props;
-    const { name, area, category, doneDate, tags, image, alcoholicOrNot } = recipe;
+    const {
+      name, area, category, doneDate, tags, image, alcoholicOrNot, type, id } = recipe;
     const { copied } = this.state;
     return (
       <section>
-        <div>
-          <img
-            src={ image }
-            alt={ name }
-            data-testid={ `${index}-horizontal-image` }
-            width="100px"
-          />
-        </div>
+        <Link to={ `/${type}s/${id}` }>
+          <div>
+            <img
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+              width="100px"
+            />
+          </div>
+        </Link>
         <div>
           <h5 data-testid={ `${index}-horizontal-top-text` }>
             {`${area} - ${category}`}
           </h5>
           <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
-          <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+
+          <Link to={ `/${type}s/${id}` }>
+            <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+          </Link>
+
           <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
           <button type="button" onClick={ this.copyLink }>
             {copied ? 'Link copiado!'

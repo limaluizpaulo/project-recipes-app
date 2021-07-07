@@ -9,10 +9,11 @@ class DoneRecipes extends Component {
     super();
 
     this.state = {
-      recipes: this.getDoneRecipes(),
+      recipes: [],
     };
 
     this.getDoneRecipes = this.getDoneRecipes.bind(this);
+    this.statusButton = this.statusButton.bind(this);
   }
 
   componentDidMount() {
@@ -22,23 +23,36 @@ class DoneRecipes extends Component {
   getDoneRecipes() {
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipes) {
+      this.setState({ recipes });
       return recipes;
+    }
+  }
+
+  statusButton({ target }) {
+    if (target.innerText === 'Food') {
+      const foods = this.getDoneRecipes() ? (
+        this.getDoneRecipes().filter((recipe) => recipe.type === 'comida')) : null;
+      this.setState({ recipes: foods });
+    } else if (target.innerText === 'Drink') {
+      const drinks = this.getDoneRecipes() ? (
+        this.getDoneRecipes().filter((recipe) => recipe.type === 'bebida')) : null;
+      this.setState({ recipes: drinks });
+    } else {
+      this.getDoneRecipes();
     }
   }
 
   render() {
     const { recipes } = this.state;
-    const { location: { pathname } } = this.props;
     return (
       <section>
         <Header title="Receitas Feitas" searchIcon />
-        <DoneRecipesButtons />
+        <DoneRecipesButtons statusButton={ this.statusButton } />
         {recipes ? recipes.map((recipe, index) => (
           <DoneRecipesCard
             key={ index }
             recipe={ recipe }
             index={ index }
-            pathname={ pathname }
           />)) : null }
       </section>
     );
