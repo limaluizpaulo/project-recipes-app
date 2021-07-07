@@ -33,7 +33,7 @@ export async function fetchMealsById(id) {
 
 // filter meals based on Category
 export async function fetchMealsByCategory(cat) {
-  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?f=a&c=${cat}`);
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cat}`);
   const { meals } = await request.json();
   return meals;
 }

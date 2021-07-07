@@ -39,6 +39,7 @@ export default function Provider({ children }) {
   // update array of cocktails based on the searchBar filter
   const findCocktailsByFilter = async (filter) => {
     const apiCocktails = await fetchCocktailsApi(filter);
+    setSelectedCategory('All');
     setCocktailsRecipes(apiCocktails);
   };
 
@@ -57,6 +58,7 @@ export default function Provider({ children }) {
   // update array of meals based on the searchBar filter
   const findMealsByFilter = async (filter) => {
     const apiMeals = await fetchMealsApi(filter);
+    setSelectedCategory('All');
     setMealsRecipes(apiMeals);
   };
 
@@ -71,14 +73,12 @@ export default function Provider({ children }) {
   // update array of cocktails based on the category filter
   const findCocktailsByCategory = async () => {
     const apiCocktails = await fetchCocktailsByCategory(selectedCategory);
-    setCocktailsRecipes([]);
     setCocktailsRecipes(apiCocktails);
   };
 
   // update array of meals based on the category filter
   const findMealsByCategory = async () => {
     const apiMeals = await fetchMealsByCategory(selectedCategory);
-    setCocktailsRecipes([]);
     setMealsRecipes(apiMeals);
   };
 

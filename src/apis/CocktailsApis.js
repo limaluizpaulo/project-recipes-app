@@ -33,7 +33,7 @@ export async function fetchDrinksById(id) {
 
 // filter drinks based on Category
 export async function fetchCocktailsByCategory(cat) {
-  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?f=a&c=${cat}`);
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cat}`);
   const { drinks } = await request.json();
   return drinks;
 }
