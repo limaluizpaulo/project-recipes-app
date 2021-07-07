@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import ContextRecipes from '../context/contextRecipes';
 
 function SBElements({ history }) {
   const [ingredients, setIngredients] = useState([]);
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
   const [FirstLetter, setFirstLetter] = useState([]);
   const [filter, setFilter] = useState('');
-  const [searchInput, setsearchInput] = useState('');
+  const { searchInput, setsearchInput, recipes, setRecipes } = useContext(ContextRecipes);
 
   const { location: { pathname } } = history;
 
@@ -83,13 +84,21 @@ function SBElements({ history }) {
     }
   };
 
+  const handleFilter = () => {
+    if (searchInput.name) {
+      const recipeFiltered = recipes
+        .filter((recipe) => recipe.strMeal.includes(searchInput.name));
+      setRecipes(recipeFiltered);
+    }
+  };
+
   return (
     <div>
       <input
         id="searchInput"
         type="text"
         data-testid="search-input"
-        onChange={ (event) => setsearchInput(event.target.value) }
+        onChange={ (event) => setsearchInput({ name: event.target.value }) }
       />
       <label
         htmlFor="ingredientes"
@@ -130,7 +139,7 @@ function SBElements({ history }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleClick }
+        onClick={ () => { handleClick(); handleFilter(); } }
       >
         Pesquisar
       </button>
