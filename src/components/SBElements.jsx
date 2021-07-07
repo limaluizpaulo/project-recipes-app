@@ -1,76 +1,67 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ContextRecipes from '../context/contextRecipes';
 
 function SBElements({ history }) {
-  const [ingredients, setIngredients] = useState([]);
-  // const [recipes, setRecipes] = useState([]);
-  const [FirstLetter, setFirstLetter] = useState([]);
-  const [filter, setFilter] = useState('');
-  const { searchInput, setsearchInput, recipes, setRecipes } = useContext(ContextRecipes);
+  const { searchInput, setsearchInput,
+    recipes, setRecipes, drinks, setDrinks } = useContext(ContextRecipes);
 
   const { location: { pathname } } = history;
 
   const getIngredients = () => {
     if (pathname === '/comidas') {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`;
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
-          .then((results) => setIngredients(results.meals)));
-      console.log(`Requisição 1 comidas, ${ingredients}`);
+          .then((results) => setRecipes(results.meals)));
     }
     if (pathname === '/bebidas') {
-      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`;
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
-          .then((results) => setIngredients(results.drinks)));
-      console.log(`Requisição 1 bebidas, ${ingredients}`);
+          .then((results) => setDrinks(results.drinks)));
     }
   };
 
   const getRecipes = () => {
     if (pathname === '/comidas') {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
           .then((results) => setRecipes(results.meals)));
-      console.log(`Requisição 2 comidas, ${recipes}`);
     }
     if (pathname === '/bebidas') {
-      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
-          .then((results) => setIngredients(results.drinks)));
-      console.log(`Requisição 2 bebidas, ${ingredients}`);
+          .then((results) => setDrinks(results.drinks)));
     }
   };
 
   const getFirstLetter = () => {
     if (pathname === '/comidas') {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`;
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
-          .then((results) => setFirstLetter(results.meals)));
-      console.log(`Requisição 1, ${FirstLetter}`);
+          .then((results) => setRecipes(results.meals)));
     }
     if (pathname === '/bebidas') {
-      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`;
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
-          .then((results) => setIngredients(results.drinks)));
-      console.log(`Requisição 2 bebidas, ${ingredients}`);
+          .then((results) => setDrinks(results.drinks)));
     }
   };
 
   const handleClick = () => {
-    switch (filter) {
-    case 'ingredientes':
+    switch (searchInput.searchBy) {
+    case 'Ingredientes':
       getIngredients();
       break;
-    case 'recipe':
+    case 'Receita':
       getRecipes();
       break;
-    case 'firstLetter':
+    case 'Primeira letra':
       // const searchInput = document.getElementById('searchInput').innerText;
       if (searchInput.length !== 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
@@ -78,6 +69,18 @@ function SBElements({ history }) {
       getFirstLetter();
 
       break;
+      // case searchInput:
+      //   if (pathname === '/comidas') {
+      //     const recipesFiltered = recipes
+      //       .filter((recipe) => recipe.strMeal.includes(searchInput));
+      //     return recipesFiltered;
+      //   }
+      //   if (pathname === '/bebidas') {
+      //     const drinksFiltered = drinks
+      //       .filter((recipe) => recipe.strDrink.includes(searchInput));
+      //     return drinksFiltered;
+      //   }
+      // break;
     default:
       console.log('nada aconteceu');
       break;
@@ -85,20 +88,30 @@ function SBElements({ history }) {
   };
 
   const handleFilter = () => {
-    if (searchInput.name) {
+    if (searchInput.name && pathname === '/comidas') {
       const recipeFiltered = recipes
         .filter((recipe) => recipe.strMeal.includes(searchInput.name));
       setRecipes(recipeFiltered);
     }
+    if (searchInput.name && pathname === '/bebidas') {
+      const drinksFiltered = drinks
+        .filter((recipe) => recipe.strDrink.includes(searchInput.name));
+      setDrinks(drinksFiltered);
+    }
+  };
+
+  const setFunctions = ({ target: { name, value } }) => {
+    setsearchInput({ ...searchInput, [name]: value });
   };
 
   return (
     <div>
       <input
         id="searchInput"
+        name="name"
         type="text"
         data-testid="search-input"
-        onChange={ (event) => setsearchInput({ name: event.target.value }) }
+        onChange={ setFunctions }
       />
       <label
         htmlFor="ingredientes"
@@ -107,9 +120,10 @@ function SBElements({ history }) {
         <input
           id="ingredientes"
           name="searchBy"
+          value="Ingredientes"
           type="radio"
           data-testid="ingredient-search-radio"
-          onChange={ (e) => setFilter(e.target.id) }
+          onChange={ setFunctions }
         />
       </label>
       <label
@@ -119,9 +133,10 @@ function SBElements({ history }) {
         <input
           id="recipe"
           name="searchBy"
+          value="Receita"
           type="radio"
           data-testid="name-search-radio"
-          onChange={ (e) => setFilter(e.target.id) }
+          onChange={ setFunctions }
         />
       </label>
       <label
@@ -132,9 +147,10 @@ function SBElements({ history }) {
       <input
         id="firstLetter"
         name="searchBy"
+        value="Primeira letra"
         type="radio"
         data-testid="first-letter-search-radio"
-        onChange={ (e) => setFilter(e.target.id) }
+        onChange={ setFunctions }
       />
       <button
         type="button"

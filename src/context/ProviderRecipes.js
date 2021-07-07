@@ -9,9 +9,10 @@ function ProviderRecipes({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [searchInput, setsearchInput] = useState({
-    name: '',
+    // name: '',
   });
-  const [recipesFiltered, setrecipesFiltered] = useState([]);
+  // const [recipesFiltered, setrecipesFiltered] = useState([]);
+
   const obj = {
     goSearch,
     goProfile,
@@ -21,10 +22,9 @@ function ProviderRecipes({ children }) {
     setTitle,
     recipes,
     drinks,
+    setDrinks,
     searchInput,
     setsearchInput,
-    recipesFiltered,
-    setrecipesFiltered,
     setRecipes,
   };
 
