@@ -6,8 +6,10 @@ async function requestMeal(name = '') {
   return resolve;
 }
 
-export async function requestDrink() {
-  const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+export async function requestDrink(name = '') {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const grup = url + name;
+  const request = await fetch(grup);
   const resolve = await request.json();
   return resolve;
 }
@@ -50,6 +52,22 @@ export async function requesfirsLettertsmeal(name) {
 
 export async function requestNameDrink(name) {
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requesIngredientDrink(name) {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requesfirsLettertDrink(name = '') {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
   const grup = url + name;
   const request = await fetch(grup);
   const resolve = await request.json();

@@ -84,7 +84,6 @@ function Drinks() {
   }
 
   function mapData({ drinks }) {
-    console.log(drinks);
     const magicNumber = 12;
     const all = 25;
     if (drinks.length === all) {

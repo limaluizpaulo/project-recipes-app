@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './searchBar.css';
 import { useLocation } from 'react-router-dom';
-import { searchMeal } from '../../helpers/searchDrinkOrMeal';
+import { searchMeal, searchDrink } from '../../helpers/searchDrinkOrMeal';
 
 function SearchBar() {
   const [inputSearch, setInputSearch] = useState('');
@@ -16,7 +16,8 @@ function SearchBar() {
       const result = await searchMeal(selectedOptino, inputSearch);
       console.log(result);
     } else if (routeName === 'bebidas') {
-      console.log('voce esta na rota de bebidas');
+      const result = await searchDrink(selectedOptino, inputSearch);
+      console.log(result);
     }
   };
 
