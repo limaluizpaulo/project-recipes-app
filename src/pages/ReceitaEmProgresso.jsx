@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
+import '../App.css';
 
 function ReceitaEmProgresso(props) {
   const { match: { params: { id } } } = props;
@@ -11,11 +12,29 @@ function ReceitaEmProgresso(props) {
   const [apelidoAPI] = rotaAtual.match(/\w+/);
   const [parametrosBusca] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
+  const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
+
+  const inicializarIngredientes = (objReceitas) => {
+    let indexAuxiliar = 0;
+    const ingsMeds = Object.keys(objReceitas).reduce((acc, key) => {
+      if (key.match(/strIngredient\d+/) && objReceitas[key]) {
+        return acc.concat([[objReceitas[key]]]);
+      }
+
+      if (key.match(/strMeasure\d+/) && objReceitas[key]) {
+        acc[indexAuxiliar].push(objReceitas[key]);
+        indexAuxiliar += 1;
+      }
+      return acc;
+    }, []);
+    setIngredientesCheckboxes(ingsMeds);
+  };
 
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(parametrosBusca);
       setReceita(respostaApi);
+      inicializarIngredientes(respostaApi);
     };
     didMount();
   }, [parametrosBusca]);
@@ -63,35 +82,33 @@ function ReceitaEmProgresso(props) {
     <div data-testid="recipe-category">{receita.strCategory}</div>
   );
 
-  const renderizaIngredientes = () => {
-    const ingredientesEMedidas = Object.keys(receita).reduce((acc, key) => {
-      if (key.match(/strIngredient\d+/) && receita[key]) {
-        acc[0].push(receita[key]);
-      }
-
-      if (key.match(/strMeasure\d+/) && receita[key]) {
-        acc[1].push(receita[key]);
-      }
-      return acc;
-    }, [[], []]);
-    return (
-      <>
-        {ingredientesEMedidas[0].map((ingrediente, index) => (
-          <div key={ ingrediente } className="mb-3">
-            <label htmlFor={ ingrediente } data-testid={ `${index}-ingredient-step` }>
-              <input
-                type="checkbox"
-                id={ ingrediente }
-                name={ ingrediente }
-                value={ ingrediente }
-              />
-              { `${ingredientesEMedidas[1][index]} ${ingrediente}` }
-            </label>
-          </div>
-        ))}
-      </>
-    );
+  const handleChange = ({ target: { checked } }) => {
+    if (checked) {
+      console.log('olá');
+    }
   };
+
+  const renderizaIngredientes = () => (
+    <>
+      {ingredientesCheckboxes.map(([nome, medida], index) => (
+        <div key={ nome } className="mb-3">
+          <label
+            htmlFor={ nome }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              type="checkbox"
+              id={ nome }
+              name={ nome }
+              value={ nome }
+              onChange={ handleChange }
+            />
+            { `${medida} ${nome}` }
+          </label>
+        </div>
+      ))}
+    </>
+  );
 
   const renderizaInstrucoes = () => (
     <div data-testid="instructions">{receita.strInstructions}</div>
