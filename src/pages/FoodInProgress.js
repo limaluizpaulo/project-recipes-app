@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import fetchAPI from '../services/fetchApi';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import sharedIcon from '../images/shareIcon.svg';
@@ -17,16 +18,6 @@ class FoodInProgress extends React.Component {
 
   componentDidMount() {
     this.fetchDetails();
-  }
-
-  async fetchDetails() {
-    const { match: { params: { id } } } = this.props;
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const responseAPI = await fetchAPI(url);
-    const { meals } = responseAPI;
-    this.setState({
-      detailsRecipe: meals,
-    }, () => this.setInitialLocal());
   }
 
   handleChecked({ target }) {
@@ -49,7 +40,7 @@ class FoodInProgress extends React.Component {
   }
 
   setInitialLocal() {
-    const { detailsRecipe } = this.state
+    const { detailsRecipe } = this.state;
     const { idMeal } = detailsRecipe[0];
     if (localStorage.getItem('inProgressRecipes') === null) {
       const obj = {
@@ -71,6 +62,16 @@ class FoodInProgress extends React.Component {
     }
   }
 
+  async fetchDetails() {
+    const { match: { params: { id } } } = this.props;
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const responseAPI = await fetchAPI(url);
+    const { meals } = responseAPI;
+    this.setState({
+      detailsRecipe: meals,
+    }, () => this.setInitialLocal());
+  }
+
   renderIngredients() {
     const { detailsRecipe, checkedIngredients } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
@@ -89,12 +90,13 @@ class FoodInProgress extends React.Component {
         <li
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
-          className=
-            { checkedIngredients.includes(`${measure} ${ingredients}`) ? 'checked' : null}
+          className={
+            checkedIngredients.includes(`${measure} ${ingredients}`) ? 'checked' : null
+          }
         >
           <input
             type="checkbox"
-            checked={ checkedIngredients.includes(`${measure} ${ingredients}`) } 
+            checked={ checkedIngredients.includes(`${measure} ${ingredients}`) }
             onChange={ this.handleChecked }
             name={ ing }
           />
@@ -118,8 +120,8 @@ class FoodInProgress extends React.Component {
           width="350"
         />
         <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
-        <img src={ favoriteIcon } alt="Favoritar Bebida" data-testid="favorite-btn" />
-        <img src={ sharedIcon } alt="Favoritar Bebida" data-testid="favorite-btn" />
+        <img src={ favoriteIcon } alt="Favoritar Comida" data-testid="favorite-btn" />
+        <img src={ sharedIcon } alt="Compartilhar Comida" data-testid="share-btn" />
         <p data-testid="recipe-category">
           {`Categoria: ${detailsRecipe[0].strCategory}`}
         </p>
@@ -138,5 +140,16 @@ class FoodInProgress extends React.Component {
     );
   }
 }
+
+FoodInProgress.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default FoodInProgress;
