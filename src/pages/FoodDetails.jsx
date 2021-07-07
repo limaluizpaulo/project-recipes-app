@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { makeRecipe } from '../services/manageLocalStorage';
+import { localStorageVerifier } from '../services/manageLocalStorage';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
   const {
@@ -19,43 +19,6 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
       fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
   }, [details.meals, detailsSyncSetState, id]);
-
-  const localStorageVerifier = () => {
-    const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
-    const storageRecipe = JSON.parse(rawStorageRecipe);
-    if ((!storageRecipe) || (storageRecipe
-      && Object.keys(storageRecipe.meals)[0]
-      !== id)) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => makeRecipe(match, history) }
-        >
-          Iniciar Receita
-        </button>
-      );
-    }
-    if (storageRecipe
-      && Object.keys(storageRecipe.meals)[0] === id) {
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-        >
-          Continuar Receita
-        </button>
-      );
-    }
-    const rawDoneRecipes = localStorage.getItem('doneRecipes');
-    const doneRecipes = JSON.parse(rawDoneRecipes);
-    if (doneRecipes && doneRecipes.find((recipe) => recipe.id === id)) {
-      return null;
-    }
-  };
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -129,7 +92,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         />
         <h3>Recomendações de Drinks</h3>
         {loopRecomendationsDrinks()}
-        {localStorageVerifier()}
+        {localStorageVerifier(match, id, history)}
       </main>
     );
   }
