@@ -3,14 +3,11 @@ import Header from '../components/Header';
 import DoneAndFavorite from '../components/DoneAndFavorite';
 import BtnsFilters from '../components/BtnsFilters';
 import ShareBtn from '../components/ShareBtn';
-// import useFavorite from '../hooks/useFavorites';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function Favorites() {
   const [value, setValue] = useState();
   const [fav, setFav] = useState(true);
-  // const { handleToggleFavorite } = useFavorite();
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
@@ -50,8 +47,7 @@ export default function Favorites() {
           >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }
-              // src={ fav ? blackHeartIcon : whiteHeartIcon }
-              src={ fav ? blackHeartIcon : whiteHeartIcon }
+              src={ blackHeartIcon }
               alt="favorite"
             />
           </button>
