@@ -1,11 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { localStorageVerifier } from '../services/manageLocalStorage';
+import { copyLink } from '../services/functions';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
+  const [isCopied, setIsCopied] = useState(false);
   const {
     details,
     detailsSyncSetState,
@@ -73,7 +75,13 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
           type="button"
           data-testid="share-btn"
         >
-          <img src={ shareIcon } alt="Share" />
+          <button
+            type="button"
+            onClick={ () => setIsCopied(copyLink(match)) }
+          >
+            <img src={ shareIcon } alt="Share" />
+            {isCopied ? <p>Link copiado!</p> : null }
+          </button>
         </button>
         <button
           type="button"
