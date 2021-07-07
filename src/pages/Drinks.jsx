@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
@@ -7,16 +8,30 @@ import RecipeCard from '../components/RecipeCard';
 import CategoryBtn from '../components/CategoryBtn';
 
 function Drinks() {
-  const { drinks, categories, manageRenderDrink } = useContext(Context);
+  const {
+    drinks,
+    categories,
+    manageRenderDrink,
+    filterCategory,
+    updateEndPoint,
+    toggle,
+    handleToggle,
+  } = useContext(Context);
+
+  useEffect(() => {
+    updateEndPoint('drinks');
+  }, []);
+
   const maxRecipe = 12;
   const maxCategory = 5;
   const render = drinks.length > 0 && categories;
-  console.log(drinks);
+
   const drinkList = () => drinks.slice(0, maxRecipe).map((drink, index) => (
     RecipeCard(drink, index)));
+
   const categoryList = () => categories.drinks.slice(0, maxCategory)
     .map(({ strCategory }) => (
-      CategoryBtn(strCategory)));
+      CategoryBtn(strCategory, filterCategory, handleToggle, toggle)));
   const renderList = (
     <div>
       <div>
@@ -32,7 +47,7 @@ function Drinks() {
     <>
       <div>Tela de Bebidas</div>
       <Header title="Bebidas" />
-      <HeaderSearchButton baseEndPoint="https://www.thecocktaildb.com/api/json/v1/1/" />
+      <HeaderSearchButton />
       {render ? manageRenderDrink(renderList) : <div>Loading...</div>}
       <Footer />
     </>
