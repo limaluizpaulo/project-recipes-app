@@ -3,7 +3,7 @@ import shareBtn from '../../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareLikeButton() {
+export default function ShareButton() {
   const [linkShare, setLinkShare] = useState(false);
 
   const renderButtons = () => (
