@@ -14,7 +14,6 @@ class FavoriteRecipesCard extends Component {
     };
 
     this.copyLink = this.copyLink.bind(this);
-    this.removeFavoriteRecipe = this.removeFavoriteRecipe.bind(this);
   }
 
   copyLink() {
@@ -25,17 +24,8 @@ class FavoriteRecipesCard extends Component {
     copy(`http://localhost:3000/${type}s/${id}`);
   }
 
-  removeFavoriteRecipe(id) {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites) {
-      const newFavorites = favorites.filter((item, index) => index !== id);
-      localStorage.favoriteRecipes = JSON.stringify(newFavorites);
-      return newFavorites;
-    }
-  }
-
   render() {
-    const { recipe, index } = this.props;
+    const { recipe, index, removeFavoriteRecipe } = this.props;
     const { name, area, category, image, alcoholicOrNot, type, id } = recipe;
     const { copied } = this.state;
     return (
@@ -69,7 +59,7 @@ class FavoriteRecipesCard extends Component {
           </button>
           <button
             type="button"
-            onClick={ () => this.removeFavoriteRecipe(index) }
+            onClick={ () => removeFavoriteRecipe(index) }
           >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }

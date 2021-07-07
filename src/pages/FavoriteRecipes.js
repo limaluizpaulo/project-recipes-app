@@ -14,6 +14,7 @@ class FavoriteRecipes extends Component {
 
     this.getFavoriteRecipes = this.getFavoriteRecipes.bind(this);
     this.statusButton = this.statusButton.bind(this);
+    this.removeFavoriteRecipe = this.removeFavoriteRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +43,15 @@ class FavoriteRecipes extends Component {
     }
   }
 
+  removeFavoriteRecipe(id) {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites) {
+      const newFavorites = favorites.filter((item, index) => index !== id);
+      localStorage.favoriteRecipes = JSON.stringify(newFavorites);
+      this.setState({ recipes: newFavorites });
+    }
+  }
+
   render() {
     const { recipes } = this.state;
     const { location: { pathname } } = this.props;
@@ -55,6 +65,7 @@ class FavoriteRecipes extends Component {
             recipe={ recipe }
             index={ index }
             pathname={ pathname }
+            removeFavoriteRecipe={ this.removeFavoriteRecipe }
           />)) : null }
       </section>
     );
