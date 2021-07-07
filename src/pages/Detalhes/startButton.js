@@ -51,7 +51,7 @@ function startButton(page, item, history) {
     }
     return (
       <button
-        className="btn btn-info"
+        className="start-button"
         type="button"
         data-testid="start-recipe-btn"
         onClick={ redirection }

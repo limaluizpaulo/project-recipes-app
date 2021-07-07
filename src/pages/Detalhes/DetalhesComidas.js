@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Proptypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import renderIngredients from './renderIngredients';
 import startButton from './startButton';
+import favButton from './favButton';
 import './Detalhes.css';
+import Context from '../../Provider/context';
 
 function DetalhesComidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const { favorited, setFavorited } = useContext(Context);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -34,15 +36,35 @@ function DetalhesComidas({ match }) {
     setCopied(true);
   }
 
-  function renderButtons() {
+  const saveFavorite = (favoriteRecipes) => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setFavorited(!favorited);
+  };
+
+  async function favorite() {
+    const mealToFav = data.meals[0];
+    const favoriteRecipes = [{
+      id: mealToFav.idMeal,
+      type: 'comida',
+      area: mealToFav.strArea,
+      category: mealToFav.strCategory,
+      alcoholicOrNot: '',
+      name: mealToFav.strMeal,
+      image: mealToFav.strMealThumb,
+    }];
+    saveFavorite(favoriteRecipes);
+  }
+
+  // console.log(favoriteRecipes);
+  function renderButtons(item) {
     return (
       <>
         <button data-testid="share-btn" type="button" onClick={ copyFunction }>
           <img src={ shareIcon } alt="share icon" />
         </button>
         {copied ? <span>Link copiado!</span> : null}
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeartIcon } alt="favorite icon" />
+        <button type="button" onClick={ favorite }>
+          {favButton(favorited, item.idMeal)}
         </button>
       </>
     );
@@ -126,7 +148,7 @@ function DetalhesComidas({ match }) {
                 alt={ item.strMeal }
               />
               <h3 data-testid="recipe-title">{item.strMeal}</h3>
-              {renderButtons()}
+              {renderButtons(item)}
               <h5 data-testid="recipe-category">{item.strCategory}</h5>
               <label htmlFor="ingredients-list">
                 Ingredientes:
