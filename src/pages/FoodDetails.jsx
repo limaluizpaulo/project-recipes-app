@@ -23,11 +23,27 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
   const localStorageVerifier = () => {
     const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
     const storageRecipe = JSON.parse(rawStorageRecipe);
-    // if (storageRecipe.meals === id) {
+    if ((!storageRecipe) || (storageRecipe
+      && Object.keys(storageRecipe.meals)[0]
+      !== id)) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+          onClick={ () => makeRecipe(match, history) }
+        >
+          Iniciar Receita
+        </button>
+      );
+    }
+    // if (Object.keys(storageRecipe.meals)[0] && Object.keys(storageRecipe.meals)[0] === id) {
+
+    // }
+    // if (Object.keys(storageRecipe.cocktails)[0] === id) {
 
     // }
   };
-  localStorageVerifier();
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -99,14 +115,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
           width="300px"
           title="Recipe"
         />
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => makeRecipe(match, history) }
-        >
-          Iniciar Receita
-        </button>
+        {localStorageVerifier()}
         <h3>Recomendações de Drinks</h3>
         {loopRecomendationsDrinks()}
       </main>

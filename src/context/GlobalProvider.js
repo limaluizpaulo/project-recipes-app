@@ -25,7 +25,7 @@ function GlobalProvider({ children }) {
       setCategories(await getCategories());
       setMeals(await getMealsRecipes());
       setDrinks(await getDrinksRecipes());
-      setRecomendationsDrinks(await getDrinksRecipes());
+      setRecomendationsDrinks(drinks);
     } fetchState();
   }, []);
 
