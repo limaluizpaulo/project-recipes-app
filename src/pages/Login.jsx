@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { setItemLocalStorage } from '../services/localStorage';
+import { initializeLocalStorage } from '../services/localStorage';
 
 function Login() {
   const [disableBtn, setDisableBtn] = useState(true);
@@ -30,10 +30,7 @@ function Login() {
 
   const handleClick = () => {
     const { email } = login;
-
-    setItemLocalStorage('mealsToken', 1);
-    setItemLocalStorage('cocktailsToken', 1);
-    setItemLocalStorage('user', { email });
+    initializeLocalStorage(email);
   };
 
   useEffect(() => {
