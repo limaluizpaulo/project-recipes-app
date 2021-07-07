@@ -13,14 +13,11 @@ function Foods() {
     manageRenderMeal,
     filterCategory,
     updateEndPoint,
-    resetParams,
   } = useContext(Context);
 
   useEffect(() => {
     updateEndPoint('food');
   }, [updateEndPoint]);
-
-  useEffect(() => () => resetParams(), []);
 
   const maxRecipe = 12;
   const maxCategory = 5;

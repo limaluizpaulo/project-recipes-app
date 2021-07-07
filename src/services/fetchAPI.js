@@ -19,12 +19,6 @@ export const categoryFilter = async (baseEndPoint, category) => {
   const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
   const promiseCategory = await fetch(categoryURL);
   const result = await promiseCategory.json();
-  return result.meals;
-};
-
-export const categoryDrinks = async (baseEndPoint, category) => {
-  const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
-  const promiseCategory = await fetch(categoryURL);
-  const result = await promiseCategory.json();
-  return result.drinks;
+  console.log(result);
+  return result;
 };

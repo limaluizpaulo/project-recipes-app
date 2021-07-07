@@ -46,7 +46,6 @@ function HeaderSearchBar() {
         <label htmlFor="name">
           Nome
           <input
-            checked
             value="search.php?s="
             onChange={ handleChange }
             name="chosenFilter"

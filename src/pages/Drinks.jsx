@@ -11,16 +11,13 @@ function Drinks() {
     drinks,
     categories,
     manageRenderDrink,
-    filterCategoryDrinks,
+    filterCategory,
     updateEndPoint,
-    resetParams,
   } = useContext(Context);
 
   useEffect(() => {
     updateEndPoint('drinks');
   }, [updateEndPoint]);
-
-  useEffect(() => () => resetParams(), []);
 
   const maxRecipe = 12;
   const maxCategory = 5;
@@ -31,7 +28,7 @@ function Drinks() {
 
   const categoryList = () => categories.drinks.slice(0, maxCategory)
     .map(({ strCategory }) => (
-      CategoryBtn(strCategory, filterCategoryDrinks)));
+      CategoryBtn(strCategory, filterCategory)));
   const renderList = (
     <div>
       <div>
