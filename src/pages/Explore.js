@@ -9,8 +9,20 @@ export default function Explore() {
   return (
     <div>
       <Header title="Explorar" display="false" />
-      <button type="button" data-testid="explore-food" onClick={ () => history.push('/explorar/comidas') }>Explorar Comidas</button>
-      <button type="button" data-testid="explore-drinks" onClick={ () => history.push('/explorar/bebidas') }>Explorar Bebidas</button>
+      <button
+        type="button"
+        data-testid="explore-food"
+        onClick={ () => history.push('/explorar/comidas') }
+      >
+        Explorar Comidas
+      </button>
+      <button
+        type="button"
+        data-testid="explore-drinks"
+        onClick={ () => history.push('/explorar/bebidas') }
+      >
+        Explorar Bebidas
+      </button>
       <Footer />
     </div>
   );
