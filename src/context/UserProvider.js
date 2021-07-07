@@ -11,9 +11,11 @@ const UserProvider = ({ children }) => {
   });
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [done, setDone] = useState([]);
 
   useEffect(() => {
-    setFavorites(getFromLocalStorage('favoriteRecipes'));
+    setFavorites(getFromLocalStorage('favoriteRecipes') || []);
+    setDone(getFromLocalStorage('doneRecipes') || []);
   }, []);
 
   const removeFavorites = (id) => {
@@ -50,6 +52,7 @@ const UserProvider = ({ children }) => {
 
   const context = {
     favorites,
+    done,
     removeFavorites,
     verifyLogin,
     handleChange,
