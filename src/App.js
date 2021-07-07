@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import MainPage from './pages/MainPage';
 import Perfil from './pages/Perfil';
-import Explorar from './pages/Explorar';
+import Explore from './pages/Explore';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import AreaExplorer from './pages/AreaExplorer';
@@ -18,18 +18,18 @@ import IdFood from './pages/IdFood';
 function App() {
   return (
     <Switch>
-      <Route path="/explorar/comidas/area" component={ AreaExplorer } />
-      <Route path="/explorar/bebidas/ingredientes" component={ SearchIngredients } />
-      <Route path="/explorar/comidas/ingredientes" component={ SearchIngredients } />
+      <Route path="/explorar/comidas/area" component={ Explore } />
+      <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
+      <Route path="/explorar/comidas/ingredientes" component={ Explore } />
       <Route path="/comidas/:id/in-progress" component={ InProgress } />
       <Route path="/bebidas/:id/in-progress" component={ InProgress } />
-      <Route path="/explorar/comidas" component={ ExplorarMenu } />
-      <Route path="/explorar/bebidas" component={ ExplorarMenu } />
+      <Route path="/explorar/comidas" component={ Explore } />
+      <Route path="/explorar/bebidas" component={ Explore } />
       <Route path="/comidas/:id" component={ IdFood } />
       <Route path="/bebidas/:id" component={ IdFood } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      <Route path="/explorar" component={ Explorar } />
+      <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/comidas" component={ MainPage } />
       <Route path="/bebidas" component={ MainPage } />
