@@ -10,7 +10,7 @@ function Card({ drink, recipe, index }) {
         pathname.includes('/comidas')
           ? (
             <div className="card-field" data-testid={ `${index}-recipe-card` }>
-              <Link to={ `/comidas/${recipe.idMeal}` }>
+              <Link to={ `/comidas/${recipe.idMeal}` } data-testid="link-recipe-card">
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ recipe.strMealThumb }
