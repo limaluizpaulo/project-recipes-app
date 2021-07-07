@@ -28,35 +28,45 @@ function Login() {
   });
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email:
-        <input
-          name="email"
-          type="email"
-          data-testid="email-input"
-          onChange={ ({ target }) => setEmail(target.value) }
-          placeholder="Digite seu email"
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          name="password"
-          type="password"
-          data-testid="password-input"
-          onChange={ ({ target }) => setPassword(target.value) }
-          placeholder="Digite sua senha"
-        />
-      </label>
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ isDisable }
-        onClick={ () => handleClick() }
-      >
-        Entrar
-      </button>
+    <div className="mb-3">
+      <form className="mb-3">
+        <div className="mb-3">
+          <label className="form-label" htmlFor="email">
+            Email:
+            <input
+              className="form-control"
+              name="email"
+              type="email"
+              data-testid="email-input"
+              onChange={ ({ target }) => setEmail(target.value) }
+              placeholder="Digite seu email"
+            />
+          </label>
+        </div>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="password">
+            Senha:
+            <input
+              className="form-control"
+              name="password"
+              type="password"
+              data-testid="password-input"
+              onChange={ ({ target }) => setPassword(target.value) }
+              placeholder="Digite sua senha"
+            />
+          </label>
+
+        </div>
+        <button
+          className="btn btn-primary"
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ isDisable }
+          onClick={ () => handleClick() }
+        >
+          Entrar
+        </button>
+      </form>
     </div>
   );
 }
