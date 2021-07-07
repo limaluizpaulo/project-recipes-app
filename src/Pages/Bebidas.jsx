@@ -14,7 +14,7 @@ export default function Bebidas({ match: { url } }) {
     <div>
       { console.log('ef') }
       <Header title="Bebidas" searchIcon />
-      { openSearchBar ? <SearchBar url={ url } /> : null }
+      { openSearchBar ? <SearchBar url={ url } /> : undefined }
       <CategoryFilter type="drinks" />
       <CocktailList />
       <Footer />

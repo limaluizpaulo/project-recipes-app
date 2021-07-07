@@ -28,7 +28,6 @@ export default function CocktailList() {
 
   const renderCards = () => {
     if (selectedCategory === 'All' && cocktailsRecipes && cocktailsRecipes.length === 1) {
-      console.log('3');
       return history.push(`/bebidas/${cocktailsRecipes[0].idDrink} `);
     }
 

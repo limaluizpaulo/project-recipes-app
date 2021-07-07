@@ -20,7 +20,7 @@ export default function Header(props) {
             { title }
           </h1>
         </Col>
-        { searchIcon ? <SearchIcon /> : null }
+        { searchIcon ? <SearchIcon /> : undefined }
       </Row>
     </Container>
   );

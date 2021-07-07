@@ -13,7 +13,7 @@ export default function Comidas({ match: { url } }) {
   return (
     <div>
       <Header title="Comidas" searchIcon />
-      { openSearchBar ? <SearchBar url={ url } /> : null }
+      { openSearchBar ? <SearchBar url={ url } /> : undefined }
       <CategoryFilter type="meals" />
       <MealList />
       <Footer />
