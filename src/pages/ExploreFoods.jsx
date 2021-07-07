@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,39 +25,43 @@ function ExploreFoods() {
   }
 
   return (
-    <section>
-      <Header profile name="Explorar Comidas" />
-      <ButtonGroup className="buttons-explore-foods">
-        <Button
-          data-testid="explore-by-ingredient"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => history.push('/explorar/comidas/ingredientes') }
-        >
-          Por Ingredientes
-        </Button>
+    <>
+      <section className="explore-section">
+        <Header profile name="Explorar Comidas" />
+        <Container>
+          <ButtonGroup className="buttons-explore-foods">
+            <Button
+              data-testid="explore-by-ingredient"
+              variant="danger"
+              size="lg"
+              onClick={ () => history.push('/explorar/comidas/ingredientes') }
+            >
+              Por Ingredientes
+            </Button>
 
-        <Button
-          data-testid="explore-by-area"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => history.push('/explorar/comidas/area') }
-        >
-          Por Local de Origem
-        </Button>
+            <Button
+              data-testid="explore-by-area"
+              variant="danger"
+              size="lg"
+              onClick={ () => history.push('/explorar/comidas/area') }
+            >
+              Por Local de Origem
+            </Button>
 
-        <Button
-          data-testid="explore-surprise"
-          variant="outline-secondary"
-          size="lg"
-          onClick={ () => redirectToFoodDetails() }
-        >
-          Me Surpreenda!
-        </Button>
-
-      </ButtonGroup>
+            <Button
+              data-testid="explore-surprise"
+              variant="danger"
+              size="lg"
+              id="last-button-food"
+              onClick={ () => redirectToFoodDetails() }
+            >
+              Me Surpreenda!
+            </Button>
+          </ButtonGroup>
+        </Container>
+      </section>
       <Footer />
-    </section>
+    </>
   );
 }
 
