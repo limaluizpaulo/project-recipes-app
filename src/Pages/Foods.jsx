@@ -18,16 +18,19 @@ function Foods(props) {
   const { foods } = props;
 
   React.useEffect(() => {
-    if (loading) {
-      getByCategory()
-        .then(setCategories)
-        .then(() => (
+    getByCategory()
+      .then(setCategories)
+      .then(() => {
+        if (foods.length === 0) {
           getByDefault()
-            .then(setFirstFoods)
-            .then(() => setLoading(false))
-        ));
-    }
-  }, [setCategories, setLoading, setFirstFoods, getByCategory, getByDefault, loading]);
+            .then(setFirstFoods);
+        } else {
+          setFirstFoods(foods);
+        }
+      }).then(() => setLoading(!loading));
+  }, [
+ 
+  ]);
 
   return loading ? <div>Loading...</div> : (
     <div>

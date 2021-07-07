@@ -1,4 +1,4 @@
-import { FOODS, FOOD_CATEGORIES } from '../actions/index';
+import { FOODS, RANDOM, FOOD_CATEGORIES } from '../actions/index';
 
 const initialState = {
   list: [],
@@ -14,6 +14,12 @@ export default (state = initialState, { type, payload }) => {
       list: payload,
       goToFoodsPage: payload && payload.length === 1,
 
+    };
+  case RANDOM:
+    return {
+      ...state,
+      list: payload,
+      shouldRedirect: true,
     };
 
   case FOOD_CATEGORIES:

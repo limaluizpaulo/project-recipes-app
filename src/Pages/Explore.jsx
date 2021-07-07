@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeadBar from '../Components/HeadBar';
+import Footer from '../Components/Footer';
 
 function Explore() {
   return (
@@ -20,6 +21,7 @@ function Explore() {
       >
         Explorar Bebidas
       </Link>
+      <Footer />
     </div>
   );
 }

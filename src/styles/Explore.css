@@ -23,3 +23,33 @@
   text-transform: uppercase;
   transition: all 150ms ease-in-out;
 }
+
+.ingredientTab{
+display: flex;
+flex-wrap: wrap;
+align-self: center;
+text-align: center;
+}
+
+.ingredientScreen{
+  vertical-align: middle;
+  margin: auto;
+  flex-direction: row;
+  background-color: white;
+  border: 5px solid #0fa36b;
+  border-radius: 0.6em;
+  box-shadow: 0 0 40px 40px #0000 inset , 0 0 0 0 #0fa36b;
+  padding: 2px;
+  font-family: Montserrat , sans-serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+}
+
+.ingredientImage{
+  width: 75px;
+margin: auto;
+}
+
+.ingredientName{
+margin: auto;
+}

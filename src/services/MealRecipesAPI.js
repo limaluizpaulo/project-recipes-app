@@ -39,11 +39,19 @@ const SurpriseFoodAPI = async () => {
   return responseObject.meals;
 };
 
+const foodIngredientsAPI = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const response = await fetch(endpoint);
+  const responseObject = await response.json();
+  return responseObject.meals;
+};
+
 export default {
   ingredient: MealServiceIngredientsAPI,
   name: MealServiceNameAPI,
   letter: MealServiceFirstLetterAPI,
   surpriseFood: SurpriseFoodAPI,
+  foodIngredients: foodIngredientsAPI,
   getByCategory: () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals),
