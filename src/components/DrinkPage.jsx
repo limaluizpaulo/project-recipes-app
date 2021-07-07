@@ -21,9 +21,14 @@ function DrinkPage({ history }) {
         { drinks
         // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strDrink, strDrinkThumb }, index) => index <= maxLength && (
-            <article key={ index }>
-              <img src={ strDrinkThumb } alt={ strDrink } width="150" />
-              <p>{ strDrink }</p>
+            <article key={ index } data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ strDrinkThumb }
+                alt={ strDrink }
+                width="150"
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
             </article>))}
       </section>
       <Footer history={ history } />

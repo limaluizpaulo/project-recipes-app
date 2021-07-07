@@ -27,15 +27,15 @@ function ProviderRecipes({ children }) {
   };
 
   const fetchDrinkRecipes = () => {
-    const endpoint = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setDrinks(results.drinks)));
-    console.log('Requisição 1 comidas');
   };
 
   useEffect(() => {
     fetchFoodRecipes();
+    // fetchDrinkRecipes();
   }, []);
 
   useEffect(() => {
