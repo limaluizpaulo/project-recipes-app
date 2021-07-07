@@ -6,6 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 
 const Header = ({ name, search, children }) => {
   const [bar, setBar] = useState(false);
+  const [drop, setDrop] = useState(false);
 
   return (
     <header>
@@ -16,7 +17,10 @@ const Header = ({ name, search, children }) => {
       <h1 data-testid="page-title">{ name }</h1>
 
       { search && (
-        <button type="button" onClick={ () => setBar(!bar) }>
+        <button
+          type="button"
+          onClick={ () => ((dropDown) ? setDrop(!drop) : setBar(!bar)) }
+        >
           <img
             src={ searchIcon }
             alt="profileIcon"

@@ -12,3 +12,5 @@ export { default as Tags } from './Tags';
 export { default as ShareButton } from './ShareButton';
 export { default as RecipeHeaderList } from './RecipeHeaderList';
 export { default as FavoriteButton } from './FavoriteButton';
+export { default as IngredientCard } from './IngredientCard';
+export { default as AreasDropDown } from './AreasDropDown';
