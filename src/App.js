@@ -16,8 +16,14 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/explorar/comidas/area" />
-          <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
-          <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
+          <Route
+            path="/explorar/bebidas/ingredientes"
+            component={ ExplorarIngredientes }
+          />
+          <Route
+            path="/explorar/comidas/ingredientes"
+            component={ ExplorarIngredientes }
+          />
           <Route path="/explorar/comidas" component={ Explorarcomidas } />
           <Route path="/explorar/bebidas" component={ Explorarcomidas } />
           <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />

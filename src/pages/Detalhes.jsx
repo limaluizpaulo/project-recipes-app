@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
+import { fetchDrinkDetails, fetchFoodDetails,
+  startRecipe, getFoodDetails } from '../action';
 
 import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
@@ -27,6 +28,11 @@ class Detalhes extends Component {
       return foodDetails(id);
     }
     return drinksDetails(id);
+  }
+
+  componentWillUnmount() {
+    const { reboot } = this.props;
+    reboot('');
   }
 
   handleFavClick() {
@@ -105,6 +111,8 @@ const mapDispatchToProps = (dispatch) => ({
   isStart: () => dispatch(startRecipe()),
   drinksDetails: (id) => dispatch(fetchDrinkDetails(id)),
   foodDetails: (id) => dispatch(fetchFoodDetails(id)),
+  reboot: (e) => dispatch(getFoodDetails(e)),
+
 });
 
 const mapStateToProps = (state) => ({
@@ -115,6 +123,7 @@ Detalhes.propTypes = {
   isStart: PropTypes.func.isRequired,
   drinksDetails: PropTypes.func.isRequired,
   foodDetails: PropTypes.func.isRequired,
+  reboot: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
 };
