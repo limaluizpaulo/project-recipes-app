@@ -9,7 +9,7 @@ import './DoneRecipesList.css';
 function DoneRecipesList({ filter }) {
   // const { done } = useContext(UserContext);
 
-  const done = JSON.parse(localStorage.getItem('doneRecipes'));
+  const done = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
   const recipes = filter
     ? done.filter((item) => item.type === filter)
