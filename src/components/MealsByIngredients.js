@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../styles/card.css';
 
 export default function MealsByIngredients() {
   const MEALS_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -30,20 +31,25 @@ export default function MealsByIngredients() {
   function renderIngredients() {
     if (path === comidasPath) {
       return (
-        <>
+        <div className="card-container">
           {ingredients.slice(0, limitMap).map((el, i) => (
-            <div data-testid={ `${i}-ingredient-card` } key={ i }>
+            <div
+              className="recipe-card"
+              data-testid={ `${i}-ingredient-card` }
+              key={ i }
+            >
               <h3 data-testid={ `${i}-card-name` }>
                 { el.strIngredient }
               </h3>
               <img
+                className="card-img"
                 data-testid={ `${i}-card-img` }
                 src={ `https://www.themealdb.com/images/ingredients/${el.strIngredient}-Small.png` }
                 alt={ el.strIngredient }
               />
             </div>
           ))}
-        </>
+        </div>
       );
     }
     return (

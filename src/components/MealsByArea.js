@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fetchFood from '../services/FoodAPI';
+import '../styles/card.css';
 
 export default function MealsByArea() {
   const LIST_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
@@ -41,12 +42,14 @@ export default function MealsByArea() {
           </option>
         )) }
       </select>
-      { meals.map((meal, i) => (
-        <div key={ i }>
-          <img src={ meal.strMealThumb } alt={ meal.strMeal } />
-          <h3>{ meal.strMeal }</h3>
-        </div>
-      )) }
+      <div className="card-container">
+        { meals.map((meal, i) => (
+          <div className="recipe-card" key={ i }>
+            <img className="card-img" src={ meal.strMealThumb } alt={ meal.strMeal } />
+            <h3>{ meal.strMeal }</h3>
+          </div>
+        )) }
+      </div>
     </section>
   );
 }
