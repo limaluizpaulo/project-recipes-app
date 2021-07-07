@@ -36,7 +36,7 @@ export const fetchMealsCategory = async () => {
 
 export const fetchRandomMeal = async () => {
   const randomMeal = await
-  fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
-  const { meal } = await randomMeal.json();
-  return meal;
+  fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const { meals } = await randomMeal.json();
+  return meals;
 };
