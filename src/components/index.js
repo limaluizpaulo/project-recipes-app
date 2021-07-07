@@ -7,3 +7,4 @@ export { default as RecMeals } from './RecMeals';
 export { default as Header } from './Header';
 export { default as FavoriteBtn } from './FavoriteBtn';
 export { default as ShareBtn } from './ShareBtn';
+export { default as NotFound } from './NotFound';
