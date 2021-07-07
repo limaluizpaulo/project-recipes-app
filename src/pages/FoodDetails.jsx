@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { makeRecipe } from '../services/manageLocalStorage';
 
-function FoodDetails({ history, match: { params: { id } } }) {
+function FoodDetails({ match, match: { params: { id } }, history }) {
   const {
     details,
     detailsSyncSetState,
@@ -20,9 +20,14 @@ function FoodDetails({ history, match: { params: { id } } }) {
     }
   }, [details.meals, detailsSyncSetState, id]);
 
-  const redirectFn = () => (<Redirect
-    to={ `/comidas/${id}/in-progress` }
-  />);
+  const localStorageVerifier = () => {
+    const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
+    const storageRecipe = JSON.parse(rawStorageRecipe);
+    // if (storageRecipe.meals === id) {
+
+    // }
+  };
+  localStorageVerifier();
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -98,7 +103,7 @@ function FoodDetails({ history, match: { params: { id } } }) {
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe"
-          onClick={ () => { history.push(`/comidas/${id}/in-progress`); } }
+          onClick={ () => makeRecipe(match, history) }
         >
           Iniciar Receita
         </button>
