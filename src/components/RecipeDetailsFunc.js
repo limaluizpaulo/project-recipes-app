@@ -44,6 +44,7 @@ export function setDoneRecipes(recipe, pathname) {
   if (verifyPath) {
     title = 'Comidas';
   }
+  // Source https://codare.aurelio.net/2009/04/03/javascript-obter-e-mostrar-data-e-hora/
   const date = new Date();
   const actualDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 

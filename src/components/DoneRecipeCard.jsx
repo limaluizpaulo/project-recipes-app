@@ -1,12 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes, { string } from 'prop-types';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
 class DoneRecipesCard extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      copied: false,
+    };
+
+    this.copyLink = this.copyLink.bind(this);
+  }
+
+  copyLink() {
+    this.setState({ copied: true });
+
+    const { recipe } = this.props;
+    const { type, id } = recipe;
+    copy(`http://localhost:3000/${type}s/${id}`);
+  }
+
   render() {
     const { recipe, index } = this.props;
     const { name, area, category, doneDate, tags, image, alcoholicOrNot } = recipe;
-    console.log(tags);
+    const { copied } = this.state;
     return (
       <section>
         <div>
@@ -24,12 +43,14 @@ class DoneRecipesCard extends Component {
           <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
           <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
           <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-          <button type="button">
-            <img
-              src={ shareIcon }
-              alt="share-icon"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
+          <button type="button" onClick={ this.copyLink }>
+            {copied ? 'Link copiado!'
+              : (
+                <img
+                  src={ shareIcon }
+                  alt="shareIcon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />)}
           </button>
           {tags ? tags.map((tag, indexTag) => (
             <span

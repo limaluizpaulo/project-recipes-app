@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import DoneRecipesButtons from '../components/DoneRecipesButtons';
 import DoneRecipesCard from '../components/DoneRecipeCard';
@@ -27,15 +28,25 @@ class DoneRecipes extends Component {
 
   render() {
     const { recipes } = this.state;
+    const { location: { pathname } } = this.props;
     return (
       <section>
         <Header title="Receitas Feitas" searchIcon />
         <DoneRecipesButtons />
         {recipes ? recipes.map((recipe, index) => (
-          <DoneRecipesCard key={ index } recipe={ recipe } index={ index } />)) : null }
+          <DoneRecipesCard
+            key={ index }
+            recipe={ recipe }
+            index={ index }
+            pathname={ pathname }
+          />)) : null }
       </section>
     );
   }
 }
+
+DoneRecipes.propTypes = {
+  location: PropTypes.objectOf(Object),
+}.isRequired;
 
 export default DoneRecipes;
