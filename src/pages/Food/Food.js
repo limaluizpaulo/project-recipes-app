@@ -111,9 +111,9 @@ function Food() {
     <>
       <Header title="Comidas" haveSrc />
       <div className="card-meals">
-        <di className="menu-box">
+        <div className="menu-box">
           { !loading && mapCategory(category)}
-        </di>
+        </div>
         {
           loading
             ? 'Carregando...'
