@@ -43,7 +43,7 @@ const MealsDetails = ({ match: { params: { id } } }) => {
       setLoading(true);
     };
     findMeal();
-  }, []);
+  }, [filterAllMeasure, filterById, filterIngredients, id]);
 
   if (!loading) {
     return <div />;
