@@ -16,8 +16,10 @@ export const DRINK_BY_CATEGORIES = 'DRINK_BY_CATEGORIES';
 export const RECIPE_DETAILS_FOOD = 'RECIPE_DETAILS_FOOD';
 export const RECIPE_DETAILS_DRINK = 'RECIPE_DETAILS_DRINK';
 export const FAV_ICON = 'FAV_ICON';
+export const FAV_ICON_COLOR = 'FAV_ICON_COLOR';
 
 export const addFavicon = (favIcon) => ({ type: FAV_ICON, favIcon });
+export const faviconColor = (color) => ({ type: FAV_ICON_COLOR, color });
 export const addEmail = (email) => ({ type: USER_EMAIL, email });
 export const isLoading = () => ({ type: IS_LOADING });
 export const getAllFoodCategories = (allFoodCategories) => ({
