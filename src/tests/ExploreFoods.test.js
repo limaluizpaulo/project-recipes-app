@@ -56,6 +56,12 @@ describe('Checks ExploreFoods Foods Page', () => {
 
     const { pathname: pathname2 } = history.location;
     expect(pathname2).toBe('/explorar/comidas/area');
+
+    const surpriseRecipesButton = screen.getByRole('button', {
+      name: /me surpreenda!/i,
+    });
+
+    expect(surpriseRecipesButton).toBeInTheDocument();
   });
 
   it('Check if the page has a footer', () => {
