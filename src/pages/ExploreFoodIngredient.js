@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { exploreIngredientsFood } from '../services/api';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -22,10 +23,10 @@ function ExploreFoodIngredient() {
     <div>
       <Header title="Explorar Ingredientes" />
       <div className="card-container">
-        {firstFoodIngredients.map((meal, index) => (
+        {firstFoodIngredients.map((ingredient, index) => (
           <Link
-            to={ `/comidas/${meal.idMeal}` }
-            key={ meal.strMeal }
+            to={ `/comidas/${ingredient.idMeal}` }
+            key={ ingredient.strMeal }
           >
             <Card
               data-testid={ `${index}-recipe-card` }
@@ -33,15 +34,15 @@ function ExploreFoodIngredient() {
             >
               <Card.Img
                 data-testid={ `${index}-card-img` }
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
+                src={ `https://www.themealdb.com/images/ingredients/${ingredient.srtIngredient}.png` }
+                alt={ ingredient.strIngredient }
               />
               <Card.Body>
                 <Card.Title
                   className="cardTitle"
                   data-testid={ `${index}-card-name` }
                 >
-                  {meal.strMeal}
+                  {ingredient.srtIngredient}
                 </Card.Title>
               </Card.Body>
             </Card>
