@@ -131,8 +131,8 @@ export const getCategoriesDrinks = async () => {
 export const getDrinksByCategories = async (category) => {
   try {
     const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?c=${category}`);
-    const { meals } = await result.json();
-    return meals.slice(0, LENGTH_DOZE);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
     global.alert(messageAlert);
   }

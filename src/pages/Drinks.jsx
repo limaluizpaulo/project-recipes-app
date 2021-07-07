@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
-import { actionCategoriesDrinks, actionDrinks } from '../actions';
+import { actionCategoriesDrinks, actionDrinks,
+  actionDrinksByCategories } from '../actions';
 import CardItem from '../components/CardItem';
 
 class Drinks extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filter: false,
+    };
 
+    this.mapearLista = this.mapearLista.bind(this);
+    this.fetchDrinksCategory = this.fetchDrinksCategory.bind(this);
     this.fetchs = this.fetchs.bind(this);
   }
 
@@ -24,9 +30,28 @@ class Drinks extends Component {
     categories();
   }
 
+  async fetchDrinksCategory(category) {
+    const { drinksByCategory } = this.props;
+    drinksByCategory(category);
+    console.log(category);
+    this.setState({ filter: true });
+  }
+
+  mapearLista({ strDrinkThumb, strDrink, idDrink }, index) {
+    return (
+      <Link to={ `/bebidas/${idDrink}` }>
+        <CardItem
+          key={ index }
+          index={ index }
+          name={ strDrink }
+          image={ strDrinkThumb }
+        />
+      </Link>);
+  }
+
   render() {
-    const { listDrinks, listCategories } = this.props;
-    console.log(listDrinks);
+    const { filter } = this.state;
+    const { listDrinks, listCategories, listByCategory } = this.props;
     if (!listDrinks) return (<h3>Loading...</h3>);
     if (listDrinks.length === 1) {
       return <Redirect to={ `/bebidas/${listDrinks[0].idDrink}` } />;
@@ -35,6 +60,22 @@ class Drinks extends Component {
       <>
         <Header header="Bebidas" explorer />
         <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <h2>Drinks</h2>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.setState({ filter: false }) }
+        >
+          All
+        </button>
         {listCategories
           ? listCategories.map(({ strCategory }, index) => (
             <button
@@ -42,19 +83,15 @@ class Drinks extends Component {
               type="button"
               data-testid={ `${strCategory}-category-filter` }
               name={ strCategory }
-              // onClick={ () => this.fetchRecipesCategory(strCategory) }
+              onClick={ () => this.fetchDrinksCategory(strCategory) }
             >
               {strCategory}
             </button>
           ))
           : <h3>Loading...</h3> }
-        {listDrinks.map(({ strDrinkThumb, strDrink }, index) => (
-          <CardItem
-            key={ index }
-            index={ index }
-            name={ strDrink }
-            image={ strDrinkThumb }
-          />))}
+        {filter
+          ? listByCategory.map((element, index) => this.mapearLista(element, index))
+          : listDrinks.map((element, index) => this.mapearLista(element, index))}
         <DownMenu />
       </>
     );
@@ -64,10 +101,12 @@ class Drinks extends Component {
 const mapDispatchToProps = (dispatch) => ({
   drinks: () => dispatch(actionDrinks()),
   categories: () => dispatch(actionCategoriesDrinks()),
+  drinksByCategory: (category) => dispatch(actionDrinksByCategories(category)),
 });
 const mapStateToProps = (state) => ({
   listDrinks: state.drinks.drinks,
   listCategories: state.categories.categories,
+  listByCategory: state.drinks.byCategories,
 });
 
 Drinks.propTypes = {
@@ -75,6 +114,8 @@ Drinks.propTypes = {
   listDrinks: PropTypes.shape().isRequired,
   categories: PropTypes.func.isRequired,
   listCategories: PropTypes.arrayOf().isRequired,
+  drinksByCategory: PropTypes.func.isRequired,
+  listByCategory: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drinks);

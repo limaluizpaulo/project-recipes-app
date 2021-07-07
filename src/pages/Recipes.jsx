@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
@@ -33,19 +33,19 @@ class Recipes extends Component {
   async fetchRecipesCategory(category) {
     const { recipesByCategory } = this.props;
     recipesByCategory(category);
-    console.log(category);
     this.setState({ filter: true });
   }
 
   mapearLista({ strMealThumb, strMeal, idMeal }, index) {
     return (
-      <CardItem
-        key={ index }
-        index={ index }
-        name={ strMeal }
-        image={ strMealThumb }
-        id={ idMeal }
-      />);
+      <Link to={ `/comidas/${idMeal}` }>
+        <CardItem
+          key={ index }
+          index={ index }
+          name={ strMeal }
+          image={ strMealThumb }
+        />
+      </Link>);
   }
 
   render() {
@@ -88,8 +88,8 @@ class Recipes extends Component {
           </button>
         ))}
         {filter
-          ? listByCategory.map((element) => this.mapearLista(element))
-          : listRecipes.map((element) => this.mapearLista(element))}
+          ? listByCategory.map((element, index) => this.mapearLista(element, index))
+          : listRecipes.map((element, index) => this.mapearLista(element, index))}
         <DownMenu />
       </>
     );

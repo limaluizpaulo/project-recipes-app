@@ -14,7 +14,7 @@ const drinks = (state = INTIAL_STATE, action) => {
   case 'DRINKS_FIRST_LETTER':
     return { ...state, drinks: action.payload.data };
   case 'DRINKS_CATEGORY':
-    return { ...state, byCategories: action.payload.input };
+    return { ...state, byCategories: action.payload.data };
   default:
     return state;
   }
