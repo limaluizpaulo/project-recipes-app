@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Header, Categories, Card, Footer } from '../components';
+import { Header, Categories, Card, Footer, SearchBar } from '../components';
 import { MealsContext } from '../context/MealsProvider';
 
 const Meals = () => {
@@ -14,7 +14,9 @@ const Meals = () => {
   return (
     <div>
 
-      <Header name="Comidas" search db="meals" />
+      <Header name="Comidas" search>
+        <SearchBar db="meals" />
+      </Header>
 
       <Categories
         categories={ categories }
