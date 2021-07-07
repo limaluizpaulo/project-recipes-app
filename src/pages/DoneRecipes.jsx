@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router';
-// import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareBtn from '../components/ShareBtn';
 import BtnsFilters from '../components/BtnsFilters';
@@ -8,7 +6,6 @@ import DoneAndFavorite from '../components/DoneAndFavorite';
 
 export default function DoneRecipes() {
   const [value, setValue] = useState();
-  // const { pathname } = useHistory().location;
 
   let recipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (!recipes) recipes = [];
