@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import doneRecipes from '../doneRecipes';
+import { Header } from '../Components';
 // O array acima é apenas ilustrativo para passar nos testes. Conforme a evolução do projeto iremos substituí-los pelos dados corretos posteriormente
 
 export default class ReceitasFeitas extends Component {
@@ -152,10 +154,12 @@ export default class ReceitasFeitas extends Component {
   }
 
   render() {
+    const { location: { pathname } } = this.props;
     const { doneRecipes: AllRecipes, filtered } = this.state;
     return (
       <div>
         <main>
+          <Header pathname={ pathname } />
           <button
             type="button"
             onClick={ (e) => this.filterByType(e) }
@@ -184,3 +188,9 @@ export default class ReceitasFeitas extends Component {
     );
   }
 }
+
+ReceitasFeitas.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+};
