@@ -37,12 +37,24 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         </button>
       );
     }
-    // if (Object.keys(storageRecipe.meals)[0] && Object.keys(storageRecipe.meals)[0] === id) {
-
-    // }
-    // if (Object.keys(storageRecipe.cocktails)[0] === id) {
-
-    // }
+    if (storageRecipe
+      && Object.keys(storageRecipe.meals)[0] === id) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        >
+          Continuar Receita
+        </button>
+      );
+    }
+    const rawDoneRecipes = localStorage.getItem('doneRecipes');
+    const doneRecipes = JSON.parse(rawDoneRecipes);
+    if (doneRecipes && doneRecipes.find((recipe) => recipe.id === id)) {
+      return null;
+    }
   };
 
   function loopIngredientsAndMeasure() {

@@ -11,6 +11,6 @@ export const makeRecipe = ({ url }, history) => {
   history.push(`/comidas/${id}/in-progress`);
 };
 
-// export const continueRecipe = ({ url }, history) => {
-//   history.push(`/comidas/${id}/in-progress`);
-// };
+export const finishRecipe = () => {
+  // history.push(`/comidas/${id}/in-progress`);
+};
