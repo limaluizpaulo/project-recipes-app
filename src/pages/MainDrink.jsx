@@ -12,7 +12,6 @@ export default function MainDrink({ history }) {
 
   return (
     <div>
-      <h4>Drinks</h4>
       <Header history={ history } title="Bebidas" />
       {previousIsExploreIngredients ? <RenderDrinkIngredient /> : <RenderDrink /> }
       <Footer />

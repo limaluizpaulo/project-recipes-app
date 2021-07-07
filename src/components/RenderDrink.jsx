@@ -66,6 +66,7 @@ export default function MainDrink() {
   function buttonCategories() {
     return filterCategoriesDrinks.map((categ, i) => (
       <button
+        className="food__category__button"
         type="button"
         key={ i }
         value={ categ.strCategory }
@@ -80,48 +81,72 @@ export default function MainDrink() {
   function renderDrinks() {
     if (allValue === 'All' && valueButton === '') {
       return filterDrinks.map((itemAll, indexAll) => (
-        <div key={ indexAll } data-testid={ `${indexAll}-recipe-card` }>
-          <Link to={ `/comidas/${itemAll.idDrink}` }>
-            <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
+        <Link
+          className="food__card"
+          data-testid={ `${indexAll}-recipe-card` }
+          key={ indexAll }
+          to={ `/bebidas/${itemAll.idDrink}` }
+        >
+          <div className="food__card__img">
             <img
               src={ itemAll.strDrinkThumb }
               alt={ itemAll.strDrinkThumb }
               data-testid={ `${indexAll}-card-img` }
             />
-          </Link>
-        </div>
+          </div>
+          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
+
+        </Link>
       ));
     }
     if (data.length === 0 && valueButton === '') {
       return filterDrinks.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <Link to={ `/bebidas/${item.idDrink}` }>
-            <p
-              data-testid={ `${index}-card-name` }
-            >
-              {item.strDrink}
-            </p>
+        <Link
+          className="food__card"
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+          to={ `/bebidas/${item.idDrink}` }
+        >
+          <div className="food__card__img">
             <img
               src={ item.strDrinkThumb }
               alt={ item.strDrinkThumb }
               data-testid={ `${index}-card-img` }
             />
-          </Link>
-        </div>
+          </div>
+          <p
+            data-testid={ `${index}-card-name` }
+          >
+            {item.strDrink}
+          </p>
+
+        </Link>
       ));
     }
     if (valueButton !== '' && toogle) {
-      return filterDataCategories.map((itemValue, i) => (
-        <div key={ i } data-testid={ `${i}-recipe-card` }>
-          <Link to={ `/bebidas/${itemValue.idDrink}` }>
-            <p data-testid={ `${i}-card-name` }>{itemValue.strDrink}</p>
+      return filterDataCategories.map((itemValue, indexValue) => (
+        <Link
+          key={ indexValue }
+          data-testid={ `${indexValue
+          }-recipe-card` }
+          to={ `/bebidas/${itemValue.idDrink}` }
+        >
+          <div className="food__card__img">
             <img
               src={ itemValue.strDrinkThumb }
               alt={ itemValue.strDrinkThumb }
-              data-testid={ `${i}-card-img` }
+              data-testid={ `${indexValue
+              }-card-img` }
             />
-          </Link>
-        </div>
+          </div>
+          <p
+            data-testid={ `${indexValue
+            }-card-name` }
+          >
+            {itemValue.strDrink}
+          </p>
+
+        </Link>
       ));
     }
     if (data.length === 1) {
@@ -147,9 +172,10 @@ export default function MainDrink() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="foodPage">
+      <div className="food__category__container">
         <button
+          className="food__category__button"
           data-testid="All-category-filter"
           type="button"
           value="All"
@@ -159,7 +185,8 @@ export default function MainDrink() {
         </button>
         {buttonCategories()}
       </div>
-      {renderDrinks()}
+      <div className="food__cards__container">{renderDrinks()}</div>
+
     </div>
   );
 }
