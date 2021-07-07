@@ -90,7 +90,6 @@ function DetailsReceita(props) {
         iniciar receita
       </Link>
       <Carousel sugest={ [sugestoes, type] } />
-      <div data-testid={ `${0}-recomendation-card` }>receitas recomendadas</div>
     </div>
   );
 }
