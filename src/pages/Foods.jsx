@@ -35,6 +35,7 @@ function Foods() {
   const renderList = (
     <div>
       <div>
+        <button data-testid="All-category-filter" onClick={ () => filterCategory() }>All</button>
         {categoryList()}
       </div>
       <div className="recipe-list">
