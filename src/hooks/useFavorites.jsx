@@ -1,6 +1,3 @@
-// import { fetchMealsByIngre, fetchMealsByName } from '../services/mealsApi';
-// import { fetchDrinkByIngre, fetchDrinkByName } from '../services/drinksApi';
-
 export default function useFavorite() {
   const handleToggleFavorite = (fav, setFav, favoriteRecipes, recipe) => {
     const id = recipe.idMeal || recipe.idDrink;
