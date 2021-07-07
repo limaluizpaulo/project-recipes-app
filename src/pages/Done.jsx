@@ -1,37 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Filters, Tags, ShareButton, RecipeHeaderList } from '../components';
-import { getFromLocalStorage } from '../services/helpers/localStorage';
+import { UserContext } from '../context/UserProvider';
 
 const Done = () => {
+  const { done } = useContext(UserContext);
   const [copied, setCopied] = useState(false);
   const [filter, setFilter] = useState('');
-  const doneRecipes = getFromLocalStorage('doneRecipes') || [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image:
-        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image:
-        'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
-      tags: [],
-    },
-  ];
 
   return (
     <>
@@ -42,8 +17,8 @@ const Done = () => {
       <div className="done-recipes">
         {copied ? 'Link copiado!' : ''}
 
-        {doneRecipes.length > 0
-          && doneRecipes
+        {done.length > 0
+          && done
             .filter(({ type }) => type.includes(filter))
             .map(
               (

@@ -11,16 +11,17 @@ const DrinksProvider = ({ children }) => {
   const [drinks, setDrinks] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [ingredientFilter, setIngredientFilter] = useState('');
 
   useEffect(() => {
     const loadDrinks = async () => {
-      const a = await fetchRecipes('drinks');
+      const a = await fetchRecipes('drinks', ingredientFilter);
       const b = await fetchCategories('drinks');
       setDrinks(a);
       setCategories(b);
     };
     loadDrinks();
-  }, []);
+  }, [ingredientFilter]);
 
   const setFilterCategory = async ({ target: { id } }) => {
     let filtered;
@@ -64,7 +65,8 @@ const DrinksProvider = ({ children }) => {
     setFilterCategory,
     filterById,
     filterIngredients,
-    filterAllMeasure };
+    filterAllMeasure,
+    setIngredientFilter };
   return (
     <DrinksContext.Provider value={ context }>
       { children }

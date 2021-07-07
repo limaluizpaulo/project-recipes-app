@@ -23,7 +23,7 @@ const ExploreMeals = () => {
       </Link>
       <Link
         data-testid="explore-by-area"
-        to="/explorar/comidas/areas"
+        to="/explorar/comidas/area"
       >
         Por Local de Origem
       </Link>
