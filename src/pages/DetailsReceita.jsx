@@ -38,7 +38,7 @@ function DetailsReceita(props) {
     };
     didMount();
     sugestoesfunv();
-  }, [receitas]);
+  }, [receitas, apelidoAPI]);
 
   function ingrFunction() {
     const vinte = 20;
