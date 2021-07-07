@@ -20,44 +20,65 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         });
       }
     }
-
     setStepsClassName(steps);
+  };
+
+  // carrega local storage dos ingredientes
+  const loadIngredientesLocalStorage = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { id } = currentRecipe;
+    switch (!inProgress) {
+    case true:
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ [curr]: { [id]: [] } }));
+      break;
+    default:
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...inProgress,
+          [curr]:
+          { ...inProgress[curr],
+            [id]: [...inProgress[curr][id]],
+          } })); // dps passar o spread pros ids
+    }
   };
 
   useEffect(() => {
     populateSteps();
+    loadIngredientesLocalStorage();
   }, [ingredients]);
-
-  // Adiciona o progresso da receita em localstorage
-  const addLocalStorageIngredient = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id } = currentRecipe;
-    console.log(currentRecipe);
-    if (inProgress === null) {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ [curr]: { [id]: [] } }));
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({ ...inProgress, [curr]: { ...inProgress[curr], [id]: [] } }));
-    }
-  };
 
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
+    const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { id, type } = currentRecipe;
+
     let step = 'step-checked';
-    console.log(targetId);
 
     if (stepsClassName[targetId].checked) {
       step = 'step-not-checked';
+      if (type === 'bebidas') {
+        const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        console.log(cocktails[id]);
+        // const exist = cocktails[id].find((cocktail) => cocktail);
+        // console.log(exist);
+      }
+      // localStorage.removeItem('inProgressRecipes', JSON
+      //   .stringify({ ...newLocalStorage, [curr]: { ...newLocalStorage[curr], [id]: [...newLocalStorage[curr][id], ingredients[targetId].ingredient] } }));
     }
 
     setStepsClassName([
       ...stepsClassName,
       stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
       stepsClassName[targetId].step = step,
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...newLocalStorage,
+          [curr]: { ...newLocalStorage[curr],
+            [id]: [...newLocalStorage[curr][id],
+              ingredients[targetId].ingredient] } })),
     ]);
 
-    addLocalStorageIngredient();
     stepsProgress(stepsClassName);
   };
 
