@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import YouTube from 'react-youtube';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
@@ -22,7 +23,8 @@ function Details() {
   const title = `str${singleType}`;
   const category = 'strCategory';
   const instructions = 'strInstructions';
-
+  const { pathname } = useLocation();
+  console.log(pathname);
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);
@@ -30,6 +32,14 @@ function Details() {
     };
     getData();
   }, []);
+  const videoId = detailsData === undefined ? null : detailsData.strYoutube === undefined ? null : detailsData.strYoutube.slice(32);
+  const video = type === 'meals' ? (
+    <section data-testid="video">
+      <h3>Video</h3>
+      <YouTube
+        videoId={ videoId }
+      />
+    </section>) : null;
 
   // if (type === 'meals') {
   //   title = 'Comidas';
@@ -86,12 +96,9 @@ function Details() {
           <h3>Instructions</h3>
           <p data-testid="instructions">{detailsData[instructions]}</p>
         </section>
-        <section>
-          <h3>Video</h3>
-          {// https://www.npmjs.com/package/react-youtube
-
-          }
-        </section>
+        {// https://www.npmjs.com/package/react-youtube
+          video
+        }
         <Recommended />
       </main>
       <footer>

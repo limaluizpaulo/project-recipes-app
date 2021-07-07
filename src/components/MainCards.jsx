@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Card from './Card';
 import Categories from './Categories';
 import RecipesContext from '../contexts/RecipesContext';
+import pathTreament from '../helpers/HelperFunctions';
 
 export default function MainCards(props) {
   const { maxCards } = useContext(RecipesContext);
@@ -17,10 +18,10 @@ export default function MainCards(props) {
   const { pathname } = useLocation();
 
   if (data.length === 1) {
+    // const newPathname = pathTreament(pathname);
     history.push(`${pathname}/${data[0][typeId]}`);
   }
-  console.log(data);
-
+  console.log(pathname);
   return (
     <main>
       <Categories />

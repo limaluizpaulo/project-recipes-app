@@ -40,7 +40,7 @@ function Recommended() {
     <section>
       <h3>Recommended</h3>
       {// data-testid="${index}-recomendation-card"
-        recommendedData && (
+        recommendedData.length && (
           recommendedData.map((recipe, index) => (
             <Card
               key={ recipe[typeId] }
