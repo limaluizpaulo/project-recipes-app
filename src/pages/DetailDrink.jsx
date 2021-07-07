@@ -6,6 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
+import createListIngredients from '../helpFunctions/ingredientsList';
+import { handleFavorite } from '../helpFunctions/handleStorageKeys';
 
 export default function DetailDrink() {
   const bottomFixed = {
@@ -18,7 +20,7 @@ export default function DetailDrink() {
   const [setRecipeUrl] = useFetchRecipesApi();
   const { recipes, idProgress, setIdProgress,
     setCheckedIngredients } = useContext(RecipeContext);
-  const { idDrink, strCategory, strAlcoholic, strDrinkThumb,
+  const { strAlcoholic, strDrinkThumb,
     strDrink, strInstructions } = recipes[0] || [];
   const {
     setIsRecomendation,
@@ -49,66 +51,66 @@ export default function DetailDrink() {
     if (favRecipes) setIsFavorite(favRecipes.some((favId) => favId.id === id));
   }, [isFavorite]);
 
-  function listIngredients(recipe) {
-    const list = [];
+  // function listIngredients(recipe) {
+  //   const list = [];
 
-    list.push(Object.entries(recipe)
-      .filter((ingredient) => (
-        ingredient[0].includes('strIngredient')
-      ))
-      .filter((nullConditional) => (
-        nullConditional[1] !== null
-      ))
-      .map((setIngredients) => (
-        setIngredients[1].length > 0 && setIngredients[1]
-      ))
-      .filter((finalList) => finalList !== false));
+  //   list.push(Object.entries(recipe)
+  //     .filter((ingredient) => (
+  //       ingredient[0].includes('strIngredient')
+  //     ))
+  //     .filter((nullConditional) => (
+  //       nullConditional[1] !== null
+  //     ))
+  //     .map((setIngredients) => (
+  //       setIngredients[1].length > 0 && setIngredients[1]
+  //     ))
+  //     .filter((finalList) => finalList !== false));
 
-    list.push(Object.entries(recipe)
-      .filter((ingredient) => (
-        ingredient[0].includes('strMeasure')
-      ))
-      .filter((nullConditional) => (
-        nullConditional[1] !== null
-      ))
-      .map((setIngredients) => (
-        setIngredients[1].length !== ' ' && setIngredients[1]
-      ))
-      .filter((finalList) => finalList !== false));
+  //   list.push(Object.entries(recipe)
+  //     .filter((ingredient) => (
+  //       ingredient[0].includes('strMeasure')
+  //     ))
+  //     .filter((nullConditional) => (
+  //       nullConditional[1] !== null
+  //     ))
+  //     .map((setIngredients) => (
+  //       setIngredients[1].length !== ' ' && setIngredients[1]
+  //     ))
+  //     .filter((finalList) => finalList !== false));
 
-    return list;
-  }
+  //   return list;
+  // }
 
   function handleShare() {
     clipboardCopy(window.location.href);
     setIsCopy(true);
   }
 
-  function ternary(measure) {
-    return !measure ? '' : measure;
-  }
+  // function ternary(measure) {
+  //   return !measure ? '' : measure;
+  // }
 
-  function handleFavorite() {
-    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (!isFavorite) {
-      const favRecipe = {
-        id: idDrink,
-        type: 'bebida',
-        area: '',
-        category: strCategory,
-        alcoholicOrNot: strAlcoholic,
-        name: strDrink,
-        image: strDrinkThumb,
-      };
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
-    } else {
-      const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
-      const newStorage = [...favRecipes.slice(0, favIndex),
-        ...favRecipes.slice(favIndex + 1)];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-    }
-    setIsFavorite(!isFavorite);
-  }
+  // function handleFavorite() {
+  //   const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   if (!isFavorite) {
+  //     const favRecipe = {
+  //       id: idDrink,
+  //       type: 'bebida',
+  //       area: '',
+  //       category: strCategory,
+  //       alcoholicOrNot: strAlcoholic,
+  //       name: strDrink,
+  //       image: strDrinkThumb,
+  //     };
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
+  //   } else {
+  //     const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
+  //     const newStorage = [...favRecipes.slice(0, favIndex),
+  //       ...favRecipes.slice(favIndex + 1)];
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  //   }
+  //   setIsFavorite(!isFavorite);
+  // }
 
   function handleRecipeInProgress() {
     // setIdProgress(idDetail);
@@ -147,7 +149,10 @@ export default function DetailDrink() {
           {isCopy && (<p>Link copiado!</p>)}
           <button
             type="button"
-            onClick={ () => handleFavorite() }
+            onClick={ () => {
+              handleFavorite(recipes[0], id, 'bebida', isFavorite);
+              setIsFavorite(!isFavorite);
+            } }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -157,16 +162,14 @@ export default function DetailDrink() {
           </button>
           <p data-testid="recipe-category">{ strAlcoholic }</p>
           <ul>
-            {
-              listIngredients(recipes[0])[0].map((ing, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {` ${ing}: ${ternary(listIngredients(recipes[0])[1][index])} `}
-                </li>
-              ))
-            }
+            {createListIngredients(recipes).map((ingredient, index) => (
+              <li
+                key={ ingredient }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {ingredient}
+              </li>
+            ))}
           </ul>
           <p data-testid="instructions">{strInstructions}</p>
           <div data-testid="0-recomendation-card"> Falta criar</div>

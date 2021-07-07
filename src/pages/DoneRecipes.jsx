@@ -5,29 +5,8 @@ import HeaderExplore from '../components/HeaderExplore';
 function DoneRecipes() {
   return (
     <div>
-      RECEITAS FEITAS
+      {/* RECEITAS FEITAS */}
       <HeaderExplore title="Receitas Feitas" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        // onClick={ }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        // onClick={ }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        // onClick={ }
-      >
-        Drink
-      </button>
       <DoneRecipesList />
     </div>
   );

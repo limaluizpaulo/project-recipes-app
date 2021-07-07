@@ -9,7 +9,7 @@ import Food from './pages/Food';
 import Drink from './pages/Drink';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
-import FavouritesRecipes from './pages/FavouritesRecipes';
+import FavouritesRecipes from './pages/FavoritesRecipes';
 import Explore from './pages/Explore';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';

@@ -6,6 +6,9 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
+import createListIngredients from '../helpFunctions/ingredientsList';
+import { checkListIngredients, handleDoneRecipes,
+  handleFavorite } from '../helpFunctions/handleStorageKeys';
 
 export default function InProgressMeal() {
   const bottomFixed = {
@@ -24,26 +27,26 @@ export default function InProgressMeal() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
-  const [countCheked, setCountChecked] = useState(1);
+  const [countChecked, setCountChecked] = useState(0);
   const BASE_URL_DETAIL_MEAL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
-  function createListIngredients() {
-    let ingredientsList = [];
-    const ingredients = Object.entries(recipes[0]).filter(([key, value]) => (
-      value && value !== ' ' && (
-        key.includes('strIngredient') || key.includes('strMeasure'))));
+  // function createListIngredients() {
+  //   let ingredientsList = [];
+  //   const ingredients = Object.entries(recipes[0]).filter(([key, value]) => (
+  //     value && value !== ' ' && (
+  //       key.includes('strIngredient') || key.includes('strMeasure'))));
 
-    for (let i = 0; i < ingredients.length / 2; i += 1) {
-      ingredientsList = [...ingredientsList,
-        `${ingredients[i][1]} - ${ingredients[i + (ingredients.length / 2)][1]}`];
-    }
-    return ingredientsList;
-  }
+  //   for (let i = 0; i < ingredients.length / 2; i += 1) {
+  //     ingredientsList = [...ingredientsList,
+  //       `${ingredients[i][1]} - ${ingredients[i + (ingredients.length / 2)][1]}`];
+  //   }
+  //   return ingredientsList;
+  // }
 
   useEffect(() => {
     setRecipeUrl(BASE_URL_DETAIL_MEAL);
     if (recipes[0]) {
-      listIngredients.current = createListIngredients(); // useRef usado só a título de curiosidade
+      listIngredients.current = createListIngredients(recipes); // useRef usado só a título de curiosidade
     }
   }, [recipes]);
 
@@ -55,7 +58,7 @@ export default function InProgressMeal() {
     if (storedMeal) {
       setIdProgress(storedMeal[0]);
       setCheckedIngredients(storedMeal[1]);
-      setCountChecked(storedMeal[1].length + 1);
+      setCountChecked(storedMeal[1].length);
     }
     // setIsRecomendation(true);
   }, []);
@@ -65,27 +68,27 @@ export default function InProgressMeal() {
     if (favRecipes) setIsFavorite(favRecipes.some((favId) => favId.id === id));
   }, [isFavorite]);
 
-  function handleFavorite() {
-    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (!isFavorite) {
-      const favRecipe = {
-        id: idMeal,
-        type: 'comida',
-        area: strArea,
-        category: strCategory,
-        alcoholicOrNot: '',
-        name: strMeal,
-        image: strMealThumb,
-      };
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
-    } else {
-      const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
-      const newStorage = [...favRecipes.slice(0, favIndex),
-        ...favRecipes.slice(favIndex + 1)];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-    }
-    setIsFavorite(!isFavorite);
-  }
+  // function handleFavorite() {
+  //   const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   if (!isFavorite) {
+  //     const favRecipe = {
+  //       id: idMeal,
+  //       type: 'comida',
+  //       area: strArea,
+  //       category: strCategory,
+  //       alcoholicOrNot: '',
+  //       name: strMeal,
+  //       image: strMealThumb,
+  //     };
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
+  //   } else {
+  //     const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
+  //     const newStorage = [...favRecipes.slice(0, favIndex),
+  //       ...favRecipes.slice(favIndex + 1)];
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  //   }
+  //   setIsFavorite(!isFavorite);
+  // }
 
   function handleShare() {
     const url = window.location.href
@@ -97,73 +100,45 @@ export default function InProgressMeal() {
   }
 
   function handleCheck({ target: { checked } }, index) {
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
-    || { cocktails: {}, meals: { [id]: [] } };
-    if (checked) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(
-          {
-            ...recipesInProgress,
-            meals: {
-              ...recipesInProgress.meals,
-              [id]: [...recipesInProgress.meals[id], index],
-            },
-          },
-        ));
-      setCountChecked(countCheked + 1);
-    } else {
-      let ingredientsList = recipesInProgress.meals[id];
-      const ingredientIndex = ingredientsList.indexOf(index);
-      ingredientsList = [...ingredientsList.slice(0, ingredientIndex),
-        ...ingredientsList.slice(ingredientIndex + 1)];
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(
-          {
-            ...recipesInProgress,
-            meals: {
-              ...recipesInProgress.meals,
-              [id]: ingredientsList,
-            },
-          },
-        ));
-      setCountChecked(countCheked - 1);
+    const checkCounter = checkListIngredients({ checked, index, id, countChecked },
+      'meals');
+    setCountChecked(checkCounter);
+    if (checkCounter < listIngredients.current.length) {
+      return setIsDisable(true);
     }
-    if (countCheked < listIngredients.current.length) {
-      setIsDisable(true);
-    } else {
-      setIsDisable(false);
-    }
+    setIsDisable(false);
   }
 
-  function handleDoneRecipes() {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const doneIndex = doneRecipes.some((doneId) => doneId.id === id);
-    if (!doneIndex) {
-      localStorage.setItem('doneRecipes', JSON.stringify(
-        [...doneRecipes,
-          {
-            id: idMeal,
-            type: 'comida',
-            area: strArea,
-            category: strCategory,
-            alcoholicOrNot: '',
-            name: strMeal,
-            image: strMealThumb,
-            doneDate: Date.now(),
-            tags: strTags,
-          },
-        ],
-      ));
-    }
-    // const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    // const inProgressIndex = recipesInProgress.meals.indexOf(recipesInProgress.meals
-    //   .find((mealId) => mealId === id));
+  // function handleDoneRecipes() {
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  //   const tags = strTags ? strTags.split(',') : [];
+  //   const doneIndex = doneRecipes.some((doneId) => doneId.id === id);
+  //   if (!doneIndex) {
+  //     localStorage.setItem('doneRecipes', JSON.stringify(
+  //       [...doneRecipes,
+  //         {
+  //           id: idMeal,
+  //           type: 'comida',
+  //           area: strArea,
+  //           category: strCategory,
+  //           alcoholicOrNot: '',
+  //           name: strMeal,
+  //           image: strMealThumb,
+  //           doneDate: new Date().toLocaleDateString(),
+  //           tags,
+  //         },
+  //       ],
+  //     ));
+  //   }
+  //   // const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  //   // const inProgressIndex = recipesInProgress.meals.indexOf(recipesInProgress.meals
+  //   //   .find((mealId) => mealId === id));
 
-    // const newStorage = [...favRecipes.slice(0, favIndex),
-    //   ...favRecipes.slice(favIndex + 1)];
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-    history.push('/receitas-feitas');
-  }
+  //   // const newStorage = [...favRecipes.slice(0, favIndex),
+  //   //   ...favRecipes.slice(favIndex + 1)];
+  //   // localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  //   history.push('/receitas-feitas');
+  // }
 
   return (
     <div>
@@ -184,7 +159,10 @@ export default function InProgressMeal() {
           {isCopy && (<p>Link copiado!</p>)}
           <button
             type="button"
-            onClick={ () => handleFavorite() }
+            onClick={ () => {
+              handleFavorite(recipes[0], id, 'comida', isFavorite);
+              setIsFavorite(!isFavorite);
+            } }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -193,7 +171,7 @@ export default function InProgressMeal() {
             />
           </button>
           <p data-testid="recipe-category">{strCategory}</p>
-          {createListIngredients().map((ingredient, index) => (
+          {createListIngredients(recipes).map((ingredient, index) => (
             <div key={ ingredient }>
               <label htmlFor={ ingredient } data-testid={ `${index}-ingredient-step` }>
                 <input
@@ -212,7 +190,18 @@ export default function InProgressMeal() {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ isDisable }
-            onClick={ handleDoneRecipes }
+            onClick={ () => {
+              handleDoneRecipes({
+                id: idMeal,
+                type: 'comida',
+                area: strArea,
+                category: strCategory,
+                name: strMeal,
+                image: strMealThumb,
+                strTags,
+              });
+              history.push('/receitas-feitas');
+            } }
           >
             Finalizar Receita
           </button>

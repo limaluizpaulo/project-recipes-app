@@ -6,6 +6,9 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
+import createListIngredients from '../helpFunctions/ingredientsList';
+import { checkListIngredients, handleDoneRecipes,
+  handleFavorite } from '../helpFunctions/handleStorageKeys';
 
 export default function InProgressDrink() {
   const bottomFixed = {
@@ -20,30 +23,30 @@ export default function InProgressDrink() {
   const { recipes, setIdProgress, checkedIngredients,
     setCheckedIngredients } = useContext(RecipeContext);
   const { idDrink, strCategory, strAlcoholic, strDrinkThumb,
-    strDrink, strInstructions } = recipes[0] || [];
+    strDrink, strInstructions, strTags } = recipes[0] || [];
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
-  const [countCheked, setCountChecked] = useState(1);
+  const [countChecked, setCountChecked] = useState(0);
   const BASE_URL_DETAIL_DRINK = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
-  function createListIngredients() {
-    let ingredientsList = [];
-    const ingredients = Object.entries(recipes[0]).filter(([key, value]) => (
-      value && value !== ' ' && (
-        key.includes('strIngredient') || key.includes('strMeasure'))));
+  // function createListIngredients() {
+  //   let ingredientsList = [];
+  //   const ingredients = Object.entries(recipes[0]).filter(([key, value]) => (
+  //     value && value !== ' ' && (
+  //       key.includes('strIngredient') || key.includes('strMeasure'))));
 
-    for (let i = 0; i < ingredients.length / 2; i += 1) {
-      ingredientsList = [...ingredientsList,
-        `${ingredients[i][1]} - ${ingredients[i + (ingredients.length / 2)][1]}`];
-    }
-    return ingredientsList;
-  }
+  //   for (let i = 0; i < ingredients.length / 2; i += 1) {
+  //     ingredientsList = [...ingredientsList,
+  //       `${ingredients[i][1]} - ${ingredients[i + (ingredients.length / 2)][1]}`];
+  //   }
+  //   return ingredientsList;
+  // }
 
   useEffect(() => {
     setRecipeUrl(BASE_URL_DETAIL_DRINK);
     if (recipes[0]) {
-      listIngredients.current = createListIngredients(); // useRef usado só a título de curiosidade
+      listIngredients.current = createListIngredients(recipes); // useRef usado só a título de curiosidade
     }
   }, [recipes]);
 
@@ -55,40 +58,38 @@ export default function InProgressDrink() {
     if (storedDrink) {
       setIdProgress(storedDrink[0]);
       setCheckedIngredients(storedDrink[1]);
-      setCountChecked(storedDrink[1].length + 1);
+      setCountChecked(storedDrink[1].length);
     }
     // setIsRecomendation(true);
   }, []);
 
   useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (storage !== null && storage.find((findId) => findId.id === id)) {
-      setIsFavorite(true);
-    }
-  }, []);
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favRecipes) setIsFavorite(favRecipes.some((favId) => favId.id === id));
+  }, [isFavorite]);
 
-  function handleFavorite() {
-    // setIsFavorite(!isFavorite);
-    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (!isFavorite) {
-      const favRecipe = {
-        id: idDrink,
-        type: 'bebida',
-        area: '',
-        category: strCategory,
-        alcoholicOrNot: strAlcoholic,
-        name: strDrink,
-        image: strDrinkThumb,
-      };
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
-    } else {
-      const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
-      const newStorage = [...favRecipes.slice(0, favIndex),
-        ...favRecipes.slice(favIndex + 1)];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-    }
-    setIsFavorite(!isFavorite);
-  }
+  // function handleFavorite() {
+  //   // setIsFavorite(!isFavorite);
+  //   const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   if (!isFavorite) {
+  //     const favRecipe = {
+  //       id: idDrink,
+  //       type: 'bebida',
+  //       area: '',
+  //       category: strCategory,
+  //       alcoholicOrNot: strAlcoholic,
+  //       name: strDrink,
+  //       image: strDrinkThumb,
+  //     };
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
+  //   } else {
+  //     const favIndex = favRecipes.indexOf(favRecipes.find((favId) => favId.id === id));
+  //     const newStorage = [...favRecipes.slice(0, favIndex),
+  //       ...favRecipes.slice(favIndex + 1)];
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  //   }
+  //   setIsFavorite(!isFavorite);
+  // }
 
   function handleShare() {
     const url = window.location.href
@@ -99,45 +100,46 @@ export default function InProgressDrink() {
     setIsCopy(true);
   }
 
-  function handleClick({ target: { checked } }, index) {
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
-    || { cocktails: { [id]: [] }, meals: {} };
-    if (checked) {
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(
-          {
-            ...recipesInProgress,
-            cocktails: {
-              ...recipesInProgress.cocktails,
-              [id]: [...recipesInProgress.cocktails[id], index],
-            },
-          },
-        ));
-      setCountChecked(countCheked + 1);
-    } else {
-      let ingredientsList = recipesInProgress.cocktails[id];
-      const ingredientIndex = ingredientsList.indexOf(index);
-      ingredientsList = [...ingredientsList.slice(0, ingredientIndex),
-        ...ingredientsList.slice(ingredientIndex + 1)];
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(
-          {
-            ...recipesInProgress,
-            cocktails: {
-              ...recipesInProgress.cocktails,
-              [id]: ingredientsList,
-            },
-          },
-        ));
-      setCountChecked(countCheked - 1);
+  function handleCheck({ target: { checked } }, index) {
+    const checkCounter = checkListIngredients({ checked, index, id, countChecked },
+      'cocktails');
+    setCountChecked(checkCounter);
+    if (checkCounter < listIngredients.current.length) {
+      return setIsDisable(true);
     }
-    if (countCheked < listIngredients.current.length) {
-      setIsDisable(true);
-    } else {
-      setIsDisable(false);
-    }
-    console.log(countCheked);
+    setIsDisable(false);
   }
+
+  // function handleDoneRecipes() {
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  //   const tags = strTags ? strTags.split(',') : [];
+  //   const doneIndex = doneRecipes.some((doneId) => doneId.id === id);
+  //   if (!doneIndex) {
+  //     localStorage.setItem('doneRecipes', JSON.stringify(
+  //       [...doneRecipes,
+  //         {
+  //           id: idDrink,
+  //           type: 'comida',
+  //           area: '',
+  //           category: strCategory,
+  //           alcoholicOrNot: strAlcoholic,
+  //           name: strDrink,
+  //           image: strDrinkThumb,
+  //           doneDate: new Date().toLocaleDateString(),
+  //           tags,
+  //         },
+  //       ],
+  //     ));
+  //   }
+  //   // const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  //   // const inProgressIndex = recipesInProgress.meals.indexOf(recipesInProgress.meals
+  //   //   .find((mealId) => mealId === id));
+
+  //   // const newStorage = [...favRecipes.slice(0, favIndex),
+  //   //   ...favRecipes.slice(favIndex + 1)];
+  //   // localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+  //   history.push('/receitas-feitas');
+  // }
 
   return (
     <div>
@@ -158,7 +160,10 @@ export default function InProgressDrink() {
           {isCopy && (<p>Link copiado!</p>)}
           <button
             type="button"
-            onClick={ () => handleFavorite() }
+            onClick={ () => {
+              handleFavorite(recipes[0], id, 'bebida', isFavorite);
+              setIsFavorite(!isFavorite);
+            } }
           >
             <img
               src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -167,14 +172,14 @@ export default function InProgressDrink() {
             />
           </button>
           <p data-testid="recipe-category">{strAlcoholic}</p>
-          {createListIngredients().map((ingredient, index) => (
+          {createListIngredients(recipes).map((ingredient, index) => (
             <div key={ ingredient }>
               <label htmlFor={ ingredient } data-testid={ `${index}-ingredient-step` }>
                 <input
                   name={ ingredient }
                   type="checkbox"
                   defaultChecked={ checkedIngredients.includes(index) }
-                  onClick={ (e) => handleClick(e, index) }
+                  onClick={ (e) => handleCheck(e, index) }
                 />
                 {ingredient}
               </label>
@@ -186,7 +191,18 @@ export default function InProgressDrink() {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ isDisable }
-            onClick={ () => history.push('/receitas-feitas') }
+            onClick={ () => {
+              handleDoneRecipes({
+                id: idDrink,
+                type: 'bebida',
+                category: strCategory,
+                alcoholicOrNot: strAlcoholic,
+                name: strDrink,
+                image: strDrinkThumb,
+                strTags,
+              });
+              history.push('/receitas-feitas');
+            } }
           >
             Finalizar Receita
           </button>
