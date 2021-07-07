@@ -9,10 +9,10 @@ import Perfil from './pages/Perfil';
 import Explore from './pages/Explore';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
-import AreaExplorer from './pages/AreaExplorer';
-import SearchIngredients from './pages/SearchIngredients';
+// import AreaExplorer from './pages/AreaExplorer';
+// import SearchIngredients from './pages/SearchIngredients';
 import InProgress from './pages/InProgress';
-import ExplorarMenu from './pages/ExplorarMenu';
+// import ExplorarMenu from './pages/ExplorarMenu';
 import IdFood from './pages/IdFood';
 
 function App() {
