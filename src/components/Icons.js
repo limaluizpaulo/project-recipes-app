@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -9,6 +10,8 @@ function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(true);
   const [changeCopy, setChangeCopy] = useState(false);
   const target = useRef(null);
+  const history = useHistory();
+  const { pathname } = history.location;
 
   const DOISMIL = 2000;
 
@@ -78,7 +81,8 @@ function Icons(item) {
           <img
             src={ shareIcon }
             alt="share icon"
-            data-testid="share-btn"
+            data-testid={ pathname.includes('receitas-favoritas')
+              ? '{index}-horizontal-share-btn' : 'share-btn' }
           />
         </button>
         <button
