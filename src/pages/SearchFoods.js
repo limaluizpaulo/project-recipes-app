@@ -7,7 +7,9 @@ const SearchFoods = () => {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      <h1>SearchFoods</h1>
+      <button data-testid="explore-by-ingredient" type="button">Por Ingredientes</button>
+      <button data-testid="explore-by-area" type="button">Por Local de Origem</button>
+      <button data-testid="explore-surprise" type="button">Me Surpreenda!</button>
       <Footer />
     </div>
   );
