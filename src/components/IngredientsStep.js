@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import loadDoneItems from '../services/LoadInProgress';
 
 function IngredientsStep(props) {
   const { value: { recipe, url, id } } = props;
@@ -16,18 +17,8 @@ function IngredientsStep(props) {
   }
   const [missingIngredients, setMissingIngredients] = useState();
 
-  function loadDoneItems() {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgress) {
-      if (url.match(/comidas/gi)) {
-        return inProgress.meals[id];
-      }
-      return inProgress.cocktails[id];
-    }
-  }
-
   useEffect(() => {
-    setMissingIngredients(loadDoneItems());
+    setMissingIngredients(loadDoneItems({ url, id }));
   }, []);
 
   function handleClick(event) {
@@ -36,14 +27,14 @@ function IngredientsStep(props) {
     if (!event.target.nextSibling.classList.value) {
       event.target.nextSibling.classList.toggle('tachado');
       const newMissingIngredients = missingIngredients;
-      // newMissingIngredients[event.target.value] = '';
-      // setMissingIngredients(newMissingIngredients);
+      newMissingIngredients[event.target.value] = '';
+      setMissingIngredients(newMissingIngredients);
       console.log(newMissingIngredients);
     } else {
       event.target.nextSibling.classList = '';
       const newMissingIngredients = missingIngredients;
-      // newMissingIngredients[event.target.value] = `${event.target.value}`;
-      // setMissingIngredients(newMissingIngredients);
+      newMissingIngredients[event.target.value] = `${event.target.value}`;
+      setMissingIngredients(newMissingIngredients);
       console.log(newMissingIngredients);
     }
     if (url.match(/comidas/gi)) {
@@ -79,6 +70,7 @@ function IngredientsStep(props) {
             return (
               <li key={ index }>
                 <input
+                  value={ index }
                   type="checkbox"
                   data-testid={ `${index}-ingredient-step` }
                   onClick={ handleClick }
