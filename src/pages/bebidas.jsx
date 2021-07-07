@@ -14,9 +14,12 @@ import {
 
 class Bebidas extends Component {
   componentDidMount() {
-    const { dispatchDrinks, apiDrinkCategories, hasSearchBar } = this.props;
+    const { dispatchDrinks, apiDrinkCategories, drinks, hasSearchBar } = this.props;
     hasSearchBar(true);
-    dispatchDrinks();
+    if (drinks.length === 0) {
+      console.log('entrei');
+      dispatchDrinks();
+    }
     apiDrinkCategories();
   }
 

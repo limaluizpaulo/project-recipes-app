@@ -25,10 +25,14 @@ class Comidas extends Component {
   }
 
   async componentDidMount() {
-    const { apiFoodCategories, dispatchFoodRecipes, hasSearchBar } = this.props;
+    const { apiFoodCategories, dispatchFoodRecipes, hasSearchBar, meals } = this.props;
     hasSearchBar(true);
+    console.log(meals);
+    if (meals.length === 0) {
+      console.log('entrei');
+      dispatchFoodRecipes();
+    }
     apiFoodCategories();
-    dispatchFoodRecipes();
     // await apiFoodCategories().then((data) => console.log(data));
   }
 

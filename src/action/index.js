@@ -6,7 +6,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const ALL_FOOD_CATEGORIES = 'ALL_FOOD_CATEGORIES';
 export const ALL_DRINK_CATEGORIES = 'ALL_DRINK_CATEGORIES';
 export const IS_LOADING = 'IS_LOADING';
-export const RAMDOM_RECIPE = 'RAMDOM_RECIPE';
+export const INGREDIENTS = 'INGREDIENTS';
 export const IS_SEARCHBAR = 'IS_SEARCHBAR';
 export const ALL_FOOD_RECIPES = 'ALL_FOOD_RECIPES';
 export const FOOD_BY_CATEGORIES = 'FOOD_BY_CATEGORIES';
@@ -22,8 +22,8 @@ export const getAllDrinkCategories = (allDrinkCategories) => ({
   type: ALL_DRINK_CATEGORIES, allDrinkCategories });
 export const getSearchBarResponse = (searchBarOn) => ({
   type: IS_SEARCHBAR, searchBarOn });
-export const getRamdomRecipe = (ramdomRecipe) => ({
-  type: RAMDOM_RECIPE, ramdomRecipe });
+export const getIngredients = (ingrediente) => ({
+  type: INGREDIENTS, ingrediente });
 export const getAllFoodRecipes = (recipes) => ({
   type: ALL_FOOD_RECIPES, recipes });
 export const getFoodByCategories = (meals) => ({
@@ -195,5 +195,30 @@ export const fetchFoodDetails = (id) => (dispatch) => {
     .then((response) => response.json())
     .then((foodDetails) => {
       dispatch(getFoodDetails(foodDetails.meals[0]));
+    });
+};
+
+export const fetchByIngredient = (param) => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+
+  fetch(`https://www.the${param}db.com/api/json/v1/1/list.php?i=list`)
+    .then((response) => response.json())
+    .then((ingredientDetails) => {
+      console.log(ingredientDetails);
+      if (param === 'cocktail') {
+        console.log('arroz');
+        const type = 'drinks';
+        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
+        console.log(ingredients);
+        dispatch(getIngredients(ingredients));
+      }
+      if (param === 'meal') {
+        const type = `${param}s`;
+
+        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
+        console.log(ingredients);
+        dispatch(getIngredients(ingredients));
+      }
     });
 };

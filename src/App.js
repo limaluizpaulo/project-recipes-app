@@ -7,6 +7,7 @@ import Perfil from './pages/telaDePerfil';
 import Detalhes from './pages/Detalhes';
 import Explorarcomidas from './pages/explorarComidas/ExplorarBebidasComidas';
 import Explorar from './pages/telaDeExplorar';
+import ExplorarIngredientes from './pages/explorarIngredientes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -15,8 +16,8 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/explorar/comidas/area" />
-          <Route path="/explorar/bebidas/ingredientes" />
-          <Route path="/explorar/comidas/ingredientes" />
+          <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
+          <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
           <Route path="/explorar/comidas" component={ Explorarcomidas } />
           <Route path="/explorar/bebidas" component={ Explorarcomidas } />
           <Route path="/:page/:id" component={ Detalhes } />

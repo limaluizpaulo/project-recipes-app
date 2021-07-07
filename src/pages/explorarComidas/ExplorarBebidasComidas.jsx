@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import { fetchRamdomRecipe, getRamdomRecipe } from '../../action';
+import { fetchRamdomRecipe } from '../../action';
 
 export class ExplorarComidasBebidas extends Component {
   constructor(props) {
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => ({
 
 });
 const mapDispatchToProps = (dispatch) => ({
-  sendRamdomRecipe: (e) => dispatch(getRamdomRecipe(e)),
+  // sendRamdomRecipe: (e) => dispatch(getRamdomRecipe(e)),
   fetchApi: (e, a) => dispatch(fetchRamdomRecipe(e, a)),
 });
 
