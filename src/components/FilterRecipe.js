@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { actionFilterList } from '../Redux/actions';
-import { fetchRecipeFilterDrinks, fetchRecipeFilterFood } from '../services/recipeAPI';
+import { fetchRecipeAllDrink, fetchRecipeAllFood, fetchRecipeFilterDrinks, fetchRecipeFilterFood } from '../services/recipeAPI';
 
 function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
   const [object, setObject] = useState(list);
   const [show, setShow] = useState(false);
+  const [save, setSave] = useState('categoria');
+
   // console.log(list, listAll);
   useEffect(() => {
     if (Object.keys(list).length > 0) {
@@ -24,7 +26,21 @@ function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
   };
 
   function clickAPI({ target }) {
-    // console.log(choice, text);
+    console.log(target.value, save);
+    setSave(target.value);
+
+    if (target.value === 'All') {
+      if (recipeType === 'food') {
+        return resAPI(fetchRecipeAllFood());
+      }
+      return resAPI(fetchRecipeAllDrink());
+    }
+    if (target.value === save) {
+      if (recipeType === 'food') {
+        return resAPI(fetchRecipeAllFood());
+      }
+      return resAPI(fetchRecipeAllDrink());
+    }
     if (recipeType === 'food') {
       return resAPI(fetchRecipeFilterFood(target.value));
     }
@@ -38,6 +54,9 @@ function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
     <div className="show-recipe">
       <button
         type="button"
+        onClick={ clickAPI }
+        data-testid="All-category-filter"
+        value="All"
       >
         All
       </button>
