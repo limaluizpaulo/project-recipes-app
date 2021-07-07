@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Embed from 'react-embed';
+// import Embed from 'react-embed';
 import '../Style/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -23,7 +23,7 @@ class RecipeDetails extends Component {
   componentDidMount() {
     this.getRecipe();
     this.getDrinks();
-    console.log('aqui didiMount');
+    console.log('didmount');
   }
 
   handleClick() {
@@ -31,15 +31,10 @@ class RecipeDetails extends Component {
   }
 
   async getRecipe() {
-    console.log('aqui getRecipe');
     const { match: { params: { id } } } = this.props;
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await result.json();
-    console.log(meals);
-    this.setState({ recipe: meals[0] }, () => {
-      const { recipe } = this.state;
-      console.log(recipe);
-    });
+    this.setState({ recipe: meals[0] });
   }
 
   async getDrinks() {
@@ -56,20 +51,24 @@ class RecipeDetails extends Component {
     if (redirect) {
       return <Redirect to={ `/comidas/${id}/in-progress` } />;
     }
-    console.log(drinks);
+    if (recipe.length === 0) {
+      return <h2>Loading...</h2>;
+    }
     const ingredientsKeys = Object.entries(recipe);
     const ingredients = [];
     const measures = [];
+
     ingredientsKeys.forEach((key) => {
-      if (key[0].includes('strIngredient') && key[1].length > 0) {
+      if (key[0].includes('strIngredient') && key[1] !== null && key[1] !== '') {
         ingredients.push(key[1]);
       }
     });
     ingredientsKeys.forEach((key) => {
-      if (key[0].match('strMeasure') && key[1].length > 0) {
+      if (key[0].match('strMeasure') && key[1] !== null && key[1] !== '') {
         measures.push(key[1]);
       }
     });
+    console.log(measures);
     const finalList = [];
     for (let i = 0; i <= (ingredients.length - 1); i += 1) {
       if (measures[i] === undefined) {
@@ -85,8 +84,6 @@ class RecipeDetails extends Component {
       strCategory,
       strYoutube,
       strInstructions } = recipe;
-
-    console.log(strMealThumb);
     return (
       <div>
         <img
@@ -103,18 +100,27 @@ class RecipeDetails extends Component {
           <img className="icons" src={ whiteHeartIcon } alt="whiteHeartIcon" />
         </button>
         <h3 data-testid="recipe-category">{strCategory}</h3>
-        <div data-testid={ `${idMeal}-ingredient-name-and-measure` }>
+        <div>
           <h2>Ingredients</h2>
           <ul>
-            {finalList.map((ingredient, index) => (<li key={ index }>{ingredient}</li>))}
+            {finalList.map((ingredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ index }
+              >
+                {ingredient}
+              </li>))}
           </ul>
         </div>
         <h3>Instructions</h3>
         <p data-testid="instructions">
           {strInstructions}
         </p>
-
-        <Embed className="video" url={ strYoutube } data-testid="video" />
+        <iframe
+          data-testid="video"
+          src={ strYoutube }
+          title="This is a unique title"
+        />
 
         <h3>Receitas Recomendadas</h3>
         <div
@@ -124,14 +130,14 @@ class RecipeDetails extends Component {
             <div
               className="card-drink"
               key={ index }
-              data-testid={ `${idMeal}-recomendation-card` }
+              data-testid={ `${index}-recomendation-card` }
             >
               <img
                 className="img-recommed-drink"
                 src={ drink.strDrinkThumb }
                 alt={ index }
               />
-              <span>{drink.strDrink}</span>
+              <span data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</span>
             </div>
           ))}
         </div>
