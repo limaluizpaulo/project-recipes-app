@@ -113,8 +113,6 @@ export default function MealsDetails() {
             </Carousel.Caption>
           </Carousel.Item>))}
       </Carousel>
-      {/* slide de receitas recomendadas de drinks
-       com data-testid="${index}-recomendation-card" */}
       <Link to={ `/comidas/${idMeal}/in-progress` }>
         <button
           type="button"
