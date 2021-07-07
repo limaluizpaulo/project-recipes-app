@@ -40,7 +40,7 @@ function FoodByCountry() {
           data-testid="explore-by-area-dropdown"
           onChange={ handleClick }
         >
-          <option>All</option>
+          <option data-testid="All-option">All</option>
           {area.map((item, index) => (
             <option
               className="countryOption"
