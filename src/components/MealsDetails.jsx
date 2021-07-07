@@ -107,14 +107,14 @@ export default function MealsDetails() {
               width="100px"
 
             />
-            <Carousel.Caption>
+            <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{drink.strDrink}</h3>
             </Carousel.Caption>
           </Carousel.Item>))}
       </Carousel>
       {/* slide de receitas recomendadas de drinks
        com data-testid="${index}-recomendation-card" */}
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button type="button" data-testid="start-recipe-btn" className="iniciarReceita">Iniciar Receita</button>
     </div>
   );
 }

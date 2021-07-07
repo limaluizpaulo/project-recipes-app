@@ -100,7 +100,7 @@ export default function DrinksDetails() {
               width="100px"
 
             />
-            <Carousel.Caption>
+            <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{meals.strMeal}</h3>
             </Carousel.Caption>
           </Carousel.Item>))}
@@ -108,6 +108,7 @@ export default function DrinksDetails() {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        className="iniciarReceita"
       >
         Iniciar Receita
       </button>
