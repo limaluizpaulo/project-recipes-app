@@ -4,16 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  // const [email, setEmail] = useState();
   const emailUser = JSON.parse(localStorage.getItem('user')) || '';
-
-  // useEffect(() => {
-  //   const GetEmail = () => {
-  //     const emailUser = JSON.parse(localStorage.getItem('user'));
-  //     setEmail(emailUser.email);
-  //   };
-  //   GetEmail();
-  // }, []);
 
   const deleteUser = () => {
     localStorage.removeItem('email');

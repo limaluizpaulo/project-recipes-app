@@ -8,12 +8,10 @@ import { useMealsContext } from '../context/mealsContext';
 import { useDrinksContext } from '../context/drinksContext';
 import BtnsCategory from '../components/BtnsCategory';
 import CardRecipe from '../components/CardRecipe';
-// import useMealsAndDrinks from '../hooks/useMealsAndDrinks';
 
 export default function Recipes() {
   const [title, setTitle] = useState('');
   const { pathname } = useHistory().location;
-  // const { meals, drinks } = useMealsAndDrinks();
 
   const { mealsFiltered, filtersBtnsMeals, setFiltersBtnsMeals } = useMealsContext();
   const { drinksFiltered,
