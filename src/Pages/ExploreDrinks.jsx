@@ -1,17 +1,23 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../Components/Header';
-import { getRandom } from '../redux/actions';
+import { getIngredient, getRandom } from '../redux/actions';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreDrinks(props) {
-  const { surpriseDrink, shouldRedirect, drink } = props;
+  const { ingredientsCatcher, surpriseDrink, shouldRedirect, drink } = props;
+
+  useEffect(() => {
+    if (!shouldRedirect) {
+      ingredientsCatcher();
+    }
+  }, [ingredientsCatcher, shouldRedirect]);
 
   return shouldRedirect ? <Redirect to={ `/bebidas/${drink[0].idDrink}` } /> : (
-    <div>
+    <>
       <Header />
       <Link
         to="/explorar/bebidas/ingredientes"
@@ -28,8 +34,7 @@ function ExploreDrinks(props) {
       >
         Me Surpreenda!
       </button>
-      Explore Bebidas
-    </div>
+    </>
   );
 }
 
@@ -41,11 +46,12 @@ ExploreDrinks.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   surpriseDrink: () => dispatch(getRandom(BeverageAPI.surpriseDrink)),
+  ingredientsCatcher: () => dispatch(getIngredient(BeverageAPI.drinksIngredient)),
 });
 
 const mapStateToProps = (state) => ({
-  drink: state.random.list,
-  shouldRedirect: state.random.shouldRedirect,
+  drink: state.drinks.list,
+  shouldRedirect: state.drinks.shouldRedirect,
 });
 
 ExploreDrinks.propTypes = {

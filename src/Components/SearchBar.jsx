@@ -10,7 +10,7 @@ function SearchBar(props) {
   const {
     getFoodsApi, getDrinksApi, foods,
     goToFoodsPage, drinks, goToDrinksPage,
-    foodNotFound, drinkNotFound, title } = props;
+    title } = props;
   const shouldRedirect = goToFoodsPage || goToDrinksPage;
   const itemPage = title === 'Comidas' ? foods : drinks;
   const itemID = title === 'Comidas' ? 'idMeal' : 'idDrink';
@@ -38,15 +38,15 @@ function SearchBar(props) {
 
     if (letterRadio.current.checked && inputText.current.value.length > 1) {
       const message = 'Sua busca deve conter somente 1 (um) caracter';
-      alert(message); // eslint-disable-line no-alert
+      global.alert(message);
     }
 
     configState();
   };
   const pageTitle = title.toLowerCase();
-  if (foodNotFound || drinkNotFound) {
-    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
+  // if (foodNotFound || drinkNotFound) {
+  //   global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  // }
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (
