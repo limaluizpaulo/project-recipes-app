@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useLocation, useHistory } from 'react-router-dom';
 import pathTreament from '../helpers/HelperFunctions';
 
 export default function Card(props) {
@@ -10,19 +10,19 @@ export default function Card(props) {
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
   const newPathname = pathTreament(pathname);
   return (
-    // <Link to={ `${newPathname}/${id}` }>
-    <button
+    <Link to={ `${newPathname}/${id}` } data-testid={ dataTestId }>
+      {/* <button
       data-testid={ dataTestId }
       type="button"
       onClick={ () => {
         history.push(`${newPathname}/${id}`);
       } }
-    >
+    > */}
       <img src={ thumbnail } alt={ title } data-testid={ `${index}-card-img` } />
       {category && (<span>{category}</span>)}
       <span data-testid={ `${index}-card-name` }>{title}</span>
-    </button>
-    // </Link>
+      {/* </button> */}
+    </Link>
   );
 }
 
