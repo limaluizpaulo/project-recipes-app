@@ -1,3 +1,4 @@
+const APIPadrao = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 const BeverageServiceIngredientsAPI = async (ingredient) => {
@@ -63,12 +64,12 @@ export default {
   letter: BeverageServiceFirstLetterAPI,
   surpriseDrink: SurpriseDrinksAPI,
   getDrinkById,
-  default: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='),
+  default: () => fetch(APIPadrao),
   drinksIngredient: drinksIngredientsAPI,
   getByCategory: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.drinks),
-  getByDefault: () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  getByDefault: () => fetch(APIPadrao)
     .then((res) => res.json())
     .then((res) => res.drinks),
 };

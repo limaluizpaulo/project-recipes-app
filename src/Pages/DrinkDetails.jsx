@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getDrinks } from '../redux/actions';
 
 import BeverageAPI from '../services/BeverageRecipesAPI';
+import MealRecipesAPI from '../services/MealRecipesAPI';
 
 class DrinkDetails extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class DrinkDetails extends React.Component {
     this.state = {
       valueDrink: [],
       ingredients: [],
+      recomendations: [],
     };
     this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
@@ -23,6 +25,8 @@ class DrinkDetails extends React.Component {
   getIngredients() {
     const { valueDrink } = this.state;
     const arrayIngredients = [];
+    const arrayMeasures = [];
+    const ingredientsAndMeasures = [];
     const DRINK = Object.entries(valueDrink[0]);
 
     if (DRINK) {
@@ -31,19 +35,29 @@ class DrinkDetails extends React.Component {
           arrayIngredients.push(value);
         }
       });
+      DRINK.forEach(([key, value]) => {
+        if (key.includes('strMeasure') && value) {
+          arrayMeasures.push(value);
+        }
+      });
+      for (let i = 0; i < arrayMeasures.length; i += 1) {
+        ingredientsAndMeasures.push([arrayIngredients[i], arrayMeasures[i]]);
+      }
     }
-    this.setState({ ingredients: arrayIngredients });
+    this.setState({ ingredients: ingredientsAndMeasures });
   }
 
   async resultDrink() {
     const { getDrinkId, match } = this.props;
     const { id } = match.params;
+    const recomendations = await MealRecipesAPI.getByDefault();
     const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
-    this.setState({ valueDrink: payload }, () => this.getIngredients());
+    this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
   }
 
   render() {
-    const { valueDrink, ingredients } = this.state;
+    const SEIX = 5;
+    const { valueDrink, ingredients, recomendations } = this.state;
     console.log(valueDrink);
     if (valueDrink[0]) {
       return (
@@ -58,7 +72,7 @@ class DrinkDetails extends React.Component {
                 width="300"
               />
               <h1 data-testid="recipe-title">{drink.strDrink}</h1>
-              <h6 data-testid="recipe-category">{drink.strCategory}</h6>
+              <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
               <ul>
                 {ingredients.map((ingredient, i) => (
                   <li
@@ -71,9 +85,12 @@ class DrinkDetails extends React.Component {
               </ul>
               <p data-testid="instructions">{drink.strInstructions}</p>
               <img data-testid="video" src={ drink.strVideo } alt="video" />
-              <div data-testid={ `${index}-recomendation-card` }>
-                cards
-              </div>
+              {recomendations.map((value, j) => (j <= SEIX ? (
+                <div key={ j } data-testid={ `${j}-recomendation-card` }>
+                  <h5>{value.strMeal}</h5>
+                </div>
+              )
+                : null))}
             </>
           ))}
           <button type="button" data-testid="share-btn">share</button>
@@ -91,12 +108,8 @@ DrinkDetails.propTypes = {
   getDrinkById: PropTypes.any,
 }.isRiquered;
 
-const mapStateToProps = (state) => ({
-  drink: state.random.list,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   getDrinkId: (value, callback) => dispatch(getDrinks(value, callback)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrinkDetails);
+export default connect(null, mapDispatchToProps)(DrinkDetails);
