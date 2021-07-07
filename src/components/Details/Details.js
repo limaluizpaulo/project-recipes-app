@@ -160,7 +160,7 @@ function Details({ id, mealsOrDrinks }) {
             <button
               type="button"
               onClick={ () => {
-                copy(`http://localhost:3000/${pathname}`);
+                copy(`http://localhost:3000${pathname}`);
                 // eslint-disable-next-line no-alert
                 setCopyLink(true);
               } }
