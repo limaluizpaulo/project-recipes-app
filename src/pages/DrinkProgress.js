@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
 import { filterObj } from '../utils';
-import { checkFavoriteId, updateStorageRecipe, getStorageRecipe } from '../services/localStorage';
+import {
+  checkFavoriteId,
+  updateStorageRecipe,
+  getStorageRecipe,
+} from '../services/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -69,19 +73,23 @@ const DrinkProgress = ({ match }) => {
 
   const addFavorite = () => {
     const favorites = localStorage.favoriteRecipes
-      ? JSON.parse(localStorage.favoriteRecipes) : [];
+      ? JSON.parse(localStorage.favoriteRecipes)
+      : [];
 
     if (!iconFavorit) {
       const { idDrink, strArea, strCategory, strDrink, strDrinkThumb } = drink;
-      const add = [...favorites, {
-        id: idDrink,
-        type: 'bebida',
-        area: strArea || '',
-        category: strCategory,
-        alcoholicOrNot: 'Alcoholic',
-        name: strDrink,
-        image: strDrinkThumb,
-      }];
+      const add = [
+        ...favorites,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: strArea || '',
+          category: strCategory,
+          alcoholicOrNot: 'Alcoholic',
+          name: strDrink,
+          image: strDrinkThumb,
+        },
+      ];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {
       const remove = favorites.filter(({ id: idL }) => idL !== id);
@@ -94,11 +102,7 @@ const DrinkProgress = ({ match }) => {
     <div>
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
-      <img
-        data-testid="recipe-photo"
-        src={ drink.strDrinkThumb }
-        alt={ drink.strDrink }
-      />
+      <img data-testid="recipe-photo" src={ drink.strDrinkThumb } alt={ drink.strDrink } />
       <ul>
         Ingredientes:
         {renderCheckBox()}
@@ -112,7 +116,7 @@ const DrinkProgress = ({ match }) => {
         type="button"
         data-testid="share-btn"
       >
-        { msgCopy ? 'Link copiado!' : 'Compartilhar' }
+        {msgCopy ? 'Link copiado!' : 'Compartilhar'}
       </button>
       <button onClick={ addFavorite } type="button">
         <img
