@@ -40,3 +40,10 @@ export const fetchRandomMeal = async () => {
   const { meals } = await randomMeal.json();
   return meals;
 };
+
+export const fetchMealsIngredients = async () => {
+  const allIngredients = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const { Ingredients } = await allIngredients.json();
+  return Ingredients;
+};
