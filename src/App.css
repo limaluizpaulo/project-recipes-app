@@ -9,3 +9,7 @@
   text-align: center;
   width: 80%;
 }
+
+.checked {
+  text-decoration: line-through;
+}
