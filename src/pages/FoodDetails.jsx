@@ -13,13 +13,6 @@ function FoodDetails({ match: { params: { id } } }) {
     recomendationsDrinks,
   } = useContext(Context);
 
-  let IngredientsAndMeasures = {};
-  // if (details.meals && recomendationsDrinks) {
-  //   IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
-  //   const a = recomendationsDrinks.slice(0, 5);
-  //   console.log(a);
-  // }
-
   useEffect(() => {
     if (!details.meals) {
       detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -28,6 +21,7 @@ function FoodDetails({ match: { params: { id } } }) {
   }, [details.meals, detailsSyncSetState, id]);
 
   function loopIngredientsAndMeasure() {
+    const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
     const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
       mealArray.map((_a, index) => (
@@ -43,19 +37,23 @@ function FoodDetails({ match: { params: { id } } }) {
     );
   }
 
-  const loopRecomendationsDrinks = () => (
-    recomendationsDrinks.map((eachDrink, index) => (
-      <div
-        key={ index }
-        data-testid={ `${index}-recomendation-card` }
-      >
-        <h3 data-testid={ `${index}-recomendation-title` }>
+  const loopRecomendationsDrinks = () => {
+    const recommendationsNumber = 6;
+    const slicedRecommendations = recomendationsDrinks.slice(0, recommendationsNumber);
+    return (
+      slicedRecommendations.map((_, index) => (
+        <div
+          key={ index }
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <h3 data-testid={ `${index}-recomendation-title` }>
 
-          Teste
-        </h3>
-      </div>
-    ))
-  );
+            Teste
+          </h3>
+        </div>
+      ))
+    );
+  };
 
   if (details.meals && recomendationsDrinks) {
     const {
@@ -65,9 +63,7 @@ function FoodDetails({ match: { params: { id } } }) {
       strCategory,
       strYoutube,
     } = details.meals[0];
-    IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
-    const a = recomendationsDrinks.slice(0, 5);
-    console.log(a);
+
     return (
       <main>
         <img data-testid="recipe-photo" src={ strMealThumb } alt="Meal" width="200px" />
@@ -97,43 +93,6 @@ function FoodDetails({ match: { params: { id } } }) {
         <button type="button" data-testid="start-recipe-btn">
           Começar
         </button>
-        <Carousel activeIndex="2">
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=First slide&bg=373940"
-              alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Second slide&bg=282c34"
-              alt="Second slide"
-            />
-
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Third slide&bg=20232a"
-              alt="Third slide"
-            />
-
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
       </main>
     );
   }
@@ -148,5 +107,3 @@ FoodDetails.propTypes = {
 };
 
 export default FoodDetails;
-
-// O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
