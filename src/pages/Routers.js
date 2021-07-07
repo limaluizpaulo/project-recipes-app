@@ -30,12 +30,12 @@ function Routers() {
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       <Route
         exact
-        path="/comidas/{id-da-receita}/in-progress"
+        path="/comidas/:id/in-progress"
         component={ RecipeProcess }
       />
       <Route
         exact
-        path="bebidas/{id-da-receita}/in-progress"
+        path="/bebidas/:id/in-progress"
         component={ DrinkProcess }
       />
       <Route exact path="/explorar" component={ Explorer } />
