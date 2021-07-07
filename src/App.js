@@ -49,7 +49,6 @@ function App() {
       <Route exact path="/receitas-favoritas" component={ Favorites } />
       <Route exact path="/" component={ Login } />
       <Route component={ NotFound } />
-
       {/*
       <Route exact path="/comidas/:id/in-progress" component={} />
         <Route exact path="/bebidas/:id/in-progress" component={} />

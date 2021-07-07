@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { DrinksContext } from '../context/DrinksProvider';
 import { MealsContext } from '../context/MealsProvider';
 import ingredientsAPI from '../services/helpers/ingredientsAPI';

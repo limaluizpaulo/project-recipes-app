@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import SearchBar from './SearchBar';
-// import { AreasDropDown } from '.';
 
-const Header = ({ name, search, dropDown, db }) => {
+const Header = ({ name, search, children, dropDown }) => {
   const [bar, setBar] = useState(false);
   const [drop, setDrop] = useState(false);
 
@@ -31,8 +29,7 @@ const Header = ({ name, search, dropDown, db }) => {
         </button>
       )}
 
-      {(bar) ? <SearchBar db={ db } /> : ''}
-      {/* {(drop) ? <AreasDropDown /> : ''} */}
+      {bar ? children : ''}
     </header>
   );
 };
