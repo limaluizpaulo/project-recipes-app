@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AreasDropDown, Card, Footer, Header } from '../components';
+import { AreasDropDown, Card, Footer, Header, SearchBar } from '../components';
 import { MealsContext } from '../context/MealsProvider';
 
 const MealsByArea = () => {
@@ -7,7 +7,9 @@ const MealsByArea = () => {
 
   return (
     <div>
-      <Header name="Explorar Origem" search db="meals" />
+      <Header name="Explorar Origem" search>
+        <SearchBar db="meals" />
+      </Header>
       <AreasDropDown />
       {meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
         <Card
