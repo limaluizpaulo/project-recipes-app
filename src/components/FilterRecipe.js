@@ -21,7 +21,7 @@ function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
   }, [list]);
 
   const resAPI = async (fun) => {
-    const func = await fun;
+    const func = await fun();
     // console.log(func);
     dispRecipeFilter({
       filterList: func,
@@ -34,20 +34,20 @@ function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
 
     if (target.value === 'All') {
       if (recipeType === 'food') {
-        return resAPI(fetchRecipeAllFood());
+        return resAPI(fetchRecipeAllFood);
       }
-      return resAPI(fetchRecipeAllDrink());
+      return resAPI(fetchRecipeAllDrink);
     }
     if (target.value === save) {
       if (recipeType === 'food') {
-        return resAPI(fetchRecipeAllFood());
+        return resAPI(fetchRecipeAllFood);
       }
-      return resAPI(fetchRecipeAllDrink());
+      return resAPI(fetchRecipeAllDrink);
     }
     if (recipeType === 'food') {
-      return resAPI(fetchRecipeFilterFood(target.value));
+      return resAPI(() => fetchRecipeFilterFood(target.value));
     }
-    return resAPI(fetchRecipeFilterDrinks(target.value));
+    return resAPI(() => fetchRecipeFilterDrinks(target.value));
   }
 
   const type = Object.keys(object)[0];

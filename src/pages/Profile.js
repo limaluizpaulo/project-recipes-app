@@ -11,11 +11,11 @@ export default function Profile() {
     history.push('/');
   }
 
-  const email = localStorage.getItem('user', 'value').split('"')[3];
+  // const email = localStorage.getItem('user', 'value').split('"')[3];
   return (
     <div>
       <Header title="Perfil" display="false" />
-      <p data-testid="profile-email">{email}</p>
+      <p data-testid="profile-email">{' '}</p>
       <button
         type="button"
         data-testid="profile-done-btn"
