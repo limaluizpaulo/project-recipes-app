@@ -2,7 +2,7 @@
 
 const ingredientsAPI = async (filter, search, mealOrDrink = 'meals') => {
   if (filter === 'f' && search.length > 1) {
-    alert('Sua busca deve conter somente 1 (um) caracter');
+    global.alert('Sua busca deve conter somente 1 (um) caracter');
     return;
   }
   const typeSearch = (filter === 'i') ? 'filter' : 'search';
@@ -11,7 +11,7 @@ const ingredientsAPI = async (filter, search, mealOrDrink = 'meals') => {
   const response = await fetchAPI.json();
 
   if (response[mealOrDrink] === null) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return;
   }
 

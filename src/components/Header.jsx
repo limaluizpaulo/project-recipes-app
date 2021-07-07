@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import { AreasDropDown } from '.';
+// import { AreasDropDown } from '.';
 
-const Header = ({ name, search, dropDown, db, areas }) => {
+const Header = ({ name, search, dropDown, db }) => {
   const [bar, setBar] = useState(false);
   const [drop, setDrop] = useState(false);
 
@@ -32,7 +32,7 @@ const Header = ({ name, search, dropDown, db, areas }) => {
       )}
 
       {(bar) ? <SearchBar db={ db } /> : ''}
-      {(drop) ? <AreasDropDown areas={ areas } /> : ''}
+      {/* {(drop) ? <AreasDropDown /> : ''} */}
     </header>
   );
 };

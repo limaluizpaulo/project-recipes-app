@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Header } from '../components';
-import fetchAreas from '../services/api/fetchAreas';
+import React, { useContext } from 'react';
+import { AreasDropDown, Card, Header } from '../components';
+import { MealsContext } from '../context/MealsProvider';
 
 const MealsByArea = () => {
-  const [areas, setAreas] = useState([]);
-
-  useEffect(() => {
-    const load = async () => {
-      const newAreas = await fetchAreas();
-      setAreas(['All', ...newAreas]);
-    };
-    load();
-  }, []);
+  const { meals } = useContext(MealsContext);
 
   return (
     <div>
-      <Header name="Explorar Origem" search dropDown areas={ areas } />
+      <Header name="Explorar Origem" search db="meals" />
+      <AreasDropDown />
+      {meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
+        <Card
+          id={ idMeal }
+          key={ idMeal }
+          title={ strMeal }
+          img={ strMealThumb }
+          index={ index }
+          type="comidas"
+        />
+      ))}
     </div>
   );
 };
