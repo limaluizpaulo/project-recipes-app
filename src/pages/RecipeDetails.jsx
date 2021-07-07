@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import Embed from 'react-embed';
+import Embed from 'react-embed';
 import '../Style/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -12,21 +13,33 @@ class RecipeDetails extends Component {
     this.state = {
       recipe: [],
       drinks: [],
+      redirect: false,
     };
     this.getRecipe = this.getRecipe.bind(this);
     this.getDrinks = this.getDrinks.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.getRecipe();
     this.getDrinks();
+    console.log('aqui didiMount');
+  }
+
+  handleClick() {
+    this.setState({ redirect: true });
   }
 
   async getRecipe() {
+    console.log('aqui getRecipe');
     const { match: { params: { id } } } = this.props;
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await result.json();
-    this.setState({ recipe: meals[0] });
+    console.log(meals);
+    this.setState({ recipe: meals[0] }, () => {
+      const { recipe } = this.state;
+      console.log(recipe);
+    });
   }
 
   async getDrinks() {
@@ -38,9 +51,10 @@ class RecipeDetails extends Component {
   }
 
   render() {
-    const { recipe, drinks } = this.state;
-    if (recipe.length === 0) {
-      return (<h2>Loading...</h2>);
+    const { recipe, drinks, redirect } = this.state;
+    const { match: { params: { id } } } = this.props;
+    if (redirect) {
+      return <Redirect to={ `/comidas/${id}/in-progress` } />;
     }
     console.log(drinks);
     const ingredientsKeys = Object.entries(recipe);
@@ -69,7 +83,7 @@ class RecipeDetails extends Component {
       idMeal,
       strMeal,
       strCategory,
-      // strYoutube,
+      strYoutube,
       strInstructions } = recipe;
 
     console.log(strMealThumb);
@@ -100,7 +114,7 @@ class RecipeDetails extends Component {
           {strInstructions}
         </p>
 
-        {/* <Embed className="video" url={ strYoutube } data-testid="video" /> */}
+        <Embed className="video" url={ strYoutube } data-testid="video" />
 
         <h3>Receitas Recomendadas</h3>
         <div
@@ -121,7 +135,14 @@ class RecipeDetails extends Component {
             </div>
           ))}
         </div>
-        <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
+        <button
+          className="button"
+          onClick={ this.handleClick }
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          iniciar receita
+        </button>
       </div>
     );
   }

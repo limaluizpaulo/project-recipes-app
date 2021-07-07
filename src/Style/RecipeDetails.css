@@ -8,7 +8,9 @@
 
 .recomendation-List {
   display: flex;
+  flex-flow: row nowrap;
   margin: 10px 0 30px;
+  max-width: 300px;
   overflow-x: scroll;
 }
 
@@ -37,4 +39,11 @@
 
 .video {
   width: 200px;
+}
+
+.button {
+  bottom: 0;
+  margin-left: 0;
+  position: fixed;
+  right: 0;
 }
