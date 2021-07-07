@@ -11,18 +11,27 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
   const [isCopied, setIsCopied] = useState(false);
   const url = window.location.href;
 
+  // Atualiza o estado de item favoritado
+  const updateFavoriteState = (favorites) => {
+    const urlId = url.split('/')[4];
+
+    const exist = favorites.find(({ id: idFavorito }) => idFavorito === urlId);
+    if (exist) {
+      setIsFavorite(true);
+    }
+  };
+
   // Carrega todo o localstorage
   const loadFavoritesLocalStorage = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const urlId = url.split('/')[4];
 
-    if (!favorites) {
+    switch (!favorites) {
+    case true:
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    } else {
-      const exist = favorites.find(({ id: idFavorito }) => idFavorito === urlId);
-      if (exist) {
-        setIsFavorite(true);
-      }
+      break;
+    default:
+      updateFavoriteState(favorites);
+      break;
     }
   };
 
@@ -33,7 +42,18 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
   // Ação de clicar no botão compartilhar
   const handleShare = () => {
     const SECONDS = 3000;
-    copy(url);
+    const MEX_LENGTH = 4;
+    const link = url.split('/');
+
+    switch (link.length) {
+    case link.length > MEX_LENGTH:
+      copy(`${link[0]}/${link[1]}/${link[2]}/${link[3]}/${link[4]}`);
+      break;
+    default:
+      copy(link.join('/'));
+      break;
+    }
+
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), SECONDS);
   };
