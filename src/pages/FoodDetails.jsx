@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import Carousel from 'react-bootstrap/Carousel';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FoodDetails({ match: { params: { id } } }) {
+function FoodDetails({ history, match: { params: { id } } }) {
   const {
     details,
     detailsSyncSetState,
@@ -19,6 +19,10 @@ function FoodDetails({ match: { params: { id } } }) {
       fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
   }, [details.meals, detailsSyncSetState, id]);
+
+  const redirectFn = () => (<Redirect
+    to={ `/comidas/${id}/in-progress` }
+  />);
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -41,15 +45,16 @@ function FoodDetails({ match: { params: { id } } }) {
     const recommendationsNumber = 6;
     const slicedRecommendations = recomendationsDrinks.slice(0, recommendationsNumber);
     return (
-      slicedRecommendations.map((_, index) => (
+      slicedRecommendations.map((drink, index) => (
         <div
+          className={ index === 0 || index === 1 ? '' : 'carousel' }
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
           <h3 data-testid={ `${index}-recomendation-title` }>
-
-            Teste
+            {drink.strDrink}
           </h3>
+          <img src={ drink.strDrinkThumb } alt="recommendation drink" width="150px" />
         </div>
       ))
     );
@@ -83,16 +88,22 @@ function FoodDetails({ match: { params: { id } } }) {
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
         {loopIngredientsAndMeasure()}
-        {loopRecomendationsDrinks()}
         <iframe
           data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
           width="300px"
           title="Recipe"
         />
-        <button type="button" data-testid="start-recipe-btn">
-          Começar
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe"
+          onClick={ () => { history.push(`/comidas/${id}/in-progress`); } }
+        >
+          Iniciar Receita
         </button>
+        <h3>Recomendações de Drinks</h3>
+        {loopRecomendationsDrinks()}
       </main>
     );
   }
@@ -103,7 +114,7 @@ function FoodDetails({ match: { params: { id } } }) {
 
 FoodDetails.propTypes = {
   match: PropTypes.shape().isRequired,
-  // details: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default FoodDetails;
