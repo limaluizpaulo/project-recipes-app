@@ -10,52 +10,73 @@ function FavoriteButton() {
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
+  const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
+    strAlcoholic } = stateDrink[0];
+  const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
 
   const saveStorage = () => {
-    const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
-      strAlcoholic } = stateDrink[0];
     const type = pathname.includes('comida') ? 'comida' : 'bebida';
-
-    if (type === 'comida') {
-      const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
-
-      setSaveRecipe({
-        id: idMeal,
-        name: strMeal,
-        image: strMealThumb,
-        category: strCategory,
-        alcoholicOrNot: '',
-        area: strArea,
-        type,
-      });
-    } else {
-      setSaveRecipe({
-        id: idDrink,
-        name: strDrink,
-        image: strDrinkThumb,
-        category: drinkCategory,
-        alcoholicOrNot: strAlcoholic,
-        type,
-        area: '',
-      });
+    if (stateChangeHeart) {
+      if (type === 'comida') {
+        setSaveRecipe({
+          id: idMeal,
+          name: strMeal,
+          image: strMealThumb,
+          category: strCategory,
+          alcoholicOrNot: '',
+          area: strArea,
+          type,
+        });
+      } else {
+        setSaveRecipe({
+          id: idDrink,
+          name: strDrink,
+          image: strDrinkThumb,
+          category: drinkCategory,
+          alcoholicOrNot: strAlcoholic,
+          type,
+          area: '',
+        });
+      }
+    }
+  };
+  const id = pathname.split('/')[2];
+  const removeFavorited = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log('favorites', favorited);
+    if (favorited !== null) {
+      const filterLocalStorage = favorited.filter((element) => element.id !== id);
+      console.log(filterLocalStorage);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
     }
   };
 
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);
-    // if (stateChangeHeart) {
-    //   removeFavorited();
-    // }
+    if (stateChangeHeart) {
+      removeFavorited();
+    }
   };
-  const setInlocalStorage = () => {
+
+  const verifyHeart = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
     console.log(favorited);
+    if (favorited !== null) {
+      const filterLocalStorage = favorited.some((element) => element.id !== idMeal);
+      setStateChangeHeart(!filterLocalStorage);
+    }
+  };
+
+  useEffect(verifyHeart, []);
+  const setInlocalStorage = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (saveRecipe !== '' && favorited === null) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([saveRecipe]));
     } else if (saveRecipe !== '') {
       localStorage.setItem('favoriteRecipes', JSON.stringify([...favorited, saveRecipe]));
     }
   };
+
   useEffect(setInlocalStorage, [saveRecipe]);
   return (
     <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
