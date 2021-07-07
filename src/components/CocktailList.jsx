@@ -6,7 +6,11 @@ import ItemCard from './ItemCard';
 
 export default function CocktailList() {
   const [showCocktails, setShowCocktails] = useState(false);
-  const { cocktailsRecipes, resquestCocktailsApi } = useContext(Context);
+  const {
+    cocktailsRecipes,
+    resquestCocktailsApi,
+    selectedCategory,
+  } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -23,12 +27,12 @@ export default function CocktailList() {
   }, []);
 
   const renderCards = () => {
-    if (cocktailsRecipes && cocktailsRecipes.length === 1) {
+    if (selectedCategory === 'All' && cocktailsRecipes && cocktailsRecipes.length === 1) {
       console.log('3');
       return history.push(`/bebidas/${cocktailsRecipes[0].idDrink} `);
     }
 
-    if (cocktailsRecipes && cocktailsRecipes.length > 1) {
+    if (cocktailsRecipes && cocktailsRecipes.length) {
       const NUMBER = 12;
       return cocktailsRecipes.map((item, index) => {
         if (index < NUMBER) {
