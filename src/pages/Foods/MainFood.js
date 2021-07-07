@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import FilterRecipe from '../../components/FilterRecipe';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
-// import { fetchRecipeAllFood } from '../../services/recipeAPI';
+import { fetchCategoryFood, fetchRecipeAllFood } from '../../services/recipeAPI';
 
 export default function MainFood() {
-  // useEffect(() => {
-  //   const func = async () =>{
-  //     await fetchRecipeAllFood();
-  //   }
-  // }, []);
+  const [list, setList] = useState({});
+  const [categoryList, setCategoryList] = useState({});
+
+  useEffect(() => {
+    const func = async () => {
+      const fun = await fetchRecipeAllFood();
+      setList(fun);
+    };
+
+    const category = async () => {
+      const fun = await fetchCategoryFood();
+      setCategoryList(fun);
+    };
+
+    category();
+    func();
+  }, []);
 
   return (
     <div
       className="main-food-class"
     >
       <Header title="Comidas" display="true" />
-      <RecipeList />
+      <FilterRecipe list={ categoryList } recipeType="food" />
+      <RecipeList listAll={ list } />
       <Footer />
     </div>
   );
