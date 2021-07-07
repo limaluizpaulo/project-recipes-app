@@ -6,18 +6,9 @@ import CategoryDrinks from './CategoryDrinks';
 export default function CardDrink() {
   const { resposeApiLupaDrink, redirect } = useContext(RecipesContext);
   const twelve = 12;
-  let arrayDrink = resposeApiLupaDrink;
-
-  if (resposeApiLupaDrink === null || resposeApiLupaDrink === undefined) {
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
 
   if (resposeApiLupaDrink.length > twelve) {
     arrayDrink = resposeApiLupaDrink.filter((_e, index) => index < twelve);
-  }
-  if (resposeApiLupaDrink.length === 1 && redirect) {
-    const { idDrink } = resposeApiLupaDrink[0];
-    return <Redirect to={ `/bebidas/${idDrink}` } />;
   }
   return (
     <main>
