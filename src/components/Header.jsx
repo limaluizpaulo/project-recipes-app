@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+// import { AreasDropDown } from '.';
 
-const Header = ({ name, search, db }) => {
+const Header = ({ name, search, dropDown, db }) => {
   const [bar, setBar] = useState(false);
+  const [drop, setDrop] = useState(false);
 
   return (
     <header>
@@ -17,7 +19,10 @@ const Header = ({ name, search, db }) => {
       <h1 data-testid="page-title">{ name }</h1>
 
       { search && (
-        <button type="button" onClick={ () => setBar(!bar) }>
+        <button
+          type="button"
+          onClick={ () => ((dropDown) ? setDrop(!drop) : setBar(!bar)) }
+        >
           <img
             src={ searchIcon }
             alt="profileIcon"
@@ -26,7 +31,8 @@ const Header = ({ name, search, db }) => {
         </button>
       )}
 
-      {bar ? <SearchBar db={ db } /> : ''}
+      {(bar) ? <SearchBar db={ db } /> : ''}
+      {/* {(drop) ? <AreasDropDown /> : ''} */}
     </header>
   );
 };
