@@ -114,4 +114,3 @@ class RecipeProcess extends Component {
 }
 
 export default RecipeProcess;
-// Bendito GitHub
