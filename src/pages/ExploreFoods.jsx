@@ -31,6 +31,7 @@ function ExploreFoods() {
         <Container>
           <ButtonGroup className="buttons-explore-foods">
             <Button
+              id="explore-button"
               data-testid="explore-by-ingredient"
               variant="danger"
               size="lg"

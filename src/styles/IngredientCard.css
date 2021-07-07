@@ -12,16 +12,16 @@
   width: 10rem;
 }
 
-#card-image {
+.card-image {
   margin-top: 8px;
   width: 50%;
 }
 
-#title-container {
+.title-container {
   width: 100%;
 }
 
-#card-title {
+.card-title {
   color: wheat;
   text-align: center;
 }
