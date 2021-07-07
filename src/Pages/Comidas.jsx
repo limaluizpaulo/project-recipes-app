@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import MealList from '../components/MealList';
+import CategoryFilter from '../components/CategoryFilter';
 
 export default function Comidas({ match: { url } }) {
   const { openSearchBar } = useContext(Context);
@@ -12,7 +13,8 @@ export default function Comidas({ match: { url } }) {
   return (
     <div>
       <Header title="Comidas" searchIcon />
-      { openSearchBar ? <SearchBar url={ url } /> : null }
+      { openSearchBar ? <SearchBar url={ url } /> : undefined }
+      <CategoryFilter type="meals" />
       <MealList />
       <Footer />
     </div>
