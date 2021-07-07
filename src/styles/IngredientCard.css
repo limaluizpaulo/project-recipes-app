@@ -1,10 +1,27 @@
-.ingredients:last-child {
-  margin-bottom: 50px;
+.ingredient {
+  margin-top: 20px;
 }
 
-.card-button {
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.33);
-  border-radius: 15px;
-  margin: 5px 0;
+.ingredient:last-child {
+  margin-bottom: 70px;
+}
+
+#title-container {
+  width: 100%;
+}
+
+#card-ingredient {
+  background-color: #dc35463d;
+  height: 10rem;
+  width: 10rem;
+}
+
+#card-image {
+  margin-top: 8px;
+  width: 50%;
+}
+
+#card-title {
+  color: wheat;
+  text-align: center;
 }
