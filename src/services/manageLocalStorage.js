@@ -1,4 +1,6 @@
 import React from 'react';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export const makeRecipe = ({ url }, history) => {
   const mealOrDrink = url.split('/')[1];
@@ -52,4 +54,13 @@ export const localStorageVerifier = (match, id, history) => {
   if (doneRecipes && doneRecipes.find((recipe) => recipe.id === id)) {
     return null;
   }
+};
+
+export const verifyFavorite = (id) => {
+  const rawFavorites = localStorage.getItem('favoriteRecipes');
+  const favorites = JSON.parse(rawFavorites);
+  if (favorites && favorites.find((fav) => fav.id === id)) {
+    return blackHeartIcon;
+  }
+  return whiteHeartIcon;
 };

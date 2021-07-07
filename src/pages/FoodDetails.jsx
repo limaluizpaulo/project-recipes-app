@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { localStorageVerifier } from '../services/manageLocalStorage';
+import { localStorageVerifier, verifyFavorite } from '../services/manageLocalStorage';
 import { copyLink } from '../services/functions';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
+  console.log(match);
   const [isCopied, setIsCopied] = useState(false);
   const {
     details,
@@ -85,9 +86,12 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         </button>
         <button
           type="button"
-          data-testid="favorite-btn"
         >
-          <img src={ whiteHeartIcon } alt="Share" />
+          <img
+            alt="Favorite"
+            src={ verifyFavorite(id) }
+            data-testid="favorite-btn"
+          />
         </button>
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
