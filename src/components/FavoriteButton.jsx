@@ -60,10 +60,11 @@ function FavoriteButton() {
 
   const verifyHeart = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favorited);
     if (favorited !== null) {
-      const filterLocalStorage = favorited.some((element) => element.id !== idMeal);
-      setStateChangeHeart(!filterLocalStorage);
+      const filterLocalStorage = favorited.some((element) => element.id === id);
+      if (filterLocalStorage) {
+        setStateChangeHeart(false);
+      }
     }
   };
 
