@@ -33,8 +33,9 @@ class comidas extends Component {
     const { match: { params: { comidaId: id } } } = this.props;
     if (localStorage.doneRecipes) {
       const searchDone = JSON.parse(localStorage.doneRecipes);
-      searchDone.find((item) => item.id === id);
-      this.setState({ btnVisible: false });
+      if (searchDone.find((item) => item.id === id)) {
+        this.setState({ btnVisible: false });
+      }
     }
     if (localStorage.inProgressRecipes) {
       const getRecipes = JSON.parse(localStorage.inProgressRecipes);
