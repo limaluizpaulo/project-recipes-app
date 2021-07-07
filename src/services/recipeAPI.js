@@ -10,9 +10,9 @@ const RECIPE_CATEGORY_FOOD = 'https://www.themealdb.com/api/json/v1/1/list.php?c
 
 const RECIPE_CATEGORY_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-const RECIPE_API_FILTER_FOOD = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const RECIPE_API_FILTER_FOOD = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
-const RECIPE_API_FILTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const RECIPE_API_FILTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
 const fetchRecipeFood = (type) => (
   fetch(`${RECIPE_API_FOOD}${type}`)

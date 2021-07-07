@@ -54,8 +54,8 @@ function Header({ title, display }) {
 }
 
 Header.propTypes = {
-  display: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
+  display: PropTypes.string,
+  title: PropTypes.string,
+}.isRequired;
 
 export default Header;

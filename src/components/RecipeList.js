@@ -21,7 +21,7 @@ function RecipeList({ list, listAll, filterList }) {
   }, [list]);
 
   useEffect(() => {
-    // console.log(Object.keys(filterList)[0]);
+    console.log(filterList);
     if (Object.keys(filterList).length > 0) {
       if (filterList[Object.keys(filterList)[0]] === null) {
         setShow(false);
