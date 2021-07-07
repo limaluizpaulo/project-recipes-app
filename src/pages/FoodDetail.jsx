@@ -24,7 +24,13 @@ function FoodDetails() {
     const fetch = await fetchRecipesById(id);
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = fetch[0].strYoutube.match(regExp);
-    setFoodDetails({ ...fetch[0], url: `https://www.youtube.com/embed/${match[2]}` });
+
+    if (match !== null) {
+      setFoodDetails({ ...fetch[0], url: `https://www.youtube.com/embed/${match[2]}` });
+    } else {
+      setFoodDetails({ ...fetch[0] });
+    }
+
     setLoad(false);
   }, [fetchRecipesById, id, setFoodDetails]);
 

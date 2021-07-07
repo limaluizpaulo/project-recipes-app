@@ -7,7 +7,7 @@ import searchImg from '../images/searchIcon.svg';
 
 import SearchBar from './SearchBar';
 
-function Header({ search, profile, name }) {
+function Header({ search, name }) {
   const [dropDown, setDropDown] = useState(false);
 
   function showSearchBar() {
@@ -17,20 +17,16 @@ function Header({ search, profile, name }) {
   return (
     <div>
       <div className="mt-2 d-flex justify-content-around">
-        {profile && (
-          <button type="button">
-            <Link to="/perfil">
-              <img
-                src={ profileImg }
-                alt="Ir para perfil"
-                data-testid="profile-top-btn"
-              />
-            </Link>
-          </button>
-        )}
-        {name && (
-          <p data-testid="page-title">{ name }</p>
-        )}
+        <button type="button">
+          <Link to="/perfil">
+            <img
+              src={ profileImg }
+              alt="Ir para perfil"
+              data-testid="profile-top-btn"
+            />
+          </Link>
+        </button>
+        <p data-testid="page-title">{ name }</p>
         {search && (
           <button type="button" onClick={ showSearchBar }>
             <img src={ searchImg } alt="Buscar receita" data-testid="search-top-btn" />
