@@ -35,3 +35,39 @@ export function getItemLocalStorage(key) {
 
   return result;
 }
+
+export function addIngredients(typeRecipe, idRecipe, ingredient) {
+  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
+  const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
+  if (!receitasEmProgresso[mealsOrCocktails][idRecipe]) {
+    setItemLocalStorage('inProgressRecipes', {
+      ...receitasEmProgresso,
+      [mealsOrCocktails]: {
+        ...receitasEmProgresso[mealsOrCocktails],
+        [idRecipe]: [ingredient],
+      },
+    });
+  } else {
+    setItemLocalStorage('inProgressRecipes', {
+      ...receitasEmProgresso,
+      [mealsOrCocktails]: {
+        ...receitasEmProgresso[mealsOrCocktails],
+        [idRecipe]: [...receitasEmProgresso[mealsOrCocktails][idRecipe], ingredient],
+      },
+    });
+  }
+}
+
+export function removeIngredients(typeRecipe, idRecipe, ingredient) {
+  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
+  const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
+  setItemLocalStorage('inProgressRecipes', {
+    ...receitasEmProgresso,
+    [mealsOrCocktails]: {
+      ...receitasEmProgresso[mealsOrCocktails],
+      [idRecipe]: receitasEmProgresso[mealsOrCocktails][idRecipe].filter(
+        (ingredientInArray) => ingredientInArray !== ingredient,
+      ),
+    },
+  });
+}
