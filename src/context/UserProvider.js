@@ -1,6 +1,6 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { setOnLocalStorage } from '../services/helpers/localStorage';
+import { getFromLocalStorage, setOnLocalStorage } from '../services/helpers/localStorage';
 
 const UserContext = createContext();
 
@@ -11,6 +11,10 @@ const UserProvider = ({ children }) => {
   });
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    setFavorites(getFromLocalStorage('favoriteRecipes'));
+  }, []);
 
   const removeFavorites = (id) => {
     const filteredFavorites = favorites.filter((recipe) => recipe.id !== id);
