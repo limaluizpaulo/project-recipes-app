@@ -4,8 +4,8 @@ import foodCategories from './foodCategories';
 import drinkCategories from './drinkCategories';
 import isSearchBar from './isSearchBar';
 import exploreIngredient from './exploreScreen';
-// import exploreScreen from './exploreScreen';
 import recipeDetails from './recipeDetails';
+import foodArea from './foodArea';
 
 const rootReducers = combineReducers({
   userLogin,
@@ -13,8 +13,8 @@ const rootReducers = combineReducers({
   drinkCategories,
   isSearchBar,
   exploreIngredient,
-  // exploreScreen,
   recipeDetails,
+  foodArea,
 });
 
 export default rootReducers;

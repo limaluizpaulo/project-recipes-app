@@ -129,7 +129,7 @@ export class ExplorarComidasBebidas extends Component {
 ExplorarComidasBebidas.propTypes = {
   hasSearchBar: PropTypes.func.isRequired,
   sendRamdomRecipe: PropTypes.func.isRequired,
-  location: PropTypes.shape,
+  location: PropTypes.shape.isRequired,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
