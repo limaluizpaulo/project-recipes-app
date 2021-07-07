@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import fetchAPI from '../services/apiRequest';
+import { fetchAPI } from '../services/apiRequest';
 import RecipesContext from '../context/RecipesContext';
 
 const TWELVE = 12;

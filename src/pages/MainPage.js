@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
-import fetchAPI from '../services/apiRequest';
+import { fetchAPI, getRandomData, getCategoriesList } from '../services/apiRequest';
 
 const TWELVE = 12;
 const FIVE = 5;
@@ -29,21 +29,22 @@ export default function MainPage() {
 
   useEffect(() => {
     async function getInitialStatePopulated() {
-      const URL = `https://www.${domain}.com/api/json/v1/1/search.php?s=`;
-      const resolved = await fetchAPI(URL);
-      setDataResult(resolved[firstKey]);
-      setRenderer(resolved[firstKey].filter((_e, index) => index < limit));
+      getRandomData(domain)
+        .then((res) => {
+          setDataResult(res[firstKey]);
+          setRenderer(res[firstKey].filter((_e, index) => index < limit));
+        });
       setLoader(false);
     }
     getInitialStatePopulated();
 
     async function getListPopulated() {
-      const URL = `https://www.${domain}.com/api/json/v1/1/list.php?c=list`;
-      const list = await fetchAPI(URL);
-      setCategoriesList(list[firstKey].filter((_e, index) => index < FIVE));
+      getCategoriesList(domain)
+        .then((res) => {
+          setCategoriesList(res[firstKey].filter((_e, index) => index < FIVE));
+        });
       setLoader(false);
     }
-
     getListPopulated();
   }, [limit, firstKey, domain]);
 

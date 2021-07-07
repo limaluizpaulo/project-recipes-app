@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-import fetchAPI from '../services/apiRequest';
+import { fetchAPI } from '../services/apiRequest';
 
 const SIX = 6;
 
