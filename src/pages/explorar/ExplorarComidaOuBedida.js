@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import DetailsContext from '../../context/details.context';
+import { getDetails } from '../../helpers';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-// a rota deve mudar para a tela de detalhes de uma receita,
-// que deve ser escolhida de forma aleatória através da API
-// endpoint comida https://www.themealdb.com/api/json/v1/1/random.php
-// endpoint bebidas https://www.thecocktaildb.com/api/json/v1/1/random.php
-
 function ExplorarComidaOuBebida() {
+  const { setDetails, setIngredients, setMeasures } = useContext(DetailsContext);
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
+  const idKey = isDrinks ? 'idDrink' : 'idMeal';
   const title = isDrinks ? 'Bebidas' : 'Comidas';
-  const path = isDrinks ? 'bebidas' : 'comidas';
+  const type = isDrinks ? 'drinks' : 'meals';
+  const typePt = isDrinks ? 'bebidas' : 'comidas';
+
+  async function surpriseMe() {
+    const result = await getDetails(type, null, true);
+    if (result[0]) {
+      setDetails(result[0]);
+      setIngredients(result[1]);
+      setMeasures(result[2]);
+    }
+
+    push(`/${typePt}/${result[0][idKey]}`);
+  }
 
   return (
     <div>
@@ -22,7 +34,7 @@ function ExplorarComidaOuBebida() {
         <button
           type="button"
           data-testid="explore-by-ingredient"
-          onClick={ () => push(`/explorar/${path}/ingredientes`) }
+          onClick={ () => push(`/explorar/${typePt}/ingredientes`) }
         >
           Por Ingredientes
         </button>
@@ -30,12 +42,16 @@ function ExplorarComidaOuBebida() {
           <button
             type="button"
             data-testid="explore-by-area"
-            onClick={ () => push(`/explorar/${path}/area`) }
+            onClick={ () => push(`/explorar/${typePt}/area`) }
           >
             Por Local de Origem
           </button>
         )}
-        <button type="button" data-testid="explore-surprise">
+        <button
+          type="button"
+          onClick={ surpriseMe }
+          data-testid="explore-surprise"
+        >
           Me Surpreenda!
         </button>
       </div>

@@ -1,0 +1,31 @@
+.done-card-image {
+  height: 150px;
+  width: 150px;
+}
+
+.done-card {
+  background-color: white;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  font-size: 12px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.done-card > div:nth-child( 2 ) {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 10;
+}
+
+.done-card-list {
+  padding: 10px;
+}
+
+.share-container {
+  align-items: flex-end;
+  display: flex;
+  flex-grow: 10;
+  justify-content: flex-end;
+  padding: 10px;
+}

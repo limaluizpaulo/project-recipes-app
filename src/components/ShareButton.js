@@ -1,28 +1,35 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 
 import UserContext from '../context/user.context';
 import shareIcon from '../svg/shareIcon.svg';
 
-function ShareButton() {
+function ShareButton({ index, url }) {
   const { setWarningMessage } = useContext(UserContext);
-  const history = useHistory();
-  const { location: { pathname } } = history;
 
   return (
     <button
       type="button"
       className="button-svg-alt"
       onClick={ () => {
-        copy(`http://localhost:3000${pathname}`.replace('/in-progress', ''));
+        copy(url);
         setWarningMessage('Link copiado!');
       } }
       data-testid="share-btn"
     >
-      <img className="svg-small" src={ shareIcon } alt="Share" />
+      <img
+        className="svg-small"
+        src={ shareIcon }
+        alt="Share"
+        data-testid={ `${index}-horizontal-share-btn` }
+      />
     </button>
   );
 }
+
+ShareButton.propTypes = {
+  dataTestId: PropTypes.string,
+}.isRequired;
 
 export default ShareButton;

@@ -86,3 +86,17 @@ export async function fetchDetails(type, id) {
     console.log(error);
   }
 }
+
+export async function fetchRandom(type) {
+  try {
+    const API_URL = type === 'meals'
+      ? 'https://www.themealdb.com/api/json/v1/1/random.php'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    const data = await fetch(API_URL);
+    const result = await data.json();
+    // console.log(result);
+    return result[type][0];
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
-import { urlToEmbed, getDetails } from '../helpers';
+import DetailsContext from '../context/details.context';
+import { urlToEmbed } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  let [details, setDetails] = useState({});
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
   const {
-    location: { pathname },
-  } = useHistory();
+    details,
+    ingredients,
+    measures,
+    imgKey,
+    nameKey,
+    isDrinks,
+    typePt,
+    setContentParams,
+  } = useContext(DetailsContext);
+
+  const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  const isDrinks = pathname.includes('bebidas');
-  const type = isDrinks ? 'drinks' : 'meals';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-
-  if (!details) details = {}; // Cypress bug
-
   useEffect(() => {
-    async function setter() {
-      const result = await getDetails(type, id);
-      setDetails(result[0]);
-      setIngredients(result[1]);
-      setMeasures(result[2]);
-    }
-    setter();
-  }, [id, type]);
+    setContentParams({ id, pathname });
+  }, [id, pathname, setContentParams]);
 
   function renderIngredients() {
     return (
@@ -67,7 +60,7 @@ function RecipeDetails() {
         />
         <div>
           <FavoriteButton recipe={ details } />
-          <ShareButton />
+          <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
       <h2 data-testid="recipe-title">{details[nameKey]}</h2>

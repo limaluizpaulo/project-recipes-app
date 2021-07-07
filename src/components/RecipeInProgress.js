@@ -1,39 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
+import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { getDetails } from '../helpers';
 import { toggleIngredient } from '../helpers/provider';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
-function RecipeDetails({ ingredients, setIngredients }) {
+function RecipeDetails() {
   const { inProgress, setInProgress } = useContext(UserContext);
-  let [details, setDetails] = useState({});
-  const [measures, setMeasures] = useState([]);
+  const {
+    details,
+    ingredients,
+    measures,
+    imgKey,
+    nameKey,
+    typePt,
+    usedIngredients,
+    setContentParams,
+    isDrinks,
+  } = useContext(DetailsContext);
+
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  const isDrinks = pathname.includes('bebidas');
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typeObj = isDrinks ? 'cocktails' : 'meals';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const usedIngredients = inProgress[typeObj][id] || [];
-
-  if (!details) details = {}; // Cypress bug
-
   useEffect(() => {
-    async function setter() {
-      const result = await getDetails(type, id);
-      setDetails(result[0]);
-      setIngredients(result[1]);
-      setMeasures(result[2]);
-    }
-    setter();
-  }, [id, setIngredients, type]);
+    setContentParams({ id, pathname });
+  }, [id, pathname, setContentParams]);
 
   function renderIngredients() {
     return (
@@ -75,7 +71,7 @@ function RecipeDetails({ ingredients, setIngredients }) {
         />
         <div>
           <FavoriteButton recipe={ details } />
-          <ShareButton />
+          <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
       <h2 data-testid="recipe-title">{details[nameKey]}</h2>

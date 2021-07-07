@@ -1,4 +1,4 @@
-import { fetchDetails } from '../services';
+import { fetchDetails, fetchRandom } from '../services';
 
 // Créditos à Lucas Martins - Turma 10 - Tribo B
 export function invokeAlert(message, fn = alert) {
@@ -10,8 +10,12 @@ export function urlToEmbed(url) {
   return url.replace('watch?v=', 'embed/');
 }
 
-export async function getDetails(type, id) {
-  const result = await fetchDetails(type, id);
+export async function getDetails(type, id, isRandom) {
+  const result = isRandom
+    ? await fetchRandom(type)
+    : await fetchDetails(type, id);
+
+  if (!result) return [];
 
   const formattedIngredients = Object.entries(result)
     .filter((item) => item[0].includes('Ingredient') && item[1])

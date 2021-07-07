@@ -8,7 +8,7 @@ import {
 export async function getRecipes(params) {
   const { type, setFn } = params;
   const result = await fetchByName(type);
-  setFn(result);
+  if (result) setFn(result);
 }
 
 export async function getFilteredRecipes(params) {
