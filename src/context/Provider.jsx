@@ -16,15 +16,6 @@ const RecipeProvider = ({ children }) => {
   const [recipesByPlace, setRecipesByPlace] = useState([]);
   const [area, setArea] = useState();
   const [ingredientsList, setIngredientsList] = useState([]);
-  const [valueButton, setValueButton] = useState('');
-  const [dataFood, setDataFood] = useState([]);
-  const [filterFood, setfilterFood] = useState([]);
-  const [dataCategoriesFood, setDataCategoriesFood] = useState([]);
-  const [filterCategoriesFood, setFilterCategoriesFood] = useState([]);
-  const [dataCategories, setDataCategories] = useState([]);
-  const [filterDataCategories, setFilterDataCategories] = useState([]);
-  const [toogle, setToogle] = useState(false);
-  const [allValue, setAllValue] = useState('');
   // const [selectedIngredient, setSelectedIngredient] = useState('');
   const [previousIsExploreIngredients, setPreviousIsExploreIngredients] = useState(false);
   const [filterDrinksIngredients, setFilterDrinksIngredients] = useState([]);
@@ -114,30 +105,10 @@ const RecipeProvider = ({ children }) => {
     setArea,
     ingredientsList,
     setIngredientsList,
-    // selectedIngredient,
-    // setSelectedIngredient,
     previousIsExploreIngredients,
     setPreviousIsExploreIngredients,
     filterDrinksIngredients,
     setFilterDrinksIngredients,
-    valueButton,
-    setValueButton,
-    dataFood,
-    setDataFood,
-    filterFood,
-    setfilterFood,
-    dataCategoriesFood,
-    setDataCategoriesFood,
-    filterCategoriesFood,
-    setFilterCategoriesFood,
-    dataCategories,
-    setDataCategories,
-    filterDataCategories,
-    setFilterDataCategories,
-    toogle,
-    setToogle,
-    allValue,
-    setAllValue,
   };
   return (
     <RecipeContext.Provider value={ objContext }>

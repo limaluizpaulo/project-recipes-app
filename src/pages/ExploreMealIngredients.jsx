@@ -23,7 +23,7 @@ export default function ExploreMealsIngredients({ history }) {
       setIngredientsList(ingredients);
     };
     fetchMealsByIngredients();
-  }, []);
+  }, [setIngredientsList]);
 
   const fetchRecipesByIngredient = async (ingredient) => {
     const DOZE = 12;
