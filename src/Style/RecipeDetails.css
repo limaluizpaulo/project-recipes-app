@@ -40,3 +40,10 @@
 .video {
   width: 200px;
 }
+
+.button {
+  bottom: 0;
+  margin-left: 0;
+  position: fixed;
+  right: 0;
+}
