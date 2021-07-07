@@ -5,7 +5,6 @@ import ContextRecipes from '../context/contextRecipes';
 function SBElements({ history }) {
   const { searchInput, setsearchInput,
     recipes, setRecipes, drinks, setDrinks } = useContext(ContextRecipes);
-
   const { location: { pathname } } = history;
 
   const getIngredients = () => {
@@ -69,18 +68,18 @@ function SBElements({ history }) {
       getFirstLetter();
 
       break;
-      // case searchInput:
-      //   if (pathname === '/comidas') {
-      //     const recipesFiltered = recipes
-      //       .filter((recipe) => recipe.strMeal.includes(searchInput));
-      //     return recipesFiltered;
-      //   }
-      //   if (pathname === '/bebidas') {
-      //     const drinksFiltered = drinks
-      //       .filter((recipe) => recipe.strDrink.includes(searchInput));
-      //     return drinksFiltered;
-      //   }
-      // break;
+    case searchInput:
+      if (pathname === '/comidas') {
+        const recipesFiltered = recipes
+          .filter((recipe) => recipe.strMeal.includes(searchInput));
+        return recipesFiltered;
+      }
+      if (pathname === '/bebidas') {
+        const drinksFiltered = drinks
+          .filter((recipe) => recipe.strDrink.includes(searchInput));
+        return drinksFiltered;
+      }
+      break;
     default:
       console.log('nada aconteceu');
       break;
