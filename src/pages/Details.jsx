@@ -32,7 +32,7 @@ function Details() {
       setDetailsData(result[0]);
     };
     getData();
-  }, [type]);
+  }, [type, id]);
   const thirtyTwo = 32;
   // console.log(thumbnail);
   // const videoId = type === 'meals'?(
@@ -84,7 +84,6 @@ function Details() {
           alt={ detailsData[title] }
           data-testid="recipe-photo"
         />
-        {console.log(Object.keys(detailsData).length)}
       </header>
       <main>
         <h1 data-testid="recipe-title">{detailsData[title]}</h1>
@@ -127,6 +126,7 @@ function Details() {
       </main>
       <footer>
         <Button
+          className="start-recipe"
           label="Iniciar Receita"
           testid="start-recipe-btn"
         />
