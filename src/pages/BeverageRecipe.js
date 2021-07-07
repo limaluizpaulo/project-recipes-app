@@ -1,26 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
+import Recommendations from '../components/Recommendations';
 import fetchAPI from '../services/fetchApi';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class BeverageRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       detailsRecipe: [],
-      recommendedRecipe: [],
+      copyLink: false,
+      isFavorite: false,
     };
 
     this.fetchDetails = this.fetchDetails.bind(this);
-    this.fetchRecommended = this.fetchRecommended.bind(this);
     this.renderVideo = this.renderVideo.bind(this);
-    this.renderRecommended = this.renderRecommended.bind(this);
+    this.onClickShare = this.onClickShare.bind(this);
+    this.onClickFavoriteIcon = this.onClickFavoriteIcon.bind(this);
+    this.renderHeartIcon = this.renderHeartIcon.bind(this);
+    this.renderFavorite = this.renderFavorite.bind(this);
   }
 
   componentDidMount() {
     this.fetchDetails();
-    return this.fetchRecommended();
+    return this.renderHeartIcon();
+  }
+
+  onClickShare() {
+    copy(window.location.href);
+    this.setState({
+      copyLink: true,
+    });
+  }
+
+  onClickFavoriteIcon() {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const { match: { params: { id } } } = this.props;
+    const { detailsRecipe } = this.state;
+    const newFavorite = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: detailsRecipe[0].strCategory,
+      alcoholicOrNot: detailsRecipe[0].strAlcoholic,
+      name: detailsRecipe[0].strDrink,
+      image: detailsRecipe[0].strDrinkThumb,
+    };
+    if (favoriteRecipes) {
+      const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
+      if (isFavorite) {
+        this.setState({
+          isFavorite: false,
+        });
+        const newArray = favoriteRecipes.filter((recipe) => recipe.id !== id);
+        return localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+      }
+      this.setState({
+        isFavorite: true,
+      });
+      const addFavorite = [...favoriteRecipes, newFavorite];
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(addFavorite));
+    }
+    this.setState({
+      isFavorite: true,
+    });
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
   }
 
   async fetchDetails() {
@@ -30,15 +77,6 @@ class BeverageRecipe extends React.Component {
     const { drinks } = responseAPI;
     this.setState({
       detailsRecipe: drinks,
-    });
-  }
-
-  async fetchRecommended() {
-    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    const responseAPI = await fetchAPI(url);
-    const { meals } = responseAPI;
-    this.setState({
-      recommendedRecipe: meals,
     });
   }
 
@@ -69,32 +107,6 @@ class BeverageRecipe extends React.Component {
         >
           { `${measure} of ${ingredients}` }
         </li>);
-    });
-  }
-
-  renderRecommended() {
-    const { recommendedRecipe } = this.state;
-    const RECOMMENDED_CARDS = 6;
-    return recommendedRecipe.map((meal, index) => {
-      if (index < RECOMMENDED_CARDS) {
-        return (
-          <div
-            data-testid={ `${index}-recomendation-card` }
-            key={ index }
-          >
-            <h2 data-testid={ `${index}-recomendation-title` }>
-              { meal.strMeal }
-            </h2>
-            <p>
-              {' '}
-              { meal.strCategory }
-            </p>
-            <img src={ meal.strMealThumb } alt={ meal.strMeal } width="150px" />
-
-          </div>
-        );
-      }
-      return null;
     });
   }
 
@@ -142,8 +154,39 @@ class BeverageRecipe extends React.Component {
     );
   }
 
+  renderHeartIcon() {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const { match: { params: { id } } } = this.props;
+    if (favoriteRecipes) {
+      const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
+      if (isFavorite) {
+        return this.setState({
+          isFavorite: true,
+        });
+      }
+      return this.setState({
+        isFavorite: false,
+      });
+    }
+    return this.setState({
+      isFavorite: false,
+    });
+  }
+
+  renderFavorite() {
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      return (
+        <img src={ blackHeartIcon } alt="favorito" data-testid="favorite-btn" />
+      );
+    }
+    return (
+      <img src={ whiteHeartIcon } alt="favorito" data-testid="favorite-btn" />
+    );
+  }
+
   render() {
-    const { detailsRecipe } = this.state;
+    const { detailsRecipe, copyLink } = this.state;
     if (detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
@@ -160,11 +203,12 @@ class BeverageRecipe extends React.Component {
           data-testid="recipe-photo"
           width="150px"
         />
-        <button data-testid="share-btn" type="button">
+        <p>{ copyLink ? 'Link copiado!' : null }</p>
+        <button data-testid="share-btn" type="button" onClick={ this.onClickShare }>
           <img src={ shareIcon } alt="Compartilhar" />
         </button>
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeartIcon } alt="Favoritos" />
+        <button type="button" onClick={ this.onClickFavoriteIcon }>
+          { this.renderFavorite() }
         </button>
         <p data-testid="recipe-category">
           { `${detailsRecipe[0].strCategory} ${detailsRecipe[0].strAlcoholic}` }
@@ -173,13 +217,9 @@ class BeverageRecipe extends React.Component {
           { this.renderIngredients() }
         </ul>
         <p data-testid="instructions">
-          {' '}
           { detailsRecipe[0].strInstructions }
-          {' '}
         </p>
-        <section className="recommended-cards-section">
-          { this.renderRecommended() }
-        </section>
+        <Recommendations api="meal" />
         { this.renderRecipeBtn() }
       </section>
     );
