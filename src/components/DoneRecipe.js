@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/global.css';
 
 function DoneRecipe({ recipe: {
   id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
+  const imgStyle = { width: '100%' };
   return (
     <div>
       <div>
@@ -13,6 +15,7 @@ function DoneRecipe({ recipe: {
             src={ image }
             alt="recipe representation"
             data-testid={ `${index}-horizontal-image` }
+            style={ imgStyle }
           />
 
         </Link>

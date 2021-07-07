@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DoneRecipe from '../components/DoneRecipe';
 import Header from '../components/Header';
+import '../styles/global.css';
 
 function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
