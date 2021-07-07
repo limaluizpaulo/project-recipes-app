@@ -18,18 +18,21 @@ export default function MealsDetails() {
     );
     const ingredient = [];
     const measures = [];
+
     const arrayKeysMeasure = keysIngredientes.filter((e) => e.includes('strMeasure'));
     arrayKeysMeasure.forEach((element) => measures.push(stateMeals[0][element]));
     arrayKeysIngredients.forEach((element) => ingredient.push(stateMeals[0][element]));
-
-    setIngredients(ingredients.filter((e) => e !== null));
-    setMeasure(measure.filter((e) => e !== null));
+    const filtroIngredients = ingredient.filter((word) => word !== '');
+    const filtroMeasure = measures.filter((word) => word !== ' ');
+    setIngredients(filtroIngredients);
+    setMeasure(filtroMeasure);
   };
 
   const getApiDetails = () => {
+    const SIX = 6;
     const id = pathname.split('/')[2];
     fetchIdMeals(id).then((result) => setStateMeals(result));
-    fetchAllDrinks().then((result) => setDrinksAll(result.filter((_e, i) => i < 6));
+    fetchAllDrinks().then((result) => setDrinksAll(result.filter((_e, i) => i < SIX)));
   };
 
   useEffect(getApiDetails, []);
@@ -38,7 +41,12 @@ export default function MealsDetails() {
     strCategory, strInstructions, strVideo } = stateMeals[0];
   return (
     <div>
-      <img src={ strMealThumb } alt="foto da comida" data-testid="recipe-photo" />
+      <img
+        src={ strMealThumb }
+        alt="foto da comida"
+        data-testid="recipe-photo"
+        width="100px"
+      />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       <button type="button">
         <img
@@ -57,6 +65,7 @@ export default function MealsDetails() {
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
+        {console.log(ingredients)}
         {ingredients.map((e, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
@@ -86,7 +95,11 @@ export default function MealsDetails() {
       />
       <Carousel>
         {drinksAll.map((drink, index) => (
-          <Carousel.Item interval={ 1000 } key={ index }>
+          <Carousel.Item
+            interval={ 1000 }
+            key={ index }
+            data-testid={ `${index}-recomendation-card` }
+          >
             <img
               className="d-block w-100"
               src={ drink.strDrinkThumb }
