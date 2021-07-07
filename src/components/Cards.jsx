@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FetchContext from '../context/FetchContext';
+import '../App.css';
 
 function Cards() {
   const { data, nameRecipes, imgRecipes, idRecip, typeFunc } = useContext(FetchContext);
   const ELEVEN = 11;
   return (
-    <div>
+    <div className="card-container">
       {
         data.filter((el, index) => index <= ELEVEN)
           .map((food, index) => (

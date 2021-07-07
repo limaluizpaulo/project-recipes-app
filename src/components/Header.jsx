@@ -11,6 +11,7 @@ function Header({ title }) {
 
   const renderSearch = () => (
     <button
+      className="search-icon"
       type="button"
       onClick={ () => setDisplaySearch(!displaySearch) }
     >

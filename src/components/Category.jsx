@@ -3,6 +3,7 @@ import FetchContext from '../context/FetchContext';
 import {
   filterCategoryMeals,
   filterCategoryDrinks, fetchRecipesList, fetchDrinksList } from '../services/Api';
+import '../App.css';
 
 function Category() {
   const { categories, setData, typeFunc } = useContext(FetchContext);
@@ -31,6 +32,7 @@ function Category() {
         categories.filter((el, index) => index <= FOUR)
           .map((category, index) => (
             <button
+              className="category"
               type="button"
               key={ index }
               data-testid={ `${category.strCategory}-category-filter` }
