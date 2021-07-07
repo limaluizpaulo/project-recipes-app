@@ -19,6 +19,7 @@ export default function FoodAndDrinkById() {
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
   const { Id } = useParams();
+
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
@@ -33,8 +34,13 @@ export default function FoodAndDrinkById() {
       setSingleContent(resolved[firstKey] || []);
 
       setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
-      const list = Object.entries(resolved[firstKey][0]).map((el) => (
-        (el[0].includes('Ingredient') || el[0].includes('Measure')) && el[1]));
+
+      const list = Object.entries(resolved[firstKey][0]).filter((el) => (
+        (el[0].includes('Ingredient')
+        || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
+
+      console.log(list);
+
       setIngridientsList(list);
     }
     getRecipeDetails().catch(console.log);
@@ -63,14 +69,13 @@ export default function FoodAndDrinkById() {
             <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
           </Button>
           <p data-testid="recipe-category">{singleContent[0].strCategory}</p>
-          {ingredientsList.map((ingridient, i) => (
-            ingridient && (
-              <p
-                key={ i }
-                data-testid={ `${i}-ingredient-name-and-measure` }
-              >
-                {ingridient}
-              </p>)
+          {ingredientsList.map((el, i) => (
+            <p
+              key={ i }
+              data-testid={ `${i}-ingredient-name-and-measure` }
+            >
+              {el[1]}
+            </p>
           ))}
           <p data-testid="instructions">{singleContent[0].strInstructions}</p>
           <p data-testid="video">{singleContent[0].strYoutube}</p>
