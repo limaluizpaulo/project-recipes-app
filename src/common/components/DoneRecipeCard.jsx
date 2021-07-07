@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 
@@ -35,24 +36,29 @@ export default function DoneRecipeCard({ recipe, index }) { // Desestruturação
 
   return (
     <div className="doneCard">
-      <img
-        className="doneImg"
-        src={ image }
-        alt={ name }
-        data-testid={ `${index}-horizontal-image` }
-      />
-      {type === 'bebida' ? drinkInfo() : mealInfo()}
+      <Link to={ `/${type}s/${id}` }>
+        <div>
+          <img
+            className="doneImg"
+            src={ image }
+            alt={ name }
+            data-testid={ `${index}-horizontal-image` }
+          />
+          {type === 'bebida' ? drinkInfo() : mealInfo()}
+          <p data-testid={ `${index}-horizontal-name` }>{`Nome: ${name}`}</p>
+          <p data-testid={ `${index}-horizontal-done-date` }>{`Data: ${doneDate}`}</p>
+          { tags.map((tag) => (
+            <div
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+              key={ tag }
+            >
+              {tag}
+            </div>)) }
+        </div>
+      </Link>
       <ShareButton id={ id } type={ type } index={ index } path />
-      <p data-testid={ `${index}-horizontal-name` }>{`Nome: ${name}`}</p>
-      <p data-testid={ `${index}-horizontal-done-date` }>{`Data: ${doneDate}`}</p>
-      { tags.map((tag) => (
-        <div
-          data-testid={ `${index}-${tag}-horizontal-tag` }
-          key={ tag }
-        >
-          {tag}
-        </div>)) }
     </div>
+
   );
 }
 
