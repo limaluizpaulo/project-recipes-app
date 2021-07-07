@@ -7,6 +7,7 @@ import DownMenu from '../components/DownMenu';
 import { actionCategoriesDrinks, actionDrinks,
   actionDrinksByCategories } from '../actions';
 import CardItem from '../components/CardItem';
+import '../Style/Recipes.css';
 
 class Drinks extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class Drinks extends Component {
     return (
       <Link to={ `/bebidas/${idDrink}` }>
         <CardItem
+          className="list"
           key={ index }
           index={ index }
           name={ strDrink }
@@ -59,17 +61,8 @@ class Drinks extends Component {
     return (
       <>
         <Header header="Bebidas" explorer />
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
-        <h2>Drinks</h2>
         <button
+          className="button"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.setState({ filter: false }) }
