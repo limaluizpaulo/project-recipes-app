@@ -27,6 +27,7 @@ function Details({ id, mealsOrDrinks }) {
   const [alreadyStarted, setAlreadyStarted] = useState(false);
   const [isInProgressRecipe, setIsInProgressRecipe] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const [copyLink, setCopyLink] = useState(false);
 
   const { push } = useHistory();
   const { pathname } = useLocation();
@@ -158,26 +159,42 @@ function Details({ id, mealsOrDrinks }) {
           <div>
             <button
               type="button"
-              data-testid="share-btn"
-              onClick={
-                () => { copy(`http://localhost:3000/${pathname}`); }
-              }
+              onClick={ () => {
+                copy(`http://localhost:3000/${pathname}`);
+                // eslint-disable-next-line no-alert
+                setCopyLink(true);
+              } }
             >
-              <img src={ shareIcon } alt="Share Icon" />
+              <img data-testid="share-btn" src={ shareIcon } alt="Share Icon" />
             </button>
             <button
               type="button"
-              data-testid="favorite-btn"
               onClick={
                 () => localstorageSaveFavoriteRecipe(recipe, !isFav)
               }
             >
               {
                 isFav
-                  ? <img src={ blackHeartIcon } alt="Favorited" />
-                  : <img src={ whiteHeartIcon } alt="Not Favorited" />
+                  ? (
+                    <img
+                      data-testid="favorite-btn"
+                      src={ blackHeartIcon }
+                      alt="Favorited"
+                    />
+                  )
+                  : (
+                    <img
+                      data-testid="favorite-btn"
+                      src={ whiteHeartIcon }
+                      alt="Not Favorited"
+                    />
+                  )
               }
             </button>
+            {
+              copyLink
+              && <p>Link copiado!</p>
+            }
           </div>
           <h3 data-testid="recipe-category">
             {

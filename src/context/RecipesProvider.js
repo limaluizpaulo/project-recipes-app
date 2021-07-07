@@ -71,7 +71,7 @@ function RecipesProvider({ children }) {
   const localstorageSaveStartedRecipe = (recipe, ingredients = []) => {
     const recipeObj = {
       id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
-      type: (recipe.idMeal) ? 'meal' : 'drink',
+      type: (recipe.idMeal) ? 'comida' : 'bebida',
       area: (recipe.strArea) ? recipe.strArea : '',
       category: (recipe.strCategory) ? recipe.strCategory : '',
       alcoholicOrNot: (recipe.strAlcoholic) ? recipe.strAlcoholic : '',
@@ -92,14 +92,12 @@ function RecipesProvider({ children }) {
   const localstorageSaveFavoriteRecipe = (recipe, isFav) => {
     const recipeObj = {
       id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
-      type: (recipe.idMeal) ? 'meal' : 'drink',
+      type: (recipe.idMeal) ? 'comida' : 'bebida',
       area: (recipe.strArea) ? recipe.strArea : '',
       category: (recipe.strCategory) ? recipe.strCategory : '',
       alcoholicOrNot: (recipe.strAlcoholic) ? recipe.strAlcoholic : '',
       name: (recipe.strMeal) ? recipe.strMeal : recipe.strDrink,
       image: (recipe.strMealThumb) ? recipe.strMealThumb : recipe.strDrinkThumb,
-      doneDate: (recipe.dateModified) ? recipe.dateModified : '',
-      tags: (recipe.strTags) ? recipe.strTags : [],
     };
     let arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
