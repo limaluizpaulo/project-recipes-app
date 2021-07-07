@@ -6,17 +6,14 @@ import Header from '../components/Header';
 function Perfil() {
   Perfil.displayName = 'Perfil';
   const [userEmail, setState] = useState();
-  const [redirect, setRedirect] = useState(false);
 
   const handleClick = () => {
     localStorage.setItem('mealsToken', JSON.stringify(null));
     localStorage.setItem('cocktailsToken', JSON.stringify(null));
     localStorage.setItem('user', JSON.stringify(null));
-    // localStorage.setItem('doneRecipes', JSON.stringify(null));
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(null));
-    // localStorage.setItem('inProgressRecipes', JSON.stringify(null));
-    setRedirect(true);
-    return redirect;
+    localStorage.setItem('doneRecipes', JSON.stringify(null));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(null));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(null));
   };
 
   useEffect(() => {
@@ -26,14 +23,13 @@ function Perfil() {
     };
     getEmail();
   },
-
   []);
 
   return (
 
     <div>
       <Header title={ Perfil.displayName } />
-      <p data-testid="profile-email">{ userEmail }</p>
+      <p data-testid="profile-email">{userEmail}</p>
       <Link
         to="/receitas-favoritas"
         data-testid="profile-favorite-btn"
