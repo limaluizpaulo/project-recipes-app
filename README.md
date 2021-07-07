@@ -518,7 +518,7 @@ As respostas seguem a mesma estrutura, com algumas particularidade relativas as 
             "strVideo":null,
             "strCategory":"Cocktail",
             "strIBA":null,
-            "strAlcoholic":"Alcoholic",
+            "strAlcoholic":"",
             "strGlass":"Cocktail glass",
             "strInstructions":"Add all ingredients to a mixing glass and fill with ice.\r\n\r\nStir until chilled, and strain into a chilled coupe glass.",
             "strInstructionsES":null,

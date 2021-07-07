@@ -7,10 +7,24 @@ export default function Card(props) {
   const { pathname } = useLocation();
 
   return (
-    <Link to={ `${pathname}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
-        <img src={ thumbnail } alt={ title } data-testid={ `${index}-card-img` } />
-        <span data-testid={ `${index}-card-name` }>{title}</span>
+    <Link
+      className="recipe-card meal"
+      to={ `${pathname}/${id} ` }
+      data-testid={ `${index}-recipe-card` }
+    >
+      <div>
+        <img
+          className="recipe-card-thumb"
+          src={ thumbnail }
+          alt={ title }
+          data-testid={ `${index}-card-img` }
+        />
+        <span
+          className="recipe-card-title"
+          data-testid={ `${index}-card-name` }
+        >
+          {title}
+        </span>
       </div>
     </Link>
   );
