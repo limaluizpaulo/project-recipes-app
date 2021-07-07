@@ -3,13 +3,13 @@
 } */
 
 .start-recipe-btn {
-  position: fixed;
   bottom: 0;
+  position: fixed;
 }
 
 .recommended-cards-section {
   display: flex;
-  width: 80%;
   overflow-x: scroll;
   text-align: center;
+  width: 80%;
 }
