@@ -7,23 +7,25 @@ import shareIcon from '../images/shareIcon.svg';
 import '../styles/global.css';
 
 function favoriteStructure(item) {
-  const
-    { idMeal,
-      strArea,
-      idDrink,
-      strCategory,
-      strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
+  if (item.code !== undefined) {
+    const
+      { idMeal,
+        strArea,
+        idDrink,
+        strCategory,
+        strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
 
-  const favoriteElement = {
-    id: idMeal || idDrink,
-    type: idMeal === undefined ? 'bebida' : 'comida',
-    area: idMeal === undefined ? '' : strArea,
-    category: strCategory,
-    alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
-    name: strDrink || strMeal,
-    image: strMealThumb || strDrinkThumb,
-  };
-  return favoriteElement;
+    const favoriteElement = {
+      id: idMeal || idDrink,
+      type: idMeal === undefined ? 'bebida' : 'comida',
+      area: idMeal === undefined ? '' : strArea,
+      category: strCategory,
+      alcoholicOrNot: idMeal === undefined ? strAlcoholic : '',
+      name: strDrink || strMeal,
+      image: strMealThumb || strDrinkThumb,
+    };
+    return favoriteElement;
+  }
 }
 
 function Icons(item) {
@@ -37,14 +39,15 @@ function Icons(item) {
   const DOISMIL = 2000;
 
   function isFavorite() {
-    const { idDrink, idMeal } = item.code;
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    let flag = 0;
-    favorites
-      .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
-    if (flag > 0) setChangeIcon(!changeIcon);
+    if (item.code !== undefined) {
+      const { idDrink, idMeal } = item.code;
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      let flag = 0;
+      favorites
+        .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
+      if (flag > 0) setChangeIcon(!changeIcon);
+    }
   }
-
   if (!first) {
     isFavorite();
     setFirst(true);
@@ -86,8 +89,6 @@ function Icons(item) {
     );
   }
 
-  console.log(speakCopy);
-
   return (
     <div>
       <div className="shareAndLike">
@@ -95,7 +96,7 @@ function Icons(item) {
           ref={ target }
           type="button"
           className="share"
-          onClick={ copyClipboard }
+          onClick={ () => { copyClipboard(); speakCopy(); } }
         >
           <img
             src={ shareIcon }

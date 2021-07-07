@@ -23,7 +23,13 @@ function StarRecipes() {
     setSearch(searchDrink);
   }
 
-  if (favorite === null || favorite === []) return null;
+  if (favorite === null) {
+    return (
+      <div>
+        <h4 className="noFavorite">Não há receitas favoritadas</h4>
+      </div>
+    );
+  }
   if (favorite) {
     return (
       <div>
@@ -55,39 +61,41 @@ function StarRecipes() {
           </button>
         </div>
         <div className="favorite-recipes">
-          {search.map((recipe, index) => (
-            <Link
-              to={ `/${recipe.type === 'comida' ? 'comidas' : 'bebidas'}/${recipe.id}` }
-              key={ recipe.id }
-            >
-              <div
-                data-testid={ `${index}-recipe-card` }
-                className="card-favorite"
+          {favorite.length === 0
+            ? <h4 className="noFavoriteWithHeader">Não há receitas favoritadas</h4>
+            : search.map((recipe, index) => (
+              <Link
+                to={ `/${recipe.type === 'comida' ? 'comidas' : 'bebidas'}/${recipe.id}` }
+                key={ recipe.id }
               >
-                <img
-                  className="favorite-img"
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ recipe.image }
-                  alt={ recipe.image }
-                />
-                <Card.Body className="favorite-body">
-                  <div>
-                    <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
-                      {recipe.type === 'comida'
-                        ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
-                    </Card.Subtitle>
-                    <Card.Title
-                      className="cardTitle"
-                      data-testid={ `${index}-horizontal-name` }
-                    >
-                      {recipe.name}
-                    </Card.Title>
-                  </div>
-                  <Icons />
-                </Card.Body>
-              </div>
-            </Link>
-          ))}
+                <div
+                  data-testid={ `${index}-recipe-card` }
+                  className="card-favorite"
+                >
+                  <img
+                    className="favorite-img"
+                    data-testid={ `${index}-horizontal-image` }
+                    src={ recipe.image }
+                    alt={ recipe.image }
+                  />
+                  <Card.Body className="favorite-body">
+                    <div>
+                      <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
+                        {recipe.type === 'comida'
+                          ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
+                      </Card.Subtitle>
+                      <Card.Title
+                        className="cardTitle"
+                        data-testid={ `${index}-horizontal-name` }
+                      >
+                        {recipe.name}
+                      </Card.Title>
+                    </div>
+                    <Icons />
+                  </Card.Body>
+                </div>
+              </Link>
+            ))}
         </div>
       </div>
     );

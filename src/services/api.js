@@ -21,3 +21,15 @@ export async function requestDrink() {
   const { drinks } = await fetcDrink.json();
   return drinks;
 }
+
+export async function requestRandomMeal() {
+  const fetchMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const { meals } = await fetchMeal.json();
+  return meals;
+}
+
+export async function requestRandomDrink() {
+  const fetchDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const { drinks } = await fetchDrink.json();
+  return drinks;
+}

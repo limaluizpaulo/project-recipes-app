@@ -18,8 +18,8 @@ function IngredientsDetails({ index, element, measures }) {
 
 IngredientsDetails.propTypes = {
   index: PropTypes.number.isRequired,
-  element: PropTypes.arrayOf(PropTypes.object).isRequired,
-  measures: PropTypes.string.isRequired,
+  element: PropTypes.node.isRequired,
+  measures: PropTypes.node.isRequired,
 };
 
 export default IngredientsDetails;

@@ -46,10 +46,6 @@ body {
 }
 
 .cardTitle {
-
-  /* -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  display: -webkit-box; */
   display: inline-block;
   max-height: 2.3em;
   overflow: hidden;
@@ -168,15 +164,15 @@ body {
 }
 
 .favorite-recipes {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .card-favorite {
-  display: flex;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
   margin: 15px 0;
   max-width: 100%;
   padding: 5px;
@@ -189,8 +185,20 @@ body {
 }
 
 .favorite-body {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.noFavorite {
   align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.noFavoriteWithHeader {
+  margin-top: 230px;
 }
