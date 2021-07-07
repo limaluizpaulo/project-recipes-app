@@ -28,6 +28,8 @@ export default function MealsByIngredients() {
     }
   }, [path]);
 
+  // function
+
   function renderIngredients() {
     if (path === comidasPath) {
       return (
@@ -53,20 +55,25 @@ export default function MealsByIngredients() {
       );
     }
     return (
-      <>
+      <div className="card-container">
         {ingredients.slice(0, limitMap).map((el, i) => (
-          <div data-testid={ `${i}-ingredient-card` } key={ i }>
+          <div
+            className="recipe-card"
+            data-testid={ `${i}-ingredient-card` }
+            key={ i }
+          >
             <h3 data-testid={ `${i}-card-name` }>
               { el.strIngredient1 }
             </h3>
             <img
+              className="card-img"
               data-testid={ `${i}-card-img` }
               src={ `https://www.thecocktaildb.com/images/ingredients/${el.strIngredient1}-Small.png` }
               alt={ el.strIngredient1 }
             />
           </div>
         ))}
-      </>
+      </div>
     );
   }
 

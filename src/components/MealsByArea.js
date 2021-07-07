@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import fetchFood from '../services/FoodAPI';
 import '../styles/card.css';
 
@@ -8,6 +9,8 @@ export default function MealsByArea() {
   const [areas, setAreas] = useState(null);
   const [meals, setMeals] = useState([]);
   const [selectArea, setSelectArea] = useState('American');
+  const limitMap = 12;
+  const history = useHistory();
 
   useEffect(() => {
     fetchFood(LIST_AREAS)
@@ -18,6 +21,12 @@ export default function MealsByArea() {
     fetchFood(BY_AREA, selectArea)
       .then((res) => setMeals(res));
   }, [selectArea]);
+
+  function clickRecipe({ target }) {
+    const { push } = history;
+    console.log(target);
+    return push(`/comidas/${target.name}`);
+  }
 
   if (areas === null) {
     return (
@@ -33,21 +42,39 @@ export default function MealsByArea() {
         data-testid="explore-by-area-dropdown"
         onChange={ (e) => setSelectArea(e.target.value) }
       >
-        { areas.map((area, index) => (
+        { areas.map((area) => (
           <option
             data-testid={ `${area.strArea}-option` }
-            key={ index }
+            key={ area.strArea }
           >
             { area.strArea }
           </option>
         )) }
+        <option data-testid="All-option">All</option>
       </select>
       <div className="card-container">
-        { meals.map((meal, i) => (
-          <div className="recipe-card" key={ i }>
-            <img className="card-img" src={ meal.strMealThumb } alt={ meal.strMeal } />
-            <h3>{ meal.strMeal }</h3>
-          </div>
+        { meals.slice(0, limitMap).map((meal, i) => (
+          <button
+            type="button"
+            data-testid={ `${i}-recipe-card` }
+            className="recipe-card"
+            key={ i }
+            onClick={ (e) => clickRecipe(e) }
+          >
+            <img
+              name={ meal.idMeal }
+              data-testid={ `${i}-card-img` }
+              className="card-img"
+              src={ meal.strMealThumb }
+              alt={ meal.strMeal }
+            />
+            <h4
+              name={ meal.idMeal }
+              data-testid={ `${i}-card-name` }
+            >
+              { meal.strMeal }
+            </h4>
+          </button>
         )) }
       </div>
     </section>
