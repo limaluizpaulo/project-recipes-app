@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { useLocation, Link } from 'react-router-dom';
 import { fetchIdDrink } from '../Service/drinkApi';
 import { fetchAllMeals } from '../Service/foodApi';
 
 import ShareButton from './ShareButton';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import RecipesContext from '../Context/RecipesContext';
+import FavoriteButton from './FavoriteButton';
 
 export default function DrinksDetails() {
   const [mealsAll, setMealsAll] = useState([]);
-  const [stateDrink, setStateDrink] = useState([{}]);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [colorHeart, setColorHeart] = useState(false);
+  const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
 
   const filterDetails = () => {
-    console.log(stateDrink);
     const keysIngredientes = Object.keys(stateDrink[0]);
     const arrayKeysIngredients = keysIngredientes
       .filter((e) => e.includes('strIngredient'));
@@ -28,7 +27,6 @@ export default function DrinksDetails() {
     arrayKeysIngredients.forEach((element) => ingredient.push(stateDrink[0][element]));
     const filtroIngredients = ingredient.filter((word) => word !== null);
     const filtroMeasure = measures.filter((word) => word !== null);
-    console.log(filtroMeasure);
     setIngredients(filtroIngredients);
     setMeasure(filtroMeasure);
   };
@@ -59,12 +57,7 @@ export default function DrinksDetails() {
       <h1 data-testid="recipe-title">{strDrink}</h1>
 
       <ShareButton />
-      <button type="button" data-testid="favorite-btn" onClick={ changeHeart }>
-        <img
-          src={ colorHeart ? blackHeartIcon : whiteHeartIcon }
-          alt="botão de favoritar"
-        />
-      </button>
+      <FavoriteButton />
       <p data-testid="recipe-category">
         {
           strAlcoholic
@@ -79,14 +72,6 @@ export default function DrinksDetails() {
           >
             { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
           </li>))}
-        {/* {measure.map((measur, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ measur }
-          >
-            {measur}
-
-          </li>))} */}
       </ul>
       <h2>Instruções</h2>
       <p data-testid="instructions">

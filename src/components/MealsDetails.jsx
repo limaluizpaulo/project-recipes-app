@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
@@ -7,9 +7,11 @@ import { fetchAllDrinks } from '../Service/drinkApi';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
+import RecipesContext from '../Context/RecipesContext';
+import FavoriteButton from './FavoriteButton';
 
 export default function MealsDetails() {
-  const [stateMeals, setStateMeals] = useState([{}]);
+  const { stateMeals, setStateMeals } = useContext(RecipesContext);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
   const { pathname } = useLocation();
@@ -58,13 +60,7 @@ export default function MealsDetails() {
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       <ShareButton />
-      <button type="button" onClick={ changeHeart }>
-        <img
-          src={ colorHeart ? blackHeartIcon : whiteHeartIcon }
-          alt="imagem de favoritar"
-          data-testid="favorite-btn"
-        />
-      </button>
+      <FavoriteButton />
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
@@ -76,13 +72,6 @@ export default function MealsDetails() {
           >
             { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
           </li>))}
-        {/* {measure.map((measur, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ measur }
-          >
-            { measur }
-          </li>))} */}
       </ul>
       <h2>Instructions</h2>
       <p data-testid="instructions">{ strInstructions }</p>
