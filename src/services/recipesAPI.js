@@ -53,7 +53,8 @@ export const fetchRecipesById = async (mealsOrDrinks, id) => {
   const request = await fetch(recipesById[mealsOrDrinks] + id);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);
-  
+};
+
 // export const fetchRecipesById = async (id, type) => {
 //   const request = await fetch(searchRecipesById[type] + id);
 //   const response = await request.json();
