@@ -17,6 +17,8 @@ import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
+import './app.css';
+
 const test = '';
 function App() {
   return (

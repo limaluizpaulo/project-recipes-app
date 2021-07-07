@@ -1,10 +1,4 @@
-.card img {
-  width: 150px;
+/* caso vc queira modificar este arquivo apague esse classe abaixo */
+.food {
+  background-color: aliceblue;
 }
-
-.card-meals {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
