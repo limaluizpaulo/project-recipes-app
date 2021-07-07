@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
 import { filterObj } from '../utils';
-import { checkFavoriteId } from '../services/localStorage';
+import {
+  checkFavoriteId,
+  updateStorageRecipe,
+  getStorageRecipe,
+} from '../services/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -18,39 +22,11 @@ const DrinkProgress = ({ match }) => {
   const [selecteds, setSelects] = useState([]);
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
+  const [quantIngred, setQuantIngred] = useState();
 
   const isFavorite = checkFavoriteId(id);
 
-  useEffect(() => {
-    recipeById(id).then(setDrink);
-  }, [id, setDrink]);
-
-  const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
-
-  const handleSelect = (item) => {
-    if (!findSelecteds(item)) {
-      setSelects([...selecteds, item]);
-    } else {
-      const removeSelected = selecteds.filter((ingredient) => ingredient !== item);
-      setSelects(removeSelected);
-    }
-  };
-
-  const renderCheckBox = () => {
-    const ingredients = filterObj(/Ingredient/, drink);
-    return ingredients.map(([key, ingredient]) => (
-      <label
-        className={ findSelecteds(key) && 'checked' }
-        checked={ findSelecteds(key) && 'checked' }
-        data-testid="ingredient-step"
-        htmlFor="ingredient"
-        key={ `${key} - ${ingredient}` }
-      >
-        {ingredient}
-        <input onClick={ () => handleSelect(key) } type="checkbox" id="ingredient" />
-      </label>
-    ));
-  };
+  const qtd = filterObj(/Ingredient/, drink).length;
 
   useEffect(() => {
     if (isFavorite) setIconFavorit(true);
@@ -58,23 +34,62 @@ const DrinkProgress = ({ match }) => {
 
   useEffect(() => {
     recipeById(id).then(setDrink);
-  }, [id, setDrink]);
+    setSelects(getStorageRecipe(id) || []);
+    setQuantIngred(qtd);
+  }, [id, setDrink, qtd]);
+
+  const findSelecteds = (ingredient) => selecteds.find((item) => item === ingredient);
+
+  const handleSelect = (item) => {
+    if (!findSelecteds(item)) {
+      updateStorageRecipe(id, [...selecteds, item]);
+      setSelects([...selecteds, item]);
+    } else {
+      const removeSelected = selecteds.filter((ingredient) => ingredient !== item);
+      updateStorageRecipe(id, removeSelected);
+      setSelects(removeSelected);
+    }
+  };
+
+  const renderCheckBox = () => {
+    const ingredients = filterObj(/Ingredient/, drink);
+    return ingredients.map(([key, ingredient], idx) => (
+      <label
+        className={ findSelecteds(key) && 'checked' }
+        data-testid={ `${idx}-ingredient-step` }
+        htmlFor="ingredient"
+        key={ `${key} - ${ingredient}` }
+      >
+        {ingredient}
+        <input
+          onClick={ () => handleSelect(key) }
+          defaultChecked={ findSelecteds(key) }
+          type="checkbox"
+          id="ingredient"
+        />
+      </label>
+    ));
+  };
 
   const addFavorite = () => {
     const favorites = localStorage.favoriteRecipes
-      ? JSON.parse(localStorage.favoriteRecipes) : [];
+      ? JSON.parse(localStorage.favoriteRecipes)
+      : [];
 
     if (!iconFavorit) {
       const { idDrink, strArea, strCategory, strDrink, strDrinkThumb } = drink;
-      const add = [...favorites, {
-        id: idDrink,
-        type: 'bebida',
-        area: strArea || '',
-        category: strCategory,
-        alcoholicOrNot: 'Alcoholic',
-        name: strDrink,
-        image: strDrinkThumb,
-      }];
+      const add = [
+        ...favorites,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: strArea || '',
+          category: strCategory,
+          alcoholicOrNot: 'Alcoholic',
+          name: strDrink,
+          image: strDrinkThumb,
+        },
+      ];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {
       const remove = favorites.filter(({ id: idL }) => idL !== id);
@@ -115,7 +130,11 @@ const DrinkProgress = ({ match }) => {
         />
       </button>
       <Link to="/receitas-feitas">
-        <button type="button" data-testid="finish-recipe-btn">
+        <button
+          type="button"
+          disabled={ selecteds.length !== quantIngred }
+          data-testid="finish-recipe-btn"
+        >
           Finalizar Receita
         </button>
       </Link>
