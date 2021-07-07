@@ -7,7 +7,7 @@ const copy = require('clipboard-copy');
 export default function ShareButton() {
   const [msgCopy, setMsgCopy] = useState(false);
   const { pathname } = useLocation();
-  const TWO_SECONDS = 2000;
+  const TWO_SECONDS = 3000;
   const shareLink = () => {
     const url = `http://localhost:3000${pathname}`;
     copy(url);
