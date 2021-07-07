@@ -99,7 +99,6 @@ const FoodProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
-  console.log(selecteds.length, quantIngred);
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>

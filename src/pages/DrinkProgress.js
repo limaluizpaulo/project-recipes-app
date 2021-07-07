@@ -120,7 +120,7 @@ const DrinkProgress = ({ match }) => {
         type="button"
         data-testid="share-btn"
       >
-        {msgCopy ? 'Link copiado!' : 'Compartilhar'}
+        { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
       <button onClick={ addFavorite } type="button">
         <img
