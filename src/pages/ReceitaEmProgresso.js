@@ -18,7 +18,6 @@ function ReceitaEmProgresso({ match }) {
   const { url } = match;
   const food = /comida/gi;
   const { id } = useParams();
-  console.log(id);
   const [recipe, setRecipe] = useState();
   const [favorite, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -82,8 +81,6 @@ function ReceitaEmProgresso({ match }) {
     setCopied(true);
   }
 
-  console.log(recipe);
-
   const titleParams = {
     url,
     food,
@@ -116,7 +113,7 @@ function ReceitaEmProgresso({ match }) {
     <main>
       <DetailsImage value={ { recipe, url } } />
       <Title value={ titleParams } />
-      <IngredientsStep value={ recipe } />
+      <IngredientsStep value={ { recipe, url, id } } />
       <Instructions value={ recipe } />
       <button
         className="finish"
