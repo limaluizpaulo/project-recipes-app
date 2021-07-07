@@ -48,12 +48,8 @@ export default function RecipeDetails() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    if (loading) {
-      checkBtnFinish();
-      getDetailRecommendByID();
-    }
-  });
+  useEffect(() => { if (loading) { getDetailRecommendByID(); } });
+  useEffect(checkBtnFinish, []);
 
   // ---------------------------------------------------------------------------------------------
 

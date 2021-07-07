@@ -7,7 +7,9 @@ export default function RecipeIngredients({
   const { recipes: { recipeDetail } } = useContext(store);
 
   // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
-  // const [taskOK, setTaskOK] = useState({ [ingrLS.map((item) => item)]: true });
+  console.log(ingrLS);
+  // const [taskOK, setTaskOK] = useState((ingrLS.length) ? (
+  //   { [ingrLS.map((item) => item)]: true }) : {});
   const [taskOK, setTaskOK] = useState({});
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
 
