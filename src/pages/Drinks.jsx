@@ -38,7 +38,10 @@ function Drinks() {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => filterCategory() }
+          onClick={ () => {
+            filterCategory();
+            handleToggle('', false);
+          } }
         >
           All
         </button>
