@@ -18,7 +18,9 @@ class DoneRecipesCard extends Component {
           />
         </div>
         <div>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>{`${area}-${category}`}</h5>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>
+            {`${area} - ${category}`}
+          </h5>
           <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
           <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
           <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
