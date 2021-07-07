@@ -42,15 +42,15 @@ export default function Title({ currentRecipe, id, title, subtitle }) {
   // Ação de clicar no botão compartilhar
   const handleShare = () => {
     const SECONDS = 3000;
-    const MEX_LENGTH = 4;
+    const MAX_LENGTH = 5;
     const link = url.split('/');
 
     switch (link.length) {
-    case link.length > MEX_LENGTH:
-      copy(`${link[0]}/${link[1]}/${link[2]}/${link[3]}/${link[4]}`);
+    case (MAX_LENGTH):
+      copy(url);
       break;
     default:
-      copy(link.join('/'));
+      copy(`${link[0]}/${link[1]}/${link[2]}/${link[3]}/${link[4]}`);
       break;
     }
 
