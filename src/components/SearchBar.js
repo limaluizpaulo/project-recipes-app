@@ -25,85 +25,92 @@ function SearchBar() {
   };
 
   function handleSingleReturn(data) {
-    const recipe = data[foodOrDrink.idType][0];
+    const recipe = data[0];
     const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
     history.push(link);
   }
 
   return (
-    <div className="search-container">
-      <input
-        placeholder="Buscar Receita"
-        className="search-bar"
-        data-testid="search-input"
-        onChange={ ({ target: { value } }) => {
-          setSearchInput(value);
-          if (endpoint === foodOrDrink.letter && value.length > 1) {
-            global.alert('Sua busca deve conter somente 1 (um) caracter');
-          }
-        } }
-      />
-      <div className="search-options">
-        <label htmlFor="ingrediente">
-          <input
-            type="radio"
-            id="ingrediente"
-            name="search-type"
-            className="radio"
-            data-testid="ingredient-search-radio"
-            onClick={ () => { setEndpoint(foodOrDrink.ingredient); } }
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="nome">
-          <input
-            type="radio"
-            id="nome"
-            name="search-type"
-            className="radio"
-            data-testid="name-search-radio"
-            onClick={ () => { setEndpoint(foodOrDrink.name); } }
-          />
-          Nome
-        </label>
-        <label htmlFor="primeira-letra">
-          <input
-            type="radio"
-            id="primeira-letra"
-            name="search-type"
-            className="radio"
-            data-testid="first-letter-search-radio"
-            onClick={ () => { setEndpoint(foodOrDrink.letter); } }
-          />
-          Primeira letra
-        </label>
-      </div>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ () => {
-          foodOrDrink.fetchRecipe(endpoint, searchInput).then((data) => {
-            console.log(data[foodOrDrink.idType]);
-            if (data[foodOrDrink.idType] === null) {
-              alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-            } else if (data[foodOrDrink.idType].length === 1) {
-              handleSingleReturn(data);
-            } else {
-              const doze = 12;
-              setResults(data[foodOrDrink.idType].slice(0, doze).map((recipe, i) => (
-                <RecipeCard
-                  imagePath={ recipe[`str${foodOrDrink.idRecipe}Thumb`] }
-                  name={ recipe[`str${foodOrDrink.idRecipe}`] }
-                  index={ i }
-                  key={ recipe[`id${foodOrDrink.idRecipe}`] }
-                />
-              )));
+    <div>
+      <div className="search-container">
+        <input
+          placeholder="Buscar Receita"
+          className="search-bar"
+          data-testid="search-input"
+          onChange={ ({ target: { value } }) => {
+            setSearchInput(value);
+            if (endpoint === foodOrDrink.letter && value.length > 1) {
+              global.alert('Sua busca deve conter somente 1 (um) caracter');
             }
-          });
-        } }
-      >
-        Buscar
-      </button>
+          } }
+        />
+        <div className="search-options">
+          <label htmlFor="ingrediente">
+            <input
+              type="radio"
+              id="ingrediente"
+              name="search-type"
+              className="radio"
+              data-testid="ingredient-search-radio"
+              onClick={ () => { setEndpoint(foodOrDrink.ingredient); } }
+            />
+            Ingrediente
+          </label>
+          <label htmlFor="nome">
+            <input
+              type="radio"
+              id="nome"
+              name="search-type"
+              className="radio"
+              data-testid="name-search-radio"
+              onClick={ () => { setEndpoint(foodOrDrink.name); } }
+            />
+            Nome
+          </label>
+          <label htmlFor="primeira-letra">
+            <input
+              type="radio"
+              id="primeira-letra"
+              name="search-type"
+              className="radio"
+              data-testid="first-letter-search-radio"
+              onClick={ () => { setEndpoint(foodOrDrink.letter); } }
+            />
+            Primeira letra
+          </label>
+        </div>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ () => {
+            foodOrDrink.fetchRecipe(endpoint, searchInput).then((data) => {
+              console.log(data);
+              if (data === null) {
+                global.alert(
+                  'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+                );
+              } else if (data.length === 1) {
+                handleSingleReturn(data);
+              } else {
+                const doze = 12;
+                setResults(data.slice(0, doze).map((recipe, i) => (
+                  <RecipeCard
+                    imagePath={ recipe[`str${foodOrDrink.idRecipe}Thumb`] }
+                    name={ recipe[`str${foodOrDrink.idRecipe}`] }
+                    index={ i }
+                    key={ recipe[`id${foodOrDrink.idRecipe}`] }
+                    link={ () => (
+                      history.push(`${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`)
+                    ) }
+                  />
+                )));
+              }
+            });
+          } }
+        >
+          Buscar
+        </button>
+      </div>
       <div className="card-container">
         { results }
       </div>

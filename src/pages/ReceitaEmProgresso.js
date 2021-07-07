@@ -12,7 +12,7 @@ import DetailsImage from '../components/DetailsImage';
 import IngredientsStep from '../components/IngredientsStep';
 import Instructions from '../components/Instructions';
 import Title from '../components/Title';
-import './ReceitaDetalhes.css';
+import '../styles/ReceitaDetalhes.css';
 
 function ReceitaEmProgresso({ match }) {
   const { url } = match;

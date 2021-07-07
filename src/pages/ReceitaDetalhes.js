@@ -16,7 +16,7 @@ import Ingredients from '../components/Ingredients';
 import Instructions from '../components/Instructions';
 import Title from '../components/Title';
 import DetailsButton from './DetailsButton';
-import './ReceitaDetalhes.css';
+import '../styles/ReceitaDetalhes.css';
 
 function ReceitaDetalhes({ match }) {
   const { url } = match;
