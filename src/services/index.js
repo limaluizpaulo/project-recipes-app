@@ -47,7 +47,34 @@ export async function getRandomIdMeal() {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
   const { meals } = await fetch(endpoint).then((data) => data.json());
   return meals[0].idMeal;
-  // const result = fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-  //   .then((resp) => resp.json());
-  // return result;
+}
+export async function getIngredientsMealsList() {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
+}
+export async function getIngredientsDrinksList() {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const { drinks } = await fetch(endpoint).then((data) => data.json());
+  return drinks;
+}
+export async function getFilterIngredientListMeal(name) {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`;
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
+}
+export async function getFilterIngredientListDrink(name) {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`;
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
+}
+export async function getListArea() {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
+}
+export async function getMealByArea(name) {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${name}`;
+  const { meals } = await fetch(endpoint).then((data) => data.json());
+  return meals;
 }

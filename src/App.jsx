@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Login, MainPage, RecipeInProgress, DoneRecipes, Explore,
-  ExploreMealsOrDrinks } from './pages';
+  ExploreMealsOrDrinks, Ingredients, ExploreArea } from './pages';
+import { NotFound } from './components';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -21,6 +22,10 @@ function App() {
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreMealsOrDrinks } />
           <Route exact path="/explorar/bebidas" component={ ExploreMealsOrDrinks } />
+          <Route exact path="/explorar/comidas/ingredientes" component={ Ingredients } />
+          <Route exact path="/explorar/bebidas/ingredientes" component={ Ingredients } />
+          <Route exact path="/explorar/comidas/area" component={ ExploreArea } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </Provider>

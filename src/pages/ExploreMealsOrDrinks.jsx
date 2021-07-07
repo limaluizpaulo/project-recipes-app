@@ -2,17 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Footer } from '../components';
-import { getRandomIdMeal } from '../services';
+// import { getRandomIdMeal } from '../services';
 
 function ExploreMealsOrDrinks({ history }) {
   const { pathname } = history.location;
-
-  const idMeal = async () => {
-    const id = await getRandomIdMeal();
-    return id;
-  };
-  console.log(idMeal());
-
+  // const idMeal = async () => {
+  //   const id = await getRandomIdMeal();
+  //   return id;
+  // };
+  // console.log(idMeal());
   const renderExploreMeals = () => (
     <>
       <Link to="/explorar/comidas/ingredientes">

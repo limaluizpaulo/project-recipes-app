@@ -4,3 +4,5 @@ export { default as DoneRecipes } from './DoneRecipes';
 export { default as RecipeInProgress } from './RecipeInProgress';
 export { default as Explore } from './Explore';
 export { default as ExploreMealsOrDrinks } from './ExploreMealsOrDrinks';
+export { default as Ingredients } from './ExploreIngredients';
+export { default as ExploreArea } from './ExploreArea';
