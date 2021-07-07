@@ -6,7 +6,6 @@ import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
 
 function FoodPage({ history }) {
-  console.log(history);
   const { goSearch, setTitle, recipes } = useContext(ContextRecipes);
   const maxLength = 11;
 
@@ -22,9 +21,14 @@ function FoodPage({ history }) {
         { recipes
         // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
-            <article key={ index }>
-              <img src={ strMealThumb } alt={ strMeal } width="150" />
-              <p>{ strMeal }</p>
+            <article key={ index } data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ strMealThumb }
+                alt={ strMeal }
+                width="150"
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
             </article>))}
       </section>
       <Footer history={ history } />
