@@ -6,7 +6,6 @@ import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 import { actionCategoriesDrinks, actionDrinks } from '../actions';
 import CardItem from '../components/CardItem';
-import ButtonCategories from '../components/ButtonCategories';
 
 class Drinks extends Component {
   constructor(props) {
@@ -38,7 +37,15 @@ class Drinks extends Component {
         <h2>Drinks</h2>
         {listCategories
           ? listCategories.map(({ strCategory }, index) => (
-            <ButtonCategories key={ index } name={ strCategory } />
+            <button
+              key={ index }
+              type="button"
+              data-testid={ `${strCategory}-category-filter` }
+              name={ strCategory }
+              // onClick={ () => this.fetchRecipesCategory(strCategory) }
+            >
+              {strCategory}
+            </button>
           ))
           : <h3>Loading...</h3> }
         {listDrinks.map(({ strDrinkThumb, strDrink }, index) => (

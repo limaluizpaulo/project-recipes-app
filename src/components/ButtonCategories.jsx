@@ -7,7 +7,6 @@ class ButtonCategories extends Component {
     return (
       <button
         type="button"
-        data-testid={ `${name}-category-filter` }
       >
         {name}
       </button>

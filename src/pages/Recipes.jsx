@@ -7,12 +7,15 @@ import DownMenu from '../components/DownMenu';
 import { actionRecipes, actionCategoriesRecipes,
   actionRecipesByCategories } from '../actions';
 import CardItem from '../components/CardItem';
-import ButtonCategories from '../components/ButtonCategories';
 
 class Recipes extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filter: false,
+    };
 
+    this.mapearLista = this.mapearLista.bind(this);
     this.fetchRecipesCategory = this.fetchRecipesCategory.bind(this);
     this.fetchs = this.fetchs.bind(this);
   }
@@ -25,18 +28,29 @@ class Recipes extends Component {
     const { recipes, categories } = this.props;
     recipes();
     categories();
-    this.setState({ loading: false });
   }
 
   async fetchRecipesCategory(category) {
     const { recipesByCategory } = this.props;
     recipesByCategory(category);
     console.log(category);
-    // this.setState((prev) => ({ filter: !prev.filter }));
+    this.setState({ filter: true });
+  }
+
+  mapearLista({ strMealThumb, strMeal, idMeal }, index) {
+    return (
+      <CardItem
+        key={ index }
+        index={ index }
+        name={ strMeal }
+        image={ strMealThumb }
+        id={ idMeal }
+      />);
   }
 
   render() {
-    const { listRecipes, listCategories } = this.props;
+    const { filter } = this.state;
+    const { listRecipes, listCategories, listByCategory } = this.props;
     if (!listRecipes) return (<h3>Loading...</h3>); // OBS possível bug
     if (listRecipes.length === 1) {
       return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;
@@ -46,6 +60,22 @@ class Recipes extends Component {
       <>
         <Header header="Comidas" explorer />
         <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <h2>Recipes</h2>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => this.setState({ filter: false }) }
+        >
+          All
+        </button>
         {listCategories.map(({ strCategory }, index) => (
           <button
             key={ index }
@@ -57,13 +87,9 @@ class Recipes extends Component {
             {strCategory}
           </button>
         ))}
-        {listRecipes.map(({ strMealThumb, strMeal }, index) => (
-          <CardItem
-            key={ index }
-            index={ index }
-            name={ strMeal }
-            image={ strMealThumb }
-          />))}
+        {filter
+          ? listByCategory.map((element) => this.mapearLista(element))
+          : listRecipes.map((element) => this.mapearLista(element))}
         <DownMenu />
       </>
     );
@@ -86,8 +112,8 @@ Recipes.propTypes = {
   listRecipes: PropTypes.arrayOf().isRequired,
   categories: PropTypes.func.isRequired,
   listCategories: PropTypes.arrayOf().isRequired,
-  // recipesByCategory: PropTypes.func.isRequired,
-  // listByCategory: PropTypes.arrayOf().isRequired,
+  recipesByCategory: PropTypes.func.isRequired,
+  listByCategory: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
