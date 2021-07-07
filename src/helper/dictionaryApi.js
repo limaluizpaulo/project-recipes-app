@@ -5,7 +5,7 @@ const dictionaryFood = {
   DrinkAlternate: 'strDrinkAlternate',
   Category: 'strCategory',
   Area: 'strArea',
-  MealThumb: 'strMealThumb',
+  Thumb: 'strMealThumb',
   Tags: 'strTags',
   Youtube: 'strYoutube',
   Source: 'strSource',
@@ -54,7 +54,7 @@ const dictionaryDrink = {
   InstructionsIT: 'strInstructionsIT',
   InstructionsZH_HANS: 'strInstructionsZH-HANS',
   InstructionsZH_HANT: 'strInstructionsZH-HANT',
-  DrinkThumb: 'strDrinkThumb',
+  Thumb: 'strDrinkThumb',
   Ingredients: [
     ['strIngredient1', 'strMeasure1'],
     ['strIngredient2', 'strMeasure2'],

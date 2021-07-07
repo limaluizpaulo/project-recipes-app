@@ -1,28 +1,5 @@
-.recipe-details {
-  background-color: darkgray;
-  height: 155px;
-  width: 360px;
-}
-
-.recipe-details img {
-  width: 360px;
-}
-
 .details-content {
   padding: 0.56rem;
-}
-
-.details-header {
-  display: flex;
-}
-
-.details-title {
-  font-size: 1.9rem;
-}
-
-.details-category {
-  color: darkgray;
-  font-size: 1.3rem;
 }
 
 .details-btn-share, .details-btn-favorite {
