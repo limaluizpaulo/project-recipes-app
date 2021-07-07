@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import RecipesContext from '../context/RecipesContext';
 import '../styles/card.css';
 
 export default function MealsByIngredients() {
@@ -10,6 +12,11 @@ export default function MealsByIngredients() {
   const path = history.location.pathname;
   const [ingredients, setIngredients] = useState(null);
   const limitMap = 12;
+
+  const {
+    setSearchInput,
+  } = useContext(RecipesContext);
+  // onClick={ () => { setEndpoint(foodOrDrink.ingredient); } }
 
   function handlefetch(endpoint) {
     return fetch(`${endpoint}`)
@@ -28,14 +35,21 @@ export default function MealsByIngredients() {
     }
   }, [path]);
 
-  // function
+  function recipesByIngredient({ target }) {
+    const { name } = target;
+    const { push } = history;
+    setSearchInput(name);
+    return push('/comidas');
+  }
 
   function renderIngredients() {
     if (path === comidasPath) {
       return (
         <div className="card-container">
           {ingredients.slice(0, limitMap).map((el, i) => (
-            <div
+            <button
+              type="button"
+              onClick={ (e) => recipesByIngredient(e) }
               className="recipe-card"
               data-testid={ `${i}-ingredient-card` }
               key={ i }
@@ -49,7 +63,7 @@ export default function MealsByIngredients() {
                 src={ `https://www.themealdb.com/images/ingredients/${el.strIngredient}-Small.png` }
                 alt={ el.strIngredient }
               />
-            </div>
+            </button>
           ))}
         </div>
       );
