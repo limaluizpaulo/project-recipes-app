@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-const Header = ({ name, search, children }) => {
+const Header = ({ name, search, children, dropDown }) => {
   const [bar, setBar] = useState(false);
   const [drop, setDrop] = useState(false);
 

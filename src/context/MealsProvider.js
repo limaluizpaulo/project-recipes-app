@@ -64,7 +64,6 @@ const MealsProvider = ({ children }) => {
     setMeals,
     categories,
     setFilterCategory,
-    findMealRecipe,
     filterIngredients,
     filterById,
     filterAllMeasure,
