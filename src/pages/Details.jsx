@@ -10,7 +10,7 @@ import Recommended from '../components/Recommended';
 
 function Details() {
   const { id } = useParams();
-  const { isFetching, type } = useContext(RecipesContext);
+  const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
 
   const capitalize = (text) => text.replace(
@@ -32,7 +32,9 @@ function Details() {
     };
     getData();
   }, []);
-  const videoId = detailsData === undefined ? null : detailsData.strYoutube === undefined ? null : detailsData.strYoutube.slice(32);
+  const thirtyTwo = 32;
+  const videoId = detailsData === undefined ? null
+    : detailsData.strYoutube.slice(thirtyTwo);
   const video = type === 'meals' ? (
     <section data-testid="video">
       <h3>Video</h3>

@@ -4,7 +4,7 @@ import RecipesContext from '../contexts/RecipesContext';
 import Card from './Card';
 
 function Recommended() {
-  const { isFetching, type } = useContext(RecipesContext);
+  const { /* isFetching, */ type } = useContext(RecipesContext);
   const [recommendedData, setRecommendedData] = useState([]);
   const recommendedType = (type === 'meals') ? 'drinks' : 'meals';
 
