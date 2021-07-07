@@ -30,6 +30,7 @@ export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestr
 
   const addDoneRecipe = () => {
     const r = recipeDetail; // só pra reduzir a verbosidade
+    const maxTags = 2;
     const newDoneRecipe = {
       id: r.idMeal || r.idDrink,
       type: foods ? 'comida' : 'bebida',
@@ -39,7 +40,7 @@ export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestr
       name: r.strMeal || r.strDrink,
       image: r.strMealThumb || r.strDrinkThumb,
       doneDate: whatDayIsToday(),
-      tags: r.strTags.split(','),
+      tags: r.strTags ? r.strTags.split(',').slice(0, maxTags) : [],
     };
     setStorage('doneRecipes', [...doneRecipes, newDoneRecipe]);
   };

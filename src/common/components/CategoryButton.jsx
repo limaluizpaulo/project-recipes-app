@@ -5,7 +5,7 @@ import store from '../../context/store';
 
 const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
 
-export default function CategoryButton({ clickCategory, clickAll, path }) { // Desestruturação de props
+export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, path }) { // Desestruturação de props
   const { recipes: { foods, categoriesMeals,
     categoriesDrinks, categoriesLimit } } = useContext(store);
 
@@ -27,7 +27,9 @@ export default function CategoryButton({ clickCategory, clickAll, path }) { // D
             data-testid={ path
               ? `filter-by-${category.strCategory.toLowerCase()}-btn`
               : `${category.strCategory}-category-filter` }
-            onClick={ () => clickCategory(category) }
+            onClick={ path
+              ? (() => foodOrDrink(category.strCategory))
+              : (() => clickCategory(category)) }
           >
             {category.strCategory}
           </button>
@@ -53,9 +55,11 @@ export default function CategoryButton({ clickCategory, clickAll, path }) { // D
 CategoryButton.propTypes = {
   clickCategory: PropTypes.func.isRequired,
   clickAll: PropTypes.func.isRequired,
+  foodOrDrink: PropTypes.func,
   path: PropTypes.bool,
 };
 
 CategoryButton.defaultProps = {
+  foodOrDrink: () => console.log('nothing to do!'),
   path: false,
 };

@@ -157,8 +157,8 @@ body, button {
 /* DONE RECIPE PAGE ===========================================================================================================*/
 .doneCard {
   border: solid black 1px;
-  height: 143px;
-  width: 333px;
+  /* height: 143px;
+  width: 333px; */
 }
 
 .doneImg {
@@ -166,7 +166,7 @@ body, button {
   height: 143px;
 }
 
-.doneArea, .doneCategory {
+/* .doneArea, .doneCategory {
   display: inline-block;
-  /* flex-direction: column; */
-}
+  /* flex-direction: column;
+} */
