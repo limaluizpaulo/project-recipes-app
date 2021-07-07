@@ -16,13 +16,9 @@ const selectedFilter = {
 };
 
 function SearchBar() {
-  const { setData } = useContext(RecipesContext);
+  const { setData, type } = useContext(RecipesContext);
   const [searchInput, setSearchInput] = useState('');
-  const [radioInput, setRadioInput] = useState('ingredients');
-  // const [filterHeader, setFilterHeader] = useState({
-  //   search: '',
-  //   radio: 'ingredients',
-  // });
+  const [radioInput, setRadioInput] = useState('');
 
   const isDisabled = () => {
     if (searchInput === '' || radioInput === '') {
@@ -32,9 +28,19 @@ function SearchBar() {
   };
 
   // useEffect(() => {
-  const filterApi = async () => {
-    const result = await selectedFilter[radioInput](searchInput);
-    if (result.length) {
+  const filterApi = async () => { //  tentar refatorar: jogar alerts dentro do getApi
+    const alertMessage = (fn, message) => {
+      fn(message);
+    };
+    if (radioInput === 'firstLetter' && searchInput.length > 1) {
+      alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
+    }
+    const result = await selectedFilter[radioInput](searchInput, type);
+    if (result === null) {
+      alertMessage(alert,
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (result.length) { //  tentei refatorar, a aplicação funcionou normal mas cypress QUEBROU
       setData(result);
     }
   };
@@ -87,14 +93,7 @@ function SearchBar() {
         />
       </div>
       <Button
-        func={ () => {
-          if (radioInput === 'firstLetter' && searchInput.length > 1) {
-            const alertMessage = (fn, message) => {
-              fn(message);
-            };
-            alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
-          } else filterApi();
-        } }
+        func={ () => filterApi() }
         disabled={ isDisabled() }
         testid="exec-search-btn"
         label="Buscar"

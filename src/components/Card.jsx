@@ -1,32 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import pathTreament from '../helpers/HelperFunctions';
 
 export default function Card(props) {
-  const { id, thumbnail, title, index } = props;
+  const history = useHistory();
+  const { id, thumbnail, title, index, category } = props;
   const { pathname } = useLocation();
-
+  const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
+  const newPathname = pathTreament(pathname);
   return (
-    <Link
+    <button
       className="recipe-card meal"
-      to={ `${pathname}/${id} ` }
-      data-testid={ `${index}-recipe-card` }
+      data-testid={ dataTestId }
+      type="button"
+      onClick={ () => {
+        history.push(`${newPathname}/${id}`);
+      } }
     >
-      <div>
-        <img
-          className="recipe-card-thumb"
-          src={ thumbnail }
-          alt={ title }
-          data-testid={ `${index}-card-img` }
-        />
-        <span
-          className="recipe-card-title"
-          data-testid={ `${index}-card-name` }
-        >
-          {title}
-        </span>
-      </div>
-    </Link>
+      <img
+        className="recipe-card-thumb"
+        src={ thumbnail }
+        alt={ title }
+        data-testid={ `${index}-card-img` }
+      />
+      {category && (<span>{category}</span>)}
+      <span
+        className="recipe-card-title"
+        data-testid={ `${index}-card-name` }
+      >
+        {title}
+      </span>
+    </button>
+    // </Link>
   );
 }
 
@@ -35,4 +41,5 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };

@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage';
 // import Bebidas from './pages/Bebidas';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
+import Details from './pages/Details';
 
 function App() {
   return (
@@ -17,14 +18,14 @@ function App() {
       {/* <Route path="/explorar/comidas/area" component={ ExplorarArea } /> */}
       {/* <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } /> */}
-      <Route exact path="/explorar" component={ Explorar } />
+      <Route path="/explorar" component={ Explorar } />
       <Route exact path="/perfil" component={ Perfil } />
       {/* <Route path="/receitas-feitas" component={ ReceitasFeitas } /> */}
       {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
       {/* <Route path="/bebidas/:id/in-progress" component={ InProgress } /> */}
       {/* <Route path="/comidas/:id/in-progress" component={ InProgress } /> */}
-      {/* <Route path="/bebidas/:id" component={ Details } /> */}
-      {/* <Route path="/comidas/:id" component={ Details } /> */}
+      <Route path="/bebidas/:id" component={ Details } />
+      <Route path="/comidas/:id" component={ Details } />
       <Route exact path="/comidas" component={ MainPage } />
       <Route exact path="/bebidas" component={ MainPage } />
     </Switch>
