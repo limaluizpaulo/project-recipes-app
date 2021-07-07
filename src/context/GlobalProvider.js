@@ -104,7 +104,6 @@ function GlobalProvider({ children }) {
       setRequestResult(result);
     }
   };
-  // verificar
 
   const detailsSyncSetState = async (endPoint) => {
     const result = await fetchAPI(endPoint, '', '');

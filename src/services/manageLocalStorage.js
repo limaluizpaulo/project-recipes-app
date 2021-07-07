@@ -59,8 +59,37 @@ export const localStorageVerifier = (match, id, history) => {
 export const verifyFavorite = (id) => {
   const rawFavorites = localStorage.getItem('favoriteRecipes');
   const favorites = JSON.parse(rawFavorites);
+  console.log(favorites);
   if (favorites && favorites.find((fav) => fav.id === id)) {
     return blackHeartIcon;
   }
   return whiteHeartIcon;
+};
+
+export const settingFavorite = (details) => {
+  const favoritesArrayVerifier = localStorage.getItem('favoriteRecipes');
+  if (!favoritesArrayVerifier) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }
+  const rawFavoritesArray = localStorage.getItem('favoriteRecipes');
+  const favoritesArray = JSON.parse(rawFavoritesArray);
+  let favoriteObject = {};
+  if (details.meals) {
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = details.meals[0];
+    favoriteObject = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    console.log(details);
+  }
+  if (details.drinks) {
+
+  }
+  favoritesArray.push(favoriteObject);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
 };
