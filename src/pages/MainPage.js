@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
-import { fetchAPI, getRandomData, getCategoriesList } from '../services/apiRequest';
+import { getRandomData, getCategoriesList, getDataByCategory } from '../services/apiRequest';
 
 const TWELVE = 12;
 const FIVE = 5;
@@ -57,15 +57,15 @@ export default function MainPage() {
   }, [searchResult, limit]);
 
   async function handleCategoryFilter(category) {
-    const URL = `https://www.${domain}.com/api/json/v1/1/filter.php?c=${category}`;
-    const listByCategory = await fetchAPI(URL);
-    setSearchByCategory(listByCategory[firstKey]);
-    setRenderer(listByCategory[firstKey].filter((_e, index) => index < limit));
-
     if (toggle.category === category) {
       setToggle({ status: false, category: '' });
       setRenderer(dataResult.filter((_e, index) => index < limit));
     } else {
+      getDataByCategory(domain, category)
+        .then((res) => {
+          setSearchByCategory(res[firstKey]);
+          setRenderer(res[firstKey].filter((_e, index) => index < limit));
+        });
       setToggle({ status: true, category });
     }
   }
