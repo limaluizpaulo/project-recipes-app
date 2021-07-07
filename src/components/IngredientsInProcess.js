@@ -9,12 +9,11 @@ import start, { request } from '../helper/addIdStorage';
 import { requestByDetailsDrink, requestByDetailsMeal } from '../services/api';
 
 function IngredientsInProcess({ index, element, measures }) {
-  const { param, setParam, setActive } = useContext(Context);
+  const { param, setParam } = useContext(Context);
   const params = useParams();
 
   function countInputs() {
     const array = [...document.querySelectorAll('input')];
-    const count = 0;
     console.log(array);
   }
 
