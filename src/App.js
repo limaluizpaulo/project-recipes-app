@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, useLocation } from 'react-router';
 
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './pages/Login';
@@ -14,6 +15,7 @@ import ExploreByArea from './pages/ExploreByArea';
 import DrinksIngredients from './pages/DrinksIngredients';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -55,6 +57,7 @@ function App() {
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+        <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
