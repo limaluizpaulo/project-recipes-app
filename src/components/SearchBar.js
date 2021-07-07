@@ -1,34 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
-import fetchFood,
-{ FOOD_BY_INGREDIENT, FOOD_BY_LETTER, FOOD_BY_NAME } from '../services/FoodAPI';
-import fetchDrink,
-{ DRINK_BY_INGREDIENT, DRINK_BY_LETTER, DRINK_BY_NAME } from '../services/DrinkAPI';
+// import fetchFood,
+// { FOOD_BY_INGREDIENT, FOOD_BY_LETTER, FOOD_BY_NAME } from '../services/FoodAPI';
+// import fetchDrink,
+// { DRINK_BY_INGREDIENT, DRINK_BY_LETTER, DRINK_BY_NAME } from '../services/DrinkAPI';
 import RecipeCard from './RecipeCard';
 import '../styles/header.css';
 
 function SearchBar() {
-  const [searchInput, setSearchInput] = useState('');
-  const [endpoint, setEndpoint] = useState();
-  const [type] = useState(useHistory().location.pathname);
   const [history] = useState(useHistory());
-  const [results, setResults] = useState(<div> </div>);
 
-  const foodOrDrink = {
-    letter: type === '/comidas' ? FOOD_BY_LETTER : DRINK_BY_LETTER,
-    ingredient: type === '/comidas' ? FOOD_BY_INGREDIENT : DRINK_BY_INGREDIENT,
-    name: type === '/comidas' ? FOOD_BY_NAME : DRINK_BY_NAME,
-    fetchRecipe: type === '/comidas' ? fetchFood : fetchDrink,
-    idType: type === '/comidas' ? 'meals' : 'drinks',
-    idRecipe: type === '/comidas' ? 'Meal' : 'Drink',
-  };
+  const {
+    endpoint,
+    setEndpoint,
+    foodOrDrink,
+    searchInput,
+    setSearchInput,
+    results,
+    setResults,
+    handleSingleReturn,
+    type,
+  } = useContext(RecipesContext);
 
-  function handleSingleReturn(data) {
-    const recipe = data[0];
-    const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
-    history.push(link);
-  }
+  // const [searchInput, setSearchInput] = useState('');
+  // const [endpoint, setEndpoint] = useState();
+  // const [type] = useState(useHistory().location.pathname);
+  // const [results, setResults] = useState(<div> </div>);
+
+  // const foodOrDrink = {
+  //   letter: type === '/comidas' ? FOOD_BY_LETTER : DRINK_BY_LETTER,
+  //   ingredient: type === '/comidas' ? FOOD_BY_INGREDIENT : DRINK_BY_INGREDIENT,
+  //   name: type === '/comidas' ? FOOD_BY_NAME : DRINK_BY_NAME,
+  //   fetchRecipe: type === '/comidas' ? fetchFood : fetchDrink,
+  //   idType: type === '/comidas' ? 'meals' : 'drinks',
+  //   idRecipe: type === '/comidas' ? 'Meal' : 'Drink',
+  // };
+
+  // function handleSingleReturn(data) {
+  //   const recipe = data[0];
+  //   const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
+  //   history.push(link);
+  // }
 
   return (
     <div>
