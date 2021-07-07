@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
 import { filterObj } from '../utils';
-import { checkFavoriteId, updateStorageRecipe } from '../services/localStorage';
+import { checkFavoriteId, updateStorageRecipe, getStorageRecipe } from '../services/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -25,15 +25,12 @@ const DrinkProgress = ({ match }) => {
   const qtd = filterObj(/Ingredient/, drink).length;
 
   useEffect(() => {
-    recipeById(id).then(setDrink);
-  }, [id, setDrink]);
-
-  useEffect(() => {
     if (isFavorite) setIconFavorit(true);
   }, [isFavorite]);
 
   useEffect(() => {
     recipeById(id).then(setDrink);
+    setSelects(getStorageRecipe(id) || []);
     setQuantIngred(qtd);
   }, [id, setDrink, qtd]);
 
@@ -52,16 +49,20 @@ const DrinkProgress = ({ match }) => {
 
   const renderCheckBox = () => {
     const ingredients = filterObj(/Ingredient/, drink);
-    return ingredients.map(([key, ingredient]) => (
+    return ingredients.map(([key, ingredient], idx) => (
       <label
         className={ findSelecteds(key) && 'checked' }
-        checked={ findSelecteds(key) && 'checked' }
-        data-testid="ingredient-step"
+        data-testid={ `${idx}-ingredient-step` }
         htmlFor="ingredient"
         key={ `${key} - ${ingredient}` }
       >
         {ingredient}
-        <input onClick={ () => handleSelect(key) } type="checkbox" id="ingredient" />
+        <input
+          onClick={ () => handleSelect(key) }
+          defaultChecked={ findSelecteds(key) }
+          type="checkbox"
+          id="ingredient"
+        />
       </label>
     ));
   };

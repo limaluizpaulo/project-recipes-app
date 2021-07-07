@@ -54,10 +54,10 @@ const FoodProgress = ({ match }) => {
 
   const renderCheckBox = () => {
     const ingredients = filterObj(/Ingredient/, meal);
-    return ingredients.map(([key, ingredient]) => (
+    return ingredients.map(([key, ingredient], idx) => (
       <label
         className={ findSelecteds(key) && 'checked' }
-        data-testid="ingredient-step"
+        data-testid={ `${idx}-ingredient-step` }
         htmlFor="ingredient"
         key={ `${key} - ${ingredient}` }
       >
