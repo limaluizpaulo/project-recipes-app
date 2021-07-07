@@ -30,11 +30,12 @@ function ExploreFoodsByIngredients() {
       <Header />
       {ingredientsList.map((item, i) => (
         <Link
+          data-testid={ `${i}-ingredient-card` }
           onClick={ () => handleClick(item[secondKey]) }
           to={ `${homePath}` }
           key={ i }
         >
-          <section data-testid={ `${i}-ingredient-card` }>
+          <section>
             <p data-testid={ `${i}-card-name` }>
               {item[secondKey]}
             </p>
