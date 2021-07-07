@@ -40,14 +40,14 @@ function GlobalProvider({ children }) {
   useEffect(() => {
     if (requestResult.meals) {
       setMeals(requestResult.meals);
-      if (!toggle.backup) {
+      if (toggle.backup.meals.length < 1) {
         setToggle({
           ...toggle, backup: { ...toggle.backup, meals: requestResult.meals } });
       }
     }
     if (requestResult.drinks) {
       setDrinks(requestResult.drinks);
-      if (!toggle.backup) {
+      if (toggle.backup.drinks.length < 1) {
         setToggle({
           ...toggle, backup: { ...toggle.backup, drinks: requestResult.drinks } });
       }
