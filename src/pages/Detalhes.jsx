@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { startRecipe } from '../action';
+import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
 
 import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Instructions from '../components/Instructions';
 
 class Detalhes extends Component {
   constructor(props) {
@@ -17,6 +18,14 @@ class Detalhes extends Component {
       favIconColor: whiteHeartIcon,
     };
     this.handleFavClick = this.handleFavClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { match: { params: { page, id } }, foodDetails, drinksDetails } = this.props;
+    if (page === 'comidas') {
+      return foodDetails(id);
+    }
+    return drinksDetails(id);
   }
 
   handleFavClick() {
@@ -37,8 +46,6 @@ class Detalhes extends Component {
 
   render() {
     const { isStart, details } = this.props;
-    const ingredientsNumber = 5550;
-    const recomendationCardNumber = 550;
     const { favIconColor } = this.state;
     return (
       <section>
@@ -76,7 +83,7 @@ class Detalhes extends Component {
               <img src={ favIconColor } alt={ favIconColor } />
             </button>
           </section>
-          <section data-testid={ `${ingredientsNumber}-ingredient-name-and-measure` }>
+          <section>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
               <Ingredients data={ details } />
@@ -85,14 +92,14 @@ class Detalhes extends Component {
           <section data-testid="instructions">
             <h3>Instructions</h3>
             <span className="details-intructions-text">
-              AQUI FICARÁ AS INSTRUÇÕES
+              <Instructions data={ details } />
             </span>
           </section>
           <section data-testid="video">
             <h3>Video</h3>
             <section className="video">AQUI FICARÁ O VIDEO</section>
           </section>
-          <section data-testid={ `${recomendationCardNumber}-recomendation-card` }>
+          <section data-testid={ `${0}-recomendation-card` }>
             <h3>Recomendadas</h3>
             CARROSEUL
           </section>
@@ -112,6 +119,8 @@ class Detalhes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   isStart: () => dispatch(startRecipe()),
+  drinksDetails: (id) => dispatch(fetchDrinkDetails(id)),
+  foodDetails: (id) => dispatch(fetchFoodDetails(id)),
 });
 
 const mapStateToProps = (state) => ({
@@ -120,7 +129,10 @@ const mapStateToProps = (state) => ({
 
 Detalhes.propTypes = {
   isStart: PropTypes.func.isRequired,
+  drinksDetails: PropTypes.func.isRequired,
+  foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
+  match: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detalhes);

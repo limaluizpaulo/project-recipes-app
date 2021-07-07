@@ -7,7 +7,6 @@ import Cards from '../components/cards';
 import Footer from '../components/footer';
 import {
   fetchApiDrinkCategories,
-  fetchDrinkDetails,
   fetchDrinksRecipes,
   fetchFilterDrinkByCategories,
   getSearchBarResponse,
@@ -29,7 +28,6 @@ class Bebidas extends Component {
       drinkByCategories,
       dispatchDrinks,
       match,
-      drinksDetails,
     } = this.props;
     return (
       <div>
@@ -51,7 +49,6 @@ class Bebidas extends Component {
                   img={ drink.strDrinkThumb }
                   title={ drink.strDrink }
                   index={ index }
-                  details={ drinksDetails }
                 />
               ))
             }
@@ -68,7 +65,6 @@ const mapDispatchToProps = (dispatch) => ({
   apiDrinkCategories: () => dispatch(fetchApiDrinkCategories()),
   hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
   drinkByCategories: (category) => dispatch(fetchFilterDrinkByCategories(category)),
-  drinksDetails: (id) => dispatch(fetchDrinkDetails(id)),
 });
 
 const mapStateToProps = (state) => ({
@@ -85,7 +81,6 @@ Bebidas.propTypes = {
   match: PropTypes.shape.isRequired,
   hasSearchBar: PropTypes.func.isRequired,
   drinkByCategories: PropTypes.func.isRequired,
-  drinksDetails: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);
