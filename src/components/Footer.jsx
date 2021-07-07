@@ -10,7 +10,7 @@ import teste from '../images/mealIcon.svg';
 function Footer() {
   const history = useHistory();
 
-  function teste2(event) {
+  function redirectToRespectivelyPages(event) {
     const { name } = event.target;
     history.push(`/${name}`);
   }
@@ -21,7 +21,7 @@ function Footer() {
 
         <button
           type="button"
-          onClick={ (event) => teste2(event) }
+          onClick={ (event) => redirectToRespectivelyPages(event) }
         >
           <img
             src={ Drink }
@@ -32,7 +32,7 @@ function Footer() {
         </button>
         <button
           type="button"
-          onClick={ (event) => teste2(event) }
+          onClick={ (event) => redirectToRespectivelyPages(event) }
         >
           <img
             src={ Explore }
@@ -43,7 +43,7 @@ function Footer() {
         </button>
         <button
           type="button"
-          onClick={ (event) => teste2(event) }
+          onClick={ (event) => redirectToRespectivelyPages(event) }
         >
           <img
             src={ teste }

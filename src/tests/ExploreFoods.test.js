@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import RecipesProvider from '../context/RecipesProvider';
@@ -28,41 +29,47 @@ describe('Checks ExploreFoods Page', () => {
     expect(titlePage.innerHTML).toBe('Explorar Comidas');
   });
 
-  it('Checks if the page has three buttons and redirect to respectively pages', () => {
-    const { history } = renderWithRouter(
-      <RecipesProvider>
-        <ExploreFoods />
-      </RecipesProvider>,
-    );
+  it('Checks if the page has three buttons and redirect to respectively pages',
+    async () => {
+      const { history } = renderWithRouter(
+        <RecipesProvider>
+          <ExploreFoods />
+        </RecipesProvider>,
+      );
 
-    const ingredientsButton = screen.getByRole('button', {
-      name: /por ingredientes/i,
+      const ingredientsButton = screen.getByRole('button', {
+        name: /por ingredientes/i,
+      });
+
+      expect(ingredientsButton).toBeInTheDocument();
+
+      userEvent.click(ingredientsButton);
+
+      const { pathname } = history.location;
+      expect(pathname).toBe('/explorar/comidas/ingredientes');
+
+      const localRecipesButton = screen.getByRole('button', {
+        name: /por local de origem/i,
+      });
+
+      expect(localRecipesButton).toBeInTheDocument();
+
+      userEvent.click(localRecipesButton);
+
+      const { pathname: pathname2 } = history.location;
+      expect(pathname2).toBe('/explorar/comidas/area');
+
+      const surpriseRecipesButton = screen.getByRole('button', {
+        name: /me surpreenda!/i,
+      });
+
+      expect(surpriseRecipesButton).toBeInTheDocument();
+
+      const { pathname: pathname3 } = history.location;
+      await waitFor(() => {
+        expect(pathname3).toBe('/explorar/comidas/area');
+      });
     });
-
-    expect(ingredientsButton).toBeInTheDocument();
-
-    userEvent.click(ingredientsButton);
-
-    const { pathname } = history.location;
-    expect(pathname).toBe('/explorar/comidas/ingredientes');
-
-    const localRecipesButton = screen.getByRole('button', {
-      name: /por local de origem/i,
-    });
-
-    expect(localRecipesButton).toBeInTheDocument();
-
-    userEvent.click(localRecipesButton);
-
-    const { pathname: pathname2 } = history.location;
-    expect(pathname2).toBe('/explorar/comidas/area');
-
-    const surpriseRecipesButton = screen.getByRole('button', {
-      name: /me surpreenda!/i,
-    });
-
-    expect(surpriseRecipesButton).toBeInTheDocument();
-  });
 
   it('Check if the page has a footer', () => {
     renderWithRouter(
