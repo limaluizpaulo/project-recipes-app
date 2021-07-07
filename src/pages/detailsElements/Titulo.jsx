@@ -11,6 +11,7 @@ function Titulo(props) {
       <h4>{type[0][`str${type[1][2]}`]}</h4>
       <h4 data-testid="recipe-category">{type[0][`str${type[1][1]}`]}</h4>
       <img
+        className="Detailsimg"
         data-testid="recipe-photo"
         src={ type[0][`str${type[1][0]}Thumb`] }
         alt={ type[0][`str${type[1][0]}`] }

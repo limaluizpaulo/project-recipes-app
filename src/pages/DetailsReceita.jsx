@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita, receitasApi } from '../services/servicesApi';
+
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
+import Carousel from './detailsElements/Carousel';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
@@ -37,7 +40,6 @@ function DetailsReceita(props) {
     sugestoesfunv();
   }, [receitas]);
 
-  console.log(sugestoes, 'aqui');
   function ingrFunction() {
     const vinte = 20;
     for (let index = 0; index < vinte; index += 1) {
@@ -62,9 +64,9 @@ function DetailsReceita(props) {
     }
   }
 
-  let type = ['Meal', 'Category', 'Area'];
+  let type = ['Meal', 'Category', 'Area', 'Drink'];
   if (apelidoAPI === 'bebidas') {
-    type = ['Drink', 'Alcoholic', 'Category'];
+    type = ['Drink', 'Alcoholic', 'Category', 'Meal'];
   }
 
   return (
@@ -74,6 +76,7 @@ function DetailsReceita(props) {
         {ingrFunction()}
         {ingredientes.map((ing, i) => <IngredientsList key={ i } ingr={ [ing, i] } />)}
       </ul>
+
       <p data-testid="instructions">{receita.strInstructions}</p>
       {videoRender()}
 
@@ -86,6 +89,7 @@ function DetailsReceita(props) {
       <Link data-testid="start-recipe-btn" to={ `/${apelidoAPI}/${id}/in-progress` }>
         iniciar receita
       </Link>
+      <Carousel sugest={ [sugestoes, type] } />
       <div data-testid={ `${0}-recomendation-card` }>receitas recomendadas</div>
     </div>
   );

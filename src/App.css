@@ -70,3 +70,11 @@ body {
     transform: rotate(-10deg);
   }
 }
+
+.carouselimg {
+  width: 10%;
+}
+
+.Detailsimg {
+  width: 30%;
+}
