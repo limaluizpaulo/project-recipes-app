@@ -1,11 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Header, Footer } from '../components';
 import { getFromLocalStorage } from '../services/helpers/localStorage';
 
 const Profile = () => {
-  const history = useHistory();
   const { email } = getFromLocalStorage('user') || '';
 
   return (
@@ -14,29 +13,27 @@ const Profile = () => {
 
       <h2 data-testid="profile-email">{ email }</h2>
 
-      <button
-        type="button"
+      <Link
         data-testid="profile-done-btn"
-        onClick={ () => history.push('/receitas-feitas') }
+        to="/receitas-feitas"
       >
         Receitas Feitas
-      </button>
+      </Link>
 
-      <button
-        type="button"
+      <Link
         data-testid="profile-favorite-btn"
-        onClick={ () => history.push('/receitas-favoritas') }
+        to="/receitas-favoritas"
       >
         Receitas Favoritas
-      </button>
+      </Link>
 
-      <button
-        type="button"
+      <Link
         data-testid="profile-logout-btn"
-        onClick={ () => { localStorage.clear(); history.push('/'); } }
+        to="/"
+        onClick={ () => { localStorage.clear(); } }
       >
         Sair
-      </button>
+      </Link>
 
       <Footer />
     </main>
