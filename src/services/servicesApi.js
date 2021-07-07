@@ -1,4 +1,4 @@
-export default async function receitasApi(parametrosBusca) {
+export async function receitasApi(parametrosBusca) {
   const { apelidoAPI, flag, input } = parametrosBusca;
   const MAX_RECIPES = 12;
   const limitarResultados = (arr) => ((arr === null) ? null : arr.slice(0, MAX_RECIPES));
@@ -13,6 +13,7 @@ export default async function receitasApi(parametrosBusca) {
     s: 'search',
     f: 'search',
   };
+  console.log(apelidoAPI);
   const END_POINT = `https://www.${apiDomain[apelidoAPI]}.com/api/json/v1/1/${metodo[flag]}.php?${flag}=${input}`;
   const request = await fetch(END_POINT);
   const response = await request.json();

@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ListaCategoriasReceitas from '../components/ListaCategoriasReceitas';
 import AppReceitasContext from '../context/AppReceitasContext';
-import receitasApi from '../services/servicesApi';
+import { receitasApi } from '../services/servicesApi';
 
 function Receitas() {
   const { parametrosBusca } = useContext(AppReceitasContext);

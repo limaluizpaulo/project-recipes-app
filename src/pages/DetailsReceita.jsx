@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, Link } from 'react-router-dom';
-import { buscaReceita } from '../services/servicesApi';
+import { buscaReceita, receitasApi } from '../services/servicesApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import Titulo from './detailsElements/Titulo';
@@ -17,21 +17,27 @@ function DetailsReceita(props) {
   const ingredientes = [];
 
   useEffect(() => {
-    let apelido = 'comida';
-    if (apelidoAPI === 'comida') {
-      apelido = 'bebida';
-    }
     const didMount = async () => {
       const respostaApi = await buscaReceita(receitas);
       setReceita(respostaApi);
-
-      const respostaApi2 = await buscaReceita({ apelidoAPI: apelido });
-      setSugestoes(respostaApi2);
+    };
+    const sugestoesfunv = async () => {
+      let apelido = 'comidas';
+      if (apelidoAPI === 'comidas') {
+        apelido = 'bebidas';
+      }
+      const respostaApi2 = await receitasApi({
+        apelidoAPI: apelido,
+        flag: 's',
+        input: '' });
+      const six = 6;
+      setSugestoes(respostaApi2.slice(0, six));
     };
     didMount();
+    sugestoesfunv();
   }, [receitas]);
 
-  console.log(sugestoes);
+  console.log(sugestoes, 'aqui');
   function ingrFunction() {
     const vinte = 20;
     for (let index = 0; index < vinte; index += 1) {
