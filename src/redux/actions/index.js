@@ -47,10 +47,8 @@ export const fetchComidasOnComponentDidMount = (recipeType) => (dispatch) => {
     .catch((error) => dispatch(requestFetchError(error)));
 };
 
-export const fetchReceitaRandom = (recipeType) => (dispatch) => {
-  fetchRandomRecipe(recipeType)
-    .then((response) => {
-      dispatch(requestRandomRecipeSuccess(response));
-    })
-    .catch((error) => dispatch(requestRandomRecipeError(error)));
-};
+export const fetchReceitaRandom = (type) => (dispatch) => fetchRandomRecipe(type)
+  .then((response) => {
+    dispatch(requestRandomRecipeSuccess(response));
+  })
+  .catch((error) => dispatch(requestRandomRecipeError(error)));

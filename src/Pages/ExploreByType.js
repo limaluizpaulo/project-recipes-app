@@ -18,7 +18,9 @@ class ExploreByType extends Component {
       endpoint: '',
     };
 
+    this.handleChangeOnClick = this.handleChangeOnClick.bind(this);
     this.fetchRandomRecipe = this.fetchRandomRecipe.bind(this);
+    this.redirectToRandomRecipe = this.redirectToRandomRecipe.bind(this);
   }
 
   handleChangeOnClick({ target: { id } }) {
@@ -44,18 +46,23 @@ class ExploreByType extends Component {
     const { recipeType } = this.state;
     const { dispatchFetchRecipeRandom } = this.props;
     await dispatchFetchRecipeRandom(recipeType);
+    this.redirectToRandomRecipe();
+  }
+
+  redirectToRandomRecipe() {
+    const { recipeType } = this.state;
     const { randomRecipe } = this.props;
     const recipe = Object.values(randomRecipe)[0];
     switch (recipeType) {
     case 'comidas':
       this.setState({
-        endpoint: recipe[0].idMeal,
+        endpoint: parseFloat(recipe[0].idMeal),
         redirect: true,
       });
       break;
     case 'bebidas':
       this.setState({
-        endpoint: recipe[0].idDrink,
+        endpoint: parseFloat(recipe[0].idDrink),
         redirect: true,
       });
       break;
@@ -68,9 +75,13 @@ class ExploreByType extends Component {
     const { recipeType, redirect, endpoint } = this.state;
     const { location: { pathname } } = this.props;
 
-    if (redirect) {
+    if (redirect && typeof endpoint !== 'number') {
       return (
         <Redirect to={ `/explorar/${recipeType}/${endpoint}` } />
+      );
+    } if (redirect && typeof endpoint === 'number') {
+      return (
+        <Redirect to={ `/${recipeType}/${endpoint}` } />
       );
     }
 
@@ -129,6 +140,7 @@ ExploreByType.propTypes = {
     }),
   }).isRequired,
   dispatchFetchRecipeRandom: PropTypes.func.isRequired,
+  randomRecipe: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExploreByType);
