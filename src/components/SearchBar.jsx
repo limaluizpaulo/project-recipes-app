@@ -17,7 +17,7 @@ export default function SearchBar() {
 
   function handleClick() {
     if (radioValue === 'Primeira letra' && searchInputValue.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+      return global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     setInputValue(searchInputValue);
     setCheckedRadio(radioValue);

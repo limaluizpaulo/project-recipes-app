@@ -5,8 +5,13 @@ import Header from '../components/Header';
 import RecipesMealList from '../components/RecipesMealList';
 
 import SearchBar from '../components/SearchBar';
+import useFetchRecipesApi from '../utils/useFetchRecipesApi';
+
+const SEARCH_GENERAL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const SEARCH_BY_CATEGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
 function Food() {
+  const [setRecipeUrl] = useFetchRecipesApi();
   const {
     showSearch,
     categories,
@@ -15,28 +20,32 @@ function Food() {
     setToggleBtnCategories,
   } = useContext(RecipeContext);
 
-  function handleClick(category) {
-    if (selectedCategory === category) {
+  function handleClick(category = '') {
+    if (selectedCategory === category || category === '') {
       setToggleBtnCategories(false);
       setSelectedCategory('');
+      setRecipeUrl(SEARCH_GENERAL_MEAL);
     } else {
       setToggleBtnCategories(true);
       setSelectedCategory(category);
+      setRecipeUrl(`${SEARCH_BY_CATEGORY_MEAL}${category}`);
     }
   }
 
-  function handleAll() {
-    setToggleBtnCategories(false);
-    setSelectedCategory('');
-  }
+  // function handleAll() {
+  //   setToggleBtnCategories(false);
+  //   setSelectedCategory('');
+  //   setRecipeUrl(SEARCH_GENERAL_MEAL);
+  // }
 
   return (
     <div>
       <Header title="Comidas" />
+      { showSearch && <SearchBar /> }
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => handleAll() }
+        onClick={ handleClick }
       >
         All
       </button>
@@ -50,8 +59,7 @@ function Food() {
           { strCategory }
         </button>
       ))}
-      { showSearch && <SearchBar /> }
-      <RecipesMealList />
+      <RecipesMealList url={ SEARCH_GENERAL_MEAL } />
       <Footer />
     </div>
   );

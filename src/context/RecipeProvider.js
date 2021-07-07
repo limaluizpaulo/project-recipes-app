@@ -7,9 +7,9 @@ import {
   searchByFirstLetterApi,
   searchByIngredientsApi,
   searchByNameApi,
-  recipesListApi,
+  // recipesListApi,
   categoriesListApi,
-  filterCategoryApi,
+  // filterCategoryApi,
   searchIngredients,
   searchAreas,
 } from '../service/api';
@@ -32,20 +32,24 @@ export default function RecipeProvider({ children }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [toggleBtnCategories, setToggleBtnCategories] = useState(false);
   const [searchIngredient, setSearchIngredient] = useState('');
+  const [idDetail, setIdDetail] = useState('');
+  const [idProgress, setIdProgress] = useState('');
+  const [recipeInProgress, setRecipeInProgress] = useState([]);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   // Render all recipes
-  useEffect(() => {
-    async function requestAllRecipes() {
-      if (toggleBtnCategories === false) {
-        const returnInitialRecipes = await recipesListApi(pathname);
-        const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
-        setRecipes(limitedRecipes);
-      }
-    }
-    if (pathname === '/comidas' || pathname === '/bebidas') {
-      requestAllRecipes();
-    }
-  }, [pathname, toggleBtnCategories]);
+  // useEffect(() => {
+  //   async function requestAllRecipes() {
+  //     if (toggleBtnCategories === false) {
+  //       const returnInitialRecipes = await recipesListApi(pathname);
+  //       const limitedRecipes = returnInitialRecipes.slice(0, NUM_TWELVE);
+  //       setRecipes(limitedRecipes);
+  //     }
+  //   }
+  //   if (pathname === '/comidas' || pathname === '/bebidas') {
+  //     requestAllRecipes();
+  //   }
+  // }, [pathname, toggleBtnCategories]);
 
   // Render Categories
   useEffect(() => {
@@ -60,20 +64,20 @@ export default function RecipeProvider({ children }) {
   }, [pathname]);
 
   // Render filter by category
-  useEffect(() => {
-    async function requestFilterByCategory() {
-      if (toggleBtnCategories) {
-        const returnCategory = await filterCategoryApi(selectedCategory, pathname);
-        if (returnCategory !== null) {
-          const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
-          setRecipes(limitedRecipes);
-        }
-      }
-    }
-    if (pathname === '/comidas' || pathname === '/bebidas') {
-      requestFilterByCategory();
-    }
-  }, [selectedCategory, toggleBtnCategories]);
+  // useEffect(() => {
+  //   async function requestFilterByCategory() {
+  //     if (toggleBtnCategories) {
+  //       const returnCategory = await filterCategoryApi(selectedCategory, pathname);
+  //       if (returnCategory !== null) {
+  //         const limitedRecipes = returnCategory.slice(0, NUM_TWELVE);
+  //         setRecipes(limitedRecipes);
+  //       }
+  //     }
+  //   }
+  //   if (pathname === '/comidas' || pathname === '/bebidas') {
+  //     requestFilterByCategory();
+  //   }
+  // }, [selectedCategory, toggleBtnCategories]);
 
   // search ingredients
   useEffect(() => {
@@ -92,27 +96,27 @@ export default function RecipeProvider({ children }) {
   }, []);
 
   // render recipes filtered by ingredients
-  useEffect(() => {
-    const searchByIngredients = async () => {
-      const returnIngredients = await
-      searchByIngredientsApi(searchIngredient, pathname);
-      // console.log(searchIngredient);
-      // console.log(pathname);
-      const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
-      setRecipes(limitedRecipes);
-      setSearchIngredient('');
-    };
-    if (searchIngredient !== '') {
-      searchByIngredients();
-    }
-  }, [pathname, searchIngredient]);
+  // useEffect(() => {
+  //   const searchByIngredients = async () => {
+  //     const returnIngredients = await
+  //     searchByIngredientsApi(searchIngredient, pathname);
+  //     // console.log(searchIngredient);
+  //     // console.log(pathname);
+  //     const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
+  //     setRecipes(limitedRecipes);
+  //     setSearchIngredient('');
+  //   };
+  //   if (searchIngredient !== '') {
+  //     searchByIngredients();
+  //   }
+  // }, [pathname, searchIngredient]);
 
   // Render search recipes
   useEffect(() => {
     async function requestByIngredients() {
       const returnIngredients = await searchByIngredientsApi(inputValue, routeFromSearch);
       if (returnIngredients === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
@@ -120,7 +124,7 @@ export default function RecipeProvider({ children }) {
     const requestByName = async () => {
       const returnName = await searchByNameApi(inputValue, routeFromSearch);
       if (returnName === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnName.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
@@ -128,7 +132,7 @@ export default function RecipeProvider({ children }) {
     const requestByLetter = async () => {
       const returnLetter = await searchByFirstLetterApi(inputValue, routeFromSearch);
       if (returnLetter === null) {
-        return alert(textAlert);
+        return global.alert(textAlert);
       }
       const limitedRecipes = returnLetter.slice(0, NUM_TWELVE);
       setRecipes(limitedRecipes);
@@ -159,6 +163,12 @@ export default function RecipeProvider({ children }) {
   return (
     <RecipeContext.Provider
       value={ {
+        recipeInProgress,
+        setRecipeInProgress,
+        idProgress,
+        setIdProgress,
+        idDetail,
+        setIdDetail,
         areas,
         showSearch,
         setShowSearch,
@@ -171,11 +181,14 @@ export default function RecipeProvider({ children }) {
         recipes,
         categories,
         ingredients,
+        searchIngredient,
         setSearchIngredient,
         setSelectedCategory,
         selectedCategory,
         setToggleBtnCategories,
         toggleBtnCategories,
+        checkedIngredients,
+        setCheckedIngredients,
       } }
     >
       {recipes.length === 1 && redirectDetailPage()}
