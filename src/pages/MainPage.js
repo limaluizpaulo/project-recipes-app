@@ -92,6 +92,8 @@ export default function MainPage() {
           {category.strCategory}
         </Button>))}
       <Button data-testid="All-category-filter" onClick={ handleAllClick }>All</Button>
+      {/* ATENÇÃO: Transformar tudo o que está abaixo dessa linha em um card para
+      facilitar o desenvolvimento dos próximos requisitos! */}
       {isLoading
         ? <p>Loading...</p>
         : renderer.map((item, i) => (
