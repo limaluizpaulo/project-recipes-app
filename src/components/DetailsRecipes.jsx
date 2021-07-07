@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/RecipesDetails.css';
 
 const DetailsRecipes = ({ newObj }) => {
   const { urlVideo, type, recomendations } = newObj;
@@ -14,8 +15,8 @@ const DetailsRecipes = ({ newObj }) => {
             data-testid="video"
             width="425"
             height="240"
-            src={ urlVideo }
-            title="Video"
+            src={ urlVideo.replace('watch', 'embed') }
+            title="YouTube video player"
           />
         ) }
       </section>
@@ -31,7 +32,7 @@ const DetailsRecipes = ({ newObj }) => {
               strDrinkThumb }, index) => {
               if (index < SEIS) {
                 return (
-                  <div key={ idDrink }>
+                  <div key={ idDrink } data-testid={ `${index}-recomendation-card` }>
                     <img src={ strDrinkThumb } alt="recomendation" />
                     <p>{strAlcoholic }</p>
                     <h3>{strDrink}</h3>
@@ -46,7 +47,7 @@ const DetailsRecipes = ({ newObj }) => {
               strMealThumb }, index) => {
               if (index < SEIS) {
                 return (
-                  <div key={ idMeal }>
+                  <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
                     <img src={ strMealThumb } alt="recomendation" />
                     <p>{strCategory }</p>
                     <h3>{strMeal}</h3>
@@ -61,6 +62,7 @@ const DetailsRecipes = ({ newObj }) => {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        className="button-start"
         // onClick={}
       >
         Iniciar Receita
