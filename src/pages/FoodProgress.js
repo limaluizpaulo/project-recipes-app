@@ -10,6 +10,7 @@ import {
   checkFavoriteId,
   updateStorageRecipe,
   getStorageRecipe,
+  addRecipeDone,
 } from '../services/localStorage';
 
 const blackOrWhite = (favorited) => (favorited ? blackHeartIcon : whiteHeartIcon);
@@ -99,6 +100,19 @@ const FoodProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
+  const recipedone = () => {
+    addRecipeDone({
+      id: meal.idMeal,
+      type: 'comida',
+      area: meal.strArea,
+      category: meal.strCategory,
+      alcoholicOrNot: '',
+      name: meal.strMeal,
+      image: meal.strThumb,
+      doneDate: Date(),
+      t,
+    });
+  };
   return (
     <div>
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
@@ -130,6 +144,7 @@ const FoodProgress = ({ match }) => {
           type="button"
           disabled={ selecteds.length !== quantIngred }
           data-testid="finish-recipe-btn"
+          onClick={ () => recipeDone() }
         >
           Finalizar Receita
         </button>
