@@ -9,19 +9,9 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipesCard() {
   const { selectedTypeItem } = useContext(Context);
-  const copyLink = async ({ target }, data) => {
+
+  const copyLink = async (data) => {
     await navigator.clipboard.writeText(data);
-    const { id } = target;
-    const divButtonsGet = document.getElementById(`${id}-div-buttons`);
-    const messageExist = document.getElementById(`${id}-message-span`);
-    if (!messageExist) {
-      const spamFromMessage = document.createElement('div');
-      spamFromMessage.id = `${id}-message-span`;
-      spamFromMessage.textContent = 'Link copiado!';
-      divButtonsGet.appendChild(spamFromMessage);
-    } else {
-      messageExist.remove();
-    }
   };
 
   const getFromLocalStorage = (key) => {
@@ -55,6 +45,12 @@ export default function FavoriteRecipesCard() {
   useEffect(() => {
     getRecipesFavorites();
   }, []);
+
+  function handleOnClick({ target }) {
+    copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
+    toast.success('Link copiado!');
+  }
+
   let recipesIsFavorite = getRecipesFavorites();
   if (!recipesIsFavorite) recipesIsFavorite = [];
   const filtredRecipesDone = recipesIsFavorite
@@ -99,10 +95,11 @@ export default function FavoriteRecipesCard() {
             >
               <button
                 type="button"
-                onClick={ (event) => copyLink(event, `http://localhost:3000/${recipe.type}s/${recipe.id}`) }
+                onClick={ handleOnClick }
               >
                 <img
-                  id={ index }
+                  name={ recipe.type }
+                  id={ recipe.id }
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareIcon }
                   alt={ recipe.name }
