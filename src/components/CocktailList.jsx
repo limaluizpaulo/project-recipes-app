@@ -28,11 +28,7 @@ export default function CocktailList() {
   }, []);
 
   const renderCards = () => {
-<<<<<<< HEAD
-    if (cocktailsRecipes && cocktailsRecipes.length === 1) {
-=======
     if (selectedCategory === 'All' && cocktailsRecipes && cocktailsRecipes.length === 1) {
->>>>>>> ade0e0ecbb66f94f5b7e8fbff6253e3d49f5dd84
       return history.push(`/bebidas/${cocktailsRecipes[0].idDrink} `);
     }
 
