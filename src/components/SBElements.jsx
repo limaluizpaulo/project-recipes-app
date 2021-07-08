@@ -5,7 +5,6 @@ import ContextRecipes from '../context/contextRecipes';
 function SBElements({ history }) {
   const { searchInput, setsearchInput,
     recipes, setRecipes, drinks, setDrinks } = useContext(ContextRecipes);
-
   const { location: { pathname } } = history;
 
   const getIngredients = () => {
@@ -38,13 +37,16 @@ function SBElements({ history }) {
     }
   };
 
+  const alertCaracterNumber = 'Sua busca deve conter somente 1 (um) caracter';
   const getFirstLetter = () => {
     if (pathname === '/comidas') {
+      console.log(searchInput.name.length);
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput.name}`;
       fetch(endpoint)
         .then((response) => response.json()
           .then((results) => setRecipes(results.meals)));
     }
+
     if (pathname === '/bebidas') {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
       fetch(endpoint)
@@ -52,7 +54,6 @@ function SBElements({ history }) {
           .then((results) => setDrinks(results.drinks)));
     }
   };
-
   const handleClick = () => {
     switch (searchInput.searchBy) {
     case 'ingredientes':
@@ -63,26 +64,28 @@ function SBElements({ history }) {
       break;
     case 'primeira letra':
       // const searchInput = document.getElementById('searchInput').innerText;
-      if (searchInput.length !== 1) {
-        return global.alert('Sua busca deve conter somente 1 (um) caracter');
+      // if (searchInput.length !== 1) {
+      //   return global.alert('Sua busca deve conter somente 1 (um) caracter');
+      if (searchInput.name.length === 1) {
+        getFirstLetter();
+      } else {
+        global.alert(alertCaracterNumber);
       }
-      getFirstLetter();
-
       break;
-      // case searchInput:
-      //   if (pathname === '/comidas') {
-      //     const recipesFiltered = recipes
-      //       .filter((recipe) => recipe.strMeal.includes(searchInput));
-      //     return recipesFiltered;
-      //   }
-      //   if (pathname === '/bebidas') {
-      //     const drinksFiltered = drinks
-      //       .filter((recipe) => recipe.strDrink.includes(searchInput));
-      //     return drinksFiltered;
-      //   }
-      // break;
+    // case searchInput:
+    //   if (pathname === '/comidas') {
+    //     const recipesFiltered = recipes
+    //       .filter((recipe) => recipe.strMeal.includes(searchInput));
+    //     return recipesFiltered;
+    //   }
+    //   if (pathname === '/bebidas') {
+    //     const drinksFiltered = drinks
+    //       .filter((recipe) => recipe.strDrink.includes(searchInput));
+    //     return drinksFiltered;
+    //   }
+    //   break;
     default:
-      console.log('nada aconteceu');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       break;
     }
   };

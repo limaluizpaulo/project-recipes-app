@@ -14,12 +14,14 @@ function FoodPage({ history }) {
   useEffect(() => {
     setTitle('Comidas');
   }, [setTitle]);
+  // console.log(Object.values(recipes)[0])
 
   return (
     <main>
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <section>
+        { recipes.length === 1 ? history.push(`/comidas/${recipes[0].idMeal}`) : null }
         { recipes
         // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
@@ -30,7 +32,9 @@ function FoodPage({ history }) {
                 width="150"
                 data-testid={ `${index}-card-img` }
               />
-              <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
+              {/* <button type="submit"> */}
+              <span role="button" data-testid={ `${index}-card-name` }>{ strMeal }</span>
+              {/* </button> */}
             </article>))}
       </section>
       <Footer history={ history } />

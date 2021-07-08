@@ -20,6 +20,7 @@ function DrinkPage({ history }) {
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <section>
+        { drinks.length === 1 ? history.push(`/bebidas/${drinks[0].idDrink}`) : null }
         { drinks
         // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strDrink, strDrinkThumb }, index) => index <= maxLength && (

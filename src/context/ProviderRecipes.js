@@ -11,7 +11,6 @@ function ProviderRecipes({ children }) {
   const [searchInput, setsearchInput] = useState({
     // name: '',
   });
-  // const [recipesFiltered, setrecipesFiltered] = useState([]);
 
   const obj = {
     goSearch,
