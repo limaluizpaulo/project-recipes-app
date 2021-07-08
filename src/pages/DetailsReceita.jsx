@@ -81,20 +81,19 @@ function DetailsReceita(props) {
       {videoRender()}
 
       <CarouselElement sugest={ [sugestoes, type] } />
-      <div className="footer">
-        <Link
-          data-testid="start-recipe-btn"
-          to={ `/${apelidoAPI}/${id}/in-progress` }
-        >
-          iniciar receita
-        </Link>
-        <Link to="/">
-          <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-        </Link>
-        <Link to="/">
-          <img data-testid="share-btn" src={ shareIcon } alt="" />
-        </Link>
-      </div>
+      <Link
+        className="footer"
+        data-testid="start-recipe-btn"
+        to={ `/${apelidoAPI}/${id}/in-progress` }
+      >
+        iniciar receita
+      </Link>
+      <Link to="/">
+        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+      </Link>
+      <Link to="/">
+        <img data-testid="share-btn" src={ shareIcon } alt="" />
+      </Link>
     </div>
   );
 }
