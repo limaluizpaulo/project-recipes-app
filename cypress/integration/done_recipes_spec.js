@@ -8,7 +8,7 @@ describe('Done recipes screen', () => {
       area: 'Italian',
       category: 'Vegetarian',
       alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
+      name: 'Spicy Arrabiata Penne',  
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
       doneDate: '23/06/2020',
       tags: ['Pasta', 'Curry'],
@@ -60,7 +60,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe.only('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
+  describe('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
     it('O card possui os atributos corretos de uma comida', () => {
       cy.get('[data-testid="0-horizontal-image"]')
         .should('have.attr', 'src')
@@ -91,7 +91,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe('57 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
+  describe.only('57 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
     it('Ao clicar no botão de compartilhar deve aparecer a mensagem "Link copiado!"', () => {
       cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
