@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-
 import RecipeContext from '../../context/Context';
-import AlternativesCaroussel from '../AlternativesCaroussel';
+import AlternativesCaroussel from './AlternativesCaroussel';
 
 const FoodVideoAndRecomendation = () => {
   const { selectedFood } = useContext(RecipeContext);

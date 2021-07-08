@@ -2,6 +2,7 @@
   background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
   min-height: 100vh;
   min-width: 100vw;
+  padding-bottom: 60px;
 }
 
 .foodDetails__loading {
@@ -77,22 +78,6 @@
   text-shadow: 1px 1px 1px black;
 }
 
-.foodDetails__alternatives {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-y: auto;
-  width: 100vw;
-}
-
-.foodDetails__alternative__card {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: 0 5%;
-  min-width: 40%;
-
-}
-
 .ingredientsList {
   background-color: white;
   border-radius: 10px;
@@ -138,7 +123,7 @@
   background-color: #2bb673;
   border: none;
   border-radius: 10px;
-  bottom: 3px;
+  bottom: 0;
   box-shadow: 2px 2px 3px #999;
   color: white;
   font-size: 1.2em;
@@ -151,6 +136,40 @@
 
 .foodDetails__startBtn:hover {
   background-color: #17a862;
-  bottom: 7px;
+  bottom: 4px;
   box-shadow: 2px 2px 3px #999;
+}
+
+.foodDetails__alternatives {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  padding-bottom: 10px;
+  width: 100vw;
+}
+
+.foodDetails__alternative__card {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 2px gray;
+  display: flex;
+  flex-direction: column;
+  margin: 0 5%;
+  min-width: 40vw;
+  padding: 10px;
+}
+
+.foodDetails__alternative__card img {
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.foodDetails__alternative__card p {
+  margin: 0;
+}
+
+.foodDetails__alternative__card p:first-of-type {
+  font-family: rancho , sans-serif;
+  font-size: 1.2em;
 }

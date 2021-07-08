@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-
-import RecipeContext from '../context/Context';
-import '../styles/foodDetails.css';
+import RecipeContext from '../../context/Context';
+import '../../styles/foodDetails.css';
 
 const AlternativesCaroussel = () => {
   const { selectedFood } = useContext(RecipeContext);
