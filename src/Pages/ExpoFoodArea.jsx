@@ -12,14 +12,23 @@ import '../styles/Card.css';
 
 function ExpoFoodArea(props) {
   const { localsReceived, locals, infoFoods, foods } = props;
-  const twelve = 12;
   const [loading, setLoading] = useState(true);
+  const [listFood, setListFood] = useState([]);
   useEffect(() => {
     if (loading) {
       localsReceived();
       setLoading(false);
     }
   }, [localsReceived, setLoading, loading]);
+
+  useEffect(() => {
+    api.getByDefault()
+      .then((res) => setListFood(res));
+  }, []);
+
+  useEffect(() => {
+    setListFood(foods);
+  }, [foods]);
 
   async function handlechange({ target: { value } }) {
     await infoFoods(value, api.foodsArea);
@@ -31,22 +40,20 @@ function ExpoFoodArea(props) {
         data-testid="explore-by-area-dropdown"
         onChange={ handlechange }
       >
-        {locals.map((local, index) => {
-          if (index < twelve) {
-            return (
-              <option
-                value={ local.strArea }
-                data-testid={ `${local.strArea}-option` }
-              >
-                {local.strArea}
-              </option>
-            );
-          }
-          return null;
-        })}
+        <option data-testid="All-option">All</option>
+
+        {locals.map((local) => (
+          <option
+            key={ local.strArea }
+            value={ local.strArea }
+            data-testid={ `${local.strArea}-option` }
+          >
+            {local.strArea}
+          </option>
+        ))}
       </select>
       <div className="items-list">
-        {setList(foods).map((food, index) => (
+        {setList(listFood).map((food, index) => (
           <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />
         ))}
       </div>
