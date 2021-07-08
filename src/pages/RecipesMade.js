@@ -77,13 +77,6 @@ function RecipesMade() {
         Drinks
       </button>
       {dones && renderCards()}
-      {/*       <Link to="/comidas/52771">
-        <img
-          data-testid="0-horizontal-image"
-          src=""
-          alt="Receita"
-        />
-      </Link> */}
     </div>
   );
 }
