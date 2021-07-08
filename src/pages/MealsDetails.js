@@ -8,8 +8,8 @@ import useRecommendation from '../hooks/useRecommendation';
 function MealsDetails({ match: { params: { id } } }) {
   const MAX_RECOMMENDATIONS = 6;
 
-  const recipe = useRecipeByID('meals');
-  const recommendations = useRecommendation('drinks', MAX_RECOMMENDATIONS);
+  const recipe = useRecipeByID('meals', 'strMeals');
+  const recommendations = useRecommendation('drinks', MAX_RECOMMENDATIONS, 'strDrinks');
 
   return (
     <Details

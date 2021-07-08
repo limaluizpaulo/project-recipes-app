@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchAllRecipes } from '../services/recipesAPI';
 
-function useRecommendation(type, MAX_RECOMMENDATIONS) {
-  const [recommendations, setRecommendations] = useState([]);
+function useRecommendation(type, MAX_RECOMMENDATIONS, typeMainKey = '') {
+  const [recommendations, setRecommendations] = useState({});
 
   const getRecomendations = async () => {
     const { [type]: recipeType } = await fetchAllRecipes(type);
-    setRecommendations(recipeType.slice(0, MAX_RECOMMENDATIONS));
+    const recipes = recipeType.slice(0, MAX_RECOMMENDATIONS);
+    setRecommendations({
+      recipes,
+      typeMainKey: typeMainKey || null,
+    });
   };
 
   useEffect(() => {

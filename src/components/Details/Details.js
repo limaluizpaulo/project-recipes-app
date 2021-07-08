@@ -21,16 +21,14 @@ TODO:
   - Split conditional logic;
   - Keep common logic.
 */
-function Details({ id, mealsOrDrinks }) {
+function Details({ id, recipe, recommendations }) {
   const {
     startedRecipes,
     localstorageSaveStartedRecipe,
     favoritedRecipes,
     localstorageSaveFavoriteRecipe } = useContext(RecipesContext);
-  const [recipe, setRecipe] = useState({});
-  const [recipeKeyword, setRecipeKeyword] = useState('');
-  const [recommendations, setRecommendations] = useState([]);
-  const [recommendationsKey, setRecommendationsKey] = useState('');
+  const [recipeMainKey] = useState(recipe.typeMainKey);
+  const [recommKey] = useState(recommendations.typeMainKey);
   const [alreadyStarted, setAlreadyStarted] = useState(false);
   const [isInProgressRecipe, setIsInProgressRecipe] = useState(false);
   const [isFav, setIsFav] = useState(false);
@@ -41,8 +39,6 @@ function Details({ id, mealsOrDrinks }) {
 
   const MAX_DRINKS_INGREDIENTS = 15;
   const MAX_MEALS_INGREDIENTS = 20;
-
-  const MAX_RECOMMENDATIONS = 6;
 
   const [maxIngredients, setMaxIngredients] = useState(MAX_DRINKS_INGREDIENTS);
   const [ingredients, setIngredients] = useState([]);
@@ -60,24 +56,13 @@ function Details({ id, mealsOrDrinks }) {
     setIngredients(tempArray);
   };
 
-  const getRecipe = async () => {
-    const { [mealsOrDrinks]: [gotRecipe] } = await fetchRecipesById(mealsOrDrinks, id);
-
-    setRecipe(gotRecipe);
-  };
-
-  const getRecomendations = async (type) => {
-    const { [type]: recipeType } = await fetchAllRecipes(type);
-    setRecommendations(recipeType.slice(0, MAX_RECOMMENDATIONS));
-  };
-
   const renderRecommendation = () => {
-    const recommendationsKeyThumb = `${recommendationsKey}Thumb`;
+    const recommKeyThumb = `${recommKey}Thumb`;
     return (
       <Carousel itemsToShow={ 2 } pagination={ false } disableArrowsOnEnd={ false }>
         {
           recommendations.map((
-            { [recommendationsKey]: title, [recommendationsKeyThumb]: thumb },
+            { [recommKey]: title, [recommKeyThumb]: thumb },
             index,
           ) => (
             <img
@@ -97,17 +82,14 @@ function Details({ id, mealsOrDrinks }) {
     const MEALS = 'meals';
     const DRINKS = 'drinks';
     if (mealsOrDrinks === MEALS) {
-      setRecipeKeyword('strMeal');
+      setRecipeMainKey('strMeal');
       setMaxIngredients(MAX_MEALS_INGREDIENTS);
-      getRecomendations(DRINKS);
-      setRecommendationsKey('strDrink');
+      setRecommKey('strDrink');
     }
     if (mealsOrDrinks === DRINKS) {
-      setRecipeKeyword('strDrink');
-      getRecomendations(MEALS);
-      setRecommendationsKey('strMeal');
+      setRecipeMainKey('strDrink');
+      setRecommKey('strMeal');
     }
-    getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -156,13 +138,13 @@ function Details({ id, mealsOrDrinks }) {
       <header>
         {/* TODO: Remove 'style' attribute */}
         <img
-          src={ recipe[`${recipeKeyword}Thumb`] }
+          src={ recipe[`${recipeMainKey}Thumb`] }
           alt="test"
           style={ { width: 200 } }
           data-testid="recipe-photo"
         />
         <div>
-          <h1 data-testid="recipe-title">{recipe[recipeKeyword]}</h1>
+          <h1 data-testid="recipe-title">{recipe[recipeMainKey]}</h1>
           <div>
             <button
               type="button"
@@ -246,7 +228,7 @@ function Details({ id, mealsOrDrinks }) {
               <div>
                 <h2>Video</h2>
                 <iframe
-                  title={ recipe[recipeKeyword] }
+                  title={ recipe[recipeMainKey] }
                   src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
                   width="420"
                   height="315"
@@ -278,7 +260,8 @@ function Details({ id, mealsOrDrinks }) {
 
 Details.propTypes = {
   id: PropTypes.string.isRequired,
-  mealsOrDrinks: PropTypes.string.isRequired,
+  recipe: PropTypes.shape(PropTypes.object).isRequired,
+  recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Details;

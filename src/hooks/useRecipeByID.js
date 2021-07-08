@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { fetchRecipesById } from '../services/recipesAPI';
 
-function useRecipeByID(type) {
+function useRecipeByID(type, typeMainKey = '') {
   const [recipe, setRecipe] = useState({});
 
   const getRecipe = async () => {
     const { [type]: [gotRecipe] } = await fetchRecipesById(type, id);
+    const newRecipe = { ...gotRecipe };
+    newRecipe.typeMainKey = typeMainKey || null;
 
-    setRecipe(gotRecipe);
+    setRecipe(newRecipe);
   };
 
   useEffect(() => {
