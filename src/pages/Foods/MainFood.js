@@ -13,15 +13,12 @@ export default function MainFood() {
   useEffect(() => {
     const func = async () => {
       const fun = await fetchRecipeAllFood();
+      const category = await fetchCategoryFood();
+
       setList(fun);
+      setCategoryList(category);
     };
 
-    const category = async () => {
-      const fun = await fetchCategoryFood();
-      setCategoryList(fun);
-    };
-
-    category();
     func();
   }, []);
 
@@ -30,8 +27,12 @@ export default function MainFood() {
       className="main-food-class"
     >
       <Header title="Comidas" display="true" />
-      <FilterRecipe list={ categoryList } recipeType="food" />
-      <RecipeList listAll={ list } />
+      { Object.keys(categoryList).length !== 0 && <FilterRecipe
+        list={ categoryList }
+        recipeType="food"
+      />}
+      {Object.keys(list).length !== 0
+        && <RecipeList listAll={ list } />}
       <Footer />
     </div>
   );

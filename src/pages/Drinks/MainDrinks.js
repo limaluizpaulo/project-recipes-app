@@ -13,23 +13,24 @@ function MainDrinks() {
   useEffect(() => {
     const func = async () => {
       const fun = await fetchRecipeAllDrink();
+      const category = await fetchCategoryDrinks();
+
+      setCategoryList(category);
       setList(fun);
     };
 
-    const category = async () => {
-      const fun = await fetchCategoryDrinks();
-      setCategoryList(fun);
-    };
-
-    category();
     func();
   }, []);
 
   return (
     <div>
       <Header title="Bebidas" display="true" />
-      <FilterRecipe list={ categoryList } recipeType="drinks" />
-      <RecipeList listAll={ list } />
+      { Object.keys(categoryList).length !== 0 && <FilterRecipe
+        list={ categoryList }
+        recipeType="drinks"
+      />}
+      {Object.keys(list).length !== 0
+        && <RecipeList listAll={ list } />}
       <Footer />
     </div>
   );
