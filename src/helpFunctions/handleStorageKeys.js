@@ -1,15 +1,15 @@
-export function handleFavorite({ strArea, strCategory, strAlcoholic,
-  strDrink, strMeal, strDrinkThumb, strMealThumb }, id, type, isFavorite) {
+export function handleFavorite({ id, type, area = '', category = '', alcoholicOrNot = '',
+  name, image }, isFavorite) {
   const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   if (!isFavorite) {
     const favRecipe = {
       id,
       type,
-      area: strArea || '',
-      category: strCategory || '',
-      alcoholicOrNot: strAlcoholic || '',
-      name: strDrink || strMeal,
-      image: strDrinkThumb || strMealThumb,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
     };
     localStorage.setItem('favoriteRecipes', JSON.stringify([...favRecipes, favRecipe]));
   } else {

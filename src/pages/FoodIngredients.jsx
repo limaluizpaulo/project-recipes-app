@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import HeaderExplore from '../components/HeaderExplore';
+import Header from '../components/Header';
 import RecipeContext from '../context';
 
 function FoodIngredients() {
@@ -34,7 +34,7 @@ function FoodIngredients() {
 
   return (
     <div>
-      <HeaderExplore title="Explorar Ingredientes" />
+      <Header title="Explorar Ingredientes" search={ false } />
       { ingredients.length > 0 && renderIngredients() }
       <Footer />
     </div>

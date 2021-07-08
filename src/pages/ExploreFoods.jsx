@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
-import HeaderExplore from '../components/HeaderExplore';
+import Header from '../components/Header';
 import RecipeContext from '../context';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
 
@@ -20,7 +20,7 @@ function ExploreFoods() {
       {(recipes[0])
       && (
         <>
-          <HeaderExplore title="Explorar Comidas" />
+          <Header title="Explorar Comidas" search={ false } />
           <button
             type="button"
             data-testid="explore-by-ingredient"

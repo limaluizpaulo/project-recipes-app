@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import RecipeContext from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipesMealList from '../components/RecipesMealList';
+import RecipesList from '../components/RecipesList';
 
 import SearchBar from '../components/SearchBar';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
 
-const SEARCH_GENERAL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-const SEARCH_BY_CATEGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+// const SEARCH_GENERAL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+// const SEARCH_BY_CATEGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
-function Food() {
+function Recipes({ urlRecipe: { SEARCH_GENERAL, SEARCH_BY_CATEGORY } }) {
   const [setRecipeUrl] = useFetchRecipesApi();
   const {
     showSearch,
@@ -24,11 +25,11 @@ function Food() {
     if (selectedCategory === category || category === '') {
       setToggleBtnCategories(false);
       setSelectedCategory('');
-      setRecipeUrl(SEARCH_GENERAL_MEAL);
+      setRecipeUrl(SEARCH_GENERAL);
     } else {
       setToggleBtnCategories(true);
       setSelectedCategory(category);
-      setRecipeUrl(`${SEARCH_BY_CATEGORY_MEAL}${category}`);
+      setRecipeUrl(`${SEARCH_BY_CATEGORY}${category}`);
     }
   }
 
@@ -40,12 +41,16 @@ function Food() {
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header
+        title={ `${SEARCH_GENERAL.includes('meal') ? 'Comidas' : 'Bebidas'}` }
+        search
+      />
       { showSearch && <SearchBar /> }
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ handleClick }
+        onClick={ () => handleClick('') }
+        // onClick={ handleClick }
       >
         All
       </button>
@@ -59,10 +64,14 @@ function Food() {
           { strCategory }
         </button>
       ))}
-      <RecipesMealList url={ SEARCH_GENERAL_MEAL } />
+      <RecipesList url={ SEARCH_GENERAL } />
       <Footer />
     </div>
   );
 }
 
-export default Food;
+Recipes.propTypes = {
+  urlRecipe: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
+export default Recipes;

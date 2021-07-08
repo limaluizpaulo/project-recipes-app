@@ -161,7 +161,14 @@ export default function InProgressDrink() {
           <button
             type="button"
             onClick={ () => {
-              handleFavorite(recipes[0], id, 'bebida', isFavorite);
+              handleFavorite({
+                id: idDrink,
+                type: 'bebida',
+                alcoholicOrNot: strAlcoholic,
+                category: strCategory,
+                name: strDrink,
+                image: strDrinkThumb,
+              }, isFavorite);
               setIsFavorite(!isFavorite);
             } }
           >

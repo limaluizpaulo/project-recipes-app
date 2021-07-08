@@ -1,13 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
-import HeaderExplore from '../components/HeaderExplore';
+import Header from '../components/Header';
 
 function Explore() {
   const history = useHistory();
   return (
     <div>
-      <HeaderExplore title="Explorar" />
+      <Header title="Explorar" search={ false } />
       <button
         type="button"
         data-testid="explore-food"

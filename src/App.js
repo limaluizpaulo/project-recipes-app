@@ -5,11 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeProvider from './context/RecipeProvider';
 import RecipeDetailProvider from './context/RecipeDetailProvider';
 import Login from './pages/Login';
-import Food from './pages/Food';
-import Drink from './pages/Drink';
+import Recipes from './pages/Recipes';
 import Profile from './pages/Profile';
-import DoneRecipes from './pages/DoneRecipes';
-import FavouritesRecipes from './pages/FavoritesRecipes';
 import Explore from './pages/Explore';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
@@ -21,6 +18,22 @@ import DetailDrink from './pages/DetailDrink';
 import InProgressMeal from './pages/InProgressMeal';
 import InProgressDrink from './pages/InProgressDrink';
 import NotFound from './pages/NotFound';
+import StoredRecipesList from './pages/StoredRecipesList';
+
+const SEARCH_GENERAL_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const SEARCH_GENERAL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const SEARCH_BY_CATEGORY_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const SEARCH_BY_CATEGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+
+const urlDrink = {
+  SEARCH_GENERAL: SEARCH_GENERAL_DRINK,
+  SEARCH_BY_CATEGORY: SEARCH_BY_CATEGORY_DRINK,
+};
+
+const urlMeal = {
+  SEARCH_GENERAL: SEARCH_GENERAL_MEAL,
+  SEARCH_BY_CATEGORY: SEARCH_BY_CATEGORY_MEAL,
+};
 
 function App() {
   return (
@@ -29,15 +42,29 @@ function App() {
         <RecipeDetailProvider>
           <Switch>
             <Route exact path="/" component={ Login } />
-            <Route exact path="/comidas" component={ Food } />
-            <Route exact path="/bebidas" component={ Drink } />
+            {/* <Route exact path="/comidas" component={ Food } /> */}
+            <Route
+              exact
+              path="/comidas"
+              render={ () => <Recipes urlRecipe={ urlMeal } /> }
+            />
+            <Route
+              exact
+              path="/bebidas"
+              render={ () => <Recipes urlRecipe={ urlDrink } /> }
+            />
+            {/* <Route exact path="/bebidas" component={ Drink } /> */}
             <Route exact path="/comidas/:id" component={ DetailMeal } />
             <Route exact path="/bebidas/:id" component={ DetailDrink } />
             <Route exact path="/perfil" component={ Profile } />
             <Route exact path="/comidas/:id/in-progress" component={ InProgressMeal } />
             <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrink } />
-            <Route exact path="/receitas-feitas" component={ DoneRecipes } />
-            <Route exact path="/receitas-favoritas" component={ FavouritesRecipes } />
+            <Route exact path="/receitas-feitas" component={ StoredRecipesList } />
+            <Route
+              exact
+              path="/receitas-favoritas"
+              render={ () => <StoredRecipesList favorite /> }
+            />
             <Route exact path="/explorar" component={ Explore } />
             <Route exact path="/explorar/comidas" component={ ExploreFoods } />
             <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
@@ -52,7 +79,7 @@ function App() {
               component={ DrinkIngredients }
             />
             <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
-            <Route path="" component={ NotFound } />
+            <Route path="*" component={ NotFound } />
           </Switch>
         </RecipeDetailProvider>
       </RecipeProvider>

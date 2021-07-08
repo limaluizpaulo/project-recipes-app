@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { handleFavorite } from '../helpFunctions/handleStorageKeys';
 
-function DoneRecipeCard({ recipe, index }) {
+function StoredRecipeCard({ recipe, index }) {
+  const { pathname } = useLocation();
+  const [isFavorite, setIsFavorite] = useState(true);
   const [isCopy, setIsCopy] = useState(false);
 
   const {
@@ -44,9 +49,10 @@ function DoneRecipeCard({ recipe, index }) {
         </p>
         <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
       </Link>
-      <p data-testid={ `${index}-horizontal-done-date` }>
-        { doneDate }
-      </p>
+      {doneDate && (
+        <p data-testid={ `${index}-horizontal-done-date` }>
+          { doneDate }
+        </p>)}
       <button
         type="button"
         onClick={ () => handleShare(id, type) }
@@ -57,6 +63,27 @@ function DoneRecipeCard({ recipe, index }) {
           data-testid={ `${index}-horizontal-share-btn` }
         />
       </button>
+      {pathname.includes('fav') && (
+        <button
+          type="button"
+          onClick={ () => {
+            handleFavorite({
+              id,
+              type,
+              area,
+              category,
+              name,
+              image,
+            }, isFavorite);
+            setIsFavorite(!isFavorite);
+          } }
+        >
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="heart icon"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+          />
+        </button>)}
       {isCopy && (<p>Link copiado!</p>)}
       { tags && tags.map((tag) => (
         <p
@@ -70,9 +97,9 @@ function DoneRecipeCard({ recipe, index }) {
   );
 }
 
-export default DoneRecipeCard;
+export default StoredRecipeCard;
 
-DoneRecipeCard.propTypes = {
+StoredRecipeCard.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any])).isRequired,
   index: PropTypes.number.isRequired,
 };

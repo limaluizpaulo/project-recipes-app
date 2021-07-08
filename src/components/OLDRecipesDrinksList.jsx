@@ -2,16 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from '../context';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
-import RecipesMealCard from './RecipesMealCard';
+import RecipesDrinksCard from './OLDRecipesDrinksCard';
 
-export default function RecipesMealList({ url }) {
+export default function RecipesDrinksList({ url }) {
   const { recipes, searchIngredient } = useContext(RecipeContext);
   const [setRecipeUrl] = useFetchRecipesApi();
-  const SEARCH_MEAL_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+  const SEARCH_DRINK_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
   useEffect(() => {
     if (searchIngredient) {
-      setRecipeUrl(`${SEARCH_MEAL_BY_INGREDIENT}${searchIngredient}`);
+      setRecipeUrl(`${SEARCH_DRINK_BY_INGREDIENT}${searchIngredient}`);
       // setSearchIngredient('');
     } else {
       setRecipeUrl(url);
@@ -22,7 +22,7 @@ export default function RecipesMealList({ url }) {
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
-        <RecipesMealCard
+        <RecipesDrinksCard
           key={ index }
           index={ index }
           recipe={ recipe }
@@ -32,6 +32,6 @@ export default function RecipesMealList({ url }) {
   );
 }
 
-RecipesMealList.propTypes = {
+RecipesDrinksList.propTypes = {
   url: PropTypes.string.isRequired,
 };

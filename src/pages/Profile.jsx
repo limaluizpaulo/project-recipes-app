@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
-import HeaderExplore from '../components/HeaderExplore';
+import Header from '../components/Header';
 
 export default function Profile() {
   const history = useHistory();
@@ -15,7 +15,7 @@ export default function Profile() {
 
   return (
     <div>
-      <HeaderExplore title="Perfil" />
+      <Header title="Perfil" search={ false } />
       <p data-testid="profile-email">{ userEmail }</p>
       <button
         type="button"

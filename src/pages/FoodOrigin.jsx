@@ -3,7 +3,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeContext from '../context';
 import SearchBar from '../components/SearchBar';
-import RecipesMealCard from '../components/RecipesMealCard';
+import RecipeCard from '../components/RecipeCard';
 
 const BASE_URL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const BASE_URL_MEAL_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
@@ -18,7 +18,7 @@ function FoodOrigin() {
       ? await fetch(BASE_URL_MEAL)
       : await fetch(`${BASE_URL_MEAL_AREA}${origin}`);
     const response = await fetchSearch.json();
-    console.log(response.meals);
+    // console.log(response.meals);
     const filteredValues = response.meals.slice(0, MAX_NUMBER_OF_ITEMS);
     setRecipes(filteredValues);
   }
@@ -28,18 +28,18 @@ function FoodOrigin() {
   }, [origin]);
 
   function handleChange({ target: { value } }) {
-    console.log(`${BASE_URL_MEAL_AREA}${value}`);
+    // console.log(`${BASE_URL_MEAL_AREA}${value}`);
     setOrigin(value);
   }
 
   function renderRecipes() {
     return (
       <div>
-        {recipes.map((recipe, index) => (
-          <RecipesMealCard
-            key={ index }
+        {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
+          <RecipeCard
+            key={ idMeal }
             index={ index }
-            recipe={ recipe }
+            recipe={ { id: idMeal, name: strMeal, image: strMealThumb } }
           />
         ))}
       </div>
@@ -48,7 +48,7 @@ function FoodOrigin() {
 
   return (
     <div>
-      <Header title="Explorar Origem" />
+      <Header title="Explorar Origem" search />
       { showSearch && <SearchBar /> }
       <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
         <option data-testid="All-option">All</option>

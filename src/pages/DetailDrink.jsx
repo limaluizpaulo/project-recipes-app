@@ -20,8 +20,8 @@ export default function DetailDrink() {
   const [setRecipeUrl] = useFetchRecipesApi();
   const { recipes, idProgress, setIdProgress,
     setCheckedIngredients } = useContext(RecipeContext);
-  const { strAlcoholic, strDrinkThumb,
-    strDrink, strInstructions } = recipes[0] || [];
+  const { idDrink, strAlcoholic, strDrinkThumb,
+    strDrink, strCategory, strInstructions } = recipes[0] || [];
   const {
     setIsRecomendation,
   } = useContext(RecipeDetailContext);
@@ -150,7 +150,14 @@ export default function DetailDrink() {
           <button
             type="button"
             onClick={ () => {
-              handleFavorite(recipes[0], id, 'bebida', isFavorite);
+              handleFavorite({
+                id: idDrink,
+                type: 'bebida',
+                alcoholicOrNot: strAlcoholic,
+                category: strCategory,
+                name: strDrink,
+                image: strDrinkThumb,
+              }, isFavorite);
               setIsFavorite(!isFavorite);
             } }
           >

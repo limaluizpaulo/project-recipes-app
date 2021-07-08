@@ -21,8 +21,8 @@ export default function DetailMeal() {
   const [setRecipeUrl] = useFetchRecipesApi();
   const { recipes, idProgress, setIdProgress,
     setCheckedIngredients } = useContext(RecipeContext);
-  const { strCategory, strMeal, strMealThumb,
-    strInstructions, strYoutube } = recipes[0] || [];
+  const { idMeal, strCategory, strMeal, strMealThumb,
+    strInstructions, strArea, strYoutube } = recipes[0] || [];
   const {
     setIsRecomendation,
   } = useContext(RecipeDetailContext);
@@ -151,7 +151,14 @@ export default function DetailMeal() {
           <button
             type="button"
             onClick={ () => {
-              handleFavorite(recipes[0], id, 'comida', isFavorite);
+              handleFavorite({
+                id: idMeal,
+                type: 'comida',
+                area: strArea,
+                category: strCategory,
+                name: strMeal,
+                image: strMealThumb,
+              }, isFavorite);
               setIsFavorite(!isFavorite);
             } }
           >

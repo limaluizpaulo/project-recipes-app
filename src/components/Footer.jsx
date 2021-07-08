@@ -12,42 +12,15 @@ function Footer() {
   };
 
   return (
-    <footer
-      data-testid="footer"
-      style={ bottomFixed }
-    >
-      <button
-        type="button"
-        src={ drinkIcon }
-        data-testid="drinks-bottom-btn"
-        onClick={ () => history.push('/bebidas') }
-      >
-        <img
-          src={ drinkIcon }
-          alt="drinks-icon"
-        />
+    <footer data-testid="footer" style={ bottomFixed }>
+      <button type="button" onClick={ () => history.push('/bebidas') }>
+        <img src={ drinkIcon } alt="drinks-icon" data-testid="drinks-bottom-btn" />
       </button>
-      <button
-        type="button"
-        src={ exploreIcon }
-        data-testid="explore-bottom-btn"
-        onClick={ () => history.push('/explorar') }
-      >
-        <img
-          src={ exploreIcon }
-          alt="explore-icon"
-        />
+      <button type="button" onClick={ () => history.push('/explorar') }>
+        <img src={ exploreIcon } alt="explore-icon" data-testid="explore-bottom-btn" />
       </button>
-      <button
-        type="button"
-        src={ mealIcon }
-        data-testid="food-bottom-btn"
-        onClick={ () => history.push('/comidas') }
-      >
-        <img
-          src={ mealIcon }
-          alt="food-icon"
-        />
+      <button type="button" onClick={ () => history.push('/comidas') }>
+        <img src={ mealIcon } alt="food-icon" data-testid="food-bottom-btn" />
       </button>
     </footer>
   );

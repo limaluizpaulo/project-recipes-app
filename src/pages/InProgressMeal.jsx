@@ -160,7 +160,14 @@ export default function InProgressMeal() {
           <button
             type="button"
             onClick={ () => {
-              handleFavorite(recipes[0], id, 'comida', isFavorite);
+              handleFavorite({
+                id: idMeal,
+                type: 'comida',
+                area: strArea,
+                category: strCategory,
+                name: strMeal,
+                image: strMealThumb,
+              }, isFavorite);
               setIsFavorite(!isFavorite);
             } }
           >
