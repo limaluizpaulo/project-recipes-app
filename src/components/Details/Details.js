@@ -10,6 +10,7 @@ import RecipesContext from '../../context/RecipesContext';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import IconButton from '../IconButton/IconButton';
 
 const copy = require('clipboard-copy');
 
@@ -75,6 +76,43 @@ function Details({ id, recipe, recommendations }) {
   }, [favoritedRecipes]);
 
   // RENDER FUNCTIONS
+  const renderIcons = () => (
+    <>
+      <IconButton
+        onClick={ () => {
+          copy(`http://localhost:3000${pathname}`);
+          setCopyLink(true);
+        } }
+        dataTest="share-btn"
+        src={ shareIcon }
+        alt="Share Icon"
+      />
+      {
+        isFav
+          ? (
+            <IconButton
+              onClick={
+                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
+              }
+              dataTest="favorite-btn"
+              src={ blackHeartIcon }
+              alt="Favorited"
+            />
+          )
+          : (
+            <IconButton
+              onClick={
+                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
+              }
+              dataTest="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="Not Favorited"
+            />
+          )
+      }
+    </>
+  );
+
   const renderRecommendation = () => {
     const recommKeyThumb = `${RECOMM_KEY}Thumb`;
     return (
@@ -110,40 +148,7 @@ function Details({ id, recipe, recommendations }) {
         <div>
           <h1 data-testid="recipe-title">{recipe[RECIPE_MAIN_KEY]}</h1>
           <div>
-            <button
-              type="button"
-              onClick={ () => {
-                copy(`http://localhost:3000${pathname}`);
-                // eslint-disable-next-line no-alert
-                setCopyLink(true);
-              } }
-            >
-              <img data-testid="share-btn" src={ shareIcon } alt="Share Icon" />
-            </button>
-            <button
-              type="button"
-              onClick={
-                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
-              }
-            >
-              {
-                isFav
-                  ? (
-                    <img
-                      data-testid="favorite-btn"
-                      src={ blackHeartIcon }
-                      alt="Favorited"
-                    />
-                  )
-                  : (
-                    <img
-                      data-testid="favorite-btn"
-                      src={ whiteHeartIcon }
-                      alt="Not Favorited"
-                    />
-                  )
-              }
-            </button>
+            { renderIcons() }
             {
               copyLink
               && <p>Link copiado!</p>
