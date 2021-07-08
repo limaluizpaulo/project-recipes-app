@@ -12,7 +12,6 @@ function Main() {
   const { location: { pathname } } = history;
 
   const isDrinks = pathname.includes('bebidas');
-  // const title = isDrinks ? 'Bebidas' : 'Comidas';
   const { title } = setConstants(isDrinks);
 
   return (

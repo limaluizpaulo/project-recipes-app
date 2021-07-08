@@ -22,7 +22,7 @@ function RecipesCarousel() {
   }, [type, setFn]);
 
   return (
-    <div className="carousel">
+    <section className="carousel">
       {recipes.map((item, index) => {
         if (index < MAX_CARDS) {
           return (
@@ -45,7 +45,7 @@ function RecipesCarousel() {
         }
         return null;
       })}
-    </div>
+    </section>
   );
 }
 

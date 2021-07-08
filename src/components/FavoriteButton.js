@@ -6,17 +6,17 @@ import { setConstants, toggleFavorite } from '../helpers';
 import blackHeartIcon from '../svg/blackHeartIcon.svg';
 import whiteHeartIcon from '../svg/whiteHeartIcon.svg';
 
-function FavoriteButton({ recipe }) {
+function FavoriteButton({ details }) {
   const { favorites, setFavorites } = useContext(UserContext);
-  const isDrinks = Object.keys(recipe).includes('idDrink');
+  const isDrinks = Object.keys(details).includes('idDrink');
   const { idKey } = setConstants(isDrinks);
-  const isFavorite = favorites.some((item) => item.id === recipe[idKey]);
+  const isFavorite = favorites.some((item) => item.id === details[idKey]);
 
   return (
     <button
       type="button"
       className="button-svg-alt"
-      onClick={ () => toggleFavorite({ favorites, setFavorites, recipe }) }
+      onClick={ () => toggleFavorite({ details, favorites, setFavorites }) }
     >
       <img
         className="svg-small"

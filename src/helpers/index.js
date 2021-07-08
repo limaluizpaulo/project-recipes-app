@@ -70,10 +70,10 @@ export async function getRecipes(params) {
 }
 
 export function toggleIngredient(params) {
-  const { ingredient, inProgress, setInProgress, recipe } = params;
-  const isDrinks = Object.keys(recipe).includes('idDrink');
+  const { details, ingredient, inProgress, setInProgress } = params;
+  const isDrinks = Object.keys(details).includes('idDrink');
   const { idKey, localStorageKey } = setConstants(isDrinks);
-  const id = recipe[idKey];
+  const id = details[idKey];
   const usedIngredients = inProgress[localStorageKey][id] || [];
   const wasUsed = usedIngredients.includes(ingredient);
 
@@ -90,21 +90,21 @@ export function toggleIngredient(params) {
 }
 
 export function toggleFavorite(params) {
-  const { favorites, setFavorites, recipe } = params;
-  const isDrinks = Object.keys(recipe).includes('idDrink');
+  const { favorites, setFavorites, details } = params;
+  const isDrinks = Object.keys(details).includes('idDrink');
   const { idKey, imgKey, nameKey, typeCypress } = setConstants(isDrinks);
 
   const formattedRecipe = {
-    alcoholicOrNot: recipe.strAlcoholic || '',
-    area: recipe.strArea || '',
-    category: recipe.strCategory,
-    id: recipe[idKey],
-    image: recipe[imgKey],
-    name: recipe[nameKey],
+    alcoholicOrNot: details.strAlcoholic || '',
+    area: details.strArea || '',
+    category: details.strCategory,
+    id: details[idKey],
+    image: details[imgKey],
+    name: details[nameKey],
     type: typeCypress,
   };
 
-  const isFavorite = favorites.some((item) => item.id === recipe[idKey]);
+  const isFavorite = favorites.some((item) => item.id === details[idKey]);
   const favoriteRecipes = isFavorite
     ? favorites.filter((item) => item.id !== formattedRecipe.id)
     : favorites.concat(formattedRecipe);

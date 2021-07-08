@@ -17,7 +17,7 @@ function RecipeDetails() {
 
   useEffect(() => {
     if (details[idKey] !== id) getDetails({ id, type, setDetails });
-  }, [details, setDetails, id, type, idKey]);
+  }, [details, setDetails, id, idKey, type]);
 
   function renderIngredients() {
     return (
@@ -44,7 +44,7 @@ function RecipeDetails() {
   }
 
   return (
-    <div>
+    <section>
       <div className="details-image-container">
         <img
           className="details-image"
@@ -53,19 +53,23 @@ function RecipeDetails() {
           data-testid="recipe-photo"
         />
         <div>
-          <FavoriteButton recipe={ details } />
+          <FavoriteButton details={ details } />
           <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
-      <h2 data-testid="recipe-title">{details[nameKey]}</h2>
-      <h4 data-testid="recipe-category">
-        <span>{details.strCategory}</span>
-        {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
-      </h4>
-      {renderIngredients()}
-      <p data-testid="instructions">{details.strInstructions}</p>
+      <div className="details-text-container">
+        <h2 data-testid="recipe-title">{details[nameKey]}</h2>
+        <h5 data-testid="recipe-category">
+          <span>{details.strCategory}</span>
+          {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
+        </h5>
+        <h3>Ingredients</h3>
+        {renderIngredients()}
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{details.strInstructions}</p>
+      </div>
       {!isDrinks && renderYoutubeVideo()}
-    </div>
+    </section>
   );
 }
 

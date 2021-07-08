@@ -11,8 +11,7 @@ function CategoryButtons() {
   const { categories: drinksCategories, setDrinks } = useContext(DrinksContext);
   const { categories: mealsCategories, setMeals } = useContext(MealsContext);
   const [filter, setFilter] = useState('');
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const { location: { pathname } } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
   const { type } = setConstants(isDrinks);
