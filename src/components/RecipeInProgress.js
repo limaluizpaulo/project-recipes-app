@@ -1,37 +1,29 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
-import PropTypes from 'prop-types';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { toggleIngredient } from '../helpers/provider';
+import { setConstants, toggleIngredient } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
+  const { details, ingredients, measures } = useContext(DetailsContext);
   const { inProgress, setInProgress } = useContext(UserContext);
-  const {
-    details,
-    ingredients,
-    measures,
-    imgKey,
-    nameKey,
-    typePt,
-    usedIngredients,
-    setContentParams,
-    isDrinks,
-  } = useContext(DetailsContext);
-
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  useEffect(() => {
-    setContentParams({ id, pathname });
-  }, [id, pathname, setContentParams]);
+  const isDrinks = pathname.includes('bebidas');
+  const { imgKey, localStorageKey, nameKey, typePt } = setConstants(isDrinks);
+
+  function handleClick({ target: { name } }) {
+    toggleIngredient({ details, ingredient: name, inProgress, setInProgress });
+  }
 
   function renderIngredients() {
+    const usedIngredients = inProgress[localStorageKey][id] || [];
+
     return (
       <ul>
         {ingredients.map((ingredient, index) => {
@@ -40,19 +32,21 @@ function RecipeDetails() {
           return (
             <li key={ index } data-testid={ `${index}-ingredient-step` }>
               <input
+                type="checkbox"
+                id={ `checkbox-${index}` }
+                className="ingredient-checkbox"
                 name={ ingredient }
                 key={ index }
-                type="checkbox"
-                onClick={ ({ target: { name } }) => toggleIngredient({
-                  recipe: details,
-                  ingredient: name,
-                  inProgress,
-                  setInProgress,
-                }) }
+                onClick={ handleClick }
                 defaultChecked={ wasUsed }
               />
-              {ingredient}
-              {measures[index] && ` - ${measures[index]}`}
+              <label
+                htmlFor={ `checkbox-${index}` }
+                className={ wasUsed ? 'line-through' : undefined }
+              >
+                {ingredient}
+                {measures[index] && ` - ${measures[index]}`}
+              </label>
             </li>
           );
         })}
@@ -61,7 +55,7 @@ function RecipeDetails() {
   }
 
   return (
-    <div>
+    <section>
       <div className="details-image-container">
         <img
           className="details-image"
@@ -70,24 +64,23 @@ function RecipeDetails() {
           data-testid="recipe-photo"
         />
         <div>
-          <FavoriteButton recipe={ details } />
+          <FavoriteButton details={ details } dataTestId="favorite-btn" />
           <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
-      <h2 data-testid="recipe-title">{details[nameKey]}</h2>
-      <h4 data-testid="recipe-category">
-        <span>{details.strCategory}</span>
-        {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
-      </h4>
-      {renderIngredients()}
-      <p data-testid="instructions">{details.strInstructions}</p>
-    </div>
+      <div className="details-text-container">
+        <h2 data-testid="recipe-title">{details[nameKey]}</h2>
+        <h5 data-testid="recipe-category">
+          <span>{details.strCategory}</span>
+          {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
+        </h5>
+        <h3>Ingredients</h3>
+        {renderIngredients()}
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{details.strInstructions}</p>
+      </div>
+    </section>
   );
 }
-
-RecipeDetails.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  setIngredients: PropTypes.func,
-}.isRequired;
 
 export default RecipeDetails;

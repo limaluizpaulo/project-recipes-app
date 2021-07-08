@@ -3,31 +3,29 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
+import { getDetails, setConstants } from '../helpers';
 import RecipeInProgress from '../components/RecipeInProgress';
 
 function InProgress() {
+  const { details, setDetails, ingredients } = useContext(DetailsContext);
   const { done, setDone, inProgress, setInProgress } = useContext(UserContext);
-  const {
-    details,
-    ingredients,
-    setContentParams,
-    nameKey,
-    typeCypress,
-    typeKey,
-    imgKey,
-    usedIngredients,
-  } = useContext(DetailsContext);
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
 
-  const isFinished = ingredients.length === usedIngredients.length;
+  const isDrinks = pathname.includes('bebidas');
+  const {
+    idKey,
+    imgKey,
+    localStorageKey,
+    nameKey,
+    type,
+    typeCypress,
+  } = setConstants(isDrinks);
 
-  function handleClick() {
+  function finishRecipe() {
     const recipesInProgress = { ...inProgress };
-    delete recipesInProgress[typeKey][id];
+    delete recipesInProgress[localStorageKey][id];
     setInProgress(recipesInProgress);
-
-    console.log(details);
 
     const newRecipe = {
       alcoholicOrNot: details.strAlcoholic || '',
@@ -47,15 +45,18 @@ function InProgress() {
   }
 
   useEffect(() => {
-    setContentParams({ id, pathname });
-  }, [id, pathname, setContentParams]);
+    if (details[idKey] !== id) getDetails({ id, type, setDetails });
+  }, [details, setDetails, id, type, idKey]);
 
   function renderFinishButton() {
+    const usedIngredients = inProgress[localStorageKey][id] || [];
+    const isFinished = ingredients.length === usedIngredients.length;
+
     return (
       <button
         type="button"
         className="button-recipe"
-        onClick={ handleClick }
+        onClick={ finishRecipe }
         disabled={ !isFinished }
         data-testid="finish-recipe-btn"
       >

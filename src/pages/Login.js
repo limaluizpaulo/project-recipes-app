@@ -1,9 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { getRecipes } from '../helpers';
+import DrinksContext from '../context/drinks.context';
+import MealsContext from '../context/meals.context';
 import UserContext from '../context/user.context';
 
 function Login() {
+  const { setDrinks } = useContext(DrinksContext);
+  const { setMeals } = useContext(MealsContext);
   const { setUserEmail } = useContext(UserContext);
   const [input, setInput] = useState({ email: '', password: '' });
   const [isDisabled, setIsDisabled] = useState(true);
@@ -14,6 +19,18 @@ function Login() {
       ...prevState,
       [name]: value,
     }));
+  }
+
+  function handleClick() {
+    setUserEmail(input.email);
+    getRecipes({ type: 'drinks', setFn: setDrinks });
+    getRecipes({ type: 'meals', setFn: setMeals });
+
+    localStorage.setItem('user', JSON.stringify({ email: input.email }));
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('mealsToken', 1);
+
+    history.push('/comidas');
   }
 
   useEffect(() => {
@@ -54,7 +71,7 @@ function Login() {
       </label>
       <button
         type="button"
-        onClick={ () => { setUserEmail(input.email); history.push('/comidas'); } }
+        onClick={ handleClick }
         data-testid="login-submit-btn"
         disabled={ isDisabled }
       >

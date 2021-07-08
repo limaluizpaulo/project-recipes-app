@@ -1,29 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+
 import DetailsContext from '../context/details.context';
-import { urlToEmbed } from '../helpers';
+import { getDetails, setConstants, urlToEmbed } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
-  const {
-    details,
-    ingredients,
-    measures,
-    imgKey,
-    nameKey,
-    isDrinks,
-    typePt,
-    setContentParams,
-  } = useContext(DetailsContext);
-
+  const { details, setDetails, ingredients, measures } = useContext(DetailsContext);
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
+  const isDrinks = pathname.includes('bebidas');
+  const { idKey, imgKey, nameKey, type, typePt } = setConstants(isDrinks);
+
   useEffect(() => {
-    setContentParams({ id, pathname });
-  }, [id, pathname, setContentParams]);
+    if (details[idKey] !== id) getDetails({ id, type, setDetails });
+  }, [details, setDetails, id, idKey, type]);
 
   function renderIngredients() {
     return (
@@ -50,7 +44,7 @@ function RecipeDetails() {
   }
 
   return (
-    <div>
+    <section>
       <div className="details-image-container">
         <img
           className="details-image"
@@ -59,19 +53,23 @@ function RecipeDetails() {
           data-testid="recipe-photo"
         />
         <div>
-          <FavoriteButton recipe={ details } />
+          <FavoriteButton details={ details } dataTestId="favorite-btn" />
           <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
-      <h2 data-testid="recipe-title">{details[nameKey]}</h2>
-      <h4 data-testid="recipe-category">
-        <span>{details.strCategory}</span>
-        {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
-      </h4>
-      {renderIngredients()}
-      <p data-testid="instructions">{details.strInstructions}</p>
+      <div className="details-text-container">
+        <h2 data-testid="recipe-title">{details[nameKey]}</h2>
+        <h5 data-testid="recipe-category">
+          <span>{details.strCategory}</span>
+          {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
+        </h5>
+        <h3>Ingredients</h3>
+        {renderIngredients()}
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{details.strInstructions}</p>
+      </div>
       {!isDrinks && renderYoutubeVideo()}
-    </div>
+    </section>
   );
 }
 

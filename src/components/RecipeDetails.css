@@ -1,24 +1,61 @@
 .details-image-container {
-  height: 360px;
   position: relative;
 }
 
 .details-image {
-  height: 360px;
-  width: 360px;
+  height: 100vw;
+  width: 100vw;
 }
 
 .details-image-container > div {
   bottom: 0;
   display: flex;
-  padding: 10px;
+  padding: 20px;
   position: absolute;
   right: 0;
+}
+
+.details-text-container {
+  margin-bottom: 30px;
+  padding: 10px;
+}
+
+.details-text-container > h3 {
+  margin: 20px 0 5px;
+}
+
+.details-text-container > h5 {
+  color: #666;
+}
+
+.details-text-container > ul {
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  padding: 20px 10px;
+}
+
+.details-text-container li {
+  align-items: center;
+  display: flex;
+}
+
+.details-text-container > p {
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  padding: 20px 10px;
+}
+
+.ingredient-checkbox {
+  margin-right: 5px;
+}
+
+.line-through {
+  text-decoration: line-through;
 }
 
 .youtube-video {
   border: none;
   height: 240px;
-  margin: 40px 0;
+  margin-bottom: 40px;
   width: 100vw;
 }

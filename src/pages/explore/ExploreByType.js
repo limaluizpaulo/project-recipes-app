@@ -2,29 +2,20 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DetailsContext from '../../context/details.context';
-import { getDetails } from '../../helpers';
+import { getDetails, setConstants } from '../../helpers';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-function ExplorarComidaOuBebida() {
-  const { setDetails, setIngredients, setMeasures } = useContext(DetailsContext);
+function ExploreByType() {
+  const { setDetails } = useContext(DetailsContext);
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const title = isDrinks ? 'Bebidas' : 'Comidas';
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const { idKey, title, type, typePt } = setConstants(isDrinks);
 
   async function surpriseMe() {
-    const result = await getDetails(type, null, true);
-    if (result[0]) {
-      setDetails(result[0]);
-      setIngredients(result[1]);
-      setMeasures(result[2]);
-    }
-
-    push(`/${typePt}/${result[0][idKey]}`);
+    const result = await getDetails({ isRandom: true, type, setDetails });
+    push(`/${typePt}/${result[idKey]}`);
   }
 
   return (
@@ -60,4 +51,4 @@ function ExplorarComidaOuBebida() {
   );
 }
 
-export default ExplorarComidaOuBebida;
+export default ExploreByType;

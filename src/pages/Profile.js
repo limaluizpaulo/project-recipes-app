@@ -1,19 +1,30 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import UserContext from '../context/user.context';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile() {
-  const { userEmail } = useContext(UserContext);
   const { push } = useHistory();
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const email = user ? user.email : '';
+
+  function logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('inProgressRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    push('/');
+  }
 
   return (
     <main>
       <Header title="Perfil" showSearchIcon={ false } />
       <div>
-        <p data-testid="profile-email">{ userEmail }</p>
+        <p data-testid="profile-email">{ email }</p>
         <button
           type="button"
           value="Receitas Feitas"
@@ -33,7 +44,7 @@ function Profile() {
         <button
           type="button"
           value="Sair"
-          onClick={ () => { push('/'); localStorage.clear(); } }
+          onClick={ logout }
           data-testid="profile-logout-btn"
         >
           Sair

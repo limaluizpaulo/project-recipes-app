@@ -1,29 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
-import { getRecipes } from '../helpers/provider';
+import { setConstants } from '../helpers';
 import './RecipesList.css';
 
 function RecipesList() {
   const MAX_CARDS = 12;
-  const { drinks, setDrinks } = useContext(DrinksContext);
-  const { meals, setMeals } = useContext(MealsContext);
+  const { drinks } = useContext(DrinksContext);
+  const { meals } = useContext(MealsContext);
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
+  const { idKey, imgKey, nameKey, typePt } = setConstants(isDrinks);
   const recipes = isDrinks ? [...drinks] : [...meals];
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const setFn = isDrinks ? setDrinks : setMeals;
-
-  useEffect(() => {
-    getRecipes({ type, setFn });
-  }, [type, setFn]);
 
   return (
     <div className="card-list">
