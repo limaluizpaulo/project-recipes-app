@@ -11,7 +11,7 @@ export default function MainPage() {
   let strTitle;
   let typeId;
 
-  if (type === 'meal') {
+  if (type === 'meals') {
     title = 'Comidas';
     strTitle = 'strMeal';
     thumbnail = 'strMealThumb';

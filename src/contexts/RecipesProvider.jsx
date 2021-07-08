@@ -10,8 +10,7 @@ import {
 
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
-  const [type, setType] = useState('meal');
-  // const [mealsCategories, setMealsCategories] = useState([]);
+  const [type, setType] = useState('meals');
   // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -22,16 +21,17 @@ function RecipesProvider({ children }) {
   );
 
   const { pathname } = useLocation();
-  if (mustUpdateType('meal', 'comidas', pathname)) {
-    setType('meal');
+  if (mustUpdateType('meals', 'comidas', pathname)) {
+    setType('meals');
   }
-  if (mustUpdateType('drink', 'bebidas', pathname)) {
-    setType('drink');
+  if (mustUpdateType('drinks', 'bebidas', pathname)) {
+    setType('drinks');
   }
 
   useEffect(() => {
+    setIsFetching(true);
     const recipes = async () => {
-      const results = (type === 'meal')
+      const results = (type === 'meals')
         ? await getMealsRecipes() : await getCocktailsRecipes();
       /*
       results.reduce((acc, item) => {
@@ -53,7 +53,7 @@ function RecipesProvider({ children }) {
 
     recipes();
     // ingredients();
-  }, []);
+  }, [type]);
 
   const context = {
     // mealsCategories,
@@ -64,11 +64,11 @@ function RecipesProvider({ children }) {
     setType,
     setIsFetching,
     setData,
+    maxCards,
   };
 
   return (
     <RecipesContext.Provider value={ context }>
-      {/* {console.log(pathname)} */}
       {children}
     </RecipesContext.Provider>
   );

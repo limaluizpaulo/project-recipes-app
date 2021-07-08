@@ -15,6 +15,11 @@
   max-height: 80vh;
 }
 
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;
@@ -37,6 +42,13 @@
   font-weight: 900;
 }
 
+.footer {
+  background-color: aliceblue;
+  bottom: 0;
+  display: block;
+  position: fixed;
+}
+
 @keyframes shake {
 
   0% {
@@ -51,6 +63,7 @@
     transform: rotate(5deg);
   }
 }
+
 
 @keyframes clink {
 

@@ -1,17 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import pathTreament from '../helpers/HelperFunctions';
 
 export default function Card(props) {
-  const { id, thumbnail, title, index } = props;
+  const { id, thumbnail, title, index, category } = props;
   const { pathname } = useLocation();
-
+  const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
+  const newPathname = pathTreament(pathname);
   return (
-    <Link to={ `${pathname}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
-        <img src={ thumbnail } alt={ title } data-testid={ `${index}-card-img` } />
-        <span data-testid={ `${index}-card-name` }>{title}</span>
-      </div>
+    <Link to={ `${newPathname}/${id}` } data-testid={ dataTestId }>
+      <img src={ thumbnail } alt={ title } data-testid={ `${index}-card-img` } />
+      {category && (<span>{category}</span>)}
+      <span data-testid={ `${index}-card-name` }>{title}</span>
     </Link>
   );
 }
@@ -21,4 +22,5 @@ Card.propTypes = {
   index: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
