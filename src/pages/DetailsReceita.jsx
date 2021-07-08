@@ -87,7 +87,11 @@ function DetailsReceita(props) {
         <img data-testid="share-btn" src={ shareIcon } alt="" />
       </Link>
       <CarouselElement sugest={ [sugestoes, type] } />
-      <Link className="footer" data-testid="start-recipe-btn" to={ `/${apelidoAPI}/${id}/in-progress` }>
+      <Link
+        className="footer"
+        data-testid="start-recipe-btn"
+        to={ `/${apelidoAPI}/${id}/in-progress` }
+      >
         iniciar receita
       </Link>
     </div>
