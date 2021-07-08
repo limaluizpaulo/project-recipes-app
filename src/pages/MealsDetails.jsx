@@ -88,6 +88,7 @@ const MealsDetails = ({
       <ShareButton
         type={ newObj.type }
         id={ id }
+        test="share-btn"
       />
 
       <FavoriteButton

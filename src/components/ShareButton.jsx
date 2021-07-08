@@ -4,7 +4,7 @@ import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import { UserContext } from '../context/UserProvider';
 
-const ShareButton = ({ type, id, index = 0 }) => {
+const ShareButton = ({ type, id, test }) => {
   const { copyToClipboard } = useContext(UserContext);
 
   return (
@@ -19,7 +19,7 @@ const ShareButton = ({ type, id, index = 0 }) => {
       <img
         src={ shareIcon }
         alt=""
-        data-testid={ `${index}-horizontal-share-btn` }
+        data-testid={ test }
       />
     </button>
   );
@@ -28,7 +28,7 @@ const ShareButton = ({ type, id, index = 0 }) => {
 ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  test: PropTypes.string.isRequired,
 };
 
 export default ShareButton;

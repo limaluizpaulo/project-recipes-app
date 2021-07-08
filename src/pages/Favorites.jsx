@@ -63,12 +63,12 @@ const Favorites = () => {
                     <ShareButton
                       type={ type }
                       id={ id }
-                      index={ index }
+                      test={ `${index}-horizontal-share-btn` }
                     />
 
                     <FavoriteButton
                       id={ id }
-                      test={ `${index}-horizontal-favorite-btn favorite-btn` }
+                      test={ `${index}-horizontal-favorite-btn` }
                     />
 
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
