@@ -18,7 +18,7 @@ function DrinkDetail() {
     fetchDrinksById,
     setIngredientsDrink,
   } = useContext(DrinksContext);
- 
+
   const [load, setLoad] = useState(true);
 
   const drink = useCallback(async () => {
