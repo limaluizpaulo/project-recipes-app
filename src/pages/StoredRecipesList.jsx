@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import StoredRecipeCard from '../components/StoredRecipeCard';
 import ButtonFilter from '../components/ButtonFilter';
 import Header from '../components/Header';
+import RecipeContext from '../context';
 
 function StoredRecipesList({ favorite }) {
   const [storedRecipes, setStoredRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const { isFavorite, setIsFavorite } = useContext(RecipeContext);
 
   useEffect(() => {
     const savedRecipes = JSON.parse(localStorage.getItem(
       favorite ? 'favoriteRecipes' : 'doneRecipes',
     ));
+    if (favorite) {
+      setIsFavorite(true);
+    }
     setStoredRecipes(savedRecipes);
     setFilteredRecipes(savedRecipes);
-  }, []);
+  }, [isFavorite]);
 
   // useEffect(() => {
   //   // setFilteredDoneRecipes(doneRecipes);

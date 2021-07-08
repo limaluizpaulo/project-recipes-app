@@ -6,6 +6,7 @@ import RecipeContext from '../context';
 
 function RecipeCard({ recipe: { id, name, image }, index }) {
   const { pathname } = useLocation();
+  const path = pathname.includes('comidas') ? '/comidas' : '/bebidas';
   // const history = useHistory();
   // const { strMealThumb, strMeal, idMeal } = recipe;
   // const [setRecipeUrl] = useFetchRecipesApi();
@@ -20,7 +21,7 @@ function RecipeCard({ recipe: { id, name, image }, index }) {
 
   return (
     <Link
-      to={ `${pathname}/${id}` }
+      to={ `${path}/${id}` }
       onClick={ () => setIdDetail(id) }
     >
       <div data-testid={ `${index}-recipe-card` }>

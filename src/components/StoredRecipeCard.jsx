@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
@@ -6,10 +6,11 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { handleFavorite } from '../helpFunctions/handleStorageKeys';
+import RecipeContext from '../context';
 
 function StoredRecipeCard({ recipe, index }) {
   const { pathname } = useLocation();
-  const [isFavorite, setIsFavorite] = useState(true);
+  const { isFavorite, setIsFavorite } = useContext(RecipeContext);
   const [isCopy, setIsCopy] = useState(false);
 
   const {

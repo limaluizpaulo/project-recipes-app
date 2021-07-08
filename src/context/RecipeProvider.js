@@ -15,8 +15,8 @@ import {
 } from '../service/api';
 
 export default function RecipeProvider({ children }) {
-  const NUM_TWELVE = 12;
-  const NUM_FIVE = 5;
+  const MAX_NUMBER_OF_ITEMS = 12;
+  const MAX_NUMBER_OF_CATEGORIES = 5;
   const textAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   const { pathname } = useLocation();
@@ -36,6 +36,7 @@ export default function RecipeProvider({ children }) {
   const [idProgress, setIdProgress] = useState('');
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // Render all recipes
   // useEffect(() => {
@@ -55,7 +56,7 @@ export default function RecipeProvider({ children }) {
   useEffect(() => {
     async function requestCategories() {
       const returnCategories = await categoriesListApi(pathname);
-      const limitedCategories = returnCategories.slice(0, NUM_FIVE);
+      const limitedCategories = returnCategories.slice(0, MAX_NUMBER_OF_CATEGORIES);
       setCategories(limitedCategories);
     }
     if (pathname === '/comidas' || pathname === '/bebidas') {
@@ -118,7 +119,7 @@ export default function RecipeProvider({ children }) {
       if (returnIngredients === null) {
         return global.alert(textAlert);
       }
-      const limitedRecipes = returnIngredients.slice(0, NUM_TWELVE);
+      const limitedRecipes = returnIngredients.slice(0, MAX_NUMBER_OF_ITEMS);
       setRecipes(limitedRecipes);
     }
     const requestByName = async () => {
@@ -126,7 +127,7 @@ export default function RecipeProvider({ children }) {
       if (returnName === null) {
         return global.alert(textAlert);
       }
-      const limitedRecipes = returnName.slice(0, NUM_TWELVE);
+      const limitedRecipes = returnName.slice(0, MAX_NUMBER_OF_ITEMS);
       setRecipes(limitedRecipes);
     };
     const requestByLetter = async () => {
@@ -134,7 +135,7 @@ export default function RecipeProvider({ children }) {
       if (returnLetter === null) {
         return global.alert(textAlert);
       }
-      const limitedRecipes = returnLetter.slice(0, NUM_TWELVE);
+      const limitedRecipes = returnLetter.slice(0, MAX_NUMBER_OF_ITEMS);
       setRecipes(limitedRecipes);
     };
     if (redirectSearchBar) {
@@ -163,6 +164,8 @@ export default function RecipeProvider({ children }) {
   return (
     <RecipeContext.Provider
       value={ {
+        isFavorite,
+        setIsFavorite,
         recipeInProgress,
         setRecipeInProgress,
         idProgress,
