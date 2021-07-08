@@ -36,10 +36,16 @@ export default function RecipesInProgress() {
 
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateMeals]);
-  const handleChange = ({ target: { checked } }) => {
+  const handleChange = ({ target: { checked, id } }) => {
     if (checked) {
       setDisableButton(disableButton + 1);
-    } else { setDisableButton(disableButton - 1); }
+      const buttonCheck = document.getElementById(id);
+      buttonCheck.classList.add('riscado');
+    } else {
+      setDisableButton(disableButton - 1);
+      const buttonCheck = document.getElementById(id);
+      buttonCheck.classList.remove('riscado');
+    }
   };
   const { strMeal, strMealThumb, strCategory, strInstructions } = stateMeals[0];
   return (
@@ -58,6 +64,7 @@ export default function RecipesInProgress() {
       <ul>
         {ingredientsMeals.map((ingredient, index) => (
           <li
+            id={ ingredient }
             key={ index }
             value={ index }
 
@@ -66,6 +73,7 @@ export default function RecipesInProgress() {
             <span data-testid={ `${index}-ingredient-step` }>
               {`${measureMeals[index]}  `}
               <input
+                id={ ingredient }
                 value={ ingredient }
                 type="checkbox"
                 onChange={ handleChange }

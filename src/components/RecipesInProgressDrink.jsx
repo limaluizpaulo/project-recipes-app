@@ -27,7 +27,6 @@ export default function RecipesInProgressDrink() {
     const filtroMeasure = measures.filter((word) => word !== ' ' && word !== null);
     setIngredients(filtroIngredients);
     setMeasure(filtroMeasure);
-    console.log(filtroIngredients, filtroMeasure);
   };
 
   const getApiDetails = () => {
@@ -37,16 +36,22 @@ export default function RecipesInProgressDrink() {
 
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateDrink]);
-  const handleChange = ({ target: { checked } }) => {
+  const handleChange = ({ target: { checked, id } }) => {
     if (checked) {
       setDisableButton(disableButton + 1);
-    } else { setDisableButton(disableButton - 1); }
+      const buttonCheck = document.getElementById(id);
+      buttonCheck.classList.add('riscado');
+    } else {
+      setDisableButton(disableButton - 1);
+      const buttonCheck = document.getElementById(id);
+      buttonCheck.classList.remove('riscado');
+    }
   };
-  const { strDrink, strMealThumb, strCategory, strInstructions } = stateDrink[0];
+  const { strDrink, strDrinkThumb, strCategory, strInstructions } = stateDrink[0];
   return (
     <main>
       <img
-        src={ strMealThumb }
+        src={ strDrinkThumb }
         alt={ `Imagem ${strDrink}` }
         width="60px"
         data-testid="recipe-photo"
@@ -59,14 +64,16 @@ export default function RecipesInProgressDrink() {
       <ul>
         {ingredients.map((ingredient, index) => (
           <li
+            id={ ingredient }
             key={ index }
             value={ index }
 
           >
             {`${ingredient} - `}
             <span data-testid={ `${index}-ingredient-step` }>
-              {`${measure[index]}  `}
+              {`${measure[index] ? measure[index] : ''}  `}
               <input
+                id={ ingredient }
                 value={ ingredient }
                 type="checkbox"
                 onChange={ handleChange }
