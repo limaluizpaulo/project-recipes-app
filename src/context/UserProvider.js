@@ -1,6 +1,10 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFromLocalStorage, setOnLocalStorage } from '../services/helpers/localStorage';
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  setOnLocalStorage,
+} from '../services/helpers/localStorage';
 
 const UserContext = createContext();
 
@@ -15,24 +19,7 @@ const UserProvider = ({ children }) => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    setOnLocalStorage('favoriteRecipes', [{
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    }]);
+    if (!getFromLocalStorage('favoriteRecipes')) setOnLocalStorage('favoriteRecipes', []);
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
     setDone(getFromLocalStorage('doneRecipes') || []);
   }, []);
@@ -42,9 +29,20 @@ const UserProvider = ({ children }) => {
     setCopied(true);
     setTimeout(() => setCopied(false), hideMsgTime);
   };
+  const inFavorites = (id) => {
+    const favoritesStorage = getFromLocalStorage('favoriteRecipes');
+    return (!!favoritesStorage.find((favorite) => favorite.id === id));
+  };
+
+  const addFavorites = async (recipe) => {
+    const favoritesList = getFromLocalStorage('favoriteRecipes');
+    setOnLocalStorage('favoriteRecipes', [...favoritesList, recipe]);
+    setFavorites(getFromLocalStorage('favoriteRecipes') || []);
+  };
 
   const removeFavorites = (id) => {
     const filteredFavorites = favorites.filter((recipe) => recipe.id !== id);
+    removeFromLocalStorage('favoriteRecipes', 'id', id);
     setFavorites(filteredFavorites);
   };
 
@@ -79,6 +77,8 @@ const UserProvider = ({ children }) => {
     favorites,
     done,
     copied,
+    inFavorites,
+    addFavorites,
     removeFavorites,
     verifyLogin,
     handleChange,
@@ -88,9 +88,7 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={ context }>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={ context }>{children}</UserContext.Provider>
   );
 };
 

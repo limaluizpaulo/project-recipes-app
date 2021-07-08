@@ -30,6 +30,7 @@ const MealsDetails = ({
 
   const {
     strMeal,
+    strArea,
     strCategory,
     strYoutube,
     strInstructions,
@@ -38,16 +39,27 @@ const MealsDetails = ({
 
   const newObj = {
     id,
-    title: strMeal,
+    type: 'meals',
+    area: strArea || '',
     category: strCategory,
-    imageHeader: strMealThumb,
+    name: strMeal,
+    image: strMealThumb,
     urlVideo: strYoutube,
     instructions: strInstructions,
-    type: 'meals',
     ingredients,
     measures,
     recomendations: drinks,
   };
+
+  //   [{
+  //     id: id-da-receita,
+  //     type: comida-ou-bebida,
+  //     area: area-da-receita-ou-texto-vazio,
+  //     category: categoria-da-receita-ou-texto-vazio,
+  //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+  //     name: nome-da-receita,
+  //     image: imagem-da-receita
+  // }]
 
   useEffect(() => {
     const findMeal = async () => {
@@ -76,7 +88,15 @@ const MealsDetails = ({
         id={ id }
       />
 
-      <FavoriteButton id={ id } />
+      <FavoriteButton
+        id={ id }
+        recipe={ ({ id: newObj.id,
+          type: newObj.type,
+          area: newObj.area,
+          category: newObj.category,
+          name: newObj.name,
+          image: newObj.image }) }
+      />
 
       <Instructions newObj={ newObj } />
       <Ingredients newObj={ newObj } />
