@@ -19,7 +19,7 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
   useEffect(() => {
     if (!details.drinks) {
       detailsSyncSetState(`https://thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
   }, [details.drinks, detailsSyncSetState, id]);
 
