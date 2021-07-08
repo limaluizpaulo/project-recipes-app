@@ -9,11 +9,11 @@ export default function App() {
     return (
       <Switch>
         <Route
-          path="/comidas/:Id/in-progress"
+          path="/comidas/:id/in-progress"
           component={ Pages.FoodRecipeByIdProgress }
         />
         <Route
-          path="/comidas/:Id"
+          path="/comidas/:id"
           component={ Pages.FoodAndDrinkById }
         />
         <Route
@@ -21,11 +21,11 @@ export default function App() {
           component={ Pages.MainPage }
         />
         <Route
-          path="/bebidas/:Id/in-progress"
+          path="/bebidas/:id/in-progress"
           component={ Pages.DrinkRecipeByIdProgress }
         />
         <Route
-          path="/bebidas/:Id"
+          path="/bebidas/:id"
           component={ Pages.FoodAndDrinkById }
         />
         <Route

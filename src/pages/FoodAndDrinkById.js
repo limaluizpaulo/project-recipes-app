@@ -18,7 +18,7 @@ export default function FoodAndDrinkById() {
     ? 'thecocktaildb' : 'themealdb';
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
-  const { Id } = useParams();
+  const { id } = useParams();
 
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
@@ -26,7 +26,7 @@ export default function FoodAndDrinkById() {
 
   useEffect(() => {
     async function getRecipeDetails() {
-      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${Id}`;
+      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
       const URL_RECOMENDATION = `https://www.${recDomain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
       const recResolved = await fetchAPI(URL_RECOMENDATION);
@@ -44,7 +44,7 @@ export default function FoodAndDrinkById() {
       setIngridientsList(list);
     }
     getRecipeDetails().catch(console.log);
-  }, [Id, domain, firstKey, recDomain, recFirstKey]);
+  }, [id, domain, firstKey, recDomain, recFirstKey]);
 
   const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
