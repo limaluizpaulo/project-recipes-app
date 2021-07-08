@@ -51,3 +51,17 @@ export const updateStorageRecipe = (id, recipe, meals) => {
     });
   }
 };
+
+export const getDonesRecipes = () => localStorage.doneRecipes
+&& JSON.parse(localStorage.doneRecipes);
+
+export const addRecipeDones = (recipe) => {
+  if (localStorage.doneRecipes) {
+    const local = JSON.parse(localStorage.doneRecipes);
+    const newDones = [...local, recipe];
+    localStorage.doneRecipes = JSON.stringify(newDones);
+  } else {
+    const newDones = [recipe];
+    localStorage.doneRecipes = JSON.stringify(newDones);
+  }
+};

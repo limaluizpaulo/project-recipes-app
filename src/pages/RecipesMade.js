@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
-import { getDonesRecipe } from '../services/localStorage';
+import { getDonesRecipes } from '../services/localStorage';
 import Header from '../components/Header';
 
 function RecipesMade() {
   const [msgCopy, setMsgCopy] = useState(false);
-  const [dones, setDones] = useState(false);
+  const [dones, setDones] = useState();
   const history = useHistory();
 
   useEffect(() => {
-    setDones(getDonesRecipe());
+    setDones(getDonesRecipes());
   }, []);
 
   const renderCards = () => dones && dones.map((item, index) => {
