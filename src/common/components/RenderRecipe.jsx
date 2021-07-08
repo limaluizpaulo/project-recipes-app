@@ -5,7 +5,7 @@ import { getStorage, setStorage } from '../../functions';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 
-export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestruturando Props
+export default function RenderRecipe({ renderIngredients, ingrOK, captureFavorited }) { // Desestruturando Props
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [doneRecipes] = useState(() => getStorage('doneRecipes'));
   const { recipes: { recipeDetail, foods } } = useContext(store);
@@ -59,7 +59,7 @@ export default function RenderRecipe({ renderIngredients, ingrOK }) { // Desestr
           </h1>
           <span className="likeShareBtns">
             <ShareButton />
-            <LikeButton recipe={ recipeDetail } />
+            <LikeButton recipe={ recipeDetail } captureFavorited={ captureFavorited } />
           </span>
         </div>
         <h5 data-testid="recipe-category">
