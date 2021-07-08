@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
-import { fetchDrinkDetails, fetchFoodDetails,
-  startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
-
 import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
+import SharedFavorites from '../components/SharedFavorites';
+import { fetchDrinkDetails, fetchFoodDetails,
+  startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import identification from '../helper/dictionaryApi';
 import CarouselCards from '../components/CarouselCards';
 
@@ -22,15 +19,13 @@ class Detalhes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favIcon: false,
-      favIconColor: whiteHeartIcon,
       currentId: '',
     };
-    this.handleFavClick = this.handleFavClick.bind(this);
     this.instrutionVideo = this.instrutionVideo.bind(this);
     this.cardsMeals = this.cardsMeals.bind(this);
     this.cardsDrinks = this.cardsDrinks.bind(this);
     this.handleFetch = this.handleFetch.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -67,20 +62,10 @@ class Detalhes extends Component {
     return drinksDetails(id);
   }
 
-  handleFavClick() {
-    const { favIcon } = this.state;
-    if (!favIcon) {
-      this.setState({
-        favIconColor: blackHeartIcon,
-        favIcon: true,
-      });
-    }
-    if (favIcon) {
-      this.setState({
-        favIconColor: whiteHeartIcon,
-        favIcon: false,
-      });
-    }
+  onClick() {
+    const { isStart, history, match: { params: { page, id } } } = this.props;
+    history.push(`/${page}/${id}/in-progress`);
+    isStart();
   }
 
   instrutionVideo(data) {
@@ -168,26 +153,11 @@ class Detalhes extends Component {
   }
 
   render() {
-    const { isStart, details, isDrink } = this.props;
-    const { favIconColor } = this.state;
+    const { details, isDrink } = this.props;
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
-        <button
-          className="details-btn-share"
-          type="button"
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt={ shareIcon } />
-        </button>
-        <button
-          className="details-btn-favorite"
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ this.handleFavClick }
-        >
-          <img src={ favIconColor } alt={ favIconColor } />
-        </button>
+        <SharedFavorites />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>
@@ -215,7 +185,7 @@ class Detalhes extends Component {
           className="details-btn-startRecipe"
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => isStart() }
+          onClick={ () => this.onClick() }
         >
           Iniciar Receita
         </button>
@@ -234,6 +204,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+  mealsDetails: state.foodCategories.recipeDetails,
   details: state.recipeDetails.details,
   isDrink: state.recipeDetails.isDrink,
   drinks: state.drinkCategories.drinks,
@@ -249,6 +220,7 @@ Detalhes.propTypes = {
   reboot: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+  history: PropTypes.shape.isRequired,
   isDrink: PropTypes.bool.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.shape).isRequired,
   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
