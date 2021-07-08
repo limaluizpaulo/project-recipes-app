@@ -101,6 +101,7 @@ const DrinkProgress = ({ match }) => {
 
   const addRecipeDone = () => {
     const { idDrink, strCategory, strDrink, strDrinkThumb, strTags } = drink;
+    const data = new Date();
     const recipe = {
       id: idDrink,
       type: 'bebida',
@@ -109,7 +110,7 @@ const DrinkProgress = ({ match }) => {
       alcoholicOrNot: 'Alcoholic',
       name: strDrink,
       image: strDrinkThumb,
-      doneDate: Date(),
+      doneDate: data.toLocaleDateString(),
       tags: strTags,
     };
     addRecipeDones(recipe);

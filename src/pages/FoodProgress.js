@@ -103,6 +103,7 @@ const FoodProgress = ({ match }) => {
   const addRecipeDone = () => {
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
     const [tag, curry = ''] = strTags.split(',');
+    const data = new Date();
     const recipe = {
       id: idMeal,
       type: 'comida',
@@ -111,7 +112,7 @@ const FoodProgress = ({ match }) => {
       alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
-      doneDate: Date(),
+      doneDate: data.toLocaleDateString(),
       tags: tag,
       curry,
     };
