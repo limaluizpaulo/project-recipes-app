@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button, Card } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 import DrinksContext from '../context/DrinksContext';
 
@@ -28,46 +29,70 @@ function IngredientCard({ index, ingredient }) {
 
   function renderRecipes() {
     return (
-      <div className="card-field">
-        <button
-          className="card-button"
-          data-testid={ `${index}-ingredient-card` }
-          type="button"
-          onClick={ () => redirectToRecipes() }
+      <Button
+        variant
+        data-testid={ `${index}-ingredient-card` }
+        type="button"
+        onClick={ () => redirectToRecipes() }
+      >
+        <Card
+          style={ { background: '#dc35463d', height: '12rem', width: '12rem' } }
+          border="danger"
         >
-          <img
+          <Card.Img
+            className="card-image"
             data-testid={ `${index}-card-img` }
+            variant="top"
             src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
             alt={ ingredient }
           />
-          <h6 data-testid={ `${index}-card-name` }>{ingredient}</h6>
-        </button>
-      </div>
+          <Card.Body className="title-container">
+            <Card.Title
+              className="card-title"
+              data-testid={ `${index}-card-name` }
+            >
+              {ingredient}
+
+            </Card.Title>
+          </Card.Body>
+        </Card>
+      </Button>
     );
   }
 
   function renderDrinks() {
     return (
-      <div className="card-field">
-        <button
-          className="card-button"
-          data-testid={ `${index}-ingredient-card` }
-          type="button"
-          onClick={ () => redirectToDrinks() }
+      <Button
+        variant
+        data-testid={ `${index}-ingredient-card` }
+        type="button"
+        onClick={ () => redirectToDrinks() }
+      >
+        <Card
+          style={ { background: '#dc35463d', height: '12rem', width: '12rem' } }
+          border="danger"
         >
-          <img
+          <Card.Img
+            className="card-image"
             data-testid={ `${index}-card-img` }
             src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
             alt={ ingredient }
           />
-          <h6 data-testid={ `${index}-card-name` }>{ingredient}</h6>
-        </button>
-      </div>
+          <Card.Body className="title-container">
+            <Card.Title
+              className="card-title"
+              data-testid={ `${index}-card-name` }
+            >
+              {ingredient}
+            </Card.Title>
+          </Card.Body>
+        </Card>
+      </Button>
     );
   }
   return (
 
-    <section className="ingredients">
+    <section className="ingredient">
       {
         pathname.includes('/comidas')
           ? renderRecipes()

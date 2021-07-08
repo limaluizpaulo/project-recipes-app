@@ -65,8 +65,12 @@ function FilteredList({ filteredDrinks, filteredRecipes }) {
 }
 
 FilteredList.propTypes = {
-  filteredDrinks: PropTypes.string.isRequired,
-  filteredRecipes: PropTypes.string.isRequired,
+  filteredDrinks: PropTypes.string,
+  filteredRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+FilteredList.defaultProps = {
+  filteredDrinks: undefined,
 };
 
 export default FilteredList;

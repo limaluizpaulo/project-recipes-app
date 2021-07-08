@@ -1,0 +1,10 @@
+.explore-section-ingredients {
+  background: #eea371;
+  height: 100%;
+}
+
+.cards-field-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
