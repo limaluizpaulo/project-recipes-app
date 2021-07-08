@@ -17,7 +17,7 @@ class ExploreDrinks extends Component {
               Por Ingredientes
             </button>
           </Link>
-          <Link to="/bebidas/:bebidaId">
+          <Link to="/bebidas/53000">
             <button
               type="button"
               data-testid="explore-surprise"
