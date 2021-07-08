@@ -11,9 +11,10 @@ import RecipesFavorite from './pages/RecipesFavorite';
 import RecipesMade from './pages/RecipesMade';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
-import Ingredients from './components/Ingredients';
+import Ingredients from './pages/Ingredientes';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
+import NotFound from './pages/NotFound';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 

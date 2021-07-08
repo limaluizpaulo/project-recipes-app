@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CardsRecipes.css';
-/* import copy from 'clipboard-copy'; */
+import copy from 'clipboard-copy';
 import imgIcon from '../../images/shareIcon.svg';
 import imgBtnFavorite from '../../images/blackHeartIcon.svg';
 
-function copyUrl({ setCopied }) {
-  /* copy(`ll`); */
+function copyUrl(setCopied, url, type, id) {
+  console.log(`http://localhost:3000/${type}/${id}`);
+  copy(`http://localhost:3000/${type}/${id}`);
   setCopied(true);
 }
 
-function CardsRecipesFavorite({ aux, index }) {
+function CardsRecipesFavorite({ aux, index, url }) {
   const [copied, setCopied] = useState(false);
-  const { area, image, name, category, alcoholicOrNot } = aux;
+  const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
   if (alcoholicOrNot === 'Alcoholic') {
     alcohol = true;
@@ -51,7 +52,7 @@ function CardsRecipesFavorite({ aux, index }) {
           >
             Tags
           </button>
-          <button type="button" onClick={ () => copyUrl(setCopied) }>
+          <button type="button" onClick={ () => copyUrl(setCopied, url, type, id) }>
             <img
               data-testid={ `${index}-horizontal-share-btn` }
               src={ imgIcon }
@@ -75,6 +76,7 @@ function CardsRecipesFavorite({ aux, index }) {
 CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default CardsRecipesFavorite;
