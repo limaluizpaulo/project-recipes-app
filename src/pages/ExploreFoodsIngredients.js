@@ -13,13 +13,13 @@ class ExploreFoodsIngredients extends Component {
   }
 
   render() {
-    const { ingredients } = this.props;
+    const { ingredients, location: { pathname } } = this.props;
     return (
       ingredients ? (
         <>
           <section>
             <Header title="Explorar Ingredientes" searchIcon />
-            <IngredientCard ingredients={ ingredients } />
+            <IngredientCard ingredients={ ingredients } pathname={ pathname } />
           </section>
           <Footer />
         </>)

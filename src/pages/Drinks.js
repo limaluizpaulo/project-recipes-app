@@ -16,13 +16,13 @@ class Drinks extends Component {
   }
 
   componentDidMount() {
-    const { resultDrink } = this.props;
-    if (!resultDrink) this.requisicao();
+    // const { resultDrink } = this.props;
+    this.requisicao();
   }
 
   requisicao() {
-    const { requestDrinkRecipes } = this.props;
-    requestDrinkRecipes();
+    const { requestDrinkRecipes, resultDrink } = this.props;
+    if (resultDrink.length === 0) requestDrinkRecipes();
   }
 
   render() {

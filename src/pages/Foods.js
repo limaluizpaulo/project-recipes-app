@@ -20,8 +20,8 @@ class Foods extends Component {
   }
 
   requisicao() {
-    const { requestFoodRecipes } = this.props;
-    requestFoodRecipes();
+    const { requestFoodRecipes, resultFood } = this.props;
+    if (resultFood.length === 0) requestFoodRecipes();
   }
 
   render() {

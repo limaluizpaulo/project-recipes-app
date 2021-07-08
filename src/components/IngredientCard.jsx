@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchDrinksAction } from '../actions';
+import { fetchDrinksAction, fetchIngrentAction } from '../actions';
 
 class IngredientCard extends React.Component {
   constructor() {
     super();
 
     this.getImages = this.getImages.bind(this);
+    this.dispatchAction = this.dispatchAction.bind(this);
   }
 
   getImages(array) {
@@ -22,8 +23,17 @@ class IngredientCard extends React.Component {
       `www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`));
   }
 
+  dispatchAction(ingrediente) {
+    const { pathname, getByDrinkIngredient, getByFoodIngredient } = this.props;
+    const db = pathname.includes('comidas');
+    if (db) {
+      getByFoodIngredient(ingrediente, 'ingrediente');
+    }
+    getByDrinkIngredient(ingrediente, 'ingrediente');
+  }
+
   render() {
-    const { ingredients, pathname, getByIngredient } = this.props;
+    const { ingredients, pathname } = this.props;
     const totalRecipes = 12;
     const food = ingredients.filter((elem, index) => index < totalRecipes);
 
@@ -34,7 +44,8 @@ class IngredientCard extends React.Component {
       <Link key={ recipe.idIngredient || recipe.strIngredient1 } to={ page }>
         <button
           type="button"
-          onClick={ () => getByIngredient(recipe.strIngredient1, 'ingrediente') }
+          onClick={ () => (
+            this.dispatchAction((recipe.strIngredient || recipe.strIngredient1)) }
         >
           <div data-testid={ `${index}-ingredient-card` }>
             <img
@@ -54,8 +65,10 @@ class IngredientCard extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getByIngredient: (ingrediente, ingredient) => (
+  getByDrinkIngredient: (ingrediente, ingredient) => (
     dispatch(fetchDrinksAction(ingrediente, ingredient))),
+  getByFoodIngredient: (ingrediente, ingredient) => (
+    dispatch(fetchIngrentAction(ingrediente, ingredient))),
 });
 
 const mapStateToProps = (state) => ({
