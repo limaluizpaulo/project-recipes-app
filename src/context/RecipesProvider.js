@@ -19,13 +19,10 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
-<<<<<<< HEAD
   const [startedRecipes, setStartedRecipes] = useState([]);
   const [favoritedRecipes, setFavoritedRecipes] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-=======
   const [filtredByIngredients, setFiltredByIngredients] = useState(false);
->>>>>>> eb152a480aa815db3729e066488bacce79760ef1
 
   const location = useLocation();
 
@@ -153,13 +150,14 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
-<<<<<<< HEAD
     startedRecipes,
     favoritedRecipes,
     localstorageSaveStartedRecipe,
     localstorageSaveFavoriteRecipe,
     organizeIngredients,
     ingredients,
+    filtredByIngredients,
+    setFiltredByIngredients,
   };
 
   useEffect(() => {
@@ -182,13 +180,6 @@ function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-=======
-    filtredByIngredients,
-    setFiltredByIngredients,
-  };
-
-  useEffect(() => {
->>>>>>> eb152a480aa815db3729e066488bacce79760ef1
     if (location.pathname.includes('comidas')) {
       setMealsOrDrinks('meals');
     }
