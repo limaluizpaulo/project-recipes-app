@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from '../components';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  let userData = JSON.parse(localStorage.getItem('user'));
+
+  if (!userData) {
+    userData = '';
+  }
+  const [email] = useState(userData.email);
+
   const clearLocalStorage = () => {
     localStorage.clear();
   };
