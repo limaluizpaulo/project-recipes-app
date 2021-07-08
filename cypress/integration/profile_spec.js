@@ -57,7 +57,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
+  describe.only('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
     it('Limpa todas as chaves da localStorage', () => {
       cy.window().then((win) => {
         expect(win.localStorage.getItem('user')).to.eq('{ "email": "email@mail.com" }');
