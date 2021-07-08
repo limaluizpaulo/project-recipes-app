@@ -10,8 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
 import Ingredients from './pages/Ingredientes';
-import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
+import Principal from './pages/Principal';
 import NotFound from './pages/NotFound';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
@@ -21,8 +20,8 @@ function App() {
     <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Comidas } />
-        <Route exact path="/bebidas" component={ Bebidas } />
+        <Route exact path="/comidas" component={ Principal } />
+        <Route exact path="/bebidas" component={ Principal } />
         <Route exact path="/comidas/:id" component={ ReceitaDetalhes } />
         <Route exact path="/bebidas/:id" component={ ReceitaDetalhes } />
         {/* <Route path="/comidas/:id/in-progress" component={ ReceitaEmProgresso } />

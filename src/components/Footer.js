@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../context/RecipesContext';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import '../styles/Footer.css';
 
 function Footer() {
+  const { setResults } = useContext(Context);
   return (
     <footer data-testid="footer">
       <Link to="/bebidas" data-testid="drinks-bottom-btn" src={ drinkIcon }>

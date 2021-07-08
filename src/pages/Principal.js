@@ -1,14 +1,18 @@
 import React from 'react';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import RecipeResults from '../components/RecipeResults';
 
-function Comidas() {
+function Principal() {
   return (
-    <main>
+    <div>
       <Header />
+      <RecipeResults />
       <Footer />
-    </main>
+    </div>
+
   );
 }
 
-export default Comidas;
+export default Principal;

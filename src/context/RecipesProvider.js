@@ -24,7 +24,7 @@ function RecipesProvider({ children }) {
   // searchBar
   const [searchInput, setSearchInput] = useState('');
   const [endpoint, setEndpoint] = useState();
-  const [type] = useState(useHistory().location.pathname);
+  const [type, setType] = useState(useHistory().location.pathname);
   const [history] = useState(useHistory());
   const [results, setResults] = useState(<div> </div>);
 
@@ -51,6 +51,7 @@ function RecipesProvider({ children }) {
     foodOrDrink,
     handleSingleReturn,
     type,
+    setType,
     searchInput,
     setSearchInput,
     endpoint,
