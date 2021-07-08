@@ -55,20 +55,22 @@ class DoneRecipies extends React.Component {
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
-            {recipe.type === 'comida' ? recipe.category : null }
+            {recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot }
           </p>
           <Link to={ link }>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
-          <p>{recipe.type === 'comida' ? recipe.area : recipe.alcoholicOrNot}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <p>{ copyLink ? 'Link copiado!' : null }</p>
           <button
-            data-testid={ `${index}-horizontal-share-btn` }
             type="button"
             onClick={ () => this.onClickShare(link) }
           >
-            <img src={ shareIcon } alt="Compartilhar" />
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="Compartilhar"
+            />
           </button>
           {recipe.tags.map((tag, twoTag) => {
             if (twoTag > 2) {
