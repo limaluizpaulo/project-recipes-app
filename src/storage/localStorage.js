@@ -29,7 +29,7 @@ export const saveFavoriteRecipe = (id, path, content) => (title, img) => {
       type: path.includes('bebidas') ? 'bebida' : 'comida',
       area: path.includes('bebidas') ? '' : content.strArea,
       category: content.strCategory,
-      alcoholicOrNot: path.includes('bebidas') ? 'Alcoholic' : '',
+      // alcoholicOrNot: path.includes('bebidas') ? 'Alcoholic' : '', //CONCERTAR!!!!!!
       name: content[title],
       image: content[img],
     }],

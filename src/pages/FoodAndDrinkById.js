@@ -21,11 +21,8 @@ export default function FoodAndDrinkById() {
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
   const { id } = useParams();
-<<<<<<< HEAD
 
   const history = useHistory();
-=======
->>>>>>> 366e3e78df4803bfeedb128adb157c8bbd4e62ba
 
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
