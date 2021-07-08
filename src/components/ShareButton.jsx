@@ -10,7 +10,6 @@ const ShareButton = ({ type, id, test }) => {
   return (
     <button
       type="button"
-      data-testid="share-btn"
       onClick={ () => {
         clipboardCopy(`http://localhost:3000/${type}s/${id}`);
         copyToClipboard();
