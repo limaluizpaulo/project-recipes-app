@@ -18,7 +18,7 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
 
   useEffect(() => {
     if (!details.drinks) {
-      detailsSyncSetState(`https://thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      detailsSyncSetState(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
   }, [details.drinks, detailsSyncSetState, id]);
@@ -60,11 +60,12 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
   };
 
   if (details.drinks && recomendationsFoods) {
+    console.log(details.drinks);
     const {
       strDrinkThumb,
       strDrink,
       strInstructions,
-      strCategory,
+      strAlcoholic,
     } = details.drinks[0];
 
     return (
@@ -93,7 +94,10 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
             data-testid="favorite-btn"
           />
         </button>
-        <p data-testid="recipe-category">{strCategory}</p>
+        <div data-testid="recipe-category">
+          {strAlcoholic}
+        </div>
+
         <span data-testid="instructions">{strInstructions}</span>
         {loopIngredientsAndMeasure()}
         <h3>Recomendações de Comidas</h3>
