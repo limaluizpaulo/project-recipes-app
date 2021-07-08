@@ -30,7 +30,12 @@ export default function ExploreIngredientsFood() {
             style={ { border: 'solid black 1px' } }
             onClick={ () => history.push('/comidas') }
           >
-            <img data-testid={ `${index}-card-img` } width="20px" src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` } alt="" />
+            <img
+              data-testid={ `${index}-card-img` }
+              width="20px"
+              src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+              alt=""
+            />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</p>
           </div>
         ))}
