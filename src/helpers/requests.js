@@ -69,7 +69,7 @@ export async function requesIngredientDrink(name) {
     return resolve;
     // return {resolve, qtdDrinksReturned: resolve.drinks.length};
   } catch (erro) {
-    global.alert('Ingredient não encontrado');
+    global.alert('Bebida não encontrada');
   }
 }
 
