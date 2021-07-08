@@ -4,8 +4,7 @@ import { Header, Filters, Tags, ShareButton, RecipeHeaderList } from '../compone
 import { UserContext } from '../context/UserProvider';
 
 const Done = () => {
-  const { done } = useContext(UserContext);
-  const [copied, setCopied] = useState(false);
+  const { done, copied } = useContext(UserContext);
   const [filter, setFilter] = useState('');
 
   return (
@@ -51,8 +50,7 @@ const Done = () => {
                     <ShareButton
                       type={ type }
                       id={ id }
-                      changeCopy={ setCopied }
-                      index={ index }
+                      test={ `${index}-horizontal-share-btn` }
                     />
 
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
