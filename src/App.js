@@ -15,8 +15,8 @@ import FoodIngredients from './pages/FoodIngredients';
 import BeverageIngredients from './pages/BeverageIngredients';
 import FoodByOrigin from './pages/FoodByOrigin';
 import Profile from './pages/Profile';
-import DoneRecipies from './pages/DoneRecipies';
-import FavoriteRecipies from './pages/FavoriteRecipies';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
       <Route path="/explorar/bebidas/ingredientes" component={ BeverageIngredients } />
       <Route path="/explorar/comidas/area" component={ FoodByOrigin } />
       <Route path="/perfil" component={ Profile } />
-      <Route path="/receitas-feitas" component={ DoneRecipies } />
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipies } />
     </Switch>
   );

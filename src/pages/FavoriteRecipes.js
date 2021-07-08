@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-class FavoriteRecipies extends React.Component {
+class FavoriteRecipes extends React.Component {
   render() {
     return (
       <section>
@@ -11,4 +11,4 @@ class FavoriteRecipies extends React.Component {
   }
 }
 
-export default FavoriteRecipies;
+export default FavoriteRecipes;

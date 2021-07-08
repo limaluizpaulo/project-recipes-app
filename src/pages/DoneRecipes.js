@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
-class DoneRecipies extends React.Component {
+class DoneRecipes extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -132,4 +132,4 @@ DoneRecipies.propTypes = {
   }).isRequired,
 };
 
-export default DoneRecipies;
+export default DoneRecipes;
