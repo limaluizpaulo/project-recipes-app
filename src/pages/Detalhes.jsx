@@ -55,7 +55,6 @@ class Detalhes extends Component {
     this.setState({ currentId: id });
     dispatchFoodRecipes();
     dispatchDrinks();
-
     if (page === 'comidas') {
       return foodDetails(id);
     }
