@@ -79,10 +79,10 @@
   font-size: 2px;
 }
 
-.meals>.logo {
+.meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
@@ -93,8 +93,8 @@
 }
 
 .div-cards-ingredients {
-  width: 80%;
   display: flex;
+  width: 80%;
   flex-wrap: wrap;
   margin: 0;
 
