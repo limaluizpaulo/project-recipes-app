@@ -50,7 +50,7 @@ export const actionSortCategoriesFood = (payload) => ({
   payload,
 });
 
-const actionSortCategoriesDrink = (payload) => ({
+export const actionSortCategoriesDrink = (payload) => ({
   type: DRINK_CATEGORIES,
   payload,
 });

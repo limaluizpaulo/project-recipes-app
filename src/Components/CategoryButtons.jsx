@@ -2,35 +2,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCategory, actionSortCategoriesFood } from '../redux/actions';
+import { getCategory, actionSortCategoriesFood,
+  actionSortCategoriesDrink } from '../redux/actions';
 
 import '../styles/Buttons.css';
 
 function CategoryButtons(props) {
-  const { categories, listCategory, type, setMainFoods, stateCategories, setEmptyCategories } = props;
+  const { categories, listCategory, type,
+    setMainFoods, setMainDrinks, foodCategories,
+    drinkCategories, cleanFoodsList, cleanDrinksList } = props;
 
   const copyCategories = [...categories];
   const five = 5;
   const editedCategories = copyCategories.splice(0, five);
   const [filter, setFilter] = React.useState('All');
 
-  const toggleCategory = async (category) => {
+  const toggleCategory = (category) => {
     if (category !== filter) {
       setFilter(category);
-      await listCategory(category, type);
+      listCategory(category, type);
     } else {
       setFilter('All');
-      await listCategory('All', type);
+      listCategory('All', type);
     }
   };
 
   React.useEffect(() => () => {
-    setEmptyCategories();
+    cleanDrinksList();
+    cleanFoodsList();
   }, []);
 
   React.useEffect(() => {
-    if (stateCategories.length) { setMainFoods(stateCategories); }
-  }, [stateCategories]);
+    if (foodCategories.length) { setMainFoods(foodCategories); }
+    if (drinkCategories.length) { setMainDrinks(drinkCategories); }
+  }, [foodCategories, drinkCategories]);
 
   return (
     <div className="btn-group categories" role="group">
@@ -62,12 +67,14 @@ function CategoryButtons(props) {
 }
 
 const mapStateToProps = (state) => ({
-  stateCategories: state.foods.categories,
+  foodCategories: state.foods.categories,
+  drinkCategories: state.drinks.categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   listCategory: (category, type) => dispatch(getCategory(category, type)),
-  setEmptyCategories: () => dispatch(actionSortCategoriesFood([])),
+  cleanFoodsList: () => dispatch(actionSortCategoriesFood([])),
+  cleanDrinksList: () => dispatch(actionSortCategoriesDrink([])),
 });
 
 CategoryButtons.propTypes = PropTypes.shape({}).isRequired;

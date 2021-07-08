@@ -11,7 +11,7 @@ export default (state = initialState, { type, payload }) => {
   case DRINKS:
     return {
       ...state,
-      list: payload,
+      list: payload || [],
       goToDrinksPage: payload && payload.length === 1,
       // drinkNotFound: !payload,
     };
@@ -25,7 +25,6 @@ export default (state = initialState, { type, payload }) => {
   case DRINK_CATEGORIES:
     return {
       ...state,
-      list: state.list.length ? state.list : payload,
       categories: payload,
     };
 

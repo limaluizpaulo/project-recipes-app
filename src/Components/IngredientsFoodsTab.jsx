@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { getFoods } from '../redux/actions';
 import API from '../services/MealRecipesAPI';
+import '../styles/Explore.css';
 
-function IngredientsTab(props) {
+function IngredientsFoodsTab(props) {
   const { getSelectedIng, ingredients } = props;
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const maxTwelve = 12;
@@ -16,12 +17,11 @@ function IngredientsTab(props) {
 
   return shouldRedirect ? <Redirect to="/comidas" /> : (
     <div className="ingredientTab">
-
       {ingredients.map((ingredient, index) => {
         if (index < maxTwelve) {
           return (
             <div
-              key={ ingredient.strIngredient }
+              key={ index }
               className="ingredientScreen"
               data-testid={ `${index}-ingredient-card` }
               onClickCapture={ () => itemCatcher(ingredient.strIngredient) }
@@ -53,8 +53,8 @@ const mapDispatchToProps = (dispatch) => ({
   getSelectedIng: (value, callback) => dispatch(getFoods(value, callback)),
 });
 
-IngredientsTab.propTypes = {
+IngredientsFoodsTab.propTypes = {
   getSelectedIng: PropTypes.any,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(IngredientsTab);
+export default connect(null, mapDispatchToProps)(IngredientsFoodsTab);

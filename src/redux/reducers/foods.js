@@ -14,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
   case FOODS:
     return {
       ...state,
-      list: payload,
+      list: payload || [],
       goToFoodsPage: payload && payload.length === 1,
 
     };

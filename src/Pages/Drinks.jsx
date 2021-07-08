@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,32 +11,39 @@ import { setList } from '../services/services';
 import '../styles/Card.css';
 
 function Drinks(props) {
-  const { drinks } = props;
   const { getByDefault, getByCategory } = BeverageAPI;
-  const [firstDrinks, setFirstDrinks] = React.useState();
+  const [mainDrinks, setMainDrinks] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const { drinks } = props;
 
   React.useEffect(() => {
-    if (loading) {
-      getByCategory()
-        .then(setCategories)
-        .then(() => (
-          getByDefault()
-            .then(setFirstDrinks)
-            .then(() => setLoading(false))
-        ));
+    getByCategory()
+      .then(setCategories)
+      .then(() => setLoading(false));
+
+    if (!drinks.length) {
+      getByDefault()
+        .then((res) => setMainDrinks(setList(res)));
     }
-  }, [setCategories, setLoading, setFirstDrinks, getByCategory, getByDefault, loading]);
+  }, []);
+
+  React.useEffect(() => {
+    if (drinks.length) {
+      setMainDrinks(setList(drinks));
+    }
+  }, [drinks]);
+
   return loading ? <div>Loading...</div> : (
     <div className="foodScreen">
       <HeadBar title="Bebidas" />
       <CategoryButtons
+        setMainDrinks={ (list) => setMainDrinks(setList(list)) }
         type="cocktail"
         categories={ categories.map((category) => category.strCategory) }
       />
       <div className="items-list">
-        {setList(drinks, firstDrinks).map((drink, index) => (
+        {mainDrinks.map((drink, index) => (
           <Card key={ index } index={ index } item={ drink } />
         ))}
       </div>

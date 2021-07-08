@@ -19,7 +19,6 @@ function Foods(props) {
   const { foods } = props;
 
   React.useEffect(() => {
-    // console.log('montei');
     getByCategory()
       .then(setCategories)
       .then(() => setLoading(false));
@@ -33,9 +32,7 @@ function Foods(props) {
 
   React.useEffect(() => {
     if (foods.length) {
-      console.log('entrei');
       setMainFoods(setList(foods));
-      console.log('acabou');
     }
   }, [foods]);
 
