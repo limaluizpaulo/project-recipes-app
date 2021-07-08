@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { /* useLocation, */ useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
 // import { copy } from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
@@ -25,8 +25,8 @@ function Details() {
   const title = `str${singleType}`;
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
-  const { pathname } = useLocation();
-  console.log(pathname);
+  // const { pathname } = useLocation();
+  // console.log(pathname);
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);

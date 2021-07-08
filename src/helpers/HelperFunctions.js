@@ -2,7 +2,7 @@ const pathTreament = (pathname) => {
   const negativeOne = -1;
   const lastLetter = pathname.slice(negativeOne);
   let newPathname = pathname;
-  console.log('oi');
+  // console.log('oi');
   if (lastLetter === '/') {
     const size = pathname.length - 1;
     newPathname = (pathname.slice(0, size));

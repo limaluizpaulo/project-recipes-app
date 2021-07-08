@@ -21,11 +21,11 @@ export default function MainCards(props) {
     // const newPathname = pathTreament(pathname);
     history.push(`${pathname}/${data[0][typeId]}`);
   }
-  console.log(pathname);
+  // console.log(pathname);
   return (
     <main>
       <Categories />
-      <section>
+      <section className="card-list">
         {data
           && data.map((recipe, index) => (index < maxCards
             ? (
