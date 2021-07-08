@@ -1,6 +1,6 @@
 const INTIAL_STATE = {
   recipes: [],
-  inputIngredientes: '',
+  byCategories: [],
 };
 
 const recipes = (state = INTIAL_STATE, action) => {
@@ -13,8 +13,8 @@ const recipes = (state = INTIAL_STATE, action) => {
     return { ...state, recipes: action.payload.data };
   case 'RECIPES_FIRST_LETTER':
     return { ...state, recipes: action.payload.data };
-  case 'SAVE_INPUT_INGREDIENTES':
-    return { ...state, recipes: action.payload.input };
+  case 'RECIPES_CATEGORY':
+    return { ...state, byCategories: action.payload.data };
   default:
     return state;
   }
