@@ -213,13 +213,13 @@ export const fetchDrinkIdAction = (id) => async (dispatch) => {
 };
 
 export const fetchRandomFood = async () => {
-  const result = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const response = await result.json();
   return response[0].idMeal;
 };
 
 export const fetchRandomDrink = async () => {
-  const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php");
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
   const response = await result.json();
   return response[0].idDrink;
 };
