@@ -10,17 +10,18 @@ import RecipesList from '../components/RecipesList';
 import Footer from '../components/Footer';
 
 function Main() {
-  const { setDrinks } = useContext(DrinksContext);
-  const { setMeals } = useContext(MealsContext);
+  const { drinks, setDrinks } = useContext(DrinksContext);
+  const { meals, setMeals } = useContext(MealsContext);
   const { location: { pathname } } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
   const { title, type } = setConstants(isDrinks);
+  const recipes = isDrinks ? [...drinks] : [...meals];
   const setFn = isDrinks ? setDrinks : setMeals;
 
   useEffect(() => {
-    getRecipes({ type, setFn });
-  }, [type, setFn]);
+    if (recipes.length === 0) getRecipes({ type, setFn });
+  }, [type, setFn, recipes.length]);
 
   return (
     <main>

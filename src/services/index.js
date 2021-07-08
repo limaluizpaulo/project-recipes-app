@@ -12,6 +12,20 @@ export async function fetchCategories(type) {
   }
 }
 
+export async function fetchIngredients(type) {
+  try {
+    const API_URL = type === 'meals'
+      ? 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    const data = await fetch(API_URL);
+    const result = await data.json();
+    // console.log(result);
+    return result[type];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function fetchByIngredient(type, query) {
   try {
     let API_URL = type === 'meals'
