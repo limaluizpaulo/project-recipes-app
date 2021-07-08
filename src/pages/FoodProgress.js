@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
 import { filterObj } from '../utils';
@@ -10,7 +10,7 @@ import {
   checkFavoriteId,
   updateStorageRecipe,
   getStorageRecipe,
-  addRecipeDone,
+  addRecipeDones,
 } from '../services/localStorage';
 
 const blackOrWhite = (favorited) => (favorited ? blackHeartIcon : whiteHeartIcon);
@@ -25,7 +25,6 @@ const FoodProgress = ({ match }) => {
   const [msgCopy, setMsgCopy] = useState(false);
   const [iconFavorit, setIconFavorit] = useState(false);
   const [quantIngred, setQuantIngred] = useState();
-  const history = useHistory();
 
   const isFavorite = checkFavoriteId(id);
 
@@ -101,19 +100,22 @@ const FoodProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
-  const recipeDone = () => {
-    addRecipeDone({
-      id: meal.idMeal,
+  const addRecipeDone = () => {
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    const tags = strTags.split(',');
+    const data = new Date();
+    const recipe = {
+      id: idMeal,
       type: 'comida',
-      area: meal.strArea,
-      category: meal.strCategory,
+      area: strArea,
+      category: strCategory,
       alcoholicOrNot: '',
-      name: meal.strMeal,
-      image: meal.strMealThumb,
-      doneDate: Date(),
-      strTags: meal.strTags,
-    });
-    (async () => history.push('/receitas-feitas'))();
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: data.toLocaleDateString(),
+      tags,
+    };
+    addRecipeDones(recipe);
   };
 
   return (
@@ -142,14 +144,16 @@ const FoodProgress = ({ match }) => {
           alt={ blackOrWhite(iconFavorit) }
         />
       </button>
-      <button
-        type="button"
-        // disabled={ selecteds.length !== quantIngred }
-        data-testid="finish-recipe-btn"
-        onClick={ () => recipeDone() }
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          type="button"
+          disabled={ selecteds.length !== quantIngred }
+          data-testid="finish-recipe-btn"
+          onClick={ addRecipeDone }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
   checkFavoriteId,
   updateStorageRecipe,
   getStorageRecipe,
+  addRecipeDones,
 } from '../services/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -98,6 +99,23 @@ const DrinkProgress = ({ match }) => {
     setIconFavorit(!iconFavorit);
   };
 
+  const addRecipeDone = () => {
+    const { idDrink, strCategory, strDrink, strDrinkThumb } = drink;
+    const data = new Date();
+    const recipe = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: 'Alcoholic',
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: data.toLocaleDateString(),
+      tags: [],
+    };
+    addRecipeDones(recipe);
+  };
+
   return (
     <div>
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
@@ -134,6 +152,7 @@ const DrinkProgress = ({ match }) => {
           type="button"
           disabled={ selecteds.length !== quantIngred }
           data-testid="finish-recipe-btn"
+          onClick={ addRecipeDone }
         >
           Finalizar Receita
         </button>
