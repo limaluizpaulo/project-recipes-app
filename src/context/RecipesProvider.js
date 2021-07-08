@@ -10,6 +10,7 @@ import {
   fetchRecipesBySearch,
   fetchRandomRecipe,
   fetchRecipesByArea,
+  fetchRecipesByCategory,
 } from '../services/recipesAPI';
 
 function RecipesProvider({ children }) {
@@ -28,7 +29,6 @@ function RecipesProvider({ children }) {
   };
 
   const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
-    console.log(mealsOrDrinks, searchParameter, searchPayload);
     const recipesBySearch = await fetchRecipesBySearch(
       mealsOrDrinks, searchParameter, searchPayload,
     );
@@ -60,6 +60,12 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
+  const searchByCategory = async (searchPayload) => {
+    const request = await fetchRecipesByCategory(mealsOrDrinks, searchPayload);
+    const recipesByCategory = request[mealsOrDrinks];
+    setRecipes(recipesByCategory);
+  };
+
   const context = {
     mealsOrDrinks,
     user,
@@ -76,6 +82,7 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
+    searchByCategory,
   };
 
   useEffect(() => {
