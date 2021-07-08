@@ -13,6 +13,7 @@ import ExploreDrinks from './common/pages/ExploreDrinks';
 import DrinksIngrediant from './common/pages/DrinksIngrediant';
 import MealsIngredient from './common/pages/MealsIngredient';
 import MealsOrigem from './common/pages/MealsOrigem';
+import NotFound from './common/pages/NotFound';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route path="/explorar/bebidas/ingredientes" component={ DrinksIngrediant } />
         <Route path="/explorar/comidas/ingredientes" component={ MealsIngredient } />
-        <Route path="/explorar/comidas/area" component={ MealsOrigem } />
+        <Route exact path="/explorar/comidas/area" component={ MealsOrigem } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </Provider>
   );
