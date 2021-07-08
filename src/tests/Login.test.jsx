@@ -1,13 +1,33 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
+import { LocalStorageMock } from '@react-mock/localstorage';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
-const VALID_EMAIL = 'accecpt@accept.com';
+const VALID_EMAIL = 'accept@accept.com';
 const VALID_PASSWORD = '1234567';
 
 const EMAIL_INPUT = 'email-input';
 const PASSWORD_INPUT = 'password-input';
+const INITIAL_VALUE_TOKEN = 1;
+
+const localMock = {
+  user: VALID_EMAIL,
+  mealsToken: 1,
+  cocktailsToken: 1,
+  doneRecipes: [{
+    id: '',
+    type: '',
+    area: '',
+    category: '',
+    alcoholicOrNot: '',
+    name: '',
+    image: '',
+    doneDate: '',
+    tags: '',
+  }],
+};
 
 describe('1 - Testing the login page from Recipes App', () => {
   it('login location.pathname should be "/"', () => {
@@ -101,5 +121,59 @@ describe('3 - button loggin be able when valid email and password are inserted',
     userEvent.type(emailInput, VALID_EMAIL);
     userEvent.type(passwordInput, VALID_PASSWORD);
     expect(logginBtn).toBeEnabled();
+  });
+});
+
+describe('4 - Login button setting items on localstorage', () => {
+  it('localstorage must have a key "user" with a "valid email"', () => {
+    const { getByRole, getByTestId } = render(
+      <LocalStorageMock items={ localMock }>
+        <App />
+      </LocalStorageMock>,
+    );
+
+    const emailInput = getByTestId(EMAIL_INPUT);
+    const passwordInput = getByTestId(PASSWORD_INPUT);
+    const logginBtn = getByRole('button', { name: /logar/i });
+    userEvent.type(emailInput, VALID_EMAIL);
+    userEvent.type(passwordInput, VALID_PASSWORD);
+    userEvent.click(logginBtn);
+
+    const userKey = JSON.parse(localStorage.getItem('user'));
+    expect(userKey).toEqual({ email: VALID_EMAIL });
+
+    const mealsTokenKey = JSON.parse(localStorage.getItem('mealsToken'));
+    const cocktailsTokenKey = JSON.parse(localStorage.getItem('cocktailsToken'));
+
+    expect(mealsTokenKey).toEqual(INITIAL_VALUE_TOKEN);
+    expect(cocktailsTokenKey).toEqual(INITIAL_VALUE_TOKEN);
+
+    const doneRecipesKey = JSON.parse(localStorage.getItem('doneRecipes'));
+    expect(doneRecipesKey).toStrictEqual(localMock.doneRecipes);
+  });
+});
+
+describe('4 - Login button setting items on localstorage', () => {
+  it('localstorage must have a key "user" with a "valid email"', () => {
+    const { getByRole, getByTestId } = render(<App />);
+
+    const emailInput = getByTestId(EMAIL_INPUT);
+    const passwordInput = getByTestId(PASSWORD_INPUT);
+    const logginBtn = getByRole('button', { name: /logar/i });
+    userEvent.type(emailInput, VALID_EMAIL);
+    userEvent.type(passwordInput, VALID_PASSWORD);
+    userEvent.click(logginBtn);
+
+    const userKey = JSON.parse(localStorage.getItem('user'));
+    expect(userKey).toEqual({ email: VALID_EMAIL });
+
+    const mealsTokenKey = JSON.parse(localStorage.getItem('mealsToken'));
+    const cocktailsTokenKey = JSON.parse(localStorage.getItem('cocktailsToken'));
+
+    expect(mealsTokenKey).toEqual(localMock.mealsToken);
+    expect(cocktailsTokenKey).toEqual(localMock.cocktailsToken);
+
+    const doneRecipesKey = JSON.parse(localStorage.getItem('doneRecipes'));
+    expect(doneRecipesKey).toStrictEqual(localMock.doneRecipes);
   });
 });

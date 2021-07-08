@@ -12,7 +12,7 @@ import {
   ExploreMealsOrDrinks,
   Ingredients,
   ExploreArea,
-  } from './pages';
+} from './pages';
 import { NotFound } from './components';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
