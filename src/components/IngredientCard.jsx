@@ -1,13 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-//  import PropTypes from 'prop-types';
-
-// const fetchFoodIngredientsImg = async (ingredient) => {
-//   const result = await fetch(`www.themealdb.com/images/ingredients/${ingredient}-Small.png`);
-//   console.log(result.url);
-//   return result;
-// };
 
 function IngredientCard(props) {
   const { ingredients } = props;
@@ -18,7 +11,7 @@ function IngredientCard(props) {
     `www.themealdb.com/images/ingredients/${strIngredient}-Small.png`));
 
   return food.map((recipe, index) => (
-    <Link key={ recipe.idIngredient } to="">
+    <Link key={ recipe.idIngredient } to="/comidas">
       <div data-testid={ `${index}-ingredient-card` }>
         <img
           data-testid={ `${index}-card-img` }

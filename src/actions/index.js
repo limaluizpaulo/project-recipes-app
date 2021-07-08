@@ -6,7 +6,6 @@ export const REQUEST_FOOD_BY_ID = 'REQUEST_FOOD_BY_ID';
 export const REQUEST_DRINK_BY_ID = 'REQUEST_DRINK_BY_ID';
 // export const REQUEST_FOOD = 'REQUEST_FOOD';
 // export const REQUEST_DRINK = 'REQUEST_DRINK';
-export const REQUEST_FOOD_INGREDIENTS = 'REQUEST_FOOD_INGREDIENTS';
 
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -213,17 +212,34 @@ export const fetchDrinkIdAction = (id) => async (dispatch) => {
   });
 };
 
-export const fetchFoodIngredients = async () => {
-  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+export const fetchRandomFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const response = await result.json();
   return response;
 };
 
-export const fetchFoodIngredientsAction = () => async (dispatch) => {
+export const fetchFoodRandom = () => async (dispatch) => {
   let result = {};
-  result = await fetchFoodIngredients();
+  result = await fetchRandomFood();
   dispatch({
-    type: REQUEST_FOOD_INGREDIENTS,
+    type: REQUEST_INGREDIENT_FOOD,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchRandomDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchDrinkRandom = () => async (dispatch) => {
+  let result = {};
+  result = await fetchRandomDrink();
+  dispatch({
+    type: REQUEST_INGREDIENT_DRINK,
     payload: {
       result,
     },

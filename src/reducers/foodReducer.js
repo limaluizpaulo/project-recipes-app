@@ -1,6 +1,5 @@
-import {
-  REQUEST_INGREDIENT_FOOD,
-  REQUEST_FOOD_BY_ID, REQUEST_FOOD_INGREDIENTS } from '../actions';
+import { REQUEST_INGREDIENT_FOOD, REQUEST_FOOD_BY_ID } from '../actions';
+import { REQUEST_FOOD_INGREDIENTS } from '../actions/ingredientsActions';
 
 const INITIAL_STATE = {
   recipes: [],
