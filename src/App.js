@@ -14,6 +14,8 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipesDone from './pages/RecipesDone';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
@@ -44,6 +46,8 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route exact path="/comidas/:id" component={ FoodDetails } />
         <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
       </Switch>
     </BrowserRouter>
   );
