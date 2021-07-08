@@ -7,8 +7,7 @@ import Erro404 from './pages/Page404';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
-import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
-import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
+import ExplorarPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
@@ -37,16 +36,16 @@ function App() {
           />
           <Route path="/comidas/{id-da-receita}/in-progress" component={ Erro404 } />
           <Route path="/bebidas/{id-da-receita}/in-progress" component={ Erro404 } />
-          <Route exect path="/explorar" component={ Explorar } />
-          <Route exect path="/explorar/comidas" component={ ExplorarComidas } />
-          <Route exect path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route exact path="/explorar" component={ Explorar } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
-            component={ ExplorarComidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route
             path="/explorar/bebidas/ingredientes"
-            component={ ExplorarBebidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
           <Route exect path="/perfil" component={ Perfil } />
