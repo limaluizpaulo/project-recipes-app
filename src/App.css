@@ -72,12 +72,14 @@ body {
 }
 
 .carouselimg {
-  max-width: 70%;
+  width: 50%;
+  min-width: 150px
 }
 
 .Detailsimg {
   margin: 5px;
-  max-width: 50%;
+  width: 30%;
+  min-width: 300px
 }
 
 .carouselItem {
