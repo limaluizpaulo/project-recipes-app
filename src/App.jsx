@@ -12,7 +12,8 @@ import {
   ExploreMealsOrDrinks,
   Ingredients,
   ExploreArea,
-  } from './pages';
+  FavoriteRecipes,
+} from './pages';
 import { NotFound } from './components';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreMealsOrDrinks } />
           <Route exact path="/explorar/bebidas" component={ ExploreMealsOrDrinks } />
