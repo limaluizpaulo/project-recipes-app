@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { getDonesRecipes } from '../services/localStorage';
 import Header from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipesMade() {
   const [dones, setDones] = useState();
@@ -11,12 +12,12 @@ function RecipesMade() {
   }, []);
 
   const renderCards = () => dones.map((item, index) => {
-    const { id, category, doneDate, name, tags, curry, image } = item;
+    const { id, category, doneDate, name, tags, curry, image, area } = item;
     return (
       <div key={ `${index} - ${name}` }>
         <p>{tags}</p>
         <img data-testid={ `${index}-horizontal-image` } src={ image } alt="Receita" />
-        <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+        <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
         <p data-testid={ `${index}-Pasta-horizontal-tag` }>{tags}</p>
@@ -26,7 +27,7 @@ function RecipesMade() {
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
         >
-          Compartilhar
+          <img src={ shareIcon } alt="shareIcon" />
         </button>
       </div>
     );
