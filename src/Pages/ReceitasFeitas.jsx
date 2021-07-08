@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
-import FavoritesCard from '../components/FavoritesCard';
+import DescriptionRecipeCard from '../components/DescriptionRecipeCard';
 import Header from '../components/Header';
 
 export default function ReceitasFeitas() {
@@ -12,12 +12,13 @@ export default function ReceitasFeitas() {
       <Header title="Receitas Feitas" />
       {
         favorites && favorites.map((favorite, index) => (
-          <FavoritesCard
+          <DescriptionRecipeCard
             updateCards={ updateCards }
             setUpdateCards={ setUpdateCards }
             key={ favorite.id }
             index={ index }
-            favorite={ favorite }
+            recipe={ favorite }
+            page="mades"
           />
         ))
       }

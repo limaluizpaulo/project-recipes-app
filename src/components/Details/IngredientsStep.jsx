@@ -76,7 +76,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
           ...newLocalStorage,
           [curr]: { ...newLocalStorage[curr],
             [id]: [...newLocalStorage[curr][id],
-              ingredients[targetId].ingredient] } })),
+              targetId] } })),
     ]);
 
     stepsProgress(stepsClassName);
