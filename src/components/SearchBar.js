@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import fetchAPI from '../services/apiRequest';
+import { fetchAPI } from '../services/apiRequest';
 import RecipesContext from '../context/RecipesContext';
 
+const TWELVE = 12;
 export default function SearchBar() {
   const { path } = useRouteMatch();
   const history = useHistory();
   const [filter, setFilter] = useState({ content: '', URL: '' });
   // const [show, setShow] = useState(false);
-  const { setSearchResult, searchResult } = useContext(RecipesContext);
+  const { setSearchResult, searchResult, setLimit } = useContext(RecipesContext);
 
   useEffect(() => {
     const targetId = path === '/comidas' ? 'idMeal' : 'idDrink';
@@ -58,6 +59,7 @@ export default function SearchBar() {
     if (content !== '' && URL !== '') {
       setSearchResult(data[firstKey]);
     }
+    setLimit(TWELVE);
   }
 
   return (

@@ -3,39 +3,38 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Pages from './pages/index';
-// import TesteDeRotas from './components/TesteDeRotas';
 
 export default function App() {
   function renderRotes() {
     return (
       <Switch>
         <Route
-          path="/comidas/:recipeId/in-progress"
+          path="/comidas/:Id/in-progress"
           component={ Pages.FoodRecipeByIdProgress }
         />
         <Route
-          path="/comidas/:recipeId"
-          component={ Pages.FoodRecipeById }
+          path="/comidas/:Id"
+          component={ Pages.FoodAndDrinkById }
         />
         <Route
           path="/comidas"
-          component={ Pages.Foods }
+          component={ Pages.MainPage }
         />
         <Route
-          path="/bebidas/:drinkId/in-progress"
+          path="/bebidas/:Id/in-progress"
           component={ Pages.DrinkRecipeByIdProgress }
         />
         <Route
-          path="/bebidas/:drinkId"
-          component={ Pages.DrinkRecipeById }
+          path="/bebidas/:Id"
+          component={ Pages.FoodAndDrinkById }
         />
         <Route
           path="/bebidas"
-          component={ Pages.Drinks }
+          component={ Pages.MainPage }
         />
         <Route
           path="/explorar/comidas/ingredientes"
-          component={ Pages.ExploreFoodsByIngredients }
+          component={ Pages.ExploreByIngredients }
         />
         <Route
           path="/explorar/comidas/area"
@@ -43,16 +42,16 @@ export default function App() {
         />
         <Route
           path="/explorar/comidas"
-          component={ Pages.ExploreFoods }
+          component={ Pages.ExploreMealsOrDrinks }
         />
         <Route
           path="/explorar/bebidas/ingredientes"
-          component={ Pages.ExploreDrinksByIngredients }
+          component={ Pages.ExploreByIngredients }
         />
         <Route
           exact
           path="/explorar/bebidas"
-          component={ Pages.ExploreDrinks }
+          component={ Pages.ExploreMealsOrDrinks }
         />
         <Route
           path="/explorar"
