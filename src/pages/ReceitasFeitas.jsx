@@ -1,9 +1,38 @@
 import React from 'react';
-import { Container, Button, Row, Col, Card } from 'react-bootstrap';
+import
+{ Container, Button, Row, Col, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function ReceitasFeitas() {
+  const mensagem = (props) => (
+    <Tooltip
+      id="mensagem"
+      { ...props }
+    >
+      Link copiado!
+    </Tooltip>
+  );
+
+  const compartilhar = (mens, index, id, type) => {
+    const typeURL = type === 'comida' ? type : 'bebida';
+    return (
+      <OverlayTrigger
+        placement="right"
+        delay={ { show: 250, hide: 400 } }
+        overlay={ mens }
+      >
+        <Button variant="ligth" onClick={ () => copy(`https://localhost:3000/${typeURL}s/${id}`) }>
+          <Card.Img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+          />
+        </Button>
+      </OverlayTrigger>
+    );
+  };
+
   const doneRecipes = [
     {
       id: '52771',
@@ -42,11 +71,12 @@ export default function ReceitasFeitas() {
               data-testid={ `${index}-horizontal-image` }
             />
             <Card.Body>
-              <span>{`${area} - `}</span>
-              <span data-testid={ `${index}-horizontal-top-text` }>{category}</span>
-              <Button variant="ligth" data-testid={ `${index}-horizontal-share-btn` }>
-                <Card.Img src={ shareIcon } />
-              </Button>
+              <span
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${area} - ${category}`}
+              </span>
+              {compartilhar(mensagem, index, id, type)}
               <Card.Title data-testid={ `${index}-horizontal-name` }>{name}</Card.Title>
               <Card.Text
                 data-testid={ `${index}-horizontal-done-date` }
@@ -76,10 +106,8 @@ export default function ReceitasFeitas() {
             data-testid={ `${index}-horizontal-image` }
           />
           <Card.Body>
-            <span>{alcoholicOrNot}</span>
-            <Button variant="ligth" data-testid={ `${index}-horizontal-share-btn` }>
-              <Card.Img src={ shareIcon } />
-            </Button>
+            <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
+            {compartilhar(mensagem, index, id, type)}
             <Card.Title data-testid={ `${index}-horizontal-name` }>{name}</Card.Title>
             <Card.Text
               data-testid={ `${index}-horizontal-done-date` }
