@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Header } from '../components';
 import DoneCard from '../components/DoneCard';
 
 function DoneRecipes() {
   const [filter, setFilter] = useState('');
   return (
     <div>
-
+      <Header />
       <button
         type="button"
         data-testid="filter-by-food-btn"

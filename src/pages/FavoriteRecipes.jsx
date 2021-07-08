@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FavoriteBtn, ShareBtn } from '../components';
+import { FavoriteBtn, Header, ShareBtn } from '../components';
 
 function FavoriteRecipes() {
   const [allFavorites, setAllFavorites] = useState([]);
@@ -19,6 +19,7 @@ function FavoriteRecipes() {
   return (
     <>
       <section>
+        <Header />
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -70,7 +71,7 @@ function FavoriteRecipes() {
               />
               <FavoriteBtn
                 id={ id }
-                type={ type === 'comida' ? 'meals' : 'drinks' }
+                type={ type === 'comida' }
                 currentRecipe={ el }
                 testId={ `${idx}-horizontal-favorite-btn` }
                 setShouldUpdate={ setShouldUpdate }

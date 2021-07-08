@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Header } from '../components';
 
 function Profile() {
   const { email } = JSON.parse(localStorage.getItem('user'));
@@ -9,6 +10,7 @@ function Profile() {
 
   return (
     <main>
+      <Header />
       <p data-testid="profile-email">{email}</p>
       <button
         type="button"
