@@ -12,7 +12,7 @@ export const makeRecipe = ({ url }, history) => {
     },
   };
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  history.push(`/comidas/${id}/in-progress`);
+  history.push(`/${mealOrDrink}/${id}/in-progress`);
 };
 
 export const localStorageVerifier = (match, id, history) => {
@@ -86,7 +86,16 @@ export const settingFavorite = (details, id, refresh) => {
     };
   }
   if (details.drinks) {
-
+    const { idDrink, strArea, strCategory, strDrink, strDrinkThumb } = details.drinks[0];
+    favoriteObject = {
+      id: idDrink,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strDrink,
+      image: strDrinkThumb,
+    };
   }
 
   if (!favoritesArray.find((obj) => obj.id === id)) {

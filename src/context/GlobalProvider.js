@@ -18,6 +18,7 @@ function GlobalProvider({ children }) {
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
   const [details, setDetails] = useState({});
   const [recomendationsDrinks, setRecomendationsDrinks] = useState();
+  const [recomendationsFoods, setRecomendationsFoods] = useState();
   const [drinks, setDrinks] = useState([]);
   const [meals, setMeals] = useState([]);
   const [toggle, setToggle] = useState({
@@ -42,6 +43,7 @@ function GlobalProvider({ children }) {
   useEffect(() => {
     if (requestResult.meals) {
       setMeals(requestResult.meals);
+      setRecomendationsFoods(requestResult.meals);
       setToggle({
         ...toggle, backup: { ...toggle.backup, meals: requestResult.meals } });
     }
@@ -154,6 +156,7 @@ function GlobalProvider({ children }) {
     categories,
     details,
     recomendationsDrinks,
+    recomendationsFoods,
     toggle,
     resetParams,
     updateEndPoint,

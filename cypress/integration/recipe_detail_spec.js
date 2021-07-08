@@ -26,7 +26,7 @@ describe('33 - Implemente os elementos da tela de detalhes de uma receita respei
     cy.get('[data-testid="start-recipe-btn"]');
   });
 
-  it.skip('A tela de bebidas possui todos os atributos data-testid', () => {
+  it('A tela de bebidas possui todos os atributos data-testid', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -58,7 +58,7 @@ describe('34 - Realize uma request para a API passando o `id` da receita que dev
       .should('be.calledWith', 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
   });
 
-  it.skip('Verifica se a requisição para a API de bebidas foi realizada', () => {
+  it('Verifica se a requisição para a API de bebidas foi realizada', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
@@ -111,7 +111,7 @@ describe('35 - Desenvolva a tela de forma que contenha uma imagem da receita, o 
     cy.get('[data-testid*="recomendation-card"]').should('exist');
   });
 
-  it.skip('Verifica se os elementos descritos no protótipo existem na tela de detalhes de bebida', () => {
+  it('Verifica se os elementos descritos no protótipo existem na tela de detalhes de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -140,7 +140,7 @@ describe('35 - Desenvolva a tela de forma que contenha uma imagem da receita, o 
 });
 
 describe('36 - Implemente as recomendações, para receitas de comida, a recomendação deverá ser bebida e vice-versa', () => {
-  it.skip('Verifica se a requisição para a API de bebidas foi realizada', () => {
+  it('Verifica se a requisição para a API de bebidas foi realizada', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
         cy.spy(win, 'fetch');
@@ -190,7 +190,7 @@ describe('37 - Implemente os cards de recomendação, onde serão 6 cards, mas m
     cy.get('[data-testid="5-recomendation-title"]').contains('252');
   });
 
-  it.skip('Verifica se existem todas as recomendações na tela de detalhes de uma bebida', () => {
+  it('Verifica se existem todas as recomendações na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -228,7 +228,7 @@ describe('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fix
       .and('have.css', 'bottom', '0px');
   });
 
-  it.skip('Verifica posicionamento do botão na tela de detalhes de bebida', () => {
+  it('Verifica posicionamento do botão na tela de detalhes de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -264,7 +264,7 @@ describe('39 - Implemente a solução de forma que caso a receita já tenha sido
     cy.get('[data-testid="start-recipe-btn"]').should('not.be.visible');
   });
 
-  it.skip('Verifica se botão de iniciar receita não é visível na tela de detalhes de uma bebida', () => {
+  it('Verifica se botão de iniciar receita não é visível na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         const doneRecipes = [{
@@ -304,7 +304,7 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
     cy.get('[data-testid="start-recipe-btn"]').contains('Continuar Receita');
   });
 
-  it.skip('Verifica botão de "Continuar Receita" na tela de detalhes de uma bebida', () => {
+  it('Verifica botão de "Continuar Receita" na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         const inProgressRecipes = {
@@ -333,7 +333,7 @@ describe('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" sej
     cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771/in-progress'));
   });
 
-  it.skip('Redireciona para tela de receita da bebida em processo', () => {
+  it('Redireciona para tela de receita da bebida em processo', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -357,7 +357,7 @@ describe('42 - Implemente um botão de compartilhar e um de favoritar a receita'
     cy.get('[data-testid="favorite-btn"]').should('exist');
   });
 
-  it.skip('Verifica se os botões estão disponíveis na tela de detalhes de uma bebida', () => {
+  it('Verifica se os botões estão disponíveis na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -385,7 +385,7 @@ describe('43 - Implemente a solução de forma que, ao clicar no botão de compa
     });
   });
 
-  it.skip('Verifica a mensagem "Link copiado!" e se o link da receita da bebida foi copiado para o clipboard', () => {
+  it('Verifica a mensagem "Link copiado!" e se o link da receita da bebida foi copiado para o clipboard', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -436,7 +436,7 @@ describe('44 - Implemente o ícone do coração (favorito) de maneira que, deve 
       .should('include', 'whiteHeartIcon');
   });
 
-  it.skip('Verifica se a bebida favoritada vem com o coração preenchido', () => {
+  it('Verifica se a bebida favoritada vem com o coração preenchido', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         const favoriteRecipes = [{
@@ -458,7 +458,7 @@ describe('44 - Implemente o ícone do coração (favorito) de maneira que, deve 
       .should('include', 'blackHeartIcon');
   });
 
-  it.skip('Verifica se a bebida não favoritada vem com o coração "despreenchido"', () => {
+  it('Verifica se a bebida não favoritada vem com o coração "despreenchido"', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -517,7 +517,7 @@ describe('45 - Implemente a lógica no botão de favoritar, caso seja clicado, o
       .should('include', 'whiteHeartIcon');
   });
 
-  it.skip('Favorita a bebida', () => {
+  it('Favorita a bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -535,7 +535,7 @@ describe('45 - Implemente a lógica no botão de favoritar, caso seja clicado, o
       .should('include', 'blackHeartIcon');
   });
 
-  it.skip('Desfavorita a bebida', () => {
+  it('Desfavorita a bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         const favoriteRecipes = [{
@@ -589,7 +589,7 @@ describe('46 - Salve as receitas favoritas no `localStorage` na chave `favoriteR
     });
   });
 
-  it.skip('Verifica se após favoritar receita de uma bebida, ela é salva corretamente no localStorage', () => {
+  it('Verifica se após favoritar receita de uma bebida, ela é salva corretamente no localStorage', () => {
     cy.visit('http://localhost:3000/bebidas/178319', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
