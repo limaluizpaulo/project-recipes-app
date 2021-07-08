@@ -1,0 +1,45 @@
+.details-content {
+  flex-grow: 1;
+  margin-bottom: 120px;
+  padding: 0.56rem;
+}
+
+.details-btn-share, .details-btn-favorite {
+  height: 26px;
+  margin: 0.3rem;
+  width: 26px;
+}
+
+.details-btn-share img, .details-btn-favorite img {
+  width: 100%;
+}
+
+.recipe-details h3 {
+  font-size: 1.6rem;
+}
+
+.details-intructions-text {
+  font-size: 1rem;
+}
+
+.details-ingredients {
+  font-size: 1.3rem;
+}
+
+.video {
+  background-color: darkgray;
+  height: 160px;
+  text-align: center;
+  width: 341px;
+}
+
+.details-btn-startRecipe {
+  bottom: 0;
+  font-size: 1.8rem;
+  height: 4.75rem;
+  margin-bottom: 1.2rem;
+  margin-top: 3.1rem;
+  padding: 0.56rem;
+  position: fixed;
+  width: 21.2rem;
+}
