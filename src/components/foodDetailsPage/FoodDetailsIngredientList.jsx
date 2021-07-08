@@ -11,21 +11,27 @@ const FoodDetailsIngredientList = () => {
     return keys.map((key, index) => {
       const { ingr, meas } = ingredients[key];
       return (
-        <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-          -
-          {' '}
+        <li
+          className="ingredientsList__li"
+          key={ index }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
           {ingr}
           {' '}
           -
+          {' '}
           {meas}
         </li>);
     });
   };
   if (ingredients) {
     return (
-      <ul>
-        {renderList()}
-      </ul>
+      <div className="ingredientsList">
+        <h2 className="ingredientsList__title">Ingredients</h2>
+        <ul className="ingredientsList__ul">
+          {renderList()}
+        </ul>
+      </div>
     );
   }
   return <p>Loading</p>;

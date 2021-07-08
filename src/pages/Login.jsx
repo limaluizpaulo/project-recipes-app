@@ -40,9 +40,7 @@ const Login = ({ history }) => {
             placeholder="."
           />
           <label className="login__label" htmlFor="email">
-            {' '}
-            Digite seu email
-            {' '}
+            Email
             <input className="hidden" type="text" />
           </label>
         </div>
@@ -60,10 +58,8 @@ const Login = ({ history }) => {
             placeholder="."
           />
           <label className="login__label" htmlFor="password">
-            {' '}
-            Digite sua senha
+            Senha
             <input className="hidden" type="text" />
-
           </label>
         </div>
         <button

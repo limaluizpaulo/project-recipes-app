@@ -50,32 +50,53 @@ const FoodDetails = ({ children }) => {
     const thumb = selectedFood.strMealThumb || selectedFood.strDrinkThumb;
     return (
       <>
-        <img width="360" data-testid="recipe-photo" src={ thumb } alt="" />
-        <h1 data-testid="recipe-title">{title}</h1>
+        <img data-testid="recipe-photo" src={ thumb } alt="" />
+        <div className="details__nameCategory__container">
+          <h1 className="details__name" data-testid="recipe-title">{title}</h1>
+          <p
+            className="details__category"
+            data-testid="recipe-category"
+          >
+            {strAlcoholic || strCategory}
+          </p>
+        </div>
       </>
     );
   };
   return (
     <>
-      {renderImgAndTitle()}
-      <div>
-        <button type="button" onClick={ handleShare } data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        <button type="button" onClick={ handleFavorite }>
-          <img
-            data-testid="favorite-btn"
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="share icon"
-          />
-        </button>
+      <div className="details__imgTitle__container">
+        {renderImgAndTitle()}
+        <div className="details__communityBtns__container">
+          <button
+            className="details__communityBtns"
+            type="button"
+            onClick={ handleShare }
+            data-testid="share-btn"
+          >
+            <img src={ shareIcon } alt="share icon" />
+          </button>
+          <button
+            className="details__communityBtns"
+            type="button"
+            onClick={ handleFavorite }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="share icon"
+            />
+          </button>
+        </div>
       </div>
-      {copied ? <ToastContainer /> : ''}
-      <p data-testid="recipe-category">{strAlcoholic || strCategory}</p>
+      {copied ? <ToastContainer autoClose={ 2000 } /> : ''}
       {children}
-      <p data-testid="instructions">
-        {strInstructions}
-      </p>
+      <div className="details__instructions">
+        <h3>Instructions</h3>
+        <p data-testid="instructions">
+          {strInstructions}
+        </p>
+      </div>
     </>
   );
 };

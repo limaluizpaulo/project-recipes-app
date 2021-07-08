@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-
 import RecipeContext from '../../context/Context';
-import AlternativesCaroussel from '../AlternativesCaroussel';
+import AlternativesCaroussel from './AlternativesCaroussel';
 
 const FoodVideoAndRecomendation = () => {
   const { selectedFood } = useContext(RecipeContext);
@@ -10,15 +9,18 @@ const FoodVideoAndRecomendation = () => {
     if (!strYoutube) return;
     const URL = strYoutube.replace('watch?v=', 'embed/');
     return (
-      <iframe
-        data-testid="video"
-        width="360"
-        height="180"
-        src={ URL }
-        title="YouTube video player"
-        frameBorder="0"
-        allowFullScreen
-      />
+      <>
+        <h3 className="details__video__title">Video</h3>
+        <iframe
+          data-testid="video"
+          className="details__video"
+          src={ URL }
+          title="YouTube video player"
+          frameBorder="0"
+          allowFullScreen
+        />
+      </>
+
     );
   };
   return (
