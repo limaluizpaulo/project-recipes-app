@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import
 { Container, Button, Row, Col, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import copy from 'clipboard-copy';
@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function ReceitasFeitas() {
+  const [tipoFiltro, setTipoFiltro] = useState('All');
   const mensagem = (props) => (
     <Tooltip
       id="mensagem"
@@ -23,7 +24,7 @@ export default function ReceitasFeitas() {
         delay={ { show: 250, hide: 400 } }
         overlay={ mens }
       >
-        <Button variant="ligth" onClick={ () => copy(`https://localhost:3000/${typeURL}s/${id}`) }>
+        <Button variant="ligth" onClick={ () => copy(`http://localhost:3000/${typeURL}s/${id}`) }>
           <Card.Img
             data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }
@@ -120,16 +121,37 @@ export default function ReceitasFeitas() {
     );
   };
 
+  const filterCategory = () => (tipoFiltro !== 'All' ? doneRecipes
+    .filter((receita) => tipoFiltro === receita.type) : doneRecipes);
+
   return (
     <Container>
       <Header />
       <aside>
-        <Button variant="dark" data-testid="filter-by-all-btn">All</Button>
-        <Button variant="dark" data-testid="filter-by-food-btn">Food</Button>
-        <Button variant="dark" data-testid="filter-by-drink-btn">Drinks</Button>
+        <Button
+          variant="dark"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setTipoFiltro('All') }
+        >
+          All
+        </Button>
+        <Button
+          variant="dark"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setTipoFiltro('comida') }
+        >
+          Food
+        </Button>
+        <Button
+          variant="dark"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setTipoFiltro('bebida') }
+        >
+          Drinks
+        </Button>
       </aside>
       <Row>
-        {doneRecipes.map((receita, index) => (
+        {filterCategory().map((receita, index) => (
           renderCards(receita, index)
         ))}
       </Row>
