@@ -4,12 +4,12 @@ import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import { copyLink } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
-import { localStorageVerifier,
-  verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
+import { verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
 
 function FoodInProgress({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  const [css, setCss] = useState(false);
   const {
     details,
     detailsSyncSetState,
@@ -25,8 +25,17 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
     const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
       mealArray.map((_a, index) => (
-        <section key={ `ingredientAndMeasure${index + 1}` }>
-          <input type="checkbox" data-testid={ `${index}-ingredient-step` } />
+        <section
+          className={ css ? 'showCss' : 'hideCss' }
+          data-testid={ `${index}-ingredient-step` }
+          key={ `ingredientAndMeasure${index + 1}` }
+        >
+          <input
+            type="checkbox"
+            onChange={ () => {
+              setCss(!css);
+            } }
+          />
           {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
           <span>
             {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
@@ -80,8 +89,8 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
           width="300px"
           title="Recipe"
         />
-        {localStorageVerifier(match, id, history)}
         <h3>Recomendações de Drinks</h3>
+        <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
       </main>
     );
   }
