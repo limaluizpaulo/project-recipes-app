@@ -44,9 +44,6 @@ function SearchBar(props) {
     configState();
   };
   const pageTitle = title.toLowerCase();
-  // if (foodNotFound || drinkNotFound) {
-  //   global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  // }
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (

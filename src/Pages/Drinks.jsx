@@ -44,7 +44,7 @@ function Drinks(props) {
       />
       <div className="items-list">
         {mainDrinks.map((drink, index) => (
-          <Card key={ index } index={ index } item={ drink } />
+          <Card title="bebidas" key={ index } index={ index } item={ drink } />
         ))}
       </div>
       <Footer />
