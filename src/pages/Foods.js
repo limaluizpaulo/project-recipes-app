@@ -16,12 +16,13 @@ class Foods extends Component {
   }
 
   componentDidMount() {
-    this.requisicao();
+    const { resultFood } = this.props;
+    if (resultFood.length === 0) this.requisicao();
   }
 
   requisicao() {
-    const { requestFoodRecipes, resultFood } = this.props;
-    if (resultFood.length === 0) requestFoodRecipes();
+    const { requestFoodRecipes } = this.props;
+    requestFoodRecipes();
   }
 
   render() {

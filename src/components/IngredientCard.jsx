@@ -45,7 +45,7 @@ class IngredientCard extends React.Component {
         <button
           type="button"
           onClick={ () => (
-            this.dispatchAction((recipe.strIngredient || recipe.strIngredient1)) }
+            this.dispatchAction(recipe.strIngredient1 || recipe.strIngredient)) }
         >
           <div data-testid={ `${index}-ingredient-card` }>
             <img
