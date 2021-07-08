@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
+import 'react-toastify/dist/ReactToastify.css';
 import { getRecipesFavorites } from '../services/helpers/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
