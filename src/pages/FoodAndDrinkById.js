@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import Card from '../components/Card';
+import VideoPlayer from '../components/VideoPlayer';
 
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -107,7 +108,11 @@ export default function FoodAndDrinkById() {
               {singleContent[0].strInstructions}
             </p>
             { path.includes('/comidas') && (
-              <p data-testid="video">{singleContent[0].strYoutube}</p>
+              <VideoPlayer
+                testID="video"
+                videoLink={ singleContent[0].strYoutube }
+                recipeTitle={ singleContent[0][title] }
+              />
             ) }
           </div>
         </>
