@@ -14,3 +14,4 @@ export { default as SearchArea } from './SearchArea';
 export { default as Profile } from './Profile';
 export { default as RecipesMade } from './RecipesMade';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
+export { default as NotFound } from './NotFound';

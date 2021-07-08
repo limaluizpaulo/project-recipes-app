@@ -47,7 +47,6 @@ export const endPoint = ({ inputSearch, option, food }) => {
     return false;
   }
   db = food ? 'themealdb' : 'thecocktaildb';
-  console.log('input', inputSearch)
-  console.log(`https://www.${db}.com/api/json/v1/1/${query}`);
+
   return `https://www.${db}.com/api/json/v1/1/${query}`;
 };

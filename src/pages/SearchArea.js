@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { GlobalContext } from '../context/Provider';
@@ -8,9 +8,9 @@ const SearchArea = () => {
   const magic = 12;
   const { area, meals: m, recipes, setSearchOp } = useContext(GlobalContext);
   const [filter, setFilter] = useState('');
-  const meals = recipes.meals ? recipes.meals : m;
-  console.log(meals);
+  const meals = filter && recipes.meals ? recipes.meals : m;
   const mealsFilter = meals.slice(0, magic);
+
   const dropBox = () => (
     <select
       onChange={ ({ target: { value } }) => {
@@ -34,6 +34,9 @@ const SearchArea = () => {
       <Header title="Explorar Origem" search />
       <h1>Search Area</h1>
       {dropBox()}
+      <button type="button" data-testid="All-option" onClick={ () => setFilter('') }>
+        All
+      </button>
       <RecipeCard recipes={ mealsFilter } />
       <Footer />
     </div>
