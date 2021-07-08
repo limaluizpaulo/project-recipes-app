@@ -38,7 +38,7 @@ function ReceitaDetalhes({ match }) {
   function saveToFavorites() {
     const favorites = localStorage.getItem('favoriteRecipes');
     if (favorites) {
-      saveWithFavorites(url, food, recipe, setFavorite);
+      saveWithFavorites({ url, food, recipe, setFavorite });
     } else if (url.match(food) && !favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idMeal,
@@ -115,7 +115,6 @@ function ReceitaDetalhes({ match }) {
     favorite,
     setFavorite,
   };
-  checkFavorite(checkFavoriteParams);
 
   const checkInProgressParams = {
     url,
@@ -124,7 +123,6 @@ function ReceitaDetalhes({ match }) {
     inProgress,
     setInProgress,
   };
-  checkInProgress(checkInProgressParams);
 
   const buttonParams = {
     url,
@@ -137,6 +135,8 @@ function ReceitaDetalhes({ match }) {
   if (!recipe) {
     return (<h4 className="loading">Carregando...</h4>);
   }
+  checkFavorite(checkFavoriteParams);
+  checkInProgress(checkInProgressParams);
 
   return (
     <main>

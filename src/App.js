@@ -7,10 +7,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
-import Ingredients from './components/Ingredients';
+import Ingredients from './pages/Ingredientes';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import ReceitaEmProgresso from './pages/ReceitaEmProgresso';
+import NotFound from './pages/NotFound';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/perfil" component={ Perfil } />
         { /* <Route path="/receitas-feitas" component={ReceitasFeitas} /> */ }
         { /* <Route path="/receitas-favoritas" component={ReceitasFavoritas} /> */ }
+        <Route component={ NotFound } />
       </Switch>
     </RecipesProvider>
   );
