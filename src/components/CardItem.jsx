@@ -5,7 +5,10 @@ class CardItem extends Component {
   render() {
     const { name, image, index } = this.props;
     return (
-      <div data-testid={ `${index}-recipe-card` }>
+      <div
+        data-testid={ `${index}-recipe-card` }
+        // onClick={ this.redirect }
+      >
         <h5 data-testid={ `${index}-card-name` }>{name}</h5>
         <img
           data-testid={ `${index}-card-img` }

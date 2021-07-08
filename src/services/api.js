@@ -1,9 +1,9 @@
 const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
-// const URL_SEARCH_MEALS_LOCATION = 'www.themealdb.com/api/json/v1/1/list.php?a=list'
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
 const LENGTH_DOZE = 12;
+const LENGTH_CINCO = 5;
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 // -------------------------RECIPES--------------------------------
@@ -59,6 +59,17 @@ export const getCategoriesRecipes = async () => {
   try {
     const result = await fetch(`${URL_SEARCH_MEALS}list.php?c=list`);
     const { meals } = await result.json();
+    return meals.slice(0, LENGTH_CINCO);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getRecipesByCategories = async (category) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_MEALS}filter.php?c=${category}`);
+    const { meals } = await result.json();
+    console.log(meals);
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
     global.alert(messageAlert);
@@ -110,6 +121,16 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
 export const getCategoriesDrinks = async () => {
   try {
     const result = await fetch(`${URL_SEARCH_DRINKS}list.php?c=list`);
+    const { drinks } = await result.json();
+    return drinks.slice(0, LENGTH_CINCO);
+  } catch (_error) {
+    global.alert(messageAlert);
+  }
+};
+
+export const getDrinksByCategories = async (category) => {
+  try {
+    const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?c=${category}`);
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
