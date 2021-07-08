@@ -63,7 +63,13 @@ export default function FoodAndDrinkById() {
           <div className="recipe-heading-container">
             <div className="info-heading">
               <h3 data-testid="recipe-title">{singleContent[0][title]}</h3>
-              <p data-testid="recipe-category">{singleContent[0].strCategory}</p>
+              <p data-testid="recipe-category">
+                {
+                  firstKey === 'drinks'
+                    ? singleContent[0].strAlcoholic
+                    : singleContent[0].strCategory
+                }
+              </p>
             </div>
             <Button>
               <img data-testid="share-btn" src={ shareIcon } alt="" />
@@ -87,7 +93,6 @@ export default function FoodAndDrinkById() {
                   {arr.filter((elt) => elt[0] === (`strMeasure${i + 1}`))
                     .map((result) => (
                       <span
-                        data-testid={ `${i}-ingredient-name-and-measure` }
                         key={ result }
                       >
                         { ` - ${result[1]}` }
@@ -97,7 +102,6 @@ export default function FoodAndDrinkById() {
               </div>
             ))}
           </div>
-
           <div className="instructions-video-container">
             <p data-testid="instructions">
               {singleContent[0].strInstructions}
