@@ -31,13 +31,6 @@ function GlobalProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const { chosenFilter, searchText } = initialParams;
-    async function fetchResults() {
-      setRequestResult(await fetchAPI(baseEndPoint, chosenFilter, searchText));
-    } fetchResults();
-  }, [baseEndPoint]);
-
-  useEffect(() => {
     if (requestResult.meals) {
       setMeals(requestResult.meals);
       if (toggle.backup.meals.length < 1) {
