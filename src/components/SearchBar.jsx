@@ -8,6 +8,7 @@ import {
   getMealsFirstLetterFilter,
 } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
+import { alertMessage } from '../helpers/HelperFunctions';
 
 const selectedFilter = {
   ingredients: getMealsIngredientsFilter,
@@ -29,9 +30,6 @@ function SearchBar() {
 
   // useEffect(() => {
   const filterApi = async () => { //  tentar refatorar: jogar alerts dentro do getApi
-    const alertMessage = (fn, message) => {
-      fn(message);
-    };
     if (radioInput === 'firstLetter' && searchInput.length > 1) {
       alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }
@@ -52,43 +50,46 @@ function SearchBar() {
     https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Search_role#prefer_html
   */
   return (
-    <form role="search" htmlFor="searchBar">
+    <form role="search" htmlFor="seachBar" className="searchbar">
       <Input
+        className="searchbar-input"
         func={ setSearchInput }
         id="searchBar"
         type="text"
         testid="search-input"
       />
-      <Input
-        func={ setRadioInput }
-        name="search-radios"
-        htmlFor="ingredients-radio"
-        label="Ingrediente"
-        testid="ingredient-search-radio"
-        id="ingredients-radio"
-        type="radio"
-        value="ingredients"
-      />
-      <Input // refatorar para menos parametros
-        func={ setRadioInput }
-        htmlFor="name-radio"
-        label="Nome"
-        name="search-radios"
-        type="radio"
-        id="name-radio"
-        testid="name-search-radio"
-        value="name"
-      />
-      <Input
-        func={ setRadioInput }
-        htmlFor="firstLetter-radio"
-        label="Primeira letra"
-        name="search-radios"
-        type="radio"
-        id="firstLetter-radio"
-        testid="first-letter-search-radio"
-        value="firstLetter"
-      />
+      <div>
+        <Input
+          func={ setRadioInput }
+          name="search-radios"
+          htmlFor="ingredients-radio"
+          label="Ingrediente"
+          testid="ingredient-search-radio"
+          id="ingredients-radio"
+          type="radio"
+          value="ingredients"
+        />
+        <Input // refatorar para menos parametros
+          func={ setRadioInput }
+          htmlFor="name-radio"
+          label="Nome"
+          name="search-radios"
+          type="radio"
+          id="name-radio"
+          testid="name-search-radio"
+          value="name"
+        />
+        <Input
+          func={ setRadioInput }
+          htmlFor="firstLetter-radio"
+          label="Primeira letra"
+          name="search-radios"
+          type="radio"
+          id="firstLetter-radio"
+          testid="first-letter-search-radio"
+          value="firstLetter"
+        />
+      </div>
       <Button
         func={ () => filterApi() }
         disabled={ isDisabled() }

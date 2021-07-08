@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import YouTube from 'react-youtube';
-// import { copy } from 'clipboard-copy';
+import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
@@ -15,6 +15,7 @@ function Details() {
   // const [idDetails, setIdDetails] = useState(id);
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
+  const [shareCopy, setShareCopy] = useState(false);
 
   const capitalize = (text) => text.replace(
     /(?:^|\s)\S/g, (first) => first.toUpperCase(),
@@ -27,7 +28,7 @@ function Details() {
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
   const { pathname } = useLocation();
-  console.log(pathname);
+  // console.log(pathname);
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);
@@ -46,14 +47,11 @@ function Details() {
     let item = localStorage.getItem(['inProgressRecipes']);
     item = JSON.parse(item);
     let filterKey = '';
-    console.log(item);
+    // console.log(item);
     if (item !== null) {
       filterKey = Object.keys(item[typeKey]).filter((key) => key === id);
     }
-    if (filterKey.includes(id)) {
-      return 'Continuar Receitas';
-    }
-    return 'Iniciar Receita';
+    return filterKey.includes(id) ? 'Continuar Receitas' : 'Iniciar Receita';
   };
   const video = () => {
     if (type === 'drinks') {
@@ -84,6 +82,27 @@ function Details() {
   //   typeId = 'idDrink';
   // }
 
+  /*
+    Material consultado sobre dataset
+    https://developer.mozilla.org/pt-BR/docs/Learn/HTML/Howto/Use_data_attributes#acesso_no_javascript
+    { target: { dataset: { testid } } }
+    */
+  /*
+    Material consultado sobre URL absoluta da página
+    https://surajsharma.net/blog/current-url-in-react
+  */
+  const handleClickShare = async () => {
+    const url = window.location.href;
+
+    await copy(url);
+    setShareCopy(true);
+
+    const FIVE_SECONDS = 5000;
+    setTimeout(() => {
+      setShareCopy(false);
+    }, FIVE_SECONDS);
+  };
+
   return (detailsData === undefined ? <div /> : Object.keys(detailsData).length !== 0
   && (
     <>
@@ -98,10 +117,10 @@ function Details() {
       <main>
         <h1 data-testid="recipe-title">{detailsData[title]}</h1>
         <h2 data-testid="recipe-category">{detailsData[category]}</h2>
-        <button type="button">
+        <button type="button" onClick={ handleClickShare }>
           <img src={ shareIcon } alt="Share" data-testid="share-btn" />
         </button>
-
+        {shareCopy && (<p>Link copiado!</p>) }
         <button type="button">
           <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
         </button>
