@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { getDetails } from '../helpers';
+import { getDetails, setConstants } from '../helpers';
 import RecipeInProgress from '../components/RecipeInProgress';
 
 function InProgress() {
@@ -13,16 +13,18 @@ function InProgress() {
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typeCypress = isDrinks ? 'bebida' : 'comida';
-  const typeKey = isDrinks ? 'cocktails' : 'meals';
+  const {
+    idKey,
+    imgKey,
+    localStorageKey,
+    nameKey,
+    type,
+    typeCypress,
+  } = setConstants(isDrinks);
 
   function finishRecipe() {
     const recipesInProgress = { ...inProgress };
-    delete recipesInProgress[typeKey][id];
+    delete recipesInProgress[localStorageKey][id];
     setInProgress(recipesInProgress);
 
     const newRecipe = {
@@ -47,7 +49,7 @@ function InProgress() {
   }, [details, setDetails, id, type, idKey]);
 
   function renderFinishButton() {
-    const usedIngredients = inProgress[typeKey][id] || [];
+    const usedIngredients = inProgress[localStorageKey][id] || [];
     const isFinished = ingredients.length === usedIngredients.length;
 
     return (

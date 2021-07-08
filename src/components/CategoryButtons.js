@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
+import { setConstants } from '../helpers';
 import { fetchByCategory, fetchByName } from '../services';
 import './CategoryButtons.css';
 
@@ -14,7 +15,7 @@ function CategoryButtons() {
   const { location: { pathname } } = history;
 
   const isDrinks = pathname.includes('bebidas');
-  const type = isDrinks ? 'drinks' : 'meals';
+  const { type } = setConstants(isDrinks);
 
   async function handleClick(category) {
     const result = category && filter !== category

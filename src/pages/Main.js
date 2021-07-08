@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { setConstants } from '../helpers';
 import Header from '../components/Header';
 import CategoryButtons from '../components/CategoryButtons';
 import RecipesList from '../components/RecipesList';
@@ -11,7 +12,8 @@ function Main() {
   const { location: { pathname } } = history;
 
   const isDrinks = pathname.includes('bebidas');
-  const title = isDrinks ? 'Bebidas' : 'Comidas';
+  // const title = isDrinks ? 'Bebidas' : 'Comidas';
+  const { title } = setConstants(isDrinks);
 
   return (
     <main>

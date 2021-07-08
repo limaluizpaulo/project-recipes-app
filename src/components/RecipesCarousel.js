@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
-import { getRecipes } from '../helpers';
+import { getRecipes, setConstants } from '../helpers';
 import './RecipesCarousel.css';
 
 function RecipesCarousel() {
@@ -13,12 +13,8 @@ function RecipesCarousel() {
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('comidas');
+  const { idKey, imgKey, nameKey, type, typePt } = setConstants(isDrinks);
   const recipes = isDrinks ? [...drinks] : [...meals];
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
   const setFn = isDrinks ? setDrinks : setMeals;
 
   useEffect(() => {

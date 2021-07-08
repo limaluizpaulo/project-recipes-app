@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import DetailsContext from '../context/details.context';
-import { getDetails, urlToEmbed } from '../helpers';
+import { getDetails, setConstants, urlToEmbed } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
@@ -13,11 +13,7 @@ function RecipeDetails() {
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const { idKey, imgKey, nameKey, type, typePt } = setConstants(isDrinks);
 
   useEffect(() => {
     if (details[idKey] !== id) getDetails({ id, type, setDetails });

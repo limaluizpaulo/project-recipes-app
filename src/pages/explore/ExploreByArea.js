@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { setConstants } from '../../helpers';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -8,7 +10,7 @@ function ExploreByArea() {
   const { location: { pathname } } = history;
 
   const isDrinks = pathname.includes('bebidas');
-  const title = isDrinks ? 'Bebidas' : 'Comidas';
+  const { title } = setConstants(isDrinks);
 
   return (
     <div>

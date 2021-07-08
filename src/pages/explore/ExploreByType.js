@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DetailsContext from '../../context/details.context';
-import { getDetails } from '../../helpers';
+import { getDetails, setConstants } from '../../helpers';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -11,10 +11,7 @@ function ExploreByType() {
   const { location: { pathname }, push } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
-  const title = isDrinks ? 'Bebidas' : 'Comidas';
-  const type = isDrinks ? 'drinks' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
-  const idKey = isDrinks ? 'idDrink' : 'idMeal';
+  const { idKey, title, type, typePt } = setConstants(isDrinks);
 
   async function surpriseMe() {
     const result = await getDetails({ isRandom: true, type, setDetails });

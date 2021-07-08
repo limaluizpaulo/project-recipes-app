@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import UserContext from '../context/user.context';
+import { setConstants } from '../helpers';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesCarousel from '../components/RecipesCarousel';
 
@@ -11,8 +12,7 @@ function Details() {
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
-  const typeKey = isDrinks ? 'cocktails' : 'meals';
+  const { localStorageKey, typePt } = setConstants(isDrinks);
 
   const isDone = done.some((item) => item.id === id);
 
@@ -28,7 +28,7 @@ function Details() {
   function handleClick() {
     if (!isInProgress) {
       const newObj = { ...inProgress };
-      newObj[typeKey][id] = [];
+      newObj[localStorageKey][id] = [];
       setInProgress(newObj);
     }
     push(`/${typePt}/${id}/in-progress`);

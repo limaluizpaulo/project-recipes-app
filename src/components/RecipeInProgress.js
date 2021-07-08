@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { toggleIngredient } from '../helpers';
+import { setConstants, toggleIngredient } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
@@ -15,13 +15,10 @@ function RecipeDetails() {
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
-  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
-  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
-  const typeKey = isDrinks ? 'cocktails' : 'meals';
-  const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const { imgKey, localStorageKey, nameKey, typePt } = setConstants(isDrinks);
 
   function renderIngredients() {
-    const usedIngredients = inProgress[typeKey][id] || [];
+    const usedIngredients = inProgress[localStorageKey][id] || [];
 
     return (
       <ul>
