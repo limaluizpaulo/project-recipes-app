@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { requestRandomDrink } from '../services/api';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../styles/global.css';
 
 function DrinkExplore() {
   const [item, setItem] = useState([]);
@@ -19,10 +20,11 @@ function DrinkExplore() {
   return (
     <div>
       <Header title="Explorar Bebidas" />
-      <div>
+      <div className="exploreButtons-container">
         <div>
           <Link to="/explorar/bebidas/ingredientes">
             <button
+              className="exploreButtons"
               type="button"
               data-testid="explore-by-ingredient"
             >
@@ -33,7 +35,13 @@ function DrinkExplore() {
         <div>
           {item.map((subItem, index) => (
             <Link key={ index } to={ `/bebidas/${subItem.idDrink}` }>
-              <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
+              <button
+                type="button"
+                className="exploreButtons"
+                data-testid="explore-surprise"
+              >
+                Me Surpreenda!
+              </button>
             </Link>
           ))}
         </div>

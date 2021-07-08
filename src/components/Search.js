@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/ContextForm';
+import '../styles/global.css';
 import searchByNameFood,
 { searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
   searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';

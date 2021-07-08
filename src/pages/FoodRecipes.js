@@ -94,6 +94,7 @@ function FoodRecipes() {
             >
               <Card.Img
                 data-testid={ `${index}-card-img` }
+                className="cardImg"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />
