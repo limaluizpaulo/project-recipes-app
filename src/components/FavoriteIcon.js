@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { getFavoritesRecipes } from '../services/localStorage';
+import { getFavoritesRecipes, checkFavoriteId } from '../services/localStorage';
+
+const blackOrWhite = (iconFavorit) => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
 
 const FavoriteIcon = ({ recipe, idTest }) => {
   const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
@@ -10,6 +12,10 @@ const FavoriteIcon = ({ recipe, idTest }) => {
   const idRecipe = idMeal || idDrink;
   const [iconFavorit, setIconFavorit] = useState(false);
   const favorites = getFavoritesRecipes() || [];
+
+  useEffect(() => {
+    if (checkFavoriteId(idRecipe)) setIconFavorit(true);
+  }, [idRecipe]);
 
   const addFavorite = () => {
     const verify = favorites.find(({ id }) => id === idRecipe);
@@ -31,11 +37,15 @@ const FavoriteIcon = ({ recipe, idTest }) => {
     setIconFavorit(!iconFavorit);
   };
 
-  const blackOrWhite = iconFavorit ? blackHeartIcon : whiteHeartIcon;
+  const icon = blackOrWhite(iconFavorit);
 
   return (
     <button onClick={ addFavorite } type="button">
-      <img data-testid={ idTest } src={ blackOrWhite } alt={ blackOrWhite } />
+      <img
+        data-testid={ idTest }
+        src={ icon }
+        alt={ icon }
+      />
     </button>
   );
 };

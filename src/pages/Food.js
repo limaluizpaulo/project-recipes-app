@@ -3,12 +3,11 @@ import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
-import { checkRecypeId, checkProgress, checkFavoriteId } from '../services/localStorage';
+import { checkRecypeId, checkProgress } from '../services/localStorage';
 import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import FavoriteIcon from '../components/FavoriteIcon';
+
 const Food = ({ match }) => {
   const history = useHistory();
   const {
@@ -16,42 +15,10 @@ const Food = ({ match }) => {
   } = match;
   const [meal, setMeal] = useState({});
   const [msgCopy, setMsgCopy] = useState(false);
-  const [iconFavorit, setIconFavorit] = useState(false);
-
-  const blackOrWhite = () => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
-
-  const isFavorite = checkFavoriteId(id);
-
-  useEffect(() => {
-    if (isFavorite) setIconFavorit(true);
-  }, [isFavorite]);
 
   useEffect(() => {
     recipeById(id, true).then(setMeal);
   }, [id, setMeal]);
-
-  const addFavorite = () => {
-    const favorites = localStorage.favoriteRecipes
-      ? JSON.parse(localStorage.favoriteRecipes) : [];
-
-    if (!iconFavorit) {
-      const { idMeal, strArea, strCategory, strMeal, strMealThumb } = meal;
-      const add = [...favorites, {
-        id: idMeal,
-        type: 'comida',
-        area: strArea,
-        category: strCategory,
-        alcoholicOrNot: '',
-        name: strMeal,
-        image: strMealThumb,
-      }];
-      localStorage.favoriteRecipes = JSON.stringify(add);
-    } else {
-      const remove = favorites.filter(({ id: idL }) => idL !== id);
-      localStorage.favoriteRecipes = JSON.stringify(remove);
-    }
-    setIconFavorit(!iconFavorit);
-  };
 
   const textProgress = checkProgress(id, true) ? 'Continuar Receita' : 'Iniciar Receita';
 
@@ -75,14 +42,7 @@ const Food = ({ match }) => {
       >
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
-      {/* Botão de favorito */}
       <FavoriteIcon recipe={ meal } idTest="favorite-btn" />
-      {/* <button
-        onClick={ addFavorite }
-        type="button"
-      >
-        <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
-      </button> */}
       {!checkRecypeId(id) && (
         <button
           className="footer"
