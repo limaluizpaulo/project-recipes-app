@@ -109,6 +109,22 @@ function LoginProvider({ children }) {
     }
   }, []);
 
+  const classThumb = useCallback((condition, drink, food) => {
+    const SIZE_TITLE_ONE = 22;
+    if (condition) {
+      if (
+        drink.strDrink.length >= SIZE_TITLE_ONE) {
+        return 'thumb-2';
+      }
+      return 'thumb';
+    }
+    if (
+      food.strMeal.length >= SIZE_TITLE_ONE) {
+      return 'thumb-2';
+    }
+    return 'thumb';
+  }, []);
+
   useEffect(() => {
     getDoneRecipes();
   }, [getDoneRecipes]);
@@ -125,6 +141,7 @@ function LoginProvider({ children }) {
         addLocalStorageDrink,
         addLocalStorage,
         removeLocalStorage,
+        classThumb,
       } }
     >
       { children }

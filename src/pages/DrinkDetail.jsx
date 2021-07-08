@@ -7,6 +7,8 @@ import IngredientsDetails from '../components/IngredientsDetails';
 import InstructionsDetails from '../components/InstructionsDetails';
 import Recommended from '../components/Recommended';
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
+import '../styles/reset.css';
+import { PageDetails } from '../styles/Details';
 
 function DrinkDetail() {
   const { id } = useParams();
@@ -47,7 +49,7 @@ function DrinkDetail() {
     setIngredientsDrink(full);
   }, [drinkDetails, setIngredientsDrink]);
   return !load ? (
-    <>
+    <PageDetails>
       <HeaderDetails />
       <main>
         <IngredientsDetails />
@@ -55,7 +57,7 @@ function DrinkDetail() {
         <Recommended />
       </main>
       <ButtonStartRecipe id={ id } />
-    </>
+    </PageDetails>
   ) : <h1>Loading</h1>;
 }
 

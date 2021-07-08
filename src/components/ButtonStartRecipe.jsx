@@ -3,6 +3,8 @@ import { useLocation } from 'react-router';
 import { useHistory, useParams } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
 
+import { BtnRecipes } from '../styles/Details';
+
 export default function ButtonStartRecipe() {
   const [buttonVisible, setButtonVisible] = useState(true);
   const [text, setText] = useState('Iniciar Receita');
@@ -15,10 +17,6 @@ export default function ButtonStartRecipe() {
   const history = useHistory();
 
   const NUMBER_TO_VERIFICATION = -1;
-  const style = {
-    position: 'fixed',
-    bottom: 0,
-  };
 
   const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
 
@@ -44,27 +42,25 @@ export default function ButtonStartRecipe() {
   return getDrinksDetails ? (
 
     buttonVisible && (
-      <button
+      <BtnRecipes
         type="button"
         data-testid="start-recipe-btn"
-        style={ style }
         onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
       >
         <span>{text}</span>
-      </button>
+      </BtnRecipes>
     )
 
   ) : (
 
     buttonVisible && (
-      <button
+      <BtnRecipes
         type="button"
         data-testid="start-recipe-btn"
-        style={ style }
         onClick={ () => history.push(`/comidas/${id}/in-progress`) }
       >
         <span>{text}</span>
-      </button>
+      </BtnRecipes>
     )
 
   );
