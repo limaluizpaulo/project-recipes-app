@@ -1,24 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
+import { addIngredients, getIngredients } from '../services/localStorage';
 
-function ReceitaEmProgresso(props) {
-  const { match: { params: { id } } } = props;
+function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
+  const { id } = useParams();
   const [apelidoAPI] = rotaAtual.match(/\w+/);
+  const ingredientesSalvos = getIngredients(apelidoAPI, id);
   const [parametrosBusca] = useState({ apelidoAPI, input: id });
   const [receita, setReceita] = useState({});
+  const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
+  const [ingredientes, setIngredientes] = useState(ingredientesSalvos);
+
+  const inicializarIngredientes = (objReceitas) => {
+    let indexAuxiliar = 0;
+    const ingsMeds = Object.keys(objReceitas).reduce((acc, key) => {
+      if (key.match(/strIngredient\d+/) && objReceitas[key]) {
+        return acc.concat([[objReceitas[key]]]);
+      }
+
+      if (key.match(/strMeasure\d+/) && objReceitas[key]) {
+        acc[indexAuxiliar].push(objReceitas[key]);
+        indexAuxiliar += 1;
+      }
+      return acc;
+    }, []);
+    setIngredientesCheckboxes(ingsMeds);
+  };
 
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(parametrosBusca);
       setReceita(respostaApi);
+      inicializarIngredientes(respostaApi);
     };
     didMount();
   }, [parametrosBusca]);
+
+  useEffect(() => {
+    if (!ingredientes) {
+      setIngredientes([]);
+    }
+
+    if (ingredientes) {
+      addIngredients(apelidoAPI, id, ingredientes);
+    }
+  }, [ingredientes]);
 
   const renderizaImagemReceita = () => {
     const src = (
@@ -63,35 +93,36 @@ function ReceitaEmProgresso(props) {
     <div data-testid="recipe-category">{receita.strCategory}</div>
   );
 
-  const renderizaIngredientes = () => {
-    const ingredientesEMedidas = Object.keys(receita).reduce((acc, key) => {
-      if (key.match(/strIngredient\d+/) && receita[key]) {
-        acc[0].push(receita[key]);
-      }
-
-      if (key.match(/strMeasure\d+/) && receita[key]) {
-        acc[1].push(receita[key]);
-      }
-      return acc;
-    }, [[], []]);
-    return (
-      <>
-        {ingredientesEMedidas[0].map((ingrediente, index) => (
-          <div key={ ingrediente } className="mb-3">
-            <label htmlFor={ ingrediente } data-testid={ `${index}-ingredient-step` }>
-              <input
-                type="checkbox"
-                id={ ingrediente }
-                name={ ingrediente }
-                value={ ingrediente }
-              />
-              { `${ingredientesEMedidas[1][index]} ${ingrediente}` }
-            </label>
-          </div>
-        ))}
-      </>
-    );
+  const handleChange = ({ target: { checked, name } }) => {
+    if (checked) {
+      setIngredientes([...ingredientes, name]);
+    } else {
+      setIngredientes(ingredientes.filter((ingrediente) => ingrediente !== name));
+    }
   };
+
+  const renderizaIngredientes = () => (
+    <>
+      {ingredientesCheckboxes.map(([nome, medida], index) => (
+        <div key={ nome } className="mb-3">
+          <label
+            htmlFor={ nome }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              type="checkbox"
+              id={ nome }
+              name={ nome }
+              value={ nome }
+              onChange={ handleChange }
+              checked={ ingredientes.includes(nome) }
+            />
+            { `${medida} ${nome}` }
+          </label>
+        </div>
+      ))}
+    </>
+  );
 
   const renderizaInstrucoes = () => (
     <div data-testid="instructions">{receita.strInstructions}</div>
@@ -113,13 +144,5 @@ function ReceitaEmProgresso(props) {
     </>
   );
 }
-
-ReceitaEmProgresso.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }).isRequired,
-};
 
 export default ReceitaEmProgresso;
