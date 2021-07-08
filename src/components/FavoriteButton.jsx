@@ -73,9 +73,9 @@ function FavoriteButton(props) {
 
   const setInlocalStorage = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (saveRecipe !== '' && favorited === null) {
+    if (saveRecipe && !favorited) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([saveRecipe]));
-    } else if (saveRecipe !== '') {
+    } else if (saveRecipe) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([...favorited, saveRecipe]));
     }
   };
