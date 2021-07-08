@@ -29,7 +29,7 @@ function Foods(props) {
         }
       }).then(() => setLoading(!loading));
   }, [
- 
+
   ]);
 
   return loading ? <div>Loading...</div> : (

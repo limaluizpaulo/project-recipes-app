@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router';
 import HeadBar from '../Components/HeadBar';
 import Footer from '../Components/Footer';
-import IngredientsTab from '../Components/IngredientsTab';
+import IngredientsFoodsTab from '../Components/IngredientsFoodsTab';
 import { getIngredient } from '../redux/actions';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
@@ -23,7 +22,7 @@ function ExpoFoodsIng(props) {
   return loading ? <h3>Loading...</h3> : (
     <div>
       <HeadBar title="Ingredientes" />
-      <IngredientsTab ingredients={ ingredients } />
+      <IngredientsFoodsTab ingredients={ ingredients } />
       <Footer />
     </div>
   );
