@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import DrinksContext from '../context/DrinksContext';
 import RecipesContext from '../context/RecipesContext';
 
-import '../styles/IngredientsDetails.css';
+import { Ingredients } from '../styles/Details';
 
 export default function IngredientsDetails() {
   const { ingredientsDrink } = useContext(DrinksContext);
@@ -15,7 +15,7 @@ export default function IngredientsDetails() {
   const getDrinksDetails = pathname.indexOf('bebidas') > NUMBER_TO_VERIFICATION;
 
   return getDrinksDetails ? (
-    <section className="ingredients-details">
+    <Ingredients>
       <h1>Ingredients</h1>
       <div>
         <ul>
@@ -29,9 +29,9 @@ export default function IngredientsDetails() {
           ))}
         </ul>
       </div>
-    </section>
+    </Ingredients>
   ) : (
-    <section className="ingredients-details">
+    <Ingredients>
       <h1>Ingredients</h1>
       <div>
         <ul>
@@ -45,6 +45,6 @@ export default function IngredientsDetails() {
           ))}
         </ul>
       </div>
-    </section>
+    </Ingredients>
   );
 }
