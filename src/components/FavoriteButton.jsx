@@ -40,27 +40,27 @@ function FavoriteButton() {
       }
     }
   };
+
   const id = pathname.split('/')[2];
+
   const removeFavorited = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log('favorites', favorited);
-    if (favorited !== null) {
+    if (favorited) {
       const filterLocalStorage = favorited.filter((element) => element.id !== id);
-      console.log(filterLocalStorage);
       localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
     }
   };
 
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);
-    if (stateChangeHeart) {
+    if (!stateChangeHeart) {
       removeFavorited();
     }
   };
 
   const verifyHeart = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorited !== null) {
+    if (favorited) {
       const filterLocalStorage = favorited.some((element) => element.id === id);
       if (filterLocalStorage) {
         setStateChangeHeart(false);
@@ -69,6 +69,7 @@ function FavoriteButton() {
   };
 
   useEffect(verifyHeart, []);
+
   const setInlocalStorage = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (saveRecipe !== '' && favorited === null) {
@@ -79,6 +80,7 @@ function FavoriteButton() {
   };
 
   useEffect(setInlocalStorage, [saveRecipe]);
+
   return (
     <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
       <img
