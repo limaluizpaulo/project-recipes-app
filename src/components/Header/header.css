@@ -1,0 +1,24 @@
+.Header {
+  background-color: antiquewhite;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: fantasy;
+  margin: 15px 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 30px;
+}
+
+.Header button img {
+  width: 100%;
+}

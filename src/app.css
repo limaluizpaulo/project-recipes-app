@@ -1,0 +1,25 @@
+.menu-box {
+  text-align: center;
+  width: 100%;
+}
+
+.menu-box button {
+  margin: 2px;
+}
+
+.card-meals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.card-meals .card {
+  margin-bottom: 5px;
+  width: 150px;
+}
+
+.card-meals h5 {
+  word-break: break-word;
+}
