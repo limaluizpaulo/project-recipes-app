@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import loadDoneItems from '../services/LoadInProgress';
 
@@ -15,27 +15,17 @@ function IngredientsStep(props) {
       ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
     );
   }
-  const [missingIngredients, setMissingIngredients] = useState();
-
-  useEffect(() => {
-    setMissingIngredients(loadDoneItems({ url, id }));
-  }, []);
+  const missingIngredients = loadDoneItems({ url, id });
 
   function handleClick(event) {
     console.log(event.target.checked);
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!event.target.nextSibling.classList.value) {
       event.target.nextSibling.classList.toggle('tachado');
-      const newMissingIngredients = missingIngredients;
-      newMissingIngredients[event.target.value] = '';
-      setMissingIngredients(newMissingIngredients);
-      console.log(newMissingIngredients);
+      missingIngredients[event.target.value] = '';
     } else {
       event.target.nextSibling.classList = '';
-      const newMissingIngredients = missingIngredients;
-      newMissingIngredients[event.target.value] = `${event.target.value}`;
-      setMissingIngredients(newMissingIngredients);
-      console.log(newMissingIngredients);
+      missingIngredients[event.target.value] = `${event.target.value}`;
     }
     if (url.match(/comidas/gi)) {
       inProgress.meals[id] = missingIngredients;
@@ -46,27 +36,14 @@ function IngredientsStep(props) {
     }
   }
 
-  if (recipeIngredientsList && missingIngredients) {
-    return (
-      <div
-        className="ingredients-step"
-      >
-        <h5>Ingredients</h5>
-        <ul className="ingredients-list">
-          {recipeIngredientsList.map((entry, index) => {
-            if (index === parseInt(missingIngredients[index], 10)) {
-              return (
-                <li key={ index }>
-                  <input
-                    value={ index }
-                    type="checkbox"
-                    data-testid={ `${index}-ingredient-step` }
-                    onClick={ handleClick }
-                  />
-                  <label htmlFor={ index }>{ entry }</label>
-                </li>
-              );
-            }
+  return (
+    <div
+      className="ingredients-step"
+    >
+      <h5>Ingredients</h5>
+      <ul className="ingredients-list">
+        {recipeIngredientsList.map((entry, index) => {
+          if (index === parseInt(missingIngredients[index], 10)) {
             return (
               <li key={ index }>
                 <input
@@ -74,22 +51,32 @@ function IngredientsStep(props) {
                   type="checkbox"
                   data-testid={ `${index}-ingredient-step` }
                   onClick={ handleClick }
-                  checked
                 />
-                <label
-                  className="tachado"
-                  htmlFor={ index }
-                >
-                  { entry }
-                </label>
+                <label htmlFor={ index }>{ entry }</label>
               </li>
             );
-          })}
-        </ul>
-      </div>
-    );
-  }
-  return <h4>Carregando</h4>;
+          }
+          return (
+            <li key={ index }>
+              <input
+                value={ index }
+                type="checkbox"
+                data-testid={ `${index}-ingredient-step` }
+                onClick={ handleClick }
+                checked
+              />
+              <label
+                className="tachado"
+                htmlFor={ index }
+              >
+                { entry }
+              </label>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
 
 IngredientsStep.propTypes = {
