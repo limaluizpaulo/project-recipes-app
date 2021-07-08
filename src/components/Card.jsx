@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import pathTreament from '../helpers/HelperFunctions';
 
 export default function Card(props) {
-  const { id, thumbnail, title, index, category, showCards } = props;
+  const { id, thumbnail, title, index, category, showCards = '' } = props;
   const { pathname } = useLocation();
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
   const newPathname = pathTreament(pathname);

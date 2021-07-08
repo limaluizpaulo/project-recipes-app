@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
-import logo from '../images/mustachef.svg';
+import logo from '../images/mustachef1.svg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -47,30 +47,36 @@ export default function Login() {
   });
 
   return (
-    <section>
-      <img src={ logo } alt="logo" />
-      <form>
-        <Input
-          type="email"
-          label="Email:"
-          func={ validateEmail }
-          testid="email-input"
-          value={ email }
-        />
-        <Input
-          type="password"
-          label="Password:"
-          func={ validatePassword }
-          testid="password-input"
-          value={ password }
-        />
-        <Button
-          disabled={ disable }
-          func={ login }
-          label="Login"
-          testid="login-submit-btn"
-        />
-      </form>
+    <section className="login">
+      <div>
+        <img src={ logo } alt="logo" />
+        <form>
+          <h1 className="login-title">Login</h1>
+          <Input
+            className="input-login"
+            type="email"
+            label="Email:"
+            func={ validateEmail }
+            testid="email-input"
+            value={ email }
+          />
+          <Input
+            className="input-login"
+            type="password"
+            label="Password:"
+            func={ validatePassword }
+            testid="password-input"
+            value={ password }
+          />
+          <Button
+            className="btn-login"
+            disabled={ disable }
+            func={ login }
+            label="Login"
+            testid="login-submit-btn"
+          />
+        </form>
+      </div>
     </section>
   );
 }

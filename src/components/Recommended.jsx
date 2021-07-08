@@ -8,9 +8,9 @@ import Button from '../helpers/Button';
 function Recommended() {
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [recommendedData, setRecommendedData] = useState([]);
-  const recommendedType = (type === 'meals') ? 'drinks' : 'meals';
   const [cardLeft, setCardLeft] = useState(0);
   const [cardRight, setCardRight] = useState(1);
+  const recommendedType = (type === 'meals') ? 'drinks' : 'meals';
 
   let title;
   let typeId;
@@ -37,21 +37,28 @@ function Recommended() {
       setRecommendedData(results.filter((item, index) => index < maxCards));
     };
     getData();
-  }, [type]);
+  }, [type, cardLeft, cardRight]);
+
+  const quatro = 4;
+  const cinco = 5;
 
   const slideLeft = () => {
-    if (cardLeft < 0) {
-      setCardLeft(recommendedData.length - 2);
+    if (cardRight === 1) {
+      setCardLeft(quatro);
+      setCardRight(cinco);
     } else {
       setCardLeft(cardLeft - 2);
+      setCardRight(cardRight - 2);
     }
   };
 
   const slideRight = () => {
-    if (cardLeft > recommendedData.length - 2) {
-      setCardRight(0);
+    if (cardRight < recommendedData.length - 1) {
+      setCardLeft(cardLeft + 2);
+      setCardRight(cardRight + 2);
     } else {
-      setCardRight(cardLeft - 2);
+      setCardLeft(0);
+      setCardRight(1);
     }
   };
 

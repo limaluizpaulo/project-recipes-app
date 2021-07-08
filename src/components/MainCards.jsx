@@ -25,7 +25,7 @@ export default function MainCards(props) {
   return (
     <main>
       <Categories />
-      <section>
+      <section className="card-list">
         {data
           && data.map((recipe, index) => (index < maxCards
             ? (
