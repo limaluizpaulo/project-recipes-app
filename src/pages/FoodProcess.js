@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function FoodProcess() {
   const params = useParams();
   const [item, setItem] = useState([]);
+  const { active } = useContext(Context);
 
   useEffect(() => {
     const request = async () => {
@@ -55,6 +57,7 @@ function FoodProcess() {
                 type="button"
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
+                disabled={ active }
               >
                 Finalizar Receita
               </button>

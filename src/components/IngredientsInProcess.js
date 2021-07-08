@@ -5,19 +5,20 @@ import progressRecipeStorage from '../hooks/progressAddStorage';
 import '../styles/global.css';
 import { Context } from '../context/ContextForm';
 import renderProgress from '../helper/renderLocalStorage';
+import onditionItems from '../helper/disabledButton';
 
 function IngredientsInProcess({ index, element, measures }) {
-  const { param, setParam } = useContext(Context);
+  const { param, setParam, setActive } = useContext(Context);
   const params = useParams();
 
   function countInputs() {
+    const object = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const array = [...document.querySelectorAll('input')];
-    console.log(array);
+    onditionItems(object, params, array, setActive);
   }
 
   useEffect(() => {
     setParam(params.id);
-    countInputs();
     renderProgress(params);
   }, []);
 
@@ -46,6 +47,7 @@ function IngredientsInProcess({ index, element, measures }) {
       span[1].classList.add('marcado');
       progressRecipeStorage(param, text);
     }
+    countInputs();
   }
 
   return (
@@ -56,14 +58,13 @@ function IngredientsInProcess({ index, element, measures }) {
         onClick={ (ev) => toogleClass(ev) }
         key={ index }
         id={ index }
-
       />
       <span
         id={ index }
       >
         {
           `${element[1]}
-                - ${measures[index][1] === null
+          - ${measures[index][1] === null
       ? 'as you like' : measures[index][1]}`
         }
       </span>
