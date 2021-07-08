@@ -1,27 +1,23 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import progressRecipeStorage from '../hooks/progressAddStorage';
 import '../styles/global.css';
 import { Context } from '../context/ContextForm';
 import desrenderNull from '../helper/Condition';
-import start, { request } from '../helper/addIdStorage';
-import { requestByDetailsDrink, requestByDetailsMeal } from '../services/api';
 
 function IngredientsInProcess({ index, element, measures }) {
   const { param, setParam } = useContext(Context);
   const params = useParams();
+  const [storageChecks, setStorageChecks] = useState(() => {
+    const local = JSON.parse(window.localStorage.getItem('inProgressRecipes'));
+    return local || { cocktails: {}, meals: { [params.id]: [] } };
+  });
 
   function countInputs() {
     const array = [...document.querySelectorAll('input')];
     console.log(array);
   }
-
-  useEffect(() => {
-    setParam(params.id);
-    request(requestByDetailsDrink, requestByDetailsMeal, start, params);
-    countInputs();
-  }, [params.id]);
 
   function renderChecks(array, objectItems) {
     const drinks = document.URL.includes('bebidas') ? objectItems.cocktails[params.id]
@@ -41,14 +37,17 @@ function IngredientsInProcess({ index, element, measures }) {
   }
 
   async function renderProgress() {
-    const objectItems = await JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const objectItems = await storageChecks;
     desrenderNull(objectItems);
     const inputs = document.querySelectorAll('input');
     const array = [...inputs];
+    progressRecipeStorage(param);
     renderChecks(array, objectItems);
   }
 
   useEffect(() => {
+    setParam(params.id);
+    countInputs();
     renderProgress();
   }, []);
 
@@ -66,7 +65,7 @@ function IngredientsInProcess({ index, element, measures }) {
 
   function toogleClass({ target }) {
     const text = target.parentNode.children;
-    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const ingredient = storageChecks;
     if (target.checked === false) {
       const span = target.parentNode.children;
       span[1].classList.remove('marcado');
@@ -75,7 +74,7 @@ function IngredientsInProcess({ index, element, measures }) {
     if (target.checked === true) {
       const span = target.parentNode.children;
       span[1].classList.add('marcado');
-      progressRecipeStorage(text, param);
+      progressRecipeStorage(storageChecks, param, text);
     }
   }
 
