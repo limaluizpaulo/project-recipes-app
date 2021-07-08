@@ -57,6 +57,10 @@ class RecipesDone extends Component {
       <div>
         <Header header="Receitas Feitas" />
         <h2> Recipes Done</h2>
+        <h2> Recipes Done</h2>
+        <h2> Recipes Done</h2>
+        <h2> Recipes Done</h2>
+        <h2> Recipes Done</h2>
         <button
           type="button"
           className="button"
