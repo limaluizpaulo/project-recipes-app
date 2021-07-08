@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ id, type, currentRecipe }) {
+function FavoriteBtn({ id, type, currentRecipe, testId, setShouldUpdate, shouldUpdate }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const typePTBR = type === true ? 'comida' : 'bebida';
   // console.log(type);
@@ -39,11 +39,15 @@ function FavoriteBtn({ id, type, currentRecipe }) {
             alcoholicOrNot: strAlcoholic || '',
             name: strMeal || strDrink,
             image: strMealThumb || strDrinkThumb,
-          }],
+          },
+        ],
       ));
     }
     const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setIsFavorite(favoritesUpdated.some((el) => el.id === id));
+    if (setShouldUpdate) {
+      setShouldUpdate(!shouldUpdate);
+    }
   };
   useEffect(() => {
     const favoritesUpdated = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -61,14 +65,14 @@ function FavoriteBtn({ id, type, currentRecipe }) {
             src={ blackHeartIcon }
             className="small-btn"
             alt="Ícone de coração"
-            data-testid="favorite-btn"
+            data-testid={ testId }
           />)
         : (
           <img
             src={ whiteHeartIcon }
             className="small-btn"
             alt="Ícone de coração"
-            data-testid="favorite-btn"
+            data-testid={ testId }
           />)}
     </button>
   );
