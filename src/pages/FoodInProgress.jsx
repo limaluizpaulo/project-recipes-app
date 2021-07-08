@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 import Context from '../context/Context';
-import { copyLink } from '../services/functions';
+import { copyLink, verifyCheck } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
 
@@ -24,11 +24,12 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
     return (
       mealArray.map((_a, index) => (
         <section
-          // className={ css ? 'showCss' : 'hideCss' }
+          className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
           data-testid={ `${index}-ingredient-step` }
           key={ `ingredientAndMeasure${index + 1}` }
         >
           <input
+            className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
             key={ index }
             type="checkbox"
             onClick={ () => {
@@ -36,7 +37,9 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
             } }
           />
           {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
-          <span>
+          <span
+            className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
+          >
             {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
           </span>
         </section>
@@ -47,9 +50,13 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
   if (details.meals && id === details.meals[0].idMeal) {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
     const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
-    const cssObject = {};
-    mealArray.forEach((_a, index) => { cssObject[index] = false; });
-    console.log(cssObject);
+
+    if (!check) {
+      const cssObject = {};
+      mealArray.forEach((_a, index) => { cssObject[index] = false; });
+      setCheck(cssObject);
+    }
+
     const {
       strMealThumb,
       strMeal,

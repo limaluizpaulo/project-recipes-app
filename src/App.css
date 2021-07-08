@@ -25,11 +25,12 @@
 }
 
 .hideCss {
-  text-decoration: none solid black;
+  color: red;
 }
 
 .showCss {
-  text-decoration: none solid gray;
+  color: blue;
+  text-decoration: none solid black;
 }
 
 /*

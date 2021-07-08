@@ -5,6 +5,9 @@ export const copyLink = ({ url }) => {
   return true;
 };
 
-export const reserveFn = () => {
-
+export const verifyCheck = (index, check) => {
+  if (check) {
+    return check[index];
+  }
+  return false;
 };
