@@ -56,10 +56,19 @@ export async function getDataIngredients(domain, ingredient) {
     const URL_INGREDIENTS = `https://www.${domain}.com/api/json/v1/1/filter.php?i=${ingredient}`;
     const res = await fetch(URL_INGREDIENTS);
     const jsonRes = await res.json();
-    console.log(jsonRes, 'json');
     return jsonRes;
   } catch (e) {
     console.log(e.toString());
   }
 }
-// export default fetchAPI;
+
+export async function getRandomRecipe(domain) {
+  try {
+    const URL_RANDOM = `https://www.${domain}.com/api/json/v1/1/random.php`;
+    const res = await fetch(URL_RANDOM);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
