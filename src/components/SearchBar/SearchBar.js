@@ -18,7 +18,7 @@ function SearchBar() {
       global.alert('Por favor marque uma opção!');
       return 0;
     } if (objDrink.drinks === null) {
-      global.alert('Bebida não encontrada!');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return 0;
     } if (objDrink.drinks.length === 1) {
       return 1;
@@ -31,7 +31,7 @@ function SearchBar() {
     if (objMeal === undefined) {
       return 0;
     } if (objMeal.meals === null) {
-      global.alert('Comida não encontrada!');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return 0;
     } if (Object.keys(objMeal).length === 0) {
       global.alert('Por favor marque uma opção!');
