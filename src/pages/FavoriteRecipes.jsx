@@ -44,7 +44,7 @@ function FavoriteRecipes() {
 
       <section>
         {wasCopied && <span>Link copiado!</span>}
-        {recipesToRender.map((el, idx) => {
+        {recipesToRender && recipesToRender.map((el, idx) => {
           const { id, type, area, category, alcoholicOrNot, name, image } = el;
 
           return (
@@ -80,6 +80,7 @@ function FavoriteRecipes() {
 
           );
         })}
+        {!recipesToRender && 'Nenhuma receita marcada como favorita ainda :/'}
       </section>
     </>
   );
