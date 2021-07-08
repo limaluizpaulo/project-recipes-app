@@ -6,6 +6,9 @@ import {
 } from '../action';
 
 const INITIAL_STATE = {
+  // details: [],
+  foodDatails: {},
+  drinkDatails: {},
   details: {},
   isStart: false,
   isDrink: false,

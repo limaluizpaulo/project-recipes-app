@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
+
+import Ingredients from '../components/Ingredients';
+import '../css/Details.css';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Instructions from '../components/Instructions';
+import DetailsHeader from '../components/DetailsHeader';
+import SharedFavorites from '../components/SharedFavorites';
+
+class Detalhes extends Component {s
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
 import { fetchDrinkDetails, fetchFoodDetails,
@@ -49,6 +62,8 @@ class Detalhes extends Component {
     return drinksDetails(id);
   }
 
+  render() {
+    const { isStart, details } = this.props;
   componentWillUnmount() {
     const { reboot } = this.props;
     reboot('');
@@ -160,21 +175,7 @@ class Detalhes extends Component {
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
-        <button
-          className="details-btn-share"
-          type="button"
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt={ shareIcon } />
-        </button>
-        <button
-          className="details-btn-favorite"
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ this.handleFavClick }
-        >
-          <img src={ favIconColor } alt={ favIconColor } />
-        </button>
+        <SharedFavorites />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>
@@ -221,11 +222,22 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+  mealsDetails: state.foodCategories.recipeDetails,
   details: state.recipeDetails.details,
   isDrink: state.recipeDetails.isDrink,
   drinks: state.drinkCategories.drinks,
   meals: state.foodCategories.meals,
 });
+
+// Detalhes.propTypes = {
+//   idMeal: PropTypes.string.isRequired,
+//   strMealThumb: PropTypes.string.isRequired,
+//   strMeal: PropTypes.string.isRequired,
+//   strCategory: PropTypes.string.isRequired,
+//   mealsDetails: PropTypes.shape.isRequired,
+//   strInstructions: PropTypes.string.isRequired,
+// };
+// });
 
 Detalhes.propTypes = {
   isStart: PropTypes.func.isRequired,
