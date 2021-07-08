@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import copy from 'clipboard-copy';
 import { recipeById } from '../services/requests';
 import { checkRecypeId, checkProgress } from '../services/localStorage';
 import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
 import FavoriteIcon from '../components/FavoriteIcon';
+import ShareButton from '../components/ShareButton';
 
 const Drink = ({ match }) => {
   const history = useHistory();
@@ -14,7 +14,6 @@ const Drink = ({ match }) => {
     params: { id },
   } = match;
   const [drink, setDrink] = useState({});
-  const [msgCopy, setMsgCopy] = useState(false);
 
   useEffect(() => {
     recipeById(id).then(setDrink);
@@ -35,15 +34,7 @@ const Drink = ({ match }) => {
         {renderIngredients(drink)}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
-      <button
-        onClick={ () => copy(`http://localhost:3000${history.location.pathname}`).then(() => {
-          setMsgCopy(true);
-        }) }
-        type="button"
-        data-testid="share-btn"
-      >
-        { msgCopy ? 'Link copiado!' : 'Compartilhar' }
-      </button>
+      <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
       <FavoriteIcon recipe={ drink } idTest="favorite-btn" />
       {!checkRecypeId(id) && (
         <button

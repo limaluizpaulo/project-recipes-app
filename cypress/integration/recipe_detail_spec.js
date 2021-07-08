@@ -345,7 +345,7 @@ describe('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" sej
   });
 });
 
-describe('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
+describe.only('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
   it('Verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -401,7 +401,7 @@ describe('43 - Implemente a solução de forma que, ao clicar no botão de compa
   });
 });
 
-describe.only('44 - Implemente o ícone do coração (favorito) de maneira que, deve vir preenchido caso a receita esteja favoritada e "despreenchido" caso contrário', () => {
+describe('44 - Implemente o ícone do coração (favorito) de maneira que, deve vir preenchido caso a receita esteja favoritada e "despreenchido" caso contrário', () => {
   it('Verifica se a comida favoritada vem com o coração preenchido', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
