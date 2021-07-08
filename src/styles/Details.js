@@ -117,7 +117,7 @@ export const VideoRecipe = styled.section`background: transparent;
   h1 {
     font-size: 2rem;
     font-weight: 600;
-    padding: 0 10px;
+    padding: 10px;
   }
 
   div {
@@ -129,7 +129,67 @@ export const VideoRecipe = styled.section`background: transparent;
     iframe {
       border-radius: 10px;
       height: 35vh;
-      width: 87%;
+      width: 90%;
     }
+  }
+`;
+
+export const RecommendedRecipes = styled.section`background: transparent;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+  position: relative;
+  width: 100%;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 10px;
+  }
+
+  section {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+  }
+`;
+
+export const Zefinha = styled.div`background: #f93602;
+  border-radius: 5px;
+  box-shadow: 2px 4px 10px #dc3545;
+  display: ${(props) => (props.showcard === 'false' ? 'none' : 'flex')};
+  height: 210px;
+  margin: 5px;
+  max-height: 300px;
+  transition: transform 0.5s;
+  width: 35vw;
+
+  &:hover {
+    transform: scale(1.2);
+    width: 40vw;
+    z-index: 2;
+  }
+
+  img {
+    border-radius: 5px 5px 0 0;
+    height: 120px;
+    width: 100%;
+  }
+
+  h1 {
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 0 5px;
+    width: 100%;
+  }
+
+  h2 {
+    color: rgb(97, 93, 93);
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 5px;
+    width: 100%;
   }
 `;

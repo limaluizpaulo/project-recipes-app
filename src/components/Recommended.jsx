@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
 import RecipesContext from '../context/RecipesContext';
 
-import '../styles/Recommended.css';
+import { RecommendedRecipes, Zefinha } from '../styles/Details';
 
 export default function Recommended() {
   const { allDrinks: { drinks } } = useContext(DrinksContext);
@@ -38,9 +38,9 @@ export default function Recommended() {
     }
   }
   return getDrinksDetails ? (
-    <section className="recommended">
+    <RecommendedRecipes>
       <h1>Recomendadas</h1>
-      <div className="cards-recommended">
+      <section>
         <button
           type="button"
           onClick={ () => prev() }
@@ -52,35 +52,34 @@ export default function Recommended() {
         {
           recipes.slice(0, NUMBER_OF_ITEMS)
             .map((recipe, index) => (
-              <div
-                className={ visible.includes(index) ? 'card-rec' : 'card-hidden' }
+              <Zefinha
+                showcard={ visible.includes(index) ? 'true' : 'false' }
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
                 <Link
                   to={ `/comidas/${recipe.idMeal}` }
-                  style={ { textDecoration: 'none' } }
                 >
                   <img
                     data-testid={ `${index}-recomendation-card` }
                     src={ recipe.strMealThumb }
                     alt={ recipe.strMeal }
                   />
-                  <span
+                  <h2
                     data-testid="recipe-category"
                     className="recomendation-category"
                   >
                     { recipe.strCategory }
 
-                  </span>
-                  <span
+                  </h2>
+                  <h1
                     data-testid={ `${index}-recomendation-title` }
                     className="recomendation-title"
                   >
                     {recipe.strMeal}
-                  </span>
+                  </h1>
                 </Link>
-              </div>
+              </Zefinha>
             ))
         }
         <button
@@ -90,12 +89,12 @@ export default function Recommended() {
         >
           &lt;
         </button>
-      </div>
-    </section>
+      </section>
+    </RecommendedRecipes>
   ) : (
-    <section className="recommended">
+    <RecommendedRecipes>
       <h1>Recomendadas</h1>
-      <div className="cards-recommended">
+      <section>
         <button
           type="button"
           onClick={ () => prev() }
@@ -106,8 +105,8 @@ export default function Recommended() {
         {
           drinks.slice(0, NUMBER_OF_ITEMS)
             .map((drink, index) => (
-              <div
-                className={ visible.includes(index) ? 'card-rec' : 'card-hidden' }
+              <Zefinha
+                showcard={ visible.includes(index) ? 'true' : 'false' }
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
@@ -117,21 +116,21 @@ export default function Recommended() {
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
                   />
-                  <span
+                  <h2
                     data-testid="recipe-category"
                     className="recomendation-category"
                   >
                     { drink.strCategory }
 
-                  </span>
-                  <span
+                  </h2>
+                  <h1
                     data-testid={ `${index}-recomendation-title` }
                     className="recomendation-title"
                   >
                     {drink.strDrink}
-                  </span>
+                  </h1>
                 </Link>
-              </div>
+              </Zefinha>
             ))
         }
         <button
@@ -141,8 +140,8 @@ export default function Recommended() {
         >
           &lt;
         </button>
-      </div>
-    </section>
+      </section>
+    </RecommendedRecipes>
 
   );
 }
