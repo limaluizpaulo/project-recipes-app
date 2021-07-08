@@ -91,7 +91,7 @@ function StarRecipes() {
                         {recipe.name}
                       </Card.Title>
                     </div>
-                    <Icons />
+                    <Icons fromHorizontal id={ index } code={ recipe } />
                   </Card.Body>
                 </div>
               </Link>
