@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Header from '../components/header';
 import { fetchApiFoodCategories,
   fetchFilterFoodByCategories,
   fetchFoodRecipes,
   getSearchBarResponse,
-} from '../action';
+} from '../action/index';
 import Cards from '../components/cards';
 import Footer from '../components/footer';
 
@@ -17,20 +18,37 @@ import ButtonCategories from '../components/ButtonCategories';
 class Comidas extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   checked: false,
-    // };
+    this.state = {
+      // checked: false,
+      isRedirect: false,
+    };
 
     this.categories = this.categories.bind(this);
     // this.redirect = this.redirect.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
   async componentDidMount() {
-    const { apiFoodCategories, dispatchFoodRecipes, hasSearchBar } = this.props;
+    const { apiFoodCategories, dispatchFoodRecipes, hasSearchBar, meals } = this.props;
     hasSearchBar(true);
+    console.log(meals);
+    if (meals.length === 0) {
+      dispatchFoodRecipes();
+    }
+
     apiFoodCategories();
-    dispatchFoodRecipes();
     // await apiFoodCategories().then((data) => console.log(data));
+  }
+
+  componentDidUpdate() {
+    const { meals } = this.props;
+    if (meals.length === 1) {
+      this.updateState();
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({ isRedirect: false });
   }
 
   categories() {
@@ -45,11 +63,16 @@ class Comidas extends Component {
     );
   }
 
+  updateState() {
+    this.setState({ isRedirect: true });
+  }
+
   // redirect(id) {
   //   return <Redirect to="/comidas/512456" />;
   // }
 
   render() {
+    const { isRedirect } = this.state;
     const {
       location,
       meals,
@@ -74,7 +97,7 @@ class Comidas extends Component {
                 <Cards
                   url={ match.path }
                   id={ measl.idMeal }
-                  key={ index }
+                  key={ measl.idMeal }
                   img={ measl.strMealThumb }
                   title={ measl.strMeal }
                   index={ index }
@@ -83,6 +106,7 @@ class Comidas extends Component {
             }
           </section>
         </main>
+        { isRedirect === true && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
         { this.categories() }
         <Footer />
       </div>

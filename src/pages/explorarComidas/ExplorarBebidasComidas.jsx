@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import { fetchRamdomRecipe, getRamdomRecipe } from '../../action';
+import { fetchRamdomRecipe, getSearchBarResponse } from '../../action';
 
 export class ExplorarComidasBebidas extends Component {
   constructor(props) {
@@ -17,13 +17,24 @@ export class ExplorarComidasBebidas extends Component {
     };
     this.updateState = this.updateState.bind(this);
     this.handleApi = this.handleApi.bind(this);
+    this.verifyToRedirect = this.verifyToRedirect.bind(this);
+  }
+
+  componentDidMount() {
+    const { hasSearchBar } = this.props;
+    hasSearchBar(false);
+  }
+
+  componentWillUnmount() {
+    console.log('entrei em unmount');
+    this.setState({ id: '', type: '', isRedirect: false });
   }
 
   async handleApi() {
     const { location, fetchApi } = this.props;
 
     if (location.pathname.includes('comida')) {
-      await fetchApi('mealdb', 'meals');
+      fetchApi('mealdb', 'meals');
       return this.setState({ type: 'comidas' });
     }
     await fetchApi('cocktaildb', 'drinks');
@@ -32,15 +43,41 @@ export class ExplorarComidasBebidas extends Component {
 
   updateState(param) {
     const { getDetailsRecipe } = this.props;
+    const { id, should } = this.state;
+    console.log(should);
     console.log(getDetailsRecipe, 'updateState');
-    console.log(getDetailsRecipe.length);
-    if (getDetailsRecipe.length !== 0 && param === 'comidas') {
-      console.log('pão');
-      return this.setState({ id: getDetailsRecipe.idMeal, isRedirect: true });
+    console.log(getDetailsRecipe.length, 'updateState');
+
+    if (!id && getDetailsRecipe.idMeal !== undefined && param === 'comidas') {
+      console.log('entrei');
+
+      return this.setState({ id: getDetailsRecipe.idMeal },
+        () => this.verifyToRedirect('comidas'));
+      // return this.verifyToRedirect();
     }
-    if (getDetailsRecipe.length !== 0 && param === 'bebidas') {
+    if (!id && getDetailsRecipe.idDrink !== undefined && param === 'bebidas') {
       console.log('bebidas');
-      return this.setState({ id: getDetailsRecipe.idDrink, isRedirect: true });
+      return this.setState({ id: getDetailsRecipe.idDrink },
+        () => this.verifyToRedirect('bebidas'));
+    }
+  }
+
+  verifyToRedirect(param) {
+    const { id } = this.state;
+    const { getDetailsRecipe } = this.props;
+
+    // console.log('verify');
+    // console.log(id);
+    // console.log(getDetailsRecipe.idMeal);
+    if (getDetailsRecipe.idMeal === id && param === 'comidas') {
+      console.log('entrei no redirect');
+      console.log(id);
+      console.log(getDetailsRecipe.idMeal);
+      return this.setState({ isRedirect: true });
+    }
+    if (getDetailsRecipe.idDrink === id && param === 'bebidas') {
+      console.log('bebidas');
+      return this.setState({ isRedirect: true });
     }
   }
 
@@ -73,7 +110,6 @@ export class ExplorarComidasBebidas extends Component {
         >
           Me Surpreenda!
         </button>
-        { }
       </div>);
   }
 
@@ -81,7 +117,7 @@ export class ExplorarComidasBebidas extends Component {
     const { location } = this.props;
     const { isRedirect, type, id } = this.state;
     const PAGE_LOCATION = location.pathname.includes('comida');
-    console.log(type);
+    // console.log(type);
     return (
       <div>
         <Header location={ location } />
@@ -98,16 +134,18 @@ export class ExplorarComidasBebidas extends Component {
 ExplorarComidasBebidas.propTypes = {
   hasSearchBar: PropTypes.func.isRequired,
   sendRamdomRecipe: PropTypes.func.isRequired,
-  location: PropTypes.shape,
+  location: PropTypes.shape.isRequired,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   // getRamdomRecipe: state.exploreScreen.recipe,
-  getDetailsRecipe: state.foodCategories.recipeDetails,
+  // getDetailsRecipe: state.recipeDetails.details,
+  getDetailsRecipe: state.recipeDetails.details,
 
 });
 const mapDispatchToProps = (dispatch) => ({
-  sendRamdomRecipe: (e) => dispatch(getRamdomRecipe(e)),
+  // sendRamdomRecipe: (e) => dispatch(getRamdomRecipe(e)),
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
   fetchApi: (e, a) => dispatch(fetchRamdomRecipe(e, a)),
 });
 

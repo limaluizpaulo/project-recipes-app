@@ -1,13 +1,14 @@
 import invokeAlert from '../helper/alertMsg';
 // import foodData from '../help/foodData';
 
-const RESPONSE_ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+export const ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 export const USER_EMAIL = 'USER_EMAIL';
 export const ALL_FOOD_CATEGORIES = 'ALL_FOOD_CATEGORIES';
 export const ALL_DRINK_CATEGORIES = 'ALL_DRINK_CATEGORIES';
 export const IS_LOADING = 'IS_LOADING';
-export const RAMDOM_RECIPE = 'RAMDOM_RECIPE';
+export const AREA = 'AREA';
+export const INGREDIENTS = 'INGREDIENTS';
 export const IS_SEARCHBAR = 'IS_SEARCHBAR';
 export const ALL_FOOD_RECIPES = 'ALL_FOOD_RECIPES';
 export const FOOD_BY_CATEGORIES = 'FOOD_BY_CATEGORIES';
@@ -30,14 +31,16 @@ export const getAllDrinkCategories = (allDrinkCategories) => ({
   type: ALL_DRINK_CATEGORIES, allDrinkCategories });
 export const getSearchBarResponse = (searchBarOn) => ({
   type: IS_SEARCHBAR, searchBarOn });
-export const getRamdomRecipe = (ramdomRecipe) => ({
-  type: RAMDOM_RECIPE, ramdomRecipe });
+export const getIngredients = (ingrediente) => ({
+  type: INGREDIENTS, ingrediente });
 export const getAllFoodRecipes = (recipes) => ({
   type: ALL_FOOD_RECIPES, recipes });
 export const getFoodByCategories = (meals) => ({
   type: FOOD_BY_CATEGORIES, meals });
 export const getFoodDetails = (mealsDetails) => ({
   type: RECIPE_DETAILS_FOOD, mealsDetails });
+export const getFoodArea = (AreaDetails) => ({
+  type: AREA, AreaDetails });
 export const getDrinkDetails = (drinksDetails) => ({
   type: RECIPE_DETAILS_DRINK, drinksDetails });
 export const getDrinkByCategories = (drinks) => ({
@@ -79,7 +82,7 @@ export const fetchFoodRecipes = (name = '') => (dispatch) => {
     .then((allFood) => {
       if (allFood.meals === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
       const recipes = allFood.meals.slice(0, maxRecipes);
@@ -117,11 +120,10 @@ export const fetchFoodRecipesByIngredients = (ingrediente = '') => (dispatch) =>
     .then((allFoodRecipes) => {
       if (allFoodRecipes.meals === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
       const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
-      console.log(recipes);
       dispatch(getAllFoodRecipes(recipes));
     });
 };
@@ -130,13 +132,13 @@ export const fetchFoodRecipesByfirstLetter = (primeiraletra = '') => (dispatch) 
   dispatch(isLoading());
   fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraletra}`)
     .then((response) => response.json())
-    .then((allFoodRecipes) => {
-      if (allFoodRecipes.meals === null) {
+    .then((Recipes) => {
+      if (Recipes.meals === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
-      const recipes = allFoodRecipes.meals.slice(0, maxRecipes);
+      const recipes = Recipes.meals.slice(0, maxRecipes);
       dispatch(getAllFoodRecipes(recipes));
     });
 };
@@ -149,7 +151,7 @@ export const fetchDrinksRecipes = (name = '') => (dispatch) => {
     .then((allDrinksRecipes) => {
       if (allDrinksRecipes.drinks === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
       const drinksRecipes = allDrinksRecipes.drinks.slice(0, maxRecipes);
@@ -165,7 +167,7 @@ export const fetchDrinksRecipesByIngredient = (ingrediente = '') => (dispatch) =
     .then((allDrinksRecipes) => {
       if (allDrinksRecipes.drinks === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
       const drinks = allDrinksRecipes.drinks.slice(0, maxRecipes);
@@ -181,7 +183,7 @@ export const fetchDrinksRecipesByFirstLetter = (letter = 'a') => (dispatch) => {
     .then((allDrinksRecipesByFirsLetter) => {
       if (allDrinksRecipesByFirsLetter.drinks === null) {
         return invokeAlert(
-          alert, RESPONSE_ERROR,
+          alert, ERROR,
         );
       }
       const drinksRecipes = allDrinksRecipesByFirsLetter.drinks.slice(0, maxRecipes);
@@ -195,11 +197,6 @@ export const fetchRamdomRecipe = (param = 'mealdb', param2 = 'meals') => (dispat
   fetch(`https://www.the${param}.com/api/json/v1/1/random.php`)
     .then((response) => response.json())
     .then((ramdomRecipeData) => {
-      // const ramdomRecipe = ramdomRecipeData;
-      // console.log(ramdomRecipeData[param2][0]);
-      console.log(param2);
-      console.log(ramdomRecipeData);
-      console.log(ramdomRecipeData[param2]);
       dispatch(getFoodDetails(ramdomRecipeData[param2][0]));
     });
 };
@@ -213,6 +210,26 @@ export const fetchFoodDetails = (id) => (dispatch) => {
     });
 };
 
+export const fetchByIngredient = (param) => (dispatch) => {
+  const maxRecipes = 12;
+  dispatch(isLoading());
+
+  fetch(`https://www.the${param}db.com/api/json/v1/1/list.php?i=list`)
+    .then((response) => response.json())
+    .then((ingredientDetails) => {
+      if (param === 'cocktail') {
+        const type = 'drinks';
+        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
+        dispatch(getIngredients(ingredients));
+      }
+      if (param === 'meal') {
+        const type = `${param}s`;
+
+        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
+        dispatch(getIngredients(ingredients));
+      }
+    });
+};
 export const fetchDrinkDetails = (id) => (dispatch) => {
   dispatch(isLoading());
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -220,5 +237,13 @@ export const fetchDrinkDetails = (id) => (dispatch) => {
     .then((drinkDetails) => {
       dispatch(getDrinkDetails(drinkDetails.drinks[0]));
       dispatch(checkPage());
+    });
+};
+export const fetchArea = () => (dispatch) => {
+  dispatch(isLoading());
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((response) => response.json())
+    .then((Area) => {
+      dispatch(getFoodArea(Area));
     });
 };

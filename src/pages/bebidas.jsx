@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import Header from '../components/header';
 import ButtonCategories from '../components/ButtonCategories';
 import Cards from '../components/cards';
@@ -10,17 +11,44 @@ import {
   fetchDrinksRecipes,
   fetchFilterDrinkByCategories,
   getSearchBarResponse,
-} from '../action';
+} from '../action/index';
 
 class Bebidas extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRedirect: false,
+    };
+    this.updateState = this.updateState.bind(this);
+  }
+
   componentDidMount() {
-    const { dispatchDrinks, apiDrinkCategories, hasSearchBar } = this.props;
+    const { dispatchDrinks, apiDrinkCategories, drinks, hasSearchBar } = this.props;
     hasSearchBar(true);
-    dispatchDrinks();
+    if (drinks.length === 0) {
+      console.log('entrei');
+      dispatchDrinks();
+    }
     apiDrinkCategories();
   }
 
+  componentDidUpdate() {
+    const { drinks } = this.props;
+    if (drinks.length === 1) {
+      this.updateState();
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({ isRedirect: false });
+  }
+
+  updateState() {
+    this.setState({ isRedirect: true });
+  }
+
   render() {
+    const { isRedirect } = this.state;
     const {
       drinks,
       location,
@@ -53,6 +81,7 @@ class Bebidas extends Component {
               ))
             }
           </section>
+          { isRedirect === true && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
         </main>
         <Footer />
       </div>
