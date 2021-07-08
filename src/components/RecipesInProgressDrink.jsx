@@ -12,7 +12,7 @@ export default function RecipesInProgressDrink() {
   const [measure, setMeasure] = useState([]);
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
-
+  const [ingredientMade, setIngreditentMade] = useState([]);
   const { pathname } = useLocation();
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateDrink[0]);
@@ -40,14 +40,28 @@ export default function RecipesInProgressDrink() {
     if (checked) {
       setDisableButton(disableButton + 1);
       const buttonCheck = document.getElementById(id);
-
       buttonCheck.classList.add('riscado');
+      setIngreditentMade([...ingredientMade, id]);
     } else {
       setDisableButton(disableButton - 1);
       const buttonCheck = document.getElementById(id);
       buttonCheck.classList.remove('riscado');
+      const filtered = ingredientMade.filter((e) => e !== id);
+      setIngreditentMade(filtered);
     }
   };
+  const saveLocalStorage = () => {
+    const save = ingredientMade;
+    localStorage.setItem('RecipesinProgress', JSON.stringify(save));
+  };
+  const getLocalStorage = () => {
+    const ingredientSaved = JSON.parse(localStorage.getItem('RecipesinProgress'));
+    if (ingredientSaved != null) {
+      setIngreditentMade(ingredientSaved);
+    }
+  };
+  useEffect(getLocalStorage, []);
+  useEffect(saveLocalStorage, [handleChange]);
 
   const removeFavorited = () => {
     const id = pathname.split('/')[2];
@@ -96,6 +110,7 @@ export default function RecipesInProgressDrink() {
             id={ ingredient }
             key={ index }
             value={ index }
+            className={ ingredientMade.includes(ingredient) ? 'riscado' : 'naoRiscado' }
 
           >
             {`${ingredient} - `}
@@ -106,6 +121,7 @@ export default function RecipesInProgressDrink() {
                 value={ ingredient }
                 type="checkbox"
                 onChange={ handleChange }
+                checked={ ingredientMade.includes(ingredient) }
               />
             </span>
 
