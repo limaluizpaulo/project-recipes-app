@@ -19,6 +19,7 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [filtredByIngredients, setFiltredByIngredients] = useState(false);
 
   const location = useLocation();
 
@@ -28,7 +29,6 @@ function RecipesProvider({ children }) {
   };
 
   const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
-    console.log(mealsOrDrinks, searchParameter, searchPayload);
     const recipesBySearch = await fetchRecipesBySearch(
       mealsOrDrinks, searchParameter, searchPayload,
     );
@@ -43,6 +43,7 @@ function RecipesProvider({ children }) {
 
   const filterByIngredients = (searchPayload) => {
     searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+    setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };
 
@@ -76,6 +77,8 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
+    filtredByIngredients,
+    setFiltredByIngredients,
   };
 
   useEffect(() => {
