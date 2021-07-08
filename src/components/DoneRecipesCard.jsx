@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getRecipesDone } from '../services/helpers/localStorage';
 import shareRecipe from '../images/shareIcon.svg';
@@ -16,12 +18,18 @@ function DoneRecipesCard() {
     getRecipesDone();
   }, []);
 
+  function handleOnClick({ target }) {
+    copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
+    toast.success('Link copiado!');
+  }
+
   const recipesIsDone = getRecipesDone();
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
   return (
     <div className="card-my-recipes">
+      <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div key={ index }>
           <div className="card-combined-itens">
@@ -45,17 +53,16 @@ function DoneRecipesCard() {
             <div>
               <button
                 type="button"
-                onClick={ () => copyLink(`http://localhost:3000/${recipe.type}s/${recipe.id}`) }
+                onClick={ handleOnClick }
               >
                 <img
+                  name={ recipe.type }
+                  id={ recipe.id }
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareRecipe }
                   alt={ recipe.name }
                 />
               </button>
-              <span id={ `mensage-${recipe.id}` }>
-                Link copiado!
-              </span>
             </div>
           </div>
           <Link to={ `/${recipe.type}s/${recipe.id}` }>

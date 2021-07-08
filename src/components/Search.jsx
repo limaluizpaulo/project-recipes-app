@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+// import swal from 'sweetalert';
 import RecipeContext from '../context/Context';
+
 import messageAlert from '../services/helpers/alertMessage';
 
 function InputSearch() {
@@ -25,6 +27,7 @@ function InputSearch() {
     event.preventDefault();
     if (valueRadioButton === 'Primeira letra' && searchInput.length > 1) {
       messageAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      // swal('Sua busca deve conter somente 1 (um) caracter', 'Filtro invalido', 'error');
     }
     setValueRadio(valueRadioButton);
     setInputValue(searchInput);

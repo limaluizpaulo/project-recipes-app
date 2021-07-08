@@ -30,7 +30,6 @@ const FoodDetails = ({ children }) => {
     const idIndex = 3;
     const pathname = location.pathname.split('/').slice(1, idIndex).join('/');
     const url = `${location.protocol}//${location.host}/${pathname}`;
-    console.log(url);
     copy(url);
     setCopied(true);
     toast.success('Link copiado!');
