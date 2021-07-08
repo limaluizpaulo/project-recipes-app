@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CardRecipesDone from '../components/CardRecipesDone';
 import Header from '../components/Header';
 import dataRecipesDone from '../dataRecipesDone';
+import '../Style/Recipes.css';
 
 class RecipesDone extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class RecipesDone extends Component {
   }
 
   getLocalRecipes() {
+    // const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     this.setState({ recipesDone: dataRecipesDone });
   }
 
@@ -55,16 +57,9 @@ class RecipesDone extends Component {
       <div>
         <Header header="Receitas Feitas" />
         <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
         <button
           type="button"
+          className="button"
           data-testid="filter-by-all-btn"
           onClick={ () => this.handleClick('') }
         >
