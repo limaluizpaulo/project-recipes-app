@@ -2,17 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-elastic-carousel';
 
-import { useHistory, useLocation } from 'react-router-dom';
-
-import './style/Details.css';
+import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import IconButton from '../IconButton/IconButton';
-
-const copy = require('clipboard-copy');
+import ShareFavIcons from '../ShareFavIcons/ShareFavIcons';
 
 /*
 ---Refactoring---
@@ -76,41 +69,22 @@ function Details({ id, recipe, recommendations }) {
   }, [favoritedRecipes]);
 
   // RENDER FUNCTIONS
-  const renderIcons = () => (
-    <>
-      <IconButton
-        onClick={ () => {
-          copy(`http://localhost:3000${pathname}`);
-          setCopyLink(true);
-        } }
-        dataTest="share-btn"
-        src={ shareIcon }
-        alt="Share Icon"
-      />
+
+  const renderIngredients = () => (
+    <ul>
       {
-        isFav
-          ? (
-            <IconButton
-              onClick={
-                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
-              }
-              dataTest="favorite-btn"
-              src={ blackHeartIcon }
-              alt="Favorited"
-            />
-          )
-          : (
-            <IconButton
-              onClick={
-                () => localstorageSaveFavoriteRecipe(recipe, !isFav)
-              }
-              dataTest="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="Not Favorited"
-            />
-          )
+        ingredients.map(([ingredient, quantity], index) => (
+          <li
+            key={ ingredient }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredient}
+            {', '}
+            {quantity}
+          </li>
+        ))
       }
-    </>
+    </ul>
   );
 
   const renderRecommendation = () => {
@@ -135,6 +109,21 @@ function Details({ id, recipe, recommendations }) {
     );
   };
 
+  const renderYoutubeVideo = () => (
+    recipe.strYoutube
+    && (
+      <div>
+        <h2>Video</h2>
+        <iframe
+          title={ recipe[RECIPE_MAIN_KEY] }
+          src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+          width="420"
+          height="315"
+          data-testid="video"
+        />
+      </div>
+    )
+  );
   return (
     <>
       <header>
@@ -148,38 +137,28 @@ function Details({ id, recipe, recommendations }) {
         <div>
           <h1 data-testid="recipe-title">{recipe[RECIPE_MAIN_KEY]}</h1>
           <div>
-            { renderIcons() }
+            <ShareFavIcons
+              isFav={ isFav }
+              favSave={ localstorageSaveFavoriteRecipe }
+              shareCopyLocation={ pathname }
+              shareSetCopyLocation={ setCopyLink }
+            />
             {
               copyLink
               && <p>Link copiado!</p>
             }
           </div>
           <h3 data-testid="recipe-category">
-            {
-              mealsOrDrinks === 'meals'
-                ? recipe.strCategory
-                : recipe.strAlcoholic
-            }
+            { RECIPE_MAIN_KEY === 'strMeals'
+              ? recipe.strCategory
+              : recipe.strAlcoholic }
           </h3>
         </div>
       </header>
       <section>
         <div>
           <p>Ingredients</p>
-          <ul>
-            {
-              ingredients.map(([ingredient, quantity], index) => (
-                <li
-                  key={ ingredient }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {ingredient}
-                  {', '}
-                  {quantity}
-                </li>
-              ))
-            }
-          </ul>
+          { renderIngredients() }
         </div>
         <div>
           <h2>Instructions</h2>
@@ -187,26 +166,9 @@ function Details({ id, recipe, recommendations }) {
         </div>
         <div>
           <h2>Recommendations</h2>
-          {
-            renderRecommendation()
-          }
+          { renderRecommendation() }
         </div>
-        {
-          recipe.strYoutube
-            && (
-              <div>
-                <h2>Video</h2>
-                <iframe
-                  title={ recipe[RECIPE_MAIN_KEY] }
-                  src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
-                  width="420"
-                  height="315"
-                  data-testid="video"
-                />
-              </div>
-            )
-        }
-
+        { renderYoutubeVideo() }
       </section>
     </>
   );
