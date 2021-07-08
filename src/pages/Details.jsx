@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
+// import { copy } from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
