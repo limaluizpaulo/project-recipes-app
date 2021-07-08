@@ -72,9 +72,21 @@ body {
 }
 
 .carouselimg {
-  width: 10%;
+  max-width: 70%;
 }
 
 .Detailsimg {
-  width: 30%;
+  margin: 5px;
+  max-width: 50%;
+}
+
+.carouselItem {
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  padding: 10px 20px;
+}
+
+h6 {
+  margin: 0px 20%;
 }

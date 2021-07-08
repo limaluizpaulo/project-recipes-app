@@ -8,7 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
-import Carousel from './detailsElements/Carousel';
+import CarouselElement from './detailsElements/CarouselElement';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
@@ -86,10 +86,10 @@ function DetailsReceita(props) {
       <Link to="/">
         <img data-testid="share-btn" src={ shareIcon } alt="" />
       </Link>
-      <Link data-testid="start-recipe-btn" to={ `/${apelidoAPI}/${id}/in-progress` }>
+      <CarouselElement sugest={ [sugestoes, type] } />
+      <Link className="footer" data-testid="start-recipe-btn" to={ `/${apelidoAPI}/${id}/in-progress` }>
         iniciar receita
       </Link>
-      <Carousel sugest={ [sugestoes, type] } />
     </div>
   );
 }
