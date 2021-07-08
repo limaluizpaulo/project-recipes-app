@@ -37,7 +37,7 @@ class CardRecipesDone extends Component {
     // console.log(id);
     return (
       <div>
-        <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}`}>
+        <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
           <img
             width="30px"
             src={ image }
