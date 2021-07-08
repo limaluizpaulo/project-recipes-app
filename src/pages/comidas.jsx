@@ -78,7 +78,7 @@ class Comidas extends Component {
                 <Cards
                   url={ match.path }
                   id={ measl.idMeal }
-                  key={ index }
+                  key={ measl.idMeal }
                   img={ measl.strMealThumb }
                   title={ measl.strMeal }
                   index={ index }

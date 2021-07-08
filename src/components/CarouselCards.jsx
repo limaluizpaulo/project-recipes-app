@@ -1,17 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/cards.css';
-import { Link } from 'react-router-dom';
 
-export default function Cards({ id, img, title, index, url }) {
-  // const { id, img, title, index, url } = this.props;
+export default function CarouselCards({ id, img, title, index, url, subTitle }) {
   return (
     <Link to={ `${url}/${id}` }>
       <Card
-        data-testid={ `${index}-recipe-card` }
+        data-testid={ `${index}-recomendation-card` }
       >
         <Card.Img
           variant="top"
@@ -19,17 +18,21 @@ export default function Cards({ id, img, title, index, url }) {
           data-testid={ `${index}-card-img` }
         />
         <Card.Body>
-          <Card.Title data-testid={ `${index}-card-name` }>{ title }</Card.Title>
+          <Card.Subtitle>{ subTitle }</Card.Subtitle>
+          <Card.Title data-testid={ `${index}-recomendation-title` }>
+            { title }
+          </Card.Title>
         </Card.Body>
       </Card>
     </Link>
   );
 }
 
-Cards.propTypes = {
+CarouselCards.propTypes = {
   index: PropTypes.number.isRequired,
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
 };
