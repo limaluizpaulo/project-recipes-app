@@ -4,7 +4,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { removeFromLocalStorage } from '../services/helpers/localStorage';
 import { UserContext } from '../context/UserProvider';
 
-const FavoriteButton = ({ id, index }) => {
+const FavoriteButton = ({ id, index = 0 }) => {
   const { removeFavorites } = useContext(UserContext);
 
   return (

@@ -1,10 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { DetailsRecipes, Ingredients, Instructions, HeaderRecipes } from '../components';
+import {
+  DetailsRecipes,
+  Ingredients,
+  Instructions,
+  HeaderRecipes,
+  ShareButton,
+  FavoriteButton,
+} from '../components';
 import { MealsContext } from '../context/MealsProvider';
 import { DrinksContext } from '../context/DrinksProvider';
+import { UserContext } from '../context/UserProvider';
 
-const MealsDetails = ({ match: { params: { id } } }) => {
+const MealsDetails = ({
+  match: {
+    params: { id },
+  },
+}) => {
   const [mealsDetails, setMealsDetail] = useState({});
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -14,11 +26,15 @@ const MealsDetails = ({ match: { params: { id } } }) => {
 
   const { drinks } = useContext(DrinksContext);
 
-  const { strMeal,
+  const { copied } = useContext(UserContext);
+
+  const {
+    strMeal,
     strCategory,
     strYoutube,
     strInstructions,
-    strMealThumb } = mealsDetails;
+    strMealThumb,
+  } = mealsDetails;
 
   const newObj = {
     id,
@@ -51,9 +67,17 @@ const MealsDetails = ({ match: { params: { id } } }) => {
   }
 
   return (
-
     <div>
       <HeaderRecipes newObj={ newObj } />
+      {copied ? 'Link copiado!' : ''}
+
+      <ShareButton
+        type={ newObj.type === 'meals' ? 'comida' : 'bebida' }
+        id={ id }
+      />
+
+      <FavoriteButton id={ id } />
+
       <Instructions newObj={ newObj } />
       <Ingredients newObj={ newObj } />
       <DetailsRecipes newObj={ newObj } />

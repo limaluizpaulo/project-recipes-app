@@ -4,7 +4,7 @@ import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import { UserContext } from '../context/UserProvider';
 
-const ShareButton = ({ type, id, index }) => {
+const ShareButton = ({ type, id, index = 0 }) => {
   const { copyToClipboard } = useContext(UserContext);
 
   return (
