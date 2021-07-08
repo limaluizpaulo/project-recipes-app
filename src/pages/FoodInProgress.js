@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import fetchAPI from '../services/fetchApi';
-import favoriteIcon from '../images/blackHeartIcon.svg';
-import sharedIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class FoodInProgress extends React.Component {
   constructor() {
     super();
     this.state = {
       detailsRecipe: [],
+      copyLink: false,
       checkedIngredients: [],
     };
     this.renderIngredients = this.renderIngredients.bind(this);
     this.handleChecked = this.handleChecked.bind(this);
     this.fetchDetails = this.fetchDetails.bind(this);
+    this.onClickShare = this.onClickShare.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +40,13 @@ class FoodInProgress extends React.Component {
       checkedIngredients: prevStorage.meals[idMeal],
     });
     localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
+  }
+
+  onClickShare() {
+    copy(window.location.href);
+    this.setState({
+      copyLink: true,
+    });
   }
 
   setInitialLocal() {
@@ -63,13 +73,20 @@ class FoodInProgress extends React.Component {
   }
 
   async fetchDetails() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { meals } = responseAPI;
-    this.setState({
-      detailsRecipe: meals,
-    }, () => this.setInitialLocal());
+    this.setState(
+      {
+        detailsRecipe: meals,
+      },
+      () => this.setInitialLocal(),
+    );
   }
 
   renderIngredients() {
@@ -91,7 +108,9 @@ class FoodInProgress extends React.Component {
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
           className={
-            checkedIngredients.includes(`${measure} ${ingredients}`) ? 'checked' : null
+            checkedIngredients.includes(`${measure} ${ingredients}`)
+              ? 'checked'
+              : null
           }
         >
           <input
@@ -100,14 +119,14 @@ class FoodInProgress extends React.Component {
             onChange={ this.handleChecked }
             name={ ing }
           />
-          { ing }
+          {ing}
         </li>
       );
     });
   }
 
   render() {
-    const { detailsRecipe } = this.state;
+    const { detailsRecipe, copyLink } = this.state;
     if (detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
@@ -120,22 +139,33 @@ class FoodInProgress extends React.Component {
           width="350"
         />
         <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
-        <img src={ favoriteIcon } alt="Favoritar Comida" data-testid="favorite-btn" />
-        <img src={ sharedIcon } alt="Compartilhar Comida" data-testid="share-btn" />
+        <p>{copyLink ? 'Link copiado!' : null}</p>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ this.onClickShare }
+        >
+          <img src={ shareIcon } alt="Compartilhar" />
+        </button>
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ this.onClickFavoriteIcon }
+        >
+          <img src={ blackHeartIcon } alt="Favoritar" />
+        </button>
         <p data-testid="recipe-category">
           {`Categoria: ${detailsRecipe[0].strCategory}`}
         </p>
-        <p
-          data-testid="instructions"
-        >
+        <p data-testid="instructions">
           {`Instrução: ${detailsRecipe[0].strInstructions}`}
         </p>
         <h3>Ingredientes</h3>
-        <ul>
-          {this.renderIngredients()}
-        </ul>
+        <ul>{this.renderIngredients()}</ul>
 
-        <button data-testid="finish-recipe-btn" type="button">Finalizar receita</button>
+        <button data-testid="finish-recipe-btn" type="button">
+          Finalizar receita
+        </button>
       </section>
     );
   }

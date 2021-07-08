@@ -63,13 +63,20 @@ class BeveragesInProgress extends React.Component {
   }
 
   async fetchDetails() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { drinks } = responseAPI;
-    this.setState({
-      detailsRecipe: drinks,
-    }, () => this.setInitialLocal());
+    this.setState(
+      {
+        detailsRecipe: drinks,
+      },
+      () => this.setInitialLocal(),
+    );
   }
 
   renderIngredients() {
@@ -83,16 +90,18 @@ class BeveragesInProgress extends React.Component {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
       const ing = `${measure} ${ingredients}`;
-      if (ingredients === '' || ingredients === null || ingredients === undefined) {
+      if (
+        ingredients === ''
+        || ingredients === null
+        || ingredients === undefined
+      ) {
         return null;
       }
       return (
         <li
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
-          className={
-            checkedIngredients.includes(ing) ? 'checked' : null
-          }
+          className={ checkedIngredients.includes(ing) ? 'checked' : null }
         >
           <input
             type="checkbox"
@@ -100,7 +109,7 @@ class BeveragesInProgress extends React.Component {
             onChange={ this.handleChecked }
             name={ ing }
           />
-          { ing }
+          {ing}
         </li>
       );
     });
@@ -120,22 +129,28 @@ class BeveragesInProgress extends React.Component {
           width="350"
         />
         <h1 data-testid="recipe-title">{detailsRecipe[0].strDrink}</h1>
-        <img src={ favoriteIcon } alt="Favoritar Bebida" data-testid="favorite-btn" />
-        <img src={ sharedIcon } alt="Compartilhar Bebida" data-testid="share-btn" />
+        <img
+          src={ favoriteIcon }
+          alt="Favoritar Bebida"
+          data-testid="favorite-btn"
+        />
+        <img
+          src={ sharedIcon }
+          alt="Compartilhar Bebida"
+          data-testid="share-btn"
+        />
         <p data-testid="recipe-category">
           {`Categoria: ${detailsRecipe[0].strAlcoholic}`}
         </p>
-        <p
-          data-testid="instructions"
-        >
+        <p data-testid="instructions">
           {`Instrução: ${detailsRecipe[0].strInstructions}`}
         </p>
         <h3>Ingredientes</h3>
-        <ul>
-          {this.renderIngredients()}
-        </ul>
+        <ul>{this.renderIngredients()}</ul>
 
-        <button data-testid="finish-recipe-btn" type="button">Finalizar receita</button>
+        <button data-testid="finish-recipe-btn" type="button">
+          Finalizar receita
+        </button>
       </section>
     );
   }
