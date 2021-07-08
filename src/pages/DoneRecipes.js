@@ -4,7 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 
 import shareIcon from '../images/shareIcon.svg';
 import './style/DoneRecipes.css';
-import { fetchRecipesById } from '../services/recipesAPI';
+// import { fetchRecipesById } from '../services/recipesAPI';
 
 const copy = require('clipboard-copy');
 
@@ -13,14 +13,13 @@ function DoneRecipes() {
     redirectToRecipeDetails,
     setRedirectToRecipeDetails,
     lookDetailsRecipe,
-    recipeDetails,
   } = useContext(RecipesContext);
 
   const [copyLink, setCopyLink] = useState('');
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [allRecipes, setAllRecipes] = useState();
   const [redirectType, setRedirectType] = useState();
-  const [idType, setIdType] = useState();
+  const [recipeId, setRecipeId] = useState();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
@@ -45,17 +44,18 @@ function DoneRecipes() {
     setDoneRecipes(allRecipes);
   };
 
-  const getFullRecipe = async (id, type) => {
-    setRedirectType(type);
-    setIdType(type === 'comida' ? 'idMeal' : 'idDrink');
-    const recipe = await fetchRecipesById(id, type === 'comida' ? 'meals' : 'drinks');
+  // retirar get Full
+  const selectRecipe = (recipe) => {
+    setRedirectType(recipe.type);
+    setRecipeId(recipe.id);
+    console.log(recipe);
     lookDetailsRecipe(recipe);
   };
 
   return (
     <div className="doneRecipes">
       { redirectToRecipeDetails
-        && <Redirect to={ `/${redirectType}s/${recipeDetails[idType]}` } /> }
+        && <Redirect to={ `/${redirectType}s/${recipeId}` } /> }
       <button
         type="button"
         onClick={ getAllTypes }
@@ -87,7 +87,7 @@ function DoneRecipes() {
             <label key={ index } htmlFor={ recipe.name }>
               <input
                 type="radio"
-                onClick={ () => getFullRecipe(recipe.id, recipe.type) }
+                onClick={ () => selectRecipe(recipe) }
                 id={ recipe.name }
                 className="goToDetail"
               />

@@ -19,15 +19,19 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+<<<<<<< HEAD
   const [startedRecipes, setStartedRecipes] = useState([]);
   const [favoritedRecipes, setFavoritedRecipes] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+=======
+  const [filtredByIngredients, setFiltredByIngredients] = useState(false);
+>>>>>>> eb152a480aa815db3729e066488bacce79760ef1
 
   const location = useLocation();
 
-  const getInitialRecipes = async () => {
-    const allRecipes = await fetchAllRecipes(mealsOrDrinks);
-    setRecipes(allRecipes.meals);
+  const getInitialRecipes = async (mealsDrinks) => {
+    const allRecipes = await fetchAllRecipes(mealsDrinks);
+    setRecipes(allRecipes[mealsDrinks]);
   };
 
   const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
@@ -45,12 +49,13 @@ function RecipesProvider({ children }) {
 
   const filterByIngredients = (searchPayload) => {
     searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+    setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };
 
   const filterByArea = async ({ target: { value } }) => {
     if (value === 'All') {
-      getInitialRecipes();
+      getInitialRecipes('meals');
     } else {
       const { meals } = await fetchRecipesByArea(value);
       setRecipes(meals);
@@ -148,6 +153,7 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
+<<<<<<< HEAD
     startedRecipes,
     favoritedRecipes,
     localstorageSaveStartedRecipe,
@@ -176,6 +182,13 @@ function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
+=======
+    filtredByIngredients,
+    setFiltredByIngredients,
+  };
+
+  useEffect(() => {
+>>>>>>> eb152a480aa815db3729e066488bacce79760ef1
     if (location.pathname.includes('comidas')) {
       setMealsOrDrinks('meals');
     }

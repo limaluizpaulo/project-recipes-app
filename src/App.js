@@ -6,7 +6,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './pages/Login';
-import Recipes from './pages/Recipes';
 import Explore from './pages/Explore';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreDrinks from './pages/ExploreDrinks';
@@ -18,6 +17,8 @@ import DrinksDetails from './pages/DrinksDetails';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import DrinksRecipes from './pages/DrinksRecipes';
+import MealsRecipes from './pages/MealsRecipes';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header/Header';
@@ -53,8 +54,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/comidas" component={ Recipes } />
-        <Route exact path="/bebidas" component={ Recipes } />
+        <Route exact path="/comidas" component={ MealsRecipes } />
+        <Route exact path="/bebidas" component={ DrinksRecipes } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />

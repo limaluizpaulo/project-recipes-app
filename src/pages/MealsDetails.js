@@ -60,8 +60,6 @@ function MealsDetails({ match: { params: { id } } }) {
   }, []);
 
   const renderContent = () => {
-    console.log(Object.keys(recipe).length === 0);
-    console.log(Object.keys(recommendations).length === 0);
     const hasRecipe = Object.keys(recipe).length !== 0;
     const hasRecommendations = Object.keys(recommendations).length !== 0;
     if (hasRecipe && hasRecommendations) {
