@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 import FoodCard from '../components/FoodCard/FoodCard';
-import CategoryButton from '../components/CategoryButton';
+import CategoryButton from '../components/CategoryButton/CategoryButton';
 import { fetchCategories } from '../services/recipesAPI';
 import './style/Recipes.css';
 
 function Recipes({ type }) {
-  const { recipes } = useContext(RecipesContext);
+  const {
+    recipes,
+    recipesCategory,
+    setRecipesCategory,
+    searchByCategory,
+  } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
   const categoryButtonQuantity = 5;
-  const idRecipeType = type === 'comidas' ? 'idMeal' : 'idDrink';
   const mealsOrDrinks = type === 'comidas' ? 'meals' : 'drinks';
   const cardMaximun = 12;
   const lengthRecipes = recipes ? recipes.length : null;
@@ -27,13 +30,24 @@ function Recipes({ type }) {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    searchByCategory(mealsOrDrinks);
+  }, [recipesCategory]);
+
   return (
     <div>
       { lengthRecipes === null
       && global.alert(alertMsg) }
-      { lengthRecipes === 1
-      && <Redirect to={ `/${type}/${recipes[0][idRecipeType]}` } /> }
+      {/* { lengthRecipes === 1
+      && <Redirect to={ `/${type}/${recipes[0][idRecipeType]}` } /> } */}
       <div className="buttons">
+        <button
+          type="button"
+          onClick={ () => setRecipesCategory('All') }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
         {
           categories.length > 0
           && categories.map((category, index) => (

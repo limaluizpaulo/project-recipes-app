@@ -17,6 +17,7 @@ function RecipesProvider({ children }) {
   const [user, setUser] = useState('');
   const [mealsOrDrinks, setMealsOrDrinks] = useState('meals');
   const [recipes, setRecipes] = useState([]);
+  const [recipesCategory, setRecipesCategory] = useState('All');
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
@@ -62,10 +63,14 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
-  const searchByCategory = async (searchPayload) => {
-    const request = await fetchRecipesByCategory(mealsOrDrinks, searchPayload);
-    const recipesByCategory = request[mealsOrDrinks];
-    setRecipes(recipesByCategory);
+  const searchByCategory = async (drinksOrMeals) => {
+    if (recipesCategory !== 'All') {
+      const request = await fetchRecipesByCategory(drinksOrMeals, recipesCategory);
+      const recipesByCategory = request[drinksOrMeals];
+      setRecipes(recipesByCategory);
+    } else {
+      getInitialRecipes(drinksOrMeals);
+    }
   };
 
   const context = {
@@ -87,6 +92,8 @@ function RecipesProvider({ children }) {
     searchByCategory,
     filtredByIngredients,
     setFiltredByIngredients,
+    recipesCategory,
+    setRecipesCategory,
   };
 
   useEffect(() => {

@@ -1,14 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-alert */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Redirect } from 'react-router';
 
 import RecipesContext from '../../context/RecipesContext';
 
 import './style/SearchForm.css';
 
 function SearchForm() {
-  const { searchRecipesBy } = useContext(RecipesContext);
+  const { mealsOrDrinks, recipes, searchRecipesBy } = useContext(RecipesContext);
   const [searchPayload, setSearchPayload] = useState('');
   const [searchParameter, setSearchParameter] = useState('');
+  const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  let type = mealsOrDrinks === 'meals' ? 'comidas' : 'bebidas';
+  let idRecipeType = mealsOrDrinks === 'meals' ? 'idMeal' : 'idDrink';
+
+  useEffect(() => {
+    if (recipes && recipes.length === 1) {
+      setRedirectToRecipeDetails(true);
+    }
+  }, [recipes]);
+
+  useEffect(() => {
+    type = mealsOrDrinks === 'meals' ? 'comidas' : 'bebidas';
+    idRecipeType = mealsOrDrinks === 'meals' ? 'idMeal' : 'idDrink';
+  }, [mealsOrDrinks]);
 
   const handleSearchClick = () => {
     if (searchParameter === 'firstLetter') {
@@ -22,6 +38,11 @@ function SearchForm() {
 
   return (
     <form>
+      {
+        redirectToRecipeDetails && (
+          <Redirect to={ `/${type}/${recipes[0][idRecipeType]}` } />
+        )
+      }
       <input
         type="text"
         data-testid="search-input"
