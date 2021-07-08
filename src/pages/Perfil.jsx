@@ -8,12 +8,13 @@ function Perfil() {
   const [userEmail, setState] = useState();
 
   const handleClick = () => {
-    localStorage.setItem('mealsToken', JSON.stringify(null));
-    localStorage.setItem('cocktailsToken', JSON.stringify(null));
-    localStorage.setItem('user', JSON.stringify(null));
-    localStorage.setItem('doneRecipes', JSON.stringify(null));
-    localStorage.setItem('favoriteRecipes', JSON.stringify(null));
-    localStorage.setItem('inProgressRecipes', JSON.stringify(null));
+    // localStorage.setItem('mealsToken', JSON.stringify(null));
+    // localStorage.setItem('cocktailsToken', JSON.stringify(null));
+    // localStorage.setItem('user', JSON.stringify(null));
+    // localStorage.setItem('doneRecipes', JSON.stringify(null));
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(null));
+    // localStorage.setItem('inProgressRecipes', JSON.stringify(null));
+    localStorage.clear();
   };
 
   useEffect(() => {
