@@ -54,17 +54,16 @@ function DoneRecipesCard() {
             <div>
               <button
                 type="button"
-                onClick={ () => copyLink(`http://localhost:3000/${recipe.type}s/${recipe.id}`) }
+                onClick={ handleOnClick }
               >
                 <img
+                  name={ recipe.type }
+                  id={ recipe.id }
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareRecipe }
                   alt={ recipe.name }
                 />
               </button>
-              <span id={ `mensage-${recipe.id}` }>
-                Link copiado!
-              </span>
             </div>
           </div>
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
