@@ -22,13 +22,13 @@ function Details({ id, recipe, recommendations }) {
   const {
     favoritedRecipes,
     localstorageSaveFavoriteRecipe,
-    ingredients,
+    ingredients: recipeIngredients,
   } = useContext(RecipesContext);
 
   // STATES
   const [isFav, setIsFav] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
-
+  const [ingredients, setIngredients] = useState([]);
   // ROUTER HOOKS
   const { pathname } = useLocation();
 
@@ -47,6 +47,9 @@ function Details({ id, recipe, recommendations }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoritedRecipes]);
 
+  useEffect(() => {
+    setIngredients(recipeIngredients);
+  }, [recipeIngredients]);
   // RENDER FUNCTIONS
 
   const renderIngredients = () => (
@@ -130,7 +133,7 @@ function Details({ id, recipe, recommendations }) {
             }
           </div>
           <h3 data-testid="recipe-category">
-            { RECIPE_MAIN_KEY === 'strMeals'
+            { RECIPE_MAIN_KEY === 'strMeal'
               ? recipe.strCategory
               : recipe.strAlcoholic }
           </h3>
@@ -138,7 +141,7 @@ function Details({ id, recipe, recommendations }) {
       </header>
       <section>
         <div>
-          <p>Ingredients</p>
+          <h2>Ingredients</h2>
           { renderIngredients() }
         </div>
         <div>

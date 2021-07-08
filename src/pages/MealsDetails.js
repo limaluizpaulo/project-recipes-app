@@ -57,7 +57,7 @@ function MealsDetails({ match: { params: { id } } }) {
   useEffect(() => {
     organizeIngredients(recipe);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [recipe]);
 
   const renderContent = () => {
     const hasRecipe = Object.keys(recipe).length !== 0;

@@ -46,7 +46,7 @@ function DrinksDetails({ match: { params: { id } } }) {
       if (found) setAlreadyStarted(true);
     }
 
-    if (objInProgress && objInProgress.meals[id]) {
+    if (objInProgress && objInProgress.cocktails[id]) {
       setIsInProgressRecipe(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +55,7 @@ function DrinksDetails({ match: { params: { id } } }) {
   useEffect(() => {
     organizeIngredients(recipe);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [recipe]);
 
   const renderContent = () => {
     const hasRecipe = Object.keys(recipe).length !== 0;
