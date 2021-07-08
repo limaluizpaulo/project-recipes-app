@@ -17,7 +17,11 @@ export default function Card(props) {
     >
       <img src={ thumbnail } alt={ title } data-testid={ `${index}-card-img` } />
       {category && (<span>{category}</span>)}
-      <span data-testid={ `${index}-recomendation-title` }>{title}</span>
+      <span data-testid={ `${index}-card-name` }>{title}</span>
+      {/*
+        data-testid do span muda se o Card é renderizado na MainCards ou na Recommended
+        MainPage = 'index-card-name' / Recommended = 'index-recommended-title
+      */}
     </Link>
   );
 }
