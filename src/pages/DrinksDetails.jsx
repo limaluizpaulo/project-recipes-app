@@ -30,6 +30,7 @@ const DrinksDetails = ({
 
   const {
     strDrink,
+    strArea,
     strCategory,
     strInstructions,
     strDrinkThumb,
@@ -38,15 +39,16 @@ const DrinksDetails = ({
 
   const newObj = {
     id,
-    title: strDrink,
-    type: 'cocktail',
+    type: 'bebida',
+    area: strArea || '',
     category: strCategory,
-    alcoholic: strAlcoholic,
+    name: strDrink,
+    image: strDrinkThumb,
+    alcoholicOrNot: strAlcoholic,
     instructions: strInstructions,
-    imageHeader: strDrinkThumb,
     ingredients,
-    recomendations: meals,
     measures,
+    recomendations: meals,
   };
 
   useEffect(() => {
@@ -72,11 +74,22 @@ const DrinksDetails = ({
       {copied ? 'Link copiado!' : ''}
 
       <ShareButton
-        type={ newObj.type === 'meals' ? 'comida' : 'bebida' }
+        type={ newObj.type }
         id={ id }
       />
 
-      <FavoriteButton id={ id } />
+      <FavoriteButton
+        id={ id }
+        recipe={ ({ id: newObj.id,
+          type: newObj.type,
+          area: newObj.area,
+          category: newObj.category,
+          alcoholicOrNot: newObj.alcoholicOrNot,
+          name: newObj.name,
+          image: newObj.image,
+        }) }
+        test="favorite-btn"
+      />
 
       <Ingredients newObj={ newObj } />
       <Instructions newObj={ newObj } />

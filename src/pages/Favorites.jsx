@@ -66,7 +66,10 @@ const Favorites = () => {
                       index={ index }
                     />
 
-                    <FavoriteButton id={ id } index={ index } />
+                    <FavoriteButton
+                      id={ id }
+                      test={ `${index}-horizontal-favorite-btn favorite-btn` }
+                    />
 
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}

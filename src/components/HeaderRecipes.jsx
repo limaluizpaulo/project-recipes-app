@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const HeaderRecipes = ({ newObj }) => {
-  const { image, name, category, alcoholic } = newObj;
+  const { image, name, category, alcoholicOrNot } = newObj;
   return (
     <div>
       <img
@@ -17,7 +17,7 @@ const HeaderRecipes = ({ newObj }) => {
       <h2
         data-testid="recipe-category"
       >
-        {alcoholic || category}
+        {alcoholicOrNot || category}
       </h2>
     </div>
   );

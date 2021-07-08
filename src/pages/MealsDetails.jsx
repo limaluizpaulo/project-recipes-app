@@ -39,11 +39,13 @@ const MealsDetails = ({
 
   const newObj = {
     id,
-    type: 'meals',
+    type: 'comida',
     area: strArea || '',
     category: strCategory,
     name: strMeal,
     image: strMealThumb,
+    alcoholicOrNot: '',
+
     urlVideo: strYoutube,
     instructions: strInstructions,
     ingredients,
@@ -84,7 +86,7 @@ const MealsDetails = ({
       {copied ? 'Link copiado!' : ''}
 
       <ShareButton
-        type={ newObj.type === 'meals' ? 'comida' : 'bebida' }
+        type={ newObj.type }
         id={ id }
       />
 
@@ -95,7 +97,10 @@ const MealsDetails = ({
           area: newObj.area,
           category: newObj.category,
           name: newObj.name,
-          image: newObj.image }) }
+          image: newObj.image,
+          alcoholicOrNot: newObj.alcoholicOrNot,
+        }) }
+        test="favorite-btn"
       />
 
       <Instructions newObj={ newObj } />

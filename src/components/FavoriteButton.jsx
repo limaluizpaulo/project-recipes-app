@@ -4,7 +4,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { UserContext } from '../context/UserProvider';
 
-const FavoriteButton = ({ id, recipe, index = 0 }) => {
+const FavoriteButton = ({ id, recipe, test }) => {
   const { inFavorites, addFavorites, removeFavorites } = useContext(UserContext);
 
   return (
@@ -17,17 +17,17 @@ const FavoriteButton = ({ id, recipe, index = 0 }) => {
           (inFavorites(id) ? blackHeartIcon : whiteHeartIcon)
         }
         alt=""
-        data-testid={ `${index}-horizontal-favorite-btn favorite-btn` }
+        data-testid={ test }
       />
     </button>
   );
 };
 
 FavoriteButton.propTypes = {
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  recipe: PropTypes.shape().isRequired,
+  id: PropTypes.string,
+  test: PropTypes.string,
+  recipe: PropTypes.shape(),
 
-};
+}.isRequired;
 
 export default FavoriteButton;

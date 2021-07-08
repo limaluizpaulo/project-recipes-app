@@ -10,7 +10,7 @@ const DetailsRecipes = ({ newObj }) => {
   return (
     <div>
       <section>
-        { type === 'meals' && (
+        { type === 'comida' && (
           <iframe
             data-testid="video"
             width="425"
@@ -27,7 +27,7 @@ const DetailsRecipes = ({ newObj }) => {
         <div className="recommendation-list">
 
           {
-            (type === 'meals')
+            (type === 'comida')
               ? recomendations.map(({ idDrink,
                 strDrink,
                 strAlcoholic,
