@@ -19,7 +19,6 @@ function DoneRecipesCard() {
   }, []);
 
   function handleOnClick({ target }) {
-    console.log(target);
     copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
     toast.success('Link copiado!');
   }
