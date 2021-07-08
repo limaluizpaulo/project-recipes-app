@@ -1,9 +1,12 @@
 import { FOODS, RANDOM, FOOD_CATEGORIES } from '../actions/index';
 
+// const udate = function () {
+//   console.log(this.list);
+// };
 const initialState = {
   list: [],
   goToFoodsPage: false,
-
+  categories: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -25,7 +28,7 @@ export default (state = initialState, { type, payload }) => {
   case FOOD_CATEGORIES:
     return {
       ...state,
-      list: payload,
+      categories: payload,
     };
 
   default:

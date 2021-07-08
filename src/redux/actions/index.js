@@ -1,4 +1,4 @@
-import { listByCategories } from '../../services/services';
+import { fetchCategories } from '../../services/services';
 
 export const [
   USERLOGIN,
@@ -45,7 +45,7 @@ const actionGetIngredients = (payload) => ({
   payload,
 });
 
-const actionSortCategoriesFood = (payload) => ({
+export const actionSortCategoriesFood = (payload) => ({
   type: FOOD_CATEGORIES,
   payload,
 });
@@ -54,8 +54,6 @@ const actionSortCategoriesDrink = (payload) => ({
   type: DRINK_CATEGORIES,
   payload,
 });
-
-// const actionGetDefault = (payload) => ({})
 
 export function getFoods(value, callback) {
   return (dispatch) => callback(value)
@@ -80,6 +78,6 @@ export function getIngredient(callback) {
 export function getCategory(category, type) {
   const actionCallback = type === 'meal'
     ? actionSortCategoriesFood : actionSortCategoriesDrink;
-  return (dispatch) => listByCategories(category, type)
+  return (dispatch) => fetchCategories(category, type)
     .then((list) => dispatch(actionCallback(list)));
 }

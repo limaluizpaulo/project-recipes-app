@@ -9,8 +9,8 @@ function IngredientsTab(props) {
   const { getSelectedIng, ingredients } = props;
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const maxTwelve = 12;
-  const itemCatcher = (value) => {
-    getSelectedIng(value, API.ingredient);
+  const itemCatcher = async (value) => {
+    await getSelectedIng(value, API.ingredient);
     setShouldRedirect(!shouldRedirect);
   };
 

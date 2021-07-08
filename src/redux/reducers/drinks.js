@@ -3,7 +3,7 @@ import { DRINKS, DRINK_CATEGORIES, RANDOM } from '../actions/index';
 const initialState = {
   list: [],
   goToDrinksPage: false,
-  // drinkNotFound: false,
+  categories: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -25,8 +25,8 @@ export default (state = initialState, { type, payload }) => {
   case DRINK_CATEGORIES:
     return {
       ...state,
-      list: payload,
-      // drinkNotFound: false,
+      list: state.list.length ? state.list : payload,
+      categories: payload,
     };
 
   default:

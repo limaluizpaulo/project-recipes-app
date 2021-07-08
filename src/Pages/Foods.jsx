@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,37 +13,43 @@ import '../styles/Card.css';
 function Foods(props) {
   const { getByDefault, getByCategory } = MealsAPI;
 
-  const [firstFoods, setFirstFoods] = React.useState();
+  const [mainFoods, setMainFoods] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { foods } = props;
 
   React.useEffect(() => {
+    // console.log('montei');
     getByCategory()
       .then(setCategories)
-      .then(() => {
-        if (foods.length === 0) {
-          getByDefault()
-            .then(setFirstFoods);
-        } else {
-          setFirstFoods(foods);
-        }
-      }).then(() => setLoading(!loading));
-  }, [
- 
-  ]);
+      .then(() => setLoading(false));
+
+    if (!foods.length) {
+      console.log('if');
+      getByDefault()
+        .then((res) => setMainFoods(setList(res)));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (foods.length) {
+      console.log('entrei');
+      setMainFoods(setList(foods));
+      console.log('acabou');
+    }
+  }, [foods]);
 
   return loading ? <div>Loading...</div> : (
     <div>
       <HeadBar title="Comidas" />
       <CategoryButtons
-        setFirstFoods={ setFirstFoods }
+        setMainFoods={ (list) => setMainFoods(setList(list)) }
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
 
       <div className="items-list">
-        {setList(foods, firstFoods).map((food, index) => (
+        {mainFoods.map((food, index) => (
           <Card key={ index } index={ index } item={ food } type="meal" />
         ))}
       </div>
