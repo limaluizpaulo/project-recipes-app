@@ -44,23 +44,19 @@ function ExploreFoodIngredient() {
               data-testid={ `${index}-ingredient-card` }
               className="card"
             >
-              <div>
-                <Card.Img
-                  data-testid={ `${index}-card-img` }
-                  src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
-                  alt={ ingredient.strIngredient }
-                />
-              </div>
-              <div>
-                <Card.Body>
-                  <Card.Title
-                    className="cardTitle"
-                    data-testid={ `${index}-card-name` }
-                  >
-                    {ingredient.strIngredient}
-                  </Card.Title>
-                </Card.Body>
-              </div>
+              <Card.Img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                alt={ ingredient.strIngredient }
+              />
+              <Card.Body>
+                <Card.Title
+                  className="cardTitle"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {ingredient.strIngredient}
+                </Card.Title>
+              </Card.Body>
             </Card>
           </Link>
         ))}

@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../context/ContextForm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
   const getUser = JSON.parse(localStorage.getItem('user'));
+  const { changeFood,
+    setChangeFood,
+    changeDrink,
+    setChangeDrink } = useContext(Context);
+
+  function handleFinish() {
+    if (changeFood) {
+      setChangeFood(!changeFood);
+    }
+    if (changeDrink) {
+      setChangeDrink(!changeDrink);
+    }
+  }
 
   return (
     <div>
@@ -24,7 +38,7 @@ function Profile() {
       <Link to="/">
         <button
           type="button"
-          onClick={ () => localStorage.clear() }
+          onClick={ () => { localStorage.clear(); handleFinish(); } }
           data-testid="profile-logout-btn"
         >
           Sair

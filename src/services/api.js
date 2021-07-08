@@ -35,7 +35,7 @@ export async function requestRandomDrink() {
 }
 
 export async function exploreIngredientsFood() {
-  const fetchIngredientsFood = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=meals');
+  const fetchIngredientsFood = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
   const { meals } = await fetchIngredientsFood.json();
   return meals;
 }
