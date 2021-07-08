@@ -10,15 +10,35 @@ function SearchBar() {
   const { pathname } = useLocation();
   const routeName = pathname.split('/')[1];
 
+  // Se a api retornar somente uma bebida resutado é igual a 1
   const haveOneDrink = (objDrink) => {
     if (objDrink === undefined) {
       return 0;
+    } if (Object.keys(objDrink).length === 0) {
+      global.alert('Por favor marque uma opção!');
+      return 0;
     } if (objDrink.drinks === null) {
+      global.alert('Bebida não encontrada!');
       return 0;
     } if (objDrink.drinks.length === 1) {
       return 1;
     }
     return 0;
+  };
+
+  // Se a api retornar somente uma comida resutado é igual a 1
+  const haveOneMeal = (objMeal) => {
+    if (objMeal === undefined) {
+      return 0;
+    } if (objMeal.meals === null) {
+      global.alert('Comida não encontrada!');
+      return 0;
+    } if (Object.keys(objMeal).length === 0) {
+      global.alert('Por favor marque uma opção!');
+      return 0;
+    } if (objMeal.meals.length === 1) {
+      return 1;
+    }
   };
 
   const submit = async (event) => {
@@ -28,11 +48,15 @@ function SearchBar() {
     switch (routeName) {
     case 'comidas':
       result = await searchMeal(selectedOptino, inputSearch);
+      if (haveOneMeal(result) === 1) {
+        const { idMeal } = result.meals[0];
+        history.push(`/comidas/${idMeal}`);
+      }
       break;
 
     case 'bebidas':
       result = await searchDrink(selectedOptino, inputSearch);
-      if (result && haveOneDrink(result) === 1) {
+      if (haveOneDrink(result) === 1) {
         const { idDrink } = result.drinks[0];
         history.push(`/bebidas/${idDrink}`);
       }
