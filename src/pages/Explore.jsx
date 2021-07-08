@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Footer } from '../components';
+import { Footer, Header } from '../components';
 
 function Explore() {
   return (
     <section>
+      <Header />
       <Link to="/explorar/comidas">
         <p data-testid="explore-food">Explorar Comidas</p>
       </Link>

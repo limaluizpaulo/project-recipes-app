@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getListArea, getFoodRecipes, getMealByArea } from '../services';
-import { RecipeCards, Footer } from '../components';
+import { RecipeCards, Footer, Header } from '../components';
 
 function ExploreArea({ history }) {
   const TWELVE = 12;
@@ -52,6 +52,7 @@ function ExploreArea({ history }) {
   return (
     <>
       <main>
+        <Header />
         <label htmlFor="areas">
           <select
             data-testid="explore-by-area-dropdown"
