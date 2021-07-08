@@ -14,10 +14,20 @@ export default function FavoriteRecipes() {
   const getRecipes = () => console.log('getRecipes');
 
   // aqui vai ser a função lá do passo 1
-  const captureFavorited = (favorited) => (
+  const setFavorited = (favorited) => (
     setState(favorited)
   );
+  const favoriteMeal = (index, area, category) => (
+    <h5
+      data-testid={ `${index}-horizontal-top-text` }
+    >
+      { `${area} - ${category}`}
+    </h5>
+  );
 
+  const favoriteDrink = (alcoholicOrNot, index) => (
+    <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
+  );
   const renderFavorites = () => (
     favoriteStorage.map((favorited, index) => (
       <div key={ index }>
@@ -27,16 +37,15 @@ export default function FavoriteRecipes() {
           alt="card"
           width="150px"
         />
-        <h5
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          { `${favorited.area} - ${favorited.category}`}
-        </h5>
+        { favorited.type === 'comida'
+          ? favoriteMeal(index, favorited.area, favorited.category)
+          : favoriteDrink(favorited.alcoholicOrNot, index) }
+
         <h1 data-testid={ `${index}-horizontal-name` }>{ favorited.name }</h1>
         <ShareButton id={ favorited.id } type={ favorited.type } index={ index } path />
         <LikeButton
           recipe
-          captureFavorited={ captureFavorited }
+          captureFavorited={ setFavorited }
           favPage
           index={ index }
         />
