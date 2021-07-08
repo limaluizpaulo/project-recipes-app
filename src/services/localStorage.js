@@ -34,6 +34,7 @@ export const getStorageRecipe = (id, meals) => {
 
 export const updateStorageRecipe = (id, recipe, meals) => {
   const option = meals ? 'meals' : 'cocktails';
+  const reverse = !meals ? 'meals' : 'cocktails';
   if (localStorage.inProgressRecipes) {
     const local = JSON.parse(localStorage.inProgressRecipes);
     localStorage.inProgressRecipes = JSON.stringify({
@@ -48,6 +49,7 @@ export const updateStorageRecipe = (id, recipe, meals) => {
       [option]: {
         [id]: recipe,
       },
+      [reverse]: {},
     });
   }
 };
