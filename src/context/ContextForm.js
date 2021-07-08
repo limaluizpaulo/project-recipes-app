@@ -46,7 +46,8 @@ function Provider({ children }) {
       const Favorite = [];
       localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
     }
-    if (localStorage.getItem('inProgressRecipes') === null) {
+    if (localStorage.getItem('inProgressRecipes') === null
+    && !document.URL.includes('in-progress')) {
       const inProgressRecipes = {
         meals: {
         },
