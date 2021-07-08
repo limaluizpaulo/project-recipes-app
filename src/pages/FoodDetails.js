@@ -34,7 +34,6 @@ function FoodDetails() {
   function start() {
     const { idMeal } = item[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
     inProgress.meals[`${idMeal}`] = [];
     console.log(inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
