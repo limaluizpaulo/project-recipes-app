@@ -4,7 +4,7 @@ import React from 'react';
 import {
   Login, Foods, Drinks, Food, Drink, FoodProgress, DrinkProgress,
   Search, SearchFoods, SearchDrinks, SearchFoodsIng, SearchDrinksIng,
-  SearchArea, RecipesMade, FavoriteRecipes, Profile,
+  SearchArea, RecipesMade, FavoriteRecipes, Profile, NotFound,
 } from './pages';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -27,12 +27,14 @@ function App() {
       <Route path="/explorar/comidas/ingredientes" component={ SearchFoodsIng } />
       <Route path="/explorar/bebidas/ingredientes" component={ SearchDrinksIng } />
       <Route path="/explorar/comidas" component={ SearchFoods } />
-      <Route path="/explorar/bebidas" component={ SearchDrinks } />
+      <Route exact path="/explorar/bebidas" component={ SearchDrinks } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ RecipesMade } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-      <Route path="/explorar" component={ Search } />
+      <Route exact path="/explorar" component={ Search } />
       <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+      <Route component={ NotFound } />
+
     </Switch>
   );
 }

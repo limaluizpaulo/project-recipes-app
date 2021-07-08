@@ -34,6 +34,7 @@ export const getStorageRecipe = (id, meals) => {
 
 export const updateStorageRecipe = (id, recipe, meals) => {
   const option = meals ? 'meals' : 'cocktails';
+  const reverse = !meals ? 'meals' : 'cocktails';
   if (localStorage.inProgressRecipes) {
     const local = JSON.parse(localStorage.inProgressRecipes);
     localStorage.inProgressRecipes = JSON.stringify({
@@ -48,6 +49,21 @@ export const updateStorageRecipe = (id, recipe, meals) => {
       [option]: {
         [id]: recipe,
       },
+      [reverse]: {},
     });
+  }
+};
+
+export const getDonesRecipes = () => localStorage.doneRecipes
+&& JSON.parse(localStorage.doneRecipes);
+
+export const addRecipeDones = (recipe) => {
+  if (localStorage.doneRecipes) {
+    const local = JSON.parse(localStorage.doneRecipes);
+    const newDones = [...local, recipe];
+    localStorage.doneRecipes = JSON.stringify(newDones);
+  } else {
+    const newDones = [recipe];
+    localStorage.doneRecipes = JSON.stringify(newDones);
   }
 };
