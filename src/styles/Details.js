@@ -113,11 +113,12 @@ export const Header = styled.section`background: #f93602;
 `;
 
 export const Ingredients = styled.section`background: transparent;
+  margin: 0 10px;
 
   h1 {
     font-size: 2rem;
     font-weight: 600;
-    margin-top: 35px;
+    margin-top: 50px;
     padding: 5px 10px;
   }
 
@@ -126,6 +127,8 @@ export const Ingredients = styled.section`background: transparent;
     border-radius: 10px;
     font-size: 1rem;
     font-weight: 500;
+    list-style: none;
+    padding: 10px;
   }
 `;
 
@@ -214,8 +217,8 @@ export const Card = styled.div`background: #f93602;
 
   h1 {
     color: black;
-    font-size: 30px;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
     padding: 0 5px;
     width: 100%;
   }
@@ -225,6 +228,7 @@ export const Card = styled.div`background: #f93602;
     display: block;
     font-size: 16px;
     font-weight: 600;
+    height: 33px;
     padding: 0 5px;
     width: 100%;
   }
@@ -235,14 +239,11 @@ export const BtnRecipes = styled.button`background: #dc3545;
   border-radius: 20px 20px 0 0;
   bottom: 0;
   box-shadow: 0 -2px 10px #f93602;
+  font-size: 30px;
+  font-weight: 700;
   height: 60px;
   outline: none;
   position: fixed;
   width: 100%;
   z-index: 2;
-
-  span {
-    font-size: 30px;
-    font-weight: 700;
-  }
 `;
