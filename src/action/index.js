@@ -1,5 +1,4 @@
 import invokeAlert from '../helper/alertMsg';
-// import foodData from '../help/foodData';
 
 export const ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -49,8 +48,8 @@ export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
 export const startRecipe = () => ({
   type: START_RECIPE, isStart: true });
-export const checkPage = () => ({
-  type: CHECK_PAGE, isDrink: true });
+export const checkPage = (bool) => ({
+  type: CHECK_PAGE, isDrink: bool });
 
 export const fetchApiFoodCategories = () => (dispatch) => {
   dispatch(isLoading());
@@ -207,6 +206,7 @@ export const fetchFoodDetails = (id) => (dispatch) => {
     .then((response) => response.json())
     .then((foodDetails) => {
       dispatch(getFoodDetails(foodDetails.meals[0]));
+      dispatch(checkPage(false));
     });
 };
 
@@ -236,7 +236,7 @@ export const fetchDrinkDetails = (id) => (dispatch) => {
     .then((response) => response.json())
     .then((drinkDetails) => {
       dispatch(getDrinkDetails(drinkDetails.drinks[0]));
-      dispatch(checkPage());
+      dispatch(checkPage(true));
     });
 };
 export const fetchArea = () => (dispatch) => {

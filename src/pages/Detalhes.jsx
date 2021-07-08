@@ -16,18 +16,15 @@ import SharedFavorites from '../components/SharedFavorites';
 class Detalhes extends Component {s
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
-import { fetchDrinkDetails, fetchFoodDetails,
-  startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
-
 import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
+import SharedFavorites from '../components/SharedFavorites';
+import { fetchDrinkDetails, fetchFoodDetails,
+  startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import identification from '../helper/dictionaryApi';
 import CarouselCards from '../components/CarouselCards';
 
@@ -35,16 +32,31 @@ class Detalhes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favIcon: false,
-      favIconColor: whiteHeartIcon,
+      currentId: '',
     };
-    this.handleFavClick = this.handleFavClick.bind(this);
     this.instrutionVideo = this.instrutionVideo.bind(this);
     this.cardsMeals = this.cardsMeals.bind(this);
     this.cardsDrinks = this.cardsDrinks.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
+    this.handleFetch();
+  }
+
+  componentDidUpdate() {
+    const { match: { params: { id } } } = this.props;
+    const { currentId } = this.state;
+    if (id !== currentId) return this.handleFetch();
+  }
+
+  componentWillUnmount() {
+    const { reboot } = this.props;
+    reboot('');
+  }
+
+  handleFetch() {
     const {
       match: { params: { page, id } },
       foodDetails,
@@ -53,38 +65,21 @@ class Detalhes extends Component {
       dispatchDrinks,
     } = this.props;
 
+    this.setState({ currentId: id });
     dispatchFoodRecipes();
     dispatchDrinks();
-
     if (page === 'comidas') {
       return foodDetails(id);
     }
     return drinksDetails(id);
   }
 
-  render() {
-    const { isStart, details } = this.props;
-  componentWillUnmount() {
-    const { reboot } = this.props;
-    reboot('');
+  onClick() {
+    const { isStart, history, match: { params: { page, id } } } = this.props;
+    history.push(`/${page}/${id}/in-progress`);
+    isStart();
   }
-
-  handleFavClick() {
-    const { favIcon } = this.state;
-    if (!favIcon) {
-      this.setState({
-        favIconColor: blackHeartIcon,
-        favIcon: true,
-      });
-    }
-    if (favIcon) {
-      this.setState({
-        favIconColor: whiteHeartIcon,
-        favIcon: false,
-      });
-    }
-  }
-
+  
   instrutionVideo(data) {
     const keyName = identification(data);
     return (
@@ -111,7 +106,7 @@ class Detalhes extends Component {
       slidesToShow: 2,
       slidesToScroll: 1,
     };
-    const { meals, match } = this.props;
+    const { meals } = this.props;
     const max = 6;
     const sliceMeals = meals.slice(0, max);
     return (
@@ -120,7 +115,7 @@ class Detalhes extends Component {
           {
             sliceMeals.map((measl, index) => (
               <CarouselCards
-                url={ match.path }
+                url="/comidas"
                 id={ measl.idMeal }
                 key={ measl.idMeal }
                 img={ measl.strMealThumb }
@@ -143,7 +138,7 @@ class Detalhes extends Component {
       slidesToShow: 2,
       slidesToScroll: 1,
     };
-    const { drinks, match } = this.props;
+    const { drinks } = this.props;
     const max = 6;
     const sliceDrinks = drinks.slice(0, max);
     return (
@@ -153,7 +148,7 @@ class Detalhes extends Component {
             sliceDrinks.map((drink, index) => (
               <div key={ index }>
                 <CarouselCards
-                  url={ match.path }
+                  url="/bebidas"
                   id={ drink.idDrink }
                   key={ index }
                   img={ drink.strDrinkThumb }
@@ -170,8 +165,7 @@ class Detalhes extends Component {
   }
 
   render() {
-    const { isStart, details, isDrink } = this.props;
-    const { favIconColor } = this.state;
+    const { details, isDrink } = this.props;
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
@@ -203,7 +197,7 @@ class Detalhes extends Component {
           className="details-btn-startRecipe"
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => isStart() }
+          onClick={ () => this.onClick() }
         >
           Iniciar Receita
         </button>
@@ -229,16 +223,6 @@ const mapStateToProps = (state) => ({
   meals: state.foodCategories.meals,
 });
 
-// Detalhes.propTypes = {
-//   idMeal: PropTypes.string.isRequired,
-//   strMealThumb: PropTypes.string.isRequired,
-//   strMeal: PropTypes.string.isRequired,
-//   strCategory: PropTypes.string.isRequired,
-//   mealsDetails: PropTypes.shape.isRequired,
-//   strInstructions: PropTypes.string.isRequired,
-// };
-// });
-
 Detalhes.propTypes = {
   isStart: PropTypes.func.isRequired,
   drinksDetails: PropTypes.func.isRequired,
@@ -248,6 +232,7 @@ Detalhes.propTypes = {
   reboot: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+  history: PropTypes.shape.isRequired,
   isDrink: PropTypes.bool.isRequired,
   drinks: PropTypes.arrayOf(PropTypes.shape).isRequired,
   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,

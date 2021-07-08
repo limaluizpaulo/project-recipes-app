@@ -9,6 +9,7 @@ import Explorarcomidas from './pages/explorarComidas/ExplorarBebidasComidas';
 import Explorar from './pages/telaDeExplorar';
 import ExplorarIngredientes from './pages/explorarIngredientes';
 import explorarArea from './pages/explorarArea';
+import Progresso from './pages/Progresso';
 import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/explorar/comidas" component={ Explorarcomidas } />
           <Route path="/explorar/bebidas" component={ Explorarcomidas } />
           <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />
+          <Route path="/:page/:id/in-progress" component={ Progresso } />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" />
           <Route path="/explorar" component={ Explorar } />
