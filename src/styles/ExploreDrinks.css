@@ -1,3 +1,7 @@
 .buttons-explore-drinks {
-  margin: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 120px;
+  width: 100%;
 }

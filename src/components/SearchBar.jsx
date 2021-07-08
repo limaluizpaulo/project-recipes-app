@@ -72,7 +72,7 @@ function SearchBar() {
   return (
     <form onSubmit={ handleSubmit }>
       <div>
-        <div controlId="formBasicEmail">
+        <div>
           <input
             className="form-control"
             value={ textFilter }
