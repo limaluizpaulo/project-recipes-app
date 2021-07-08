@@ -1,6 +1,6 @@
 .login {
   align-items: center;
-  background: linear-gradient(180deg, var(--melon-color) 39.06%, rgba(232, 175, 159, 0) 100%);
+  background: linear-gradient(180deg, #ffe68b 34.9%, rgba(255, 206, 33, 0.09) 100%);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -77,12 +77,3 @@
   background-color: rgba(85, 85, 85, 0.3);
   color: rgba(16, 16, 16, 0.4);
 }
-
-.login__button:hover {
-
-}
-
-/*
-color: -internal-light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
-background-color: -internal-light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
-border-color: -internal-light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3)); */

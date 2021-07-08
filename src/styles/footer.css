@@ -1,4 +1,12 @@
 .footerContainer {
+  align-items: center;
+  background-color: var(--light-yellow-color);
   bottom: 0;
+  box-shadow: -1px -3px 5px 0 rgba(0, 0, 0, 0.75);
+  display: flex;
+  height: 9vh;
+  justify-content: space-around;
   position: fixed;
+  width: 100vw;
+  z-index: 2;
 }

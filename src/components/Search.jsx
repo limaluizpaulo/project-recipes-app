@@ -33,7 +33,45 @@ function InputSearch() {
 
   // Inputs de busca que ficará abaixo do header
   return (
-    <form onSubmit={ handleOnClick }>
+    <form className="header__form" onSubmit={ handleOnClick }>
+      <div className="header__radio__container">
+        <label htmlFor="search-radio" className="header__radio__label">
+          <input
+            name="search-radio"
+            value="Ingrediente"
+            type="radio"
+            checked={ valueRadioButton === 'Ingrediente' }
+            data-testid="ingredient-search-radio"
+            onChange={ handleChange }
+          />
+          Ingrediente
+        </label>
+
+        <label htmlFor="search-radio" className="header__radio__label">
+          <input
+            name="search-radio"
+            value="Nome"
+            type="radio"
+            checked={ valueRadioButton === 'Nome' }
+            data-testid="name-search-radio"
+            onChange={ handleChange }
+          />
+          Nome
+        </label>
+
+        <label htmlFor="search-radio" className="header__radio__label">
+          <input
+            name="search-radio"
+            value="Primeira letra"
+            type="radio"
+            checked={ valueRadioButton === 'Primeira letra' }
+            data-testid="first-letter-search-radio"
+            onChange={ handleChange }
+          />
+          Primeira letra
+        </label>
+
+      </div>
       <div>
         <input
           value={ searchInput }
@@ -42,45 +80,9 @@ function InputSearch() {
           onChange={ handleSearchInput }
         />
       </div>
-
-      <label htmlFor="search-radio">
-        Ingrediente
-        <input
-          name="search-radio"
-          value="Ingrediente"
-          type="radio"
-          checked={ valueRadioButton === 'Ingrediente' }
-          data-testid="ingredient-search-radio"
-          onChange={ handleChange }
-        />
-      </label>
-
-      <label htmlFor="search-radio">
-        Nome
-        <input
-          name="search-radio"
-          value="Nome"
-          type="radio"
-          checked={ valueRadioButton === 'Nome' }
-          data-testid="name-search-radio"
-          onChange={ handleChange }
-        />
-      </label>
-
-      <label htmlFor="search-radio">
-        Primeira letra
-        <input
-          name="search-radio"
-          value="Primeira letra"
-          type="radio"
-          checked={ valueRadioButton === 'Primeira letra' }
-          data-testid="first-letter-search-radio"
-          onChange={ handleChange }
-        />
-      </label>
-
-      <div>
+      <div className="form__btn-submit__container">
         <button
+          className="form__btn-submit"
           type="submit"
           data-testid="exec-search-btn"
         >

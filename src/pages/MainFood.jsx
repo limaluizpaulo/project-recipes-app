@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import RenderMeal from '../components/RenderMeal';
 import RecipeContext from '../context/Context';
 import RenderMealIngredient from '../components/RenderMealIngredient';
+import '../styles/mainPage.css';
 
 // Tela principal de receitas de comidas: /comidas
 export default function MainFood({ history }) {
@@ -12,7 +13,6 @@ export default function MainFood({ history }) {
 
   return (
     <div>
-      <h4>Meals</h4>
       <Header history={ history } title="Comidas" />
       {previousIsExploreIngredients ? <RenderMealIngredient /> : <RenderMeal /> }
       <Footer />
