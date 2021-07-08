@@ -5,9 +5,19 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { fetchRecipeById } from '../services/RecipesServices';
-import '../styles/checked.css';
 
 import LoginContext from '../context/LoginContext';
+
+import {
+  PageDetails,
+  Header,
+  Thumb,
+  Popup,
+  Ingredients,
+  Instructions,
+} from '../styles/Details';
+
+import { BtnEndRecipe } from '../styles/InProgress';
 
 function FoodProgress() {
   const { id } = useParams();
@@ -87,60 +97,91 @@ function FoodProgress() {
     ));
   };
 
-  return (
-    <div>
-      <img
-        className="recipe-image"
-        data-testid="recipe-photo"
-        src={ recipe.strMealThumb }
-        alt="Foto da receita"
-      />
-      <div className="recipe-container">
-        <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-        <div className="buttons">
-          <button type="button" data-testid="share-btn" onClick={ copyURL }>
-            <img src={ shareIcon } alt="Compartilhar receita" />
-          </button>
-          {copy && 'Link copiado!'}
-          <button
-            type="button"
-            onClick={ () => (isFavorite ? removeLS() : setLS()) }
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="Icon Like"
-            />
-          </button>
-        </div>
-      </div>
-      <p
-        className="recipe-category"
-        data-testid="recipe-category"
-      >
-        {recipe.strCategory}
-      </p>
-      <p className="ingredients">Ingredientes</p>
-      <ul>
-        {renderCheckBox(recipe)}
-      </ul>
-      <p className="instructions">Instruções</p>
-      <p
-        data-testid="instructions"
-        className="instructions-details"
-      >
-        {recipe.strInstructions}
-      </p>
+  function buttonShare() {
+    return (
       <button
-        data-testid="finish-recipe-btn"
         type="button"
-        disabled={ disable }
-        className="finish-recipe"
-        onClick={ () => history.push('/receitas-feitas') }
+        data-testid="share-btn"
+        onClick={ copyURL }
       >
-        Finalizar Receita
+        <img src={ shareIcon } alt="Compartilhar receita" />
       </button>
-    </div>
+    );
+  }
+
+  function buttonLike() {
+    return (
+      <button
+        type="button"
+        onClick={ () => (isFavorite ? removeLS() : setLS()) }
+      >
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Icon Like"
+          data-testid="favorite-btn"
+        />
+      </button>
+    );
+  }
+
+  return (
+    <PageDetails>
+      <Header>
+        <Thumb
+          data-testid="recipe-photo"
+          src={ recipe.strMealThumb }
+          alt="Foto da receita"
+        />
+        <section>
+          <div>
+            <h1 data-testid="recipe-title">
+              { recipe.strMeal}
+            </h1>
+            <h2 data-testid="recipe-category">
+              { recipe.strCategory }
+            </h2>
+          </div>
+
+          <section>
+            { buttonShare() }
+            <Popup
+              copied={ copy }
+              onTransitionEnd={ () => setCopy(false) }
+            >
+              Link copiado!
+            </Popup>
+            { buttonLike() }
+          </section>
+        </section>
+      </Header>
+      <main>
+        <Ingredients>
+          <h1>Ingredientes</h1>
+          <div>
+            <ul>
+              {renderCheckBox(recipe)}
+            </ul>
+          </div>
+        </Ingredients>
+        <Instructions>
+          <h1>Instruções</h1>
+          <div>
+            <p data-testid="instructions">{recipe.strInstructions}</p>
+          </div>
+        </Instructions>
+      </main>
+
+      <div style={ { margin: '10px 0' } }>
+        <BtnEndRecipe
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ disable }
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar Receita
+        </BtnEndRecipe>
+      </div>
+    </PageDetails>
   );
 }
 

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
 import RecipesContext from '../context/RecipesContext';
 import LoginContext from '../context/LoginContext';
-import '../styles/HeaderDetails.css';
+import { Header, Thumb, Popup } from '../styles/Details';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -48,34 +48,25 @@ function HeaderDetails() {
   useEffect(() => {
     const xablau = getLocalStorage(id);
     setISFavorite(xablau);
-  }, [getLocalStorage, id]);
+  }, [drinkDetails, foodDetails, getDrinksDetails, getLocalStorage, id]);
 
   return getDrinksDetails ? (
-    <header>
-      <img
+    <Header>
+      <Thumb
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
-        className="thumb"
       />
-      <section className="title-and-buttons">
-        <div className="title-and-category">
-          <span
-            className="title"
-            data-testid="recipe-title"
-          >
+      <section>
+        <div>
+          <h1 data-testid="recipe-title">
             { drinkDetails.strDrink}
-
-          </span>
-          <span
-            className="subtitle"
-            data-testid="recipe-category"
-          >
+          </h1>
+          <h2 data-testid="recipe-category">
             { drinkDetails.strAlcoholic }
-
-          </span>
+          </h2>
         </div>
-        <div className="like-and-share">
+        <section>
           <button
             type="button"
             data-testid="share-btn"
@@ -83,16 +74,12 @@ function HeaderDetails() {
           >
             <img src={ shareIcon } alt="Icon Share" />
           </button>
-          <div className="popup">
-            <div
-              className={ `${copied
-                ? 'alert-show' : 'alert-hidden'}` }
-              onTransitionEnd={ () => setCopied(false) }
-            >
-              Link copiado!
-            </div>
-          </div>
-
+          <Popup
+            copied={ copied }
+            onTransitionEnd={ () => setCopied(false) }
+          >
+            Link copiado!
+          </Popup>
           <button
             type="button"
             onClick={ () => (isFavorite ? removeLS() : setLS()) }
@@ -103,36 +90,27 @@ function HeaderDetails() {
               alt="Icon Like"
             />
           </button>
-        </div>
+        </section>
       </section>
-    </header>
+    </Header>
   ) : (
-    <header>
-      <img
+    <Header>
+      <Thumb
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
-        className="thumb"
       />
 
-      <section className="title-and-buttons">
-        <div className="title-and-category">
-          <span
-            className="title"
-            data-testid="recipe-title"
-          >
+      <section>
+        <div>
+          <h1 data-testid="recipe-title">
             { foodDetails.strMeal }
-
-          </span>
-          <span
-            className="subtitle"
-            data-testid="recipe-category"
-          >
+          </h1>
+          <h2 data-testid="recipe-category">
             { foodDetails.strCategory }
-
-          </span>
+          </h2>
         </div>
-        <div className="like-and-share">
+        <section>
           <button
             type="button"
             data-testid="share-btn"
@@ -140,15 +118,12 @@ function HeaderDetails() {
           >
             <img src={ shareIcon } alt="Icon Share" />
           </button>
-          <div className="popup">
-            <span
-              className={ `${copied
-                ? 'alert-show' : 'alert-hidden'}` }
-              onTransitionEnd={ () => setCopied(false) }
-            >
-              Link copiado!
-            </span>
-          </div>
+          <Popup
+            copied={ copied }
+            onTransitionEnd={ () => setCopied(false) }
+          >
+            Link copiado!
+          </Popup>
           <button
             type="button"
             onClick={ () => (isFavorite ? removeLS() : setLS()) }
@@ -159,9 +134,9 @@ function HeaderDetails() {
               alt="Icon Like"
             />
           </button>
-        </div>
+        </section>
       </section>
-    </header>
+    </Header>
   );
 }
 

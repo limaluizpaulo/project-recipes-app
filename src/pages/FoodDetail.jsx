@@ -9,6 +9,9 @@ import InstructionsDetails from '../components/InstructionsDetails';
 import Recommended from '../components/Recommended';
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
+import '../styles/reset.css';
+import { PageDetails, VideoRecipe } from '../styles/Details';
+
 function FoodDetails() {
   const { id } = useParams();
   const {
@@ -53,12 +56,12 @@ function FoodDetails() {
     setIngredientsFood(full);
   }, [foodDetails, setIngredientsFood]);
   return !load ? (
-    <>
+    <PageDetails>
       <HeaderDetails />
       <main>
         <IngredientsDetails />
         <InstructionsDetails />
-        <section className="video-details">
+        <VideoRecipe>
           <h1>Video</h1>
           <div>
             <iframe
@@ -67,13 +70,12 @@ function FoodDetails() {
               frameBorder="0"
               data-testid="video"
             />
-
           </div>
-        </section>
+        </VideoRecipe>
         <Recommended />
       </main>
       <ButtonStartRecipe />
-    </>
+    </PageDetails>
   ) : <h1>Loading</h1>;
 }
 
