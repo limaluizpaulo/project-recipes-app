@@ -48,7 +48,7 @@ function ReceitaEmProgresso() {
     if (ingredientes) {
       addIngredients(apelidoAPI, id, ingredientes);
     }
-  }, [ingredientes]);
+  }, [apelidoAPI, id, ingredientes]);
 
   const renderizaImagemReceita = () => {
     const src = (

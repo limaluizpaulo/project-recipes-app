@@ -80,20 +80,21 @@ function DetailsReceita(props) {
       <p data-testid="instructions">{receita.strInstructions}</p>
       {videoRender()}
 
-      <Link to="/">
-        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-      </Link>
-      <Link to="/">
-        <img data-testid="share-btn" src={ shareIcon } alt="" />
-      </Link>
       <CarouselElement sugest={ [sugestoes, type] } />
-      <Link
-        className="footer"
-        data-testid="start-recipe-btn"
-        to={ `/${apelidoAPI}/${id}/in-progress` }
-      >
-        iniciar receita
-      </Link>
+      <div className="footer">
+        <Link
+          data-testid="start-recipe-btn"
+          to={ `/${apelidoAPI}/${id}/in-progress` }
+        >
+          iniciar receita
+        </Link>
+        <Link to="/">
+          <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+        </Link>
+        <Link to="/">
+          <img data-testid="share-btn" src={ shareIcon } alt="" />
+        </Link>
+      </div>
     </div>
   );
 }
