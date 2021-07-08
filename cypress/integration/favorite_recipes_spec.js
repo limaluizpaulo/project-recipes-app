@@ -41,16 +41,16 @@ describe('Favorite recipes screen', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
       cy.get('[data-testid="filter-by-drink-btn"]');
-      // cy.get('[data-testid="0-horizontal-image"]');
-      // cy.get('[data-testid="0-horizontal-top-text"]');
-      // cy.get('[data-testid="0-horizontal-name"]');
-      // cy.get('[data-testid="0-horizontal-share-btn"]');
-      // cy.get('[data-testid="0-horizontal-favorite-btn"]');
-      // cy.get('[data-testid="1-horizontal-image"]');
-      // cy.get('[data-testid="1-horizontal-top-text"]');
-      // cy.get('[data-testid="1-horizontal-name"]');
-      // cy.get('[data-testid="1-horizontal-share-btn"]');
-      // cy.get('[data-testid="1-horizontal-favorite-btn"]');
+      cy.get('[data-testid="0-horizontal-image"]');
+      cy.get('[data-testid="0-horizontal-top-text"]');
+      cy.get('[data-testid="0-horizontal-name"]');
+      cy.get('[data-testid="0-horizontal-share-btn"]');
+      cy.get('[data-testid="0-horizontal-favorite-btn"]');
+      cy.get('[data-testid="1-horizontal-image"]');
+      cy.get('[data-testid="1-horizontal-top-text"]');
+      cy.get('[data-testid="1-horizontal-name"]');
+      cy.get('[data-testid="1-horizontal-share-btn"]');
+      cy.get('[data-testid="1-horizontal-favorite-btn"]');
     });
   });
 

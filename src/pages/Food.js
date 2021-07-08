@@ -8,7 +8,7 @@ import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
+import FavoriteIcon from '../components/FavoriteIcon';
 const Food = ({ match }) => {
   const history = useHistory();
   const {
@@ -76,12 +76,13 @@ const Food = ({ match }) => {
         { msgCopy ? 'Link copiado!' : 'Compartilhar' }
       </button>
       {/* Botão de favorito */}
-      <button
+      <FavoriteIcon recipe={ meal } idTest="favorite-btn" />
+      {/* <button
         onClick={ addFavorite }
         type="button"
       >
         <img data-testid="favorite-btn" src={ blackOrWhite() } alt={ blackOrWhite() } />
-      </button>
+      </button> */}
       {!checkRecypeId(id) && (
         <button
           className="footer"
