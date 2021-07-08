@@ -41,7 +41,7 @@ function shareData(item, pathname) {
 
 function imageData(item, pathname) {
   return isHorizontal(pathname)
-    ? `${item.id}-horizontal-favorite-btn` : 'share-btn';
+    ? `${item.id}-horizontal-favorite-btn` : 'favorite-btn';
 }
 
 function processFavorites(changeIcon, pathname, path, item) {
@@ -130,13 +130,26 @@ function Icons(item) {
             copyClipboard(); speakCopy();
           } }
         >
-          <Link to={ originalPath }>
-            <img
-              src={ shareIcon }
-              alt="share icon"
-              data-testid={ shareData(item, pathname) }
-            />
-          </Link>
+          {
+            isHorizontal(pathname)
+              ? (
+                <Link to={ originalPath }>
+                  <img
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ shareData(item, pathname) }
+                  />
+                </Link>
+              )
+              : (
+                <img
+                  src={ shareIcon }
+                  alt="share icon"
+                  data-testid={ shareData(item, pathname) }
+                />
+              )
+          }
+
         </button>
         <button
           type="button"
