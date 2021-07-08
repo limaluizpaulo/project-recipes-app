@@ -39,5 +39,4 @@ function ExploreIngredientsDrink() {
     </div>
   );
 }
-
 export default ExploreIngredientsDrink;
