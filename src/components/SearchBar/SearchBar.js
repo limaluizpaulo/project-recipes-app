@@ -1,23 +1,45 @@
 import React, { useState } from 'react';
 import './searchBar.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { searchMeal, searchDrink } from '../../helpers/searchDrinkOrMeal';
 
 function SearchBar() {
+  const history = useHistory();
   const [inputSearch, setInputSearch] = useState('');
   const [selectedOptino, setSelectedOptino] = useState('');
   const { pathname } = useLocation();
   const routeName = pathname.split('/')[1];
 
+  const haveOneDrink = (objDrink) => {
+    if (objDrink === undefined) {
+      return 0;
+    } if (objDrink.drinks === null) {
+      return 0;
+    } if (objDrink.drinks.length === 1) {
+      return 1;
+    }
+    return 0;
+  };
+
   const submit = async (event) => {
     event.preventDefault();
-    console.log(routeName);
-    if (routeName === 'comidas') {
-      const result = await searchMeal(selectedOptino, inputSearch);
-      console.log(result);
-    } else if (routeName === 'bebidas') {
-      const result = await searchDrink(selectedOptino, inputSearch);
-      console.log(result);
+    let result;
+
+    switch (routeName) {
+    case 'comidas':
+      result = await searchMeal(selectedOptino, inputSearch);
+      break;
+
+    case 'bebidas':
+      result = await searchDrink(selectedOptino, inputSearch);
+      if (result && haveOneDrink(result) === 1) {
+        const { idDrink } = result.drinks[0];
+        history.push(`/bebidas/${idDrink}`);
+      }
+      break;
+
+    default:
+      result = {};
     }
   };
 

@@ -67,6 +67,7 @@ export async function requesIngredientDrink(name) {
     const request = await fetch(grup);
     const resolve = await request.json();
     return resolve;
+    // return {resolve, qtdDrinksReturned: resolve.drinks.length};
   } catch (erro) {
     global.alert('Ingredient não encontrado');
   }
