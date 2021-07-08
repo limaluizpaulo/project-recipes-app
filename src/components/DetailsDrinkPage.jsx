@@ -2,9 +2,9 @@ import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ContextRecipes from '../context/contextRecipes';
 
-function DetailsDrinkPage(props) {
+function DetailsDrinkPage({ match: { params } }) {
   const { drinks, setDrinks } = useContext(ContextRecipes);
-  const { id } = props.match.params;
+  const { id } = params;
   useEffect(() => {
     const getRecipes = () => {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -23,7 +23,11 @@ function DetailsDrinkPage(props) {
 }
 
 DetailsDrinkPage.propTypes = {
-  props: PropTypes.objectOf(PropTypes.objectOf()).isRequired,
-};
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default DetailsDrinkPage;

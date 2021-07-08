@@ -3,55 +3,73 @@ import PropTypes from 'prop-types';
 import ContextRecipes from '../context/contextRecipes';
 
 function SBElements({ history }) {
-  const { searchInput, setsearchInput,
-    recipes, setRecipes, drinks, setDrinks } = useContext(ContextRecipes);
-  const { location: { pathname } } = history;
+  const {
+    searchInput,
+    setsearchInput,
+    setRecipes,
+    setDrinks,
+    // recipes,
+    // drinks,
+  } = useContext(ContextRecipes);
 
+  const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+  const { location: { pathname } } = history;
+  const fetchMeals = (endpoint) => {
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => {
+          if (!results.meals) {
+            global.alert(alertMsg);
+          } else {
+            setRecipes(results.meals);
+          }
+        }));
+  };
+
+  const fetchDrinks = (endpoint) => {
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => {
+          if (!results.drinks) {
+            global.alert(alertMsg);
+          } else {
+            setDrinks(results.drinks);
+          }
+        }));
+  };
   const getIngredients = () => {
     if (pathname === '/comidas') {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setRecipes(results.meals)));
+      fetchMeals(endpoint);
     }
     if (pathname === '/bebidas') {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setDrinks(results.drinks)));
+      fetchDrinks(endpoint);
     }
   };
 
   const getRecipes = () => {
     if (pathname === '/comidas') {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setRecipes(results.meals)));
+      fetchMeals(endpoint);
     }
     if (pathname === '/bebidas') {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setDrinks(results.drinks)));
+      fetchDrinks(endpoint);
     }
   };
 
   const alertCaracterNumber = 'Sua busca deve conter somente 1 (um) caracter';
   const getFirstLetter = () => {
     if (pathname === '/comidas') {
-      console.log(searchInput.name.length);
       const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setRecipes(results.meals)));
+      fetchMeals(endpoint);
     }
 
     if (pathname === '/bebidas') {
-      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput.name}`;
-      fetch(endpoint)
-        .then((response) => response.json()
-          .then((results) => setDrinks(results.drinks)));
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput.name}`;
+      fetchDrinks(endpoint);
     }
   };
   const handleClick = () => {
@@ -89,19 +107,19 @@ function SBElements({ history }) {
       break;
     }
   };
-
-  const handleFilter = () => {
-    if (searchInput.name && pathname === '/comidas') {
-      const recipeFiltered = recipes
-        .filter((recipe) => recipe.strMeal.includes(searchInput.name));
-      setRecipes(recipeFiltered);
-    }
-    if (searchInput.name && pathname === '/bebidas') {
-      const drinksFiltered = drinks
-        .filter((recipe) => recipe.strDrink.includes(searchInput.name));
-      setDrinks(drinksFiltered);
-    }
-  };
+  // aguardando para ser usada corretamente. o código está certo.
+  // const handleFilter = () => {
+  //   if (searchInput.name && pathname === '/comidas') {
+  //     const recipeFiltered = recipes
+  //       .filter((recipe) => recipe.strMeal.includes(searchInput.name));
+  //     setRecipes(recipeFiltered);
+  //   }
+  //   if (searchInput.name && pathname === '/bebidas') {
+  //     const drinksFiltered = drinks
+  //       .filter((recipe) => recipe.strDrink.includes(searchInput.name));
+  //     setDrinks(drinksFiltered);
+  //   }
+  // };
 
   const setFunctions = ({ target: { name, value } }) => {
     setsearchInput({ ...searchInput, [name]: (value).toLowerCase() });
@@ -121,7 +139,7 @@ function SBElements({ history }) {
       >
         {'Ingredientes '}
         <input
-          id="ingredientes"
+          id="ingredient-search-radio"
           name="searchBy"
           value="Ingredientes"
           type="radio"
@@ -134,7 +152,7 @@ function SBElements({ history }) {
       >
         {'Receita '}
         <input
-          id="recipe"
+          id="name-search-radio"
           name="searchBy"
           value="Receita"
           type="radio"
@@ -148,7 +166,7 @@ function SBElements({ history }) {
         {'Primeira letra '}
       </label>
       <input
-        id="firstLetter"
+        id="first-letter-search-radio"
         name="searchBy"
         value="Primeira letra"
         type="radio"
@@ -158,7 +176,7 @@ function SBElements({ history }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => { handleClick(); handleFilter(); } }
+        onClick={ () => handleClick() }
       >
         Pesquisar
       </button>
