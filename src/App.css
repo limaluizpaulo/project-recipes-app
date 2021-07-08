@@ -15,6 +15,14 @@
   max-height: 80vh;
 }
 
+.carousel {
+  display: none;
+}
+
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
 
 /*
 #iceLeft {

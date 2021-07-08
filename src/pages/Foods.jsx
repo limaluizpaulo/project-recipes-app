@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
@@ -7,7 +8,20 @@ import RecipeCard from '../components/RecipeCard';
 import CategoryBtn from '../components/CategoryBtn';
 
 function Foods() {
-  const { meals, categories, manageRenderMeal } = useContext(Context);
+  const {
+    meals,
+    categories,
+    manageRenderMeal,
+    filterCategory,
+    updateEndPoint,
+    toggle,
+    handleToggle,
+  } = useContext(Context);
+
+  useEffect(() => {
+    updateEndPoint('food');
+  }, []);
+
   const maxRecipe = 12;
   const maxCategory = 5;
   const render = meals.length > 0 && categories;
@@ -17,10 +31,20 @@ function Foods() {
 
   const categoryList = () => categories.meals.slice(0, maxCategory)
     .map(({ strCategory }) => (
-      CategoryBtn(strCategory)));
+      CategoryBtn(strCategory, filterCategory, handleToggle, toggle)));
   const renderList = (
     <div>
       <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => {
+            filterCategory();
+            handleToggle('', false);
+          } }
+        >
+          All
+        </button>
         {categoryList()}
       </div>
       <div className="recipe-list">
@@ -28,11 +52,12 @@ function Foods() {
       </div>
     </div>
   );
+
   return (
     <>
       <div>Tela de Comidas</div>
       <Header title="Comidas" />
-      <HeaderSearchButton baseEndPoint="https://www.themealdb.com/api/json/v1/1/" />
+      <HeaderSearchButton />
       {render ? manageRenderMeal(renderList) : <div>Loading</div>}
       <Footer />
     </>

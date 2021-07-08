@@ -12,6 +12,8 @@ import ExploreFoodsArea from './pages/ExploreFoodsArea';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipesDone from './pages/RecipesDone';
+import FoodDetails from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinkDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
@@ -40,6 +42,8 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ RecipesDone } />
         <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       </Switch>
     </BrowserRouter>
   );

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
 
-function HeaderSearchButton({ baseEndPoint }) {
+function HeaderSearchButton() {
   const [renderButton, setRenderButton] = useState(false);
 
   return (
@@ -15,13 +14,9 @@ function HeaderSearchButton({ baseEndPoint }) {
           data-testid="search-top-btn"
         />
       </button>
-      {renderButton ? <HeaderSearchBar baseEndPoint={ baseEndPoint } /> : null}
+      {renderButton ? <HeaderSearchBar /> : null}
     </>
   );
 }
 
 export default HeaderSearchButton;
-
-HeaderSearchButton.propTypes = {
-  baseEndPoint: PropTypes.string.isRequired,
-};

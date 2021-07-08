@@ -14,3 +14,10 @@ export const getCategories = async () => {
   return Object.assign({}, ...await Promise.all([fetch(mealsPoint), fetch(drinksPoint)])
     .then((responses) => Promise.all(responses.map((res) => res.json()))));
 };
+
+export const categoryFilter = async (baseEndPoint, category) => {
+  const categoryURL = `${baseEndPoint}filter.php?c=${category}`;
+  const promiseCategory = await fetch(categoryURL);
+  const result = await promiseCategory.json();
+  return result;
+};
