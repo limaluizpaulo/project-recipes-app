@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import FetchContext from '../context/FetchContext';
+import { filterMealsById } from '../services/Api';
+import CardRecipe from '../components/CardRecipe';
 
-function InProgressFoods() {
+function InProgressFoods(props) {
+  const { data, setData, setTypeFunc, setNameRecipes, setImgRecipes} = useContext(FetchContext);
+  const { match: { params: { id } } } = props;
+
+  const renderRecipe = () => {
+    filterMealsById(id).then((res) => setData(res));
+  };
+
+  const stateSet = () => {
+    setTypeFunc('comidas')
+    setImgRecipes('strMealThumb');
+    setNameRecipes('strMeal');
+  } 
+
   return (
-    <h1>InProgressFoods</h1>
+    <div>
+      { stateSet() }
+      { data.length === 0 && renderRecipe() }
+      <CardRecipe  id={ id } />
+    </div>
   );
 }
 

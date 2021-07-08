@@ -11,7 +11,7 @@ function Cards() {
         data.filter((el, index) => index <= ELEVEN)
           .map((food, index) => (
             <div key={ food } data-testid={ `${index}-recipe-card` }>
-              <Link to={ `/${typeFunc}/${data[0][idRecip]}` }>
+              <Link to={ `/${typeFunc}/${data[index][idRecip]}` }>
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ food[imgRecipes] }

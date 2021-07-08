@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FetchContext from './FetchContext';
 
@@ -70,6 +70,8 @@ function FetchProvider({ children }) {
         .then(({ drinks }) => setData(drinks));
     }
   };
+
+  console.log('teste');
 
   const contextValue = {
     typeFunc,
