@@ -5,13 +5,12 @@ import copy from 'clipboard-copy';
 import imgIcon from '../../images/shareIcon.svg';
 import imgBtnFavorite from '../../images/blackHeartIcon.svg';
 
-function copyUrl(setCopied, url, type, id) {
-  console.log(`http://localhost:3000/${type}/${id}`);
-  copy(`http://localhost:3000/${type}/${id}`);
+function copyUrl(setCopied, type, id) {
+  copy(`http://localhost:3000/${type}s/${id}`);
   setCopied(true);
 }
 
-function CardsRecipesFavorite({ aux, index, url }) {
+function CardsRecipesFavorite({ aux, index }) {
   const [copied, setCopied] = useState(false);
   const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
@@ -52,7 +51,7 @@ function CardsRecipesFavorite({ aux, index, url }) {
           >
             Tags
           </button>
-          <button type="button" onClick={ () => copyUrl(setCopied, url, type, id) }>
+          <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
             <img
               data-testid={ `${index}-horizontal-share-btn` }
               src={ imgIcon }
@@ -76,7 +75,6 @@ function CardsRecipesFavorite({ aux, index, url }) {
 CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 export default CardsRecipesFavorite;

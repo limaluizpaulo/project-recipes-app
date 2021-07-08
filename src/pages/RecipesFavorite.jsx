@@ -3,8 +3,7 @@ import Header from '../components/Header';
 import FilterButtons from '../components/FilterButtons';
 import CardsRecipesFavorite from '../components/CardsRecipes/CardsRecipesFavorite';
 
-function RecipesFavorite({ match }) {
-  const { url } = match;
+function RecipesFavorite() {
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
   return (
@@ -20,7 +19,6 @@ function RecipesFavorite({ match }) {
             key={ index }
             aux={ aux }
             index={ index }
-            url={ url }
           />
         ))}
       </div>
