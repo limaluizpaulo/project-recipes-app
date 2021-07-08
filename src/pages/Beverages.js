@@ -88,9 +88,11 @@ class Beverages extends React.Component {
       return drinks.map((drink, index) => {
         if (index <= maxNumberOfCards) {
           return (
-            <Link to={ `/bebidas/${drink.idDrink}` }>
+            <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
               <div key={ index } data-testid={ `${index}-recipe-card` }>
-                <h3 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h3>
+                <h3 data-testid={ `${index}-card-name` }>
+                  { drink.strDrink }
+                </h3>
                 <img
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }

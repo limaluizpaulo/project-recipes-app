@@ -1,3 +1,15 @@
-/* .search-form {
-  display: flex;
+/* .not-visible-card {
+  visibility: hidden;
 } */
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}
+
+.recommended-cards-section {
+  display: flex;
+  overflow-x: scroll;
+  text-align: center;
+  width: 80%;
+}

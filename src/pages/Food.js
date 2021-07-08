@@ -88,8 +88,8 @@ class Food extends React.Component {
       return meals.map((food, index) => {
         if (index <= maxNumberOfCards) {
           return (
-            <Link to={ `/comidas/${food.idMeal}` }>
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <Link key={ index } to={ `/comidas/${food.idMeal}` }>
+              <div data-testid={ `${index}-recipe-card` }>
                 <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
                 <img
                   src={ food.strMealThumb }
