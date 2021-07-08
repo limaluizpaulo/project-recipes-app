@@ -10,6 +10,8 @@ import Explore from './Pages/Explore';
 import ExploreByType from './Pages/ExploreByType';
 import ExploreIngredientes from './Pages/ExploreIngredientes';
 import RecipesByIngredient from './Pages/RecipesByIngredient';
+import ExploreByArea from './Pages/ExploreByArea';
+import NotFound from './Pages/NotFound';
 
 function App() {
   // tudo com GenericComponent não foi implementado
@@ -27,7 +29,11 @@ function App() {
       />
       <Route
         path="/explorar/comidas/area"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ExploreByArea { ...props } /> }
+      />
+      <Route
+        path="/explorar/bebidas/area"
+        component={ <NotFound /> }
       />
       <Route
         exact
@@ -59,7 +65,7 @@ function App() {
       />
       <Route
         path="/:recipeType/ingredientes/:ingredientName"
-        component={ (props) => <RecipesByIngredient { ...props } /> }
+        render={ (props) => <RecipesByIngredient { ...props } /> }
       />
       <Route
         exact
