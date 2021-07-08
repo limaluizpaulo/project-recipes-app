@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 import Details from '../components/Details/Details';
 
 function DrinksDetails({ match: { params: { id } } }) {
+  const MAX_RECOMMENDATIONS = 6;
+
+  const recipe = useRecipeByID('drinks');
+  const recommendations = useRecommendation('meals', MAX_RECOMMENDATIONS);
+
   return (
-    <Details id={ id } mealsOrDrinks="drinks" />
+    <Details
+      id={ id }
+      recipe={ recipe }
+      recommendations={ recommendations }
+    />
   );
 }
 

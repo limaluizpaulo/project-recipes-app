@@ -14,6 +14,13 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
+/*
+---Refactoring---
+TODO:
+  - Make new HTML components to make the code more clean;
+  - Split conditional logic;
+  - Keep common logic.
+*/
 function Details({ id, mealsOrDrinks }) {
   const {
     startedRecipes,

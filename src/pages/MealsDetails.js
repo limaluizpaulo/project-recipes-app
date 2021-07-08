@@ -2,10 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Details from '../components/Details/Details';
+import useRecipeByID from '../hooks/useRecipeByID';
+import useRecommendation from '../hooks/useRecommendation';
 
 function MealsDetails({ match: { params: { id } } }) {
+  const MAX_RECOMMENDATIONS = 6;
+
+  const recipe = useRecipeByID('meals');
+  const recommendations = useRecommendation('drinks', MAX_RECOMMENDATIONS);
+
   return (
-    <Details id={ id } mealsOrDrinks="meals" />
+    <Details
+      id={ id }
+      recipe={ recipe }
+      recommendations={ recommendations }
+    />
   );
 }
 
