@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import Card from '../components/Card';
 import VideoPlayer from '../components/VideoPlayer';
+import { saveFavoriteRecipe } from '../storage/localStorage';
 
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -19,7 +20,9 @@ export default function FoodAndDrinkById() {
     ? 'thecocktaildb' : 'themealdb';
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
-  const { Id } = useParams();
+  const { id } = useParams();
+
+  const history = useHistory();
 
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
@@ -27,7 +30,7 @@ export default function FoodAndDrinkById() {
 
   useEffect(() => {
     async function getRecipeDetails() {
-      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${Id}`;
+      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
       const URL_RECOMENDATION = `https://www.${recDomain}.com/api/json/v1/1/search.php?s=`;
       const resolved = await fetchAPI(URL);
       const recResolved = await fetchAPI(URL_RECOMENDATION);
@@ -42,14 +45,19 @@ export default function FoodAndDrinkById() {
       setIngridientsList(list);
     }
     getRecipeDetails().catch(console.log);
-  }, [Id, domain, firstKey, recDomain, recFirstKey]);
+  }, [id, domain, firstKey, recDomain, recFirstKey]);
 
   const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
 
   function handleFavorite() {
-    // console.log(recomendations);
+    saveFavoriteRecipe(id, path, singleContent[0])(title, imgSrc);
   }
+
+  function handleRecipeInProgress() {
+    history.push(`${path}/in-progress`);
+  }
+
   if (!singleContent[0]) return <h1>Loading...</h1>;
   return (
     <>
@@ -127,7 +135,13 @@ export default function FoodAndDrinkById() {
           />
         ))}
       </div>
-      <Button data-testid="start-recipe-btn">Iniciar Receita</Button>
+
+      <Button
+        onClick={ handleRecipeInProgress }
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </Button>
     </>
   );
 }

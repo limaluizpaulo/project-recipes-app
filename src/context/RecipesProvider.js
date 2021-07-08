@@ -8,6 +8,7 @@ export default function RecipesProvider({ children }) {
   const [searchResult, setSearchResult] = useState([]);
   const [userInfo, setInfo] = useState({ email: '' });
   const [limit, setLimit] = useState(TWELVE);
+  const [inProgress, setInProgress] = useState([]);
   const [ingredientsResults, setIngredientsResults] = useState([]);
   const context = {
     setInfo,
@@ -18,6 +19,8 @@ export default function RecipesProvider({ children }) {
     setLimit,
     ingredientsResults,
     setIngredientsResults,
+    inProgress,
+    setInProgress,
   };
 
   return (

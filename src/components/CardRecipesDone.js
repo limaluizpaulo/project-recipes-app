@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 import shareIcon from '../images/shareIcon.svg';
 
@@ -19,11 +20,13 @@ export default function CardRecipesDone({ mealOrDrink, index }) {
       <p data-testid={ `${index}-horizontal-top-text` }>{mealOrDrink.category}</p>
       <p data-testid={ `${index}-horizontal-top-name` }>{mealOrDrink.name}</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{mealOrDrink.doneDate}</p>
-      <img
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ shareIcon }
-        alt={ mealOrDrink.name }
-      />
+      <Button>
+        <img
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ shareIcon }
+          alt={ mealOrDrink.name }
+        />
+      </Button>
       <p
         data-testid={ `${index}-${mealOrDrink.tags}-horizontal-tag` }
       >
