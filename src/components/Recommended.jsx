@@ -70,7 +70,7 @@ function Recommended() {
           recommendedData.map((recipe, index) => (
             <Card
               ShowCards={ [cardLeft, cardRight] }
-              hidden={ () => { [cardLeft, cardRight].not.includes(index); } }
+              hidden={ index !== cardLeft && index !== cardRight }
               key={ recipe[typeId] }
               index={ index }
               id={ recipe[typeId] }
