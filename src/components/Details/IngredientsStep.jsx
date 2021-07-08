@@ -10,8 +10,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   useEffect(() => {
     const steps = [];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    let checkboxes = document.querySelectorAll("input[type='checkbox']");
-
+    const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
 
     if (inProgress) {
       if (!inProgress[curr]) {
@@ -27,7 +26,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
         for (let index = 0; index <= ingredients.length; index += 1) {
           for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
-            console.log('comparando isso: ' + index + ' com isso: ' + arrayIds[index2]);
+            console.log(`comparando isso: ${index} com isso: ${arrayIds[index2]}`);
             if (index === (Number.parseInt(arrayIds[index2]))) {
               nome = 'step-checked';
               valor = true;
@@ -62,8 +61,8 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
       if (recipe) {
         return;
-      } else {
-        const steps = [];
+      }
+      const steps = [];
 
       if (ingredients) {
         for (let index = 0; index <= ingredients.length; index += 1) {
@@ -75,7 +74,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         }
       }
       setStepsClassName(steps);
-      }
     }
   };
 
@@ -91,27 +89,25 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     default:
       if (!inProgress[curr]) {
         localStorage.setItem('inProgressRecipes', JSON
-            .stringify({
-              ...inProgress,
-              [curr]: {...inProgress[curr], [id]: []},
-            }))
+          .stringify({
+            ...inProgress,
+            [curr]: { ...inProgress[curr], [id]: [] },
+          }));
+      } else if (!inProgress[curr][id]) {
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({
+            ...inProgress,
+            [curr]: { ...inProgress[curr], [id]: [] },
+          }));
       } else {
-        if (!inProgress[curr][id]) {
-          localStorage.setItem('inProgressRecipes', JSON
-            .stringify({
-              ...inProgress,
-              [curr]: {...inProgress[curr], [id]: []},
-            }))
-        } else {
-          console.log(inProgress[curr][id])
-          localStorage.setItem('inProgressRecipes', JSON
-            .stringify({
-              ...inProgress,
-              [curr]:
+        console.log(inProgress[curr][id]);
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({
+            ...inProgress,
+            [curr]:
               { ...inProgress[curr],
                 [id]: [...inProgress[curr][id]],
               } })); // dps passar o spread pros ids
-        }
       }
     }
   };
