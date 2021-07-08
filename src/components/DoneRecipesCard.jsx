@@ -22,6 +22,7 @@ function DoneRecipesCard() {
   const zero = 0;
   return (
     <div className="card-my-recipes">
+      <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div key={ index }>
           <div className="card-combined-itens">
