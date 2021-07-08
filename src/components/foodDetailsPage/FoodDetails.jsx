@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import RecipeContext from '../../context/Context';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -24,17 +26,13 @@ const FoodDetails = ({ children }) => {
     if (isFavorited) setIsFavorite(true);
   }, [selectedFood.idMeal, selectedFood.idDrink, recipeId]);
   const handleShare = () => {
-    const ONE_SECOND = 1000;
     const { location } = window;
     const idIndex = 3;
     const pathname = location.pathname.split('/').slice(1, idIndex).join('/');
     const url = `${location.protocol}//${location.host}/${pathname}`;
-    console.log(url);
     copy(url);
     setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, ONE_SECOND * 2);
+    toast.success('Link copiado!');
   };
 
   const handleFavorite = () => {
@@ -72,7 +70,7 @@ const FoodDetails = ({ children }) => {
           />
         </button>
       </div>
-      {copied ? <p>Link copiado!</p> : ''}
+      {copied ? <ToastContainer /> : ''}
       <p data-testid="recipe-category">{strAlcoholic || strCategory}</p>
       {children}
       <p data-testid="instructions">
