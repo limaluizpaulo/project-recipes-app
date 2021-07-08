@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDrinkDetails, getMealDetails } from '../services';
-import { checkLocalStorage, updateLocalStorage } from '../services/localStorageManager';
 import { FavoriteBtn, ShareBtn } from '../components';
 import { finishedRecipe } from '../actions';
+import {
+  checkLocalStorage,
+  updateLocalStorage,
+  saveDoneRecipes,
+} from '../services/localStorageManager';
 
 function RecipeInProgress({ match, history, savesFinished }) {
   const { id } = match.params;
@@ -99,6 +103,7 @@ function RecipeInProgress({ match, history, savesFinished }) {
         disabled={ isBtnDisable }
         onClick={ () => {
           savesFinished(recipeInProgress);
+          saveDoneRecipes(id, recipeType, recipeInProgress);
           history.push('/receitas-feitas');
         } }
       >
