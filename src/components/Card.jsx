@@ -10,6 +10,7 @@ export default function Card(props) {
   const dataTestIdTitle = (category) ? `${index}-recomendation-title`
     : `${index}-card-name`;
   const newPathname = pathTreament(pathname);
+
   return (
     <Link
       to={ `${newPathname}/${id}` }
@@ -35,5 +36,5 @@ Card.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  hidden: PropTypes.string.isRequired,
+  hidden: PropTypes.bool.isRequired,
 };

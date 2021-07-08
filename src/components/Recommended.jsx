@@ -39,26 +39,23 @@ function Recommended() {
     getData();
   }, [type, cardLeft, cardRight]);
 
-  const quatro = 4;
-  const cinco = 5;
-
   const slideLeft = () => {
-    if (cardRight === 1) {
-      setCardLeft(quatro);
-      setCardRight(cinco);
+    if (cardLeft === 0) {
+      setCardLeft(recommendedData.length - 1);
+      setCardRight(cardLeft);
     } else {
-      setCardLeft(cardLeft - 2);
-      setCardRight(cardRight - 2);
+      setCardRight(cardLeft);
+      setCardLeft(cardLeft - 1);
     }
   };
 
   const slideRight = () => {
     if (cardRight < recommendedData.length - 1) {
-      setCardLeft(cardLeft + 2);
-      setCardRight(cardRight + 2);
+      setCardLeft(cardRight);
+      setCardRight(cardRight + 1);
     } else {
-      setCardLeft(0);
-      setCardRight(1);
+      setCardLeft(cardRight);
+      setCardRight(0);
     }
   };
 
@@ -69,7 +66,6 @@ function Recommended() {
         recommendedData.length && (
           recommendedData.map((recipe, index) => (
             <Card
-              ShowCards={ [cardLeft, cardRight] }
               hidden={ index !== cardLeft && index !== cardRight }
               key={ recipe[typeId] }
               index={ index }
