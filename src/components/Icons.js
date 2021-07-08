@@ -63,7 +63,7 @@ function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(!item.fromHorizontal);
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
-  const { search ,setSearch, historyPage, sethistoryPage } = useContext(Context);
+  const { setSearch, historyPage, sethistoryPage } = useContext(Context);
   const target = useRef(null);
   const history = useHistory();
   const { pathname } = history.location;
@@ -105,7 +105,6 @@ function Icons(item) {
     processFavorites(changeIcon, pathname, path, item);
     const act = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setSearch(act);
-    console.log(search);
   }
 
   function speakCopy() {

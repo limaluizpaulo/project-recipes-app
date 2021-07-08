@@ -86,18 +86,18 @@ function StarRecipes() {
                       alt={ recipe.image }
                     />
                     <Card.Body className="favorite-body">
-                      <div>
-                        <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
-                          {recipe.type === 'comida'
-                            ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
-                        </Card.Subtitle>
-                        <Card.Title
-                          className="cardTitle"
-                          data-testid={ `${index}-horizontal-name` }
-                        >
-                          {recipe.name}
-                        </Card.Title>
-                      </div>
+
+                      <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
+                        {recipe.type === 'comida'
+                          ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
+                      </Card.Subtitle>
+                      <Card.Title
+                        className="cardTitle"
+                        data-testid={ `${index}-horizontal-name` }
+                      >
+                        {recipe.name}
+                      </Card.Title>
+
                     </Card.Body>
                   </div>
                 </Link>
