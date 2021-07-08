@@ -68,16 +68,6 @@
   width: 32px;
 }
 
-.copyMessage {
-  bottom: 0;
-  font-size: 1.1em;
-  font-weight: 600;
-  margin: 0;
-  position: absolute;
-  right: 0;
-  text-shadow: 1px 1px 1px black;
-}
-
 .ingredientsList {
   background-color: white;
   border-radius: 10px;
