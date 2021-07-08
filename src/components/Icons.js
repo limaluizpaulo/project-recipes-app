@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function favoriteStructure(item) {
   if (item.code !== undefined) {
@@ -50,8 +51,7 @@ function processFavorites(changeIcon, pathname, path, item) {
     favorites = [...favorites, favoriteElement];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }
-  if (!changeIcon || pathname
-    .includes(path)) {
+  if (!changeIcon) {
     favorites = favorites
       .filter((fav) => fav.id !== favoriteElement.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
@@ -59,14 +59,15 @@ function processFavorites(changeIcon, pathname, path, item) {
 }
 
 function Icons(item) {
-  const [changeIcon, setChangeIcon] = useState(true);
+  const path = 'receitas-favoritas';
+  const [changeIcon, setChangeIcon] = useState(!item.fromHorizontal);
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
+  const { setSearch } = useContext(Context);
   const target = useRef(null);
   const history = useHistory();
   const { pathname } = history.location;
   const DOISMIL = 2000;
-  const path = 'receitas-favoritas';
 
   function isFavorite() {
     const { idDrink, idMeal } = item.code;
@@ -78,7 +79,7 @@ function Icons(item) {
   }
   if (!first) {
     isFavorite();
-    if (isHorizontal(path))setChangeIcon(!changeIcon);
+    // if (isHorizontal(path))setChangeIcon(false);
     setFirst(true);
   }
 
@@ -93,6 +94,8 @@ function Icons(item) {
 
   function favorite() {
     setChangeIcon(!changeIcon);
+    const fav = JSON.parse(window.localStorage.getItem('favoriteRecipes'));
+    setSearch(fav);
     processFavorites(changeIcon, pathname, path, item);
   }
 
@@ -115,7 +118,13 @@ function Icons(item) {
           ref={ target }
           type="button"
           className="share"
-          onClick={ () => { copyClipboard(); speakCopy(); } }
+          onClick={ () => {
+            copyClipboard(); speakCopy();
+            if (item.fromHorizontal) {
+              if (item.code.type === 'comida') history.push(`/comidas/${item.code.id}`);
+              else history.push(`/bebidas/${item.code.id}`);
+            }
+          } }
         >
           <img
             src={ shareIcon }
