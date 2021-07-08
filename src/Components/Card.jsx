@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function Card(props) {
-  const { index, item, type } = props;
+  const { index, item, type, title } = props;
   const dbType = type === 'meal' ? 'Meal' : 'Drink';
   return (
-    <div className="card" style={ { width: '7rem', height: '5rem' } }>
+    <Link to={ `/${title}/${item[`id${dbType}`]}` } className="card" style={ { width: '7rem', height: '5rem' } }>
       <div className="card-body" data-testid={ `${index}-recipe-card` }>
         <div
           className="card-subtitle"
@@ -23,7 +24,7 @@ export default function Card(props) {
         {' '}
         <br />
       </div>
-    </div>
+    </Link>
   );
 }
 

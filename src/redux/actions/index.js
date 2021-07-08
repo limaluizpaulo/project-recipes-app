@@ -1,4 +1,5 @@
 import { listByCategories } from '../../services/services';
+import fetchByArea from '../../services/fetchByArea';
 
 export const [
   USERLOGIN,
@@ -8,6 +9,8 @@ export const [
   INGREDIENTS,
   FOOD_CATEGORIES,
   DRINK_CATEGORIES,
+  AREA,
+  FOODSAREA,
 ] = [
   'USERLOGIN',
   'DRINKS',
@@ -16,6 +19,8 @@ export const [
   'INGREDIENTS',
   'FOOD_CATEGORIES',
   'DRINK_CATEGORIES',
+  'AREA',
+  'FOODSAREA',
 ];
 
 export function userLogin(payload) {
@@ -27,6 +32,11 @@ export function userLogin(payload) {
 
 const actionGetFoods = (payload) => ({
   type: FOODS,
+  payload,
+});
+
+const actionGetAreas = (payload) => ({
+  type: FOODSAREA,
   payload,
 });
 
@@ -55,11 +65,28 @@ const actionSortCategoriesDrink = (payload) => ({
   payload,
 });
 
+export const areaList = (areas) => ({
+  type: AREA,
+  areas,
+});
+
+export function setArea() {
+  return async (dispatch) => {
+    const area = await fetchByArea();
+    return dispatch(areaList(area));
+  };
+}
+
 // const actionGetDefault = (payload) => ({})
 
 export function getFoods(value, callback) {
   return (dispatch) => callback(value)
     .then((food) => dispatch(actionGetFoods(food)));
+}
+
+export function getAreas(value, callback) {
+  return (dispatch) => callback(value)
+    .then((area) => dispatch(actionGetAreas(area)));
 }
 
 export function getDrinks(value, callback) {

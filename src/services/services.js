@@ -1,7 +1,6 @@
-export const setList = (array1, array2) => {
-  if (array1) {
-    const list = array1.length ? array1 : array2;
-    const arrayCopy = [...list];
+export const setList = (array) => {
+  if (array) {
+    const arrayCopy = [...array];
     const twelveItems = 12;
     const finalList = arrayCopy.splice(0, twelveItems);
     return finalList;
