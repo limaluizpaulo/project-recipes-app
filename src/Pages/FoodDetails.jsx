@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getFoods } from '../redux/actions';
 import MealAPI from '../services/MealRecipesAPI';
 import BeverageAPI from '../services/BeverageRecipesAPI';
+import CarroselBebidas from '../Components/CarroselBebidas';
 
 class FoodDetails extends React.Component {
   constructor(props) {
@@ -12,13 +13,17 @@ class FoodDetails extends React.Component {
       valueFood: [],
       ingredients: [],
       recomendations: [],
+      visible: 'hidden',
     };
     this.resultFood = this.resultFood.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
+    this.checkBtnReceita = this.checkBtnReceita.bind(this);
+    this.iniciarReceita = this.iniciarReceita.bind(this);
   }
 
   componentDidMount() {
     this.resultFood();
+    this.checkBtnReceita();
   }
 
   getIngredients() {
@@ -46,6 +51,18 @@ class FoodDetails extends React.Component {
     this.setState({ ingredients: ingredientsAndMeasures });
   }
 
+  checkBtnReceita() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const getReceitaStorage = [...valueStorage];
+    getReceitaStorage.forEach((receita) => {
+      if (receita === id) {
+        this.setState({ visible: '' });
+      }
+    });
+  }
+
   async resultFood() {
     const { getFoodId, match } = this.props;
     const recomendations = await BeverageAPI.getByDefault();
@@ -54,9 +71,16 @@ class FoodDetails extends React.Component {
     this.setState({ valueFood: payload, recomendations }, () => this.getIngredients());
   }
 
+  iniciarReceita() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
+    this.checkBtnReceita();
+  }
+
   render() {
-    const SEIX = 5;
-    const { valueFood, ingredients, recomendations } = this.state;
+    const { valueFood, ingredients, recomendations, visible } = this.state;
     if (valueFood[0]) {
       console.log(recomendations);
       return (
@@ -84,17 +108,20 @@ class FoodDetails extends React.Component {
               </ul>
               <p data-testid="instructions">{food.strInstructions}</p>
               <img data-testid="video" src={ food.strVideo } alt="video" />
-              {recomendations.map((value, j) => (j <= SEIX ? (
-                <div key={ j } data-testid={ `${j}-recomendation-card` }>
-                  <h5>{value.strDrink}</h5>
-                </div>
-              )
-                : null))}
+              <CarroselBebidas recomendations={ recomendations } />
             </>
           ))}
           <button type="button" data-testid="share-btn">share</button>
           <button type="button" data-testid="favorite-btn">favorite</button>
-          <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
+          <button
+            type="button"
+            className={ `btn-iniciar-receita ${visible}` }
+            data-testid="start-recipe-btn"
+            onClick={ this.iniciarReceita }
+          >
+            iniciar receita
+
+          </button>
         </div>
       );
     }

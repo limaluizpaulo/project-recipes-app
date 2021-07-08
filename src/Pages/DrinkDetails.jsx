@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { getDrinks } from '../redux/actions';
-
+import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 
@@ -13,13 +13,17 @@ class DrinkDetails extends React.Component {
       valueDrink: [],
       ingredients: [],
       recomendations: [],
+      visible: 'hidden',
     };
     this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
+    this.checkBtnReceita = this.checkBtnReceita.bind(this);
+    this.iniciarReceita = this.iniciarReceita.bind(this);
   }
 
   componentDidMount() {
     this.resultDrink();
+    this.checkBtnReceita();
   }
 
   getIngredients() {
@@ -47,6 +51,17 @@ class DrinkDetails extends React.Component {
     this.setState({ ingredients: ingredientsAndMeasures });
   }
 
+  checkBtnReceita() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    getReceitaStorage.forEach((receita) => {
+      if (receita === id) {
+        this.setState({ visible: '' });
+      }
+    });
+  }
+
   async resultDrink() {
     const { getDrinkId, match } = this.props;
     const { id } = match.params;
@@ -55,10 +70,16 @@ class DrinkDetails extends React.Component {
     this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
   }
 
+  iniciarReceita() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
+    this.checkBtnReceita();
+  }
+
   render() {
-    const SEIX = 5;
-    const { valueDrink, ingredients, recomendations } = this.state;
-    console.log(valueDrink);
+    const { valueDrink, ingredients, recomendations, visible } = this.state;
     if (valueDrink[0]) {
       return (
         <div>
@@ -85,17 +106,20 @@ class DrinkDetails extends React.Component {
               </ul>
               <p data-testid="instructions">{drink.strInstructions}</p>
               <img data-testid="video" src={ drink.strVideo } alt="video" />
-              {recomendations.map((value, j) => (j <= SEIX ? (
-                <div key={ j } data-testid={ `${j}-recomendation-card` }>
-                  <h5>{value.strMeal}</h5>
-                </div>
-              )
-                : null))}
+              <CarroselComidas recomendations={ recomendations } />
             </>
           ))}
           <button type="button" data-testid="share-btn">share</button>
           <button type="button" data-testid="favorite-btn">favorite</button>
-          <button type="button" data-testid="start-recipe-btn">iniciar receita</button>
+          <button
+            type="button"
+            className={ `btn-iniciar-receita ${visible}` }
+            data-testid="start-recipe-btn"
+            onClick={ this.iniciarReceita }
+          >
+            iniciar receita
+
+          </button>
         </div>
       );
     }
