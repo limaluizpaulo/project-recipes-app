@@ -4,15 +4,16 @@ import { useLocation, Link } from 'react-router-dom';
 import RecipesContext from '../Context/RecipesContext';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
-import { fetchIdMeals } from '../Service/foodApi';
+import { fetchIdDrink } from '../Service/drinkApi';
 
-export default function RecipesInProgress() {
+export default function RecipesInProgressDrink() {
   const [disableButton, setDisableButton] = useState(0);
-  const { stateMeals, setStateMeals, ingredientsMeals, setIngredientsMeals,
-    measureMeals, setMeasureMeals } = useContext(RecipesContext);
+  const [ingredients, setIngredients] = useState([]);
+  const [measure, setMeasure] = useState([]);
+  const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const filterDetails = () => {
-    const keysIngredientes = Object.keys(stateMeals[0]);
+    const keysIngredientes = Object.keys(stateDrink[0]);
     const arrayKeysIngredients = keysIngredientes.filter(
       (e) => e.includes('strIngredient'),
     );
@@ -20,43 +21,43 @@ export default function RecipesInProgress() {
     const measures = [];
 
     const arrayKeysMeasure = keysIngredientes.filter((e) => e.includes('strMeasure'));
-    arrayKeysMeasure.forEach((element) => measures.push(stateMeals[0][element]));
-    arrayKeysIngredients.forEach((element) => ingredient.push(stateMeals[0][element]));
+    arrayKeysMeasure.forEach((element) => measures.push(stateDrink[0][element]));
+    arrayKeysIngredients.forEach((element) => ingredient.push(stateDrink[0][element]));
     const filtroIngredients = ingredient.filter((word) => word !== '' && word !== null);
     const filtroMeasure = measures.filter((word) => word !== ' ' && word !== null);
-    setIngredientsMeals(filtroIngredients);
-    setMeasureMeals(filtroMeasure);
+    setIngredients(filtroIngredients);
+    setMeasure(filtroMeasure);
     console.log(filtroIngredients, filtroMeasure);
   };
 
   const getApiDetails = () => {
     const id = pathname.split('/')[2];
-    fetchIdMeals(id).then((result) => setStateMeals(result));
+    fetchIdDrink(id).then((result) => setStateDrink(result));
   };
 
   useEffect(getApiDetails, []);
-  useEffect(filterDetails, [stateMeals]);
+  useEffect(filterDetails, [stateDrink]);
   const handleChange = ({ target: { checked } }) => {
     if (checked) {
       setDisableButton(disableButton + 1);
     } else { setDisableButton(disableButton - 1); }
   };
-  const { strMeal, strMealThumb, strCategory, strInstructions } = stateMeals[0];
+  const { strDrink, strMealThumb, strCategory, strInstructions } = stateDrink[0];
   return (
     <main>
       <img
         src={ strMealThumb }
-        alt={ `Imagem ${strMeal}` }
+        alt={ `Imagem ${strDrink}` }
         width="60px"
         data-testid="recipe-photo"
       />
-      <h2 data-testid="recipe-title">{strMeal}</h2>
+      <h2 data-testid="recipe-title">{strDrink}</h2>
       <ShareButton />
       <FavoriteButton />
       <h3 data-testid="recipe-category">{strCategory}</h3>
       <h2>Ingredients</h2>
       <ul>
-        {ingredientsMeals.map((ingredient, index) => (
+        {ingredients.map((ingredient, index) => (
           <li
             key={ index }
             value={ index }
@@ -64,7 +65,7 @@ export default function RecipesInProgress() {
           >
             {`${ingredient} - `}
             <span data-testid={ `${index}-ingredient-step` }>
-              {`${measureMeals[index]}  `}
+              {`${measure[index]}  `}
               <input
                 value={ ingredient }
                 type="checkbox"
@@ -83,7 +84,7 @@ export default function RecipesInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
-          disabled={ disableButton !== ingredientsMeals.length }
+          disabled={ disableButton !== ingredients.length }
 
         >
 

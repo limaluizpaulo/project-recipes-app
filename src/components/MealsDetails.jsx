@@ -9,9 +9,8 @@ import RecipesContext from '../Context/RecipesContext';
 import FavoriteButton from './FavoriteButton';
 
 export default function MealsDetails() {
-  const { stateMeals, setStateMeals } = useContext(RecipesContext);
-  const [ingredients, setIngredients] = useState([]);
-  const [measure, setMeasure] = useState([]);
+  const { stateMeals, setStateMeals, ingredientsMeals, setIngredientsMeals,
+    measureMeals, setMeasureMeals } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
 
@@ -28,8 +27,8 @@ export default function MealsDetails() {
     arrayKeysIngredients.forEach((element) => ingredient.push(stateMeals[0][element]));
     const filtroIngredients = ingredient.filter((word) => word !== '');
     const filtroMeasure = measures.filter((word) => word !== ' ');
-    setIngredients(filtroIngredients);
-    setMeasure(filtroMeasure);
+    setIngredientsMeals(filtroIngredients);
+    setMeasureMeals(filtroMeasure);
   };
 
   const getApiDetails = () => {
@@ -57,13 +56,14 @@ export default function MealsDetails() {
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
-        {console.log(ingredients)}
-        {ingredients.map((ingredient, index) => (
+        {console.log(ingredientsMeals)}
+        {ingredientsMeals.map((ingredient, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
           >
-            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
+            { `${ingredient} ${measureMeals[index] !== undefined
+              ? `-${measureMeals[index]}` : ''}`}
           </li>))}
       </ul>
       <h2>Instructions</h2>

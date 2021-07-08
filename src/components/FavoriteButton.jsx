@@ -14,11 +14,10 @@ function FavoriteButton() {
   const saveStorage = () => {
     const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
       strAlcoholic } = stateDrink[0];
+    const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
     const type = pathname.includes('comida') ? 'comida' : 'bebida';
 
     if (type === 'comida') {
-      const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
-
       setSaveRecipe({
         id: idMeal,
         name: strMeal,
