@@ -6,8 +6,7 @@ import Login from './pages/Login';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
-import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
-import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
+import ExplorarPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
@@ -48,11 +47,11 @@ function App() {
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
-            component={ ExplorarComidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route
             path="/explorar/bebidas/ingredientes"
-            component={ ExplorarBebidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
           <Route exact path="/perfil" component={ Perfil } />
