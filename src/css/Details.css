@@ -1,4 +1,6 @@
 .details-content {
+  flex-grow: 1;
+  margin-bottom: 120px;
   padding: 0.56rem;
 }
 
@@ -32,9 +34,12 @@
 }
 
 .details-btn-startRecipe {
+  bottom: 0;
   font-size: 1.8rem;
   height: 4.75rem;
   margin-bottom: 1.2rem;
   margin-top: 3.1rem;
+  padding: 0.56rem;
+  position: fixed;
   width: 21.2rem;
 }

@@ -17,13 +17,16 @@ class Ingredients extends Component {
     const { data, isStart } = this.props;
     const dictionary = identification(data);
     return (
-      <section data-testid={ `${0}-ingredient-name-and-measure` }>
+      <section>
         <Table responsive="sm">
           <tbody>
             {
               dictionary.Ingredients.map((ingredient, index) => (
                 (data[ingredient[0]] !== null && data[ingredient[0]] !== '') ? (
-                  <tr key={ index }>
+                  <tr
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
                     <td>{isStart ? this.checkIngredient() : <VscCircleOutline />}</td>
                     <td>{data[ingredient[0]]}</td>
                     <td>{data[ingredient[1]]}</td>
