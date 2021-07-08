@@ -26,7 +26,6 @@ function DoneRecipe({ recipe: {
             data-testid={ `${index}-horizontal-image` }
             style={ imgStyle }
           />
-
         </Link>
       </div>
       <div>

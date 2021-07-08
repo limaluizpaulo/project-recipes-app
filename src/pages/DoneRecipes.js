@@ -13,13 +13,14 @@ function DoneRecipes() {
       return recipe.type === filterBy;
     });
   useEffect(() => {}, [filterBy]);
+
   return (
     <div>
       <Header title="Receitas Feitas" />
-      <div className="exploreButtons-container">
+      <div>
         <button
           type="button"
-          className="exploreButtons"
+          className="category-btn"
           data-testid="filter-by-all-btn"
           onClick={ () => setfilterBy('nenhum') }
         >
@@ -27,7 +28,7 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
-          className="exploreButtons"
+          className="category-btn"
           data-testid="filter-by-food-btn"
           onClick={ () => setfilterBy('comida') }
         >
@@ -35,7 +36,7 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
-          className="exploreButtons"
+          className="category-btn"
           data-testid="filter-by-drink-btn"
           onClick={ () => setfilterBy('bebida') }
         >

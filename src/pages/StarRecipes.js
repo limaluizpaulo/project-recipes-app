@@ -26,7 +26,10 @@ function StarRecipes() {
   if (favorite === null) {
     return (
       <div>
-        <h4 className="noFavorite">Não há receitas favoritadas</h4>
+        <Header title="Receitas Favoritas" />
+        <div>
+          <h4 className="noFavorite">Não há receitas favoritadas</h4>
+        </div>
       </div>
     );
   }

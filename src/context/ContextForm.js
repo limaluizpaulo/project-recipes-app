@@ -61,6 +61,10 @@ function Provider({ children }) {
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     }
+    if (localStorage.getItem('user') === null) {
+      const mail = { email };
+      localStorage.setItem('user', JSON.stringify(mail));
+    }
   }, []);
 
   return (

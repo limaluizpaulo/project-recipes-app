@@ -5,11 +5,12 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const getUser = JSON.parse(localStorage.getItem('user'));
   const { changeFood,
     setChangeFood,
     changeDrink,
     setChangeDrink } = useContext(Context);
+
+  const getUser = JSON.parse(localStorage.getItem('user'));
 
   function handleFinish() {
     if (changeFood) {
@@ -25,7 +26,12 @@ function Profile() {
       <Header title="Perfil" />
       <div className="exploreButtons-container">
         <h3><strong>Usuário:</strong></h3>
-        <h4 className="profileTitle" data-testid="profile-email">{getUser.email}</h4>
+        <h4
+          className="profileTitle"
+          data-testid="profile-email"
+        >
+          {getUser ? getUser.email : 'usuario@usuario.com'}
+        </h4>
         <Link to="/receitas-feitas">
           <button
             type="button"
