@@ -93,9 +93,10 @@
 }
 
 .div-cards-ingredients {
-  width: 60px;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
 
 }
 
