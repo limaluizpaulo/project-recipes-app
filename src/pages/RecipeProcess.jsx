@@ -19,6 +19,7 @@ class RecipeProcess extends Component {
       className: '',
       redirect: false,
       chec: false,
+      active: true,
       recipe: [],
       // ingredients: [],
       // response: [],
@@ -44,7 +45,8 @@ class RecipeProcess extends Component {
     console.log(e.target.checked);
     this.setState((state) => ({ ...state,
       className: 'Risk',
-      chec: !state.chec }), () => {
+      chec: !state.chec,
+      active: !state.active }), () => {
       const { chec } = this.state;
       localStorage.setItem('inProgressRecipes', JSON.stringify(chec));
     });
@@ -65,7 +67,7 @@ class RecipeProcess extends Component {
   }
 
   render() {
-    const { redirect, recipe, className, chec } = this.state;
+    const { redirect, recipe, className, chec, active } = this.state;
     // console.log(recipe);
     const ingredientsKeys = Object.entries(recipe);
     console.log(ingredientsKeys);
@@ -118,6 +120,7 @@ class RecipeProcess extends Component {
           data-testid="finish-recipe-btn"
           type="button"
           onClick={ this.handleClick }
+          disabled={ active }
         >
           Finalizar Receita
         </button>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 // import data from '../data2';
 
 import '../Style/Progress.css';
@@ -12,12 +13,15 @@ class DrinkProcess extends Component {
     this.state = {
       className: '',
       chec: false,
+      active: true,
+      redirect: false,
       drinks: [],
       ingredients: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleStorange = this.handleStorange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.getDrink = this.getDrink.bind(this);
   }
 
@@ -35,10 +39,15 @@ class DrinkProcess extends Component {
     console.log(e.target.checked);
     this.setState((state) => ({ ...state,
       className: 'Risk',
-      chec: !state.chec }), () => {
+      chec: !state.chec,
+      active: false }), () => {
       const { chec } = this.state;
       localStorage.setItem('inProgressRecipes', JSON.stringify(chec));
     });
+  }
+
+  handleClick() {
+    this.setState({ redirect: true });
   }
 
   async getDrink() {
@@ -57,8 +66,9 @@ class DrinkProcess extends Component {
   }
 
   render() {
-    const { drinks, ingredients, className, chec } = this.state;
-    console.log(ingredients);
+    const { drinks, ingredients, className, chec, active, redirect } = this.state;
+    // console.log(ingredients);
+    if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
         <h2>Drinks Process</h2>
@@ -98,6 +108,8 @@ class DrinkProcess extends Component {
         <button data-testid="share-btn" type="button">Compartilhar</button>
         <button data-testid="favorite-btn" type="button">Favoritar</button>
         <button
+          onClick={ this.handleClick }
+          disabled={ active }
           data-testid="finish-recipe-btn"
           type="button"
         >
