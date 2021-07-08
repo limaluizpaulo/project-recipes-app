@@ -86,8 +86,8 @@ export const settingFavorite = (details, id, refresh) => {
     };
   }
   if (details.drinks) {
+    console.log(details.drinks);
     const { idDrink,
-      strArea,
       strCategory,
       strDrink,
       strDrinkThumb,
@@ -95,7 +95,7 @@ export const settingFavorite = (details, id, refresh) => {
     favoriteObject = {
       id: idDrink,
       type: 'bebida',
-      area: strArea,
+      area: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
