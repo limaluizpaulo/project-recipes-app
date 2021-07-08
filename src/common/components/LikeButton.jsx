@@ -2,26 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { getStorage, setStorage } from '../../functions';
+import { getStorage, infoFavorite, setStorage } from '../../functions';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import store from '../../context/store';
 
-export default function LikeButton({ recipe, captureFavorited }) { // Desestruturando props
+export default function LikeButton({ recipe, captureFavorited, favPage, index }) { // Desestruturando props
   const { pathname } = useLocation();
   const { recipes: { foods } } = useContext(store);
   const [favorited, setFavorited] = useState(false);
 
   const clickLike = () => {
-    const infoFav = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: (foods) ? 'comida' : 'bebida',
-      area: recipe.strArea || '',
-      category: recipe.strCategory || '',
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
+    const infoFav = infoFavorite(recipe, foods);
 
     const favInLS = getStorage('favoriteRecipes');
     const findFavInLS = favInLS.find((item) => item.id === infoFav.id);
@@ -68,7 +60,7 @@ export default function LikeButton({ recipe, captureFavorited }) { // Desestrutu
       <img
         src={ (favorited) ? blackHeartIcon : whiteHeartIcon }
         alt="favorite-icon"
-        data-testid="favorite-btn"
+        data-testid={ favPage ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
         width="30px"
       />
     </button>
@@ -83,4 +75,11 @@ export default function LikeButton({ recipe, captureFavorited }) { // Desestrutu
 LikeButton.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
   captureFavorited: PropTypes.func.isRequired,
+  favPage: PropTypes.bool,
+  index: PropTypes.number,
+};
+
+LikeButton.defaultProps = {
+  favPage: false,
+  index: 0,
 };

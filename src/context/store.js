@@ -12,11 +12,13 @@ export const RECIPES = {
   foods: null,
   categoriesLimit: 5,
   cardsLimit: 12,
+  recommendedLimit: 6,
   meals: [],
   categoriesMeals: [],
   drinks: [],
   categoriesDrinks: [],
   recipeDetail: [],
+  recommendedRecipes: [],
 };
 
 export const SEARCH = {
@@ -56,7 +58,14 @@ export const directPage = (foods) => ({
   type: DIRECT_PAGE, payload: { foods },
 });
 
+// DETAILS
+
 export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
 export const addRecDetail = (recipeDetail) => ({
   type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
+});
+
+export const ADD_RD_RR_LOADING = 'ADD_RD_RR_LOADING'; // Add RecipeDetail, RecommendedRecipes, Loading
+export const addRecipesDRLoading = (recipeDetail, recommendedRecipes, loading) => ({
+  type: ADD_RD_RR_LOADING, payload: { recipeDetail, recommendedRecipes, loading },
 });

@@ -29,8 +29,13 @@ export default function FavoriteRecipes() {
         />
         <h5 data-testid={ `${index}-horizontal-top-text` }>{ favorited.category }</h5>
         <h1 data-testid={ `${index}-horizontal-name` }>{ favorited.name }</h1>
-        <ShareButton />
-        <LikeButton recipe captureFavorited={ captureFavorited } />
+        <ShareButton id={ favorited.id } type={ favorited.type } index={ index } path />
+        <LikeButton
+          recipe
+          captureFavorited={ captureFavorited }
+          favPage
+          index={ index }
+        />
       </div>
     ))
   );

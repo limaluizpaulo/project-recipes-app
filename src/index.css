@@ -1,17 +1,3 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
 
 @font-face {
   font-family: 'PoetsenOne';
@@ -19,16 +5,14 @@ code {
 }
 /*========== VARIABLES CSS ====================================================================================================*/
 :root {
-  /*========== Colors =========================================================================================================*/
-  --first-color: #4D49BF;
-  /* --second-color: #05DBF2; */
-  /* --white-color: #E9EAEC; */
-  /* --dark-color: #272d40; */
-  --dark-color: #314279;
+  /*========== COLORS =========================================================================================================*/
+  --first-color: #9D4BFF;
+  /* --first-color: #4D49BF; */
+  --first-color-dark: #314279;
   /* --dark-color-lighten: #F2F5FF; */
   --title-color: #F2A20C;
 
-  /*========== Font and typography ===========================================================================================*/
+  /*========== FONT / TYPOGRAPHY ===========================================================================================*/
   --body-font: 'PoetsenOne', sans-serif;
   --normal-font-size: .938rem;
   --h1-font-size: 1.375rem;
@@ -60,16 +44,15 @@ body, button {
 .recipe {
   width: 200px;
   height: 230px;
-  background-color: var(--dark-color);
+  background-color: var(--first-color-dark);
   border-radius: 1rem;
-  /* padding: 4rem 2rem 0; */
   overflow-y: hidden;
   cursor: pointer;
   margin: 15px 5px 0 5px;
 }
 
 .recipe:hover {
-  box-shadow: 1px 2px 8px 2px var(--first-color);
+  box-shadow: 1px 2px 8px 2px #4D49BF;
 }
 
 .recipe img {
@@ -145,7 +128,6 @@ body, button {
   position: absolute;
   margin-left: -10px;
   margin-top: 15px;
-  
 }
 
 .hideMsg {
@@ -157,8 +139,8 @@ body, button {
 /* DONE RECIPE PAGE ===========================================================================================================*/
 .doneCard {
   border: solid black 1px;
-  height: 143px;
-  width: 333px;
+  /* height: 143px;
+  width: 333px; */
 }
 
 .doneImg {
@@ -166,7 +148,98 @@ body, button {
   height: 143px;
 }
 
-.doneArea, .doneCategory {
+/* .doneArea, .doneCategory {
   display: inline-block;
-  /* flex-direction: column; */
+  /* flex-direction: column;
+} */
+
+/* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
+
+.recommendedRecipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 850px;
+}
+
+.recommendedImg {
+  width: 300px;
+  margin: 30px 30px -10px 30px;
+  border-radius: 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+}
+
+.recommendedTitle {
+  font-family: var(--body-font);
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+}
+
+.left-arrow {
+  position: absolute;
+  top: 40%;
+  left: 3px;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 40%;
+  right: 3px;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.imgTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  display: none;
+  /* opacity: 0; */
+  transition: all 1.5s ease;
+}
+
+.active {
+  display: block;
+  /* opacity: 1; */
+  height: 380px;
+  border-radius: 10px;
+  transform: scale(1.08);
+  transition: all 1.5s ease;
+}
+
+
+/*  ====================================================================================================================================*/
+/* DETAILS PAGE ===========================================================================================================*/
+.btnFinishNone {
+  display: none;
+  cursor: pointer;
+}
+
+.btnFinish {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+/*  ====================================================================================================================================*/
