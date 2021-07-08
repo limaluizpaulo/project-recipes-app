@@ -21,10 +21,11 @@ function RecipesMade() {
         <div key={ `${index} - ${name}` }>
           <p>{tags}</p>
           <Link to={ `${type}s/${id}` }>
-            <img
+            <button
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               alt="Receita"
+              type="button"
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
@@ -76,6 +77,13 @@ function RecipesMade() {
         Drinks
       </button>
       {dones && renderCards()}
+      {/*       <Link to="/comidas/52771">
+        <img
+          data-testid="0-horizontal-image"
+          src=""
+          alt="Receita"
+        />
+      </Link> */}
     </div>
   );
 }
