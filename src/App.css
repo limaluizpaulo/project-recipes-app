@@ -79,10 +79,10 @@
   font-size: 2px;
 }
 
-.meals > .logo {
+.meals>.logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
@@ -90,6 +90,13 @@
 .start-recipe {
   bottom: 0;
   position: fixed;
+}
+
+.div-cards-ingredients {
+  width: 60px;
+  display: flex;
+  flex-wrap: wrap;
+
 }
 
 @keyframes shake {
