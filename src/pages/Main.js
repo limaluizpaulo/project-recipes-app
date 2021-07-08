@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { setConstants } from '../helpers';
+import DrinksContext from '../context/drinks.context';
+import MealsContext from '../context/meals.context';
+import { getRecipes, setConstants } from '../helpers';
 import Header from '../components/Header';
 import CategoryButtons from '../components/CategoryButtons';
 import RecipesList from '../components/RecipesList';
 import Footer from '../components/Footer';
 
 function Main() {
-  const history = useHistory();
-  const { location: { pathname } } = history;
+  const { setDrinks } = useContext(DrinksContext);
+  const { setMeals } = useContext(MealsContext);
+  const { location: { pathname } } = useHistory();
 
   const isDrinks = pathname.includes('bebidas');
-  const { title } = setConstants(isDrinks);
+  const { title, type } = setConstants(isDrinks);
+  const setFn = isDrinks ? setDrinks : setMeals;
+
+  useEffect(() => {
+    getRecipes({ type, setFn });
+  }, [type, setFn]);
 
   return (
     <main>

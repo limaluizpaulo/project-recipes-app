@@ -53,7 +53,7 @@ function RecipeDetails() {
           data-testid="recipe-photo"
         />
         <div>
-          <FavoriteButton details={ details } />
+          <FavoriteButton details={ details } dataTestId="favorite-btn" />
           <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>

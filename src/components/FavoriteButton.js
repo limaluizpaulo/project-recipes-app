@@ -6,7 +6,7 @@ import { setConstants, toggleFavorite } from '../helpers';
 import blackHeartIcon from '../svg/blackHeartIcon.svg';
 import whiteHeartIcon from '../svg/whiteHeartIcon.svg';
 
-function FavoriteButton({ details }) {
+function FavoriteButton({ dataTestId, details }) {
   const { favorites, setFavorites } = useContext(UserContext);
   const isDrinks = Object.keys(details).includes('idDrink');
   const { idKey } = setConstants(isDrinks);
@@ -22,7 +22,7 @@ function FavoriteButton({ details }) {
         className="svg-small"
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Add to Favorites"
-        data-testid="favorite-btn"
+        data-testid={ dataTestId }
       />
     </button>
   );
