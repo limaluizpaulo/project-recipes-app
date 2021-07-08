@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-function Explorar() {
+function Explore() {
   const history = useHistory();
   return (
     <div>
@@ -27,4 +27,4 @@ function Explorar() {
   );
 }
 
-export default Explorar;
+export default Explore;

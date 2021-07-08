@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
-import { getFilteredRecipes } from '../helpers/provider';
+import { getFilteredRecipes } from '../helpers';
 
 function SearchBar() {
   const { setDrinks } = useContext(DrinksContext);

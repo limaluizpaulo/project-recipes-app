@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
-function ExplorarPorIngredientes() {
+function ExploreByIngredients() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -19,4 +19,4 @@ function ExplorarPorIngredientes() {
   );
 }
 
-export default ExplorarPorIngredientes;
+export default ExploreByIngredients;

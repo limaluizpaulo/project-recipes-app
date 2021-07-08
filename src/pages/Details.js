@@ -11,8 +11,9 @@ function Details() {
   const { id } = useParams();
 
   const isDrinks = pathname.includes('bebidas');
-  const typeKey = isDrinks ? 'cocktails' : 'meals';
   const typePt = isDrinks ? 'bebidas' : 'comidas';
+  const typeKey = isDrinks ? 'cocktails' : 'meals';
+
   const isDone = done.some((item) => item.id === id);
 
   let inProgressIds = [];
@@ -22,7 +23,6 @@ function Details() {
   if (Object.keys(inProgress).includes('meals')) {
     inProgressIds = [...inProgressIds, ...Object.keys(inProgress.meals)];
   }
-
   const isInProgress = inProgressIds.some((item) => Number(item) === Number(id));
 
   function handleClick() {

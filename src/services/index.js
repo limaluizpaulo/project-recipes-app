@@ -1,3 +1,17 @@
+export async function fetchCategories(type) {
+  try {
+    const API_URL = type === 'meals'
+      ? 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    const data = await fetch(API_URL);
+    const result = await data.json();
+    // console.log(result);
+    return result[type];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function fetchByIngredient(type, query) {
   try {
     let API_URL = type === 'meals'
@@ -37,20 +51,6 @@ export async function fetchByFirstLetter(type, query) {
       ? 'https://www.themealdb.com/api/json/v1/1/search.php?f='
       : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
     const data = await fetch(`${API_URL}${query}`);
-    const result = await data.json();
-    // console.log(result);
-    return result[type];
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function fetchCategories(type) {
-  try {
-    const API_URL = type === 'meals'
-      ? 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'
-      : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-    const data = await fetch(API_URL);
     const result = await data.json();
     // console.log(result);
     return result[type];

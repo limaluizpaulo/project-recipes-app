@@ -6,9 +6,8 @@ import UserContext from '../context/user.context';
 function UserProvider({ children }) {
   const localFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const localDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const initialObj = { cocktails: {}, meals: {} };
   const localInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
-      || initialObj;
+      || { cocktails: {}, meals: {} };
 
   const [userEmail, setUserEmail] = useState('');
   const [favorites, setFavorites] = useState(localFavorites);

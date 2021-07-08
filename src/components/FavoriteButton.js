@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import UserContext from '../context/user.context';
-import { toggleFavorite } from '../helpers/provider';
+import { toggleFavorite } from '../helpers';
 import blackHeartIcon from '../svg/blackHeartIcon.svg';
 import whiteHeartIcon from '../svg/whiteHeartIcon.svg';
 

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
-import { getRecipes } from '../helpers/provider';
+import { getRecipes } from '../helpers';
 import './RecipesList.css';
 
 function RecipesList() {

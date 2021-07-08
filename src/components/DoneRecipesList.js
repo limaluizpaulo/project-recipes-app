@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// import UserContext from '../context/user.context';
+import UserContext from '../context/user.context';
 import ShareButton from './ShareButton';
 import './DoneRecipesList.css';
 
 function DoneRecipesList({ filter }) {
-  // const { done } = useContext(UserContext);
-
-  const done = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const { done } = useContext(UserContext);
 
   const recipes = filter
     ? done.filter((item) => item.type === filter)
@@ -41,7 +39,7 @@ function DoneRecipesList({ filter }) {
               <span data-testid={ `${index}-horizontal-top-text` }>
                 { item.area && `${item.area} - `}
                 { item.category }
-                {item.type === 'bebida' && ` - ${item.alcoholicOrNot}`}
+                { item.alcoholicOrNot && ` - ${item.alcoholicOrNot}` }
               </span>
             </div>
             <div>

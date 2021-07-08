@@ -17,9 +17,9 @@ function MealsProvider({ children }) {
 
   async function getCategories() {
     const MAX_ITEMS = 5;
-    const data = await fetchCategories('meals');
+    const result = await fetchCategories('meals');
 
-    const categoryNames = data
+    const categoryNames = result
       .filter((item, index) => item && index < MAX_ITEMS)
       .map((item) => item.strCategory);
 

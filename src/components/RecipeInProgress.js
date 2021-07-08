@@ -1,37 +1,28 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
-import PropTypes from 'prop-types';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
-import { toggleIngredient } from '../helpers/provider';
+import { toggleIngredient } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import './RecipeDetails.css';
 
 function RecipeDetails() {
+  const { details, ingredients, measures } = useContext(DetailsContext);
   const { inProgress, setInProgress } = useContext(UserContext);
-  const {
-    details,
-    ingredients,
-    measures,
-    imgKey,
-    nameKey,
-    typePt,
-    usedIngredients,
-    setContentParams,
-    isDrinks,
-  } = useContext(DetailsContext);
-
   const { location: { pathname } } = useHistory();
   const { id } = useParams();
 
-  useEffect(() => {
-    setContentParams({ id, pathname });
-  }, [id, pathname, setContentParams]);
+  const isDrinks = pathname.includes('bebidas');
+  const imgKey = isDrinks ? 'strDrinkThumb' : 'strMealThumb';
+  const nameKey = isDrinks ? 'strDrink' : 'strMeal';
+  const typeKey = isDrinks ? 'cocktails' : 'meals';
+  const typePt = isDrinks ? 'bebidas' : 'comidas';
 
   function renderIngredients() {
+    const usedIngredients = inProgress[typeKey][id] || [];
+
     return (
       <ul>
         {ingredients.map((ingredient, index) => {
@@ -84,10 +75,5 @@ function RecipeDetails() {
     </div>
   );
 }
-
-RecipeDetails.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  setIngredients: PropTypes.func,
-}.isRequired;
 
 export default RecipeDetails;
