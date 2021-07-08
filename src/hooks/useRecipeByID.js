@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchRecipesById } from '../services/recipesAPI';
 
-function useRecipeByID(type, typeMainKey = '') {
+function useRecipeByID(type, id, typeMainKey = '') {
   const [recipe, setRecipe] = useState({});
 
   const getRecipe = async () => {

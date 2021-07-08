@@ -6,7 +6,6 @@ import {
   areasUrl,
   recipesByArea,
   recipesById,
-  searchRecipesById,
 } from './endpoints';
 
 export const fetchAllRecipes = async (mealsOrDrinks) => {

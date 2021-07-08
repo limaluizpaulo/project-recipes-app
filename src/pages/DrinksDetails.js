@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useHistory, useLocation } from 'react-router-dom';
@@ -15,7 +15,12 @@ function DrinksDetails({ match: { params: { id } } }) {
   const MAX_RECOMMENDATIONS = 6;
 
   // CONTEXT
-  const { startedRecipes } = useContext(RecipesContext);
+  const {
+    startedRecipes,
+    organizeIngredients,
+    ingredients,
+    localstorageSaveStartedRecipe,
+  } = useContext(RecipesContext);
 
   // STATES
   const [alreadyStarted, setAlreadyStarted] = useState(false);
@@ -26,8 +31,8 @@ function DrinksDetails({ match: { params: { id } } }) {
   const { pathname } = useLocation();
 
   // CUSTOM HOOKS
-  const recipe = useRecipeByID('drinks', 'strDrinks');
-  const recommendations = useRecommendation('meals', MAX_RECOMMENDATIONS, 'strMeals');
+  const recipe = useRecipeByID('drinks', id, 'strDrink');
+  const recommendations = useRecommendation('meals', MAX_RECOMMENDATIONS, 'strMeal');
 
   // EFFECTS - DIDMOUNT AND DIDUPDATE
   useEffect(() => {
@@ -41,35 +46,50 @@ function DrinksDetails({ match: { params: { id } } }) {
       if (found) setAlreadyStarted(true);
     }
 
-    if (objInProgress.cocktails[id]) {
+    if (objInProgress && objInProgress.meals[id]) {
       setIsInProgressRecipe(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startedRecipes]);
 
-  return (
-    <>
-      <Details
-        id={ id }
-        recipe={ recipe }
-        recommendations={ recommendations }
-      />
-      <ConditionButton
-        data-testid="start-recipe-btn"
-        className="start-recipe"
-        onClick={ () => {
-          if (!isInProgressRecipe) {
-            localstorageSaveStartedRecipe(recipe, ingredients);
-          }
+  useEffect(() => {
+    organizeIngredients(recipe);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-          push(`${pathname}/in-progress`);
-        } }
-        hidden={ alreadyStarted && !isInProgressRecipe }
-      >
-        { isInProgressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
-      </ConditionButton>
-    </>
-  );
+  const renderContent = () => {
+    const hasRecipe = Object.keys(recipe).length !== 0;
+    const hasRecommendations = Object.keys(recommendations).length !== 0;
+    if (hasRecipe && hasRecommendations) {
+      return (
+        <>
+          <Details
+            id={ id }
+            recipe={ recipe }
+            recommendations={ recommendations }
+          />
+          <ConditionButton
+            data-testid="start-recipe-btn"
+            className="start-recipe"
+            onClick={ () => {
+              if (!isInProgressRecipe) {
+                localstorageSaveStartedRecipe(recipe, ingredients);
+              }
+
+              push(`${pathname}/in-progress`);
+            } }
+            hidden={ alreadyStarted && !isInProgressRecipe }
+          >
+            { isInProgressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
+          </ConditionButton>
+        </>
+      );
+    }
+
+    return <p>Loading...</p>;
+  };
+
+  return renderContent();
 }
 
 DrinksDetails.propTypes = {

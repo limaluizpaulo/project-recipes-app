@@ -16,42 +16,21 @@ TODO:
 */
 function Details({ id, recipe, recommendations }) {
   // CONSTANTS
-  const MAX_INGREDIENTS = 20; // 20, because the max of meals usage is 20 and drinks is 15.
   const RECIPE_MAIN_KEY = recipe.typeMainKey;
   const RECOMM_KEY = recommendations.typeMainKey;
-
   // CONTEXT
   const {
     favoritedRecipes,
-    localstorageSaveFavoriteRecipe } = useContext(RecipesContext);
+    localstorageSaveFavoriteRecipe,
+    ingredients,
+  } = useContext(RecipesContext);
 
   // STATES
   const [isFav, setIsFav] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
-  const [ingredients, setIngredients] = useState([]);
 
   // ROUTER HOOKS
   const { pathname } = useLocation();
-
-  // FUNCTIONS
-  const organizeIngredients = () => {
-    let tempArray = [];
-    for (let number = 1; number <= MAX_INGREDIENTS; number += 1) {
-      if (recipe[`strIngredient${number}`]) {
-        tempArray = [...tempArray, [
-          recipe[`strIngredient${number}`],
-          recipe[`strMeasure${number}`],
-        ]];
-      }
-    }
-    setIngredients(tempArray);
-  };
-
-  // EFFECTS
-  useEffect(() => {
-    organizeIngredients();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -92,7 +71,8 @@ function Details({ id, recipe, recommendations }) {
     return (
       <Carousel itemsToShow={ 2 } pagination={ false } disableArrowsOnEnd={ false }>
         {
-          recommendations.map((
+          recommendations
+          && recommendations.recipes.map((
             { [RECOMM_KEY]: title, [recommKeyThumb]: thumb },
             index,
           ) => (
@@ -130,7 +110,7 @@ function Details({ id, recipe, recommendations }) {
         {/* TODO: Remove 'style' attribute */}
         <img
           src={ recipe[`${RECIPE_MAIN_KEY}Thumb`] }
-          alt="test"
+          alt="Recipe"
           style={ { width: 200 } }
           data-testid="recipe-photo"
         />
@@ -142,6 +122,7 @@ function Details({ id, recipe, recommendations }) {
               favSave={ localstorageSaveFavoriteRecipe }
               shareCopyLocation={ pathname }
               shareSetCopyLocation={ setCopyLink }
+              recipe={ recipe }
             />
             {
               copyLink
@@ -176,8 +157,23 @@ function Details({ id, recipe, recommendations }) {
 
 Details.propTypes = {
   id: PropTypes.string.isRequired,
-  recipe: PropTypes.shape(PropTypes.object).isRequired,
-  recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipe: PropTypes.shape({
+    strAlcoholic: PropTypes.string,
+    strCategory: PropTypes.string,
+    strInstructions: PropTypes.string,
+    strYoutube: PropTypes.string,
+    typeMainKey: PropTypes.string.isRequired,
+  }).isRequired,
+  recommendations: PropTypes.shape({
+    recipes: PropTypes.arrayOf(PropTypes.object),
+    typeMainKey: PropTypes.string,
+  }).isRequired,
 };
+
+// Details.propTypes = {
+//   id: PropTypes.string.isRequired,
+//   recipe: PropTypes.shape({}).isRequired,
+//   recommendations: PropTypes.shape({}).isRequired,
+// };
 
 export default Details;

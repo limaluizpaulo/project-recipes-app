@@ -53,7 +53,7 @@ ShareFavIcons.propTypes = {
   isFav: PropTypes.bool.isRequired,
   shareCopyLocation: PropTypes.string.isRequired,
   favSave: PropTypes.func.isRequired,
-  recipe: PropTypes.shape(PropTypes.object).isRequired,
+  recipe: PropTypes.shape({}).isRequired,
   shareSetCopyLocation: PropTypes.func.isRequired,
 };
 

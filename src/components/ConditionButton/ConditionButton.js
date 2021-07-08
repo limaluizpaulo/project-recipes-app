@@ -17,7 +17,6 @@ function ConditionButton({ children, ...props }) {
 
 ConditionButton.propTypes = {
   children: PropTypes.node.isRequired,
-  props: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default ConditionButton;

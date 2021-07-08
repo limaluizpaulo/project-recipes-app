@@ -21,6 +21,7 @@ function RecipesProvider({ children }) {
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
   const [startedRecipes, setStartedRecipes] = useState([]);
   const [favoritedRecipes, setFavoritedRecipes] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   const location = useLocation();
 
@@ -61,14 +62,14 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
-  const localstorageSaveInProgressRecipe = (ingredients, type, id) => {
+  const localstorageSaveInProgressRecipe = (RecipeIngredients, type, id) => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const RECIPE = (type === 'meal') ? 'meals' : 'cocktails';
-    inProgress[RECIPE][id] = ingredients;
+    inProgress[RECIPE][id] = RecipeIngredients;
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   };
 
-  const localstorageSaveStartedRecipe = (recipe, ingredients = []) => {
+  const localstorageSaveStartedRecipe = (recipe, RecipeIngredients = []) => {
     const recipeObj = {
       id: (recipe.idMeal) ? recipe.idMeal : recipe.idDrink,
       type: (recipe.idMeal) ? 'comida' : 'bebida',
@@ -86,7 +87,7 @@ function RecipesProvider({ children }) {
     setStartedRecipes(arrayOfRecipes);
     localStorage.setItem('doneRecipes', JSON.stringify(arrayOfRecipes));
 
-    localstorageSaveInProgressRecipe(ingredients, recipeObj.type, recipeObj.id);
+    localstorageSaveInProgressRecipe(RecipeIngredients, recipeObj.type, recipeObj.id);
   };
 
   const localstorageSaveFavoriteRecipe = (recipe, isFav) => {
@@ -117,6 +118,20 @@ function RecipesProvider({ children }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(arrayOfRecipes));
   };
 
+  const organizeIngredients = (recipe) => {
+    const MAX_INGREDIENTS = 20; // 20, because the max of meals usage is 20 and drinks is 15.
+    let tempArray = [];
+    for (let number = 1; number <= MAX_INGREDIENTS; number += 1) {
+      if (recipe[`strIngredient${number}`]) {
+        tempArray = [...tempArray, [
+          recipe[`strIngredient${number}`],
+          recipe[`strMeasure${number}`],
+        ]];
+      }
+    }
+    setIngredients(tempArray);
+  };
+
   const context = {
     mealsOrDrinks,
     user,
@@ -137,6 +152,8 @@ function RecipesProvider({ children }) {
     favoritedRecipes,
     localstorageSaveStartedRecipe,
     localstorageSaveFavoriteRecipe,
+    organizeIngredients,
+    ingredients,
   };
 
   useEffect(() => {
