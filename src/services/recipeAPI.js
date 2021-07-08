@@ -14,6 +14,10 @@ const RECIPE_API_FILTER_FOOD = 'https://www.themealdb.com/api/json/v1/1/search.p
 
 const RECIPE_API_FILTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
+const RECIPE_API_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
+
+const RECIPE_API_RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
 const fetchRecipeFood = (type) => (
   fetch(`${RECIPE_API_FOOD}${type}`)
     .then((res) => res.json())
@@ -69,4 +73,19 @@ export const fetchRecipeFilterDrinks = (name) => (
     .then((json) => json)
     .catch((error) => console.log(error))
 );
+
+export const fetchRecipeRandomFood = () => (
+  fetch(RECIPE_API_RANDOM_FOOD)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const fetchRecipeRandomDrink = () => (
+  fetch(RECIPE_API_RANDOM_DRINK)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
 export default fetchRecipeFood;
