@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { fetchDrinksAction, fetchIngrentAction } from '../actions';
 
 class IngredientCard extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      redirect: false,
+    };
 
     this.getImages = this.getImages.bind(this);
     this.dispatchAction = this.dispatchAction.bind(this);
@@ -23,29 +27,40 @@ class IngredientCard extends React.Component {
       `www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`));
   }
 
-  dispatchAction(ingrediente) {
+  async dispatchAction(ingrediente) {
     const { pathname, getByDrinkIngredient, getByFoodIngredient } = this.props;
     const db = pathname.includes('comidas');
+
     if (db) {
-      getByFoodIngredient(ingrediente, 'ingrediente');
+      await getByFoodIngredient(ingrediente, 'ingrediente');
+      this.setState({ redirect: true });
+      return;
     }
-    getByDrinkIngredient(ingrediente, 'ingrediente');
+    await getByDrinkIngredient(ingrediente, 'ingrediente');
+    this.setState({ redirect: true });
+    return null;
   }
 
   render() {
+    console.log(this.state);
     const { ingredients, pathname } = this.props;
+    const { redirect } = this.state;
     const totalRecipes = 12;
     const food = ingredients.filter((elem, index) => index < totalRecipes);
-
     const images = this.getImages(food);
     const page = pathname.includes('comidas') ? '/comidas' : '/bebidas';
 
-    return food.map((recipe, index) => (
-      <Link key={ recipe.idIngredient || recipe.strIngredient1 } to={ page }>
+    if (redirect) return <Redirect to={ page } />;
+
+    return food.map((recipe, index) => {
+      const comidaBebida = pathname.includes('comidas')
+        ? recipe.strIngredient : recipe.strIngredient1;
+      return (
         <button
+          key={ recipe.strIngredient1 || recipe.strIngredient }
           type="button"
           onClick={ () => (
-            this.dispatchAction(recipe.strIngredient1 || recipe.strIngredient)) }
+            this.dispatchAction(comidaBebida)) }
         >
           <div data-testid={ `${index}-ingredient-card` }>
             <img
@@ -59,8 +74,8 @@ class IngredientCard extends React.Component {
             </h4>
           </div>
         </button>
-      </Link>
-    ));
+      );
+    });
   }
 }
 
