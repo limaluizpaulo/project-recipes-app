@@ -65,7 +65,7 @@ export const addRecDetail = (recipeDetail) => ({
   type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
 });
 
-export const ADD_RECOMMENDED = 'ADD_RECOMMENDED';
-export const addRecommended = (recommendedRecipes) => ({
-  type: ADD_RECOMMENDED, payload: { recommendedRecipes },
+export const ADD_RD_RR_LOADING = 'ADD_RD_RR_LOADING'; // Add RecipeDetail, RecommendedRecipes, Loading
+export const addRecipesDRLoading = (recipeDetail, recommendedRecipes, loading) => ({
+  type: ADD_RD_RR_LOADING, payload: { recipeDetail, recommendedRecipes, loading },
 });

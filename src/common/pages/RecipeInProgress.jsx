@@ -11,7 +11,9 @@ export default function RecipeInProgress() {
   const { id } = useParams();
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [doneRecipes] = useState(() => getStorage('doneRecipes'));
-  const [ingrOK, setIngrOK] = useState(() => (getStorage('inProgressRecipes')[id] || []));
+  const [ingrLS, setIngrLS] = useState(() => (
+    getStorage('inProgressRecipes')[id] || [])); // LS = LocalStorage
+
   const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
 
   const validationButton = () => {
@@ -20,7 +22,7 @@ export default function RecipeInProgress() {
       .map((ingredient) => recipeDetail[ingredient])
       .filter((ingredient) => ingredient);
 
-    if (ingredients.length === ingrOK.length) {
+    if (ingredients.length === ingrLS.length) {
       setDisabledBtn(false);
     } else {
       setDisabledBtn(true);
@@ -64,8 +66,8 @@ export default function RecipeInProgress() {
         <h3>Ingredientes</h3>
         <RecipeIngredients
           inProg
-          setIngrOK={ setIngrOK }
-          ingrOK={ ingrOK }
+          setIngrLS={ setIngrLS }
+          ingrLS={ ingrLS }
         />
       </div>
       <div>
@@ -104,7 +106,7 @@ export default function RecipeInProgress() {
   // CICLOS DE VIDA
 
   useEffect(() => { if (loading) getRecipeDetailByID(); });
-  useEffect(validationButton, [ingrOK, recipeDetail]);
+  useEffect(validationButton, [ingrLS, recipeDetail]);
 
   // ---------------------------------------------------------------------------------------------
 

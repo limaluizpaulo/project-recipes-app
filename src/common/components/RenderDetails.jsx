@@ -8,9 +8,20 @@ import RecommendedRecipes from './RecommendedRecipes';
 import store from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 
-export default function RenderDetails({ btnFinish }) {
+export default function RenderDetails({ btnFinish, id }) {
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
   const { recipes: { foods, recipeDetail } } = useContext(store);
+
+  const setRecipeInLS = () => {
+    const inProgressInLS = getStorage('inProgressRecipes');
+
+    const checkinProgress = inProgressInLS[id];
+
+    if (!checkinProgress) {
+      setStorage('inProgressRecipes', { ...inProgress,
+        [recipeDetail.idMeal || recipeDetail.idDrink]: [] });
+    }
+  };
 
   const renderRecipe = () => (
     <div>
@@ -73,8 +84,7 @@ export default function RenderDetails({ btnFinish }) {
           type="button"
           data-testid="start-recipe-btn"
           className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
-          onClick={ () => setStorage('inProgressRecipes', { ...inProgress,
-            [recipeDetail.idMeal || recipeDetail.idDrink]: [] }) }
+          onClick={ setRecipeInLS }
         >
           {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
