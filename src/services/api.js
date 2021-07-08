@@ -41,7 +41,7 @@ export async function exploreIngredientsFood() {
 }
 
 export async function exploreIngredientsDrink() {
-  const fetchIngredientsDrink = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=drinks');
+  const fetchIngredientsDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   const { drinks } = await fetchIngredientsDrink.json();
   return drinks;
 }

@@ -52,4 +52,16 @@ export async function searchByAreaFood(area) {
   return result;
 }
 
+export async function foodByIngredient(ingredient) {
+  const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((response) => response.json()).then((resultObject) => resultObject);
+  return result;
+}
+
+export async function drinkByIngredient(ingredient) {
+  const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+    .then((response) => response.json()).then((resultObject) => resultObject);
+  return result;
+}
+
 export default searchByNameFood;
