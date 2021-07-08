@@ -10,7 +10,7 @@ function SearchFood({ recipe, dispRecipeList }) {
   const [text, setText] = useState('');
   const history = useHistory();
   const resAPI = async (fun) => {
-    const func = await fun;
+    const func = await fun();
     // .log(func);
     if (func === undefined || func.meals === null || func.drinks === null) {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -20,7 +20,6 @@ function SearchFood({ recipe, dispRecipeList }) {
       } else {
         // console.log(func.meals);
         dispRecipeList({
-          status: true,
           list: func,
         });
       }
@@ -29,7 +28,6 @@ function SearchFood({ recipe, dispRecipeList }) {
     } else {
     //   console.log(func.drinks);
       dispRecipeList({
-        status: true,
         list: func,
       });
     }
@@ -39,13 +37,13 @@ function SearchFood({ recipe, dispRecipeList }) {
     // console.log(choice, text);
     if (choice === 'ingredient') {
       return recipe === 'Comidas'
-        ? resAPI(fetchRecipeFood(`filter.php?i=${text}`))
-        : resAPI(fetchRecipeDrink(`filter.php?i=${text}`));
+        ? resAPI(() => fetchRecipeFood(`filter.php?i=${text}`))
+        : resAPI(() => fetchRecipeDrink(`filter.php?i=${text}`));
     }
     if (choice === 'name') {
       return recipe === 'Comidas'
-        ? resAPI(fetchRecipeFood(`search.php?s=${text}`))
-        : resAPI(fetchRecipeDrink(`search.php?s=${text}`));
+        ? resAPI(() => fetchRecipeFood(`search.php?s=${text}`))
+        : resAPI(() => fetchRecipeDrink(`search.php?s=${text}`));
     }
     if (choice === 'letter') {
       if (text.length > 1) {
@@ -53,8 +51,8 @@ function SearchFood({ recipe, dispRecipeList }) {
       } else {
         // console.log('passou')
         return recipe === 'Comidas'
-          ? resAPI(fetchRecipeFood(`search.php?f=${text}`))
-          : resAPI(fetchRecipeDrink(`search.php?f=${text}`));
+          ? resAPI(() => fetchRecipeFood(`search.php?f=${text}`))
+          : resAPI(() => fetchRecipeDrink(`search.php?f=${text}`));
       }
     }
   }

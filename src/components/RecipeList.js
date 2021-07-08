@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 
 function RecipeList({ list, listAll, filterList }) {
   const [object, setObject] = useState(list);
   const [show, setShow] = useState(false);
+  const history = useHistory();
   // console.log(list, listAll);
   useEffect(() => {
     if (Object.keys(listAll).length > 0) {
@@ -21,7 +23,7 @@ function RecipeList({ list, listAll, filterList }) {
   }, [list]);
 
   useEffect(() => {
-    // console.log(Object.keys(filterList)[0]);
+    console.log(filterList);
     if (Object.keys(filterList).length > 0) {
       if (filterList[Object.keys(filterList)[0]] === null) {
         setShow(false);
@@ -38,10 +40,14 @@ function RecipeList({ list, listAll, filterList }) {
   return (
     <div className="show-recipe">
       { show && object[type].slice(0, NUMBER).map((element, index) => (
-        <div
+        <button
+          type="button"
           className="papai"
           key={ index }
           data-testid={ `${index}-recipe-card` }
+          onClick={ () => (type === 'meals'
+            ? history.push(`/comidas/${element.idMeal}`)
+            : history.push(`/bebidas/${element.idDrink}`)) }
         >
           <img
             className="filhinho"
@@ -54,7 +60,7 @@ function RecipeList({ list, listAll, filterList }) {
           <p data-testid={ `${index}-card-name` }>
             { type === 'meals' ? element.strMeal : element.strDrink }
           </p>
-        </div>
+        </button>
       ))}
     </div>
   );

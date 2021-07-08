@@ -10,9 +10,13 @@ const RECIPE_CATEGORY_FOOD = 'https://www.themealdb.com/api/json/v1/1/list.php?c
 
 const RECIPE_CATEGORY_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-const RECIPE_API_FILTER_FOOD = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const RECIPE_API_FILTER_FOOD = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
-const RECIPE_API_FILTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const RECIPE_API_FILTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
+const RECIPE_API_ID_FOOD = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+const RECIPE_API_ID_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const RECIPE_API_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
@@ -74,18 +78,29 @@ export const fetchRecipeFilterDrinks = (name) => (
     .catch((error) => console.log(error))
 );
 
+export const fetchRecipeIDrinks = (id) => (
+  fetch(`${RECIPE_API_ID_DRINKS}${id}`)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const fetchRecipeIDFood = (id) => (
+  fetch(`${RECIPE_API_ID_FOOD}${id}`)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
 export const fetchRecipeRandomFood = () => (
   fetch(RECIPE_API_RANDOM_FOOD)
     .then((res) => res.json())
     .then((json) => json)
     .catch((error) => console.log(error))
 );
-
 export const fetchRecipeRandomDrink = () => (
   fetch(RECIPE_API_RANDOM_DRINK)
     .then((res) => res.json())
     .then((json) => json)
     .catch((error) => console.log(error))
 );
-
 export default fetchRecipeFood;

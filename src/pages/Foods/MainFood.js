@@ -9,6 +9,7 @@ export default function MainFood() {
   const [list, setList] = useState({});
   const [categoryList, setCategoryList] = useState({});
 
+  // ERRO DE REQUISITOS - FETCH FAIL
   useEffect(() => {
     const func = async () => {
       const fun = await fetchRecipeAllFood();
