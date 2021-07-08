@@ -8,6 +8,7 @@ import { copyLink } from '../services/functions';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
+  const [refresh, setRefresh] = useState(true);
   const {
     details,
     detailsSyncSetState,
@@ -85,7 +86,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         </button>
         <button
           type="button"
-          onClick={ () => settingFavorite(details, id) }
+          onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
         >
           <img
             alt="Favorite"

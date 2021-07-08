@@ -59,14 +59,13 @@ export const localStorageVerifier = (match, id, history) => {
 export const verifyFavorite = (id) => {
   const rawFavorites = localStorage.getItem('favoriteRecipes');
   const favorites = JSON.parse(rawFavorites);
-  console.log(favorites);
   if (favorites && favorites.find((fav) => fav.id === id)) {
     return blackHeartIcon;
   }
   return whiteHeartIcon;
 };
 
-export const settingFavorite = (details, id) => {
+export const settingFavorite = (details, id, refresh) => {
   const favoritesArrayVerifier = localStorage.getItem('favoriteRecipes');
   if (!favoritesArrayVerifier) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
@@ -85,13 +84,17 @@ export const settingFavorite = (details, id) => {
       name: strMeal,
       image: strMealThumb,
     };
-    console.log(details);
   }
   if (details.drinks) {
 
   }
+
   if (!favoritesArray.find((obj) => obj.id === id)) {
     favoritesArray.push(favoriteObject);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
+  } else {
+    const RemovedFavoriteArray = favoritesArray.filter((obj) => obj.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(RemovedFavoriteArray));
   }
+  return !refresh;
 };
