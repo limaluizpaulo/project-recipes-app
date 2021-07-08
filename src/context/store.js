@@ -8,7 +8,8 @@ export const USER = {
 };
 
 export const RECIPES = {
-  loading: true,
+  fetchOn: true,
+  loading: undefined,
   done: undefined,
   foods: null,
   categoriesLimit: 5,
@@ -44,6 +45,11 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 
 // RECIPES
 
+export const SET_FETCHON = 'SET_FETCHON';
+export const setFetchOn = (fetchOn) => ({
+  type: SET_FETCHON, payload: { fetchOn },
+});
+
 export const SET_LOADING = 'SET_LOADING';
 export const setLoading = (loading) => ({
   type: SET_LOADING, payload: { loading },
@@ -52,6 +58,11 @@ export const setLoading = (loading) => ({
 export const SET_DONE = 'SET_DONE';
 export const setDone = (done) => ({
   type: SET_DONE, payload: { done },
+});
+
+export const SET_LOADING_DONE = 'SET_LOADING_DONE'; // Add Loading, Done
+export const setLoadingDone = (loading, done) => ({
+  type: SET_LOADING_DONE, payload: { loading, done },
 });
 
 export const ADD_RECIPES = 'ADD_RECIPES';

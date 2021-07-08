@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import store, { addRecipes, setDone, setLoading } from '../../context/store';
+import store, { addRecipes, setDone,
+  setFetchOn,
+  setLoading, setLoadingDone } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
+import Loading from '../components/Loading';
 
 export default function Recipes() {
   const [categoryOn, setCategoryOn] = useState(undefined);
-  const { recipes: { loading, foods, meals, drinks, categoriesMeals, categoriesDrinks },
+  const {
+    recipes: { fetchOn, loading, done, foods, meals,
+      drinks, categoriesMeals, categoriesDrinks },
     setRecipes } = useContext(store);
 
   const getRecipes = async () => {
@@ -28,8 +33,8 @@ export default function Recipes() {
         setRecipes(setDone(true));
       }, DONE_TIME);
     }, LOADING_TIME);
-    setLoading(undefined);
-    setDone(undefined);
+    setRecipes(setLoadingDone(undefined, undefined));
+    setRecipes(setFetchOn(false));
     setCategoryOn(undefined);
   };
 
@@ -57,11 +62,11 @@ export default function Recipes() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) getRecipes(); });
+  useEffect(() => { if (fetchOn) getRecipes(); });
 
   // ---------------------------------------------------------------------------------------------
 
-  if (loading) return (<h5>Loading...</h5>);
+  if (!done) { return (<Loading loading={ loading } />); }
   return (
     <main>
       <Header pageName={ (foods) ? 'Comidas' : 'Bebidas' } />
