@@ -9,7 +9,7 @@ import { verifyFavorite, settingFavorite } from '../services/manageLocalStorage'
 function FoodInProgress({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
   const [refresh, setRefresh] = useState(true);
-  const [css, setCss] = useState(false);
+  const [check, setCheck] = useState();
   const {
     details,
     detailsSyncSetState,
@@ -20,20 +20,19 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
     detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   }, []);
 
-  function loopIngredientsAndMeasure() {
-    const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
-    const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
+  function loopIngredientsAndMeasure(mealArray, IngredientsAndMeasures) {
     return (
       mealArray.map((_a, index) => (
         <section
-          className={ css ? 'showCss' : 'hideCss' }
+          // className={ css ? 'showCss' : 'hideCss' }
           data-testid={ `${index}-ingredient-step` }
           key={ `ingredientAndMeasure${index + 1}` }
         >
           <input
+            key={ index }
             type="checkbox"
-            onChange={ () => {
-              setCss(!css);
+            onClick={ () => {
+              setCheck({ ...check, [index]: !check[index] });
             } }
           />
           {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
@@ -46,6 +45,11 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
   }
 
   if (details.meals && id === details.meals[0].idMeal) {
+    const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
+    const mealArray = Object.keys(IngredientsAndMeasures.ingredient);
+    const cssObject = {};
+    mealArray.forEach((_a, index) => { cssObject[index] = false; });
+    console.log(cssObject);
     const {
       strMealThumb,
       strMeal,
@@ -82,7 +86,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
         </button>
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
-        {loopIngredientsAndMeasure()}
+        {loopIngredientsAndMeasure(mealArray, IngredientsAndMeasures)}
         <iframe
           data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
