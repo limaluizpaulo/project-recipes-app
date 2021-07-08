@@ -58,10 +58,11 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     if (stepsClassName[targetId].checked) {
       step = 'step-not-checked';
       if (type === 'bebidas') {
-        const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        console.log(cocktails[id]);
-        // const exist = cocktails[id].find((cocktail) => cocktail);
-        // console.log(exist);
+        // const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        // console.log(cocktails[id]);
+        // // const exist = cocktails[id].find((cocktail) => cocktail);
+        // // console.log(exist);
+
       }
       // localStorage.removeItem('inProgressRecipes', JSON
       //   .stringify({ ...newLocalStorage, [curr]: { ...newLocalStorage[curr], [id]: [...newLocalStorage[curr][id], ingredients[targetId].ingredient] } }));
@@ -71,6 +72,8 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       ...stepsClassName,
       stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
       stepsClassName[targetId].step = step,
+
+      // adciona no localStorage
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({
           ...newLocalStorage,
@@ -78,7 +81,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
             [id]: [...newLocalStorage[curr][id],
               targetId] } })),
     ]);
-
+    console.log(targetId);
     stepsProgress(stepsClassName);
   };
 
