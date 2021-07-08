@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
 import { Container, Button, ButtonGroup } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import Context from '../../context/Context';
-
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import Footer from '../../components/Footer';
+import { fetchMealRandom } from '../../apis/MealsApis';
 
 export default function ExpComidas() {
   const { openSearchBar } = useContext(Context);
+  const history = useHistory();
+
+  const getMealRandom = async () => {
+    const { meals } = await fetchMealRandom();
+    // const randomMealJSON = await randomMeal.json();
+    return history.push(`/comidas/${meals[0].idMeal}`);
+  };
 
   return (
     <Container>
@@ -15,7 +23,7 @@ export default function ExpComidas() {
       { openSearchBar ? <SearchBar /> : null }
       <ButtonGroup vertical>
         <Button
-          href="/explorar/comidas/ingredientes"
+          onClick={ () => history.push('/explorar/comidas/ingredientes') }
           data-testid="explore-by-ingredient"
           variant="outline-primary"
           size="lg"
@@ -24,7 +32,7 @@ export default function ExpComidas() {
           Por Ingredientes
         </Button>
         <Button
-          href="/explorar/comidas/area"
+          onClick={ () => history.push('/explorar/comidas/area') }
           data-testid="explore-by-area"
           variant="outline-danger"
           size="lg"
@@ -33,12 +41,12 @@ export default function ExpComidas() {
           Por Local de Origem
         </Button>
         <Button
-          href="/comidas/:id"
           data-testid="explore-surprise"
           variant="outline-dark"
           size="lg"
           className="mb-2"
-          // onClick={ () => alert('Surprise Meal') }
+          // onClick={ () => history.push(`/comidas/${id}`) }
+          onClick={ () => getMealRandom() }
         >
           Me Surpreenda!
         </Button>

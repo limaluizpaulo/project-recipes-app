@@ -10,6 +10,8 @@ export { default as ExpComidas } from './Explorar/ExpComidas';
 export { default as ExpComidasArea } from './Explorar/ExpComidasArea';
 export { default as ExpComidasIngredientes } from './Explorar/ExpComidasIngredientes';
 export { default as Detalhes } from './Detalhes';
+export { default as SurpriseRandomDrink } from './SurpriseRandomDrink';
+export { default as SurpriseRandomMeal } from './SurpriseRandomMeal';
 export { default as ReceitasFeitas } from './ReceitasFeitas';
 export { default as ReceitasFavoritas } from './ReceitasFavoritas';
 export { default as ReceitaEmProcesso } from './ReceitaEmProcesso';

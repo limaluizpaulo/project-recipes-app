@@ -27,3 +27,10 @@ export async function fetchDrinksById(id) {
   const { drinks } = await request.json();
   return drinks;
 }
+
+export async function fetchDrinkRandom() {
+  const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const drinkRandom = await request.json();
+  console.log(drinkRandom);
+  return drinkRandom;
+}

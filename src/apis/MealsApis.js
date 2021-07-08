@@ -27,3 +27,9 @@ export async function fetchMealsById(id) {
   const { meals } = await request.json();
   return meals;
 }
+
+export async function fetchMealRandom() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const mealRandom = await request.json();
+  return mealRandom;
+}
