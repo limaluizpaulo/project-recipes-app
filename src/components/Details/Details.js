@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Carousel from 'react-elastic-carousel';
 
 import { useHistory, useLocation } from 'react-router-dom';
-import { fetchRecipesById, fetchAllRecipes } from '../../services/recipesAPI';
 
 import './style/Details.css';
 import RecipesContext from '../../context/RecipesContext';
@@ -22,30 +21,28 @@ TODO:
   - Keep common logic.
 */
 function Details({ id, recipe, recommendations }) {
+  // CONSTANTS
+  const MAX_INGREDIENTS = 20; // 20, because the max of meals usage is 20 and drinks is 15.
+  const RECIPE_MAIN_KEY = recipe.typeMainKey;
+  const RECOMM_KEY = recommendations.typeMainKey;
+
+  // CONTEXT
   const {
-    startedRecipes,
-    localstorageSaveStartedRecipe,
     favoritedRecipes,
     localstorageSaveFavoriteRecipe } = useContext(RecipesContext);
-  const [recipeMainKey] = useState(recipe.typeMainKey);
-  const [recommKey] = useState(recommendations.typeMainKey);
-  const [alreadyStarted, setAlreadyStarted] = useState(false);
-  const [isInProgressRecipe, setIsInProgressRecipe] = useState(false);
+
+  // STATES
   const [isFav, setIsFav] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
-
-  const { push } = useHistory();
-  const { pathname } = useLocation();
-
-  const MAX_DRINKS_INGREDIENTS = 15;
-  const MAX_MEALS_INGREDIENTS = 20;
-
-  const [maxIngredients, setMaxIngredients] = useState(MAX_DRINKS_INGREDIENTS);
   const [ingredients, setIngredients] = useState([]);
 
+  // ROUTER HOOKS
+  const { pathname } = useLocation();
+
+  // FUNCTIONS
   const organizeIngredients = () => {
     let tempArray = [];
-    for (let number = 1; number <= maxIngredients; number += 1) {
+    for (let number = 1; number <= MAX_INGREDIENTS; number += 1) {
       if (recipe[`strIngredient${number}`]) {
         tempArray = [...tempArray, [
           recipe[`strIngredient${number}`],
@@ -56,13 +53,35 @@ function Details({ id, recipe, recommendations }) {
     setIngredients(tempArray);
   };
 
+  // EFFECTS
+  useEffect(() => {
+    organizeIngredients();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (arrayOfRecipes) {
+      const found = arrayOfRecipes.find((element) => (
+        element.id === id
+      ));
+      if (found) {
+        setIsFav(true);
+      } else {
+        setIsFav(false);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoritedRecipes]);
+
+  // RENDER FUNCTIONS
   const renderRecommendation = () => {
-    const recommKeyThumb = `${recommKey}Thumb`;
+    const recommKeyThumb = `${RECOMM_KEY}Thumb`;
     return (
       <Carousel itemsToShow={ 2 } pagination={ false } disableArrowsOnEnd={ false }>
         {
           recommendations.map((
-            { [recommKey]: title, [recommKeyThumb]: thumb },
+            { [RECOMM_KEY]: title, [recommKeyThumb]: thumb },
             index,
           ) => (
             <img
@@ -78,73 +97,18 @@ function Details({ id, recipe, recommendations }) {
     );
   };
 
-  useEffect(() => {
-    const MEALS = 'meals';
-    const DRINKS = 'drinks';
-    if (mealsOrDrinks === MEALS) {
-      setRecipeMainKey('strMeal');
-      setMaxIngredients(MAX_MEALS_INGREDIENTS);
-      setRecommKey('strDrink');
-    }
-    if (mealsOrDrinks === DRINKS) {
-      setRecipeMainKey('strDrink');
-      setRecommKey('strMeal');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    organizeIngredients();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe]);
-
-  useEffect(() => {
-    const arrayOfRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const objInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (arrayOfRecipes) {
-      const found = arrayOfRecipes.find((element) => (
-        element.id === id
-      ));
-      if (found) setAlreadyStarted(true);
-    }
-
-    if (objInProgress) {
-      const isVerified = (mealsOrDrinks === 'meals' && objInProgress.meals[id])
-      || (mealsOrDrinks === 'drinks' && objInProgress.cocktails[id]);
-      if (isVerified) {
-        setIsInProgressRecipe(true);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startedRecipes]);
-
-  useEffect(() => {
-    const arrayOfRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (arrayOfRecipes) {
-      const found = arrayOfRecipes.find((element) => (
-        element.id === id
-      ));
-      if (found) {
-        setIsFav(true);
-      } else {
-        setIsFav(false);
-      }
-    }
-  }, [favoritedRecipes]);
-
   return (
     <>
       <header>
         {/* TODO: Remove 'style' attribute */}
         <img
-          src={ recipe[`${recipeMainKey}Thumb`] }
+          src={ recipe[`${RECIPE_MAIN_KEY}Thumb`] }
           alt="test"
           style={ { width: 200 } }
           data-testid="recipe-photo"
         />
         <div>
-          <h1 data-testid="recipe-title">{recipe[recipeMainKey]}</h1>
+          <h1 data-testid="recipe-title">{recipe[RECIPE_MAIN_KEY]}</h1>
           <div>
             <button
               type="button"
@@ -228,7 +192,7 @@ function Details({ id, recipe, recommendations }) {
               <div>
                 <h2>Video</h2>
                 <iframe
-                  title={ recipe[recipeMainKey] }
+                  title={ recipe[RECIPE_MAIN_KEY] }
                   src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
                   width="420"
                   height="315"
@@ -237,21 +201,6 @@ function Details({ id, recipe, recommendations }) {
               </div>
             )
         }
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => {
-            if (!isInProgressRecipe) {
-              localstorageSaveStartedRecipe(recipe, ingredients);
-            }
-
-            push(`${pathname}/in-progress`);
-          } }
-          hidden={ alreadyStarted && !isInProgressRecipe }
-        >
-          { isInProgressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
 
       </section>
     </>
