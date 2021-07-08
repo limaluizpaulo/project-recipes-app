@@ -1,22 +1,25 @@
-import fetchComidasEBebidas from '../../Services/index';
+import fetchComidasEBebidas from '../../Services/Fetch';
 
 export const clearRecipes = () => ({
   type: 'reset-recipes',
-});
-
-export const requestCurrentRoute = (route) => ({
-  type: 'request-route',
-  payload: route,
 });
 
 export const isFetching = () => ({
   type: 'is-fetching',
 });
 
-export const requestFetchSuccess = (recipes) => ({
-  type: 'request-success',
+export const requestRecipesSuccess = (recipes, fetchType) => ({
+  type: `${fetchType}-success`,
   payload: {
-    recipes,
+    [fetchType]: recipes,
+    isFetching: false,
+  },
+});
+
+export const requestCategoriesSuccess = (categories) => ({
+  type: 'categories-success',
+  payload: {
+    categories,
     isFetching: false,
   },
 });
@@ -26,11 +29,22 @@ export const requestFetchError = (error) => ({
   payload: { error },
 });
 
-export const fetchComidasOnComponentDidMount = (recipeType) => (dispatch) => {
+export const fetchComidasOnComponentDidMount = (
+  recipeType, fetchType, ingredient,
+) => (dispatch) => {
   dispatch(isFetching());
-  fetchComidasEBebidas(recipeType)
+  fetchComidasEBebidas(recipeType, fetchType, ingredient)
     .then((response) => {
-      dispatch(requestFetchSuccess(response));
+      dispatch(requestRecipesSuccess(response, fetchType));
     })
     .catch((error) => dispatch(requestFetchError(error)));
 };
+
+export const resetSelectedCategory = () => ({
+  type: 'reset-category',
+});
+
+export const saveCategory = (category) => ({
+  type: 'set-category',
+  payload: category,
+});
