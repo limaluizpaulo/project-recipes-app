@@ -65,6 +65,9 @@ export default function ReceitasFeitas() {
     },
   ];
 
+  const filterCategory = () => (tipoFiltro !== 'All' ? doneRecipes
+    .filter((receita) => tipoFiltro === receita.type) : doneRecipes);
+
   const renderCards = (
     { image, category, name, doneDate, tags, id, type, area, alcoholicOrNot }, index,
   ) => {
@@ -138,9 +141,6 @@ export default function ReceitasFeitas() {
       </Col>
     );
   };
-
-  const filterCategory = () => (tipoFiltro !== 'All' ? doneRecipes
-    .filter((receita) => tipoFiltro === receita.type) : doneRecipes);
 
   return (
     <Container>
