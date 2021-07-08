@@ -14,6 +14,8 @@ const FavoriteRecipes = () => {
     setFavorites(getFavoritesRecipes());
   }, []);
 
+  const update = () => setFavorites(getFavoritesRecipes());
+
   const renderCards = () => favorites
     .filter(({ type }) => type === filter || !filter).map((item, index) => {
       const { id, category, name, image, area, alcoholicOrNot, type } = item;
@@ -27,7 +29,11 @@ const FavoriteRecipes = () => {
               type="button"
             />
           </Link>
-          <FavoriteIcon recipe={ item } idTest={ `${index}-horizontal-favorite-btn` } />
+          <FavoriteIcon
+            update={ update }
+            recipe={ item }
+            idTest={ `${index}-horizontal-favorite-btn` }
+          />
           <p data-testid={ `${index}-horizontal-top-text` }>
             {alcoholicOrNot || `${area} - ${category}`}
           </p>
