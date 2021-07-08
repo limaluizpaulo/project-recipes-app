@@ -95,8 +95,8 @@
 .div-cards-ingredients {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
   margin: 0;
+  width: 80%;
 
 }
 
@@ -129,3 +129,4 @@
     transform: rotate(-10deg);
   }
 }
+
