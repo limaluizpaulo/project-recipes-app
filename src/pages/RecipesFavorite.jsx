@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import FilterButtons from '../components/FilterButtons';
-import CardRecipesFavorite from '../components/CardsRecipes/CardRecipesFavorite';
+import CardRecipesFavorite from '../components/CardsRecipes/CardsRecipesFavorite';
 
 function RecipesFavorite() {
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -11,7 +11,6 @@ function RecipesFavorite() {
       <Header />
       <FilterButtons
         initialFavorites={ initialFavorites }
-        filterFavorites={ filterFavorites }
         setFilterFavorites={ setFilterFavorites }
       />
       <div>

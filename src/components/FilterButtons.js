@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function FilterButtons({ initialFavorites, filterFavorites, setFilterFavorites }) {
+function FilterButtons({ initialFavorites, setFilterFavorites }) {
   const filtrando = (filter) => {
     if (filter === 'All') {
       setFilterFavorites(initialFavorites);
     } else if (filter === 'Food') {
-      setFilterFavorites(['initialFavorites', 0]);
+      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'comida'));
     } else {
-      setFilterFavorites(['initialFavorites', 1]);
+      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'bebida'));
     }
   };
 
@@ -48,5 +49,10 @@ function FilterButtons({ initialFavorites, filterFavorites, setFilterFavorites }
     </div>
   );
 }
+
+FilterButtons.propTypes = {
+  initialFavorites: PropTypes.objectOf(PropTypes.any).isRequired,
+  setFilterFavorites: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default FilterButtons;
