@@ -4,7 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import './style/FavoriteRecipes.css';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
-import { fetchRecipesById } from '../services/recipesAPI';
+// import { fetchRecipesById } from '../services/recipesAPI';
 
 const copy = require('clipboard-copy');
 
@@ -13,14 +13,13 @@ function FavoriteRecipes() {
     redirectToRecipeDetails,
     setRedirectToRecipeDetails,
     lookDetailsRecipe,
-    recipeDetails,
   } = useContext(RecipesContext);
 
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
   const [copyLink, setCopyLink] = useState('');
   const [redirectType, setRedirectType] = useState();
-  const [idType, setIdType] = useState();
+  const [recipeId, setRecipeId] = useState();
 
   const updateRecipes = () => {
     const favoriteRecipesLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -51,10 +50,9 @@ function FavoriteRecipes() {
   };
 
   // retirar get Full
-  const getFullRecipe = async (id, type) => {
-    setRedirectType(type);
-    setIdType(type === 'comida' ? 'idMeal' : 'idDrink');
-    const recipe = await fetchRecipesById(id, type === 'comida' ? 'meals' : 'drinks');
+  const selectRecipe = (recipe) => {
+    setRedirectType(recipe.type);
+    setRecipeId(recipe.id);
     lookDetailsRecipe(recipe);
   };
 
@@ -67,7 +65,7 @@ function FavoriteRecipes() {
   return (
     <div className="favoriteRecipes">
       { redirectToRecipeDetails
-        && <Redirect to={ `/${redirectType}s/${recipeDetails[idType]}` } /> }
+        && <Redirect to={ `/${redirectType}s/${recipeId}` } /> }
       <button
         type="button"
         onClick={ getAllTypes }
@@ -99,7 +97,7 @@ function FavoriteRecipes() {
             <label key={ index } htmlFor={ recipe.name }>
               <input
                 type="radio"
-                onClick={ () => getFullRecipe(recipe.id, recipe.type) }
+                onClick={ () => selectRecipe(recipe) }
                 id={ recipe.name }
                 className="goToDetail"
               />

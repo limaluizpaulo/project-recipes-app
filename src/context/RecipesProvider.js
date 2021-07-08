@@ -20,6 +20,7 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [filtredByIngredients, setFiltredByIngredients] = useState(false);
 
   const location = useLocation();
 
@@ -43,6 +44,7 @@ function RecipesProvider({ children }) {
 
   const filterByIngredients = (searchPayload) => {
     searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+    setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };
 
@@ -83,6 +85,8 @@ function RecipesProvider({ children }) {
     lookDetailsRecipe,
     getInitialRecipes,
     searchByCategory,
+    filtredByIngredients,
+    setFiltredByIngredients,
   };
 
   useEffect(() => {

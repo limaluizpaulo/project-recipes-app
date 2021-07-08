@@ -3,10 +3,12 @@ import RecipesContext from '../context/RecipesContext';
 import Recipes from './Recipes';
 
 function MealsRecipes() {
-  const { getInitialRecipes } = useContext(RecipesContext);
+  const { getInitialRecipes, recipes, filtredByIngredients } = useContext(RecipesContext);
 
   useEffect(() => {
-    getInitialRecipes('meals');
+    if (recipes.length === 0 && !filtredByIngredients) {
+      getInitialRecipes('meals');
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

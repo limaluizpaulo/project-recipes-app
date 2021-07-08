@@ -14,6 +14,7 @@ function DrinksIngredients() {
     redirectToMainScreen,
     setRedirectToMainScreen,
     filterByIngredients,
+    setFiltredByIngredients,
   } = useContext(RecipesContext);
 
   const [ingredients, setIngredients] = useState([]);
@@ -26,6 +27,7 @@ function DrinksIngredients() {
 
   useEffect(() => {
     getIngredients();
+    setFiltredByIngredients(false);
   }, []);
 
   useEffect(() => () => setRedirectToMainScreen(false));
@@ -33,7 +35,7 @@ function DrinksIngredients() {
   const imgUrl = 'https://www.thecocktaildb.com/images/ingredients/';
   return (
     <div>
-      { redirectToMainScreen && <Redirect to="/comidas" /> }
+      { redirectToMainScreen && <Redirect to="/bebidas" /> }
       { ingredients.slice(0, maxCards).map(({ strIngredient1 }, index) => (
         <label
           data-testid={ `${index}-ingredient-card` }
