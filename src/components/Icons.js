@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -63,11 +63,17 @@ function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(!item.fromHorizontal);
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
-  const { setSearch, historyPage, sethistoryPage } = useContext(Context);
+  const { search ,setSearch, historyPage, sethistoryPage } = useContext(Context);
   const target = useRef(null);
   const history = useHistory();
   const { pathname } = history.location;
   const DOISMIL = 2000;
+
+  let originalPath = '';
+  if (item.fromHorizontal) {
+    if (item.code.type === 'comida') originalPath = (`/comidas/${item.code.id}`);
+    else originalPath = (`/bebidas/${item.code.id}`);
+  }
 
   function isFavorite() {
     const { idDrink, idMeal } = item.code;
@@ -75,12 +81,13 @@ function Icons(item) {
     let flag = 0;
     favorites
       .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
-    if (flag > 0) setChangeIcon(!changeIcon);
+    if (flag > 0) {
+      setChangeIcon(!changeIcon);
+    }
   }
   if (!first) {
     isFavorite();
     sethistoryPage([...historyPage, pathname]);
-    // if (isHorizontal(path))setChangeIcon(false);
     setFirst(true);
   }
 
@@ -95,9 +102,10 @@ function Icons(item) {
 
   function favorite() {
     setChangeIcon(!changeIcon);
-    const fav = JSON.parse(window.localStorage.getItem('favoriteRecipes'));
-    setSearch(fav);
     processFavorites(changeIcon, pathname, path, item);
+    const act = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setSearch(act);
+    console.log(search);
   }
 
   function speakCopy() {
@@ -121,17 +129,15 @@ function Icons(item) {
           className="share"
           onClick={ () => {
             copyClipboard(); speakCopy();
-            if (item.fromHorizontal) {
-              if (item.code.type === 'comida') history.push(`/comidas/${item.code.id}`);
-              else history.push(`/bebidas/${item.code.id}`);
-            }
           } }
         >
-          <img
-            src={ shareIcon }
-            alt="share icon"
-            data-testid={ shareData(item, pathname) }
-          />
+          <Link to={ originalPath }>
+            <img
+              src={ shareIcon }
+              alt="share icon"
+              data-testid={ shareData(item, pathname) }
+            />
+          </Link>
         </button>
         <button
           type="button"

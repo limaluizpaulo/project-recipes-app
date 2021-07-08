@@ -13,7 +13,7 @@ function StarRecipes() {
   const { search, setSearch } = useContext(Context);
 
   if (!first) {
-    setSearch(favorite);
+    setSearch(JSON.parse(window.localStorage.getItem('favoriteRecipes')));
     setFirst(true);
   }
   function All() {
