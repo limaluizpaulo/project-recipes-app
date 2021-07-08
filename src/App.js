@@ -1,10 +1,9 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Login from './Pages/Login';
-import ReceitasFeitas from './Pages/ReceitasFeitas';
-import Recipes from './Pages/Recipes';
+
+import './App.css';
 import GenericComponent from './Components/GenericComponent';
+import { Login, ReceitasFeitas, Recipes, MealDetails, DrinkDetails } from './Pages';
 
 function App() {
   // tudo com GenericComponent não foi implementado
@@ -47,11 +46,16 @@ function App() {
         component={ GenericComponent }
       />
       <Route
-        path="/:recipeType/:id-da-receita"
-        component={ GenericComponent }
+        exact
+        path="/comidas/:id"
+        render={ (props) => <MealDetails { ...props } /> }
       />
       <Route
         exact
+        path="/bebidas/:id"
+        render={ (props) => <DrinkDetails { ...props } /> }
+      />
+      <Route
         path="/:recipeType"
         render={ (props) => (<Recipes { ...props } />) }
       />
