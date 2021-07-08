@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function RecipeCards({ history, recipes }) {
   const { pathname } = history.location;
   const newLocation = pathname.includes('comidas') ? 'comidas' : 'bebidas';
-  console.log(pathname);
   return (
     <section>
       {recipes.map((

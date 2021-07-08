@@ -1,6 +1,5 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
 import { LocalStorageMock } from '@react-mock/localstorage';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
@@ -30,7 +29,7 @@ const localMock = {
 };
 
 describe('1 - Testing the login page from Recipes App', () => {
-  it('login location.pathname should be "/"', () => {
+  it('login location.pathname must be be "/"', () => {
     const { history } = renderWithRouter(<App />);
     expect(history.location.pathname).toBe('/');
   });
@@ -126,7 +125,7 @@ describe('3 - button loggin be able when valid email and password are inserted',
 
 describe('4 - Login button setting items on localstorage', () => {
   it('localstorage must have a key "user" with a "valid email"', () => {
-    const { getByRole, getByTestId } = render(
+    const { getByRole, getByTestId } = renderWithRouter(
       <LocalStorageMock items={ localMock }>
         <App />
       </LocalStorageMock>,
@@ -153,9 +152,10 @@ describe('4 - Login button setting items on localstorage', () => {
   });
 });
 
-describe('4 - Login button setting items on localstorage', () => {
-  it('localstorage must have a key "user" with a "valid email"', () => {
-    const { getByRole, getByTestId } = render(<App />);
+describe('5 - Push to MainPage', () => {
+  it('Route MainPage must be "/comidas', () => {
+    const { history, getByTestId, getByRole } = renderWithRouter(<App />);
+    expect(history.location.pathname).toBe('/');
 
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASSWORD_INPUT);
@@ -163,17 +163,6 @@ describe('4 - Login button setting items on localstorage', () => {
     userEvent.type(emailInput, VALID_EMAIL);
     userEvent.type(passwordInput, VALID_PASSWORD);
     userEvent.click(logginBtn);
-
-    const userKey = JSON.parse(localStorage.getItem('user'));
-    expect(userKey).toEqual({ email: VALID_EMAIL });
-
-    const mealsTokenKey = JSON.parse(localStorage.getItem('mealsToken'));
-    const cocktailsTokenKey = JSON.parse(localStorage.getItem('cocktailsToken'));
-
-    expect(mealsTokenKey).toEqual(localMock.mealsToken);
-    expect(cocktailsTokenKey).toEqual(localMock.cocktailsToken);
-
-    const doneRecipesKey = JSON.parse(localStorage.getItem('doneRecipes'));
-    expect(doneRecipesKey).toStrictEqual(localMock.doneRecipes);
+    expect(history.location.pathname).toBe('/comidas');
   });
 });
