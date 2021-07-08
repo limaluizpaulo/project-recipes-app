@@ -16,8 +16,6 @@ const Provider = ({ children }) => {
   const [ingMeals, setIngMeals] = useState([]);
   const [ingDrinks, setIngDrinks] = useState([]);
   const [area, setArea] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassoword] = useState('');
 
   useEffect(() => {
     requests()
@@ -62,10 +60,6 @@ const Provider = ({ children }) => {
     ingMeals,
     ingDrinks,
     area,
-    email,
-    setEmail,
-    password,
-    setPassoword,
   };
 
   return status
