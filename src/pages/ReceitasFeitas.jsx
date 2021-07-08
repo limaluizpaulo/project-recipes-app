@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import
 { Container, Button, Row, Col, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import copy from 'clipboard-copy';
@@ -7,6 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 export default function ReceitasFeitas() {
   const [tipoFiltro, setTipoFiltro] = useState('All');
+  const history = useHistory();
   const mensagem = (props) => (
     <Tooltip
       id="mensagem"
@@ -32,6 +34,10 @@ export default function ReceitasFeitas() {
         </Button>
       </OverlayTrigger>
     );
+  };
+
+  const redirecionaDetalhesReceita = (type, id) => {
+    history.push(`/${type}s/${id}`);
   };
 
   const doneRecipes = [
@@ -70,6 +76,7 @@ export default function ReceitasFeitas() {
               variant="top"
               src={ image }
               data-testid={ `${index}-horizontal-image` }
+              onClick={ () => redirecionaDetalhesReceita(type, id) }
             />
             <Card.Body>
               <span
@@ -78,15 +85,20 @@ export default function ReceitasFeitas() {
                 {`${area} - ${category}`}
               </span>
               {compartilhar(mensagem, index, id, type)}
-              <Card.Title data-testid={ `${index}-horizontal-name` }>{name}</Card.Title>
+              <Card.Title
+                onClick={ () => redirecionaDetalhesReceita(type, id) }
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {name}
+              </Card.Title>
               <Card.Text
                 data-testid={ `${index}-horizontal-done-date` }
               >
                 {doneDate}
               </Card.Text>
-              {tags.map((tagName) => (
+              {tags.map((tagName, i) => (
                 <Card.Link
-                  key={ index }
+                  key={ i }
                   href="#"
                   data-testid={ `${index}-${tagName}-horizontal-tag` }
                 >
@@ -105,11 +117,17 @@ export default function ReceitasFeitas() {
             variant="top"
             src={ image }
             data-testid={ `${index}-horizontal-image` }
+            onClick={ () => redirecionaDetalhesReceita(type, id) }
           />
           <Card.Body>
             <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
             {compartilhar(mensagem, index, id, type)}
-            <Card.Title data-testid={ `${index}-horizontal-name` }>{name}</Card.Title>
+            <Card.Title
+              data-testid={ `${index}-horizontal-name` }
+              onClick={ () => redirecionaDetalhesReceita(type, id) }
+            >
+              {name}
+            </Card.Title>
             <Card.Text
               data-testid={ `${index}-horizontal-done-date` }
             >
