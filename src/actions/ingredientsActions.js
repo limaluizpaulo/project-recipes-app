@@ -1,5 +1,6 @@
 export const REQUEST_FOOD_INGREDIENTS = 'REQUEST_FOOD_INGREDIENTS';
 export const REQUEST_DRINK_INGREDIENTS = 'REQUEST_DRINK_INGREDIENTS';
+export const REQUEST_DRINKS_BY_INGREDIENTS = 'REQUEST_DRINKS_BY_INGREDIENTS';
 
 export const fetchFoodIngredients = async () => {
   const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
