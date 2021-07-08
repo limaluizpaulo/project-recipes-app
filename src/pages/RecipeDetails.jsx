@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import '../Style/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class RecipeDetails extends Component {
   constructor(props) {
@@ -14,20 +14,67 @@ class RecipeDetails extends Component {
       recipe: [],
       drinks: [],
       redirect: false,
+      favoriteRecipes: [],
+      heart: whiteHeartIcon,
     };
     this.getRecipe = this.getRecipe.bind(this);
     this.getDrinks = this.getDrinks.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.getLocalStoreFavorites = this.getLocalStoreFavorites.bind(this);
+    this.handleClickFavorite = this.handleClickFavorite.bind(this);
   }
 
   componentDidMount() {
     this.getRecipe();
     this.getDrinks();
-    console.log('didmount');
+    const favorite = localStorage.getItem('favoriteRecipes');
+    if (favorite) {
+      this.getLocalStoreFavorites(JSON.parse(favorite).newFavorite);
+    }
   }
 
   handleClick() {
     this.setState({ redirect: true });
+  }
+
+  handleClickFavorite() {
+    const { heart, favoriteRecipes, recipe } = this.state;
+    const newFavorite = [...favoriteRecipes];
+    const {
+      strMealThumb,
+      idMeal,
+      strArea,
+      strMeal,
+      strCategory,
+    } = recipe;
+    const modelo = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    if (heart === whiteHeartIcon) {
+      this.setState({ heart: blackHeartIcon },
+        () => {
+          newFavorite.push(modelo);
+          this.setState({ favoriteRecipes: newFavorite },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify({ newFavorite }));
+            });
+        });
+    } else {
+      this.setState({ heart: whiteHeartIcon },
+        () => {
+          const teste = favoriteRecipes.filter((model) => model.id !== recipe.idMeal);
+          this.setState({ favoriteRecipes: teste },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify({ teste }));
+            });
+        });
+    }
   }
 
   async getRecipe() {
@@ -45,8 +92,12 @@ class RecipeDetails extends Component {
     this.setState({ drinks: listDrinks });
   }
 
+  getLocalStoreFavorites(favorite) {
+    this.setState({ favoriteRecipes: favorite });
+  }
+
   render() {
-    const { recipe, drinks, redirect } = this.state;
+    const { recipe, drinks, redirect, favoriteRecipes, heart } = this.state;
     const { match: { params: { id } } } = this.props;
     if (redirect) {
       return <Redirect to={ `/comidas/${id}/in-progress` } />;
@@ -54,6 +105,8 @@ class RecipeDetails extends Component {
     if (recipe.length === 0) {
       return <h2>Loading...</h2>;
     }
+    console.log(favoriteRecipes);
+    console.log(recipe);
     const ingredientsKeys = Object.entries(recipe);
     const ingredients = [];
     const measures = [];
@@ -68,7 +121,6 @@ class RecipeDetails extends Component {
         measures.push(key[1]);
       }
     });
-    console.log(measures);
     const finalList = [];
     for (let i = 0; i <= (ingredients.length - 1); i += 1) {
       if (measures[i] === undefined) {
@@ -96,8 +148,12 @@ class RecipeDetails extends Component {
         <button type="button" data-testid="share-btn">
           <img className="icons" src={ shareIcon } alt="shareButton" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img className="icons" src={ whiteHeartIcon } alt="whiteHeartIcon" />
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ this.handleClickFavorite }
+        >
+          <img className="icons" src={ heart } alt="whiteHeartIcon" />
         </button>
         <h3 data-testid="recipe-category">{strCategory}</h3>
         <div>
