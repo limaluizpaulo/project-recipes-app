@@ -35,11 +35,8 @@ class RecipeDetails extends Component {
     const { match: { params: { id } } } = this.props;
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await result.json();
-    console.log(meals);
-    this.setState({ recipe: meals[0] }, () => {
-      const { recipe } = this.state;
-      console.log(recipe);
-    });
+    // console.log(meals[0]);
+    this.setState({ recipe: meals[0] });
   }
 
   async getDrinks() {
@@ -56,7 +53,7 @@ class RecipeDetails extends Component {
     if (redirect) {
       return <Redirect to={ `/comidas/${id}/in-progress` } />;
     }
-    console.log(drinks);
+    // console.log(drinks);
     const ingredientsKeys = Object.entries(recipe);
     const ingredients = [];
     const measures = [];
@@ -86,7 +83,7 @@ class RecipeDetails extends Component {
       strYoutube,
       strInstructions } = recipe;
 
-    console.log(strMealThumb);
+    // console.log(strMealThumb);
     return (
       <div>
         <img
