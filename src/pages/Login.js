@@ -25,6 +25,11 @@ function Login() {
     setUserEmail(input.email);
     getRecipes({ type: 'drinks', setFn: setDrinks });
     getRecipes({ type: 'meals', setFn: setMeals });
+
+    localStorage.setItem('user', JSON.stringify({ email: input.email }));
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('mealsToken', 1);
+
     history.push('/comidas');
   }
 
