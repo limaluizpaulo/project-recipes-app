@@ -18,6 +18,12 @@ function DoneRecipesCard() {
     getRecipesDone();
   }, []);
 
+  function handleOnClick({ target }) {
+    console.log(target);
+    copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
+    toast.success('Link copiado!');
+  }
+
   const recipesIsDone = getRecipesDone();
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
