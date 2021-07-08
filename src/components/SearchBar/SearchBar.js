@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './searchBar.css';
 import { useLocation, useHistory } from 'react-router-dom';
 import { searchMeal, searchDrink } from '../../helpers/searchDrinkOrMeal';
+import Context from '../../Provider/context';
 
 function SearchBar() {
   const history = useHistory();
@@ -9,8 +10,10 @@ function SearchBar() {
   const [selectedOptino, setSelectedOptino] = useState('');
   const { pathname } = useLocation();
   const routeName = pathname.split('/')[1];
+  const { setDataFood, setDataDrink } = useContext(Context);
 
-  // Se a api retornar somente uma bebida resutado é igual a 1
+  // Se a api retornar somente uma receita então a página vai ser redirecionada para detalhes
+  // Se a api retornar mais que uma é mostrado os cards da receitas
   const haveOneDrink = (objDrink) => {
     if (objDrink === undefined) {
       return 0;
@@ -22,11 +25,14 @@ function SearchBar() {
       return 0;
     } if (objDrink.drinks.length === 1) {
       return 1;
+    } if (objDrink.drinks.length > 1) {
+      setDataDrink(objDrink);
+      return 0;
     }
-    return 0;
   };
 
-  // Se a api retornar somente uma comida resutado é igual a 1
+  // Se a api retornar somente uma receita então a página vai ser redirecionada para detalhes
+  // Se a api retornar mais que uma é mostrado os cards da receitas
   const haveOneMeal = (objMeal) => {
     if (objMeal === undefined) {
       return 0;
@@ -38,6 +44,9 @@ function SearchBar() {
       return 0;
     } if (objMeal.meals.length === 1) {
       return 1;
+    } if (objMeal.meals.length > 1) {
+      setDataFood(objMeal);
+      return 0;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {
   requestDrink,
@@ -8,9 +8,10 @@ import {
 import Header from '../../components/Header/Header';
 import './Drinks.css';
 import Footer from '../../components/Footer/Footer';
+import Context from '../../Provider/context';
 
 function Drinks() {
-  const [data, setData] = useState([]);
+  const { dataDrink, setDataDrink } = useContext(Context);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nameItem, setNameItem] = useState('');
@@ -19,27 +20,27 @@ function Drinks() {
     (async function resolved() {
       const resolveDrinks = await requestDrink();
       const resolveCategory = await requestCategoryDrink();
-      setData(resolveDrinks);
+      setDataDrink(resolveDrinks);
       setCategory(resolveCategory);
       setLoading(false);
     }());
-  }, []);
+  }, [setDataDrink]);
 
   async function onClick({ target: { name } }) {
     if (name && name !== '') {
       setNameItem(name);
       const request = await requestNameDrink(name);
-      setData(request);
+      setDataDrink(request);
     }
     if (name === nameItem) {
       const request = await requestDrink();
-      setData(request);
+      setDataDrink(request);
     }
   }
 
   async function allButton() {
     const request = await requestAllDrinkCategory();
-    setData(request);
+    setDataDrink(request);
   }
 
   function mapCategory({ drinks }) {
@@ -138,7 +139,7 @@ function Drinks() {
         {
           loading
             ? 'Carregando...'
-            : (mapData(data))
+            : (mapData(dataDrink))
         }
       </div>
       <Footer />
