@@ -57,6 +57,7 @@ class Bebidas extends Component {
       dispatchDrinks,
       match,
     } = this.props;
+    console.log(match.path);
     return (
       <div>
         <Header location={ location } />

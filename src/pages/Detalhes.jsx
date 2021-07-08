@@ -24,14 +24,31 @@ class Detalhes extends Component {
     this.state = {
       favIcon: false,
       favIconColor: whiteHeartIcon,
+      currentId: '',
     };
     this.handleFavClick = this.handleFavClick.bind(this);
     this.instrutionVideo = this.instrutionVideo.bind(this);
     this.cardsMeals = this.cardsMeals.bind(this);
     this.cardsDrinks = this.cardsDrinks.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
   }
 
   componentDidMount() {
+    this.handleFetch();
+  }
+
+  componentDidUpdate() {
+    const { match: { params: { id } } } = this.props;
+    const { currentId } = this.state;
+    if (id !== currentId) return this.handleFetch();
+  }
+
+  componentWillUnmount() {
+    const { reboot } = this.props;
+    reboot('');
+  }
+
+  handleFetch() {
     const {
       match: { params: { page, id } },
       foodDetails,
@@ -40,6 +57,7 @@ class Detalhes extends Component {
       dispatchDrinks,
     } = this.props;
 
+    this.setState({ currentId: id });
     dispatchFoodRecipes();
     dispatchDrinks();
 
@@ -47,11 +65,6 @@ class Detalhes extends Component {
       return foodDetails(id);
     }
     return drinksDetails(id);
-  }
-
-  componentWillUnmount() {
-    const { reboot } = this.props;
-    reboot('');
   }
 
   handleFavClick() {
@@ -96,7 +109,7 @@ class Detalhes extends Component {
       slidesToShow: 2,
       slidesToScroll: 1,
     };
-    const { meals, match } = this.props;
+    const { meals } = this.props;
     const max = 6;
     const sliceMeals = meals.slice(0, max);
     return (
@@ -105,7 +118,7 @@ class Detalhes extends Component {
           {
             sliceMeals.map((measl, index) => (
               <CarouselCards
-                url={ match.path }
+                url="/comidas"
                 id={ measl.idMeal }
                 key={ measl.idMeal }
                 img={ measl.strMealThumb }
@@ -128,7 +141,7 @@ class Detalhes extends Component {
       slidesToShow: 2,
       slidesToScroll: 1,
     };
-    const { drinks, match } = this.props;
+    const { drinks } = this.props;
     const max = 6;
     const sliceDrinks = drinks.slice(0, max);
     return (
@@ -138,7 +151,7 @@ class Detalhes extends Component {
             sliceDrinks.map((drink, index) => (
               <div key={ index }>
                 <CarouselCards
-                  url={ match.path }
+                  url="/bebidas"
                   id={ drink.idDrink }
                   key={ index }
                   img={ drink.strDrinkThumb }
