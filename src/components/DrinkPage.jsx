@@ -20,7 +20,7 @@ function DrinkPage({ history }) {
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <section>
-        { drinks
+        { drinks && drinks
         // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strDrink, strDrinkThumb }, index) => index <= maxLength && (
             <article key={ index } data-testid={ `${index}-recipe-card` }>

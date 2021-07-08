@@ -20,8 +20,8 @@ function FoodPage({ history }) {
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <section>
-        { recipes
-        // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
+        {recipes && recipes
+          // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
             <article key={ index } data-testid={ `${index}-recipe-card` }>
               <img
@@ -32,6 +32,7 @@ function FoodPage({ history }) {
               />
               <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
             </article>))}
+        ;
       </section>
       <Footer history={ history } />
     </main>
