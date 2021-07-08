@@ -114,3 +114,26 @@ export async function fetchRandom(type) {
     console.log(error);
   }
 }
+
+export async function fetchAreas() {
+  try {
+    const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const result = await data.json();
+    // console.log(result);
+    return result.meals;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchByArea(query) {
+  try {
+    const API_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+    const data = await fetch(`${API_URL}${query}`);
+    const result = await data.json();
+    // console.log(result);
+    return result.meals;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -11,6 +11,13 @@ function Profile() {
   const email = user ? user.email : '';
 
   function logout() {
+    // localStorage.setItem('user', JSON.stringify({ email: '' });
+    // localStorage.setItem('cocktailsToken', '');
+    // localStorage.setItem('mealsToken', '');
+    // localStorage.setItem('doneRecipes', '');
+    // localStorage.setItem('inProgressRecipes', '');
+    // localStorage.setItem('favoriteRecipes', '');
+
     localStorage.removeItem('user');
     localStorage.removeItem('cocktailsToken');
     localStorage.removeItem('mealsToken');

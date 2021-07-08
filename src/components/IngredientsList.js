@@ -26,7 +26,7 @@ function IngredientsList() {
   useEffect(() => {
     async function getIngredients() {
       const result = await fetchIngredients(type);
-      setIngredients(result);
+      if (result) setIngredients(result);
     }
     getIngredients();
   }, [type]);
