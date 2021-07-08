@@ -59,6 +59,7 @@ export default function FavoriteRecipesCard() {
     .filter((recipe) => recipe.type !== selectedTypeItem);
   return (
     <>
+      <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div
           key={ index }
