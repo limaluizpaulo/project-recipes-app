@@ -1,4 +1,4 @@
-const pathTreament = (pathname) => {
+export const pathTreament = (pathname) => {
   const negativeOne = -1;
   const lastLetter = pathname.slice(negativeOne);
   let newPathname = pathname;
@@ -16,4 +16,6 @@ const pathTreament = (pathname) => {
   return newPathname;
 };
 
-export default pathTreament;
+export const alertMessage = (fn, message) => {
+  fn(message);
+};

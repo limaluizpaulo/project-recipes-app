@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import pathTreament from '../helpers/HelperFunctions';
+import { pathTreament } from '../helpers/HelperFunctions';
 
 export default function Card(props) {
   const { id, thumbnail, title, index, category } = props;
