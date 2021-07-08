@@ -21,6 +21,7 @@ const DrinksDetails = ({ match: { params: { id } } }) => {
     strAlcoholic } = drinksDetails;
 
   const newObj = {
+    id,
     title: strDrink,
     type: 'cocktail',
     category: strCategory,

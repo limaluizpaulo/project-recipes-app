@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { ShareButton } from '.';
+import { UserContext } from '../context/UserProvider';
 
 const HeaderRecipes = ({ newObj }) => {
-  const { imageHeader, title, category, alcoholic } = newObj;
+  const { copied } = useContext(UserContext);
+
+  const { id, type, imageHeader, title, category, alcoholic } = newObj;
   return (
     <div>
       <img
@@ -13,12 +17,13 @@ const HeaderRecipes = ({ newObj }) => {
       <title data-testid="recipe-title">
         {title}
       </title>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar
-      </button>
+      {copied ? 'Link copiado!' : ''}
+
+      <ShareButton
+        type={ type === 'meals' ? 'comida' : 'bebida' }
+        id={ id }
+        index="0"
+      />
       <button
         type="button"
         data-testid="favorite-btn"
@@ -35,6 +40,7 @@ const HeaderRecipes = ({ newObj }) => {
 };
 
 HeaderRecipes.propTypes = {
+  id: PropTypes.string,
   imageHeader: PropTypes.string,
   title: PropTypes.string,
   category: PropTypes.string,

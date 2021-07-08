@@ -12,11 +12,37 @@ const UserProvider = ({ children }) => {
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [done, setDone] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    setFavorites(getFromLocalStorage('favoriteRecipes') || []);
+    setFavorites(getFromLocalStorage('favoriteRecipes') || [
+      {
+        id: '52771',
+        type: 'comida',
+        area: 'Italian',
+        category: 'Vegetarian',
+        alcoholicOrNot: '',
+        name: 'Spicy Arrabiata Penne',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      },
+      {
+        id: '178319',
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot: 'Alcoholic',
+        name: 'Aquamarine',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      },
+    ]);
     setDone(getFromLocalStorage('doneRecipes') || []);
   }, []);
+
+  const copyToClipboard = () => {
+    const hideMsgTime = 4000;
+    setCopied(true);
+    setTimeout(() => setCopied(false), hideMsgTime);
+  };
 
   const removeFavorites = (id) => {
     const filteredFavorites = favorites.filter((recipe) => recipe.id !== id);
@@ -53,11 +79,13 @@ const UserProvider = ({ children }) => {
   const context = {
     favorites,
     done,
+    copied,
     removeFavorites,
     verifyLogin,
     handleChange,
     validationUser,
     handleLogin,
+    copyToClipboard,
   };
 
   return (

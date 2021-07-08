@@ -21,6 +21,7 @@ const MealsDetails = ({ match: { params: { id } } }) => {
     strMealThumb } = mealsDetails;
 
   const newObj = {
+    id,
     title: strMeal,
     category: strCategory,
     imageHeader: strMealThumb,
