@@ -28,11 +28,13 @@ const FoodInProgressList = () => {
             onChange={ () => handleCheck(number) }
           />
           <li className={ checkedClass }>
-            {ingr}
-            {' '}
-            -
-            {' '}
-            {meas}
+            <span className="inProgress__ingredientItem">
+              {ingr}
+              {' '}
+              -
+              {' '}
+              {meas}
+            </span>
           </li>
         </div>
       );

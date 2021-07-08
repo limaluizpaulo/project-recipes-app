@@ -30,10 +30,6 @@
   margin-left: 10px;
 }
 
-.inProgress__listItem__checked {
-  text-decoration: line-through;
-}
-
 
 .inprogress__finishBtn__container {
   display: flex;
@@ -67,3 +63,8 @@
   padding: 7px;
   transition: all 0.2s;
 }
+
+.inProgress__listItem__checked {
+  text-decoration: line-through;
+}
+
