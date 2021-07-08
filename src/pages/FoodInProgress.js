@@ -16,7 +16,7 @@ class FoodInProgress extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchDetails();
+    this.fetchDetails()
   }
 
   async fetchDetails() {
@@ -71,14 +71,20 @@ class FoodInProgress extends React.Component {
     }
   }
 
+  checkIngedients = (name) => {
+    const { checkedIngredients } = this.state;
+    if (checkedIngredients.includes(name)) { return  true};
+    return  false;
+  }
+
   renderIngredients() {
-    const { detailsRecipe, checkedIngredients } = this.state;
+    const { detailsRecipe } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
       arrayIngredients.push(index);
     }
-    return arrayIngredients.map((position) => {
+    return arrayIngredients.map((position, index) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
       const ing = `${measure} ${ingredients}`;
@@ -88,13 +94,13 @@ class FoodInProgress extends React.Component {
       return (
         <li
           key={ position }
-          data-testid={ `${position - 1}-ingredient-step` }
-          className=
-            { checkedIngredients.includes(`${measure} ${ingredients}`) ? 'checked' : null}
+          data-testid={ `${index}-ingredient-step` }
+          className={ this.checkIngedients(ing) ? 'checked' : null}
         >
           <input
             type="checkbox"
-            checked={ checkedIngredients.includes(`${measure} ${ingredients}`) } 
+            checked={ this.checkIngedients(ing) }
+            value={ this.checkIngedients(ing) }
             onChange={ this.handleChecked }
             name={ ing }
           />
@@ -109,6 +115,7 @@ class FoodInProgress extends React.Component {
     if (detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
+    console.log(document.getElementsByTagName('input')[0]);
     return (
       <section>
         <img
