@@ -10,3 +10,7 @@
 .img-tam {
   width: 200px;
 }
+
+.border {
+  border: 1px solid silver;
+}
