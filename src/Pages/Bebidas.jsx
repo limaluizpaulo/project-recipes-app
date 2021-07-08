@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import CocktailList from '../components/CocktailList';
 import Footer from '../components/Footer';
+import CategoryFilter from '../components/CategoryFilter';
 
 export default function Bebidas({ match: { url } }) {
   const { openSearchBar } = useContext(Context);
@@ -13,7 +14,8 @@ export default function Bebidas({ match: { url } }) {
   return (
     <Container>
       <Header title="Bebidas" searchIcon />
-      { openSearchBar ? <SearchBar url={ url } /> : null }
+      { openSearchBar ? <SearchBar url={ url } /> : undefined }
+      <CategoryFilter type="drinks" />
       <CocktailList />
       <Footer />
     </Container>

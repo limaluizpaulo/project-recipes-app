@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Context from '../../context/Context';
 
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
+  const { curr } = useContext(Context);
 
   // Pupula o estado que gerencia a classe CSS dos ingredientes
   const populateSteps = () => {
@@ -18,44 +20,66 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         });
       }
     }
-
     setStepsClassName(steps);
+  };
+
+  // carrega local storage dos ingredientes
+  const loadIngredientesLocalStorage = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { id } = currentRecipe;
+    switch (!inProgress) {
+    case true:
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ [curr]: { [id]: [] } }));
+      break;
+    default:
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...inProgress,
+          [curr]:
+          { ...inProgress[curr],
+            [id]: [...inProgress[curr][id]],
+          } })); // dps passar o spread pros ids
+    }
   };
 
   useEffect(() => {
     populateSteps();
+    loadIngredientesLocalStorage();
     // eslint-disable-next-line
   }, [ingredients]);
 
-  // Adiciona o progresso da receita em localstorage
-  const addLocalStorageIngredient = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id, video } = currentRecipe;
-
-    // if (!video) {
-
-    // } else {
-
-    // }
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(id, video, inProgress));
-  };
-
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
+    const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { id, type } = currentRecipe;
+
     let step = 'step-checked';
 
     if (stepsClassName[targetId].checked) {
       step = 'step-not-checked';
+      if (type === 'bebidas') {
+        const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        console.log(cocktails[id]);
+        // const exist = cocktails[id].find((cocktail) => cocktail);
+        // console.log(exist);
+      }
+      // localStorage.removeItem('inProgressRecipes', JSON
+      //   .stringify({ ...newLocalStorage, [curr]: { ...newLocalStorage[curr], [id]: [...newLocalStorage[curr][id], ingredients[targetId].ingredient] } }));
     }
 
     setStepsClassName([
       ...stepsClassName,
       stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
       stepsClassName[targetId].step = step,
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...newLocalStorage,
+          [curr]: { ...newLocalStorage[curr],
+            [id]: [...newLocalStorage[curr][id],
+              ingredients[targetId].ingredient] } })),
     ]);
 
-    addLocalStorageIngredient();
     stepsProgress(stepsClassName);
   };
 

@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button, Image } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Container, Button, Image } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-import ShareButton from './ShareButton';
-
-export default function Title({ currentRecipe, subtitle }) {
+export default function FavoriteButton(
+  { recipe, dataTestId, updateCards, setUpdateCards },
+) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const url = window.location.href;
-  const { id, type, area, category, alcoholicOrNot, name, image } = currentRecipe;
 
   // Atualiza o estado de item favoritado
   const updateFavoriteState = (favorites) => {
-    const urlId = url.split('/')[4];
+    const { id } = recipe;
 
-    const exist = favorites.find(({ id: idFavorito }) => idFavorito === urlId);
+    const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
     if (exist) {
       setIsFavorite(true);
     }
@@ -40,7 +38,9 @@ export default function Title({ currentRecipe, subtitle }) {
   }, []);
 
   // Gera o objeto que será adicionado no localstorage
-  const generateLocalStorageObject = () => {
+  const generateLocalStorageObject = (type) => {
+    const { id, category, alcoholicOrNot, name, area, image } = recipe;
+
     switch (type) {
     case 'comida':
       return {
@@ -62,6 +62,7 @@ export default function Title({ currentRecipe, subtitle }) {
 
   // Adiciona/Remove item do local
   const addFavoriteToLocalStorage = (favorites, newFavorite) => {
+    const { id } = recipe;
     const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
 
     if (!exist) {
@@ -75,8 +76,9 @@ export default function Title({ currentRecipe, subtitle }) {
 
   // Atualiza o localStorage
   const updateFavoritesLocalStorage = () => {
+    const { type } = recipe;
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavorite = generateLocalStorageObject();
+    const newFavorite = generateLocalStorageObject(type);
 
     switch (!favorites) {
     case true:
@@ -88,37 +90,40 @@ export default function Title({ currentRecipe, subtitle }) {
     }
   };
 
-  // Ação ao clicar em favoritar
+  // // Ação ao clicar em favoritar
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
+    setUpdateCards(!updateCards);
     updateFavoritesLocalStorage();
   };
 
   return (
     <Container>
-      <section>
-        <strong data-testid="recipe-title">{ name }</strong>
-      </section>
-      <section>
-        <i data-testid="recipe-category">{ subtitle }</i>
-      </section>
-      <section>
-        <ShareButton id={ id } type={ type } />
-        <Container>
-          <Button onClick={ handleFavorite } variant="success" block>
-            <Image
-              data-testid="favorite-btn"
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            />
-          </Button>
-        </Container>
-      </section>
-      <br />
+      <Button
+        block
+        onClick={ handleFavorite }
+        variant="success"
+      >
+        <Image
+          data-testid={ dataTestId }
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        />
+      </Button>
     </Container>
   );
 }
 
-Title.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+FavoriteButton.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    area: PropTypes.string,
+    type: PropTypes.string,
+    category: PropTypes.string,
+    image: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
+  }),
+  dataTestId: PropTypes.string,
+  updateCards: PropTypes.bool,
+  setUpdateCards: PropTypes.func,
 }.isRequired;

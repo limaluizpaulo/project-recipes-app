@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
@@ -10,13 +10,15 @@ import Instructions from '../components/Details/Instructions';
 
 export default function ReceitaEmProcesso({ location }) {
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
-  const { id, title, subtitle, instructions, thumb, ingredients } = currentRecipe;
+  const {
+    id, name, category, alcoholicOrNot, instructions, image, ingredients,
+  } = currentRecipe;
   const [allStepsOk, setAllStepsOk] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, [storeCurrentRecipe, location.pathname]);
+  }, []);
 
   // Atualiza o estatus de progresso, para habilitar o botão
   const stepsProgress = (steps) => {
@@ -32,25 +34,32 @@ export default function ReceitaEmProcesso({ location }) {
   };
 
   return (
-    <Container>
-      <Thumb title={ title } thumb={ thumb } />
-      <Title id={ id } title={ title } subtitle={ subtitle } />
-      <IngredientsStep
-        currentRecipe={ currentRecipe }
-        ingredients={ ingredients }
-        stepsProgress={ stepsProgress }
-      />
-      <Instructions instructions={ instructions } />
-      <Button
-        onClick={ () => history.push('/receitas-feitas') }
-        disabled={ allStepsOk }
-        data-testid="finish-recipe-btn"
-        variant="warning"
-        block
-      >
-        Finalizar Receita
-      </Button>
-    </Container>
+    image ? (
+      <Container>
+        <Thumb title={ name } thumb={ image } />
+        <Title
+          currentRecipe={ currentRecipe }
+          id={ id }
+          title={ name }
+          subtitle={ !alcoholicOrNot ? category : alcoholicOrNot }
+        />
+        <IngredientsStep
+          currentRecipe={ currentRecipe }
+          ingredients={ ingredients }
+          stepsProgress={ stepsProgress }
+        />
+        <Instructions instructions={ instructions } />
+        <Button
+          onClick={ () => history.push('/receitas-feitas') }
+          disabled={ allStepsOk }
+          data-testid="finish-recipe-btn"
+          variant="warning"
+          block
+        >
+          Finalizar Receita
+        </Button>
+      </Container>
+    ) : <Spinner variant="success" animation="border" />
   );
 }
 

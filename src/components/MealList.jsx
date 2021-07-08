@@ -6,7 +6,7 @@ import ItemCard from './ItemCard';
 
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
-  const { mealsRecipes, resquestMealsApi } = useContext(Context);
+  const { mealsRecipes, resquestMealsApi, selectedCategory } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -24,12 +24,11 @@ export default function MealList() {
   }, []);
 
   const renderCards = () => {
-    if (mealsRecipes && mealsRecipes.length === 1) {
-      console.log('3');
+    if (selectedCategory === 'All' && mealsRecipes && mealsRecipes.length === 1) {
       return history.push(`/comidas/${mealsRecipes[0].idMeal} `);
     }
 
-    if (mealsRecipes && mealsRecipes.length > 1) {
+    if (mealsRecipes && mealsRecipes.length) {
       const NUMBER = 12;
       return mealsRecipes.map((item, index) => {
         if (index < NUMBER) {

@@ -1,3 +1,4 @@
+// filter meals based on SearchBar
 export async function fetchMealsApi({ searchText, filter }) {
   if (filter === 'ingredient') {
     const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`);
@@ -16,12 +17,14 @@ export async function fetchMealsApi({ searchText, filter }) {
   }
 }
 
+// All meals
 export async function fetchMealsRecomendation() {
   const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const { meals } = await request.json();
   return meals;
 }
 
+// only one Meal, by ID
 export async function fetchMealsById(id) {
   const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const { meals } = await request.json();
@@ -32,4 +35,18 @@ export async function fetchMealRandom() {
   const request = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const mealRandom = await request.json();
   return mealRandom;
+}
+
+// filter meals based on Category
+export async function fetchMealsByCategory(cat) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cat}`);
+  const { meals } = await request.json();
+  return meals;
+}
+
+// return all meal Categories
+export async function fetchMealsCategories() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const { meals } = await request.json();
+  return meals;
 }
