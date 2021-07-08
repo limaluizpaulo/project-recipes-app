@@ -35,17 +35,22 @@ function Details() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
-  // console.log(thumbnail);
-  // const videoId = type === 'meals'?(
-  // videoId = detailsData.strYoutube === undefined ? null
-  //   : detailsData.strYoutube.slice(thirtyTwo);
-  // const video = (
-  //   <section data-testid="video">
-  //     <h3>Video</h3>
-  //     <YouTube
-  //       videoId={ videoId }
-  //     />
-  //   </section>)) : '';
+  const recipeProgress = () => {
+    const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
+    // const progressInfo = JSON.stringify({ [typeKey]: { [id]: [] } });
+    // localStorage.setItem('inProgressRecipes', progressInfo);
+    let item = localStorage.getItem(['inProgressRecipes']);
+    item = JSON.parse(item);
+    let filterKey = '';
+    console.log(item);
+    if (item !== null) {
+      filterKey = Object.keys(item[typeKey]).filter((key) => key === id);
+    }
+    if (filterKey.includes(id)) {
+      return 'Continuar Receitas';
+    }
+    return 'Iniciar Receita';
+  };
   const video = () => {
     if (type === 'drinks') {
       return null;
@@ -128,7 +133,7 @@ function Details() {
       <footer>
         <Button
           className="start-recipe"
-          label="Iniciar Receita"
+          label={ recipeProgress() }
           testid="start-recipe-btn"
         />
       </footer>
