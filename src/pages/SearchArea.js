@@ -11,23 +11,27 @@ const SearchArea = () => {
   const meals = filter && recipes.meals ? recipes.meals : m;
   const mealsFilter = meals.slice(0, magic);
 
-  const dropBox = () => (
-    <select
-      onChange={ ({ target: { value } }) => {
-        console.log('value', value);
-        setFilter(value);
-        setSearchOp({ inputSearch: value, option: 'area', food: true });
-      } }
-      value={ filter }
-      data-testid="explore-by-area-dropdown"
-    >
-      {area.map(({ strArea }) => (
-        <option data-testid={ `${strArea}-option` } key={ strArea } value={ strArea }>
-          {strArea}
-        </option>
-      ))}
-    </select>
-  );
+  const dropBox = () => {
+    const all = { strArea: 'All' };
+    const options = [all, ...area];
+    return (
+      <select
+        onChange={ ({ target: { value } }) => {
+          console.log('value', value);
+          setFilter(value);
+          setSearchOp({ inputSearch: value, option: 'area', food: true });
+        } }
+        value={ filter }
+        data-testid="explore-by-area-dropdown"
+      >
+        {options.map(({ strArea }) => (
+          <option data-testid={ `${strArea}-option` } key={ strArea } value={ strArea }>
+            {strArea}
+          </option>
+        ))}
+      </select>
+    );
+  };
 
   return (
     <div>
