@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
@@ -41,6 +42,7 @@ function ExpoFoodArea(props) {
               </option>
             );
           }
+          return null;
         })}
       </select>
       <div className="items-list">
@@ -60,4 +62,12 @@ const mapDispatchToProps = (dispatch) => ({
   localsReceived: () => dispatch(setArea(fetchByArea)),
   infoFoods: (value, callback) => dispatch(getAreas(value, callback)),
 });
+
+ExpoFoodArea.propTypes = {
+  localsReceived: PropTypes.any,
+  foods: PropTypes.any,
+  locals: PropTypes.any,
+  infoFoods: PropTypes.any,
+}.isRequired;
+
 export default connect(mapStateToProps, mapDispatchToProps)(ExpoFoodArea);
