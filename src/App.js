@@ -6,8 +6,7 @@ import Login from './pages/Login';
 import Erro404 from './pages/Page404';
 import Explorar from './pages/Explorar';
 import ExplorarComidasOuBebidas from './pages/ExplorarComidasOuBebidas';
-import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
-import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
+import ExplorarPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
@@ -41,16 +40,16 @@ function App() {
           <Route exact path="/explorar/bebidas" component={ ExplorarComidasOuBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
-            component={ ExplorarComidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route
             path="/explorar/bebidas/ingredientes"
-            component={ ExplorarBebidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
-          <Route exect path="/perfil" component={ Perfil } />
-          <Route exect path="/receitas-feitas" component={ ReceitasFeitas } />
-          <Route exect path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
           {/* <Route component={ Erro404 } /> */}
         </Switch>
       </BrowserRouter>
