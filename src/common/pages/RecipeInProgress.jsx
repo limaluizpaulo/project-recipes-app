@@ -14,8 +14,6 @@ export default function RecipeInProgress() {
   const [ingrLS, setIngrLS] = useState(() => (
     getStorage('inProgressRecipes')[id] || [])); // LS = LocalStorage
 
-  console.log((getStorage('inProgressRecipes')[id] || []));
-
   const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
 
   const validationButton = () => {

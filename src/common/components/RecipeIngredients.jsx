@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import store from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 
@@ -7,11 +7,19 @@ export default function RecipeIngredients({
   const { recipes: { recipeDetail } } = useContext(store);
 
   // INGREDIENTS FOR IN-PROGRESS PAGE ---------------------------------------------------------------------------------------------
-  console.log(ingrLS);
-  const [taskOK, setTaskOK] = useState((ingrLS) ? (
-    { [ingrLS.map((item) => item)]: true }) : {});
-  // const [taskOK, setTaskOK] = useState({});
+  const [taskOK, setTaskOK] = useState({});
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
+
+  const ajustItensFromLocalStorage = () => {
+    if (ingrLS) {
+      const setTaskCompleted = ingrLS.reduce((acc, currItem) => ({
+        ...acc,
+        [currItem]: true,
+      }), {});
+      return setTaskOK(setTaskCompleted);
+    }
+  };
+  // transformar array em objeto: https://www.codegrepper.com/code-examples/javascript/transformar+array+em+objeto+javascript
 
   const addTaskCompleted = ({ target: { checked, name } }) => {
     const setTaskCompleted = { ...taskOK, [name]: checked };
@@ -98,6 +106,8 @@ export default function RecipeIngredients({
 
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
+
+  useEffect(ajustItensFromLocalStorage, []);
 
   // ---------------------------------------------------------------------------------------------
   // RENDERS
