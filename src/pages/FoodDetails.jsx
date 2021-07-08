@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
-import { localStorageVerifier, verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
+import { localStorageVerifier,
+  verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
 import { copyLink } from '../services/functions';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
-  console.log(match);
   const [isCopied, setIsCopied] = useState(false);
   const {
     details,
@@ -85,7 +85,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         </button>
         <button
           type="button"
-          onClick={ () => settingFavorite(details) }
+          onClick={ () => settingFavorite(details, id) }
         >
           <img
             alt="Favorite"

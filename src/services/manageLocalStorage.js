@@ -66,7 +66,7 @@ export const verifyFavorite = (id) => {
   return whiteHeartIcon;
 };
 
-export const settingFavorite = (details) => {
+export const settingFavorite = (details, id) => {
   const favoritesArrayVerifier = localStorage.getItem('favoriteRecipes');
   if (!favoritesArrayVerifier) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
@@ -90,6 +90,8 @@ export const settingFavorite = (details) => {
   if (details.drinks) {
 
   }
-  favoritesArray.push(favoriteObject);
-  localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
+  if (!favoritesArray.find((obj) => obj.id === id)) {
+    favoritesArray.push(favoriteObject);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesArray));
+  }
 };
