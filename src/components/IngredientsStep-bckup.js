@@ -1,8 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import loadDoneItems from '../services/LoadInProgress';
 
 function IngredientsStep(props) {
-  const { value: { url, id, recipeIngredientsList, missingIngredients } } = props;
+  const { value: { recipe, url, id } } = props;
+  const object = Object.entries(recipe);
+  const recipeIngredients = object.filter((entry) => (
+    entry[0].match(/strIngredient/) && entry[1] !== '' && entry[1] !== null));
+  const recipeQuantities = object.filter((entry) => (
+    entry[0].match(/strMeasure/) && entry[1] !== ' ' && entry[1] !== null));
+  const recipeIngredientsList = [];
+  for (let i = 0; i < recipeIngredients.length; i += 1) {
+    recipeIngredientsList.push(
+      ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
+    );
+  }
+  const missingIngredients = loadDoneItems({ url, id });
 
   function handleClick(event) {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));

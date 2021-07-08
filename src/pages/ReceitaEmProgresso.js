@@ -7,24 +7,33 @@ import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import checkFavorite from '../services/CheckFavorites';
+import checkInProgress from '../services/CheckInProgress';
 import saveWithFavorites from '../services/SaveWithFavorites';
 import DetailsImage from '../components/DetailsImage';
 import IngredientsStep from '../components/IngredientsStep';
 import Instructions from '../components/Instructions';
 import Title from '../components/Title';
+import loadDoneItems from '../services/LoadInProgress';
+import getIngredients from '../services/GetIngredients';
 import '../styles/ReceitaDetalhes.css';
 
-function ReceitaEmProgresso({ match }) {
+function ReceitaDetalhes({ match }) {
   const { url } = match;
   const food = /comida/gi;
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
   const [favorite, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [recipeIngredientsList, setIngList] = useState([]);
+  const missingIngredients = loadDoneItems({ url, id });
 
   useEffect(() => {
     fetchRecipe(url, food, id)
-      .then((response) => setRecipe(response));
+      .then((response) => {
+        setRecipe(response);
+        setIngList(getIngredients(response));
+      });
   }, []);
 
   function saveToFavorites() {
@@ -105,6 +114,18 @@ function ReceitaEmProgresso({ match }) {
   };
   checkFavorite(checkFavoriteParams);
 
+  const checkInProgressParams = {
+    url,
+    food,
+    recipe,
+    inProgress,
+    setInProgress,
+  };
+  checkInProgress(checkInProgressParams);
+
+  console.log(missingIngredients);
+  console.log(recipeIngredientsList);
+
   if (!recipe) {
     return (<h4 className="loading">Carregando...</h4>);
   }
@@ -113,21 +134,14 @@ function ReceitaEmProgresso({ match }) {
     <main>
       <DetailsImage value={ { recipe, url } } />
       <Title value={ titleParams } />
-      <IngredientsStep value={ { recipe, url, id } } />
+      <IngredientsStep value={ { url, id, recipeIngredientsList, missingIngredients } } />
       <Instructions value={ recipe } />
-      <button
-        className="finish"
-        type="button"
-        data-testid="finish-recipe-btn"
-      >
-        Finalizar receita
-      </button>
     </main>
   );
 }
 
-ReceitaEmProgresso.propTypes = {
+ReceitaDetalhes.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default ReceitaEmProgresso;
+export default ReceitaDetalhes;

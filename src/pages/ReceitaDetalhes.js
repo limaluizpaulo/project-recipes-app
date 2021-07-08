@@ -147,13 +147,6 @@ function ReceitaDetalhes({ match }) {
       <EmbedVideo value={ recipe.strVideo } />
       <CardsCarousel value={ params } />
       <DetailsButton value={ buttonParams } />
-      {/* <button
-        className="start"
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        <a href={ `${url}/in-progress` }>Iniciar Receita</a>
-      </button> */}
     </main>
   );
 }
