@@ -5,7 +5,6 @@ import Context from '../../context/Context';
 
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
-  const [stepsClassNameTeste, setStepsClassNameTeste] = useState([]);
   const { curr } = useContext(Context);
 
   useEffect(() => {
@@ -15,34 +14,33 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     if (inProgress) {
       const keys = Object.keys(inProgress[curr]);
       const recipe = keys.find((key) => key === currentRecipe.id);
-      
+
       if (recipe) {
         const arrayIds = inProgress[curr][currentRecipe.id];
-        console.log(recipe)
         let nome = '';
         let valor = false;
         for (let index = 0; index <= ingredients.length; index += 1) {
-          
-            for (let index2 = 0; index2 < arrayIds.length; index2 +=1) {
-          console.log(arrayIds[index])
-              if (index === (Number.parseInt(arrayIds[index2]))) {
-                nome = 'step-checked';
-                valor = true;
-              } else {
-                // nome = 'step-not-checked';
-              }
+          for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
+            console.log('comparando isso: ' + index + ' com isso: ' + arrayIds[index2]);
+            if (index === (Number.parseInt(arrayIds[index2]))) {
+              nome = 'step-checked';
+              valor = true;
+            } else {
+              nome = 'step-not-checked';
+              valor = false;
             }
+          }
+          steps.push({
+            step: nome,
+            checked: valor,
+            index,
+          });
         }
-        steps.push({
-          step: nome,
-          checked: valor,
-          // index,
-        });
       }
       setStepsClassName(steps);
     }
-    //retorna array inProgress[curr][currentRecipe.id]
-  }, [])
+    // retorna array inProgress[curr][currentRecipe.id]
+  }, []);
 
   // Pupula o estado que gerencia a classe CSS dos ingredientes
   const populateSteps = () => {
@@ -111,6 +109,15 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
     if (stepsClassName[targetId].checked) {
       step = 'step-not-checked';
+      if (type === 'bebidas') {
+        // const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        // console.log(cocktails[id]);
+        // // const exist = cocktails[id].find((cocktail) => cocktail);
+        // // console.log(exist);
+
+      }
+      // localStorage.removeItem('inProgressRecipes', JSON
+      //   .stringify({ ...newLocalStorage, [curr]: { ...newLocalStorage[curr], [id]: [...newLocalStorage[curr][id], ingredients[targetId].ingredient] } }));
     }
 
     setStepsClassName([
