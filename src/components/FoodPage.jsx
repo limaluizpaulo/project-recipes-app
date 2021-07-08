@@ -23,7 +23,7 @@ function FoodPage({ history }) {
       { goSearch && <SBElements history={ history } /> }
       <section>
         { recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
-        { recipes && recipes
+        {recipes && recipes
           // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
             <article key={ index } data-testid={ `${index}-recipe-card` }>
