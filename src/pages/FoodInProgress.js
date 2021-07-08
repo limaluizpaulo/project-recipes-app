@@ -13,20 +13,11 @@ class FoodInProgress extends React.Component {
     this.renderIngredients = this.renderIngredients.bind(this);
     this.handleChecked = this.handleChecked.bind(this);
     this.fetchDetails = this.fetchDetails.bind(this);
+    this.checkIngedients = this.checkIngedients.bind(this);
   }
 
   componentDidMount() {
-    this.fetchDetails()
-  }
-
-  async fetchDetails() {
-    const { match: { params: { id } } } = this.props;
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const responseAPI = await fetchAPI(url);
-    const { meals } = responseAPI;
-    this.setState({
-      detailsRecipe: meals,
-    }, () => this.setInitialLocal());
+    this.fetchDetails();
   }
 
   handleChecked({ target }) {
@@ -49,7 +40,7 @@ class FoodInProgress extends React.Component {
   }
 
   setInitialLocal() {
-    const { detailsRecipe } = this.state
+    const { detailsRecipe } = this.state;
     const { idMeal } = detailsRecipe[0];
     if (localStorage.getItem('inProgressRecipes') === null) {
       const obj = {
@@ -71,10 +62,20 @@ class FoodInProgress extends React.Component {
     }
   }
 
-  checkIngedients = (name) => {
+  async fetchDetails() {
+    const { match: { params: { id } } } = this.props;
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const responseAPI = await fetchAPI(url);
+    const { meals } = responseAPI;
+    this.setState({
+      detailsRecipe: meals,
+    }, () => this.setInitialLocal());
+  }
+
+  checkIngedients(name) {
     const { checkedIngredients } = this.state;
-    if (checkedIngredients.includes(name)) { return  true};
-    return  false;
+    if (checkedIngredients.includes(name)) { return true; }
+    return false;
   }
 
   renderIngredients() {
@@ -95,7 +96,7 @@ class FoodInProgress extends React.Component {
         <li
           key={ position }
           data-testid={ `${index}-ingredient-step` }
-          className={ this.checkIngedients(ing) ? 'checked' : null}
+          className={ this.checkIngedients(ing) ? 'checked' : null }
         >
           <input
             type="checkbox"
@@ -145,5 +146,13 @@ class FoodInProgress extends React.Component {
     );
   }
 }
+
+FoodInProgress.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default FoodInProgress;

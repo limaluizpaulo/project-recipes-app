@@ -40,7 +40,7 @@ function App() {
       <Route path="/explorar/comidas/area" component={ FoodByOrigin } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
-      <Route path="/receitas-favoritas" component={ FavoriteRecipies } />
+      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>
   );
 }

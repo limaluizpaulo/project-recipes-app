@@ -44,6 +44,7 @@ class DoneRecipes extends React.Component {
     const { doneRecipes, copyLink } = this.state;
     return doneRecipes.map((recipe, index) => {
       const link = `/${recipe.type}s/${recipe.id}`;
+      const recipeInfo = `${recipe.area} - ${recipe.category}`;
       return (
         <section key={ recipe.id }>
           <Link to={ link }>
@@ -55,7 +56,7 @@ class DoneRecipes extends React.Component {
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
-            {recipe.type === 'comida' ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot }
+            {recipe.type === 'comida' ? recipeInfo : recipe.alcoholicOrNot }
           </p>
           <Link to={ link }>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>

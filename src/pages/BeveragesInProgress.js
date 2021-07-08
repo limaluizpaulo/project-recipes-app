@@ -4,16 +4,14 @@ import sharedIcon from '../images/shareIcon.svg';
 
 import '../App.css';
 
-import testeData from '../testeData';
-
 class BeveragesInProgress extends React.Component {
   constructor() {
     super();
-
     this.state = {
-      detailsRecipe: testeData,
+      detailsRecipe: [],
     };
     this.renderIngredients = this.renderIngredients.bind(this);
+    this.fetchDetails = this.fetchDetails.bind(this);
   }
 
   handleChecked({ target }) {
@@ -22,10 +20,23 @@ class BeveragesInProgress extends React.Component {
     if (target.checked === false) li.className = null;
   }
 
+  async fetchDetails() {
+    const { match: { params: { id } } } = this.props;
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const responseAPI = await fetchAPI(url);
+    const { drinks } = responseAPI;
+    this.setState({
+      detailsRecipe: drinks,
+    });
+  }
+
   renderIngredients() {
     const { detailsRecipe } = this.state;
-    const arrayIngredients = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-      12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const NUMBER_OF_INGREDIENTS = 20;
+    const arrayIngredients = [];
+    for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
+      arrayIngredients.push(index);
+    }
     return arrayIngredients.map((position) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
@@ -75,5 +86,13 @@ class BeveragesInProgress extends React.Component {
     );
   }
 }
+
+BeveragesInProgress.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default BeveragesInProgress;
