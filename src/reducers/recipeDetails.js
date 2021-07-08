@@ -1,18 +1,17 @@
 import {
   RECIPE_DETAILS_FOOD,
   RECIPE_DETAILS_DRINK,
-  FAV_ICON,
-  FAV_ICON_COLOR,
+  START_RECIPE,
+  CHECK_PAGE,
 } from '../action';
 
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
 const INITIAL_STATE = {
-  details: [],
+  // details: [],
   foodDatails: {},
   drinkDatails: {},
-  favIcon: false,
-  favIconColor: whiteHeartIcon,
+  details: {},
+  isStart: false,
+  isDrink: false,
 };
 
 const recipeDetails = (state = INITIAL_STATE, action) => {
@@ -20,22 +19,22 @@ const recipeDetails = (state = INITIAL_STATE, action) => {
   case RECIPE_DETAILS_FOOD:
     return {
       ...state,
-      foodDatails: action.mealsDetails,
+      details: action.mealsDetails,
     };
   case RECIPE_DETAILS_DRINK:
     return {
       ...state,
-      drinkDatails: action.drinksDetails,
+      details: action.drinksDetails,
     };
-  case FAV_ICON:
+  case START_RECIPE:
     return {
       ...state,
-      favIcon: action.favIcon,
+      isStart: action.isStart,
     };
-  case FAV_ICON_COLOR:
+  case CHECK_PAGE:
     return {
       ...state,
-      favIconColor: action.favIconColor,
+      isDrink: action.isDrink,
     };
   default:
     return state;

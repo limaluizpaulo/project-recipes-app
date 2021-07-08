@@ -17,6 +17,8 @@ export const RECIPE_DETAILS_FOOD = 'RECIPE_DETAILS_FOOD';
 export const RECIPE_DETAILS_DRINK = 'RECIPE_DETAILS_DRINK';
 export const FAV_ICON = 'FAV_ICON';
 export const FAV_ICON_COLOR = 'FAV_ICON_COLOR';
+export const START_RECIPE = 'START_RECIPE';
+export const CHECK_PAGE = 'CHECK_PAGE';
 
 export const addFavicon = (favIcon) => ({ type: FAV_ICON, favIcon });
 export const faviconColor = (color) => ({ type: FAV_ICON_COLOR, color });
@@ -42,6 +44,10 @@ export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
+export const startRecipe = () => ({
+  type: START_RECIPE, isStart: true });
+export const checkPage = () => ({
+  type: CHECK_PAGE, isDrink: true });
 
 export const fetchApiFoodCategories = () => (dispatch) => {
   dispatch(isLoading());
@@ -213,5 +219,6 @@ export const fetchDrinkDetails = (id) => (dispatch) => {
     .then((response) => response.json())
     .then((drinkDetails) => {
       dispatch(getDrinkDetails(drinkDetails.drinks[0]));
+      dispatch(checkPage());
     });
 };
