@@ -119,6 +119,7 @@ function DrinkProgress() {
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Icon Like"
+          data-testid="favorite-btn"
         />
       </button>
     );
