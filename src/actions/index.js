@@ -6,6 +6,7 @@ export const REQUEST_FOOD_BY_ID = 'REQUEST_FOOD_BY_ID';
 export const REQUEST_DRINK_BY_ID = 'REQUEST_DRINK_BY_ID';
 // export const REQUEST_FOOD = 'REQUEST_FOOD';
 // export const REQUEST_DRINK = 'REQUEST_DRINK';
+export const REQUEST_FOOD_INGREDIENTS = 'REQUEST_FOOD_INGREDIENTS';
 
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -208,6 +209,23 @@ export const fetchDrinkIdAction = (id) => async (dispatch) => {
     type: REQUEST_DRINK_BY_ID,
     payload: {
       response,
+    },
+  });
+};
+
+export const fetchFoodIngredients = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchFoodIngredientsAction = () => async (dispatch) => {
+  let result = {};
+  result = await fetchFoodIngredients();
+  dispatch({
+    type: REQUEST_FOOD_INGREDIENTS,
+    payload: {
+      result,
     },
   });
 };
