@@ -17,11 +17,8 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
   } = useContext(Context);
 
   useEffect(() => {
-    if (!details.meals) {
-      detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    }
-  }, [details.meals, detailsSyncSetState, id]);
+    detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }, [id]);
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
