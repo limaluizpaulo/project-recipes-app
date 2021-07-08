@@ -19,12 +19,13 @@ function RecipesProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
+  const [filtredByIngredients, setFiltredByIngredients] = useState(false);
 
   const location = useLocation();
 
-  const getInitialRecipes = async () => {
-    const allRecipes = await fetchAllRecipes(mealsOrDrinks);
-    setRecipes(allRecipes.meals);
+  const getInitialRecipes = async (mealsDrinks) => {
+    const allRecipes = await fetchAllRecipes(mealsDrinks);
+    setRecipes(allRecipes[mealsDrinks]);
   };
 
   const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
@@ -42,12 +43,13 @@ function RecipesProvider({ children }) {
 
   const filterByIngredients = (searchPayload) => {
     searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+    setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };
 
   const filterByArea = async ({ target: { value } }) => {
     if (value === 'All') {
-      getInitialRecipes();
+      getInitialRecipes('meals');
     } else {
       const { meals } = await fetchRecipesByArea(value);
       setRecipes(meals);
@@ -75,11 +77,9 @@ function RecipesProvider({ children }) {
     filterByArea,
     lookDetailsRecipe,
     getInitialRecipes,
+    filtredByIngredients,
+    setFiltredByIngredients,
   };
-
-  useEffect(() => {
-    getInitialRecipes();
-  }, []);
 
   useEffect(() => {
     if (location.pathname.includes('comidas')) {

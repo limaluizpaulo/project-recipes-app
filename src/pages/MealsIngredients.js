@@ -14,6 +14,7 @@ function MealsIngredients() {
     redirectToMainScreen,
     setRedirectToMainScreen,
     filterByIngredients,
+    setFiltredByIngredients,
   } = useContext(RecipesContext);
 
   const [ingredients, setIngredients] = useState([]);
@@ -26,6 +27,8 @@ function MealsIngredients() {
 
   useEffect(() => {
     getIngredients();
+    console.log('setFiltredByIngredients');
+    setFiltredByIngredients(false);
   }, []);
 
   useEffect(() => () => setRedirectToMainScreen(false));

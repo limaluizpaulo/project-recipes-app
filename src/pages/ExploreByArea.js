@@ -31,8 +31,15 @@ function ExploreByArea() {
 
   useEffect(() => { getAreas(); }, [areas]);
 
+  const getInicialRecipesAsync = async () => {
+    await getInitialRecipes('meals');
+  };
+
   useEffect(() => () => setRedirectToRecipeDetails(false), []);
-  useEffect(() => () => getInitialRecipes(), []);
+  useEffect(() => () => getInitialRecipes('meals'), []);
+  useEffect(() => {
+    getInicialRecipesAsync();
+  }, []);
 
   return (
     <div className="exploreArea">

@@ -1,6 +1,6 @@
 export const allRecipesUrls = {
   meals: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-  drinks: 'www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
 };
 
 export const searchRecipesUrls = {
@@ -10,9 +10,9 @@ export const searchRecipesUrls = {
     firstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
   },
   drinks: {
-    ingredient: 'www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
-    name: 'www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    firstLetter: 'www.thecocktaildb.com/api/json/v1/1/search.php?f',
+    ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
+    name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    firstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
   },
 };
 
