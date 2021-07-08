@@ -39,7 +39,6 @@ export default function Login() {
   // ------------------------------------------------------------------------------------------
   return (
     <div className="login">
-      {/* <div className="loginContent"> */}
       <div className="loginImg">
         <img src={ imgLogin } alt="img-login" />
       </div>
@@ -53,6 +52,7 @@ export default function Login() {
             <input
               name="email"
               placeholder="Insira seu e-mail"
+              autoComplete="off"
               data-testid="email-input"
               className="loginInput"
               onChange={ (e) => setUser(addLogin(e)) }
@@ -110,6 +110,7 @@ export default function Login() {
             <input
               name="email"
               placeholder="Insira um e-mail válido"
+              autoComplete="off"
               className="loginInput"
             />
           </div>
@@ -150,7 +151,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-      {/* </div> */}
     </div>
   );
 }

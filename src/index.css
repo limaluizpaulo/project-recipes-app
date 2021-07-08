@@ -56,15 +56,21 @@ button {
 }
 
 /* LOGIN PAGE ===========================================================================================================*/
+/* .login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: 7rem;
+  margin-right: 1.5rem;
+} */
+
 .login {
   display: grid;
   height: 100vh;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-}
-
-.loginContent {
-  display: grid;
 }
 
 .loginImg {
@@ -111,6 +117,7 @@ button {
   margin-bottom: 2rem;
 }
 
+/* https://www.treinaweb.com.br/blog/css-grid-um-guia-interativo-parte-1-containers */
 .loginBox {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -206,6 +213,10 @@ button {
 
 /* ===== MEDIA QUERIES =====*/
 @media screen and (min-width: 576px){
+  .login {
+    justify-items: center;
+  }
+
   .loginForms {
     width: 348px;
     justify-self: center;
@@ -213,7 +224,10 @@ button {
 }
 
 @media screen and (min-width: 1024px){
-  .loginContent {
+  .login {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
     align-items: center;
