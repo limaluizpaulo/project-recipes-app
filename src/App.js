@@ -38,6 +38,7 @@ function App() {
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ RecipesMade } />
         <Route path="/receitas-favoritas" component={ RecipesFavorite } />
+        <Route component={ NotFound } />
       </Switch>
     </RecipesProvider>
   );
