@@ -211,3 +211,37 @@ export const fetchDrinkIdAction = (id) => async (dispatch) => {
     },
   });
 };
+
+export const fetchRandomFood = async () => {
+  const result = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchFoodRandom = () => async (dispatch) => {
+  let result = {};
+  result = await fetchRandomFood();
+  dispatch({
+    type: REQUEST_INGREDIENT_FOOD,
+    payload: {
+      result,
+    },
+  });
+};
+
+export const fetchRandomDrink = async () => {
+  const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const response = await result.json();
+  return response;
+};
+
+export const fetchDrinkRandom = () => async (dispatch) => {
+  let result = {};
+  result = await fetchRandomDrink();
+  dispatch({
+    type: REQUEST_INGREDIENT_DRINK,
+    payload: {
+      result,
+    },
+  });
+};

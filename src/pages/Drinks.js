@@ -16,7 +16,8 @@ class Drinks extends Component {
   }
 
   componentDidMount() {
-    this.requisicao();
+    const { resultDrink } = this.props;
+    if (resultDrink.length === 0) this.requisicao();
   }
 
   requisicao() {

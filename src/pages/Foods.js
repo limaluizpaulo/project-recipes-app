@@ -16,7 +16,8 @@ class Foods extends Component {
   }
 
   componentDidMount() {
-    this.requisicao();
+    const { resultFood } = this.props;
+    if (resultFood.length === 0) this.requisicao();
   }
 
   requisicao() {
