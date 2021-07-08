@@ -13,7 +13,7 @@ export default function Header({ title, search = false }) {
         <Link to="/perfil">
           <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
         </Link>
-        <span data-testid="page-title">{title}</span>
+        <span className="page-title" data-testid="page-title">{title}</span>
         {search
       && (
         <button type="button" onClick={ () => setSearchBar(!searchBar) }>
