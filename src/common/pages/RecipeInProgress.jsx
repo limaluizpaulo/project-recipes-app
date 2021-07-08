@@ -54,7 +54,7 @@ export default function RecipeInProgress() {
           </h1>
           <span className="likeShareBtns">
             <ShareButton />
-            <LikeButton recipe={ recipeDetail } captureFavorited={ captureFavorited } />
+            <LikeButton recipe={ recipeDetail } />
           </span>
         </div>
         <h5 data-testid="recipe-category">
