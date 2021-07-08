@@ -8,9 +8,12 @@ import { fetchIdMeals } from '../Service/foodApi';
 
 export default function RecipesInProgress() {
   const [disableButton, setDisableButton] = useState(0);
+  const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { stateMeals, setStateMeals, ingredientsMeals, setIngredientsMeals,
     measureMeals, setMeasureMeals } = useContext(RecipesContext);
+
   const { pathname } = useLocation();
+
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
     const arrayKeysIngredients = keysIngredientes.filter(
@@ -47,6 +50,31 @@ export default function RecipesInProgress() {
       buttonCheck.classList.remove('riscado');
     }
   };
+
+  const removeFavorited = () => {
+    const id = pathname.split('/')[2];
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.filter((element) => element.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+    }
+  };
+
+  const verifyHeart = () => {
+    const id = pathname.split('/')[2];
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.some((element) => element.id === id);
+      if (filterLocalStorage) {
+        setStateChangeHeart(false);
+      }
+    }
+  };
+
+  useEffect(verifyHeart, []);
+  useEffect(getApiDetails, []);
+  useEffect(filterDetails, [stateMeals]);
+
   const { strMeal, strMealThumb, strCategory, strInstructions } = stateMeals[0];
   return (
     <main>
@@ -58,7 +86,11 @@ export default function RecipesInProgress() {
       />
       <h2 data-testid="recipe-title">{strMeal}</h2>
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton
+        stateChangeHeart={ stateChangeHeart }
+        setStateChangeHeart={ setStateChangeHeart }
+        removeFavorited={ removeFavorited }
+      />
       <h3 data-testid="recipe-category">{strCategory}</h3>
       <h2>Ingredients</h2>
       <ul>

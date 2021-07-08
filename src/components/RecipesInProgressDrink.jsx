@@ -10,7 +10,9 @@ export default function RecipesInProgressDrink() {
   const [disableButton, setDisableButton] = useState(0);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
+  const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
+
   const { pathname } = useLocation();
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateDrink[0]);
@@ -34,8 +36,6 @@ export default function RecipesInProgressDrink() {
     fetchIdDrink(id).then((result) => setStateDrink(result));
   };
 
-  useEffect(getApiDetails, []);
-  useEffect(filterDetails, [stateDrink]);
   const handleChange = ({ target: { checked, id } }) => {
     if (checked) {
       setDisableButton(disableButton + 1);
@@ -48,6 +48,30 @@ export default function RecipesInProgressDrink() {
       buttonCheck.classList.remove('riscado');
     }
   };
+
+  const removeFavorited = () => {
+    const id = pathname.split('/')[2];
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.filter((element) => element.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+    }
+  };
+  const verifyHeart = () => {
+    const id = pathname.split('/')[2];
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.some((element) => element.id === id);
+      if (filterLocalStorage) {
+        setStateChangeHeart(false);
+      }
+    }
+  };
+
+  useEffect(verifyHeart, []);
+  useEffect(getApiDetails, []);
+  useEffect(filterDetails, [stateDrink]);
+
   const { strDrink, strDrinkThumb, strCategory, strInstructions } = stateDrink[0];
   return (
     <main>
@@ -59,7 +83,11 @@ export default function RecipesInProgressDrink() {
       />
       <h2 data-testid="recipe-title">{strDrink}</h2>
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton
+        stateChangeHeart={ stateChangeHeart }
+        setStateChangeHeart={ setStateChangeHeart }
+        removeFavorited={ removeFavorited }
+      />
       <h3 data-testid="recipe-category">{strCategory}</h3>
       <h2>Ingredients</h2>
       <ul id="ingrediesnts">

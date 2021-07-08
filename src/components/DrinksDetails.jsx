@@ -14,6 +14,7 @@ export default function DrinksDetails() {
   const [measure, setMeasure] = useState([]);
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
+  const [stateChangeHeart, setStateChangeHeart] = useState(true);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateDrink[0]);
@@ -30,9 +31,29 @@ export default function DrinksDetails() {
     setMeasure(filtroMeasure);
   };
 
+  const id = pathname.split('/')[2];
+  const removeFavorited = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.filter((element) => element.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+    }
+  };
+
+  const verifyHeart = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.some((element) => element.id === id);
+      if (filterLocalStorage) {
+        setStateChangeHeart(false);
+      }
+    }
+  };
+
+  useEffect(verifyHeart, []);
+
   const getApiDetails = () => {
     const SIX = 6;
-    const id = pathname.split('/')[2];
     fetchIdDrink(id).then((result) => setStateDrink(result));
     fetchAllMeals().then((result) => setMealsAll(result.filter((_e, i) => i < SIX)));
   };
@@ -53,7 +74,11 @@ export default function DrinksDetails() {
       <h1 data-testid="recipe-title">{strDrink}</h1>
 
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton
+        stateChangeHeart={ stateChangeHeart }
+        setStateChangeHeart={ setStateChangeHeart }
+        removeFavorited={ removeFavorited }
+      />
       <p data-testid="recipe-category">
         {
           strAlcoholic
