@@ -4,9 +4,41 @@ export const PageDetails = styled.main`background: #eea371;
   color: black;
 `;
 
-export const Thumb = styled.img`height: 60vh;
+export const Thumb = styled.img`height: 65vh;
   object-fit: cover;
   width: 100vw;
+`;
+
+export const BtnNext = styled.button`background: transparent;
+  border: none;
+  font-size: 60px;
+  transition: transform 0.2s;
+  width: 50px;
+  z-index: 1;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+`;
+
+export const BtnPrev = styled.button`background: transparent;
+  border: none;
+  font-size: 60px;
+  transition: transform 0.2s;
+  width: 50px;
+  z-index: 1;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 export const Popup = styled.div`background: #f93602;
@@ -24,6 +56,7 @@ export const Popup = styled.div`background: #f93602;
 
 export const Header = styled.section`background: #f93602;
   border-radius: 0 0 20px 20px;
+  box-shadow: 2px 4px 10px #dc3545;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -71,6 +104,10 @@ export const Header = styled.section`background: #f93602;
         height: 35px;
         width: 45;
       }
+
+      button:focus {
+        outline: 0;
+      }
     }
   }
 `;
@@ -80,6 +117,7 @@ export const Ingredients = styled.section`background: transparent;
   h1 {
     font-size: 2rem;
     font-weight: 600;
+    margin-top: 35px;
     padding: 5px 10px;
   }
 
@@ -135,7 +173,6 @@ export const VideoRecipe = styled.section`background: transparent;
 export const RecommendedRecipes = styled.section`background: transparent;
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
   position: relative;
   width: 100%;
 
@@ -149,12 +186,13 @@ export const RecommendedRecipes = styled.section`background: transparent;
     align-items: center;
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 90px;
   }
 `;
 
-export const Zefinha = styled.div`background: #f93602;
+export const Card = styled.div`background: #f93602;
   border-radius: 5px;
-  box-shadow: 2px 4px 10px #dc3545;
+  box-shadow: 0 0 1em #dc3545;
   display: ${(props) => (props.showcard === 'false' ? 'none' : 'flex')};
   height: 210px;
   margin: 5px;
@@ -189,5 +227,22 @@ export const Zefinha = styled.div`background: #f93602;
     font-weight: 600;
     padding: 0 5px;
     width: 100%;
+  }
+`;
+
+export const BtnRecipes = styled.button`background: #dc3545;
+  border: none;
+  border-radius: 20px 20px 0 0;
+  bottom: 0;
+  box-shadow: 0 -2px 10px #f93602;
+  height: 60px;
+  outline: none;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+
+  span {
+    font-size: 30px;
+    font-weight: 700;
   }
 `;

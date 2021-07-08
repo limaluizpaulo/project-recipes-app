@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DrinksContext from '../context/DrinksContext';
 import RecipesContext from '../context/RecipesContext';
 
-import { RecommendedRecipes, Zefinha } from '../styles/Details';
+import { RecommendedRecipes, Card, BtnPrev, BtnNext } from '../styles/Details';
 
 export default function Recommended() {
   const { allDrinks: { drinks } } = useContext(DrinksContext);
@@ -41,24 +41,23 @@ export default function Recommended() {
     <RecommendedRecipes>
       <h1>Recomendadas</h1>
       <section>
-        <button
+        <BtnPrev
           type="button"
           onClick={ () => prev() }
-          className="btn-prev"
         >
-          &gt;
-
-        </button>
+          &lt;
+        </BtnPrev>
         {
           recipes.slice(0, NUMBER_OF_ITEMS)
             .map((recipe, index) => (
-              <Zefinha
+              <Card
                 showcard={ visible.includes(index) ? 'true' : 'false' }
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
                 <Link
                   to={ `/comidas/${recipe.idMeal}` }
+                  style={ { textDecoration: 'none' } }
                 >
                   <img
                     data-testid={ `${index}-recomendation-card` }
@@ -79,38 +78,39 @@ export default function Recommended() {
                     {recipe.strMeal}
                   </h1>
                 </Link>
-              </Zefinha>
+              </Card>
             ))
         }
-        <button
+        <BtnNext
           type="button"
           onClick={ () => next() }
-          className="btn-next"
         >
-          &lt;
-        </button>
+          &gt;
+        </BtnNext>
       </section>
     </RecommendedRecipes>
   ) : (
     <RecommendedRecipes>
       <h1>Recomendadas</h1>
       <section>
-        <button
+        <BtnPrev
           type="button"
           onClick={ () => prev() }
-          className="btn-prev"
         >
-          &gt;
-        </button>
+          &lt;
+        </BtnPrev>
         {
           drinks.slice(0, NUMBER_OF_ITEMS)
             .map((drink, index) => (
-              <Zefinha
+              <Card
                 showcard={ visible.includes(index) ? 'true' : 'false' }
                 data-testid={ `${index}-recipe-card` }
                 key={ index }
               >
-                <Link to={ `/bebidas/${drink.idDrink}` }>
+                <Link
+                  to={ `/bebidas/${drink.idDrink}` }
+                  style={ { textDecoration: 'none' } }
+                >
                   <img
                     data-testid={ `${index}-recomendation-card` }
                     src={ drink.strDrinkThumb }
@@ -130,16 +130,15 @@ export default function Recommended() {
                     {drink.strDrink}
                   </h1>
                 </Link>
-              </Zefinha>
+              </Card>
             ))
         }
-        <button
+        <BtnNext
           type="button"
-          onClick={ () => prev() }
-          className="btn-next"
+          onClick={ () => next() }
         >
-          &lt;
-        </button>
+          &gt;
+        </BtnNext>
       </section>
     </RecommendedRecipes>
 
