@@ -12,7 +12,7 @@ function RecipesMade() {
   }, []);
 
   const renderCards = () => dones.map((item, index) => {
-    const { id, category, doneDate, name, tags, curry, image, area,
+    const { id, category, doneDate, name, tags, image, area,
       alcoholicOrNot } = item;
     return (
       <div key={ `${index} - ${name}` }>
@@ -23,10 +23,9 @@ function RecipesMade() {
         </p>
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
         <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-        <p data-testid={ `${index}-Pasta-horizontal-tag` }>{tags}</p>
-        <p data-testid={ `${index}-Curry-horizontal-tag` }>{curry}</p>
+        <p data-testid={ `${index}-Pasta-horizontal-tag` }>{tags[0]}</p>
+        <p data-testid={ `${index}-Curry-horizontal-tag` }>{tags[1]}</p>
         <ShareButton
-          id={ `${index}-horizontal-share-btn` }
           url={ `http://localhost:3000/comidas/${id}` }
           msgShare={
             <img
