@@ -20,6 +20,8 @@ const Drink = ({ match }) => {
   }, [id, setDrink]);
 
   const textProgress = checkProgress(id) ? 'Continuar Receita' : 'Iniciar Receita';
+  const url = `http://localhost:3000${history.location.pathname}`;
+
   return (
     <div>
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>

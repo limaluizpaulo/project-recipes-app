@@ -4,6 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import { getFavoritesRecipes } from '../services/localStorage';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
+import FavoriteIcon from '../components/FavoriteIcon';
 
 const FavoriteRecipes = () => {
   const [filter, setFilter] = useState();
@@ -26,6 +27,7 @@ const FavoriteRecipes = () => {
               type="button"
             />
           </Link>
+          <FavoriteIcon recipe={ item } idTest={ `${index}-horizontal-favorite-btn` } />
           <p data-testid={ `${index}-horizontal-top-text` }>
             {alcoholicOrNot || `${area} - ${category}`}
           </p>

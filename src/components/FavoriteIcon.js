@@ -9,25 +9,29 @@ const blackOrWhite = (iconFavorit) => (iconFavorit ? blackHeartIcon : whiteHeart
 const FavoriteIcon = ({ recipe, idTest }) => {
   const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
   const { idDrink, strDrink, strDrinkThumb } = recipe;
-  const idRecipe = idMeal || idDrink;
+  const { id: idRec, category, name, image, area, alcoholicOrNot, type } = recipe;
+  const idRecipe = idMeal || idDrink || idRec;
   const [iconFavorit, setIconFavorit] = useState(false);
   const favorites = getFavoritesRecipes() || [];
 
+  console.log(idTest);
   useEffect(() => {
     if (checkFavoriteId(idRecipe)) setIconFavorit(true);
   }, [idRecipe]);
 
   const addFavorite = () => {
     const verify = favorites.find(({ id }) => id === idRecipe);
+    console.log('verify', verify);
+    console.log('id', idRecipe);
     if (!verify) {
       const add = [...favorites, {
-        id: idMeal || idDrink,
-        type: idMeal ? 'comida' : 'bebida',
-        area: strArea || '',
-        category: strCategory,
-        alcoholicOrNot: idMeal ? '' : 'Alcoholic',
-        name: strMeal || strDrink,
-        image: strMealThumb || strDrinkThumb,
+        id: idMeal || idDrink || idRec,
+        type: idMeal ? 'comida' : 'bebida' || type,
+        area: area || strArea || '',
+        category: strCategory || category,
+        alcoholicOrNot: alcoholicOrNot || idMeal ? '' : 'Alcoholic',
+        name: strMeal || strDrink || name,
+        image: strMealThumb || strDrinkThumb || image,
       }];
       localStorage.favoriteRecipes = JSON.stringify(add);
     } else {

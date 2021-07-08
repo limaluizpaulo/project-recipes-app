@@ -17,11 +17,12 @@ const ShareButton = ({ url, msgShare, idTest }) => {
 
 ShareButton.defaultProps = {
   msgShare: '',
+  idTest: '',
 };
 
 ShareButton.propTypes = {
   url: PropTypes.string.isRequired,
-  idTest: PropTypes.string.isRequired,
+  idTest: PropTypes.string,
   msgShare: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
