@@ -63,7 +63,7 @@ function Icons(item) {
   const [changeIcon, setChangeIcon] = useState(!item.fromHorizontal);
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
-  const { setSearch } = useContext(Context);
+  const { setSearch, historyPage, sethistoryPage } = useContext(Context);
   const target = useRef(null);
   const history = useHistory();
   const { pathname } = history.location;
@@ -79,6 +79,7 @@ function Icons(item) {
   }
   if (!first) {
     isFavorite();
+    sethistoryPage([...historyPage, pathname]);
     // if (isHorizontal(path))setChangeIcon(false);
     setFirst(true);
   }
@@ -144,7 +145,10 @@ function Icons(item) {
           />
         </button>
       </div>
-      { changeCopy && <p>Link copiado!</p> }
+      { (changeCopy
+       || historyPage[historyPage
+         .length - 2] === '/receitas-favoritas') && <p>Link copiado!</p> }
+
     </div>
   );
 }
