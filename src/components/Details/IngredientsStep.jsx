@@ -33,13 +33,30 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         .stringify({ [curr]: { [id]: [] } }));
       break;
     default:
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({
-          ...inProgress,
-          [curr]:
-          { ...inProgress[curr],
-            [id]: [...inProgress[curr][id]],
-          } })); // dps passar o spread pros ids
+      if (!inProgress[curr]) {
+        localStorage.setItem('inProgressRecipes', JSON
+            .stringify({
+              ...inProgress,
+              [curr]: {...inProgress[curr], [id]: []},
+            }))
+      } else {
+        if (!inProgress[curr][id]) {
+          localStorage.setItem('inProgressRecipes', JSON
+            .stringify({
+              ...inProgress,
+              [curr]: {...inProgress[curr], [id]: []},
+            }))
+        } else {
+          console.log(inProgress[curr][id])
+          localStorage.setItem('inProgressRecipes', JSON
+            .stringify({
+              ...inProgress,
+              [curr]:
+              { ...inProgress[curr],
+                [id]: [...inProgress[curr][id]],
+              } })); // dps passar o spread pros ids
+        }
+      }
     }
   };
 
