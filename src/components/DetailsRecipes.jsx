@@ -10,7 +10,7 @@ const DetailsRecipes = ({ newObj }) => {
   return (
     <div>
       <section>
-        { type === 'meals' && (
+        { type === 'comida' && (
           <iframe
             data-testid="video"
             width="425"
@@ -24,40 +24,51 @@ const DetailsRecipes = ({ newObj }) => {
       <section />
       <section>
         <h2>Recomendations</h2>
-        {
-          (type === 'meals')
-            ? recomendations.map(({ idDrink,
-              strDrink,
-              strAlcoholic,
-              strDrinkThumb }, index) => {
-              if (index < SEIS) {
-                return (
-                  <div key={ idDrink } data-testid={ `${index}-recomendation-card` }>
-                    <img src={ strDrinkThumb } alt="recomendation" />
-                    <p>{strAlcoholic }</p>
-                    <h3>{strDrink}</h3>
-                  </div>
-                );
-              }
-              return null;
-            })
-            : recomendations.map(({ idMeal,
-              strMeal,
-              strCategory,
-              strMealThumb }, index) => {
-              if (index < SEIS) {
-                return (
-                  <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
-                    <img src={ strMealThumb } alt="recomendation" />
-                    <p>{strCategory }</p>
-                    <h3>{strMeal}</h3>
-                  </div>
-                );
-              }
-              return null;
-            })
-        }
+        <div className="recommendation-list">
 
+          {
+            (type === 'comida')
+              ? recomendations.map(({ idDrink,
+                strDrink,
+                strAlcoholic,
+                strDrinkThumb }, index) => {
+                if (index < SEIS) {
+                  return (
+                    <div
+                      key={ idDrink }
+                      data-testid={ `${index}-recomendation-card` }
+                      className="recommendation-card"
+                    >
+                      <img src={ strDrinkThumb } alt="recomendation" />
+                      <p>{strAlcoholic }</p>
+                      <h3 data-testid={ `${index}-recomendation-title` }>{strDrink}</h3>
+                    </div>
+                  );
+                }
+                return null;
+              })
+              : recomendations.map(({ idMeal,
+                strMeal,
+                strCategory,
+                strMealThumb }, index) => {
+                if (index < SEIS) {
+                  return (
+                    <div
+                      key={ idMeal }
+                      data-testid={ `${index}-recomendation-card` }
+                      className="recommendation-card"
+                    >
+                      <img src={ strMealThumb } alt="recomendation" />
+                      <p>{strCategory }</p>
+                      <h3 data-testid={ `${index}-recomendation-title` }>{strMeal}</h3>
+                    </div>
+                  );
+                }
+                return null;
+              })
+          }
+
+        </div>
       </section>
       <button
         data-testid="start-recipe-btn"

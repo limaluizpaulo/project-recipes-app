@@ -2,3 +2,17 @@
   bottom: 0;
   position: fixed;
 }
+
+.recommendation-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommendation-card > img {
+  width: 50vw;
+}
+
+.recommendation-list {
+  display: flex;
+  overflow-x: scroll;
+}

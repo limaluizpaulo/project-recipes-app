@@ -1,6 +1,10 @@
 import React, { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFromLocalStorage, setOnLocalStorage } from '../services/helpers/localStorage';
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  setOnLocalStorage,
+} from '../services/helpers/localStorage';
 
 const UserContext = createContext();
 
@@ -12,14 +16,33 @@ const UserProvider = ({ children }) => {
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [done, setDone] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    if (!getFromLocalStorage('favoriteRecipes')) setOnLocalStorage('favoriteRecipes', []);
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
     setDone(getFromLocalStorage('doneRecipes') || []);
   }, []);
 
+  const copyToClipboard = () => {
+    const hideMsgTime = 4000;
+    setCopied(true);
+    setTimeout(() => setCopied(false), hideMsgTime);
+  };
+  const inFavorites = (id) => {
+    const favoritesStorage = getFromLocalStorage('favoriteRecipes');
+    return (!!favoritesStorage.find((favorite) => favorite.id === id));
+  };
+
+  const addFavorites = async (recipe) => {
+    const favoritesList = getFromLocalStorage('favoriteRecipes');
+    setOnLocalStorage('favoriteRecipes', [...favoritesList, recipe]);
+    setFavorites(getFromLocalStorage('favoriteRecipes') || []);
+  };
+
   const removeFavorites = (id) => {
     const filteredFavorites = favorites.filter((recipe) => recipe.id !== id);
+    removeFromLocalStorage('favoriteRecipes', 'id', id);
     setFavorites(filteredFavorites);
   };
 
@@ -53,17 +76,19 @@ const UserProvider = ({ children }) => {
   const context = {
     favorites,
     done,
+    copied,
+    inFavorites,
+    addFavorites,
     removeFavorites,
     verifyLogin,
     handleChange,
     validationUser,
     handleLogin,
+    copyToClipboard,
   };
 
   return (
-    <UserContext.Provider value={ context }>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={ context }>{children}</UserContext.Provider>
   );
 };
 

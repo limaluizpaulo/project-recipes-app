@@ -10,8 +10,7 @@ import {
 import { UserContext } from '../context/UserProvider';
 
 const Favorites = () => {
-  const { favorites } = useContext(UserContext);
-  const [copied, setCopied] = useState(false);
+  const { favorites, copied } = useContext(UserContext);
   const [filter, setFilter] = useState('');
 
   return (
@@ -64,11 +63,13 @@ const Favorites = () => {
                     <ShareButton
                       type={ type }
                       id={ id }
-                      changeCopy={ setCopied }
-                      index={ index }
+                      test={ `${index}-horizontal-share-btn` }
                     />
 
-                    <FavoriteButton id={ id } index={ index } />
+                    <FavoriteButton
+                      id={ id }
+                      test={ `${index}-horizontal-favorite-btn` }
+                    />
 
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}

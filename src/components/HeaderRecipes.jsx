@@ -2,39 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const HeaderRecipes = ({ newObj }) => {
-  const { imageHeader, title, category, alcoholic } = newObj;
+  const { image, name, category, alcoholicOrNot } = newObj;
   return (
     <div>
       <img
+        width="200px"
         data-testid="recipe-photo"
-        src={ imageHeader }
+        src={ image }
         alt=""
       />
       <title data-testid="recipe-title">
-        {title}
+        {name}
       </title>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        Favoritar
-      </button>
       <h2
         data-testid="recipe-category"
       >
-        {alcoholic || category}
+        {alcoholicOrNot || category}
       </h2>
     </div>
   );
 };
 
 HeaderRecipes.propTypes = {
+  id: PropTypes.string,
   imageHeader: PropTypes.string,
   title: PropTypes.string,
   category: PropTypes.string,
