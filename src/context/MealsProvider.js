@@ -63,6 +63,7 @@ const MealsProvider = ({ children }) => {
     meals,
     setMeals,
     categories,
+    selectedCategory,
     setFilterCategory,
     filterIngredients,
     filterById,
