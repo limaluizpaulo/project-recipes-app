@@ -40,6 +40,7 @@ export default function RecipesInProgressDrink() {
     if (checked) {
       setDisableButton(disableButton + 1);
       const buttonCheck = document.getElementById(id);
+
       buttonCheck.classList.add('riscado');
     } else {
       setDisableButton(disableButton - 1);
@@ -61,7 +62,7 @@ export default function RecipesInProgressDrink() {
       <FavoriteButton />
       <h3 data-testid="recipe-category">{strCategory}</h3>
       <h2>Ingredients</h2>
-      <ul>
+      <ul id="ingrediesnts">
         {ingredients.map((ingredient, index) => (
           <li
             id={ ingredient }
