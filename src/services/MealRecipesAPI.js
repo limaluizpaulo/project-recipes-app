@@ -1,3 +1,4 @@
+const APIPadrao = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 const MealServiceIngredientsAPI = async (ingredient) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -11,7 +12,7 @@ const MealServiceIngredientsAPI = async (ingredient) => {
 };
 
 const MealServiceNameAPI = async (name) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+  const endpoint = `${APIPadrao}${name}`;
   const response = await fetch(endpoint);
   try {
     const responseObject = await response.json();
@@ -39,6 +40,13 @@ const SurpriseFoodAPI = async () => {
   return responseObject.meals;
 };
 
+const getFoodById = async (idFood) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFood}`;
+  const response = await fetch(endpoint);
+  const responseObject = await response.json();
+  return responseObject.meals;
+};
+
 const foodIngredientsAPI = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
   const response = await fetch(endpoint);
@@ -51,11 +59,13 @@ export default {
   name: MealServiceNameAPI,
   letter: MealServiceFirstLetterAPI,
   surpriseFood: SurpriseFoodAPI,
+  getFoodById,
+  default: () => fetch(APIPadrao),
   foodIngredients: foodIngredientsAPI,
   getByCategory: () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals),
-  getByDefault: () => fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+  getByDefault: () => fetch(APIPadrao)
     .then((res) => res.json())
     .then((res) => res.meals),
 };
