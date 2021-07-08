@@ -26,6 +26,7 @@ function DrinkDetails() {
     let flag = 0;
     Object
       .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
+    console.log(flag);
     if (flag !== 0) setProgress('Continuar Receita');
     setFirst(true);
   }
@@ -34,6 +35,7 @@ function DrinkDetails() {
     const { idDrink } = drink[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     inProgress.cocktails[`${idDrink}`] = [];
+    console.log(inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     setProgress('Continuar Receita');
   }

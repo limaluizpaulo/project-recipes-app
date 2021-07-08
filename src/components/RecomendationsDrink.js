@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { requestDrink } from '../services/api';
 import '../styles/global.css';
@@ -35,7 +35,13 @@ function RecomendationsDrink() {
                     alt={ drink.strDrink }
                   />
                   <span>{drink.strAlcoholic}</span>
-                  <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
+                  <Card.Body>
+                    <Card.Title
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {drink.strDrink}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}
@@ -55,11 +61,13 @@ function RecomendationsDrink() {
                     alt={ drink.strDrink }
                   />
                   <span>{drink.strAlcoholic}</span>
-                  <p
-                    data-testid={ `${index + 2}-recomendation-title` }
-                  >
-                    {drink.strDrink}
-                  </p>
+                  <Card.Body>
+                    <Card.Title
+                      data-testid={ `${index + 2}-recomendation-title` }
+                    >
+                      {drink.strDrink}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}
@@ -79,9 +87,11 @@ function RecomendationsDrink() {
                     alt={ drink.strDrink }
                   />
                   <span>{drink.strAlcoholic}</span>
-                  <p data-testid={ `${index + four}-recomendation-title` }>
-                    {drink.strDrink}
-                  </p>
+                  <Card.Body>
+                    <Card.Title data-testid={ `${index + four}-recomendation-title` }>
+                      {drink.strDrink}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}
