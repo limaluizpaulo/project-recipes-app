@@ -1,5 +1,7 @@
-.input-select {
-  margin-bottom: 20px;
+.explore-section-area {
+  background: #eea371;
+  height: 100%;
+  padding-bottom: 10px;
 }
 
 .areas-field {
@@ -11,11 +13,20 @@
   text-align: center;
 }
 
-.areas-field img {
-  width: 160px;
+.area-ingredient {
+  padding: 15px;
 }
 
-.area {
-  margin-right: 15px;
-  padding: 10px;
+.area-image {
+  border-radius: 5px;
+  margin-top: 5px;
 }
+
+.select {
+  background: #eea371;
+  border: 1px solid rgba(0, 0, 0, 0.282);
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+

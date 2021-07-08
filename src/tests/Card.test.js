@@ -11,8 +11,8 @@ const RECIPE = {
 };
 
 describe('Checks Card', () => {
-  it('Check if the component has a div with your atributes', () => {
-    renderWithRouter(
+  it('Check if the component has a div drinks with your atributes', () => {
+    const { history } = renderWithRouter(
       <Card
         drink={ ID_DRINK }
         recipe={ RECIPE }
@@ -20,6 +20,23 @@ describe('Checks Card', () => {
       />,
     );
 
+    history.push('/bebidas');
+    const linkRecipe = screen.getByTestId('0-recipe-card');
+    console.log(linkRecipe.childNodes);
+    screen.debug();
+    expect(linkRecipe).toBeInTheDocument();
+  });
+
+  it('Check if the component has a div food with your atributes', () => {
+    const { history } = renderWithRouter(
+      <Card
+        drink={ ID_DRINK }
+        recipe={ RECIPE }
+        index={ 0 }
+      />,
+    );
+
+    history.push('/comidas');
     const linkRecipe = screen.getByTestId('0-recipe-card');
     expect(linkRecipe).toBeInTheDocument();
   });

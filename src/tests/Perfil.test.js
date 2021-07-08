@@ -28,6 +28,23 @@ describe('Checks Login Page', () => {
     expect(titlePage.innerHTML).toBe('Perfil');
   });
 
+  it('Checks if the page has a user email', () => {
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        user: {
+          email: 'exemplo@exemplo.com',
+        },
+        writable: true,
+      },
+    });
+
+    renderWithRouter(
+      <RecipesProvider>
+        <Profile />
+      </RecipesProvider>,
+    );
+  });
+
   it('Checks if the page has two button about recipes ', () => {
     renderWithRouter(
       <RecipesProvider>

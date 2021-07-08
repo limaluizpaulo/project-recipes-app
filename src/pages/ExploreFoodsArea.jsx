@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Button, Card, Form } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { fetchAreaRecipes, fetchRecipesByArea } from '../services/RecipesServices';
@@ -13,6 +14,8 @@ function ExploreFoodsArea() {
   const [recipesByArea, setRecipesByArea] = useState([]);
 
   const { allRecipes: { recipes } } = useContext(RecipesContext);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function getAreas() {
@@ -45,48 +48,72 @@ function ExploreFoodsArea() {
     setValueArea(value);
   }
 
+  function redirectToRecipe(id) {
+    history.push(`/comidas/${id}`);
+  }
+
   return (
     <>
       <Header profile name="Explorar Origem" search />
+      <section className="explore-section-area">
 
-      <div className="input-select">
-        <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
-          <option data-testid="All-option" value="All">All</option>
+        <Form className="input-select">
+          <select
+            className="select"
+            data-testid="explore-by-area-dropdown"
+            onChange={ handleChange }
+          >
+            <option data-testid="All-option" value="All">All</option>
+            {
+              areas.map((area, index) => (
+                <option
+                  data-testid={ `${area}-option` }
+                  key={ index }
+                  value={ area }
+                >
+                  {area}
+                </option>
+              ))
+            }
+          </select>
+        </Form>
+
+        <section className="areas-field">
           {
-            areas.map((area, index) => (
-              <option
-                data-testid={ `${area}-option` }
+            recipesByArea.map((recipe, index) => (
+              <Button
                 key={ index }
-                value={ area }
+                variant
+                type="button"
+                className="area-ingredient"
+                onClick={ () => redirectToRecipe(recipe.idMeal) }
               >
-                {area}
-              </option>
+                <Card
+                  style={ { background: '#dc35463d', height: '100%', width: '12rem' } }
+                  border="danger"
+                  data-testid={ `${index}-recipe-card` }
+                >
+                  <Card.Img
+                    className="area-image"
+                    data-testid={ `${index}-card-img` }
+                    variant="top"
+                    src={ recipe.strMealThumb }
+                    alt={ recipe.strMeal }
+                  />
+                  <Card.Body className="title-container">
+                    <Card.Title
+                      data-testid={ `${index}-card-name` }
+                      className="card-title"
+                    >
+                      {recipe.strMeal}
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Button>
             ))
           }
-        </select>
-      </div>
-
-      <section className="areas-field">
-        {
-          recipesByArea.map((recipe, index) => (
-            <div
-              data-testid={ `${index}-recipe-card` }
-              key={ index }
-              className="area"
-            >
-              <Link to={ `/comidas/${recipe.idMeal}` }>
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ recipe.strMealThumb }
-                  alt={ recipe.strMeal }
-                />
-                <h5 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h5>
-              </Link>
-            </div>
-          ))
-        }
+        </section>
       </section>
-
       <Footer />
     </>
   );
