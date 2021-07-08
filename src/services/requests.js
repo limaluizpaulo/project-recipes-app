@@ -6,11 +6,14 @@ export default async () => {
     'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
     'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+    'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
   ];
   const resolves = endPoints.map((URL) => fetch(URL).then((res) => res.json()));
-  const [meals, drinks, ctgMeals, ctgDrinks, ingMeals, ingDrinks] = await Promise
+  const [meals, drinks, ctgMeals, ctgDrinks, ingMeals, ingDrinks, area] = await Promise
     .all(resolves);
-  return { meals, drinks, ctgMeals, ctgDrinks, ingMeals, ingDrinks };
+  return Promise.resolve(
+    { meals, drinks, ctgMeals, ctgDrinks, ingMeals, ingDrinks, area },
+  );
 };
 
 export const recipeById = (id, meal = false) => {
