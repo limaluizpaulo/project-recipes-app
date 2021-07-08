@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import YouTube from 'react-youtube';
 // import { copy } from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
@@ -11,6 +11,7 @@ import Recommended from '../components/Recommended';
 
 function Details() {
   const { id } = useParams();
+  const history = useHistory();
   // const [idDetails, setIdDetails] = useState(id);
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
@@ -35,10 +36,13 @@ function Details() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
-  const recipeProgress = () => {
-    const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
+  const redirectInProgress = () => {
     // const progressInfo = JSON.stringify({ [typeKey]: { [id]: [] } });
     // localStorage.setItem('inProgressRecipes', progressInfo);
+    history.push(`${pathname}/in-progress`);
+  };
+  const recipeProgress = () => {
+    const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
     let item = localStorage.getItem(['inProgressRecipes']);
     item = JSON.parse(item);
     let filterKey = '';
@@ -132,6 +136,7 @@ function Details() {
       </main>
       <footer>
         <Button
+          func={ () => redirectInProgress() }
           className="start-recipe"
           label={ recipeProgress() }
           testid="start-recipe-btn"
