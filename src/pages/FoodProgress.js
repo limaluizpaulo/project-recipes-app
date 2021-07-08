@@ -102,6 +102,7 @@ const FoodProgress = ({ match }) => {
 
   const addRecipeDone = () => {
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    const [tag, curry = ''] = strTags.split(',');
     const recipe = {
       id: idMeal,
       type: 'comida',
@@ -111,7 +112,8 @@ const FoodProgress = ({ match }) => {
       name: strMeal,
       image: strMealThumb,
       doneDate: Date(),
-      tags: strTags,
+      tags: tag,
+      curry,
     };
     addRecipeDones(recipe);
   };
@@ -145,7 +147,7 @@ const FoodProgress = ({ match }) => {
       <Link to="/receitas-feitas">
         <button
           type="button"
-          // disabled={ selecteds.length !== quantIngred }
+          disabled={ selecteds.length !== quantIngred }
           data-testid="finish-recipe-btn"
           onClick={ addRecipeDone }
         >

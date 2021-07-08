@@ -40,7 +40,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
+  describe.only('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
@@ -91,7 +91,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe.only('57 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
+  describe('57 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
     it('Ao clicar no botão de compartilhar deve aparecer a mensagem "Link copiado!"', () => {
       cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
