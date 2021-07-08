@@ -13,6 +13,8 @@ function Provider({ children }) {
   const [firstDrinks, setFirstDrinks] = useState([]);
   const [firstFoodIngredients, setFirstFoodIngredients] = useState([]);
   const [firstDrinkIngredients, setFirstDrinkIngredients] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [historyPage, sethistoryPage] = useState([]);
 
   const object = {
     email,
@@ -33,6 +35,10 @@ function Provider({ children }) {
     setFirstFoodIngredients,
     firstDrinkIngredients,
     setFirstDrinkIngredients,
+    search,
+    setSearch,
+    historyPage,
+    sethistoryPage,
   };
 
   useEffect(() => {

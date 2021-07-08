@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import { Context } from '../context/ContextForm';
 import Header from '../components/Header';
 import Icons from '../components/Icons';
 import '../styles/global.css';
 
 function StarRecipes() {
   const favorite = JSON.parse(window.localStorage.getItem('favoriteRecipes'));
-  const [search, setSearch] = useState(favorite);
+  // const [search, setSearch] = useState(favorite);
+  const [first, setFirst] = useState(false);
+  const { search, setSearch } = useContext(Context);
 
+  if (!first) {
+    setSearch(JSON.parse(window.localStorage.getItem('favoriteRecipes')));
+    setFirst(true);
+  }
   function All() {
     setSearch(favorite);
   }
@@ -64,22 +71,22 @@ function StarRecipes() {
           {favorite.length === 0
             ? <h4 className="noFavoriteWithHeader">Não há receitas favoritadas</h4>
             : search.map((recipe, index) => (
-              <Link
-                to={ `/${recipe.type === 'comida' ? 'comidas' : 'bebidas'}/${recipe.id}` }
-                key={ recipe.id }
-              >
-                <div
-                  data-testid={ `${index}-recipe-card` }
-                  className="card-favorite"
+              <div key={ recipe.id } className="card-favorite">
+                <Link
+                  to={ `/${recipe
+                    .type === 'comida' ? 'comidas' : 'bebidas'}/${recipe.id}` }
                 >
-                  <img
-                    className="favorite-img"
-                    data-testid={ `${index}-horizontal-image` }
-                    src={ recipe.image }
-                    alt={ recipe.image }
-                  />
-                  <Card.Body className="favorite-body">
-                    <div>
+                  <div
+                    data-testid={ `${index}-recipe-card` }
+                  >
+                    <img
+                      className="favorite-img"
+                      data-testid={ `${index}-horizontal-image` }
+                      src={ recipe.image }
+                      alt={ recipe.image }
+                    />
+                    <Card.Body className="favorite-body">
+
                       <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
                         {recipe.type === 'comida'
                           ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
@@ -90,11 +97,12 @@ function StarRecipes() {
                       >
                         {recipe.name}
                       </Card.Title>
-                    </div>
-                    <Icons />
-                  </Card.Body>
-                </div>
-              </Link>
+
+                    </Card.Body>
+                  </div>
+                </Link>
+                <Icons fromHorizontal id={ index } code={ recipe } />
+              </div>
             ))}
         </div>
       </div>
