@@ -17,11 +17,8 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
   } = useContext(Context);
 
   useEffect(() => {
-    if (!details.drinks) {
-      detailsSyncSetState(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    }
-  }, [details.drinks, detailsSyncSetState, id]);
+    detailsSyncSetState(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }, []);
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.drinks[0]);
@@ -59,7 +56,7 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
     );
   };
 
-  if (details.drinks && recomendationsFoods) {
+  if (details.drinks && recomendationsFoods && id === details.drinks[0].idDrink) {
     console.log(details.drinks);
     const {
       strDrinkThumb,

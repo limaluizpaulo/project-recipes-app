@@ -18,7 +18,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
 
   useEffect(() => {
     detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-  }, [id]);
+  }, []);
 
   function loopIngredientsAndMeasure() {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -56,7 +56,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
     );
   };
 
-  if (details.meals && recomendationsDrinks) {
+  if (details.meals && recomendationsDrinks && id === details.meals[0].idMeal) {
     const {
       strMealThumb,
       strMeal,
