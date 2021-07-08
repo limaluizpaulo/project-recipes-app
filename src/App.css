@@ -186,3 +186,7 @@ button, input:focus, select:focus {
   padding: 5px 0;
   text-shadow: 2px 2px 3px #8f4413;
 }
+
+.show { display: block; }
+
+.hidden { display: none; }
