@@ -1,25 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { getStorage, setStorage } from '../../functions';
+import { getStorage, infoFavorite, setStorage } from '../../functions';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import store from '../../context/store';
 
-export default function LikeButton({ recipe }) { // Desestruturando props
+export default function LikeButton({ recipe, captureFavorited }) { // Desestruturando props
+  const { pathname } = useLocation();
   const { recipes: { foods } } = useContext(store);
   const [favorited, setFavorited] = useState(false);
 
   const clickLike = () => {
-    const infoFav = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: (foods) ? 'comida' : 'bebida',
-      area: recipe.strArea || '',
-      category: recipe.strCategory || '',
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
+    const infoFav = infoFavorite(recipe, foods);
 
     const favInLS = getStorage('favoriteRecipes');
     const findFavInLS = favInLS.find((item) => item.id === infoFav.id);
@@ -34,6 +28,8 @@ export default function LikeButton({ recipe }) { // Desestruturando props
       setStorage('favoriteRecipes', removedFav);
     }
     setFavorited(!favorited);
+    captureFavorited(favorited); // botei aqui a função q captura
+    console.log(favorited);
   };
 
   const checkFavStorage = () => {
@@ -45,12 +41,15 @@ export default function LikeButton({ recipe }) { // Desestruturando props
       setFavorited(!favorited);
     }
   };
+  const findLocation = () => {
+    if (pathname.includes('/receitas-favoritas')) { setFavorited(true); }
+  };
 
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
   useEffect(checkFavStorage, []);
-
+  useEffect(findLocation, [pathname]);
   // ---------------------------------------------------------------------------------------------
 
   const renderButtons = () => (
@@ -75,4 +74,5 @@ export default function LikeButton({ recipe }) { // Desestruturando props
 
 LikeButton.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
+  captureFavorited: PropTypes.func.isRequired,
 };

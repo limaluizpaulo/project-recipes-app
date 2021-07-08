@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import store, { addRecDetail, addRecommended, setLoading } from '../../context/store';
+import store, { addRecipesDRLoading, setLoading } from '../../context/store';
 import { getStorage } from '../../functions';
 import { DRINKS, fetchAPI, FETCH_ID_D, FETCH_ID_M, MEALS } from '../../services';
 import RenderDetails from '../components/RenderDetails';
@@ -15,24 +15,16 @@ export default function RecipeDetails() {
       setRecipes(setLoading(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
-      console.log(mealsDetails);
       const Drinks = await fetchAPI(DRINKS);
-      console.log(Drinks);
-      setRecipes(addRecDetail(mealsDetails.meals[0]));
-      setRecipes(addRecommended(Drinks.drinks));
-      setRecipes(setLoading(false));
-      console.log(loading);
+      setRecipes(addRecipesDRLoading(mealsDetails.meals[0], Drinks.drinks, false));
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
       const Meals = await fetchAPI(MEALS);
-      setRecipes(addRecDetail(drinksDetails.drinks[0]));
-      setRecipes(addRecommended(Meals.meals));
-      setRecipes(setLoading(false));
-      console.log(loading);
+      setRecipes(addRecipesDRLoading(drinksDetails.drinks[0], Meals.meals, false));
     }
   };
 
-  const verifyButton = () => {
+  const checkBtnFinish = () => {
     const doneRecipeInLS = getStorage('doneRecipes');
     const inProgressInLS = getStorage('inProgressRecipes');
 
@@ -56,17 +48,13 @@ export default function RecipeDetails() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    if (loading) {
-      verifyButton();
-      getDetailRecommendByID();
-    }
-  });
+  useEffect(() => { if (loading) { getDetailRecommendByID(); } });
+  useEffect(checkBtnFinish, []);
 
   // ---------------------------------------------------------------------------------------------
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-    <RenderDetails btnFinish={ btnFinish } />
+    <RenderDetails btnFinish={ btnFinish } id={ id } />
   );
 }
