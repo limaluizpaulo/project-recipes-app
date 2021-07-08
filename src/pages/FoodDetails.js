@@ -23,7 +23,6 @@ function FoodDetails() {
   function progressFunction() {
     const { idMeal } = item[0];
     const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(meals);
     let flag = 0;
     Object
       .keys(meals).forEach((id) => { if (id === idMeal) flag += 1; });

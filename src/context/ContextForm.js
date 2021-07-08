@@ -17,6 +17,8 @@ function Provider({ children }) {
   const [drinkPerIngredient, setDrinkPerIngredient] = useState([]);
   const [changeFood, setChangeFood] = useState(false);
   const [changeDrink, setChangeDrink] = useState(false);
+  const [search, setSearch] = useState([]);
+  const [historyPage, sethistoryPage] = useState([]);
 
   const object = {
     email,
@@ -45,6 +47,10 @@ function Provider({ children }) {
     setChangeFood,
     changeDrink,
     setChangeDrink,
+    search,
+    setSearch,
+    historyPage,
+    sethistoryPage,
   };
 
   useEffect(() => {
@@ -60,10 +66,6 @@ function Provider({ children }) {
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    }
-    if (localStorage.getItem('user') === null) {
-      const mail = { email };
-      localStorage.setItem('user', JSON.stringify(mail));
     }
   }, []);
 
