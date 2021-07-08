@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import ShareBtn from './ShareBtn';
 
 function DoneCard({ filter, all }) {
+  const [wasCopied, setWasCopied] = useState(false);
   const filtered = () => {
     const arrayMeals = all.filter((item) => item.idMeal);
     const arrayDrinks = all.filter((item) => item.idDrink);
@@ -62,6 +63,7 @@ function DoneCard({ filter, all }) {
         index,
       ) => (
         <section key={ index }>
+          {wasCopied && <span>Link copiado!</span>}
           <hr />
           <Link to={ strMeal ? `comidas/${idMeal}` : `bebidas/${idDrink}` }>
             <img
@@ -77,15 +79,16 @@ function DoneCard({ filter, all }) {
             {renderTopText(strMeal, strArea, strCategory, strAlcoholic)}
           </span>
           <span>
-            <img
-              src={ shareIcon }
-              data-testid={ `${index}-horizontal-share-btn` }
-              alt="share"
+            <ShareBtn
+              showCopiedMsg={ setWasCopied }
+              type={ strMeal ? 'comidas' : 'bebidas' }
+              id={ idMeal || idDrink }
+              route="receitas-feitas"
+              testId={ `${index}-horizontal-share-btn` }
             />
           </span>
           <p data-testid={ `${index}-horizontal-done-date` }>Feita em: 23/06/2020</p>
           {filterTags(strTags, index)}
-          {/* falta a logica de compartilhar */}
         </section>
       ))}
     </section>
