@@ -35,6 +35,16 @@ function Foods() {
   const renderList = (
     <div>
       <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => {
+            filterCategory();
+            handleToggle('', false);
+          } }
+        >
+          All
+        </button>
         {categoryList()}
       </div>
       <div className="recipe-list">
