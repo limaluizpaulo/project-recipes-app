@@ -16,25 +16,26 @@ function Header(props) {
   };
 
   return (
-    <div>
-      <header>
+    <header className="header">
+      <div>
         <Link to="/perfil">
           <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         {hasSearchBar && (
           <button
+            className="btn-search"
             onClick={ showSearchChange }
             type="button"
           >
             <img src={ searchIcon } alt="search button" data-testid="search-top-btn" />
           </button>
         ) }
-      </header>
+      </div>
       {showSearch && (
         <SearchBar />
       )}
-    </div>
+    </header>
   );
 }
 
