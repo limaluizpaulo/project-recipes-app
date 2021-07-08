@@ -14,6 +14,16 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
     if (inProgress) {
       if (!inProgress[curr]) {
+        if (ingredients) {
+          for (let index = 0; index <= ingredients.length; index += 1) {
+            steps.push({
+              step: 'step-not-checked',
+              checked: false,
+              index,
+            });
+          }
+        }
+        setStepsClassName(steps);
         return;
       }
       const keys = Object.keys(inProgress[curr]);
@@ -45,6 +55,17 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         }
         setStepsClassName(steps);
       }
+    } else {
+      if (ingredients) {
+        for (let index = 0; index <= ingredients.length; index += 1) {
+          steps.push({
+            step: 'step-not-checked',
+            checked: false,
+            index,
+          });
+        }
+      }
+      setStepsClassName(steps);
     }
   }, []);
 
