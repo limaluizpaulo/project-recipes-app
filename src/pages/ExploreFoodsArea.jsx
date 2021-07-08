@@ -53,7 +53,7 @@ function ExploreFoodsArea() {
   }
 
   return (
-    <>
+    <section className="explore-section-ingredients">
       <Header profile name="Explorar Origem" search />
       <section className="explore-section-area">
 
@@ -115,7 +115,7 @@ function ExploreFoodsArea() {
         </section>
       </section>
       <Footer />
-    </>
+    </section>
   );
 }
 
