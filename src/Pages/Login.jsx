@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Button, Form } from 'react-bootstrap';
+import ControlledCarousel from '../components/ControlledCarousel';
 
 export default function Login() {
   const history = useHistory();
@@ -79,7 +80,9 @@ export default function Login() {
       >
         Entrar
       </Button>
-
+      {' '}
+      {' '}
+      <ControlledCarousel />
     </Form>
   );
 }

@@ -17,6 +17,7 @@ export default function CocktailList() {
       setShowCocktails(true);
     }
   }, [cocktailsRecipes]);
+
   useEffect(() => {
     resquestCocktailsApi();
     // eslint-disable-next-line
@@ -24,7 +25,6 @@ export default function CocktailList() {
 
   const renderCards = () => {
     if (cocktailsRecipes && cocktailsRecipes.length === 1) {
-      console.log('3');
       return history.push(`/bebidas/${cocktailsRecipes[0].idDrink} `);
     }
 
