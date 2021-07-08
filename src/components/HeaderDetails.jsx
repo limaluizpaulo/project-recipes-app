@@ -29,7 +29,7 @@ export default function HeaderDetails({ recipe, pathname }) {
   return (
     <>
       <header>
-        <div className="header-details">
+        <div className="header-details" data-testid="header-details">
           <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
           <ShareBtn pathname={ pathname } recipe={ recipe } />
           <button

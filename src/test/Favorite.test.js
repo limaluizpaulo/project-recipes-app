@@ -24,7 +24,7 @@ const favoriteRecipes = [
   },
 ];
 
-describe('Teste da página Receitas Feitas', () => {
+describe('Teste da página Receitas Faviritas', () => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
   test('Verifica o título da página', () => {
