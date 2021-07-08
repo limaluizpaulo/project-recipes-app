@@ -89,7 +89,7 @@ export default function MainPage() {
 
   useEffect(() => {
     async function fetchApiData() {
-      console.log(ingredientsResults);
+      console.log(ingredientsResults.replace('_', ' '));
       getDataIngredients(domain, ingredientsResults).then((res) => {
         setRenderer(res[firstKey].filter((_e, index) => index < limit));
       });

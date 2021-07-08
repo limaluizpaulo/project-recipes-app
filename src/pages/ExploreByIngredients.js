@@ -22,7 +22,8 @@ function ExploreFoodsByIngredients() {
   }, [domain, firstKey, limit]);
 
   const handleClick = (ingredient) => {
-    setIngredientsResults(ingredient.replace(' ', '_'));
+    console.log(ingredient.replace('_', ' '));
+    setIngredientsResults(ingredient.replace('_', ' '));
   };
 
   return (
