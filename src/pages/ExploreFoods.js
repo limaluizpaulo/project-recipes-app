@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import { fetchRandomFood } from '../actions/index';
+
 class ExploreFoods extends Component {
   render() {
     return (
@@ -25,7 +27,7 @@ class ExploreFoods extends Component {
               Por Local de Origen
             </button>
           </Link>
-          <Link to="/comidas/53000">
+          <Link to={ `/comidas/${fetchRandomFood}` }>
             <button
               type="button"
               data-testid="explore-surprise"

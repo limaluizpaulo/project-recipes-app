@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { fetchRandomDrink } from '../actions/index';
 
 class ExploreDrinks extends Component {
   render() {
@@ -17,7 +18,7 @@ class ExploreDrinks extends Component {
               Por Ingredientes
             </button>
           </Link>
-          <Link to="/bebidas/17828">
+          <Link to={ `/bebidas/${fetchRandomDrink}` }>
             <button
               type="button"
               data-testid="explore-surprise"
