@@ -48,7 +48,7 @@ function RecipesProvider({ children }) {
 
   const filterByArea = async ({ target: { value } }) => {
     if (value === 'All') {
-      getInitialRecipes();
+      getInitialRecipes('meals');
     } else {
       const { meals } = await fetchRecipesByArea(value);
       setRecipes(meals);
