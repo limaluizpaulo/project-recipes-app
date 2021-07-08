@@ -23,8 +23,6 @@ export default function CategoryDrinks() {
 
   const handleClick = ({ target: { value } }) => {
     setValor(value);
-    console.log('state', valor);
-    console.log(value);
     setRedirect(false);
     if (!toggleSearch || (valor !== value)) {
       fetchTypeCategoryFilter(value).then((result) => setResponseApiLupaDrink(result));
