@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const PageDetails = styled.main`background: #eea371;
   color: black;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const Thumb = styled.img`height: 60vh;

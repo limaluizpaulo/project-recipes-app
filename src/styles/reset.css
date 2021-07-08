@@ -1,8 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
+html {
+  background: #eea371;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
-html {
-  background: blue;
+::-webkit-scrollbar {
+  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0;  /* Remove scrollbar space */
+}
+
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
 }

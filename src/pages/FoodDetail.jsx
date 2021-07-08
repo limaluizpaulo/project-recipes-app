@@ -9,6 +9,7 @@ import InstructionsDetails from '../components/InstructionsDetails';
 import Recommended from '../components/Recommended';
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
+import '../styles/reset.css';
 import { PageDetails, VideoRecipe } from '../styles/Details';
 
 function FoodDetails() {
