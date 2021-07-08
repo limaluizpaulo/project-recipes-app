@@ -9,6 +9,7 @@ export const USER = {
 
 export const RECIPES = {
   loading: true,
+  done: undefined,
   foods: null,
   categoriesLimit: 5,
   cardsLimit: 12,
@@ -43,9 +44,14 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 
 // RECIPES
 
-export const UPDATE_LOADING = 'UPDATE_LOADING';
+export const SET_LOADING = 'SET_LOADING';
 export const setLoading = (loading) => ({
-  type: UPDATE_LOADING, payload: { loading },
+  type: SET_LOADING, payload: { loading },
+});
+
+export const SET_DONE = 'SET_DONE';
+export const setDone = (done) => ({
+  type: SET_DONE, payload: { done },
 });
 
 export const ADD_RECIPES = 'ADD_RECIPES';

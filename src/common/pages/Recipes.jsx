@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import store, { addRecipes, setLoading } from '../../context/store';
+import store, { addRecipes, setDone, setLoading } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
 import CategoryButton from '../components/CategoryButton';
@@ -13,14 +13,23 @@ export default function Recipes() {
     setRecipes } = useContext(store);
 
   const getRecipes = async () => {
+    const LOADING_TIME = 3000;
+    const DONE_TIME = 1000;
     const Meals = await fetchAPI(MEALS);
     const catMeals = await fetchAPI(CATEG_MEALS);
     const Drinks = await fetchAPI(DRINKS);
     const catDrinks = await fetchAPI(CATEG_DRINKS);
-    setRecipes(
-      addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
-    );
-    setRecipes(setLoading(false));
+    setTimeout(() => {
+      setRecipes(
+        addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
+      );
+      setRecipes(setLoading(true));
+      setTimeout(() => {
+        setRecipes(setDone(true));
+      }, DONE_TIME);
+    }, LOADING_TIME);
+    setLoading(undefined);
+    setDone(undefined);
     setCategoryOn(undefined);
   };
 
