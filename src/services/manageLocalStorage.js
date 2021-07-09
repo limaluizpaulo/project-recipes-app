@@ -209,7 +209,7 @@ export const finishRecipe = (id, details, history) => {
   const rawDoneRecipes = localStorage.getItem('doneRecipes');
   const doneRecipes = JSON.parse(rawDoneRecipes);
   if (!doneRecipes) {
-    localStorage.setItem('doneRecipes', []);
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
   }
   history.push('/receitas-feitas');
 };
