@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
@@ -50,7 +49,7 @@ function SearchBar() {
     https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Search_role#prefer_html
   */
   return (
-    <form role="search" htmlFor="seachBar" className="searchbar">
+    <form role="search" htmlFor="seachBar" className={ `${type} searchbar` }>
       <Input
         className="searchbar-input"
         func={ setSearchInput }
@@ -91,6 +90,7 @@ function SearchBar() {
         />
       </div>
       <Button
+        className={ `btn-input-search ${type}` }
         func={ () => filterApi() }
         disabled={ isDisabled() }
         testid="exec-search-btn"

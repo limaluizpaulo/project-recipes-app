@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '../helpers/Button';
 import RecipesContext from '../contexts/RecipesContext';
@@ -44,7 +43,7 @@ export default function Categories() {
       setCategoriesData(results.filter((item, index) => index < maxCategories));
     };
     getCategories();
-  }, []);
+  }, [type]);
 
   useEffect(() => {
     const filterCategory = async () => {
@@ -64,13 +63,13 @@ export default function Categories() {
   }, [selectedCategory]);
 
   return (
-    <aside>
+    <aside className="categories">
       <Button
         key="All"
         label="All"
         func={ () => strFilter('All') }
         testid="All-category-filter"
-        className=""
+        className={ `categories-btn ${type}` }
         disabled={ false }
       />
       {categoriesData.map(({ strCategory }) => (
@@ -79,7 +78,7 @@ export default function Categories() {
           label={ strCategory }
           func={ () => strFilter(strCategory) }
           testid={ `${strCategory}-category-filter` }
-          className=""
+          className={ `categories-btn ${type}` }
           disabled={ false }
         />
       ))}

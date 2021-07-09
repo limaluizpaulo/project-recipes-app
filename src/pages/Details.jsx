@@ -58,6 +58,7 @@ function Details() {
     const item = getItem('inProgressRecipes');
     return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
   };
+
   const video = () => {
     if (type === 'drinks') {
       return null;
@@ -66,8 +67,9 @@ function Details() {
       : detailsData.strYoutube.slice(thirtyTwo);
     return (
       <section data-testid="video">
-        <h3>Video</h3>
+        <h3 className="title">Video</h3>
         <YouTube
+          className="video"
           videoId={ videoId }
         />
       </section>);
@@ -110,27 +112,34 @@ function Details() {
 
   return (detailsData === undefined ? <div /> : Object.keys(detailsData).length !== 0
   && (
-    <>
+    <div className="transparent">
       <header>
         <img
-          width="300"
+          className="detail-thumb"
           src={ detailsData[thumbnail] }
           alt={ detailsData[title] }
           data-testid="recipe-photo"
         />
       </header>
-      <main>
-        <h1 data-testid="recipe-title">{detailsData[title]}</h1>
-        <h2 data-testid="recipe-category">{detailsData[category]}</h2>
-        <button type="button" onClick={ handleClickShare }>
-          <img src={ shareIcon } alt="Share" data-testid="share-btn" />
-        </button>
-        {shareCopy && (<p>Link copiado!</p>) }
-        {/* <button type="button">
-          <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-        </button> */}
-        <FavoriteButton data={ detailsData } />
-        <section>
+      <main className="main">
+        <h1 data-testid="recipe-title" className="detail-title">{detailsData[title]}</h1>
+        <h2
+          data-testid="recipe-category"
+          className="detail-subtitle"
+        >
+          {detailsData[category]}
+        </h2>
+        <div className="actions">
+          { shareCopy && (<p>Link copiado!</p>) }
+          <button type="button" onClick={ handleClickShare }>
+            <img src={ shareIcon } alt="Share" data-testid="share-btn" />
+          </button>
+          {/* <button type="button">
+            <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
+          </button> */}
+          <FavoriteButton data={ detailsData } />
+        </div>
+        <section className="text-content">
           <h3>Ingredients</h3>
           <ul>
             {/* data-testid="${index}-ingredient-name-and-measure" */
@@ -150,7 +159,7 @@ function Details() {
             }
           </ul>
         </section>
-        <section>
+        <section className="text-content">
           <h3>Instructions</h3>
           <p data-testid="instructions">{detailsData[instructions]}</p>
         </section>
@@ -159,7 +168,7 @@ function Details() {
         }
         <Recommended />
       </main>
-      <footer>
+      <footer className="footer-details">
         <Button
           func={ () => redirectInProgress() }
           className="start-recipe"
@@ -167,7 +176,7 @@ function Details() {
           testid="start-recipe-btn"
         />
       </footer>
-    </>)
+    </div>)
   );
 }
 

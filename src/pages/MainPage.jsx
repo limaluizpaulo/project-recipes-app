@@ -3,6 +3,7 @@ import MainCards from '../components/MainCards';
 import RecipesContext from '../contexts/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import logo from '../images/mustachef.svg';
 
 export default function MainPage() {
   const { data, isFetching, type } = useContext(RecipesContext);
@@ -23,15 +24,21 @@ export default function MainPage() {
     typeId = 'idDrink';
   }
 
-  return isFetching ? <p>Loading...</p> : (
+  return isFetching ? (
+    <div className="loading transparent">
+      <img src={ logo } alt="Loading" />
+    </div>
+  ) : (
     <>
       <Header title={ title } hasSearchBar />
-      <MainCards
-        data={ data }
-        thumbnail={ thumbnail }
-        title={ strTitle }
-        typeId={ typeId }
-      />
+      <div className="transparent">
+        <MainCards
+          data={ data }
+          thumbnail={ thumbnail }
+          title={ strTitle }
+          typeId={ typeId }
+        />
+      </div>
       <Footer />
     </>
   );

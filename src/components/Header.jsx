@@ -16,12 +16,12 @@ function Header(props) {
   };
 
   return (
-    <header className="header">
+    <header className={ `header ${title.toLowerCase()}` }>
       <div>
         <Link to="/perfil">
           <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
         </Link>
-        <h1 data-testid="page-title">{title}</h1>
+        <h1 data-testid="page-title" className={ title.toLowerCase() }>{title}</h1>
         {hasSearchBar && (
           <button
             className="btn-search"

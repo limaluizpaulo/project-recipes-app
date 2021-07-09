@@ -1,12 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 export default function Footer() {
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
-    <footer className="footer" data-testid="footer">
+    <footer
+      className={ `footer ${pathname.slice(1, pathname.length)}` }
+      data-testid="footer"
+    >
       <Link to="/bebidas">
         <img src={ drinkIcon } alt="Martini glass" data-testid="drinks-bottom-btn" />
       </Link>

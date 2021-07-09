@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
-import logo from '../images/mustachef1.svg';
+import logo from '../images/mustachef.svg';
 import { setItem } from '../helpers/HelperFunctions';
 
 export default function Login() {
@@ -62,7 +62,7 @@ export default function Login() {
 
   return (
     <section className="login">
-      <div>
+      <div className="transparent">
         <img src={ logo } alt="logo" />
         <form>
           <h1 className="login-title">Login</h1>
