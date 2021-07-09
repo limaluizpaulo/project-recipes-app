@@ -76,24 +76,30 @@ function DetailsReceita(props) {
         {ingrFunction()}
         {ingredientes.map((ing, i) => <IngredientsList key={ i } ingr={ [ing, i] } />)}
       </ul>
-
-      <p data-testid="instructions">{receita.strInstructions}</p>
-      {videoRender()}
+      <div className="preparo">
+        <p>- Instruçoes de preparo</p>
+        <p data-testid="instructions">{receita.strInstructions}</p>
+        {videoRender()}
+      </div>
 
       <CarouselElement sugest={ [sugestoes, type] } />
+
       <Link
         className="footer"
         data-testid="start-recipe-btn"
         to={ `/${apelidoAPI}/${id}/in-progress` }
       >
-        iniciar receita
+        <p className="iniciarbtn">iniciar receita</p>
       </Link>
-      <Link to="/">
-        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-      </Link>
-      <Link to="/">
-        <img data-testid="share-btn" src={ shareIcon } alt="" />
-      </Link>
+      <div className="salvarcompartilhar">
+        <Link className="favoritebtn" to="/">
+          <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+        </Link>
+        <Link to="/">
+          <img className="sharebtn" data-testid="share-btn" src={ shareIcon } alt="" />
+        </Link>
+      </div>
+
     </div>
   );
 }

@@ -110,6 +110,15 @@ body {
   flex-direction: row;
   height: 10%;
   padding: 1% 10%;
+  margin-bottom: 3%;
+}
+
+H2 {
+  margin: 10px
+}
+
+h4 {
+  margin: 10px;
 }
 
 h6 {
@@ -135,4 +144,45 @@ h5 {
 
 .row {
   margin-top: 10px;
+}
+
+.detailsTitulo {
+  margin: 3%;
+}
+
+.detSubtitulo {
+  display: flex;
+  flex-direction: row;
+}
+
+.preparo {
+  margin: 2%;
+  padding: 2%;
+  border-style: double;
+  align-self: center;
+}
+
+.salvarcompartilhar {
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+margin: 2%;
+}
+
+.favoritebtn {
+  margin: 5px;
+  margin-right: 3%;
+}
+
+.sharebtn {
+  margin: 5px;
+  margin-right: 20px;
+}
+
+.iniciarbtn {
+  color: rgb(194, 10, 47);
+  background-color: rgb(251, 228, 170);
+  opacity: 50%;
+  border-style: groove;
+  padding: 0.5px 5px;
 }

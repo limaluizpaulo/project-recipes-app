@@ -9,7 +9,7 @@ function CarouselElement(props) {
     const name = [`str${sugest[1][3]}`];
     return (
       <Carousel>
-        <Carousel.Item interval={ 1000 }>
+        <Carousel.Item interval={ 2000 }>
           <div className="carouselItem">
             <div data-testid="0-recomendation-card">
               <h6 data-testid="0-recomendation-title">{ sugest[0][0][name] }</h6>
@@ -31,7 +31,7 @@ function CarouselElement(props) {
             </div>
           </div>
         </Carousel.Item>
-        <Carousel.Item interval={ 1000 }>
+        <Carousel.Item interval={ 2000 }>
           <div className="carouselItem">
             <div data-testid="2-recomendation-card">
               <h6 data-testid="2-recomendation-title">{ sugest[0][2][name] }</h6>
@@ -53,7 +53,7 @@ function CarouselElement(props) {
             </div>
           </div>
         </Carousel.Item>
-        <Carousel.Item interval={ 1000 }>
+        <Carousel.Item interval={ 2000 }>
           <div className="carouselItem">
             <div data-testid="4-recomendation-card">
               <h6 data-testid="4-recomendation-title">{ sugest[0][4][name] }</h6>

@@ -64,19 +64,21 @@ function Login() {
           />
         </label>
       </div>
-      <Link to="/comidas">
-        <Button
-          variant="warning"
-          size="lg"
-          className="loginButton"
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ disableBtn }
-          onClick={ handleClick }
-        >
-          Entrar/Logar
-        </Button>
-      </Link>
+      <div className="loginButton">
+        <Link to="/comidas">
+          <Button
+            variant="warning"
+            size="lg"
+            className="loginButton"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ disableBtn }
+            onClick={ handleClick }
+          >
+            Entrar/Logar
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
