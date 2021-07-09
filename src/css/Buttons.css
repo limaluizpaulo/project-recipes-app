@@ -1,0 +1,15 @@
+.buttons {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  height: 50px;
+  margin: 1px;
+  width: 120px;
+}
+
+.like-and-share {
+  align-content: center;
+  background-color: white;
+  border: rgb(228, 204, 204);
+  height: 40px;
+  width: 40px;
+}

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { fetchFoodRandom } from '../actions/index';
+
+import '../css/Buttons.css';
 
 class ExploreFoods extends Component {
   constructor() {
@@ -31,29 +34,32 @@ class ExploreFoods extends Component {
             <section>
               <Header title="Explorar Comidas" searchIcon />
               <Link to="/explorar/comidas/ingredientes">
-                <button
+                <Button
+                  className="buttons"
                   type="button"
                   data-testid="explore-by-ingredient"
                 >
                   Por Ingredientes
-                </button>
+                </Button>
               </Link>
 
               <Link to="/explorar/comidas/area">
-                <button
+                <Button
+                  className="buttons"
                   type="button"
                   data-testid="explore-by-area"
                 >
                   Por Local de Origem
-                </button>
+                </Button>
               </Link>
               <Link to={ `/comidas/${foodRandom[0].idMeal}` }>
-                <button
+                <Button
+                  className="buttons"
                   type="button"
                   data-testid="explore-surprise"
                 >
                   Me Surpreenda!
-                </button>
+                </Button>
               </Link>
             </section>
             <Footer />
