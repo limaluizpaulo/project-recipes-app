@@ -98,11 +98,6 @@ function ReceitaEmProgresso({ match }) {
     recipeIngredientsList = recipeIngredients.map((entry, index) => (
       ` ${recipeIngredients[index][1]} - ${recipeQuantities[index][1]}`
     ));
-    // for (let i = 0; i < recipeIngredients.length; i += 1) {
-    //   recipeIngredientsList.push(
-    //     ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
-    //   );
-    // }
   }
 
   const titleParams = {
