@@ -77,7 +77,6 @@ class RecipeCard extends React.Component {
 
   renderRecipes(recipes) {
     const { recipeType, history } = this.props;
-    // const a = history.location.state.selectedCategory ? history.location.state.selectedCategory : 'oi';
     const numeroMaximoDeReceitas = 12;
     return recipes
       .map((recipe, index) => {
@@ -112,6 +111,7 @@ class RecipeCard extends React.Component {
   render() {
     const { recipes, isFetching, categories, recipesByIngredients } = this.props;
     const { selectedCategory, setCategory } = this.props;
+    console.log(this.props);
 
     return (
       <main>
@@ -141,6 +141,12 @@ const mapStateToProps = (state) => ({
   recipesByIngredients: state.recipes.ingredients
     ? Object.values(state.recipes.ingredients)[0] : [],
   selectedCategory: state.recipes.selectedCategory,
+  searchBarFirstLetter: state.fetch.searchBarFirstLetter
+    ? Object.values(state.fetch.searchBarFirstLetter)[0] : null,
+  searchBarName: state.fetch.searchBarName
+    ? Object.values(state.fetch.searchBarName)[0] : null,
+  searchBarIngredient: state.fetch.searchBarIngredient
+    ? Object.values(state.fetch.searchBarIngredient)[0] : null,
 });
 
 const mapDispatchToProps = (dispatch) => ({

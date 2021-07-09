@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Header, Footer } from '../Components';
 import RecipeCard from '../Components/RecipeCard';
 import '../App.css';
+import { setRecipeType } from '../redux/actions';
 
 class Recipes extends React.Component {
+  componentDidMount() {
+    const { saveRecipeType, match: { params: { recipeType } } } = this.props;
+    saveRecipeType(recipeType);
+  }
+
   render() {
     const { history, location: { pathname },
       match: { params: { recipeType } } } = this.props;
@@ -31,6 +38,11 @@ Recipes.propTypes = {
     }),
   }).isRequired,
   history: PropTypes.shape({}).isRequired,
+  saveRecipeType: PropTypes.func.isRequired,
 };
 
-export default Recipes;
+const mapDispatchToProps = (dispatch) => ({
+  saveRecipeType: (recipeType) => dispatch(setRecipeType(recipeType)),
+});
+
+export default connect(null, mapDispatchToProps)(Recipes);

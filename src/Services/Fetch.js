@@ -3,11 +3,20 @@ const possibleEndPoints = {
     recipes: 'https://www.themealdb.com/api/json/v1/1/search.php?s',
     categories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
     ingredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
+
+    searchBarName: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+    searchBarFirstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
+    searchBarIngredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
+
   },
   bebidas: {
     recipes: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     categories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
+
+    searchBarName: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    searchBarFirstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
+    searchBarIngredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
   },
 };
 

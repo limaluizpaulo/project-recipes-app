@@ -33,10 +33,10 @@ const recipes = (state = INITIAL_STATE, { payload, type }) => {
       ...state,
       isFetching: true,
     };
-  case 'reset-recipes':
+  case 'set-recipeType':
     return {
       ...state,
-      recipes: [],
+      recipeType: payload,
     };
   case 'reset-category':
     return {

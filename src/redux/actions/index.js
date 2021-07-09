@@ -13,6 +13,7 @@ export const requestRecipesSuccess = (recipes, fetchType) => ({
   payload: {
     [fetchType]: recipes,
     isFetching: false,
+    fetchType,
   },
 });
 
@@ -47,4 +48,9 @@ export const resetSelectedCategory = () => ({
 export const saveCategory = (category) => ({
   type: 'set-category',
   payload: category,
+});
+
+export const setRecipeType = (recipeType) => ({
+  type: 'set-recipeType',
+  payload: recipeType,
 });
