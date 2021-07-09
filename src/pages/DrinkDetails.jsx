@@ -157,15 +157,15 @@ class DrinkDetails extends Component {
         <button
           type="button"
           data-testid="share-btn"
-          onClick={ () => {
+          onClick={ async () => {
             const { location: { pathname } } = this.props;
-            copy(`http://localhost:3000${pathname}`);
+            await copy(`http://localhost:3000${pathname}`);
             this.setState({ linkCopiado: true });
           } }
         >
-          { linkCopiado && <span>Link copiado!</span>}
           <img className="icons" src={ shareIcon } alt="shareButton" />
         </button>
+        { linkCopiado && <span>Link copiado!</span>}
         <button
           type="button"
           onClick={ this.handleClickFavorite }
