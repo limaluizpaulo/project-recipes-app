@@ -6,9 +6,7 @@ import imgIcon from '../../images/shareIcon.svg';
 import imgBtnFavorite from '../../images/blackHeartIcon.svg';
 
 function copyUrl(setCopied, type, id) {
-  copy(`http://localhost:3000/${type}s/${id}`);
-  /* console.log(navigator.clipboard.readText()); */
-  setCopied(true);
+  copy(`http://localhost:3000/${type}s/${id}`).then(() => setCopied(true));
 }
 
 function CardsRecipesFavorite({ aux, index, removeFavorites }) {

@@ -25,7 +25,7 @@ function RecipesFavorite() {
       <div>
         {filterFavorites.map((aux, index) => (
           <CardsRecipesFavorite
-            key={ index }
+            key={ aux.id }
             aux={ aux }
             index={ index }
             removeFavorites={ removeFavorites }
