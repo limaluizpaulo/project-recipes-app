@@ -1,10 +1,18 @@
-.exploreIngredientsPage {
+.exploreIngredientsPage, .exploreIngredientsPage__loading {
   background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   min-height: calc(100vh - 19vh);
   padding-bottom: 65px;
+}
+
+.exploreIngredientsPage__loading {
+  align-items: center;
+}
+
+.loading {
+  width: 200px;
 }
 
 .ingredients__card {

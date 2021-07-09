@@ -1,3 +1,20 @@
+.exploreArea {
+  align-items: center;
+  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 11vh;
+}
+
+.exploreDrop {
+  margin-left: 15px;
+}
+
+.exploreDrop select {
+  background: var(--light-yellow-color);
+  padding: 5px;
+}
+
 .food__cards__container {
   display: flex;
   flex-wrap: wrap;

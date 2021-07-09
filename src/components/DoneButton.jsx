@@ -8,6 +8,7 @@ const DoneButton = ({ history }) => {
 
   return (
     <button
+      className="profile__button"
       data-testid="profile-done-btn"
       name="done"
       onClick={ handleClick }

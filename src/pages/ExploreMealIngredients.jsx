@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../context/Context';
 import '../styles/exploreMealsIngredients.css';
+import loadingSpinner from '../images/loading.gif';
 // Tela de explorar comidas: /explorar/comidas
 export default function ExploreMealsIngredients({ history }) {
   const {
@@ -40,6 +41,18 @@ export default function ExploreMealsIngredients({ history }) {
     fetchRecipesByIngredient(id);
     history.push('/comidas');
   };
+
+  if (!ingredientsList.length) {
+    return (
+      <>
+        <Header history={ history } title="Explorar Ingredientes" />
+        <div className="exploreIngredientsPage__loading">
+          <img className="loading" src={ loadingSpinner } alt="loading spinner" />
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>

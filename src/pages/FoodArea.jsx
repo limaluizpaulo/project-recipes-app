@@ -17,36 +17,40 @@ export default function FoodArea({ history }) {
   return (
     <div>
       <Header history={ history } title="Explorar Origem" />
-      <DropDownList />
-      <div className="food__cards__container">
-        { recipesByPlace.map(({ strMeal, strMealThumb, idMeal }, idx) => (
-          <div
-            className="food__card"
-            data-testid={ `${idx}-recipe-card` }
-            key={ idMeal }
-            id={ idMeal }
-            onClick={ handleClick }
-            onKeyPress={ handleClick }
-            role="button"
-            tabIndex={ idMeal }
-          >
-            <img
-              className="food__card__img"
-              data-testid={ `${idx}-card-img` }
-              src={ strMealThumb }
-              alt={ strMeal }
+      <div className="exploreArea">
+        <div className="exploreDrop">
+          <DropDownList />
+        </div>
+        <div className="food__cards__container">
+          { recipesByPlace.map(({ strMeal, strMealThumb, idMeal }, idx) => (
+            <div
+              className="food__card"
+              data-testid={ `${idx}-recipe-card` }
+              key={ idMeal }
               id={ idMeal }
-            />
-            <div className="food__card_text">
-              <h4
-                data-testid={ `${idx}-card-name` }
+              onClick={ handleClick }
+              onKeyPress={ handleClick }
+              role="button"
+              tabIndex={ idMeal }
+            >
+              <img
+                className="food__card__img"
+                data-testid={ `${idx}-card-img` }
+                src={ strMealThumb }
+                alt={ strMeal }
                 id={ idMeal }
-              >
-                { strMeal }
-              </h4>
+              />
+              <div className="food__card_text">
+                <h4
+                  data-testid={ `${idx}-card-name` }
+                  id={ idMeal }
+                >
+                  { strMeal }
+                </h4>
+              </div>
             </div>
-          </div>
-        )) }
+          )) }
+        </div>
       </div>
       <Footer />
     </div>

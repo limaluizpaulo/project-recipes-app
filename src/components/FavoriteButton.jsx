@@ -8,6 +8,7 @@ const FavoriteButton = ({ history }) => {
 
   return (
     <button
+      className="profile__button"
       data-testid="profile-favorite-btn"
       name="favorite"
       onClick={ handleClick }
