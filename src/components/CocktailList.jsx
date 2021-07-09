@@ -9,6 +9,7 @@ import '../styles/item-card.css';
 export default function CocktailList() {
   const [showCocktails, setShowCocktails] = useState(false);
   const {
+    ingredients,
     cocktailsRecipes,
     resquestCocktailsApi,
     selectedCategory,
@@ -25,7 +26,7 @@ export default function CocktailList() {
   }, [cocktailsRecipes]);
 
   useEffect(() => {
-    resquestCocktailsApi();
+    resquestCocktailsApi(ingredients);
   }, []);
 
   const renderCards = () => {

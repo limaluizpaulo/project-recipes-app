@@ -7,6 +7,9 @@ import {
   fetchMealsById,
   fetchMealsCategories,
   fetchMealsRecomendation,
+  fetchMealsByIngredient,
+  fetchMealsIngredients,
+  // fetchMealsAreas,
 } from '../apis/MealsApis';
 import {
   fetchCocktailsApi,
@@ -14,75 +17,94 @@ import {
   fetchCocktailsCategories,
   fetchCocktailsRecomendation,
   fetchCocktailsByCategory,
+  fetchCocktailsByIngredient,
+  fetchCocktailsIngredients,
 } from '../apis/CocktailsApis';
 
 export default function Provider({ children }) {
   const [openSearchBar, setOpenSearchBar] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedIngredient, setSelectedIngredient] = useState('');
   const [mealsRecipes, setMealsRecipes] = useState([]);
   const [mealsCategories, setMealsCategories] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
   const [cocktailsCategories, setCocktailsCategories] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [curr, setCurr] = useState('false');
-
   // boolean: searchBar appears or not
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
   };
-
   // update state of cocktails categories
   const requestCocktailsCategories = async () => {
     const cocktailsCat = await fetchCocktailsCategories();
     setCocktailsCategories(cocktailsCat);
   };
-
   // update array of cocktails based on the searchBar filter
   const findCocktailsByFilter = async (filter) => {
     const apiCocktails = await fetchCocktailsApi(filter);
     setSelectedCategory('All');
     setCocktailsRecipes(apiCocktails);
   };
-
   // update array of cocktails with all cocktails
   const resquestCocktailsApi = async () => {
-    const apiCocktails = await fetchCocktailsRecomendation();
-    setCocktailsRecipes(apiCocktails);
+    if (selectedIngredient.length) {
+      const apiCocktails = await fetchCocktailsByIngredient(selectedIngredient);
+      setCocktailsRecipes(apiCocktails);
+    }
+    if (!selectedIngredient.length) {
+      const apiCocktails = await fetchCocktailsRecomendation();
+      setCocktailsRecipes(apiCocktails);
+    }
   };
-
   // update state of meals categories
   const requestMealCategories = async () => {
     const mealsCat = await fetchMealsCategories();
     setMealsCategories(mealsCat);
   };
-
   // update array of meals based on the searchBar filter
   const findMealsByFilter = async (filter) => {
     const apiMeals = await fetchMealsApi(filter);
     setSelectedCategory('All');
     setMealsRecipes(apiMeals);
   };
-
   // update array of meals with all meals
   const resquestMealsApi = async () => {
-    const apiMeals = await fetchMealsRecomendation();
-    setMealsRecipes(apiMeals);
+    if (selectedIngredient.length) {
+      const apiMeals = await fetchMealsByIngredient(selectedIngredient);
+      setMealsRecipes(apiMeals);
+    }
+    if (!selectedIngredient.length) {
+      const apiMeals = await fetchMealsRecomendation();
+      setMealsRecipes(apiMeals);
+    }
   };
-
+  // update array of meals ingredients with all ingredients
+  const getIngredients = async (type) => {
+    const twelve = 12;
+    if (type === 'meals') {
+      const ingredientsArray = await fetchMealsIngredients();
+      const firstTwelveIngredients = [...ingredientsArray].splice(0, twelve);
+      setIngredients(firstTwelveIngredients);
+    }
+    if (type === 'drinks') {
+      const ingredientsArray = await fetchCocktailsIngredients();
+      const firstTwelveIngredients = [...ingredientsArray].splice(0, twelve);
+      setIngredients(firstTwelveIngredients);
+    }
+  };
   // ---------- Filter By Category
-
   // update array of cocktails based on the category filter
   const findCocktailsByCategory = async () => {
     const apiCocktails = await fetchCocktailsByCategory(selectedCategory);
     setCocktailsRecipes(apiCocktails);
   };
-
   // update array of meals based on the category filter
   const findMealsByCategory = async () => {
     const apiMeals = await fetchMealsByCategory(selectedCategory);
     setMealsRecipes(apiMeals);
   };
-
   // check if the page is for meals or cocktails
   const filterByCategory = async (type) => {
     if (selectedCategory === 'All') {
@@ -101,24 +123,22 @@ export default function Provider({ children }) {
       }
     }
   };
-
   // Popula o array de ingredients
   const populateIngredientsArray = (recipe) => {
-    const ingredients = [];
+    const ingredientsArray = [];
     const API_MAX_INGREDIENTS = 20;
 
     for (let index = 1; index < API_MAX_INGREDIENTS; index += 1) {
       if (recipe[`strIngredient${index}`]) {
-        ingredients.push({
+        ingredientsArray.push({
           ingredient: recipe[`strIngredient${index}`],
           measure: recipe[`strMeasure${index}`],
         });
       }
     }
 
-    return ingredients;
+    return ingredientsArray;
   };
-
   // Trata se deve gerar um estado com uma comida ou bebida
   const generateMealOrDrinkState = (mealById, drinkById) => {
     if (mealById) {
@@ -172,7 +192,6 @@ export default function Provider({ children }) {
       setCurrentRecipe(drink);
     }
   };
-
   // Busca uma bebida ou comida através do ID
   const storeCurrentRecipe = async (id) => {
     const mealById = await fetchMealsById(id);
@@ -200,6 +219,9 @@ export default function Provider({ children }) {
     selectedCategory,
     setSelectedCategory,
     filterByCategory,
+    setSelectedIngredient,
+    ingredients,
+    getIngredients,
   };
   return (
     <Context.Provider value={ context }>
