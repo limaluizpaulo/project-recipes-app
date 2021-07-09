@@ -40,7 +40,7 @@ export const requestRandomRecipeError = (error) => ({
 
 export const fetchComidasOnComponentDidMount = (recipeType) => (dispatch) => {
   dispatch(isFetching());
-  fetchComidasEBebidas(recipeType)
+  return fetchComidasEBebidas(recipeType)
     .then((response) => {
       dispatch(requestFetchSuccess(response));
     })

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchComidasOnComponentDidMount } from '../redux/actions';
 
-export default class CountryCard extends Component {
+class CountryCard extends Component {
   constructor() {
     super();
 
@@ -23,15 +25,23 @@ export default class CountryCard extends Component {
       .then((recipes) => this.setAreaRecipesToState(recipes));
   }
 
-  componentDidUpdate() {
-    this.fetchAreaRecipes()
-      .then((recipes) => this.setAreaRecipesToState(recipes));
-  }
-
-  handleChange({ target }) {
-    this.setState({
-      area: target.value,
-    });
+  async handleChange({ target }) {
+    if (target.value === 'All') {
+      const { dispatchRecipes } = this.props;
+      await dispatchRecipes('comidas');
+      const { recipes } = this.props;
+      this.setState({
+        area: target.value,
+        areaRecipes: recipes,
+      });
+    } else {
+      this.setState({
+        area: target.value,
+      }, () => {
+        this.fetchAreaRecipes()
+          .then((recipes) => this.setAreaRecipesToState(recipes));
+      });
+    }
   }
 
   setAreaRecipesToState(recipes) {
@@ -73,21 +83,27 @@ export default class CountryCard extends Component {
 
   renderRecipes() {
     const { areaRecipes } = this.state;
-    const cardRecipe = areaRecipes.map((recipe, index) => (
-      <Link key={ index } to={ `/comidas/${recipe.idMeal}` }>
-        <section data-testid={ `${index}-recipe-card` }>
-          <img
-            width="40px"
-            data-testid={ `${index}-card-img` }
-            src={ recipe.strMealThumb }
-            alt="thumb"
-          />
-          <p data-testid={ `${index}-card-name` }>
-            { recipe.strMeal }
-          </p>
-        </section>
-      </Link>
-    ));
+    const numeroMaximoDeReceitas = 12;
+    const cardRecipe = areaRecipes.map((recipe, index) => {
+      if (index < numeroMaximoDeReceitas) {
+        return (
+          <Link key={ index } to={ `/comidas/${recipe.idMeal}` }>
+            <section data-testid={ `${index}-recipe-card` }>
+              <img
+                width="40px"
+                data-testid={ `${index}-card-img` }
+                src={ recipe.strMealThumb }
+                alt="thumb"
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { recipe.strMeal }
+              </p>
+            </section>
+          </Link>
+        );
+      }
+      return null;
+    });
     return cardRecipe;
   }
 
@@ -100,6 +116,12 @@ export default class CountryCard extends Component {
           data-testid="explore-by-area-dropdown"
         >
           { this.renderOptions() }
+          <option
+            data-testid="All-option"
+            value="All"
+          >
+            All
+          </option>
         </select>
         { areaRecipes.length > 0 && this.renderRecipes() }
       </div>
@@ -107,6 +129,19 @@ export default class CountryCard extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  recipes: state.recipes.recipes ? Object.values(state.recipes.recipes)[0] : [],
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchRecipes:
+  (recipeType) => dispatch(fetchComidasOnComponentDidMount(recipeType)),
+});
+
 CountryCard.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  dispatchRecipes: PropTypes.func.isRequired,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CountryCard);
