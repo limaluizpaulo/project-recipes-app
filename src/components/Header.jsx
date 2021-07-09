@@ -20,38 +20,36 @@ class Header extends Component {
     const { search, redirect } = this.state;
     if (redirect) return <Redirect to="/perfil" />;
     return (
-      <>
-        <header>
-          <div className="headerInformation">
-            <button
-              type="button"
-              onClick={ () => this.setState({ redirect: true }) }
-            >
-              <img src={ ImgProfile } alt="perfil" data-testid="profile-top-btn" />
-            </button>
-            <h2 data-testid="page-title">{header}</h2>
-            { explorer
-              ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={ () => this.setState((prev) => ({ search: !prev.search })) }
-                  >
-                    <img
-                      src={ searchIcon }
-                      alt="icone de busca"
-                      data-testid="search-top-btn"
-                    />
-                  </button>
-                  <div />
+      <header>
+        <div className="headerInformation">
+          <button
+            type="button"
+            onClick={ () => this.setState({ redirect: true }) }
+          >
+            <img src={ ImgProfile } alt="perfil" data-testid="profile-top-btn" />
+          </button>
+          <h2 data-testid="page-title">{header}</h2>
+          { explorer
+            ? (
+              <>
+                <button
+                  type="button"
+                  onClick={ () => this.setState((prev) => ({ search: !prev.search })) }
+                >
+                  <img
+                    src={ searchIcon }
+                    alt="icone de busca"
+                    data-testid="search-top-btn"
+                  />
+                </button>
+                <div />
 
-                </>)
-              : null}
-          </div>
+              </>)
+            : null}
+        </div>
 
-        </header>
-        { search ? <Search /> : null}
-      </>
+        { search ? <Search header={ header } /> : null }
+      </header>
     );
   }
 }
