@@ -177,7 +177,7 @@ class FoodInProgress extends React.Component {
   }
 
   renderIngredients() {
-    const { detailsRecipe } = this.state;
+    const { detailsRecipe, checkedIngredients } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {

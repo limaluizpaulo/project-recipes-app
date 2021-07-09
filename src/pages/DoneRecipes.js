@@ -127,7 +127,7 @@ class DoneRecipes extends React.Component {
   }
 }
 
-DoneRecipies.propTypes = {
+DoneRecipes.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
