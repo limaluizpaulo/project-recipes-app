@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import arrangeTitle from '../services/getPageTitle';
 
-function Header() {
-  const { pathname } = window.location;
+function Header({ pathname, newRecipes }) {
   const [shouldShearchBar, setShouldSearchBar] = useState(false);
   const [pageTitle, setPageTitle] = useState('');
   const showSearchBar = () => setShouldSearchBar(!shouldShearchBar);
@@ -48,10 +48,16 @@ function Header() {
         )}
       </main>
       <article>
-        { shouldShearchBar && <SearchBar title={ pageTitle } /> }
+        { shouldShearchBar
+        && <SearchBar title={ pageTitle } newRecipes={ newRecipes } /> }
       </article>
     </header>
   );
 }
+
+Header.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  newRecipes: PropTypes.func.isRequired,
+};
 
 export default Header;
