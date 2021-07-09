@@ -21,9 +21,9 @@ export default function MainCards(props) {
     // const newPathname = pathTreament(pathname);
     history.push(`${pathname}/${data[0][typeId]}`);
   }
-  // console.log(pathname);
+
   return (
-    <main>
+    <main className="main">
       <Categories />
       <section className="card-list">
         {data
@@ -35,6 +35,9 @@ export default function MainCards(props) {
                 id={ recipe[typeId] }
                 thumbnail={ recipe[thumbnail] }
                 title={ recipe[title] }
+                className={ pathname
+                  .slice(1, pathname.length - 1) === 'comida'
+                  ? 'recipe-card meal' : 'recipe-card cocktail' }
               />)
             : null))}
       </section>

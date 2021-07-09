@@ -77,26 +77,32 @@ function Details() {
 
   return (detailsData === undefined ? <div /> : Object.keys(detailsData).length !== 0
   && (
-    <>
+    <div className="transparent">
       <header>
         <img
-          width="300"
+          className="detail-thumb"
           src={ detailsData[thumbnail] }
           alt={ detailsData[title] }
           data-testid="recipe-photo"
         />
       </header>
-      <main>
-        <h1 data-testid="recipe-title">{detailsData[title]}</h1>
-        <h2 data-testid="recipe-category">{detailsData[category]}</h2>
-        <button type="button">
-          <img src={ shareIcon } alt="Share" data-testid="share-btn" />
-        </button>
-
-        <button type="button">
-          <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-        </button>
-        <section>
+      <main className="main">
+        <h1 data-testid="recipe-title" className="detail-title">{detailsData[title]}</h1>
+        <h2
+          data-testid="recipe-category"
+          className="detail-subtitle"
+        >
+          {detailsData[category]}
+        </h2>
+        <div className="actions">
+          <button type="button">
+            <img src={ shareIcon } alt="Share" data-testid="share-btn" />
+          </button>
+          <button type="button">
+            <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
+          </button>
+        </div>
+        <section className="text-content">
           <h3>Ingredients</h3>
           <ul>
             {/* data-testid="${index}-ingredient-name-and-measure" */
@@ -116,7 +122,7 @@ function Details() {
             }
           </ul>
         </section>
-        <section>
+        <section className="text-content">
           <h3>Instructions</h3>
           <p data-testid="instructions">{detailsData[instructions]}</p>
         </section>
@@ -125,14 +131,14 @@ function Details() {
         }
         <Recommended />
       </main>
-      <footer>
+      <footer className="footer-details">
         <Button
           className="start-recipe"
           label="Iniciar Receita"
           testid="start-recipe-btn"
         />
       </footer>
-    </>)
+    </div>)
   );
 }
 

@@ -60,25 +60,28 @@ function Recommended() {
   };
 
   return (
-    <section>
+    <section className="text-content">
       <h3>Recommended</h3>
-      {// data-testid="${index}-recomendation-card"
-        recommendedData.length && (
-          recommendedData.map((recipe, index) => (
-            <Card
-              hidden={ index !== cardLeft && index !== cardRight }
-              key={ recipe[typeId] }
-              index={ index }
-              id={ recipe[typeId] }
-              thumbnail={ recipe[thumbnail] }
-              title={ recipe[title] }
-              category={ recipe[category] }
-            />
-          ))
-        )
-      }
-      <Button func={ slideLeft } label="esquerda" />
-      <Button func={ slideRight } label="direita" />
+      <div className="carousel">
+        <Button className="carousel-btn btn-left" func={ slideLeft } label="<" />
+        {// data-testid="${index}-recomendation-card"
+          recommendedData.length && (
+            recommendedData.map((recipe, index) => (
+              <Card
+                className={ `recipe-card carousel-card ${recommendedType}` }
+                hidden={ index !== cardLeft && index !== cardRight }
+                key={ recipe[typeId] }
+                index={ index }
+                id={ recipe[typeId] }
+                thumbnail={ recipe[thumbnail] }
+                title={ recipe[title] }
+                category={ recipe[category] }
+              />
+            ))
+          )
+        }
+        <Button className="carousel-btn btn-right" func={ slideRight } label=">" />
+      </div>
     </section>
   );
 }

@@ -64,13 +64,13 @@ export default function Categories() {
   }, [selectedCategory]);
 
   return (
-    <aside>
+    <aside className="categories">
       <Button
         key="All"
         label="All"
         func={ () => strFilter('All') }
         testid="All-category-filter"
-        className=""
+        className={ `categories-btn ${type}` }
         disabled={ false }
       />
       {categoriesData.map(({ strCategory }) => (
@@ -79,7 +79,7 @@ export default function Categories() {
           label={ strCategory }
           func={ () => strFilter(strCategory) }
           testid={ `${strCategory}-category-filter` }
-          className=""
+          className={ `categories-btn ${type}` }
           disabled={ false }
         />
       ))}
