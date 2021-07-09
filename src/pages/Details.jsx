@@ -8,6 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
+import { getItem, setItem } from '../helpers/HelperFunctions';
 
 function Details() {
   const { id } = useParams();
@@ -37,21 +38,25 @@ function Details() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
+
+  const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
   const redirectInProgress = () => {
+    const item = getItem('inProgressRecipes');
+    setItem('inProgressRecipes', {
+      ...item,
+      [typeKey]: {
+        ...item[typeKey],
+        [id]: [],
+      },
+    });
     // const progressInfo = JSON.stringify({ [typeKey]: { [id]: [] } });
-    // localStorage.setItem('inProgressRecipes', progressInfo);
     history.push(`${pathname}/in-progress`);
   };
+
   const recipeProgress = () => {
-    const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
-    let item = localStorage.getItem(['inProgressRecipes']);
-    item = JSON.parse(item);
-    let filterKey = '';
-    // console.log(item);
-    if (item !== null) {
-      filterKey = Object.keys(item[typeKey]).filter((key) => key === id);
-    }
-    return filterKey.includes(id) ? 'Continuar Receitas' : 'Iniciar Receita';
+    const item = getItem('inProgressRecipes');
+
+    return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
   };
   const video = () => {
     if (type === 'drinks') {
