@@ -57,6 +57,8 @@ export default function RecipesInProgressDrink() {
   const getLocalStorage = () => {
     const ingredientSaved = JSON.parse(localStorage.getItem('RecipesinProgress'));
     if (ingredientSaved != null) {
+      const numberCheck = ingredientSaved.length;
+      setDisableButton(numberCheck);
       setIngreditentMade(ingredientSaved);
     }
   };
@@ -107,7 +109,7 @@ export default function RecipesInProgressDrink() {
       <ul id="ingrediesnts">
         {ingredients.map((ingredient, index) => (
           <li
-            id={ ingredient }
+            id={ { ingredient } }
             key={ index }
             value={ index }
             className={ ingredientMade.includes(ingredient) ? 'riscado' : 'naoRiscado' }
@@ -137,8 +139,8 @@ export default function RecipesInProgressDrink() {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ disableButton !== ingredients.length }
-
         >
+          {console.log(disableButton, ingredients.length)}
 
           Finalizar Receita
 

@@ -83,7 +83,6 @@ export default function MealsDetails() {
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
-        {console.log(ingredientsMeals)}
         {ingredientsMeals.map((ingredient, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }

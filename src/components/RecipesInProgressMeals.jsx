@@ -61,6 +61,8 @@ export default function RecipesInProgress() {
   const getLocalStorage = () => {
     const ingredientSaved = JSON.parse(localStorage.getItem('RecipesinProgress'));
     if (ingredientSaved != null) {
+      const numberCheck = ingredientSaved.length;
+      setDisableButton(numberCheck);
       setIngreditentMade(ingredientSaved);
     }
   };
