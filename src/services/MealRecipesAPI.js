@@ -35,8 +35,10 @@ const MealServiceFirstLetterAPI = async (firstLetter) => {
 
 const SurpriseFoodAPI = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  console.log('SurpriseAPIFoods');
   const response = await fetch(endpoint);
   const responseObject = await response.json();
+  console.log(responseObject);
   return responseObject.meals;
 };
 

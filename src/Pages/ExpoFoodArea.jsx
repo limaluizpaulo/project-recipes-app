@@ -11,15 +11,12 @@ import Footer from '../Components/Footer';
 import '../styles/Card.css';
 
 function ExpoFoodArea(props) {
-  const { localsReceived, locals, infoFoods, foods } = props;
-  const [loading, setLoading] = useState(true);
+  const { localsReceived, locals = [], infoFoods, foods } = props;
   const [listFood, setListFood] = useState([]);
   useEffect(() => {
-    if (loading) {
-      localsReceived();
-      setLoading(false);
-    }
-  }, [localsReceived, setLoading, loading]);
+         localsReceived();
+    
+  }, []);
 
   useEffect(() => {
     api.getByDefault()
@@ -33,7 +30,7 @@ function ExpoFoodArea(props) {
   async function handlechange({ target: { value } }) {
     await infoFoods(value, api.foodsArea);
   }
-  return loading ? <div> loading... </div> : (
+  return locals.length === 0 ? <div> loading... </div> : (
     <div>
       <Header title="Explorar Origem" />
       <select
@@ -42,7 +39,8 @@ function ExpoFoodArea(props) {
       >
         <option data-testid="All-option">All</option>
 
-        {locals.map((local) => (
+        {locals.length!==0 &&
+        locals.map((local) => (
           <option
             key={ local.strArea }
             value={ local.strArea }

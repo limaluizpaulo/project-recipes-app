@@ -1,25 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import HeadBar from '../Components/HeadBar';
 import Footer from '../Components/Footer';
-import { getIngredient, getRandom } from '../redux/actions';
+import { getRandom } from '../redux/actions';
 import MealRecipes from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreFoods(props) {
-  const { ingredientsCatcher, surpriseFood, shouldRedirect, food } = props;
-
-  useEffect(() => {
-    if (!shouldRedirect) {
-      ingredientsCatcher();
-    }
-  }, [ingredientsCatcher, shouldRedirect]);
+  const { surpriseFood, shouldRedirect, food, margato } = props;
+console.log(margato);
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
     <>
-      <HeadBar title="Explorar Comidas" />
+      <HeadBar title="Explorar" />
       <Link
         to="/explorar/comidas/ingredientes"
         data-testid="explore-by-ingredient"
@@ -50,11 +45,11 @@ function ExploreFoods(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   surpriseFood: () => dispatch(getRandom(MealRecipes.surpriseFood)),
-  ingredientsCatcher: () => dispatch(getIngredient(MealRecipes.foodIngredients)),
 });
 
 const mapStateToProps = (state) => ({
   food: state.foods.list,
+  margato: state,
   shouldRedirect: state.foods.shouldRedirect,
 });
 
