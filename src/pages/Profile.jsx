@@ -14,7 +14,7 @@ export default function Profile({ history }) {
   return (
     <div>
       <Header history={ history } title="Perfil" />
-      <div className="profile">
+      <div className="profilePage">
         <p data-testid="profile-email">{user && user.email}</p>
         <DoneButton history={ history } />
         <FavoriteButton history={ history } />

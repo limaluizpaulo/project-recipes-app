@@ -1,19 +1,56 @@
-.profile {
-  align-items: center;
+.profilePage {
   background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
-  display: flex;
-  flex-wrap: wrap;
-  height: 81vh;
-  justify-content: center;
-  padding-bottom: 20%;
-  padding-top: 5%;
+  bottom: 0%;
+  left: 0%;
+  position: absolute;
+  right: 0%;
+  top: 0%;
 }
 
-.profile__button {
+.button__receitas__feitas {
+  align-items: center;
   background: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 5px;
-  height: 25%;
-  margin: 5%;
-  width: 90%;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  height: 50px;
+  justify-content: center;
+  left: calc(50% - 150px / 2 - 0.5px);
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 - 186px);
+  width: 150px;
+}
+
+
+.button__receitas__favoritas {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  height: 50px;
+  justify-content: center;
+  left: calc(50% - 150px / 2 - 0.5px);
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 - 70px);
+  width: 150px;
+}
+
+.button__receitas__sair {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  height: 50px;
+  left: calc(50% - 150px / 2 - 0.5px);
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 + 46px);
+  width: 150px;
 }
