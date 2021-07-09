@@ -1,45 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import
-{ Container, Button, Row, Col, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import copy from 'clipboard-copy';
+import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import ButtonCompartilhar from '../components/ButtonCompartilhar';
 
 export default function ReceitasFeitas() {
-  const [tipoFiltro, setTipoFiltro] = useState('All');
-  const history = useHistory();
-  const mensagem = (props) => (
-    <Tooltip
-      id="mensagem"
-      { ...props }
-    >
-      Link copiado!
-    </Tooltip>
-  );
-
-  const compartilhar = (mens, index, id, type) => {
-    const typeURL = type === 'comida' ? type : 'bebida';
-    return (
-      <OverlayTrigger
-        placement="right"
-        delay={ { show: 250, hide: 400 } }
-        overlay={ mens }
-      >
-        <Button variant="ligth" onClick={ () => copy(`http://localhost:3000/${typeURL}s/${id}`) }>
-          <Card.Img
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-          />
-        </Button>
-      </OverlayTrigger>
-    );
-  };
-
-  const redirecionaDetalhesReceita = (type, id) => {
-    history.push(`/${type}s/${id}`);
-  };
-
   const doneRecipes = [
     {
       id: '52771',
@@ -65,8 +30,15 @@ export default function ReceitasFeitas() {
     },
   ];
 
+  const [tipoFiltro, setTipoFiltro] = useState('All');
+  const history = useHistory();
+
   const filterCategory = () => (tipoFiltro !== 'All' ? doneRecipes
     .filter((receita) => tipoFiltro === receita.type) : doneRecipes);
+
+  const redirecionaDetalhesReceita = (type, id) => {
+    history.push(`/${type}s/${id}`);
+  };
 
   const renderCards = (
     { image, category, name, doneDate, tags, id, type, area, alcoholicOrNot }, index,
@@ -87,7 +59,7 @@ export default function ReceitasFeitas() {
               >
                 {`${area} - ${category}`}
               </span>
-              {compartilhar(mensagem, index, id, type)}
+              <ButtonCompartilhar dados={ { index, id, type } } />
               <Card.Title
                 onClick={ () => redirecionaDetalhesReceita(type, id) }
                 data-testid={ `${index}-horizontal-name` }
@@ -124,7 +96,7 @@ export default function ReceitasFeitas() {
           />
           <Card.Body>
             <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
-            {compartilhar(mensagem, index, id, type)}
+            <ButtonCompartilhar dados={ { index, id, type } } />
             <Card.Title
               data-testid={ `${index}-horizontal-name` }
               onClick={ () => redirecionaDetalhesReceita(type, id) }
@@ -156,7 +128,7 @@ export default function ReceitasFeitas() {
         <Button
           variant="dark"
           data-testid="filter-by-food-btn"
-          onClick={ () => setTipoFiltro('comida') }
+          onClick={ () => { setTipoFiltro('comida'); } }
         >
           Food
         </Button>
