@@ -1,19 +1,60 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
+import Food from './pages/Food';
+import Drink from './pages/Drink';
+import Explore from './pages/Explore';
+import ExploreFoods from './pages/ExploreFoods';
+import ExploreDrinks from './pages/ExploreDrinks';
+import FoodIngredients from './pages/FoodIngredients';
+import Profile from './pages/Profile';
+import DrinkIngredients from './pages/DrinkIngredients';
+import FoodOrigin from './pages/FoodOrigin';
+import DoneRecipes from './pages/DoneRecepies';
+import FavoritesRecipes from './pages/FavoritesRecipes';
+import AuthProvider from './ContextApi/Provider';
+import NotFound from './pages/NotFound';
+import FoodDetais from './pages/FoodDetails';
+import DrinkDetails from './pages/DrinkDetails';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
+    <div>
+      <AuthProvider>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Food } />
+          <Route exact path="/comidas/:id" component={ FoodDetais } />
+          <Route exact path="/comidas/:id/in-progress" component={ FoodInProgress } />
+          <Route exact path="/bebidas" component={ Drink } />
+          <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+          <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+          <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ FoodIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ DrinkIngredients }
+          />
+          <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
+
+        </Switch>
+      </AuthProvider>
     </div>
   );
 }
