@@ -115,7 +115,7 @@ export default class ReceitasFavoritas extends Component {
 
   renderFavRecipes(favRecipes) {
     const { linkCopied } = this.state;
-    
+
     const recipes = favRecipes
       .map(({ id, type, area, alcoholicOrNot, image,
         name, category }, index) => {
