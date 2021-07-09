@@ -1,0 +1,30 @@
+.login-page {
+  align-items: center;
+  background-image: url(../images/ingredients.jpeg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login-page h1 {
+  margin-bottom: 40px;
+}
+
+.login-container {
+  align-items: center;
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+}
+
+.login-container > label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}

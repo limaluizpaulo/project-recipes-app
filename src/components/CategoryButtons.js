@@ -5,7 +5,6 @@ import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 import { setConstants } from '../helpers';
 import { fetchByCategory, fetchByName } from '../services';
-import './CategoryButtons.css';
 
 function CategoryButtons() {
   const { categories: drinksCategories, setDrinks } = useContext(DrinksContext);
@@ -16,12 +15,12 @@ function CategoryButtons() {
   const isDrinks = pathname.includes('bebidas');
   const { type } = setConstants(isDrinks);
 
-  async function handleClick(category) {
+  async function getByCategory(category) {
     const result = category && filter !== category
       ? await fetchByCategory(type, category)
       : await fetchByName(type);
-    setFilter(category);
 
+    setFilter(filter !== category ? category : '');
     if (isDrinks) setDrinks(result);
     else setMeals(result);
   }
@@ -30,9 +29,9 @@ function CategoryButtons() {
     return categories.map((item, index) => (
       <button
         type="button"
-        className="category-button"
+        className={ filter === item ? 'category-button-alt' : 'category-button' }
         key={ index }
-        onClick={ () => handleClick(item) }
+        onClick={ () => getByCategory(item) }
       >
         {item}
       </button>
@@ -40,11 +39,11 @@ function CategoryButtons() {
   }
 
   return (
-    <section className="category-button-container">
+    <section className="category-buttons-container">
       <button
         type="button"
-        className="category-button"
-        onClick={ () => handleClick('') }
+        className={ !filter ? 'category-button-alt' : 'category-button' }
+        onClick={ () => getByCategory('') }
       >
         ALL
       </button>

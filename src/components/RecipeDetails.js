@@ -5,6 +5,8 @@ import DetailsContext from '../context/details.context';
 import { getDetails, setConstants, urlToEmbed } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
+import RecipesCarousel from './RecipesCarousel';
+
 import './RecipeDetails.css';
 
 function RecipeDetails() {
@@ -43,7 +45,7 @@ function RecipeDetails() {
   }
 
   return (
-    <section>
+    <section className="details-container">
       <div className="details-image-container">
         <img
           className="details-image"
@@ -67,6 +69,7 @@ function RecipeDetails() {
         <p>{details.strInstructions}</p>
       </div>
       {!isDrinks && renderYoutubeVideo()}
+      <RecipesCarousel />
     </section>
   );
 }

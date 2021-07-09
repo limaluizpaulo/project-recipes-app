@@ -1,9 +1,10 @@
 header {
-  background-color: #eee;
+  background-color: #a5926a;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+  width: 100vw;
 }
 
-header > div:nth-of-type( 1 ) {
+header > section:nth-of-type(1) {
   align-items: center;
   display: flex;
   height: 60px;
@@ -11,7 +12,12 @@ header > div:nth-of-type( 1 ) {
   padding: 10px 20px;
 }
 
-header > div:nth-of-type( 2 ) {
+header h2 {
+  font-size: 20px;
+ }
+
+header > section:nth-of-type(2) {
+  background-color: rgba(255, 255, 255, 0.8);
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -19,17 +25,15 @@ header > div:nth-of-type( 2 ) {
 }
 
 header label {
-  font-size: 12px;
+  font-family: 'Noto Serif JP', serif;
   margin-right: 10px;
 }
 
-header input {
-  margin-bottom: 10px;
+.search-radio-container {
+  font-size: 14px;
+  margin: 10px 0;
 }
 
-.text-input {
-  border: 1px solid #ddd;
-  font-family: inherit;
-  padding: 5px;
-  width: 200px;
+.search-radio {
+  margin-right: 5px;
 }

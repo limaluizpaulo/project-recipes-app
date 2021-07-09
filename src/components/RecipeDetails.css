@@ -1,3 +1,7 @@
+.details-container {
+  margin-bottom: 80px;
+}
+
 .details-image-container {
   position: relative;
 }
@@ -21,28 +25,28 @@
 }
 
 .details-text-container > h3 {
-  margin: 20px 0 5px;
-}
-
-.details-text-container > h5 {
-  color: #666;
+  margin: 20px 0 10px;
 }
 
 .details-text-container > ul {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
   font-size: 14px;
+    font-family: 'Noto Serif JP', serif;
   padding: 20px 10px;
 }
 
 .details-text-container li {
   align-items: center;
   display: flex;
+  padding: 5px;
 }
 
 .details-text-container > p {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
+  font-family: 'Noto Serif JP', serif;
   font-size: 14px;
-  padding: 20px 10px;
+  padding: 40px 10px;
+  text-align: justify;
 }
 
 .ingredient-checkbox {

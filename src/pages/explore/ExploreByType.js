@@ -19,30 +19,33 @@ function ExploreByType() {
   }
 
   return (
-    <main>
-      <Header title={ `Explorar ${title}` } showSearchIcon={ false } />
-      <div>
+    <main className="control-buttons-page">
+      <Header title={ `Explore ${title}` } showSearchIcon={ false } />
+      <section className="control-buttons-container">
         <button
           type="button"
+          className="control-button"
           onClick={ () => push(`/explorar/${typePt}/ingredientes`) }
         >
-          Por Ingredientes
+          By Ingredients
         </button>
         {isDrinks ? null : (
           <button
             type="button"
+            className="control-button"
             onClick={ () => push(`/explorar/${typePt}/area`) }
           >
-            Por Local de Origem
+            By Region
           </button>
         )}
         <button
           type="button"
+          className="last control-button"
           onClick={ surpriseMe }
         >
-          Me Surpreenda!
+          Surprise Me!
         </button>
-      </div>
+      </section>
       <Footer />
     </main>
   );

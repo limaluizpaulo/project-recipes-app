@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import GoBack from '../components/GoBack';
 
 import DetailsContext from '../context/details.context';
 import UserContext from '../context/user.context';
@@ -55,17 +56,18 @@ function InProgress() {
     return (
       <button
         type="button"
-        className="button-recipe"
+        className="details-button"
         onClick={ finishRecipe }
         disabled={ !isFinished }
       >
-        Finalizar Receita
+        Finish Recipe
       </button>
     );
   }
 
   return (
     <main>
+      <GoBack />
       <RecipeInProgress />
       {renderFinishButton()}
     </main>

@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import UserContext from '../context/user.context';
+import './Login.css';
 
 function Login() {
   const { setUserEmail } = useContext(UserContext);
@@ -37,34 +38,40 @@ function Login() {
   }, [input]);
 
   return (
-    <main>
-      <label className="email" htmlFor="email-input">
-        Email
-        <input
-          type="email"
-          id="email-input"
-          name="email"
-          placeholder="Digite seu email"
-          onChange={ handleChange }
-        />
-      </label>
-      <label className="senha" htmlFor="password-input">
-        Senha
-        <input
-          type="password"
-          id="password-input"
-          name="password"
-          placeholder="Digite seu senha"
-          onChange={ handleChange }
-        />
-      </label>
-      <button
-        type="button"
-        onClick={ handleClick }
-        disabled={ isDisabled }
-      >
-        Login
-      </button>
+    <main className="login-page">
+      <h1>Recipe App</h1>
+      <section className="login-container">
+        <label htmlFor="email-input">
+          <span>Email</span>
+          <input
+            type="email"
+            id="email-input"
+            className="text-input"
+            name="email"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="password-input">
+          <span>Password</span>
+          <input
+            type="password"
+            id="password-input"
+            className="text-input"
+            name="password"
+            onChange={ handleChange }
+          />
+        </label>
+        <div>
+          <button
+            type="button"
+            className="alt-button"
+            onClick={ handleClick }
+            disabled={ isDisabled }
+          >
+            Login
+          </button>
+        </div>
+      </section>
     </main>
   );
 }

@@ -18,7 +18,13 @@ function RecipeDetails() {
   const { imgKey, localStorageKey, nameKey, typePt } = setConstants(isDrinks);
 
   function handleClick({ target: { name } }) {
-    toggleIngredient({ details, ingredient: name, inProgress, setInProgress });
+    toggleIngredient({
+      details,
+      ingredient:
+      name,
+      inProgress,
+      setInProgress,
+    });
   }
 
   function renderIngredients() {
@@ -55,7 +61,7 @@ function RecipeDetails() {
   }
 
   return (
-    <section>
+    <section className="details-container">
       <div className="details-image-container">
         <img
           className="details-image"

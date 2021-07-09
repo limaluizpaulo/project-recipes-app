@@ -15,7 +15,7 @@ function FavoriteButton({ details }) {
   return (
     <button
       type="button"
-      className="button-svg-alt"
+      className="svg-button-alt"
       onClick={ () => toggleFavorite({ details, favorites, setFavorites }) }
     >
       <img

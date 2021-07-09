@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,30 +8,108 @@
 }
 
 body {
-  background-color: orange;
-  font-family: Open Sans , sans-serif;
+  background-color: #eee7d5;
+  color: #312313;
+  /* font-family: 'Noto Serif JP', serif; */
+  font-family: 'Noto Sans JP', sans-serif;
 }
 
-main {
-  margin-bottom: 60px;
+h5 {
+  color: #a5926a;
 }
 
-.button {
-  background-color: orangered;
+button {
+  border-radius: 4px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.alt-button {
+  background-color: #77321a;
   border: none;
-  color: #eee;
+  color: #eee7d5;
   font-family: inherit;
-  font-weight: 600;
-  padding: 5px 20px;
+  padding: 10px 20px;
 }
 
-.button-recipe {
-  background-color: orangered;
+.alt-button:disabled {
+  opacity: 0.6;
+}
+
+.category-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 10px 0;
+}
+
+.category-button,
+.category-button-alt {
+  background-color: #77321a;
+  border: none;
+  color: #eee7d5;
+  height: 48px;
+  font-family: inherit;
+  margin-bottom: 5px;
+  width: 30vw;
+}
+
+.category-button-alt {
+  background-color: #312313;
+  color: #eee7d5;
+}
+
+.control-buttons-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-buttons-page h3 {
+  margin-top: 40px;
+}
+
+.control-buttons-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.control-select {
+  align-self: center;
+  font-family: inherit;
+  padding: 5px;
+  width: 200px;
+}
+
+.control-button {
+  background-color: #77321a;
+  /* background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  ); */
+  border: none;
+  color: #eee7d5;
+  height: 50px;
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 5px;
+  width: 250px;
+}
+
+.last {
+  margin-top: 100px;
+}
+
+.details-button {
+  background-color: #77321a;
   border: none;
   bottom: 0;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
-  color: #eee;
-  font-family: inherit;
+  color: #eee7d5;
   font-size: 18px;
   height: 50px;
   position: fixed;
@@ -38,29 +117,21 @@ main {
   width: 100vw;
 }
 
-.button-explore-container {
-  align-items: center;
-  background-color: #eee;
-  border-radius: 50%;
-  bottom: 20px;
-  display: flex;
-  height: 80px;
-  justify-content: center;
-  position: relative;
-  width: 100px;
+.details-button:disabled {
+  text-decoration: line-through;
 }
 
-.button-svg {
+.svg-button {
   background: transparent;
   border: none;
 }
 
-.button-svg-alt {
+.svg-button-alt {
   align-items: center;
   background: white;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
   display: flex;
   height: 48px;
   justify-content: center;
@@ -74,8 +145,8 @@ main {
 }
 
 .svg-med {
-  height: 36px;
-  width: 36px;
+  height: 32px;
+  width: 32px;
 }
 
 .svg-large {
@@ -95,4 +166,12 @@ main {
   background-color: white;
   font-style: italic;
   padding: 10px;
+}
+
+.text-input {
+  border: 1px solid #eee7d5;
+  font-family: inherit;
+  margin-top: 5px;
+  padding: 5px;
+  width: 200px;
 }

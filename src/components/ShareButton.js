@@ -11,7 +11,7 @@ function ShareButton({ url }) {
   return (
     <button
       type="button"
-      className="button-svg-alt"
+      className="svg-button-alt"
       onClick={ () => {
         copy(url);
         setWarningMessage('Link copiado!');

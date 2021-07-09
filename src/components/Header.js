@@ -15,7 +15,7 @@ function Header({ title, showSearchIcon = true }) {
     return (
       <button
         type="button"
-        className="button-svg"
+        className="svg-button"
         onClick={ () => setShowSearchBar(!showSearchBar) }
       >
         <img
@@ -31,7 +31,7 @@ function Header({ title, showSearchIcon = true }) {
     return (
       <button
         type="button"
-        className="button-svg"
+        className="svg-button"
         onClick={ () => history.push('/perfil') }
       >
         <img
@@ -45,11 +45,11 @@ function Header({ title, showSearchIcon = true }) {
 
   return (
     <header>
-      <div>
+      <section>
         {showSearchIcon && renderSearchButton()}
         <h2>{title}</h2>
         {renderProfileButton()}
-      </div>
+      </section>
       {showSearchBar && <SearchBar />}
     </header>
   );

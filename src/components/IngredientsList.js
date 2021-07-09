@@ -5,7 +5,6 @@ import DrinksContext from '../context/drinks.context';
 import MealsContext from '../context/meals.context';
 import { getFilteredRecipes, setConstants } from '../helpers';
 import { fetchIngredients } from '../services';
-import './RecipesList.css';
 
 function IngredientsList() {
   const MAX_CARDS = 12;
@@ -49,7 +48,7 @@ function IngredientsList() {
               onClick={ () => handleClick(name) }
             >
               <img
-                className="card-image"
+                className="ingredient-image"
                 src={ imgUrl }
                 alt={ name }
               />

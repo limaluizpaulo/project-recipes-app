@@ -17,7 +17,7 @@ export function setConstants(isDrinks) {
     imgKey: isDrinks ? 'strDrinkThumb' : 'strMealThumb',
     localStorageKey: isDrinks ? 'cocktails' : 'meals',
     nameKey: isDrinks ? 'strDrink' : 'strMeal',
-    title: isDrinks ? 'Bebidas' : 'Comidas',
+    title: isDrinks ? 'Drinks' : 'Meals',
     type: isDrinks ? 'drinks' : 'meals',
     typeCypress: isDrinks ? 'bebida' : 'comida',
     typePt: isDrinks ? 'bebidas' : 'comidas',

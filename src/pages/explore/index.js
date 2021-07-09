@@ -5,22 +5,27 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 function Explore() {
-  const history = useHistory();
+  const { push } = useHistory();
+
   return (
-    <main>
-      <Header title="Explorar" showSearchIcon={ false } />
-      <button
-        type="button"
-        onClick={ () => { history.push('/explorar/comidas'); } }
-      >
-        Explorar Comidas
-      </button>
-      <button
-        type="button"
-        onClick={ () => { history.push('/explorar/bebidas'); } }
-      >
-        Explorar Bebidas
-      </button>
+    <main className="control-buttons-page">
+      <Header title="Explore" showSearchIcon={ false } />
+      <section className="control-buttons-container">
+        <button
+          type="button"
+          className="control-button"
+          onClick={ () => { push('/explorar/comidas'); } }
+        >
+          Explore Meals
+        </button>
+        <button
+          type="button"
+          className="control-button"
+          onClick={ () => { push('/explorar/bebidas'); } }
+        >
+          Explore Drinks
+        </button>
+      </section>
       <Footer />
     </main>
   );

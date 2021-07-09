@@ -31,16 +31,15 @@ function ExploreByArea() {
 
   return (
     <main>
-      <Header title="Explorar Origem" />
-      <p> Por Area </p>
-      <select onChange={ handleChange }>
-        <option>All</option>
-        {areas.map((item, index) => (
-          <option key={ index }>
-            {item.strArea}
-          </option>
-        ))}
-      </select>
+      <Header title="Explore by Region" showSearchIcon={ false } />
+      <div className="control-buttons-container">
+        <select className="control-select" onChange={ handleChange }>
+          <option>All</option>
+          {areas.map((item, index) => (
+            <option key={ index }>{item.strArea}</option>
+          ))}
+        </select>
+      </div>
       <RecipesList />
       <Footer />
     </main>

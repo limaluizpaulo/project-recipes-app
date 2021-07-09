@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
+import GoBack from '../components/GoBack';
 import UserContext from '../context/user.context';
 import { setConstants } from '../helpers';
 import RecipeDetails from '../components/RecipeDetails';
-import RecipesCarousel from '../components/RecipesCarousel';
 
 function Details() {
   const { done, inProgress, setInProgress } = useContext(UserContext);
@@ -38,18 +37,18 @@ function Details() {
     return (
       <button
         type="button"
-        className="button-recipe"
+        className="details-button"
         onClick={ handleClick }
       >
-        {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+        {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>
     );
   }
 
   return (
     <main>
+      <GoBack />
       <RecipeDetails />
-      <RecipesCarousel />
       {!isDone && renderRecipeButton()}
     </main>
   );

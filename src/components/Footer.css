@@ -1,9 +1,28 @@
 footer {
-  background-color: #eee;
+  background-color: #a5926a;
   bottom: 0;
   display: flex;
   height: 60px;
   justify-content: space-around;
   position: fixed;
   width: 100vw;
+}
+
+.bottom-circle {
+  background-color: #a5926a;
+  border-radius: 50%;
+  bottom: -20px;
+  height: 100px;
+  position: fixed;
+  width: 180px;
+  z-index: -10;
+}
+
+.relative {
+  bottom: 10px;
+  position: relative;
+}
+
+.fa-icons-footer{
+  font-size: 30px;
 }

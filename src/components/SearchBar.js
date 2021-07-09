@@ -27,43 +27,47 @@ function SearchBar() {
         <input
           type="text"
           id="search-input"
+          className="text-input"
           name="search-input"
           onChange={ ({ target: { value } }) => setSearchTerm(value) }
         />
       </div>
-      <div>
+      <div className="search-radio-container">
         <label htmlFor="ingredient-search-radio">
           <input
             type="radio"
             id="ingredient-search-radio"
+            className="search-radio"
             name="search-radio"
             onChange={ () => setFilter('ingredient') }
             defaultChecked
           />
-          Ingrediente
+          Ingredient
         </label>
         <label htmlFor="name-search-radio">
           <input
             type="radio"
             id="name-search-radio"
+            className="search-radio"
             name="search-radio"
             onChange={ () => setFilter('name') }
           />
-          Nome
+          Name
         </label>
         <label htmlFor="first-letter-search-radio">
           <input
             type="radio"
             id="first-letter-search-radio"
+            className="search-radio"
             name="search-radio"
             onChange={ () => setFilter('letter') }
           />
-          Primeira letra
+          First letter
         </label>
       </div>
       <div>
-        <button type="button" className="button" onClick={ handleClick }>
-          Buscar
+        <button type="button" className="alt-button" onClick={ handleClick }>
+          Search
         </button>
       </div>
     </section>

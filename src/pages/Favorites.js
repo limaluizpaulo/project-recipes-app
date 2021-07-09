@@ -5,28 +5,35 @@ import FavoriteRecipesList from '../components/FavoriteRecipesList';
 
 function Favorites() {
   const [filter, setFilter] = useState('');
+  const altClass = 'category-button-alt';
+  const mainClass = 'category-button';
 
   return (
     <main>
-      <Header title="Receitas Favoritas" showSearchIcon={ false } />
-      <button
-        type="button"
-        onClick={ () => setFilter('') }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ () => setFilter('comida') }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        onClick={ () => setFilter('bebida') }
-      >
-        Drinks
-      </button>
+      <Header title="Favorite Recipes" showSearchIcon={ false } />
+      <section className="category-buttons-container">
+        <button
+          type="button"
+          className={ !filter ? altClass : mainClass }
+          onClick={ () => setFilter('') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          className={ filter === 'comida' ? altClass : mainClass }
+          onClick={ () => setFilter('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          className={ filter === 'bebida' ? altClass : mainClass }
+          onClick={ () => setFilter('bebida') }
+        >
+          Drinks
+        </button>
+      </section>
       <FavoriteRecipesList filter={ filter } />
     </main>
   );

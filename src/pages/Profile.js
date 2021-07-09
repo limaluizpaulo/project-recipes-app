@@ -21,32 +21,28 @@ function Profile() {
   }
 
   return (
-    <main>
-      <Header title="Perfil" showSearchIcon={ false } />
-      <div>
-        <p>{ email }</p>
+    <main className="control-buttons-page">
+      <Header title="Profile" showSearchIcon={ false } />
+      <h3>{email}</h3>
+      <section className="control-buttons-container">
         <button
           type="button"
-          value="Receitas Feitas"
+          className="control-button"
           onClick={ () => { push('/receitas-feitas'); } }
         >
-          Receitas Feitas
+          Done Recipes
         </button>
         <button
           type="button"
-          value="Receitas Favoritas"
+          className="control-button"
           onClick={ () => { push('/receitas-favoritas'); } }
         >
-          Receitas Favoritas
+          Favorite Recipes
         </button>
-        <button
-          type="button"
-          value="Sair"
-          onClick={ logout }
-        >
-          Sair
+        <button type="button" className="last control-button" onClick={ logout }>
+          Log out
         </button>
-      </div>
+      </section>
       <Footer />
     </main>
   );

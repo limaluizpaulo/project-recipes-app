@@ -35,15 +35,15 @@ function DoneRecipesList({ filter }) {
             <div>
               <div>
                 <Link to={ `/${item.type}s/${item.id}` }>
-                  <span>{item.name}</span>
+                  <h2>{item.name}</h2>
                 </Link>
               </div>
               <div>
-                <span>
+                <h5>
                   {item.area && `${item.area} - `}
                   {item.category}
                   {item.alcoholicOrNot && ` - ${item.alcoholicOrNot}`}
-                </span>
+                </h5>
               </div>
               <div className="share-container">
                 <FavoriteButton details={ { [idKey]: item.id } } />

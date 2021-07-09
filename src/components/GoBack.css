@@ -1,0 +1,21 @@
+#button-go-back {
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 0;
+  padding: 2px;
+  transition: 0.4s;
+  outline: none;
+  position: absolute;
+  z-index: 1;
+  left: 5px;
+  top: 5px;
+}
+
+.fas-button-go-back {
+  font-size: 25px;
+  color: #77321a;
+}
