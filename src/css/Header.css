@@ -6,7 +6,7 @@
 }
 
 .button-profile {
-   background: transparent;
+  background: transparent;
 }
 
 .button-search {
@@ -16,5 +16,5 @@
 .button-search-invisible {
   background: transparent;
   border: none;
-  font-size:0;
+  font-size: 0;
 }
