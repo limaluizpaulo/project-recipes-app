@@ -7,7 +7,9 @@ import ShareBtn from './ShareBtn';
 function DoneCard({ filter }) {
   const [showCopiedMsg, setShowCopiedMsg] = useState(false);
   const filtered = () => {
-    const finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    let finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!finishedRecipes) { finishedRecipes = []; }
+
     const arrayMeals = finishedRecipes.filter(({ type }) => type === 'comida');
     const arrayDrinks = finishedRecipes.filter(({ type }) => type === 'bebida');
     switch (filter) {
