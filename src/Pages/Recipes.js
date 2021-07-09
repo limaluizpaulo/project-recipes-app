@@ -4,24 +4,26 @@ import { connect } from 'react-redux';
 import { Header, Footer } from '../Components';
 import RecipeCard from '../Components/RecipeCard';
 import '../App.css';
-import { requestCurrentRoute } from '../redux/actions';
+import { setRecipeType } from '../redux/actions';
 
 class Recipes extends React.Component {
+  componentDidMount() {
+    const { saveRecipeType, match: { params: { recipeType } } } = this.props;
+    saveRecipeType(recipeType);
+  }
+
   render() {
-    const { location: { pathname }, match: { params: { recipeType } } } = this.props;
+    const { history, location: { pathname },
+      match: { params: { recipeType } } } = this.props;
 
     return (
       <div>
         <Header pathname={ pathname } title={ recipeType } search />
-        <RecipeCard recipeType={ recipeType } />
+        <RecipeCard history={ history } recipeType={ recipeType } />
         <Footer />
       </div>);
   }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchCurrentRoute: (route) => dispatch(requestCurrentRoute(route)),
-});
 
 Recipes.propTypes = {
   recipes: PropTypes.shape({
@@ -35,6 +37,12 @@ Recipes.propTypes = {
       recipeType: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  history: PropTypes.shape({}).isRequired,
+  saveRecipeType: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  saveRecipeType: (recipeType) => dispatch(setRecipeType(recipeType)),
+});
 
 export default connect(null, mapDispatchToProps)(Recipes);
