@@ -4,7 +4,7 @@ import '../styles/global.css';
 
 function IngredientsInProcess({ index, element, measures }) {
   const [checked, setchecked] = useState(false);
-
+  console.log(element);
   const divStyle1 = {
     textDecoration: 'line-through',
   };

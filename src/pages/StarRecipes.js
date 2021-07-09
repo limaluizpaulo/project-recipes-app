@@ -9,7 +9,6 @@ import '../styles/global.css';
 
 function StarRecipes() {
   const favorite = JSON.parse(window.localStorage.getItem('favoriteRecipes'));
-  // const [search, setSearch] = useState(favorite);
   const [first, setFirst] = useState(false);
   const { search, setSearch } = useContext(Context);
 
