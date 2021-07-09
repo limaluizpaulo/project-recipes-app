@@ -193,7 +193,7 @@ function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    getInitialRecipes();
+    getInitialRecipes('meals');
   }, []);
 
   useEffect(() => {
