@@ -20,6 +20,7 @@ function IngredientsInProcess({ index, element, measures }) {
   useEffect(() => {
     setParam(params.id);
     renderProgress(params);
+    countInputs();
   }, []);
 
   function conditional(ingredient, text) {
@@ -45,7 +46,7 @@ function IngredientsInProcess({ index, element, measures }) {
     if (target.checked === true) {
       const span = target.parentNode.children;
       span[1].classList.add('marcado');
-      progressRecipeStorage(param, text);
+      progressRecipeStorage(param, text, target.id);
     }
     countInputs();
   }

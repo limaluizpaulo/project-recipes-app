@@ -4,8 +4,9 @@ function renderChecks(array, objectItems, params) {
   const drinks = document.URL.includes('bebidas') ? objectItems.cocktails[params.id]
     : objectItems.meals[params.id];
   array.map((input, idx) => {
-    const keys = Object.keys(drinks);
-    if (keys[idx] === input.id) {
+    const keys = Object.values(drinks);
+    const item = keys[idx].split('/');
+    if (item[0] === input.id) {
       input.checked = true;
       const span = input.parentNode.children;
       span[1].classList.add('marcado');
@@ -16,6 +17,21 @@ function renderChecks(array, objectItems, params) {
     return input;
   });
 }
+
+// function checkProgress() {
+//   if (localStorage.getItem('inProgressRecipes')) {
+//     let object = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//     if (document.URL.includes('bebidas')) {
+//       object = object.cocktails[params.id];
+//     }
+//     if (document.URL.includes('comidas')) {
+//       object = object.meals[params.id];
+//     }
+//     const result = object.some((ingredient) => ingredient.includes(element[1]));
+//     return result;
+//   }
+//   return false;
+// }
 
 async function renderProgress(param) {
   let objectItems = { cocktails: {}, meals: { [param.id]: [] } };
