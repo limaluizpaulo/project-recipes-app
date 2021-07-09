@@ -21,6 +21,8 @@ function SBElements({ history }) {
         .then((results) => {
           if (!results.meals) {
             global.alert(alertMsg);
+          } else if (results.meals.length === 1) {
+            return history.push(`/comidas/${results.meals[0].idMeal}`);
           } else {
             setRecipes(results.meals);
           }
@@ -33,6 +35,8 @@ function SBElements({ history }) {
         .then((results) => {
           if (!results.drinks) {
             global.alert(alertMsg);
+          } else if (results.drinks.length === 1) {
+            return history.push(`/bebidas/${results.drinks[0].idDrink}`);
           } else {
             setDrinks(results.drinks);
           }
@@ -74,13 +78,13 @@ function SBElements({ history }) {
   };
   const handleClick = () => {
     switch (searchInput.searchBy) {
-    case 'ingredientes':
+    case 'Ingredientes':
       getIngredients();
       break;
-    case 'receita':
+    case 'Receita':
       getRecipes();
       break;
-    case 'primeira letra':
+    case 'Primeira letra':
       // const searchInput = document.getElementById('searchInput').innerText;
       // if (searchInput.length !== 1) {
       //   return global.alert('Sua busca deve conter somente 1 (um) caracter');
@@ -122,7 +126,7 @@ function SBElements({ history }) {
   // };
 
   const setFunctions = ({ target: { name, value } }) => {
-    setsearchInput({ ...searchInput, [name]: (value).toLowerCase() });
+    setsearchInput({ ...searchInput, [name]: value });
   };
 
   return (
