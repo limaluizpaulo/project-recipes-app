@@ -16,9 +16,9 @@ const FIVE = 5;
 export default function MainPage() {
   const { path } = useRouteMatch();
 
-  const searchId = path.includes('/comidas') ? 'idMeal' : 'idDrink';
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
+  const searchId = path.includes('comidas') ? 'idMeal' : 'idDrink';
+  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
+  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
 
   const {
     searchResult,
@@ -62,6 +62,16 @@ export default function MainPage() {
     if (searchResult && searchResult.length > 1) { renderSearch(); }
   }, [searchResult, limit]);
 
+  useEffect(() => {
+    async function fetchApiData() {
+      console.log(ingredientsResults.replace('_', ' '));
+      getDataIngredients(domain, ingredientsResults).then((res) => {
+        setRenderer(res[firstKey].filter((_e, index) => index < limit));
+      });
+    }
+    if (ingredientsResults.length) { fetchApiData(); }
+  }, [ingredientsResults, domain, firstKey, limit]);
+
   async function handleCategoryFilter(category) {
     if (toggle.category === category) {
       setToggle({ status: false, category: '' });
@@ -75,23 +85,13 @@ export default function MainPage() {
     }
   }
 
-  function handleMoreCards() {
-    setLimit(limit + TWELVE);
-  }
-
   function handleAllClick() {
     setRenderer(dataResult.filter((_e, index) => index < limit));
   }
 
-  useEffect(() => {
-    async function fetchApiData() {
-      console.log(ingredientsResults.replace('_', ' '));
-      getDataIngredients(domain, ingredientsResults).then((res) => {
-        setRenderer(res[firstKey].filter((_e, index) => index < limit));
-      });
-    }
-    if (ingredientsResults.length) { fetchApiData(); }
-  }, [ingredientsResults, domain, firstKey, limit]);
+  function handleMoreCards() {
+    setLimit(limit + TWELVE);
+  }
 
   return (
     <>
@@ -105,8 +105,6 @@ export default function MainPage() {
           {category.strCategory}
         </Button>))}
       <Button data-testid="All-category-filter" onClick={ handleAllClick }>All</Button>
-      {/* ATENÇÃO: Transformar tudo o que está abaixo dessa linha em um card para
-      facilitar o desenvolvimento dos próximos requisitos! */}
       {isLoading
         ? <p>Loading...</p>
         : renderer.map((item, i) => (
