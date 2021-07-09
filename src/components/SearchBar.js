@@ -8,8 +8,6 @@ function SearchBar() {
     endpoint,
     setEndpoint,
     foodOrDrink,
-    searchInput,
-    setSearchInput,
     setResults,
     handleSingleReturn,
   } = useContext(RecipesContext);
@@ -21,9 +19,9 @@ function SearchBar() {
       <input
         placeholder="Buscar Receita"
         className="search-bar"
+        id="search-bar"
         data-testid="search-input"
         onChange={ ({ target: { value } }) => {
-          setSearchInput(value);
           if (endpoint === letter && value.length > 1) {
             global.alert('Sua busca deve conter somente 1 (um) caracter');
           }
@@ -68,6 +66,7 @@ function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => {
+          const searchInput = document.getElementById('search-bar').value;
           fetchRecipe(endpoint, searchInput).then((data) => {
             if (data === null) {
               global.alert(

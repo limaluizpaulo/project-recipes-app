@@ -7,6 +7,7 @@ function saveWithFavorites(params) {
   } = params;
 
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(params);
   if (url.match(food)) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
       id: recipe.idMeal,

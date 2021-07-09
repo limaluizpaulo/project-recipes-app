@@ -62,3 +62,11 @@ iframe {
   left: 120px;
   position: fixed;
 }
+
+.tachado {
+  text-decoration: line-through;
+}
+
+.ingredients-list {
+  list-style: none;
+}
