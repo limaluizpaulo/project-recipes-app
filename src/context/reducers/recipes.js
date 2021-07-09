@@ -1,20 +1,14 @@
 import { ADD_RECIPES, DIRECT_PAGE,
-  ADD_RECIPE_DETAIL, SET_FETCHON,
-  SET_LOADING, SET_DONE, ADD_RD_RR_LOADING, SET_LOADING_DONE } from '../store';
+  ADD_RD_LOADING, SET_FETCHON_DONE,
+  ADD_RD_RR_LOADING, SET_DONE_LOADING } from '../store';
 
 const recipesReducer = (state, { type, payload }) => { // Desestruturação do Action
   switch (type) {
-  case SET_FETCHON: { const { fetchOn } = payload;
-    return { ...state, fetchOn };
+  case SET_FETCHON_DONE: { const { fetchOn, done } = payload;
+    return { ...state, fetchOn, done };
   }
-  case SET_LOADING: { const { loading } = payload;
-    return { ...state, loading };
-  }
-  case SET_DONE: { const { done } = payload;
-    return { ...state, done };
-  }
-  case SET_LOADING_DONE: { const { loading, done } = payload;
-    return { ...state, loading, done };
+  case SET_DONE_LOADING: { const { done, loading } = payload;
+    return { ...state, done, loading };
   }
   case ADD_RECIPES: {
     const { meals, drinks, categoriesMeals, categoriesDrinks } = payload;
@@ -23,8 +17,8 @@ const recipesReducer = (state, { type, payload }) => { // Desestruturação do A
   case DIRECT_PAGE: { const { foods } = payload;
     return { ...state, foods };
   }
-  case ADD_RECIPE_DETAIL: { const { recipeDetail } = payload;
-    return { ...state, recipeDetail };
+  case ADD_RD_LOADING: { const { recipeDetail, loading } = payload;
+    return { ...state, recipeDetail, loading };
   }
   case ADD_RD_RR_LOADING: {
     const { recipeDetail, recommendedRecipes, loading } = payload;

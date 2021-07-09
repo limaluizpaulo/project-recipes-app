@@ -1,26 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import store, { addRecipesDRLoading, setLoading } from '../../context/store';
+import store, { addRecipesDRLoading, setFetchOnDone,
+  setDoneLoading } from '../../context/store';
 import { getStorage } from '../../functions';
 import { DRINKS, fetchAPI, FETCH_ID_D, FETCH_ID_M, MEALS } from '../../services';
+import Loading from '../components/Loading';
 import RenderDetails from '../components/RenderDetails';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const [btnFinish, setBtnFinish] = useState(undefined);
-  const { recipes: { loading, foods }, setRecipes } = useContext(store);
+  const { recipes: { fetchOn, loading, done, foods }, setRecipes } = useContext(store);
 
   const getDetailRecommendByID = async () => {
+    const LOADING_TIME = 2500;
+    const DONE_TIME = 1000;
     if (foods === null) {
-      setRecipes(setLoading(true));
+      setRecipes(setFetchOnDone(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
       const Drinks = await fetchAPI(DRINKS);
-      setRecipes(addRecipesDRLoading(mealsDetails.meals[0], Drinks.drinks, false));
+      setTimeout(() => {
+        setRecipes(addRecipesDRLoading(mealsDetails.meals[0], Drinks.drinks, true));
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
       const Meals = await fetchAPI(MEALS);
-      setRecipes(addRecipesDRLoading(drinksDetails.drinks[0], Meals.meals, false));
+      setTimeout(() => {
+        setRecipes(addRecipesDRLoading(drinksDetails.drinks[0], Meals.meals, true));
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     }
   };
 
@@ -48,12 +64,12 @@ export default function RecipeDetails() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) { getDetailRecommendByID(); } });
+  useEffect(() => { if (fetchOn) { getDetailRecommendByID(); } });
   useEffect(checkBtnFinish, []);
 
   // ---------------------------------------------------------------------------------------------
 
-  if (loading) return (<h5>Loading...</h5>);
+  if (!done) { return (<Loading loading={ loading } />); }
   return (
     <RenderDetails btnFinish={ btnFinish } id={ id } />
   );

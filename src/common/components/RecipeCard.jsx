@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import store, { setLoading } from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 
 export default function RecipeCard() {
   const { recipes: { foods, meals, drinks, cardsLimit }, setRecipes } = useContext(store);
@@ -20,7 +20,7 @@ export default function RecipeCard() {
               type="button"
               data-testid={ `${index}-recipe-card` }
               className="recipe"
-              onClick={ () => setRecipes(setLoading(true)) }
+              onClick={ () => setRecipes(setFetchOnDone(true)) }
             >
               <img
                 data-testid={ `${index}-card-img` }

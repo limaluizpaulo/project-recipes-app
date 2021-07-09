@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import store, { addRecDetail, setLoading } from '../../context/store';
+import store, { addRecipesDLoading, setFetchOnDone } from '../../context/store';
 import { getStorage, newDoneRecipe, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import RecipeIngredients from '../components/RecipeIngredients';
@@ -90,15 +90,13 @@ export default function RecipeInProgress() {
 
   const getRecipeDetailByID = async () => {
     if (foods === null) {
-      setRecipes(setLoading(true));
+      setRecipes(setFetchOnDone(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
-      setRecipes(addRecDetail(mealsDetails.meals[0]));
-      setRecipes(setLoading(false));
+      setRecipes(addRecipesDLoading(mealsDetails.meals[0], true));
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
-      setRecipes(addRecDetail(drinksDetails.drinks[0]));
-      setRecipes(setLoading(false));
+      setRecipes(addRecipesDLoading(drinksDetails.drinks[0]), true);
     }
   };
 

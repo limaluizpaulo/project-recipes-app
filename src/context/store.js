@@ -45,24 +45,14 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 
 // RECIPES
 
-export const SET_FETCHON = 'SET_FETCHON';
-export const setFetchOn = (fetchOn) => ({
-  type: SET_FETCHON, payload: { fetchOn },
+export const SET_FETCHON_DONE = 'SET_FETCHON_DONE';
+export const setFetchOnDone = (fetchOn, done) => ({
+  type: SET_FETCHON_DONE, payload: { fetchOn, done },
 });
 
-export const SET_LOADING = 'SET_LOADING';
-export const setLoading = (loading) => ({
-  type: SET_LOADING, payload: { loading },
-});
-
-export const SET_DONE = 'SET_DONE';
-export const setDone = (done) => ({
-  type: SET_DONE, payload: { done },
-});
-
-export const SET_LOADING_DONE = 'SET_LOADING_DONE'; // Add Loading, Done
-export const setLoadingDone = (loading, done) => ({
-  type: SET_LOADING_DONE, payload: { loading, done },
+export const SET_DONE_LOADING = 'SET_DONE_LOADING'; // Add Loading, Done
+export const setDoneLoading = (done, loading) => ({
+  type: SET_DONE_LOADING, payload: { done, loading },
 });
 
 export const ADD_RECIPES = 'ADD_RECIPES';
@@ -77,9 +67,9 @@ export const directPage = (foods) => ({
 
 // DETAILS
 
-export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
-export const addRecDetail = (recipeDetail) => ({
-  type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
+export const ADD_RD_LOADING = 'ADD_RD_LOADING'; // Add RecipeDetail, Loading
+export const addRecipesDLoading = (recipeDetail, loading) => ({
+  type: ADD_RD_LOADING, payload: { recipeDetail, loading },
 });
 
 export const ADD_RD_RR_LOADING = 'ADD_RD_RR_LOADING'; // Add RecipeDetail, RecommendedRecipes, Loading
