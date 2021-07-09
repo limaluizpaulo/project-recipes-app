@@ -44,3 +44,10 @@ export async function fetchCocktailsCategories() {
   const { drinks } = await request.json();
   return drinks;
 }
+
+// return all cocktails Ingredients
+export async function fetchCocktailsIngredients() {
+  const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const { drinks } = await request.json();
+  return drinks;
+}

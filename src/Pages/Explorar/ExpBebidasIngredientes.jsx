@@ -4,6 +4,7 @@ import Context from '../../context/Context';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import Footer from '../../components/Footer';
+import IngredientList from '../../components/IngredientList';
 
 export default function ExpBebidasIngredientes() {
   const { openSearchBar } = useContext(Context);
@@ -12,6 +13,7 @@ export default function ExpBebidasIngredientes() {
     <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
+      <IngredientList type="drinks" />
       <Footer />
     </div>
   );

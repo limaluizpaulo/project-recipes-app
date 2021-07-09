@@ -44,3 +44,17 @@ export async function fetchMealsCategories() {
   const { meals } = await request.json();
   return meals;
 }
+
+// return all meal Ingredients
+export async function fetchMealsIngredients() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const { meals } = await request.json();
+  return meals;
+}
+
+// return all meal Areas
+export async function fetchMealsAreas() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const { meals } = await request.json();
+  return meals;
+}

@@ -17,6 +17,7 @@ import {
   fetchCocktailsRecomendation,
   fetchCocktailsByCategory,
   fetchCocktailsIngredients,
+  fetchCocktailsAreas,
 } from '../apis/CocktailsApis';
 
 export default function Provider({ children }) {
