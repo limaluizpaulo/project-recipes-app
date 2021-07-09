@@ -16,14 +16,15 @@ export const makeRecipe = ({ url }, history) => {
 };
 
 export const localStorageVerifier = (match, id, history) => {
+  const pushString = match.url.split('/')[1];
   const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
   const storageRecipe = JSON.parse(rawStorageRecipe);
-  let mealOrDrink;
+  let mealOrCockTail;
   if (storageRecipe) {
-    mealOrDrink = storageRecipe.meals ? storageRecipe.meals : storageRecipe.cocktails;
+    mealOrCockTail = storageRecipe.meals ? storageRecipe.meals : storageRecipe.cocktails;
   }
   if ((!storageRecipe) || (storageRecipe
-    && Object.keys(mealOrDrink)[0]
+    && Object.keys(mealOrCockTail)[0]
     !== id)) {
     return (
       <button
@@ -37,13 +38,13 @@ export const localStorageVerifier = (match, id, history) => {
     );
   }
   if (storageRecipe
-    && Object.keys(mealOrDrink)[0] === id) {
+    && Object.keys(mealOrCockTail)[0] === id) {
     return (
       <button
         type="button"
         data-testid="start-recipe-btn"
         className="start-recipe"
-        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        onClick={ () => history.push(`/${pushString}/${id}/in-progress`) }
       >
         Continuar Receita
       </button>

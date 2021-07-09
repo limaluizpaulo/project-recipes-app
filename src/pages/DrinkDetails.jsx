@@ -57,7 +57,6 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
   };
 
   if (details.drinks && recomendationsFoods && id === details.drinks[0].idDrink) {
-    console.log(details.drinks);
     const {
       strDrinkThumb,
       strDrink,
