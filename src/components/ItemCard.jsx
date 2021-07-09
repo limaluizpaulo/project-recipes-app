@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Context from '../context/Context';
 
+import '../styles/item-card.css';
+
 export default function ItemCard({ item, i }) {
   const [str, setStr] = useState('');
   const [thumb, setThumb] = useState('');
@@ -37,7 +39,7 @@ export default function ItemCard({ item, i }) {
 
   return (
     <Card
-      style={ { width: '18rem' } }
+      bsPrefix="item card"
       data-testid={ `${i}-recipe-card` }
       onClick={ () => renderDetailPage() }
     >

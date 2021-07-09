@@ -4,9 +4,12 @@ import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
 import ItemCard from './ItemCard';
 
+import '../styles/item-card.css';
+
 export default function CocktailList() {
   const [showCocktails, setShowCocktails] = useState(false);
   const {
+    ingredients,
     cocktailsRecipes,
     resquestCocktailsApi,
     selectedCategory,
@@ -23,7 +26,7 @@ export default function CocktailList() {
   }, [cocktailsRecipes]);
 
   useEffect(() => {
-    resquestCocktailsApi();
+    resquestCocktailsApi(ingredients);
   }, []);
 
   const renderCards = () => {
@@ -46,7 +49,7 @@ export default function CocktailList() {
   };
 
   return (
-    <Container>
+    <Container bsPrefix="flex container">
       { showCocktails ? renderCards() : <Spinner animation="border" /> }
     </Container>
   );

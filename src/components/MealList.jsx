@@ -4,9 +4,16 @@ import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
 import ItemCard from './ItemCard';
 
+import '../styles/item-card.css';
+
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
-  const { mealsRecipes, resquestMealsApi, selectedCategory } = useContext(Context);
+  const {
+    ingredients,
+    mealsRecipes,
+    resquestMealsApi,
+    selectedCategory,
+  } = useContext(Context);
   const history = useHistory();
   const isInitialMount = useRef(true);
 
@@ -19,7 +26,7 @@ export default function MealList() {
   }, [mealsRecipes]);
 
   useEffect(() => {
-    resquestMealsApi();
+    resquestMealsApi(ingredients);
   }, []);
 
   const renderCards = () => {
@@ -42,7 +49,7 @@ export default function MealList() {
   };
 
   return (
-    <Container>
+    <Container bsPrefix="flex container">
       { showMeals ? renderCards() : <Spinner animation="border" /> }
     </Container>
   );
