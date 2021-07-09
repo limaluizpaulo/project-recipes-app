@@ -31,7 +31,8 @@ class DrinkDetails extends React.Component {
     const arrayIngredients = [];
     const arrayMeasures = [];
     const ingredientsAndMeasures = [];
-    const DRINK = Object.entries(valueDrink[0]);
+    const a = valueDrink[0] || {};
+    const DRINK = Object.entries(a);
 
     if (DRINK) {
       DRINK.forEach(([key, value]) => {
@@ -67,7 +68,8 @@ class DrinkDetails extends React.Component {
     const { id } = match.params;
     const recomendations = await MealRecipesAPI.getByDefault();
     const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
-    this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
+    this.setState({ valueDrink: payload || [], recomendations },
+      () => this.getIngredients());
   }
 
   iniciarReceita() {
