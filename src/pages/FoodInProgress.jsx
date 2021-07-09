@@ -29,6 +29,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
           key={ `ingredientAndMeasure${index + 1}` }
         >
           <input
+            checked={ false }
             className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
             key={ index }
             type="checkbox"

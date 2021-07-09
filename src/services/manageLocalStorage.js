@@ -112,3 +112,15 @@ export const settingFavorite = (details, id, refresh) => {
   }
   return !refresh;
 };
+
+export const storageCheckGenerator = (id, index) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  if (!checks) {
+    localStorage.setItem('inProgressCheck', [{ id, checkboxes: { [index]: false } }]);
+  }
+  if (checks.some((obj) => obj.id === id)) {
+    const updateProgressObj = checks.find((obj) => obj.id);
+    updateProgressObj.checkboxes[index] = !updateProgressObj.checkboxes[index];
+  }
+};
