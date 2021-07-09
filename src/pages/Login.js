@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router';
-import '../styles/Login.css';
 import RecipesContext from '../context/RecipesContext';
+import logo from '../images/logo.svg';
+import '../styles/Login.css';
 
 // Ref: https://react-bootstrap.netlify.app/components/forms/#forms
 // Ref: https://github.com/tryber/sd-010-trybooks/
@@ -37,6 +38,7 @@ export default function Login() {
 
   return (
     <main className="login-page">
+      <img src={ logo } alt="logo" />
       <h1>App de Receitas</h1>
       <Form onSubmit={ handleSubmit }>
         <Form.Group
