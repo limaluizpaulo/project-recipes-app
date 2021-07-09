@@ -163,15 +163,16 @@ class RecipeDetails extends Component {
         <button
           type="button"
           data-testid="share-btn"
-          onClick={ () => {
-            const { location: { pathname } } = this.props;
-            copy(`http://localhost:3000${pathname}`);
+          onClick={ async () => {
+            const { match: { params: { id: idSend } } } = this.props;
+
+            await copy(`http://localhost:3000/comidas/${idSend}`);
             this.setState({ linkCopiado: true });
           } }
         >
-          { linkCopiado && <span>Link copiado!</span>}
           <img className="icons" src={ shareIcon } alt="shareButton" />
         </button>
+        { linkCopiado && <span>Link copiado!</span>}
         <button
           type="button"
           onClick={ this.handleClickFavorite }
@@ -230,7 +231,7 @@ class RecipeDetails extends Component {
 
 RecipeDetails.propTypes = {
   match: PropTypes.shape().isRequired,
-  location: PropTypes.shape().isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default RecipeDetails;

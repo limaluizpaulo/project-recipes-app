@@ -71,10 +71,9 @@ class RecipeProcess extends Component {
     this.setState((state) => ({ isFavorite: !state.isFavorite }));
   }
 
-  handleShare() {
-    const { location: { pathname } } = this.props;
-    console.log(pathname);
-    copy(`http://localhost:3000${pathname}`);
+  async handleShare() {
+    const { match: { params: { id: idSend } } } = this.props;
+    await copy(`http://localhost:3000/comidas/${idSend}`);
     this.setState({ share: true });
   }
 
@@ -178,7 +177,7 @@ class RecipeProcess extends Component {
           </div>
         ))}
         {arrayFinal && arrayFinal.map((ing, index) => {
-          if (ing === '' || ing === null || ing === undefined) return;
+          if (ing === '' || ing === null || ing === undefined) return false;
           return (
             <p
               className={ className }
@@ -221,7 +220,7 @@ class RecipeProcess extends Component {
 
 RecipeProcess.propTypes = {
   match: Proptypes.shape().isRequired,
-  location: Proptypes.shape().isRequired,
+  id: Proptypes.number.isRequired,
 };
 
 export default RecipeProcess;

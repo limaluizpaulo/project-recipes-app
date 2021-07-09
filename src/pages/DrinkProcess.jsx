@@ -20,6 +20,7 @@ class DrinkProcess extends Component {
       drinks: [],
       ingredients: [],
       count: 0,
+      share: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -77,7 +78,7 @@ class DrinkProcess extends Component {
   }
 
   render() {
-    const { drinks, ingredients, className, active, redirect, link } = this.state;
+    const { drinks, ingredients, className, active, redirect, link, share } = this.state;
     // console.log(ingredients);
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
@@ -118,14 +119,15 @@ class DrinkProcess extends Component {
           <button
             data-testid="share-btn"
             type="button"
-            onClick={ () => {
-              const { location: { pathname } } = this.props;
-              copy(`http://localhost:3000${pathname}`);
-              global.alert('Link copiado!');
+            onClick={ async () => {
+              const { match: { params: { id: idSend } } } = this.props;
+              await copy(`http://localhost:3000/bebidas/${idSend}`);
+              this.setState({ share: true });
             } }
           >
             Compartilhar
           </button>
+          {share && <p>Link copiado!</p> }
           <p>{link}</p>
           <button data-testid="favorite-btn" type="button">Favoritar</button>
           <button
@@ -144,7 +146,7 @@ class DrinkProcess extends Component {
 
 DrinkProcess.propTypes = {
   match: Proptypes.shape().isRequired,
-  location: Proptypes.shape().isRequired,
+  id: Proptypes.number.isRequired,
 };
 
 export default DrinkProcess;
