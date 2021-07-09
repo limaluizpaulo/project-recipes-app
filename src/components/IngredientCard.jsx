@@ -54,11 +54,7 @@ export default function ItemCard({ item, i }) {
 ItemCard.propTypes = {
   i: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    idMeal: PropTypes.string,
-    strMeal: PropTypes.string,
-    strMealThumb: PropTypes.string,
-    idDrink: PropTypes.string,
-    strDrink: PropTypes.string,
-    strDrinkThumb: PropTypes.string,
+    strIngredient: PropTypes.string,
+    strIngredient1: PropTypes.string,
   }).isRequired,
 };

@@ -123,19 +123,19 @@ export default function Provider({ children }) {
 
   // Popula o array de ingredients
   const populateIngredientsArray = (recipe) => {
-    const ingredients = [];
+    const ingredientsArray = [];
     const API_MAX_INGREDIENTS = 20;
 
     for (let index = 1; index < API_MAX_INGREDIENTS; index += 1) {
       if (recipe[`strIngredient${index}`]) {
-        ingredients.push({
+        ingredientsArray.push({
           ingredient: recipe[`strIngredient${index}`],
           measure: recipe[`strMeasure${index}`],
         });
       }
     }
 
-    return ingredients;
+    return ingredientsArray;
   };
 
   // Trata se deve gerar um estado com uma comida ou bebida
