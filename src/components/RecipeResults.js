@@ -32,7 +32,7 @@ function RecipeResults() {
             imagePath={ recipe[`str${idRecipe}Thumb`] }
             name={ recipe[`str${idRecipe}`] }
             index={ i }
-            key={ recipe[`id${idRecipe}`] }
+            key={ i }
             link={ () => (
               history.push(`${type}/${recipe[`id${idRecipe}`]}`)
             ) }
