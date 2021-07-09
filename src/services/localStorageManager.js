@@ -76,3 +76,37 @@ export const checkProgress = (id, type) => {
   const data = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
   return Object.keys(data[type]).some((recipeInProgress) => recipeInProgress === id);
 };
+
+export const saveDoneRecipes = (id, type, recipe) => {
+  let data = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!data) {
+    data = [];
+  }
+  const typePTBR = type === 'meals' ? 'comida' : 'bebida';
+
+  const {
+    strMeal,
+    strMealThumb,
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strArea,
+    strAlcoholic,
+    strTags,
+  } = recipe;
+
+  data.push(
+    {
+      id,
+      type: typePTBR,
+      area: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+      doneDate: '',
+      tags: strTags || ',,',
+    },
+  );
+  localStorage.setItem('doneRecipes', JSON.stringify(data));
+};
