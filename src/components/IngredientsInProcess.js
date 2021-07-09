@@ -1,15 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import progressRecipeStorage from '../hooks/progressAddStorage';
 import '../styles/global.css';
 import { Context } from '../context/ContextForm';
-import renderProgress from '../helper/renderLocalStorage';
+import checkProgress from '../helper/renderLocalStorage';
 import onditionItems from '../helper/disabledButton';
 
 function IngredientsInProcess({ index, element, measures }) {
   const { param, setParam, setActive } = useContext(Context);
   const params = useParams();
+  const [state, setState] = useState(progressRecipeStorage(params.id) || {});
 
   function countInputs() {
     const object = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -19,34 +20,38 @@ function IngredientsInProcess({ index, element, measures }) {
 
   useEffect(() => {
     setParam(params.id);
-    renderProgress(params);
     countInputs();
   }, []);
 
-  function conditional(ingredient, text) {
-    let object = {};
-    object = document.URL.includes('bebidas')
-      ? ingredient.cocktails[param] : ingredient.meals[param];
-    const indexForRemove = object.findIndex((item) => item === text[1].innerText);
-    object.splice(indexForRemove, 1);
-    const progress = document.URL.includes('bebidas')
-      ? { ...ingredient, cocktails: { [param]: object } }
-      : { ...ingredient, meals: { [param]: object } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+  function conditional(input) {
+    const span = input.parentNode.children;
+    const indexForRemove = state.indexOf(span[1].innerText);
+    const newState = state.splice(indexForRemove, 1);
+    console.log(newState);
+    setState(newState);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (document.URL.includes('bebidas')) {
+      inProgressRecipes.cocktails[params.id] = state;
+    }
+    if (document.URL.includes('comidas')) {
+      inProgressRecipes.meals[params.id] = state;
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }
 
   function toogleClass({ target }) {
     const text = target.parentNode.children;
-    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (target.checked === false) {
       const span = target.parentNode.children;
       span[1].classList.remove('marcado');
-      conditional(ingredient, text);
+      conditional(target);
     }
     if (target.checked === true) {
       const span = target.parentNode.children;
       span[1].classList.add('marcado');
-      progressRecipeStorage(param, text, target.id);
+      const objectState = progressRecipeStorage(param, text, target.id);
+      setState(objectState);
+      console.log(objectState);
     }
     countInputs();
   }
@@ -56,9 +61,10 @@ function IngredientsInProcess({ index, element, measures }) {
       <input
         type="checkbox"
         className="inputs"
-        onClick={ (ev) => toogleClass(ev) }
+        onChange={ (ev) => toogleClass(ev) }
         key={ index }
-        id={ index }
+        id={ element[1] }
+        checked={ checkProgress(element, params) }
       />
       <span
         id={ index }
