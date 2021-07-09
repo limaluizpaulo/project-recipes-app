@@ -4,7 +4,10 @@ import fetchCategory, { FOOD_CATEGORY, DRINK_CATEGORY } from '../services/Catego
 
 function CategoryOptions() {
   const [categoryList, setCategoryList] = useState([]);
-  const { type, foodOrDrink: { idType } } = useContext(Context);
+
+  const { type, foodOrDrink: { idType },
+    setCategoryFilter, categoryFilter } = useContext(Context);
+
   const endpoint = type === '/comidas' ? FOOD_CATEGORY : DRINK_CATEGORY;
 
   useEffect(() => {
@@ -19,11 +22,25 @@ function CategoryOptions() {
 
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setCategoryFilter('') }
+      >
+        All
+      </button>
       {categoryList.slice(0, cinco).map((category, i) => (
         <button
           type="button"
           key={ i }
           data-testid={ `${category.strCategory}-category-filter` }
+          onClick={ () => {
+            if (categoryFilter === category.strCategory) {
+              setCategoryFilter('');
+            } else {
+              setCategoryFilter(category.strCategory);
+            }
+          } }
         >
           {category.strCategory}
         </button>

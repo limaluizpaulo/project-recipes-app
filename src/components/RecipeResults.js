@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/RecipesContext';
+import { fetchByCategory } from '../services/Categorys';
 import RecipeCard from './RecipeCard';
 
 function RecipeResults() {
   const { foodOrDrink, results, setResults, setType,
-    type, searchInput } = useContext(Context);
-  const { name, fetchRecipe, idRecipe } = foodOrDrink;
-
+    type, searchInput, categoryFilter } = useContext(Context);
+  const { name, fetchRecipe, idRecipe, categoryEndpoint, idType } = foodOrDrink;
   const history = useHistory();
 
   useEffect(() => {
@@ -23,8 +23,23 @@ function RecipeResults() {
     getInicialRecipes();
   }, [name, setResults, fetchRecipe, searchInput]);
 
+  useEffect(() => {
+    setResults([]);
+    const getRecipesByCategory = () => {
+      if (categoryFilter !== '') {
+        fetchByCategory(categoryEndpoint, categoryFilter, idType).then((data) => {
+          setResults(data);
+        });
+      } else {
+        fetchRecipe(name).then((data) => setResults(data));
+      }
+    };
+
+    getRecipesByCategory();
+  }, [categoryFilter, categoryEndpoint, idType]);
+
   const doze = 12;
-  if (results.length > 1) {
+  if (results.length > 1 || categoryFilter === 'Goat') {
     return (
       <div className="card-container">
         {results.slice(0, doze).map((recipe, i) => (

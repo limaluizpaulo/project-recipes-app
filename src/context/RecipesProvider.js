@@ -7,6 +7,7 @@ import fetchFood,
 { FOOD_BY_INGREDIENT, FOOD_BY_LETTER, FOOD_BY_NAME } from '../services/FoodAPI';
 import fetchDrink,
 { DRINK_BY_INGREDIENT, DRINK_BY_LETTER, DRINK_BY_NAME } from '../services/DrinkAPI';
+import { CATEGORY_FILTER_FOOD, CATEGORY_FILTER_DRINK } from '../services/Categorys';
 
 function RecipesProvider({ children }) {
   // const [state, newState] = useState();
@@ -32,6 +33,7 @@ function RecipesProvider({ children }) {
     letter: type === '/comidas' ? FOOD_BY_LETTER : DRINK_BY_LETTER,
     ingredient: type === '/comidas' ? FOOD_BY_INGREDIENT : DRINK_BY_INGREDIENT,
     name: type === '/comidas' ? FOOD_BY_NAME : DRINK_BY_NAME,
+    categoryEndpoint: type === '/comidas' ? CATEGORY_FILTER_FOOD : CATEGORY_FILTER_DRINK,
     fetchRecipe: type === '/comidas' ? fetchFood : fetchDrink,
     idType: type === '/comidas' ? 'meals' : 'drinks',
     idRecipe: type === '/comidas' ? 'Meal' : 'Drink',
@@ -43,6 +45,12 @@ function RecipesProvider({ children }) {
     history.push(link);
   }
   // searchBar
+
+  // CategoryOptions
+
+  const [categoryFilter, setCategoryFilter] = useState('');
+
+  // CategoryOptions
 
   const context = {
     email,
@@ -58,6 +66,8 @@ function RecipesProvider({ children }) {
     setEndpoint,
     results,
     setResults,
+    categoryFilter,
+    setCategoryFilter,
   };
 
   return (
