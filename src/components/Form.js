@@ -24,6 +24,10 @@ function Form() {
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     }
+    if (localStorage.getItem('doneRecipes') === null) {
+      const done = [];
+      localStorage.setItem('doneRecipes', JSON.stringify(done));
+    }
 
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');

@@ -23,10 +23,15 @@ function FoodByCountry() {
   }, [setFirstMeals, setArea]);
 
   async function handleClick({ target }) {
-    const { value } = target;
-    const mealsOfTheArea = await requestMealByAreas(value);
-    setFirstMeals(mealsOfTheArea);
-    console.log(mealsOfTheArea);
+    if (target.options[target.selectedIndex].text !== 'All') {
+      const { value } = target;
+      const mealsOfTheArea = await requestMealByAreas(value);
+      setFirstMeals(mealsOfTheArea);
+    }
+    if (target.options[target.selectedIndex].text === 'All') {
+      const meals = await requestMeal();
+      setFirstMeals(meals.slice(0, numOfMeals));
+    }
   }
 
   return (
