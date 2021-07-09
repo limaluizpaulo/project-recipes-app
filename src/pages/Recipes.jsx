@@ -69,6 +69,13 @@ class Recipes extends Component {
     return (
       <>
         <Header header="Comidas" explorer />
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
+        <h1>Recipes</h1>
         <button
           className="button"
           type="button"
