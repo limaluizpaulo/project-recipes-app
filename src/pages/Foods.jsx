@@ -6,6 +6,7 @@ import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import { categoryListMeal, fetchRecipesList } from '../services/Api';
 import Category from '../components/Category';
+import '../App.css';
 
 function Foods() {
   const {
@@ -48,6 +49,7 @@ function Foods() {
       <Header title={ Foods.displayName } />
       <button
         type="button"
+        className="category"
         onClick={ renderRecipes }
         data-testid="All-category-filter"
       >
