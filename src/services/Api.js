@@ -52,6 +52,8 @@ export const filterDrinksById = async (id) => {
   const response = await fetchById.json();
   const data = response.drinks;
   return data;
+};
+
 export const fetchMealsRandom = async () => {
   const fetchMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const response = await fetchMeal.json();
