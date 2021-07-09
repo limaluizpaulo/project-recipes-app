@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { renderFiltered, updateRecipes } from '../actions';
 import {
   getRecipeByCategory,
   getFoodCategories,
@@ -15,11 +17,15 @@ import { RecipeCards, Footer, Header } from '../components';
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
 
-function MainPage({ history }) {
+function MainPage({
+  history,
+  updateFiltered,
+  filteredRecipes,
+  showFiltered,
+  shouldRenderFiltered,
+}) {
   const [categories, setCategories] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [showFiltered, setShowFiltered] = useState(false);
   const [filteredBy, setFilteredBy] = useState('');
 
   const { pathname } = history.location;
@@ -51,10 +57,10 @@ function MainPage({ history }) {
       const response = pathname.includes('/comidas')
         ? await getRecipeByCategory(category)
         : await getDrinkByCategory(category);
-      setShowFiltered(true);
-      setFilteredRecipes(response.slice(0, TWELVE));
+      shouldRenderFiltered(true);
+      updateFiltered(response.slice(0, TWELVE));
     } else {
-      setShowFiltered(false);
+      shouldRenderFiltered(false);
       setFilteredBy('');
     }
   };
@@ -71,7 +77,7 @@ function MainPage({ history }) {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => setShowFiltered(false) }
+            onClick={ () => shouldRenderFiltered(false) }
           >
             All
           </button>
@@ -93,8 +99,18 @@ function MainPage({ history }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  filteredRecipes: state.recipes.filteredRecipes,
+  showFiltered: state.recipes.showFiltered,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateFiltered: (value) => dispatch(updateRecipes(value)),
+  shouldRenderFiltered: (value) => dispatch(renderFiltered(value)),
+});
+
 MainPage.propTypes = {
   history: PropTypes.object,
 }.isRequired;
 
-export default MainPage;
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
