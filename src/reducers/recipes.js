@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   inProgressRecipes: [],
   recipesDefault: [],
   filteredRecipes: [],
-  showFiltered: false,
+  showFiltered: true,
 };
 
 function recipes(state = INITIAL_STATE, { type, payload }) {

@@ -1,24 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getIngredientsMealsList, getIngredientsDrinksList } from '../services';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getIngredientsMealsList,
+  getIngredientsDrinksList,
+  getFilterIngredientListMeal,
+  getFilterIngredientListDrink } from '../services';
 import { Footer, Header } from '../components';
+import { renderFiltered, updateRecipes } from '../actions';
 
-function ExploreIngredients({ history }) {
+function ExploreIngredients({ history, shouldRenderFiltered, updateFiltered }) {
   const { pathname } = history.location;
-  const TWICE = 12;
+  const TWELVE = 12;
   const [ingredientsMeals, setIngredientsMeals] = useState([]);
   const [ingredientsDrinks, setIngredientsDrinks] = useState([]);
+  const [choiceIngredMeal, setChoiceIngredMeal] = useState('');
+  const [filteredBy, setFilteredBy] = useState('');
 
   useEffect(() => {
     const getIngredients = async () => {
       const respMeals = await getIngredientsMealsList();
       const respDrinks = await getIngredientsDrinksList();
-      setIngredientsMeals(respMeals.slice(0, TWICE));
-      setIngredientsDrinks(respDrinks.slice(0, TWICE));
+      setIngredientsMeals(respMeals.slice(0, TWELVE));
+      setIngredientsDrinks(respDrinks.slice(0, TWELVE));
     };
     getIngredients();
-  }, []);
+  }, [choiceIngredMeal]);
+
+  useEffect(() => {
+    const filterByIngredientMeal = async () => {
+      if (filteredBy !== choiceIngredMeal) {
+        setFilteredBy(choiceIngredMeal);
+        const response = pathname.includes('/comidas')
+          ? await getFilterIngredientListMeal(choiceIngredMeal)
+          : await getFilterIngredientListDrink(choiceIngredMeal);
+        shouldRenderFiltered(true);
+        updateFiltered(response.slice(0, TWELVE));
+      } else {
+        shouldRenderFiltered(false);
+        setFilteredBy('');
+      }
+    };
+    filterByIngredientMeal();
+  }, [choiceIngredMeal]);
 
   const ingredientImgMeal = (name) => (
     `https://www.themealdb.com/images/ingredients/${name}-Small.png`);
@@ -27,7 +51,14 @@ function ExploreIngredients({ history }) {
 
   const renderMealsIngredients = () => (
     ingredientsMeals.map((item, index) => (
-      <section key={ index } data-testid={ `${index}-ingredient-card` }>
+      <section
+        key={ index }
+        data-testid={ `${index}-ingredient-card` }
+        onClick={ () => setChoiceIngredMeal(item.strIngredient) }
+        onKeyDown={ () => history.push('/comidas') }
+        role="button"
+        tabIndex={ 0 }
+      >
         <Link to="/comidas">
           <p data-testid={ `${index}-card-name` }>
             {item.strIngredient}
@@ -71,4 +102,9 @@ ExploreIngredients.propTypes = {
   history: PropTypes.object,
 }.isRequired;
 
-export default ExploreIngredients;
+const mapDispatchToProps = (dispatch) => ({
+  updateFiltered: (value) => dispatch(updateRecipes(value)),
+  shouldRenderFiltered: (value) => dispatch(renderFiltered(value)),
+});
+
+export default connect(null, mapDispatchToProps)(ExploreIngredients);

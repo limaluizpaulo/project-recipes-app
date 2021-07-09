@@ -65,7 +65,7 @@ function MainPage({
     }
   };
 
-  const recipesToRender = showFiltered ? filteredRecipes : recipes;
+  const recipesToRender = filteredRecipes;
 
   return (
     <>
