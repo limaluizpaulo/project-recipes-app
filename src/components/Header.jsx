@@ -7,8 +7,6 @@ import searchIcon from '../images/searchIcon.svg';
 
 export default function Header({ title }) {
   const history = useHistory();
-  // const { listOfContext: { searchButton }, setState } = useContext(AppContext);
-  // const [searchButton, setSearchButton] = useState(false);
 
   const handleClick = () => {
     history.push('/perfil');
