@@ -4,6 +4,8 @@ import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
 import ItemCard from './ItemCard';
 
+import '../styles/item-card.css';
+
 export default function MealList() {
   const [showMeals, setShowMeals] = useState(false);
   const { mealsRecipes, resquestMealsApi, selectedCategory } = useContext(Context);
@@ -42,7 +44,7 @@ export default function MealList() {
   };
 
   return (
-    <Container>
+    <Container bsPrefix="flex container">
       { showMeals ? renderCards() : <Spinner animation="border" /> }
     </Container>
   );
