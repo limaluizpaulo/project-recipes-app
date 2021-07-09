@@ -4,7 +4,11 @@ import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import { copyLink, verifyCheck } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
-import { verifyFavorite, settingFavorite, storageCheckGenerator, storageCheckUpdater } from '../services/manageLocalStorage';
+import { verifyFavorite,
+  settingFavorite,
+  storageCheckGenerator,
+  storageCheckUpdater,
+  checkBoolean } from '../services/manageLocalStorage';
 
 function FoodInProgress({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -29,12 +33,12 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
           key={ `ingredientAndMeasure${index + 1}` }
         >
           <input
-            checked={ false }
+            checked={ checkBoolean(id, index) }
             className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
             key={ index }
             type="checkbox"
             onClick={ () => {
-              setCheck({ ...check, [index]: !check[index] });
+              setRefresh(storageCheckUpdater(id, index, refresh));
             } }
           />
           {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}

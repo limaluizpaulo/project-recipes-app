@@ -115,7 +115,7 @@ export const settingFavorite = (details, id, refresh) => {
 
 export const storageCheckGenerator = (id, index) => {
   const rawChecks = localStorage.getItem('inProgressCheck');
-  // inProgressCheck key doesnt exist yet
+  // inProgressCheck key doesn't exist yet
   const checks = JSON.parse(rawChecks);
   if (!checks) {
     localStorage.setItem('inProgressCheck',
@@ -126,8 +126,12 @@ export const storageCheckGenerator = (id, index) => {
   // continue render case
   if (checks.some((obj) => obj.id === id)) {
     let nextObjValue = checks.find((obj) => obj.id === id);
+    // se está populando um objeto sem chaves retorna falso, se tiver chaves retorna o valor do estado atual do local storage
     nextObjValue = { ...nextObjValue,
-      checkboxes: { ...nextObjValue.checkboxes, [index]: false } };
+      checkboxes: { ...nextObjValue.checkboxes,
+        [index]: nextObjValue.checkboxes[index]
+          ? nextObjValue.checkboxes[index]
+          : false } };
     const prepareNewState = checks.filter((obj) => obj.id !== id);
     localStorage.setItem('inProgressCheck',
       JSON.stringify([...prepareNewState, nextObjValue]));
@@ -144,15 +148,23 @@ export const storageCheckGenerator = (id, index) => {
   return false;
 };
 
-export const storageCheckUpdater = (id, index) => {
+export const storageCheckUpdater = (id, index, refresh) => {
   const rawChecks = localStorage.getItem('inProgressCheck');
   const checks = JSON.parse(rawChecks);
   if (checks.some((obj) => obj.id === id)) {
-    const updateProgressObj = checks.find((obj) => obj.id);
+    const updateProgressObj = checks.find((obj) => obj.id === id);
     updateProgressObj.checkboxes[index] = !updateProgressObj.checkboxes[index];
     const prepareNewState = checks.filter((obj) => obj.id !== id);
-    localStorage.setItem('inProgressCheck', [...prepareNewState, updateProgressObj]);
-    return updateProgressObj.checkboxes[index];
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...prepareNewState, updateProgressObj]));
+    return !refresh;
   }
   return false;
+};
+
+export const checkBoolean = (id, index) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  const checkValue = checks.find((obj) => obj.id === id);
+  return checkValue.checkboxes[index];
 };
