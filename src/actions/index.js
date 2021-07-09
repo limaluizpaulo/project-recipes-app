@@ -1,11 +1,7 @@
 export const REQUEST_INGREDIENT_FOOD = 'REQUEST_INGREDIENT_FOOD';
 export const REQUEST_INGREDIENT_DRINK = 'REQUEST_INGREDIENT_DRINK';
-// export const REQUEST_CATEGORIE_FOOD = 'REQUEST_CATEGORIE_FOOD';
-// export const REQUEST_CATEGORIE_DRINK = 'REQUEST_CATEGORIE_DRINK';
 export const REQUEST_FOOD_BY_ID = 'REQUEST_FOOD_BY_ID';
 export const REQUEST_DRINK_BY_ID = 'REQUEST_DRINK_BY_ID';
-// export const REQUEST_FOOD = 'REQUEST_FOOD';
-// export const REQUEST_DRINK = 'REQUEST_DRINK';
 
 export const fetchIngrediente = async (ingredient) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -110,40 +106,6 @@ export const fetchDrinkAction = () => async (dispatch) => {
     },
   });
 };
-
-// export const fetchCategorieFood = async () => {
-//   const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-//   const response = await result.json();
-//   return response;
-// };
-
-// export const fetchCategorieFoodAction = () => async (dispatch) => {
-//   let result = {};
-//   result = await fetchCategorieFood();
-//   dispatch({
-//     type: REQUEST_CATEGORIE_FOOD,
-//     payload: {
-//       result,
-//     },
-//   });
-// };
-
-// export const fetchCategorieDrink = async () => {
-//   const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-//   const response = await result.json();
-//   return response;
-// };
-
-// export const fetchCategorieDrinkAction = () => async (dispatch) => {
-//   let result = {};
-//   result = await fetchCategorieDrink();
-//   dispatch({
-//     type: REQUEST_CATEGORIE_DRINK,
-//     payload: {
-//       result,
-//     },
-//   });
-// };
 
 export const fetchCategorieFoodFilter = async (categorie) => {
   const result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`);
