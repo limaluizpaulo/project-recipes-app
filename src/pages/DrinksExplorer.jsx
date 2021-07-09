@@ -17,7 +17,7 @@ class DrinksExplorer extends Component {
           </button>
         </Link>
 
-        <Link to={ `/comidas/${id}` }>
+        <Link to="/comidas/123456">
           <button
             type="button"
             data-testid="explore-surprise"
