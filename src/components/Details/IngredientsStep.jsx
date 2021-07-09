@@ -6,16 +6,17 @@ import Context from '../../context/Context';
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
   const { curr } = useContext(Context);
+  const RADIX = 10;
+  const steps = [];
 
   useEffect(() => {
-    const steps = [];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
 
     if (inProgress) {
       if (!inProgress[curr]) {
         if (ingredients) {
-          for (let index = 0; index <= ingredients.length; index += 1) {
+          for (let index = 0; index < ingredients.length; index += 1) {
             steps.push({
               step: 'step-not-checked',
               checked: false,
@@ -34,10 +35,9 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         let nome = '';
         let valor = false;
 
-        for (let index = 0; index <= ingredients.length; index += 1) {
+        for (let index = 0; index < ingredients.length; index += 1) {
           for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
-            console.log(`comparando isso: ${index} com isso: ${arrayIds[index2]}`);
-            if (index === (Number.parseInt(arrayIds[index2]))) {
+            if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
               nome = 'step-checked';
               valor = true;
               checkboxes[index].checked = true;
@@ -86,7 +86,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       const steps = [];
 
       if (ingredients) {
-        for (let index = 0; index <= ingredients.length; index += 1) {
+        for (let index = 0; index < ingredients.length; index += 1) {
           steps.push({
             step: 'step-not-checked',
             checked: false,
@@ -121,7 +121,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
             [curr]: { ...inProgress[curr], [id]: [] },
           }));
       } else {
-        console.log(inProgress[curr][id]);
         localStorage.setItem('inProgressRecipes', JSON
           .stringify({
             ...inProgress,
@@ -133,6 +132,28 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     }
   };
 
+  const addOnceLocalStorage = (id, array, targetId) => {
+    if (array[curr][id].includes(targetId)) {
+      const updatedArray = array[curr][id].filter(
+        (arrayId) => Number.parseInt(arrayId, RADIX) !== Number.parseInt(targetId, RADIX),
+      );
+
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...array,
+          [curr]: { ...array[curr],
+            [id]: [...updatedArray,
+            ] } }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...array,
+          [curr]: { ...array[curr],
+            [id]: [...array[curr][id],
+              targetId] } }));
+    }
+  };
+
   useEffect(() => {
     populateSteps();
     loadIngredientesLocalStorage();
@@ -141,7 +162,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
     const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id, type } = currentRecipe;
+    const { id } = currentRecipe;
 
     let step = 'step-checked';
 
@@ -153,17 +174,10 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       ...stepsClassName,
       stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
       stepsClassName[targetId].step = step,
-
-      // adciona no localStorage
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({
-          ...newLocalStorage,
-          [curr]: { ...newLocalStorage[curr],
-            [id]: [...newLocalStorage[curr][id],
-              targetId] } })),
     ]);
-    console.log(targetId);
     stepsProgress(stepsClassName);
+    // adciona no localStorage
+    addOnceLocalStorage([id], newLocalStorage, [targetId][0]);
   };
 
   return (
