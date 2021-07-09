@@ -40,7 +40,11 @@ class FoodRecipe extends React.Component {
 
   onClickFavoriteIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const { detailsRecipe } = this.state;
     const newFavorite = {
       id,
@@ -58,22 +62,35 @@ class FoodRecipe extends React.Component {
           isFavorite: false,
         });
         const newArray = favoriteRecipes.filter((recipe) => recipe.id !== id);
-        return localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+        return localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify(newArray),
+        );
       }
       this.setState({
         isFavorite: true,
       });
       const addFavorite = [...favoriteRecipes, newFavorite];
-      return localStorage.setItem('favoriteRecipes', JSON.stringify(addFavorite));
+      return localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(addFavorite),
+      );
     }
     this.setState({
       isFavorite: true,
     });
-    return localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+    return localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify([newFavorite]),
+    );
   }
 
   async fetchDetails() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { meals } = responseAPI;
@@ -86,7 +103,7 @@ class FoodRecipe extends React.Component {
     const { detailsRecipe } = this.state;
     const url = detailsRecipe[0].strYoutube;
     const split = url.split('watch');
-    return (`${split[0]}embed${split[1]}`);
+    return `${split[0]}embed${split[1]}`;
   }
 
   renderIngredients() {
@@ -107,13 +124,19 @@ class FoodRecipe extends React.Component {
           key={ position }
           data-testid={ `${position - 1}-ingredient-name-and-measure` }
         >
-          { `${measure} ${ingredients}` }
-        </li>);
+          {`${measure} ${ingredients}`}
+        </li>
+      );
     });
   }
 
   renderRecipeBtn() {
-    const { match: { params: { id } }, history } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+      history,
+    } = this.props;
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipesDone) {
       const isDone = recipesDone.find((recipe) => recipe.id === id);
@@ -131,7 +154,9 @@ class FoodRecipe extends React.Component {
         </button>
       );
     }
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const recipesInProgress = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
     if (recipesInProgress && recipesInProgress.meals[id]) {
       return (
         <button
@@ -158,7 +183,11 @@ class FoodRecipe extends React.Component {
 
   renderHeartIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     if (favoriteRecipes) {
       const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
       if (isFavorite) {
@@ -194,29 +223,29 @@ class FoodRecipe extends React.Component {
     }
     return (
       <section>
-        <h1 data-testid="recipe-title">
-          { detailsRecipe[0].strMeal }
-        </h1>
+        <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
         <img
           src={ detailsRecipe[0].strMealThumb }
           alt={ detailsRecipe[0].strMeal }
           data-testid="recipe-photo"
           width="150px"
         />
-        <p>{ copyLink ? 'Link copiado!' : null }</p>
-        <button data-testid="share-btn" type="button" onClick={ this.onClickShare }>
+        <p>{copyLink ? 'Link copiado!' : null}</p>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ this.onClickShare }
+        >
           <img src={ shareIcon } alt="Compartilhar" />
         </button>
         <button type="button" onClick={ this.onClickFavoriteIcon }>
-          { this.renderFavorite() }
+          {this.renderFavorite()}
         </button>
-        <p data-testid="recipe-category">{ detailsRecipe[0].strCategory }</p>
-        <ul>
-          { this.renderIngredients() }
-        </ul>
+        <p data-testid="recipe-category">{detailsRecipe[0].strCategory}</p>
+        <ul>{this.renderIngredients()}</ul>
         <p data-testid="instructions">
           {' '}
-          { detailsRecipe[0].strInstructions }
+          {detailsRecipe[0].strInstructions}
           {' '}
         </p>
         <div data-testid="video">
@@ -225,7 +254,7 @@ class FoodRecipe extends React.Component {
         <section>
           <h2>Recomendações</h2>
           <Recommendations api="drinks" />
-          { this.renderRecipeBtn() }
+          {this.renderRecipeBtn()}
         </section>
       </section>
     );
