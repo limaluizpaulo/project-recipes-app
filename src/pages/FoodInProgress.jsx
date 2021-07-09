@@ -28,7 +28,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
     return (
       mealArray.map((_a, index) => (
         <section
-          className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }
+          className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
           data-testid={ `${index}-ingredient-step` }
           key={ `ingredientAndMeasure${index + 1}` }
         >
@@ -41,7 +41,10 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
               setRefresh(storageCheckUpdater(id, index, refresh));
             } }
           />
-          {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
+          <span className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }>
+            {' '}
+            {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
+          </span>
           <span
             className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }
           >
