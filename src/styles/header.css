@@ -1,8 +1,26 @@
 .header-bar {
-  background-color: rgb(223, 219, 219);
+  align-items: center;
+  background-color: #2a9d8f;
   border: 1px black solid;
   display: flex;
+  height: 50px;
   justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.header-bar img {
+  filter: invert(100%);
+}
+
+.header-bar h2 {
+  color: white;
+  margin-bottom: 0;
+}
+
+.header-bar button {
+  background: transparent;
+  border: none;
 }
 
 .search-container {

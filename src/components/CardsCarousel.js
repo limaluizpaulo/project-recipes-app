@@ -45,7 +45,7 @@ function CardsCarousel(props) {
   const n5 = 5;
   if (related.length === 0) return <h4>Carregando cards...</h4>;
   return (
-    <Carousel>
+    <Carousel className="carousel">
       <Carousel.Item>
         <div className="carousel-items">
           {createCard(n)}

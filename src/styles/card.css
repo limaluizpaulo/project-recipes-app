@@ -1,3 +1,7 @@
+.card-container {
+  margin-bottom: 60px;
+}
+
 .recipe-card {
   align-items: center;
   background-color: white;
@@ -6,16 +10,17 @@
   box-shadow: 3px 3px 2px rgba(150, 144, 144, 0.932);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: fit-content;
   margin: 1%;
+  min-height: 210px;
+  padding: 5px;
   width: 48%;
 }
 
-.card-img {
-  height: 80%;
-  width: 100%;
+.recipe-card img {
+  border-radius: 15px;
 }
 
-.card-text {
-  width: 100%;
+.recipe-card span {
+  margin-top: 10px;
 }
