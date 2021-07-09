@@ -74,7 +74,10 @@ export const checkDoneRecipes = (id) => {
 
 export const checkProgress = (id, type) => {
   const data = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  return Object.keys(data[type]).some((recipeInProgress) => recipeInProgress === id);
+  if (data[type]) {
+    return Object.keys(data[type]).some((recipeInProgress) => recipeInProgress === id);
+  }
+  return false;
 };
 
 export const saveDoneRecipes = (id, type, recipe) => {
