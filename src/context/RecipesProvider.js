@@ -7,6 +7,7 @@ import fetchFood,
 { FOOD_BY_INGREDIENT, FOOD_BY_LETTER, FOOD_BY_NAME } from '../services/FoodAPI';
 import fetchDrink,
 { DRINK_BY_INGREDIENT, DRINK_BY_LETTER, DRINK_BY_NAME } from '../services/DrinkAPI';
+import { CATEGORY_FILTER_FOOD, CATEGORY_FILTER_DRINK } from '../services/Categorys';
 
 function RecipesProvider({ children }) {
   // const [state, newState] = useState();
@@ -24,7 +25,7 @@ function RecipesProvider({ children }) {
   // searchBar
   const [searchInput, setSearchInput] = useState('');
   const [endpoint, setEndpoint] = useState();
-  const [type] = useState(useHistory().location.pathname);
+  const [type, setType] = useState(useHistory().location.pathname);
   const [history] = useState(useHistory());
   const [results, setResults] = useState(<div> </div>);
 
@@ -32,6 +33,7 @@ function RecipesProvider({ children }) {
     letter: type === '/comidas' ? FOOD_BY_LETTER : DRINK_BY_LETTER,
     ingredient: type === '/comidas' ? FOOD_BY_INGREDIENT : DRINK_BY_INGREDIENT,
     name: type === '/comidas' ? FOOD_BY_NAME : DRINK_BY_NAME,
+    categoryEndpoint: type === '/comidas' ? CATEGORY_FILTER_FOOD : CATEGORY_FILTER_DRINK,
     fetchRecipe: type === '/comidas' ? fetchFood : fetchDrink,
     idType: type === '/comidas' ? 'meals' : 'drinks',
     idRecipe: type === '/comidas' ? 'Meal' : 'Drink',
@@ -44,6 +46,12 @@ function RecipesProvider({ children }) {
   }
   // searchBar
 
+  // CategoryOptions
+
+  const [categoryFilter, setCategoryFilter] = useState('');
+
+  // CategoryOptions
+
   const context = {
     email,
     password,
@@ -51,12 +59,15 @@ function RecipesProvider({ children }) {
     foodOrDrink,
     handleSingleReturn,
     type,
+    setType,
     searchInput,
     setSearchInput,
     endpoint,
     setEndpoint,
     results,
     setResults,
+    categoryFilter,
+    setCategoryFilter,
   };
 
   return (
