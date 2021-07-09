@@ -25,7 +25,6 @@ class RecipeCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log(prevState)
     const { recipeType } = this.props;
     if (recipeType !== prevProps.recipeType) {
       const { dispatchRecipes } = this.props;
@@ -111,7 +110,6 @@ class RecipeCard extends React.Component {
   render() {
     const { recipes, isFetching, categories, recipesByIngredients } = this.props;
     const { selectedCategory, setCategory } = this.props;
-    console.log(this.props);
 
     return (
       <main>

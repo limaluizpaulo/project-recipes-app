@@ -14,6 +14,7 @@ class SearchBar extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.allowOnlyOneLetter = this.allowOnlyOneLetter.bind(this);
   }
 
   handleChange({ target: { id } }) {
@@ -23,9 +24,19 @@ class SearchBar extends React.Component {
   }
 
   handleTextChange({ target: { value } }) {
-    this.setState({
-      searchBar: value,
-    });
+    if (this.allowOnlyOneLetter(value.length)) {
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      this.setState({
+        searchBar: value,
+      });
+    }
+  }
+
+  allowOnlyOneLetter(length) {
+    const { searchType } = this.state;
+    const maxLetters = 1;
+    return searchType === 'FirstLetter' && length > maxLetters;
   }
 
   render() {
