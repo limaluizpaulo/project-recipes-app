@@ -73,6 +73,28 @@ export async function getRandomRecipe(domain) {
   }
 }
 
+export async function getAreasList() {
+  try {
+    const URL_AREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+    const res = await fetch(URL_AREA);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
+export async function getRecipeByArea(area) {
+  try {
+    const URL_DATA_AREA = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+    const res = await fetch(URL_DATA_AREA);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
 export async function getDataById(domain, id) {
   try {
     const URL_DETAILS = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
