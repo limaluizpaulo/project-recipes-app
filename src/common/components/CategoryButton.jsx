@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { FaBookOpen, FaUtensils, FaBreadSlice,
+  FaDrumstickBite, FaIceCream, FaMitten } from 'react-icons/fa';
 
 import store from '../../context/store';
 
@@ -8,6 +10,9 @@ export default function CategoryButton({ clickCategory, clickAll }) {
     categoriesDrinks, categoriesLimit } } = useContext(store);
 
   const renderButtons = () => {
+    const mealsBtns = [<FaUtensils key={ 0 } />, <FaBreadSlice key={ 1 } />,
+      <FaDrumstickBite key={ 2 } />, <FaIceCream key={ 3 } />, <FaMitten key={ 4 } />];
+
     const newCategories = (foods) ? (
       categoriesMeals.slice(0, categoriesLimit)) : (
       categoriesDrinks.slice(0, categoriesLimit));
@@ -20,6 +25,7 @@ export default function CategoryButton({ clickCategory, clickAll }) {
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ () => clickCategory(category) }
           >
+            {mealsBtns[index]}
             {category.strCategory}
           </button>
         </div>
@@ -29,6 +35,7 @@ export default function CategoryButton({ clickCategory, clickAll }) {
 
   return (
     <div className="categoriesBtns">
+      <FaBookOpen />
       <button
         type="button"
         data-testid="All-category-filter"
