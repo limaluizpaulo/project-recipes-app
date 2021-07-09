@@ -10,7 +10,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
-import identification from '../helper/dictionaryApi';
+// import identification from '../helper/dictionaryApi';
 
 class Progresso extends Component {
   constructor(props) {

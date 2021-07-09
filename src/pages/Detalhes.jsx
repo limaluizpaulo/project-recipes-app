@@ -68,7 +68,7 @@ class Detalhes extends Component {
     history.push(`/${page}/${id}/in-progress`);
     isStart();
   }
-  
+
   instrutionVideo(data) {
     const keyName = identification(data);
     return (
