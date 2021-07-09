@@ -23,6 +23,7 @@ function ReceitaEmProgresso() {
     instructions: '',
   });
   const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
+  const [isComplete, setIsComplete] = useState(false);
 
   const inicializarIngredientes = (objReceitas) => {
     let indexAuxiliar = 0;
@@ -148,9 +149,10 @@ function ReceitaEmProgresso() {
         && <Ingredientes
           listaIngredientes={ ingredientesCheckboxes }
           getIngredientsParams={ { apelidoAPI, id } }
+          setIsComplete={ setIsComplete }
         />}
       { renderizaInstrucoes() }
-      { renderizaBotaoFinalizar() }
+      { isComplete && renderizaBotaoFinalizar() }
     </>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, func, shape, string } from 'prop-types';
 import { addIngredients, getIngredients } from '../../services/localStorage';
 
-function Ingredientes({ listaIngredientes, getIngredientsParams }) {
+function Ingredientes({ listaIngredientes, getIngredientsParams, setIsComplete }) {
   const [ingredientesEmProgresso, setIngredientesEmProgresso] = useState([]);
 
   const handleChange = ({ target: { checked, name } }) => {
@@ -26,6 +26,9 @@ function Ingredientes({ listaIngredientes, getIngredientsParams }) {
   useEffect(() => {
     const { apelidoAPI, id } = getIngredientsParams;
     addIngredients(apelidoAPI, id, ingredientesEmProgresso);
+    if (ingredientesEmProgresso.length === listaIngredientes.length) {
+      setIsComplete(true);
+    }
   }, [ingredientesEmProgresso]);
 
   return (
@@ -60,6 +63,7 @@ Ingredientes.propTypes = {
     apelidoAPI: string,
     id: string,
   }).isRequired,
+  setIsComplete: func.isRequired,
 };
 
 export default Ingredientes;
