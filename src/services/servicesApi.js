@@ -1,4 +1,4 @@
-export default async function receitasApi(parametrosBusca) {
+export async function receitasApi(parametrosBusca) {
   const { apelidoAPI, flag, input } = parametrosBusca;
   const MAX_RECIPES = 12;
   const limitarResultados = (arr) => ((arr === null) ? null : arr.slice(0, MAX_RECIPES));

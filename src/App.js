@@ -4,10 +4,8 @@ import AppReceitasProvider from './context/AppReceitasProvider';
 
 import Login from './pages/Login';
 import Explorar from './pages/Explorar';
-import ExplorarComidas from './pages/ExplorarComidas';
-import ExplorarBebidas from './pages/ExplorarBebidas';
-import ExplorarComidasPorIngredientes from './pages/ExplorarComidasPorIngredientes';
-import ExplorarBebidasPorIngredientes from './pages/ExplorarBebidasPorIngredientes';
+import ExplorarComidasOuBebidas from './pages/ExplorarComidasOuBebidas';
+import ExplorarPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
@@ -44,21 +42,20 @@ function App() {
             render={ (props) => <DetailsReceita { ...props } /> }
           />
           <Route exact path="/explorar" component={ Explorar } />
-          <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-          <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidasOuBebidas } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarComidasOuBebidas } />
           <Route
             path="/explorar/comidas/ingredientes"
-            component={ ExplorarComidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route
             path="/explorar/bebidas/ingredientes"
-            component={ ExplorarBebidasPorIngredientes }
+            component={ ExplorarPorIngredientes }
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-          {/* <Route component={ Erro404 } /> */}
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>
