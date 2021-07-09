@@ -32,7 +32,7 @@ function DoneRecipesCard() {
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div key={ index }>
-          <div className="food__card">
+          <div className="food__card__done">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <span
                 className="food__card_text"

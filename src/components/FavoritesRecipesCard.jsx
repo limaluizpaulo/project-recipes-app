@@ -61,7 +61,7 @@ export default function FavoriteRecipesCard() {
       {filtredRecipesDone.map((recipe, index) => (
         <div
           key={ index }
-          className="food__card"
+          className="food__card__favorites"
           id={ `${index}-recipe-div` }
         >
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
