@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getItemLocalStorage } from '../services/localStorage';
@@ -11,31 +12,37 @@ export default function Perfil() {
   return (
     <section>
       <Header />
-      <h1 data-testid="profile-email">{ email }</h1>
+      <h3 data-testid="profile-email">{ email }</h3>
       <Link to="/receitas-feitas">
-        <button
+        <Button
+          variant="outline-danger"
+          size="sm"
           type="button"
           data-testid="profile-done-btn"
         >
           Receitas Feitas
-        </button>
+        </Button>
       </Link>
       <Link to="/receitas-favoritas">
-        <button
+        <Button
+          variant="outline-danger"
+          size="sm"
           type="button"
           data-testid="profile-favorite-btn"
         >
           Receitas Favoritas
-        </button>
+        </Button>
       </Link>
       <Link to="/">
-        <button
+        <Button
+          variant="outline-danger"
+          size="sm"
           type="button"
           data-testid="profile-logout-btn"
           onClick={ () => { localStorage.clear(); } }
         >
           Sair
-        </button>
+        </Button>
       </Link>
       <Footer />
     </section>

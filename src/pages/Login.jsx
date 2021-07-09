@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { initializeLocalStorage } from '../services/localStorage';
+import logo from '../images/logo.png';
 
 function Login() {
   const [disableBtn, setDisableBtn] = useState(true);
@@ -40,8 +41,8 @@ function Login() {
 
   return (
     <div>
+      <img src={ logo } alt="logo" />
       <div>
-        <h5>Email</h5>
         <label htmlFor="email-input">
           <input
             id="email-input"
@@ -49,11 +50,12 @@ function Login() {
             name="email"
             data-testid="email-input"
             onChange={ handleChange }
+            placeholder="Email"
           />
         </label>
-        <h5>Senha</h5>
         <label htmlFor="password-input">
           <input
+            placeholder="Senha"
             id="password-input"
             type="password"
             name="password"
@@ -64,13 +66,15 @@ function Login() {
       </div>
       <Link to="/comidas">
         <Button
+          variant="warning"
+          size="lg"
           className="loginButton"
           type="button"
           data-testid="login-submit-btn"
           disabled={ disableBtn }
           onClick={ handleClick }
         >
-          Entrar
+          Entrar/Logar
         </Button>
       </Link>
     </div>

@@ -119,21 +119,24 @@ export default function ReceitasFeitas() {
       <Header />
       <aside>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-all-btn"
           onClick={ () => setTipoFiltro('All') }
         >
           All
         </Button>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-food-btn"
           onClick={ () => { setTipoFiltro('comida'); } }
         >
           Food
         </Button>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-drink-btn"
           onClick={ () => setTipoFiltro('bebida') }
         >
