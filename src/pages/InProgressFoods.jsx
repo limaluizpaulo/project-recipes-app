@@ -12,7 +12,7 @@ function InProgressFoods(props) {
   };
 
   const stateSet = () => {
-    setTypeFunc('comidas')
+    setTypeFunc('meals')
     setImgRecipes('strMealThumb');
     setNameRecipes('strMeal');
   } 

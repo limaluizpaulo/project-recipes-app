@@ -1,6 +1,6 @@
+import { indexOf } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import FetchContext from '../context/FetchContext';
-import { filterDrinksById, filterMealsById } from '../services/Api';
 
 function CardRecipe({ id }) {
   const { data, imgRecipes, nameRecipes, typeFunc} = useContext(FetchContext);
@@ -9,7 +9,6 @@ function CardRecipe({ id }) {
   const progressObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   if (progressObject === null) {
-    console.log('teste')
     const inProgressRecipes = {
       cocktails: {},
       meals: {},
@@ -27,36 +26,53 @@ function CardRecipe({ id }) {
 
     const arrIngredient = filterIngredients.map((res) => filterIngredients.indexOf(res) + 1)
 
-    console.log(arrIngredient)
-
-    if (typeFunc === 'comidas') {
-        progressObject.meals[id] = arrIngredient;
-        localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
-      }
-
-    if (typeFunc === 'bebidas') {
-      progressObject.cocktails[id] = arrIngredient;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
-    }  
-
     if(checkArr.length === 0) {
       const newCheck = filterIngredients.map(() => false)
-      setCheckArr(newCheck);
+      // console.log(progressObject.meals[id])
+      if(progressObject[typeFunc][id] === undefined) {
+        console.log('entrou aqui')
+        return setCheckArr(newCheck);
+      }
+
+      progressObject[typeFunc][id].map((res) => {
+        newCheck[res] = true;
+      })
+      setCheckArr(newCheck)
+
     }
 
+
     function changeCheck(num) {
+      console.log(checkArr[num])
       const newCheck = checkArr.map((res, index) => index === num ? !checkArr[index] : checkArr[index])
-      setCheckArr(newCheck);  
+      setCheckArr(newCheck);
+
+        if (progressObject.[typeFunc][id] === undefined) {
+          progressObject.[typeFunc][id] = [];
+          localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
+        }
+
+        if (checkArr[num] === false) {
+          progressObject.[typeFunc][id] =[...progressObject.[typeFunc][id], num];
+          progressObject.[typeFunc][id].sort((a, b) => a-b)
+          localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
+        }
+
+        if (checkArr[num]) {
+          progressObject.[typeFunc][id].splice(progressObject.[typeFunc][id].indexOf(num), 1);
+          localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
+        }
+      
     }
 
     return filterIngredients.map((ingredient, index) => (
-      <li data-testid={`data-testid=${index}-ingredient-step`}>
-        <label htmlFor={ ingredient }>
+      <li data-testid={`${index}-ingredient-step`} >
+        <label htmlFor={ ingredient } >
           <input
             type="checkbox"
             id={ ingredient }
             checked={ checkArr[index] }
-            onClick={ () => changeCheck(index)}          
+            onClick={ () => changeCheck(index)}        
           />
           {`${data[0][ingredient]} - ${data[0][filterMeasures[index]]}`}
         </label>
@@ -71,8 +87,8 @@ function CardRecipe({ id }) {
           <div>
             <img data-testid="recipe-photo" src={recipe[imgRecipes]} alt="" />
             <h2 data-testid="recipe-title">{recipe[nameRecipes]}</h2>
-            <button data-testid="share-btn" type="button"></button>
-            <button data-testid="favorite-btn" type="button"></button>
+            <button data-testid="share-btn" type="button">Compartilhar</button>
+            <button data-testid="favorite-btn" type="button">Favoritar</button>
             <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
             <ul>
               {renderCheckbox()}

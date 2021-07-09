@@ -12,7 +12,7 @@ function InProgressDrinks(props) {
   };
 
   const stateSet = () => {
-    setTypeFunc('bebidas');
+    setTypeFunc('cocktails');
     setNameRecipes('strDrink');
     setImgRecipes('strDrinkThumb');
   } 
