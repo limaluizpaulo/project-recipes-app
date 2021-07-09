@@ -20,15 +20,16 @@ function ExplorerDrinks() {
       <Header title="Explorar Bebidas" />
       <h1>Ex Bebidas</h1>
       <button
-        data-testid="explore-by-ingredient"
         type="button"
-        onClick={ () => history.pushState('/explorar/bebidas/ingredientes') }
+        data-testid="explore-by-ingredient"
+        onClick={ () => history.push('/explorar/bebidas/ingredientes') }
       >
         Por Ingredientes
       </button>
       <button
         type="button"
-        onClick={ () => history.pushState(`/bebidas/${idDrink}`) }
+        data-testid="explore-surprise"
+        onClick={ () => history.push(`/bebidas/${idDrink}`) }
       >
         Me Surpreenda!
       </button>
