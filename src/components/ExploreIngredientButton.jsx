@@ -13,6 +13,7 @@ const ExploreIngredientButton = ({ history }) => {
 
   return (
     <button
+      className="explore__button"
       data-testid="explore-by-ingredient"
       onClick={ handleClick }
       type="button"

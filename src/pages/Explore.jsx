@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/explore.css';
 
 // Tela de explorar: /explorar;
 export default function Explore({ history }) {
@@ -14,27 +15,30 @@ export default function Explore({ history }) {
   };
 
   return (
-    <div>
-      <h4>Explore</h4>
+    <>
       <Header history={ history } title="Explorar" />
-      <button
-        data-testid="explore-food"
-        name="food"
-        onClick={ handleClick }
-        type="button"
-      >
-        Explorar Comidas
-      </button>
-      <button
-        data-testid="explore-drinks"
-        name="drinks"
-        onClick={ handleClick }
-        type="button"
-      >
-        Explorar Bebidas
-      </button>
+      <div className="explorePage">
+        <button
+          className="explore__button"
+          data-testid="explore-food"
+          name="food"
+          onClick={ handleClick }
+          type="button"
+        >
+          Explorar Comidas
+        </button>
+        <button
+          className="explore__button"
+          data-testid="explore-drinks"
+          name="drinks"
+          onClick={ handleClick }
+          type="button"
+        >
+          Explorar Bebidas
+        </button>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

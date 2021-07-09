@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../context/Context';
-
+import '../styles/exploreMealsIngredients.css';
+import loadingSpinner from '../images/loading.gif';
 // Tela de explorar comidas: /explorar/comidas
 export default function ExploreDrinksIngredients({ history }) {
   const {
@@ -40,38 +41,56 @@ export default function ExploreDrinksIngredients({ history }) {
     history.push('/bebidas');
   };
 
+  if (!ingredientsList.length) {
+    return (
+      <>
+        <Header history={ history } title="Explorar Ingredientes" />
+        <div className="exploreIngredientsPage__loading">
+          <img className="loading" src={ loadingSpinner } alt="loading spinner" />
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   return (
-    <div>
-      <h4>ExploreDrinksIngredients</h4>
+    <>
       <Header history={ history } title="Explorar Ingredientes" />
-      {
-        ingredientsList.map(({ strIngredient1 }, idx) => (
-          <div
-            data-testid={ `${idx}-ingredient-card` }
-            id={ strIngredient1 }
-            key={ idx }
-            onClick={ handleClick }
-            onKeyPress={ handleClick }
-            role="button"
-            tabIndex={ idx }
-          >
-            <img
-              data-testid={ `${idx}-card-img` }
+      <div className="exploreIngredientsPage">
+        {
+          ingredientsList.map(({ strIngredient1 }, idx) => (
+            <div
+              className="ingredients__card"
+              data-testid={ `${idx}-ingredient-card` }
               id={ strIngredient1 }
-              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-              alt={ strIngredient1 }
-            />
-            <h4
-              data-testid={ `${idx}-card-name` }
-              id={ strIngredient1 }
+              key={ idx }
+              onClick={ handleClick }
+              onKeyPress={ handleClick }
+              role="button"
+              tabIndex={ idx }
             >
-              { strIngredient1 }
-            </h4>
-          </div>
-        ))
-      }
+              <div className="ingredients__card__img">
+                <img
+                  data-testid={ `${idx}-card-img` }
+                  id={ strIngredient1 }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+                  alt={ strIngredient1 }
+                />
+              </div>
+              <div className="ingredients__card_text">
+                <p
+                  data-testid={ `${idx}-card-name` }
+                  id={ strIngredient1 }
+                >
+                  { strIngredient1 }
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

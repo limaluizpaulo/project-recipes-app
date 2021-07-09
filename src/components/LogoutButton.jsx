@@ -9,6 +9,7 @@ const LogoutButton = ({ history }) => {
 
   return (
     <button
+      className="profile__button"
       data-testid="profile-logout-btn"
       name="logout"
       onClick={ handleClick }

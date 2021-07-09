@@ -4,17 +4,19 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ExploreIngredientButton from '../components/ExploreIngredientButton';
 import ExploreSurpriseButton from '../components/ExploreSurpriseButton';
+import '../styles/explore.css';
 
 // Tela de explorar bebidas: /explorar/bebidas
 export default function ExploreDrinks({ history }) {
   return (
-    <div>
-      <h4>ExploreDrinks</h4>
+    <>
       <Header history={ history } title="Explorar Bebidas" />
-      <ExploreIngredientButton history={ history } />
-      <ExploreSurpriseButton history={ history } />
+      <div className="explorePage">
+        <ExploreIngredientButton history={ history } />
+        <ExploreSurpriseButton history={ history } />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

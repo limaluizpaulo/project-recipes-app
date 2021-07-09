@@ -9,25 +9,32 @@ const RenderMealIngredient = () => {
 
   function mealIngredient() {
     return filterDrinksIngredients.map((itemAll, indexAll) => (
-      <div
+      <Link
         className="food__card"
         key={ indexAll }
         data-testid={ `${indexAll}-recipe-card` }
+        to={ `/comidas/${itemAll.idMeal}` }
       >
-        <Link to={ `/comidas/${itemAll.idMeal}` }>
-          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+        <div className="food__card__img">
           <img
             src={ itemAll.strMealThumb }
             alt={ itemAll.strMealThumb }
             data-testid={ `${indexAll}-card-img` }
           />
-        </Link>
-      </div>
+        </div>
+        <div className="food__card_text">
+          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+        </div>
+      </Link>
     ));
   }
 
   return (
-    mealIngredient()
+    <div className="foodPage">
+      <div className="food__cards__container">
+        {mealIngredient()}
+      </div>
+    </div>
   );
 };
 

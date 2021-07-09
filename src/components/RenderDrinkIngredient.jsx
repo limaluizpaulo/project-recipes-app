@@ -9,21 +9,30 @@ const RenderDrinkIngredient = () => {
 
   function drinksIngredients() {
     return filterDrinksIngredients.map((itemAll, indexAll) => (
-      <div key={ indexAll } data-testid={ `${indexAll}-recipe-card` }>
-        <Link to={ `/bebidas/${itemAll.idDrink}` }>
-          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
+      <Link
+        className="food__card"
+        to={ `/bebidas/${itemAll.idDrink}` }
+        key={ indexAll }
+        data-testid={ `${indexAll}-recipe-card` }
+      >
+        <div className="food__card__img">
           <img
             src={ itemAll.strDrinkThumb }
             alt={ itemAll.strDrinkThumb }
             data-testid={ `${indexAll}-card-img` }
           />
-        </Link>
-      </div>
+        </div>
+        <div className="food__card_text">
+          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
+        </div>
+      </Link>
     ));
   }
   return (
-    <div>
-      {drinksIngredients()}
+    <div className="foodPage">
+      <div className="food__cards__container">
+        {drinksIngredients()}
+      </div>
     </div>
   );
 };
