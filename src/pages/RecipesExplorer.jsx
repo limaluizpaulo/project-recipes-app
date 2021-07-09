@@ -29,14 +29,14 @@ class RecipesExplorer extends Component {
           </button>
         </Link>
 
-        {/* <Link to="">
+        <Link to={ `/comidas/${id}` }>
           <button
             type="button"
             data-testid="explore-surprise"
           >
             Me Surpreenda!
           </button>
-        </Link> */}
+        </Link>
         <DownMenu />
       </div>
     );

@@ -1,5 +1,5 @@
 import { SAVE_USER } from './types';
-import { getRecipes, getDrinks, getRecipesByIngredients,
+import { getRecipes, getDrinks, getRandomRecipe, getRecipesByIngredients,
   getRecipesByName, getDrinksByIngredients, getDrinksByName,
   getRecipesByFirstLetter, getDrinksByFirstLetter,
   getCategoriesRecipes, getCategoriesDrinks,
@@ -36,6 +36,16 @@ export const actionRecipes = () => (dispatch) => (
     }))
 );
 
+export const actionRandomRecipe = () => (dispatch) => (
+  getRandomRecipe()
+    .then((data) => dispatch({
+      type: 'GET_RANDOM_RECIPE',
+      payload: {
+        data,
+      },
+    }))
+);
+
 export const actionDrinks = () => (dispatch) => (
   getDrinks()
     .then((data) => dispatch({
@@ -54,9 +64,6 @@ export const actionRecipesByIngredients = (ingredients) => (dispatch) => (
         data,
       },
     }))
-    // .catch(() => (
-    //   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-    // ))
 );
 
 export const actionRecipesByName = (name) => (dispatch) => (

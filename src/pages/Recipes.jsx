@@ -91,6 +91,7 @@ class Recipes extends Component {
         {filter
           ? listByCategory.map((element, index) => this.mapearLista(element, index))
           : listRecipes.map((element, index) => this.mapearLista(element, index))}
+        {console.log(listRecipes)}
         <DownMenu />
       </>
     );
