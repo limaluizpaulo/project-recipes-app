@@ -54,6 +54,17 @@ const foodIngredientsAPI = async () => {
   return responseObject.meals;
 };
 
+const MealServiceAreaAPI = async (area) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const response = await fetch(endpoint);
+  try {
+    const responseObject = await response.json();
+    return [...responseObject.meals];
+  } catch (err) {
+    global.alert(alertMessage);
+  }
+};
+
 export default {
   ingredient: MealServiceIngredientsAPI,
   name: MealServiceNameAPI,
@@ -62,6 +73,7 @@ export default {
   getFoodById,
   default: () => fetch(APIPadrao),
   foodIngredients: foodIngredientsAPI,
+  foodsArea: MealServiceAreaAPI,
   getByCategory: () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((res) => res.json())
     .then((res) => res.meals),

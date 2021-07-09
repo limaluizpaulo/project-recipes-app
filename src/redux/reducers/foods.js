@@ -1,10 +1,11 @@
-import { FOODS, RANDOM, FOOD_CATEGORIES } from '../actions/index';
+import { FOODS, RANDOM, FOOD_CATEGORIES, FOODSAREA } from '../actions/index';
 
 // const udate = function () {
 //   console.log(this.list);
 // };
 const initialState = {
   list: [],
+  areaSelect: [],
   goToFoodsPage: false,
   categories: [],
 };
@@ -22,6 +23,13 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       list: payload,
+      shouldRedirect: true,
+    };
+
+  case FOODSAREA:
+    return {
+      ...state,
+      areaSelect: payload || [],
       shouldRedirect: true,
     };
 
