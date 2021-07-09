@@ -14,7 +14,7 @@ function DoneRecipesList({ filter }) {
     : [...done];
 
   return (
-    <div className="done-card-list">
+    <section className="done-card-list">
       {recipes.map((item, index) => (
         <div className="done-card" key={ index }>
           <div>
@@ -23,38 +23,28 @@ function DoneRecipesList({ filter }) {
                 className="done-card-image"
                 src={ item.image }
                 alt={ item.name }
-                data-testid={ `${index}-horizontal-image` }
               />
             </Link>
           </div>
           <div>
             <div>
               <Link to={ `/${item.type}s/${item.id}` }>
-                <span data-testid={ `${index}-horizontal-name` }>
-                  {item.name}
-                </span>
+                <span>{item.name}</span>
               </Link>
             </div>
             <div>
-              <span data-testid={ `${index}-horizontal-top-text` }>
+              <span>
                 { item.area && `${item.area} - `}
                 { item.category }
                 { item.alcoholicOrNot && ` - ${item.alcoholicOrNot}` }
               </span>
             </div>
             <div>
-              <span data-testid={ `${index}-horizontal-done-date` }>
-                {item.doneDate}
-              </span>
+              <span>{item.doneDate}</span>
             </div>
             <div>
               {item.tags.map((tagName, tagIndex) => (
-                <span
-                  key={ tagIndex }
-                  data-testid={ `${index}-${tagName}-horizontal-tag` }
-                >
-                  {tagName}
-                </span>
+                <span key={ tagIndex }>{tagName}</span>
               ))}
             </div>
             <div className="share-container">
@@ -66,7 +56,7 @@ function DoneRecipesList({ filter }) {
           </div>
         </div>
       ))}
-    </div>
+    </section>
   );
 }
 

@@ -24,12 +24,11 @@ function Profile() {
     <main>
       <Header title="Perfil" showSearchIcon={ false } />
       <div>
-        <p data-testid="profile-email">{ email }</p>
+        <p>{ email }</p>
         <button
           type="button"
           value="Receitas Feitas"
           onClick={ () => { push('/receitas-feitas'); } }
-          data-testid="profile-done-btn"
         >
           Receitas Feitas
         </button>
@@ -37,7 +36,6 @@ function Profile() {
           type="button"
           value="Receitas Favoritas"
           onClick={ () => { push('/receitas-favoritas'); } }
-          data-testid="profile-favorite-btn"
         >
           Receitas Favoritas
         </button>
@@ -45,7 +43,6 @@ function Profile() {
           type="button"
           value="Sair"
           onClick={ logout }
-          data-testid="profile-logout-btn"
         >
           Sair
         </button>

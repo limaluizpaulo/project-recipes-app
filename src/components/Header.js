@@ -22,7 +22,6 @@ function Header({ title, showSearchIcon = true }) {
           className="svg-med"
           src={ searchIcon }
           alt="Search"
-          data-testid="search-top-btn"
         />
       </button>
     );
@@ -39,7 +38,6 @@ function Header({ title, showSearchIcon = true }) {
           className="svg-med"
           src={ profileIcon }
           alt="Profile"
-          data-testid="profile-top-btn"
         />
       </button>
     );
@@ -49,7 +47,7 @@ function Header({ title, showSearchIcon = true }) {
     <header>
       <div>
         {showSearchIcon && renderSearchButton()}
-        <h2 data-testid="page-title">{title}</h2>
+        <h2>{title}</h2>
         {renderProfileButton()}
       </div>
       {showSearchBar && <SearchBar />}

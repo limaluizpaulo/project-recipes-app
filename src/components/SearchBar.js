@@ -22,14 +22,13 @@ function SearchBar() {
   }
 
   return (
-    <div>
+    <section>
       <div>
         <input
           type="text"
           id="search-input"
           name="search-input"
           onChange={ ({ target: { value } }) => setSearchTerm(value) }
-          data-testid="search-input"
         />
       </div>
       <div>
@@ -40,7 +39,6 @@ function SearchBar() {
             name="search-radio"
             onChange={ () => setFilter('ingredient') }
             defaultChecked
-            data-testid="ingredient-search-radio"
           />
           Ingrediente
         </label>
@@ -50,7 +48,6 @@ function SearchBar() {
             id="name-search-radio"
             name="search-radio"
             onChange={ () => setFilter('name') }
-            data-testid="name-search-radio"
           />
           Nome
         </label>
@@ -60,22 +57,16 @@ function SearchBar() {
             id="first-letter-search-radio"
             name="search-radio"
             onChange={ () => setFilter('letter') }
-            data-testid="first-letter-search-radio"
           />
           Primeira letra
         </label>
       </div>
       <div>
-        <button
-          type="button"
-          className="button"
-          onClick={ handleClick }
-          data-testid="exec-search-btn"
-        >
+        <button type="button" className="button" onClick={ handleClick }>
           Buscar
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 

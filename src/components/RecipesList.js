@@ -17,7 +17,7 @@ function RecipesList() {
   const recipes = isDrinks ? [...drinks] : [...meals];
 
   return (
-    <div className="card-list">
+    <section className="card-list">
       {recipes.map((item, index) => {
         if (index < MAX_CARDS) {
           return (
@@ -26,21 +26,19 @@ function RecipesList() {
               className="card"
               key={ index }
               onClick={ () => push(`/${typePt}/${item[idKey]}`) }
-              data-testid={ `${index}-recipe-card` }
             >
               <img
                 className="card-image"
                 src={ item[imgKey] }
                 alt={ item[nameKey] }
-                data-testid={ `${index}-card-img` }
               />
-              <span data-testid={ `${index}-card-name` }>{item[nameKey]}</span>
+              <span>{item[nameKey]}</span>
             </button>
           );
         }
         return null;
       })}
-    </div>
+    </section>
   );
 }
 

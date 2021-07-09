@@ -33,7 +33,6 @@ function CategoryButtons() {
         className="category-button"
         key={ index }
         onClick={ () => handleClick(item) }
-        data-testid={ `${item}-category-filter` }
       >
         {item}
       </button>
@@ -41,19 +40,18 @@ function CategoryButtons() {
   }
 
   return (
-    <div className="category-button-container">
+    <section className="category-button-container">
       <button
         type="button"
         className="category-button"
         onClick={ () => handleClick('') }
-        data-testid="All-category-filter"
       >
         ALL
       </button>
       {pathname.includes('bebidas')
         ? renderButtons(drinksCategories)
         : renderButtons(mealsCategories)}
-    </div>
+    </section>
   );
 }
 

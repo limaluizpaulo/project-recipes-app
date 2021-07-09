@@ -10,7 +10,7 @@ function Footer() {
   const { push } = useHistory();
 
   return (
-    <footer data-testid="footer">
+    <footer>
       <button
         type="button"
         className="button-svg"
@@ -20,7 +20,6 @@ function Footer() {
           className="svg-med"
           src={ mealIncon }
           alt="Meals Icon"
-          data-testid="food-bottom-btn"
         />
       </button>
       <div className="button-explore-container">
@@ -33,7 +32,6 @@ function Footer() {
             className="svg-large"
             src={ exploreIncon }
             alt="Explore Icon"
-            data-testid="explore-bottom-btn"
           />
         </button>
       </div>
@@ -46,7 +44,6 @@ function Footer() {
           className="svg-med"
           src={ drinkIncon }
           alt="Drinks Icon"
-          data-testid="drinks-bottom-btn"
         />
       </button>
     </footer>

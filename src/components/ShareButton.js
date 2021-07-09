@@ -5,7 +5,7 @@ import copy from 'clipboard-copy';
 import UserContext from '../context/user.context';
 import shareIcon from '../svg/shareIcon.svg';
 
-function ShareButton({ index, url }) {
+function ShareButton({ url }) {
   const { setWarningMessage } = useContext(UserContext);
 
   return (
@@ -16,20 +16,18 @@ function ShareButton({ index, url }) {
         copy(url);
         setWarningMessage('Link copiado!');
       } }
-      data-testid="share-btn"
     >
       <img
         className="svg-small"
         src={ shareIcon }
         alt="Share"
-        data-testid={ `${index}-horizontal-share-btn` }
       />
     </button>
   );
 }
 
 ShareButton.propTypes = {
-  dataTestId: PropTypes.string,
+  url: PropTypes.string,
 }.isRequired;
 
 export default ShareButton;

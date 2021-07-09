@@ -32,7 +32,7 @@ function IngredientsList() {
   }, [type]);
 
   return (
-    <div className="card-list">
+    <section className="card-list">
       {ingredients.map((item, index) => {
         if (index < MAX_CARDS) {
           const name = isDrinks
@@ -47,21 +47,19 @@ function IngredientsList() {
               className="card"
               key={ index }
               onClick={ () => handleClick(name) }
-              data-testid={ `${index}-ingredient-card` }
             >
               <img
                 className="card-image"
                 src={ imgUrl }
                 alt={ name }
-                data-testid={ `${index}-card-img` }
               />
-              <span data-testid={ `${index}-card-name` }>{name}</span>
+              <span>{name}</span>
             </button>
           );
         }
         return null;
       })}
-    </div>
+    </section>
   );
 }
 

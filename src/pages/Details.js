@@ -40,7 +40,6 @@ function Details() {
         type="button"
         className="button-recipe"
         onClick={ handleClick }
-        data-testid="start-recipe-btn"
       >
         {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>

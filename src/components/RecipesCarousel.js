@@ -31,15 +31,13 @@ function RecipesCarousel() {
               className="card carousel-card"
               key={ index }
               onClick={ () => push(`/${typePt}/${item[idKey]}`) }
-              data-testid={ `${index}-recomendation-card` }
             >
               <img
                 className="card-image"
                 src={ item[imgKey] }
                 alt={ item[nameKey] }
-                data-testid={ `${index}-card-img` }
               />
-              <span data-testid={ `${index}-recomendation-title` }>{item[nameKey]}</span>
+              <span>{item[nameKey]}</span>
             </button>
           );
         }

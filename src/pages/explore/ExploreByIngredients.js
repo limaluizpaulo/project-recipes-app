@@ -6,11 +6,11 @@ import Footer from '../../components/Footer';
 
 function ExploreByIngredients() {
   return (
-    <div>
+    <main>
       <Header title="Explorar Ingredientes" showSearchIcon={ false } />
       <IngredientsList />
       <Footer />
-    </div>
+    </main>
   );
 }
 

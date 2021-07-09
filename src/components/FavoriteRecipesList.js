@@ -16,7 +16,7 @@ function DoneRecipesList({ filter }) {
     : [...favorites];
 
   return (
-    <div className="done-card-list">
+    <section className="done-card-list">
       {recipes.map((item, index) => {
         const isDrinks = item.type === 'bebida';
         const { idKey } = setConstants(isDrinks);
@@ -29,40 +29,31 @@ function DoneRecipesList({ filter }) {
                   className="done-card-image"
                   src={ item.image }
                   alt={ item.name }
-                  data-testid={ `${index}-horizontal-image` }
                 />
               </Link>
             </div>
             <div>
               <div>
                 <Link to={ `/${item.type}s/${item.id}` }>
-                  <span data-testid={ `${index}-horizontal-name` }>
-                    {item.name}
-                  </span>
+                  <span>{item.name}</span>
                 </Link>
               </div>
               <div>
-                <span data-testid={ `${index}-horizontal-top-text` }>
+                <span>
                   {item.area && `${item.area} - `}
                   {item.category}
                   {item.alcoholicOrNot && ` - ${item.alcoholicOrNot}`}
                 </span>
               </div>
               <div className="share-container">
-                <FavoriteButton
-                  details={ { [idKey]: item.id } }
-                  dataTestId={ `${index}-horizontal-favorite-btn` }
-                />
-                <ShareButton
-                  index={ index }
-                  url={ `http://localhost:3000/${item.type}s/${item.id}` }
-                />
+                <FavoriteButton details={ { [idKey]: item.id } } />
+                <ShareButton url={ `http://localhost:3000/${item.type}s/${item.id}` } />
               </div>
             </div>
           </div>
         );
       })}
-    </div>
+    </section>
   );
 }
 

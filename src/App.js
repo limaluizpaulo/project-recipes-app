@@ -15,7 +15,7 @@ import ExploreByArea from './pages/explore/ExploreByArea';
 import Profile from './pages/Profile';
 import Done from './pages/Done';
 import Favorites from './pages/Favorites';
-import NotFound from './components/NotFound';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 function App() {
@@ -45,10 +45,10 @@ function App() {
           component={ ExploreByIngredients }
         />
         <Route exact path="/explorar/comidas/area" component={ ExploreByArea } />
-        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ Done } />
         <Route exact path="/receitas-favoritas" component={ Favorites } />
+        <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );

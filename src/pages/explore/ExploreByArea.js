@@ -30,20 +30,20 @@ function ExploreByArea() {
   }, [setMeals]);
 
   return (
-    <div>
+    <main>
       <Header title="Explorar Origem" />
       <p> Por Area </p>
-      <select onChange={ handleChange } data-testid="explore-by-area-dropdown">
-        <option data-testid="All-option">All</option>
+      <select onChange={ handleChange }>
+        <option>All</option>
         {areas.map((item, index) => (
-          <option key={ index } data-testid={ `${item.strArea}-option` }>
+          <option key={ index }>
             {item.strArea}
           </option>
         ))}
       </select>
       <RecipesList />
       <Footer />
-    </div>
+    </main>
   );
 }
 

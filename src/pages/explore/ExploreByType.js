@@ -19,12 +19,11 @@ function ExploreByType() {
   }
 
   return (
-    <div>
+    <main>
       <Header title={ `Explorar ${title}` } showSearchIcon={ false } />
       <div>
         <button
           type="button"
-          data-testid="explore-by-ingredient"
           onClick={ () => push(`/explorar/${typePt}/ingredientes`) }
         >
           Por Ingredientes
@@ -32,7 +31,6 @@ function ExploreByType() {
         {isDrinks ? null : (
           <button
             type="button"
-            data-testid="explore-by-area"
             onClick={ () => push(`/explorar/${typePt}/area`) }
           >
             Por Local de Origem
@@ -41,13 +39,12 @@ function ExploreByType() {
         <button
           type="button"
           onClick={ surpriseMe }
-          data-testid="explore-surprise"
         >
           Me Surpreenda!
         </button>
       </div>
       <Footer />
-    </div>
+    </main>
   );
 }
 

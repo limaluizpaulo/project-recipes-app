@@ -23,7 +23,7 @@ function RecipeDetails() {
     return (
       <ul>
         {ingredients.map((ingredient, index) => (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+          <li key={ index }>
             {ingredient}
             {measures[index] && ` - ${measures[index]}`}
           </li>
@@ -38,7 +38,6 @@ function RecipeDetails() {
         className="youtube-video"
         src={ urlToEmbed(details.strYoutube) }
         title="Video da receita"
-        data-testid="video"
       />
     );
   }
@@ -50,23 +49,22 @@ function RecipeDetails() {
           className="details-image"
           src={ details[imgKey] }
           alt={ details[nameKey] }
-          data-testid="recipe-photo"
         />
         <div>
-          <FavoriteButton details={ details } dataTestId="favorite-btn" />
+          <FavoriteButton details={ details } />
           <ShareButton url={ `http://localhost:3000/${typePt}/${id}` } />
         </div>
       </div>
       <div className="details-text-container">
-        <h2 data-testid="recipe-title">{details[nameKey]}</h2>
-        <h5 data-testid="recipe-category">
+        <h2>{details[nameKey]}</h2>
+        <h5>
           <span>{details.strCategory}</span>
           {isDrinks && <span>{` - ${details.strAlcoholic}`}</span>}
         </h5>
         <h3>Ingredients</h3>
         {renderIngredients()}
         <h3>Instructions</h3>
-        <p data-testid="instructions">{details.strInstructions}</p>
+        <p>{details.strInstructions}</p>
       </div>
       {!isDrinks && renderYoutubeVideo()}
     </section>
