@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import fetchAPI from '../services/fetchApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -13,6 +14,7 @@ class BeveragesInProgress extends React.Component {
       detailsRecipe: [],
       isFavorite: false,
       copyLink: false,
+      ingQuant: 0,
       setDisable: true,
       checkedIngredients: [],
     };
@@ -22,10 +24,11 @@ class BeveragesInProgress extends React.Component {
     this.onClickShare = this.onClickShare.bind(this);
     this.onClickFavoriteIcon = this.onClickFavoriteIcon.bind(this);
     this.handleFavoriteLocalStorage = this.handleFavoriteLocalStorage.bind(this);
+    this.verifyChecks = this.verifyChecks.bind(this);
   }
 
   componentDidMount() {
-    this.fetchDetails();
+    this.fetchDetails().then(() => this.renderNumber());
     this.handleFavoriteLocalStorage();
   }
 
@@ -44,7 +47,7 @@ class BeveragesInProgress extends React.Component {
     }
     this.setState({
       checkedIngredients: prevStorage.cocktails[idDrink],
-    });
+    }, () => this.verifyChecks());
     localStorage.setItem('inProgressRecipes', JSON.stringify(prevStorage));
   }
 
@@ -156,6 +159,45 @@ class BeveragesInProgress extends React.Component {
     );
   }
 
+  verifyChecks() {
+    const { ingQuant, checkedIngredients, setDisable } = this.state;
+    console.log('entrei');
+    if (checkedIngredients.length === (ingQuant + 1)) {
+      this.setState({
+        setDisable: false,
+      });
+    } else {
+      this.setState({
+        setDisable: true,
+      });
+    }
+  }
+
+  renderNumber() {
+    let ingNumber = 0;
+    const { detailsRecipe, checkedIngredients } = this.state;
+    const NUMBER_OF_INGREDIENTS = 20;
+    const arrayIngredients = [];
+    for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
+      arrayIngredients.push(index);
+    }
+    return arrayIngredients.map((position, index) => {
+      const ingredients = detailsRecipe[0][`strIngredient${position}`];
+      if (
+        ingredients === ''
+        || ingredients === null
+        || ingredients === undefined
+      ) {
+        return null;
+      }
+      ingNumber = index;
+      return this.setState({
+        ingQuant: ingNumber,
+      });
+    });
+    // this.setState({ ingQuant: ingNumber });
+  }
+
   renderFavorite() {
     const { isFavorite } = this.state;
     if (isFavorite) {
@@ -169,13 +211,14 @@ class BeveragesInProgress extends React.Component {
   }
 
   renderIngredients() {
+    let ingNumber = 0;
     const { detailsRecipe, checkedIngredients } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
       arrayIngredients.push(index);
     }
-    return arrayIngredients.map((position) => {
+    return arrayIngredients.map((position, index) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
       const ing = `${measure} ${ingredients}`;
@@ -186,7 +229,9 @@ class BeveragesInProgress extends React.Component {
       ) {
         return null;
       }
+      ingNumber = index;
       return (
+
         <li
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
@@ -202,6 +247,7 @@ class BeveragesInProgress extends React.Component {
         </li>
       );
     });
+    // this.setState({ ingQuant: ingNumber });
   }
 
   render() {
@@ -240,10 +286,11 @@ class BeveragesInProgress extends React.Component {
         </p>
         <h3>Ingredientes</h3>
         <ul>{this.renderIngredients()}</ul>
-
-        <button disabled={ setDisable } data-testid="finish-recipe-btn" type="button">
-          Finalizar receita
-        </button>
+        <Link to="/receitas-feitas">
+          <button disabled={ setDisable } data-testid="finish-recipe-btn" type="button">
+            Finalizar receita
+          </button>
+        </Link>
       </section>
     );
   }
