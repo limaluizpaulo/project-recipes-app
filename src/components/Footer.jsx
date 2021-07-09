@@ -1,62 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 // import ContextRecipes from '../context/contextRecipes';
 
 import '../App.css';
-import './footer.css';
+
 // import ContextRecipes from '../context/contextRecipes';
 
-function Footer({ history }) {
-  // const { setTitle } = useContext(ContextRecipes);
-  const goDrinks = () => {
-    history.push('/bebidas');
-    // setTitle('Bebidas');
-  };
-  const goExplore = () => {
-    history.push('/explore');
-    // setTitle('Explore');
-  };
-  const goFood = () => {
-    history.push('/comidas');
-    // setTitle('Comidas');
-  };
-
+function Footer() {
   return (
     <footer data-testid="footer" className="footer-container">
-      <button
-        name="Bebidas"
-        className="normal-button"
-        type="button"
-        data-testid="drinks-bottom-btn"
-        onClick={ goDrinks }
-      >
-        <img src={ drinkIcon } alt="Drinks Icon" />
-      </button>
-      <button
-        className="normal-button"
-        type="button"
-        data-testid="explore-bottom-btn"
-        onClick={ goExplore }
-      >
-        <img src={ exploreIcon } alt="Explore Icon" />
-      </button>
-      <button
-        className="normal-button"
-        type="button"
-        data-testid="food-bottom-btn"
-        onClick={ goFood }
-      >
-        <img src={ mealIcon } alt="Meal Icon" />
-      </button>
+      <Link to="/bebidas">
+        <img
+          src={ drinkIcon }
+          alt="icone de bebida"
+          data-testid="drinks-bottom-btn"
+        />
+      </Link>
+      <Link to="/explorar">
+        <img
+          src={ exploreIcon }
+          alt="icone de explorar"
+          data-testid="explore-bottom-btn"
+        />
+      </Link>
+      <Link to="/comidas">
+        <img
+          src={ mealIcon }
+          alt="icone de comida"
+          data-testid="food-bottom-btn"
+        />
+      </Link>
     </footer>
   );
 }
 
-Footer.propTypes = {
-  history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
-};
+// Footer.propTypes = {
+//   history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
+// };
 
 export default Footer;

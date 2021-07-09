@@ -28,8 +28,8 @@ function App() {
         />
         <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
-        <Route path="/explore" render={ (props) => <ExplorePage { ...props } /> } />
-        <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
+        <Route path="/perfil" render={ (props) => <Profile { ...props } /> } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
       {/* </div> */}

@@ -67,9 +67,32 @@
   }
 }
 
-.normal-button {
-  background: none;
+.meal-button {
+  background-image: src('images/mealIcon.svg');
   border: none;
+  height: 40px;
+  width: 40px;
+}
+
+.drinks-button {
+  background-image: src('images/drinkIcon.svg');
+  border: none;
+  height: 40px;
+  width: 40px;
+}
+
+.explore-button {
+  background-image: src('images/exploreIcon.svg');
+  border: none;
+  height: 40px;
+  width: 40px;
+}
+
+.food-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
 
 footer {
@@ -80,4 +103,11 @@ footer {
   margin-top: auto;
   position: fixed;
   width: 100%;
+}
+
+.footer-container {
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
