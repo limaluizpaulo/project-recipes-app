@@ -8,32 +8,36 @@ import '../styles/global.css';
 import { Context } from '../context/ContextForm';
 
 function DrinkDetails() {
-  const params = useParams();
-  const { setParam } = useContext(Context);
+  const { id } = useParams();
   const [drink, setDrink] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
+  function setDrinkOnState(drink2BeSet) {
+    setDrink([...drink2BeSet]);
+  }
+
   useEffect(() => {
-    setParam(params.id);
+    setParam(id);
     const request = async () => {
-      const result = await requestByDetailsDrink(params.id);
-      setDrink(result.drinks);
+      await requestByDetailsDrink(id)
+        .then((response) => { setDrinkOnState(response.drinks); });
     };
     request();
-  }, [params.id]);
+  }, [id]);
 
   function progressFunction() {
     const { idDrink } = drink[0];
     const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let flag = 0;
     Object
-      .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
+      .keys(cocktails).forEach((id2) => { if (id2 === idDrink) flag += 1; });
     if (flag !== 0) setProgress('Continuar Receita');
     setFirst(true);
   }
 
   function start() {
+    console.log(drink);
     const { idDrink } = drink[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     inProgress.cocktails[`${idDrink}`] = [];
@@ -41,13 +45,13 @@ function DrinkDetails() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     setProgress('Continuar Receita');
   }
-
-  if (!first && drink[0] !== undefined) {
+  console.log(drink);
+  if (!first && drink.length > 0) {
     progressFunction();
   }
 
   return (
-    drink && (
+    drink && drink.length > 0 && (
       drink.map((
         { idDrink, strDrink, strInstructions,
           strDrinkThumb, strAlcoholic, strSource, ...rest },
@@ -65,7 +69,7 @@ function DrinkDetails() {
             <div className="alignDetailsItens">
               <section className="detailsTitle-container">
                 <div>
-                  <h1 data-testid="recipe-title">{ strDrink }</h1>
+                  <h1 className="recipeTitle" data-testid="recipe-title">{ strDrink }</h1>
                   <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
                 <Icons code={ drink[0] } />

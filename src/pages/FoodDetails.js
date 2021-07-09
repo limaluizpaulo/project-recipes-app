@@ -66,7 +66,7 @@ function FoodDetails() {
             <div className="alignDetailsItens">
               <section className="detailsTitle-container">
                 <div>
-                  <h1 data-testid="recipe-title">{ strMeal }</h1>
+                  <h1 className="recipeTitle" data-testid="recipe-title">{ strMeal }</h1>
                   <span data-testid="recipe-category">{ strCategory }</span>
                 </div>
                 <Icons code={ item[0] } />

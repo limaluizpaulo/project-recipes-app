@@ -4,6 +4,8 @@ import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import home from '../images/home.png';
+import return0 from '../images/return0.png';
 import '../styles/global.css';
 import { Context } from '../context/ContextForm';
 
@@ -117,7 +119,7 @@ function Icons(item) {
     return (
       <Overlay target={ target.current } show={ changeCopy } placement="bottom">
         {(props) => (
-          <Tooltip id="overlay" { ...props }>
+          <Tooltip className="copyText" id="overlay" { ...props }>
             Link copiado!
           </Tooltip>
         )}
@@ -148,14 +150,34 @@ function Icons(item) {
                 </Link>
               )
               : (
-                <img
-                  src={ shareIcon }
-                  alt="share icon"
-                  data-testid={ shareData(item, pathname) }
-                />
+                <div>
+                  <Link to="/comidas">
+                    <img
+                      className="homeIcon"
+                      src={ home }
+                      alt="home icon"
+                    />
+                  </Link>
+                  <button
+                    type="button"
+                    className="returnBtn"
+                    onClick={ () => window.history.back() }
+                  >
+                    <img
+                      className="returnIcon"
+                      src={ return0 }
+                      alt="return icon"
+                    />
+                  </button>
+                  <img
+                    className="share"
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ shareData(item, pathname) }
+                  />
+                </div>
               )
           }
-
         </button>
         <button
           type="button"
@@ -171,7 +193,8 @@ function Icons(item) {
       </div>
       { (changeCopy
        || historyPage[historyPage
-         .length - 2] === '/receitas-favoritas') && <p>Link copiado!</p> }
+         .length - 2] === '/receitas-favoritas')
+          && <p className="copyText">Link copiado!</p> }
 
     </div>
   );

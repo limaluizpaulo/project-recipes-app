@@ -10,6 +10,46 @@ function DrinkProcess() {
   const params = useParams();
   const [drink, setDrink] = useState([]);
   const { active } = useContext(Context);
+  const data = new Date();
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  const dataAtual = `${dia}/${mes}/${ano}`;
+
+  function doneStructure() {
+    if (drink[0] !== undefined) {
+      const
+        { idDrink,
+          strArea,
+          id,
+          strCategory,
+          strDrink,
+          strDrinkThumb,
+          strTags, strAlcoholic } = drink[0];
+
+      const doneElement = {
+        id: idDrink || id,
+        type: 'bebida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+        doneDate: dataAtual,
+        tags: strTags === null ? null : strTags.split(','),
+      };
+      return doneElement;
+    }
+  }
+
+  function processDone(changeIcon) {
+    let done = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneElement = doneStructure();
+    if (changeIcon) {
+      done = [...done, doneElement];
+      localStorage.setItem('doneRecipes', JSON.stringify(done));
+    }
+  }
 
   useEffect(() => {
     const request = async () => {
@@ -38,7 +78,7 @@ function DrinkProcess() {
             <div className="alignDetailsItens">
               <section className="detailsTitle-container">
                 <div>
-                  <h1 data-testid="recipe-title">{ strDrink }</h1>
+                  <h1 className="recipeTitle" data-testid="recipe-title">{ strDrink }</h1>
                   <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
                 <Icons code={ drink[0] } />
@@ -55,6 +95,7 @@ function DrinkProcess() {
             <Link to="/receitas-feitas">
               <button
                 type="button"
+                onClick={ processDone }
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
                 disabled={ active }
