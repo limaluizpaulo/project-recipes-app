@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
 
-class DoneRecipies extends React.Component {
+class FavoriteRecipes extends React.Component {
   render() {
     return (
       <section>
-        <Header title="Receitas Feitas" />
+        <Header title="Receitas Favoritas" />
       </section>
     );
   }
 }
 
-export default DoneRecipies;
+export default FavoriteRecipes;
