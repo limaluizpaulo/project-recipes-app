@@ -1,129 +1,137 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router';
-import copyRecipe from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { fetchDrinkById } from '../services/DrinksServices';
 
-import LoginContext from '../context/LoginContext';
-
+import '../styles/Checked.css';
 import {
   PageDetails,
-  Header,
-  Thumb,
-  Popup,
   Ingredients,
   Instructions,
 } from '../styles/Details';
 
 import { BtnEndRecipe } from '../styles/InProgress';
+import DrinkDetailsHeader from '../components/DrinkDetailsHeader';
 
 function DrinkProgress() {
   const { id } = useParams();
-  const URL = `http://localhost:3000/bebidas/${id}`;
   const history = useHistory();
 
-  const {
-    getLocalStorage,
-    addLocalStorageDrink,
-    removeLocalStorage,
-  } = useContext(LoginContext);
-
   const [drink, setDrink] = useState({});
-  const [copy, setCopy] = useState(false);
-  const [isFavorite, setISFavorite] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [countCheck, setCountCheck] = useState(1);
+  const [progress, setProgress] = useState([]);
 
   useEffect(() => {
-    fetchDrinkById(id)
-      .then((res) => setDrink(res));
+    fetchDrinkById(id).then((res) => setDrink(res)); function checkedFunction() {
+      const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (localProgress && localProgress.drinks && localProgress.drinks[id]) {
+        setProgress([...localProgress.drinks[id]]);
+      }
+    }
+    checkedFunction();
   }, [id, setDrink]);
 
-  function copyURL() {
-    copyRecipe(URL);
-    setCopy(true);
-  }
+  useEffect(() => {
+    const currentProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-  function setLS() {
-    addLocalStorageDrink(id, drink);
-    setISFavorite(true);
-  }
+    let ingredientList = {};
 
-  function removeLS() {
-    removeLocalStorage(id);
-    setISFavorite(false);
-  }
+    if (currentProgress) {
+      ingredientList = {
+        ...currentProgress,
+        drinks: {
+          ...currentProgress.drinks,
+          [id]: progress,
+        },
+      };
+    } else {
+      ingredientList = {
+        ...currentProgress,
+        drinks: {
+          [id]: progress,
+        },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientList));
+  }, [id, progress]);
+
+  const checkInProgress = useCallback(() => {
+    const ingredients = document.querySelectorAll('input');
+    console.log(ingredients);
+    const ingredientsArr = [...ingredients];
+    const listItens = document.querySelectorAll('li');
+    console.log(listItens);
+    const listItensArr = [...listItens];
+
+    ingredientsArr.forEach((ingredient) => {
+      listItensArr.forEach((item, index) => {
+        if (ingredient.checked[index]) {
+          item.className = 'checked';
+        }
+      });
+    });
+  }, []);
 
   useEffect(() => {
-    const xablau = getLocalStorage(id);
-    setISFavorite(xablau);
-  }, [getLocalStorage, id]);
+    checkInProgress();
+  });
 
-  function handleChecked({ target }) {
+  function buttonChecked() {
+    const ingredients = document.querySelectorAll('input');
+
+    let progressChecked = [];
+
+    if (ingredients.length > 0) {
+      ingredients.forEach((ingredient, index) => {
+        if (ingredient.checked) {
+          progressChecked = [...progressChecked, index];
+        }
+      });
+    }
+
+    setProgress([...progressChecked]);
+  }
+
+  const handleChecked = useCallback(({ target }) => {
     const li = target.parentNode;
+    setCountCheck(countCheck + 1);
     if (target.checked === true) {
       li.className = 'checked';
     }
     if (target.checked === false) li.className = '';
-  }
-
-  function disableButton() {
-    const checked = document.querySelectorAll('.checked');
-    const inputs = document.querySelectorAll('input');
-    if (checked.length + 1 === inputs.length) {
-      setDisable(false);
-    }
-    if (checked.length + 1 !== inputs.length) {
-      setDisable(true);
-    }
-  }
+    buttonChecked();
+  }, [countCheck]);
 
   const filterObj = (text, option) => Object.entries(option)
     .filter(([key, value]) => key.match(text) && value);
 
-  const renderCheckBox = (option) => {
+  const renderCheckBox = useCallback((option) => {
     const ingredients = filterObj(/Ingredient/, option);
-    return ingredients.map(([key, ingredient]) => (
-      <li key={ `${key}` } data-testid={ `${key}-ingredient-step` }>
+    return ingredients.map(([key, ingredient], index) => (
+      <li key={ `${key}` } data-testid={ `${index}-ingredient-step` }>
         <input
           className="mr-2"
           id="checkbox"
           type="checkbox"
+          checked={ progress.includes(index) }
           onChange={ handleChecked }
-          onClick={ disableButton }
         />
         {ingredient}
       </li>
     ));
-  };
+  }, [handleChecked, progress]);
 
-  function buttonShare() {
-    return (
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ copyURL }
-      >
-        <img src={ shareIcon } alt="Compartilhar receita" />
-      </button>
-    );
-  }
-
-  function buttonLike() {
-    return (
-      <button
-        type="button"
-        onClick={ () => (isFavorite ? removeLS() : setLS()) }
-      >
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="Icon Like"
-          data-testid="favorite-btn"
-        />
-      </button>
-    );
-  }
+  useEffect(() => {
+    renderCheckBox(drink);
+    const checked = document.querySelectorAll('.checked');
+    const inputs = document.querySelectorAll('input');
+    const enable = checked.length === inputs.length;
+    if (!enable) {
+      setDisable(true);
+    } else if (enable) {
+      setDisable(false);
+    }
+  }, [renderCheckBox, drink, countCheck]);
 
   function doneDrink() {
     const date = new Date();
@@ -158,34 +166,7 @@ function DrinkProgress() {
 
   return (
     <PageDetails>
-      <Header>
-        <Thumb
-          data-testid="recipe-photo"
-          src={ drink.strDrinkThumb }
-          alt="Foto da receita"
-        />
-        <section>
-          <div>
-            <h1 data-testid="recipe-title">
-              { drink.strDrink}
-            </h1>
-            <h2 data-testid="recipe-category">
-              { drink.strAlcoholic }
-            </h2>
-          </div>
-
-          <section>
-            { buttonShare() }
-            <Popup
-              copied={ copy }
-              onTransitionEnd={ () => setCopy(false) }
-            >
-              Link copiado!
-            </Popup>
-            { buttonLike() }
-          </section>
-        </section>
-      </Header>
+      <DrinkDetailsHeader drink={ drink } id={ id } />
       <main>
         <Ingredients>
           <h1>Ingredientes</h1>
