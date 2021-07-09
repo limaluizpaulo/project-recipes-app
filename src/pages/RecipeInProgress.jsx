@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDrinkDetails, getMealDetails } from '../services';
-import { checkLocalStorage, updateLocalStorage } from '../services/localStorageManager';
 import { FavoriteBtn, ShareBtn } from '../components';
+import { finishedRecipe } from '../actions';
+import {
+  checkLocalStorage,
+  updateLocalStorage,
+  saveDoneRecipes,
+} from '../services/localStorageManager';
 
-function RecipeInProgress({ match, history }) {
+function RecipeInProgress({ match, history, savesFinished }) {
   const { id } = match.params;
   const { pathname } = history.location;
   const recipeType = pathname.includes('/comidas') ? 'meals' : 'cocktails';
@@ -51,8 +56,19 @@ function RecipeInProgress({ match, history }) {
         data-testid="recipe-photo"
       />
 
-      <ShareBtn showCopiedMsg={ setWasCopied } />
-      <FavoriteBtn id={ id } type={ recipeType } currentRecipe={ recipeInProgress } />
+      <ShareBtn
+        showCopiedMsg={ setWasCopied }
+        testId="share-btn"
+        id={ id }
+        type={ recipeType === 'meals' ? 'comidas' : 'bebidas' }
+        route={ `${recipeType === 'meals' ? 'comidas' : 'bebidas'}/${id}/in-progress` }
+      />
+      <FavoriteBtn
+        id={ id }
+        type={ recipeType === 'meals' }
+        currentRecipe={ recipeInProgress }
+        testId="favorite-btn"
+      />
 
       <span data-testid="recipe-category">{strCategory}</span>
       {wasCopied && <span>Link copiado!</span>}
@@ -85,7 +101,11 @@ function RecipeInProgress({ match, history }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isBtnDisable }
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ () => {
+          savesFinished(recipeInProgress);
+          saveDoneRecipes(id, recipeType, recipeInProgress);
+          history.push('/receitas-feitas');
+        } }
       >
         Finalizar receita
       </button>
@@ -98,8 +118,12 @@ const mapStateToProps = (state) => ({
   inProgressRecipes: state.recipes.inProgressRecipes,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  savesFinished: (value) => dispatch(finishedRecipe(value)),
+});
+
 RecipeInProgress.propTypes = {
   inProgressRecipe: PropTypes.objectOf,
 }.isRequired;
 
-export default connect(mapStateToProps)(RecipeInProgress);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeInProgress);

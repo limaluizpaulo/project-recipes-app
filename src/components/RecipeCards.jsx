@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 function RecipeCards({ history, recipes }) {
   const { pathname } = history.location;
+  const newLocation = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+  console.log(pathname);
   return (
     <section>
       {recipes.map((
@@ -12,8 +14,8 @@ function RecipeCards({ history, recipes }) {
         <section
           key={ idx }
           data-testid={ `${idx}-recipe-card` }
-          onClick={ () => history.push(`${pathname}/${idMeal || idDrink}`) }
-          onKeyDown={ () => history.push(`${pathname}/${idMeal || idDrink}`) }
+          onClick={ () => history.push(`/${newLocation}/${idMeal || idDrink}`) }
+          onKeyDown={ () => history.push(`/${newLocation}/${idMeal || idDrink}`) }
           role="button"
           tabIndex={ 0 }
         >
