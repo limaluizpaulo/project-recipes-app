@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import fetchAPI from '../services/fetchApi';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import sharedIcon from '../images/shareIcon.svg';
 
