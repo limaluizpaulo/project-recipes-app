@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 import Context from '../context/Context';
-import { copyLink, verifyCheck } from '../services/functions';
+import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite,
   settingFavorite,
@@ -83,7 +83,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
         >
           <button
             type="button"
-            onClick={ () => setIsCopied(copyLink(match)) }
+            onClick={ () => setIsCopied(copyLinkInProgress(match)) }
           >
             <img src={ shareIcon } alt="Share" />
             {isCopied ? <p>Link copiado!</p> : null }
