@@ -1,9 +1,7 @@
 const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
-// const URL_RECIPES_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
-// const URL_DRINKS_INGREDIENTS = 'www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const LENGTH_DOZE = 12;
 const LENGTH_CINCO = 5;
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
