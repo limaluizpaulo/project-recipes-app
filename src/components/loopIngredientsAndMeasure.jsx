@@ -6,13 +6,13 @@ import {
 } from '../services/manageLocalStorage';
 
 export default function loopIngredientsAndMeasure(
-  mealArray,
+  mealOrDrinkArray,
   IngredientsAndMeasures,
   id,
   [refresh, setRefresh],
 ) {
   return (
-    mealArray.map((_a, index) => (
+    mealOrDrinkArray.map((_a, index) => (
       <section
         className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
         data-testid={ `${index}-ingredient-step` }

@@ -24,7 +24,7 @@ describe('47 - Desenvolva a tela de maneira que contenha uma imagem da receita, 
     cy.get('[data-testid="finish-recipe-btn"]');
   });
 
-  it.skip('verifica elementos de uma receita de bebida', () => {
+  it('verifica elementos de uma receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -55,7 +55,7 @@ describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', 
       .should('have.length', 8);
   });
 
-  it.skip('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
+  it('todos os ingredientes de uma receita de bebida possuem um checkbox', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -88,7 +88,7 @@ describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingredien
       .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
   });
 
-  it.skip('verifica se é possível marcar todos os passos da receita de bebida', () => {
+  it('verifica se é possível marcar todos os passos da receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -122,7 +122,7 @@ describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa a
       .should('have.attr', 'checked');
   });
 
-  it.skip('salva o progresso de uma receita de bebida em andamento', () => {
+  it('salva o progresso de uma receita de bebida em andamento', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -153,7 +153,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
     cy.get('[data-testid="favorite-btn"]').should('exist');
   });
 
-  it.skip('verifica se os botões estão disponíveis na tela de detalhes de uma bebida', () => {
+  it('verifica se os botões estão disponíveis na tela de detalhes de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -179,7 +179,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
     });
   });
 
-  it.skip('verifica a mensagem "Link copiado!" e se o link da receita da bebida foi copiado para o clipboard', () => {
+  it('verifica a mensagem "Link copiado!" e se o link da receita da bebida foi copiado para o clipboard', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -228,7 +228,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
       .should('include', 'whiteHeartIcon');
   });
 
-  it.skip('verifica bebida favoritada', () => {
+  it('verifica bebida favoritada', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         const favoriteRecipes = [{
@@ -250,7 +250,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
       .should('include', 'blackHeartIcon');
   });
 
-  it.skip('verifica bebida não favoritada', () => {
+  it('verifica bebida não favoritada', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -308,7 +308,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
       .should('include', 'whiteHeartIcon');
   });
 
-  it.skip('favorita bebida', () => {
+  it('favorita bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -326,7 +326,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
       .should('include', 'blackHeartIcon');
   });
 
-  it.skip('desfavorita bebida', () => {
+  it('desfavorita bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         const favoriteRecipes = [{
@@ -380,7 +380,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
     });
   });
 
-  it.skip('favorita receita de uma bebida', () => {
+  it('favorita receita de uma bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -422,7 +422,7 @@ describe('52 - Implemente a solução de maneira que o botão de finalizar recei
     cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
   });
 
-  it.skip('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
+  it('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -449,7 +449,7 @@ describe('52 - Implemente a solução de maneira que o botão de finalizar recei
     cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
   });
 
-  it.skip('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
+  it('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
@@ -478,7 +478,7 @@ describe('53 - Redirecione a pessoa usuária após clicar no botão "Finalizar r
     cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
   });
 
-  it.skip('redireciona após concluir uma receita de bebida', () => {
+  it('redireciona após concluir uma receita de bebida', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
