@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Context from '../context/Context';
+import '../styles/favoriteRecipes.css';
 
 import FavoriteRecipesCard from '../components/FavoritesRecipesCard';
 
@@ -14,12 +15,12 @@ export default function FavoritesRecipes({ history }) {
   };
 
   return (
-    <div>
+    <div className="foodPage">
       <Header history={ history } title="Receitas Favoritas" />
-      <section className="profile-buttons">
+      <section className="food__category__container">
         <button
           type="button"
-          className="btn btn-sm color-button"
+          className="food__category__button"
           data-testid="filter-by-all-btn"
           onClick={ () => setFilterRecipesDone('all') }
         >
@@ -27,7 +28,7 @@ export default function FavoritesRecipes({ history }) {
         </button>
         <button
           type="button"
-          className="btn btn-sm color-button"
+          className="food__category__button"
           data-testid="filter-by-food-btn"
           onClick={ () => setFilterRecipesDone('bebida') }
         >
@@ -35,14 +36,14 @@ export default function FavoritesRecipes({ history }) {
         </button>
         <button
           type="button"
-          className="btn btn-sm color-button"
+          className="food__category__button"
           data-testid="filter-by-drink-btn"
           onClick={ () => setFilterRecipesDone('comida') }
         >
           Drinks
         </button>
       </section>
-      <section>
+      <section className="food__cards__container">
         <FavoriteRecipesCard />
       </section>
     </div>
