@@ -204,3 +204,12 @@ export const disableFinishRecipeButton = (id) => {
   }
   return true;
 };
+
+export const finishRecipe = (id, details, history) => {
+  const rawDoneRecipes = localStorage.getItem('doneRecipes');
+  const doneRecipes = JSON.parse(rawDoneRecipes);
+  if (!doneRecipes) {
+    localStorage.setItem('doneRecipes', []);
+  }
+  history.push('/receitas-feitas');
+};
