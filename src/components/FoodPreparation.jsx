@@ -31,6 +31,10 @@ export default function FoodPreparation({ recipeId }) {
     return ingredientsList;
   };
 
+  useEffect(() => {
+    preparation();
+  }, []);
+
   return (
     <div>
       { preparation().map((ingredient, index) => (
