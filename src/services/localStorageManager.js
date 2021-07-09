@@ -78,7 +78,10 @@ export const checkProgress = (id, type) => {
 };
 
 export const saveDoneRecipes = (id, type, recipe) => {
-  const data = JSON.parse(localStorage.getItem('doneRecipes'));
+  let data = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!data) {
+    data = [];
+  }
   const typePTBR = type === 'meals' ? 'comida' : 'bebida';
 
   const {
