@@ -14,6 +14,7 @@ function Ingredients(props) {
       `- ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
     );
   }
+
   return (
     <div
       className="ingredients"
