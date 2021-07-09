@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../Context/RecipesContext';
 
 export default function FiltersButtons() {
@@ -19,6 +19,8 @@ export default function FiltersButtons() {
     const filters = favoriteRecipesStorage;
     setFavoriteFilters(filters);
   };
+
+  useEffect(filterAll, []);
 
   return (
     <div>
