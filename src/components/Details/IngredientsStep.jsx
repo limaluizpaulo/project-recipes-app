@@ -8,6 +8,21 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   const { curr } = useContext(Context);
   const RADIX = 10;
   const steps = [];
+  const STRIPE_CLASS = 'step-checked';
+  const NOT_STRIPE_CLASS = 'step-not-checked';
+
+  const generateNoClassElements = () => {
+    if (ingredients) {
+      for (let index = 0; index <= ingredients.length; index += 1) {
+        steps.push({
+          step: NOT_STRIPE_CLASS,
+          checked: false,
+          index,
+        });
+      }
+    }
+    setStepsClassName(steps);
+  };
 
   useEffect(() => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -18,7 +33,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         if (ingredients) {
           for (let index = 0; index < ingredients.length; index += 1) {
             steps.push({
-              step: 'step-not-checked',
+              step: NOT_STRIPE_CLASS,
               checked: false,
               index,
             });
@@ -32,40 +47,31 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
       if (recipe) {
         const arrayIds = inProgress[curr][currentRecipe.id];
-        let nome = '';
-        let valor = false;
+        let className = '';
+        let classValue = false;
 
         for (let index = 0; index < ingredients.length; index += 1) {
           for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
             if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
-              nome = 'step-checked';
-              valor = true;
+              className = STRIPE_CLASS;
+              classValue = true;
               checkboxes[index].checked = true;
               break;
             } else {
-              nome = 'step-not-checked';
-              valor = false;
+              className = NOT_STRIPE_CLASS;
+              classValue = false;
             }
           }
           steps.push({
-            step: nome,
-            checked: valor,
+            step: className,
+            checked: classValue,
             index,
           });
         }
         setStepsClassName(steps);
       }
     } else {
-      if (ingredients) {
-        for (let index = 0; index <= ingredients.length; index += 1) {
-          steps.push({
-            step: 'step-not-checked',
-            checked: false,
-            index,
-          });
-        }
-      }
-      setStepsClassName(steps);
+      generateNoClassElements();
     }
   }, []);
 
@@ -83,12 +89,11 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       if (recipe) {
         return;
       }
-      const steps = [];
 
       if (ingredients) {
         for (let index = 0; index < ingredients.length; index += 1) {
           steps.push({
-            step: 'step-not-checked',
+            step: NOT_STRIPE_CLASS,
             checked: false,
             index,
           });
@@ -108,18 +113,18 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         .stringify({ [curr]: { [id]: [] } }));
       break;
     default:
-      if (!inProgress[curr]) {
+      if (!inProgress[curr] || !inProgress[curr][id]) {
         localStorage.setItem('inProgressRecipes', JSON
           .stringify({
             ...inProgress,
             [curr]: { ...inProgress[curr], [id]: [] },
           }));
-      } else if (!inProgress[curr][id]) {
-        localStorage.setItem('inProgressRecipes', JSON
-          .stringify({
-            ...inProgress,
-            [curr]: { ...inProgress[curr], [id]: [] },
-          }));
+      // } else if (!inProgress[curr][id]) {
+        // localStorage.setItem('inProgressRecipes', JSON
+        //   .stringify({
+        //     ...inProgress,
+        //     [curr]: { ...inProgress[curr], [id]: [] },
+        //   }));
       } else {
         localStorage.setItem('inProgressRecipes', JSON
           .stringify({
@@ -164,10 +169,10 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id } = currentRecipe;
 
-    let step = 'step-checked';
+    let step = STRIPE_CLASS;
 
     if (stepsClassName[targetId].checked) {
-      step = 'step-not-checked';
+      step = NOT_STRIPE_CLASS;
     }
 
     setStepsClassName([
