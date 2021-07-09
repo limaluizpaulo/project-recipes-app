@@ -28,6 +28,7 @@ export default function FavoriteRecipes() {
   const favoriteDrink = (alcoholicOrNot, index) => (
     <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
   );
+
   const renderFavorites = () => (
     favoriteStorage.map((favorited, index) => (
       <div key={ index }>
@@ -52,9 +53,11 @@ export default function FavoriteRecipes() {
       </div>
     ))
   );
+  
   useEffect(() => {
     setFavoriteStorage(getStorage('favoriteRecipes'));
   }, [state]);
+  
   return (
     <div>
       <Header pageName="Receitas Favoritas" />
