@@ -28,8 +28,11 @@ const FoodInProgressBtn = () => {
   };
 
   return (
-    <div>
+    <div className="inprogress__finishBtn__container">
       <button
+        className={
+          finished ? 'inprogress__finishBtn' : 'inprogress__finishBtn-disabled'
+        }
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ !finished }
