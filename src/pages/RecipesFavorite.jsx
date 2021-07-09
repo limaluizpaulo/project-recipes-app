@@ -6,6 +6,15 @@ import CardsRecipesFavorite from '../components/CardsRecipes/CardsRecipesFavorit
 function RecipesFavorite() {
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
+
+  const removeFavorites = (Id) => {
+    const newArray = initialFavorites.filter(
+      (recipe) => recipe.id !== Id,
+    );
+    setFilterFavorites(newArray);
+    localStorage.favoriteRecipes = JSON.stringify(newArray);
+  };
+
   return (
     <div>
       <Header />
@@ -19,6 +28,7 @@ function RecipesFavorite() {
             key={ index }
             aux={ aux }
             index={ index }
+            removeFavorites={ removeFavorites }
           />
         ))}
       </div>

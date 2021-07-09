@@ -7,10 +7,11 @@ import imgBtnFavorite from '../../images/blackHeartIcon.svg';
 
 function copyUrl(setCopied, type, id) {
   copy(`http://localhost:3000/${type}s/${id}`);
+  /* console.log(navigator.clipboard.readText()); */
   setCopied(true);
 }
 
-function CardsRecipesFavorite({ aux, index }) {
+function CardsRecipesFavorite({ aux, index, removeFavorites }) {
   const [copied, setCopied] = useState(false);
   const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
@@ -38,19 +39,6 @@ function CardsRecipesFavorite({ aux, index }) {
           >
             { name }
           </h5>
-          <p
-            className="card-text"
-          /* data-testid="${index}-horizontal-done-date" */
-          >
-            Data
-          </p>
-          <button
-            type="button"
-            disabled
-          /* data-testid="${index}-${tagName}-horizontal-tag" */
-          >
-            Tags
-          </button>
           <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -59,7 +47,7 @@ function CardsRecipesFavorite({ aux, index }) {
             />
           </button>
           { copied ? <p>Link copiado!</p> : ''}
-          <button type="button">
+          <button type="button" onClick={ () => removeFavorites(id) }>
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }
               src={ imgBtnFavorite }
@@ -75,6 +63,7 @@ function CardsRecipesFavorite({ aux, index }) {
 CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
+  removeFavorites: PropTypes.func.isRequired,
 };
 
 export default CardsRecipesFavorite;
