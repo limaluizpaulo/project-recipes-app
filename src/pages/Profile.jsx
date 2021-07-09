@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from '../components';
+import { Footer, Header } from '../components';
 
 function Profile() {
   let userData = JSON.parse(localStorage.getItem('user'));
@@ -43,6 +43,7 @@ function Profile() {
           Sair
         </Link>
       </button>
+      <Footer />
     </main>
   );
 }
