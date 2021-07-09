@@ -34,3 +34,7 @@ export const getMealsByCategory = (category, type = 'meals') => getAPI(MEALS_API
 export const getMealById = (id, type = 'meals') => getAPI(MEALS_API[type],
   'lookup.php?i=',
   type, id);
+
+export const getMealRandom = (type = 'meals') => getAPI(
+  MEALS_API[type], 'random.php', type,
+);
