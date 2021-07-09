@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import FiltersButtons from '../components/FiltersButtons';
 import RecipesContext from '../Context/RecipesContext';
@@ -11,6 +11,7 @@ function ReceitasFavoritas() {
 
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { pathname } = useLocation();
+  const history = useHistory();
   const id = pathname.split('/')[2];
 
   const removeFavorited = () => {
@@ -32,29 +33,36 @@ function ReceitasFavoritas() {
   };
 
   useEffect(verifyHeart, []);
-
   return (
     <>
       <Header />
       <FiltersButtons />
-      {favoriteFilters.map(({ image, category, name, id: idFavorite, area }, index) => (
+      {favoriteFilters.map(({
+        image, category, name, id: idFavorite, area, type }, index) => (
         <div key={ idFavorite }>
-          <img
+            <img
             src={ image }
             alt="xxxx"
             data-testid={ `${index}-horizontal-image` }
             width="50px"
+            onClick={ () => history.push(`/${type}s/${idFavorite}`) }
           />
-          <span data-testid={ `${index}-horizontal-name` }>{ name }</span>
-          <span data-testid={ `${index}-horizontal-top-text` }>{ category }</span>
-          <span>{ area }</span>
-          <ShareButton index={ index } />
-          <FavoriteButton
+            <span
+            data-testid={ `${index}-horizontal-name` }
+            onClick={ () => history.push(`/${type}s/${idFavorite}`) }
+          >
+            { name }
+
+          </span>
+            <span data-testid={ `${index}-horizontal-top-text` }>{ category }</span>
+            <span>{ area }</span>
+            <ShareButton index={ index } idFavorite={ idFavorite } />
+            <FavoriteButton
             stateChangeHeart={ stateChangeHeart }
             setStateChangeHeart={ setStateChangeHeart }
             removeFavorited={ removeFavorited }
           />
-        </div>
+          </div>
       ))}
     </>
 

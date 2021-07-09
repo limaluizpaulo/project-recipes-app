@@ -15,7 +15,7 @@ function FavoriteButton(props) {
     strAlcoholic } = stateDrink[0];
   const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
 
-  const { stateChangeHeart, setStateChangeHeart, removeFavorited } = props;
+  const { stateChangeHeart, setStateChangeHeart, removeFavorited, index } = props;
 
   const saveStorage = () => {
     const type = pathname.includes('comida') ? 'comida' : 'bebida';
@@ -81,13 +81,15 @@ function FavoriteButton(props) {
   };
 
   useEffect(setInlocalStorage, [saveRecipe]);
+  const pathRoute = ['/receitas-favoritas', '/receitas-feitas'].includes(pathname);
 
   return (
     <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
       <img
         src={ stateChangeHeart ? whiteHeartIcon : blackHeartIcon }
         alt="imagem de favoritar"
-        data-testid="favorite-btn"
+        // data-testid="favorite-btn"
+        data-testid={ pathRoute ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
       />
     </button>
   );
