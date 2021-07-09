@@ -89,7 +89,7 @@ export default function RecipesInProgressDrink() {
   useEffect(filterDetails, [stateDrink]);
 
   const { idDrink, strAlcoholic, strDrink, strDrinkThumb,
-    strCategory, strInstructions } = stateDrink[0];
+    strCategory, strInstructions, strTags } = stateDrink[0];
   const recipeDone = () => {
     const data = new Date();
     const day = data.getDate();
@@ -97,6 +97,7 @@ export default function RecipesInProgressDrink() {
     const year = data.getUTCFullYear();
     const doneDate = `${day}-${month}-${year}`;
     const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log(strTags);
     const recipesDone = {
       id: idDrink,
       type: 'bebida',
@@ -106,7 +107,7 @@ export default function RecipesInProgressDrink() {
       name: strDrink,
       image: strDrinkThumb,
       doneDate,
-      // tags: strTags,
+      tags: [strTags],
     };
     console.log(done);
     if (!done) {

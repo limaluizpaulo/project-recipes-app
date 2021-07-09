@@ -111,7 +111,7 @@ export default function RecipesInProgress() {
       name: strMeal,
       image: strMealThumb,
       doneDate,
-      tags: strTags,
+      tags: [strTags],
     };
     console.log(done);
     if (!done) {

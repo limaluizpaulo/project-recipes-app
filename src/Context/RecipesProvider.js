@@ -13,6 +13,9 @@ function RecipesProvider({ children }) {
   const [stateDrink, setStateDrink] = useState([{}]);
   const [stateMeals, setStateMeals] = useState([{}]);
   const [favoriteFilters, setFavoriteFilters] = useState([]);
+  const [ingredientsMeals,
+    setIngredientsMeals] = useState([]);
+  const [measureMeals, setMeasureMeals] = useState([]);
 
   const context = {
     login,
@@ -35,6 +38,10 @@ function RecipesProvider({ children }) {
     setStateMeals,
     favoriteFilters,
     setFavoriteFilters,
+    ingredientsMeals,
+    setIngredientsMeals,
+    measureMeals,
+    setMeasureMeals,
   };
   return (
     <RecipesContext.Provider value={ context }>

@@ -1,36 +1,26 @@
-import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../Context/RecipesContext';
 
 export default function FiltersButtons() {
-  const { pathname } = useLocation();
-  let favoriteRecipesStorage = [];
-  if (pathname.includes('/receitas-favoritas')) {
-    favoriteRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  } else {
-    favoriteRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-  }
+  const favoriteRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const { setFavoriteFilters } = useContext(RecipesContext);
 
   const filterFood = () => {
     const filter = favoriteRecipesStorage.filter(({ type }) => type === 'comida');
     setFavoriteFilters(filter);
-    console.log(filter);
   };
 
   const filterDrink = () => {
     const filterDrinks = favoriteRecipesStorage.filter(({ type }) => type === 'bebida');
     setFavoriteFilters(filterDrinks);
-    console.log(filterDrinks);
   };
 
   const filterAll = () => {
-    const filters = favoriteRecipesStorage.filter(
-      ({ type }) => type === 'comida' && type === 'bebida',
-    );
+    const filters = favoriteRecipesStorage;
     setFavoriteFilters(filters);
-    console.log(filters);
   };
+
+  useEffect(filterAll, []);
 
   return (
     <div>
