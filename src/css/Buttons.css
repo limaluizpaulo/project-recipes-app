@@ -2,6 +2,16 @@
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
   height: 50px;
+  line-height: 1em;
+  margin: 1px;
+  width: 120px;
+}
+
+.buttonss {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  height: 45px;
+  line-height: 1em;
   margin: 1px;
   width: 120px;
 }

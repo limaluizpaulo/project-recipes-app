@@ -65,7 +65,7 @@ class DrinkButtons extends Component {
       <div>
         {categories.map(({ strCategory }, index) => (
           <Button
-            className="buttons"
+            className="buttonss"
             data-testid={ `${strCategory}-category-filter` }
             type="button"
             key={ index }
@@ -77,7 +77,7 @@ class DrinkButtons extends Component {
           </Button>
         ))}
         <Button
-          className="buttons"
+          className="buttonss"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.handleClickAll() }

@@ -33,24 +33,26 @@ class ExploreDrinks extends Component {
           <>
             <section>
               <Header title="Explorar Bebidas" searchIcon />
-              <Link to="/explorar/bebidas/ingredientes">
-                <Button
-                  className="buttons"
-                  type="button"
-                  data-testid="explore-by-ingredient"
-                >
-                  Por Ingredientes
-                </Button>
-              </Link>
-              <Link to={ `/bebidas/${drinkRandom[0].idDrink}` }>
-                <Button
-                  className="buttons"
-                  type="button"
-                  data-testid="explore-surprise"
-                >
-                  Me Surpreenda!
-                </Button>
-              </Link>
+              <div className="explore-buttons">
+                <Link to="/explorar/bebidas/ingredientes">
+                  <Button
+                    className="buttons"
+                    type="button"
+                    data-testid="explore-by-ingredient"
+                  >
+                    Por Ingredientes
+                  </Button>
+                </Link>
+                <Link to={ `/bebidas/${drinkRandom[0].idDrink}` }>
+                  <Button
+                    className="buttons"
+                    type="button"
+                    data-testid="explore-surprise"
+                  >
+                    Me Surpreenda!
+                  </Button>
+                </Link>
+              </div>
             </section>
             <Footer />
           </>

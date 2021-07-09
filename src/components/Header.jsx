@@ -43,6 +43,7 @@ class Header extends Component {
             <Button
               variant="light"
               type="button"
+              className="button-profile"
               data-testid="profile-top-btn"
               onClick={ this.changeRoute }
               src={ profile }
@@ -55,13 +56,20 @@ class Header extends Component {
                 variant="light"
                 onClick={ this.showInput }
                 type="button"
+                className="button-search"
                 page-title="search-top-btn"
                 data-testid="search-top-btn"
                 src={ search }
               >
                 <img src={ search } alt="search-icon" />
               </Button>)
-              : null}
+              : (
+                <Button
+                  type="button"
+                  className="button-search-invisible"
+                >
+                  {' '}
+                </Button>)}
           </div>
 
           { !hydeInput
