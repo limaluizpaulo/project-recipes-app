@@ -20,22 +20,25 @@ function ExplorerFoods() {
       <Header title="Explorar Comidas" />
       <h1>Ex Comidas</h1>
 
-      <buttom
-        type="buttom"
+      <button
+        data-testid="explore-by-ingredient"
+        type="button"
         onClick={ () => history.push('/explorar/comidas/ingredientes') }
       >
         Por Ingredientes
-      </buttom>
-
-      <buttom
-        type="buttom"
-        onClick={ () => history.push('/explorar/comidas/area') }
-      >
-        Por Local de Origem
-      </buttom>
+      </button>
 
       <button
         type="button"
+        data-testid="explore-by-area"
+        onClick={ () => history.push('/explorar/comidas/area') }
+      >
+        Por Local de Origem
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-surprise"
         onClick={ () => history.push(`/comidas/${idMeal}`) }
       >
         Me Surpreenda!

@@ -7,8 +7,16 @@ function Provider({ children }) {
     userEmail: '',
     password: '',
   });
+  const [dataFood, setDataFood] = useState([]);
+  const [dataDrink, setDataDrink] = useState([]);
 
-  const context = { user, setUser };
+  const context = { user,
+    setUser,
+    dataFood,
+    setDataFood,
+    dataDrink,
+    setDataDrink,
+  };
 
   return (
     <Context.Provider value={ context }>
