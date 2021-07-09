@@ -8,6 +8,7 @@ const initialState = {
   areaSelect: [],
   goToFoodsPage: false,
   categories: [],
+  shouldRedirect: false,
 };
 
 export default (state = initialState, { type, payload }) => {

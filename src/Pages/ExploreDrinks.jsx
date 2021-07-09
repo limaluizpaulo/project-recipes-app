@@ -19,7 +19,7 @@ function ExploreDrinks(props) {
 
   return shouldRedirect ? <Redirect to={ `/bebidas/${drink[0].idDrink}` } /> : (
     <>
-      <HeadBar title="Explorar Bebidas" />
+      <HeadBar title="Explorar" />
       <Link
         to="/explorar/bebidas/ingredientes"
         data-testid="explore-by-ingredient"

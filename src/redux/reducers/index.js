@@ -6,7 +6,7 @@ import ingredients from './ingredients';
 import mealsArea from './mealsArea';
 
 const rootReducer = combineReducers({
-  user, foods, drinks, ingredients, mealsArea,
+  mealsArea, user, foods, drinks, ingredients,
 });
 
 export default rootReducer;
