@@ -1,9 +1,9 @@
 .profilePage {
   background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
-  position: absolute;
   bottom: 0%;
   left: 0%;
   right: 0%;
+  position: absolute;
   top: 0%;
 }
 
