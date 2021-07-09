@@ -1,4 +1,4 @@
-const pathTreament = (pathname) => {
+export const pathTreament = (pathname) => {
   const negativeOne = -1;
   const lastLetter = pathname.slice(negativeOne);
   let newPathname = pathname;
@@ -16,4 +16,14 @@ const pathTreament = (pathname) => {
   return newPathname;
 };
 
-export default pathTreament;
+export const alertMessage = (fn, message) => {
+  fn(message);
+};
+
+export const getItem = (key) => JSON.parse(localStorage.getItem(key));
+export const setItem = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+export const setInitialItem = (key, value) => {
+  if (!getItem(key)) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};

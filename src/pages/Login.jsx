@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
 import logo from '../images/mustachef1.svg';
+import { setItem } from '../helpers/HelperFunctions';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -15,10 +16,23 @@ export default function Login() {
   const history = useHistory();
 
   const login = () => {
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    const emailInfo = JSON.stringify({ email });
-    localStorage.setItem('user', emailInfo);
+    setItem('mealsToken', 1);
+    setItem('cocktailsToken', 1);
+    // const emailInfo = JSON.stringify({ email });
+    setItem('user', { email });
+
+    // setItem('inProgressRecipes', {
+    //   cocktails: {},
+    //   meals: {},
+    // });
+
+    // const inProgressRecipes = JSON.stringify({
+    //   cocktails: {},
+    //   meals: {
+    //     52844: ['alguma coisa'],
+    //   },
+    // });
+    // localStorage.setItem('inProgressRecipes', inProgressRecipes);
     history.push('/comidas');
   };
 

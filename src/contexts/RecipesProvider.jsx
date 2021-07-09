@@ -7,6 +7,7 @@ import { getMealsRecipes } from '../helpers/MealsAPI';
 import {
   getCocktailsRecipes,
 } from '../helpers/CocktailsAPI';
+import { setInitialItem } from '../helpers/HelperFunctions';
 
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
@@ -15,6 +16,14 @@ function RecipesProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
 
   const maxCards = 12;
+
+  setInitialItem('inProgressRecipes', {
+    cocktails: {},
+    meals: {},
+  });
+
+  setInitialItem('doneRecipes', []);
+  setInitialItem('favoriteRecipes', []);
 
   const mustUpdateType = (strType, strPath, pathname) => (
     type !== strType && pathname.includes(strPath)
