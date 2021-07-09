@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const Profile = () => {
-  const emailLS = JSON.parse(localStorage.user).email;
+  const emailLS = localStorage.user ? JSON.parse(localStorage.user).email : '';
   return (
     <div>
       <Header title="Perfil" />
