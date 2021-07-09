@@ -125,6 +125,37 @@ function DrinkProgress() {
     );
   }
 
+  function doneDrink() {
+    const date = new Date();
+    const storage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (storage && storage.find((done) => done.id === id)) {
+      return;
+    }
+    let doneRecipes = [];
+    const done = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      tags: [],
+    };
+
+    if (storage) {
+      doneRecipes = [
+        ...storage,
+        done,
+      ];
+    } else {
+      doneRecipes = [done];
+    }
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    history.push('/receitas-feitas');
+  }
+
   return (
     <PageDetails>
       <Header>
@@ -177,7 +208,7 @@ function DrinkProgress() {
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ disable }
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ doneDrink }
         >
           Finalizar Receita
         </BtnEndRecipe>

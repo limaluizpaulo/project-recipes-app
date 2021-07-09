@@ -8,7 +8,11 @@ function NotFound() {
     <section className="not-found">
       {/* { imagem retirada no site: https://geekblog.com.br/error-404-veja-o-que-e-e-como-resolver/} */}
       <img src={ notFound } alt="Página não encontrada" width="100%" />
-      <a href="http://localhost:3000/comidas">Not Found</a>
+      <a href="http://localhost:3000/comidas">
+        <h2>
+          Not Found
+        </h2>
+      </a>
     </section>
   );
 }
