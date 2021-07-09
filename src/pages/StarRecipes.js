@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
+import HomeAndReturn from '../components/HomeAndReturn';
 import Header from '../components/Header';
 import Icons from '../components/Icons';
 import '../styles/global.css';
@@ -89,7 +90,6 @@ function StarRecipes() {
                       alt={ recipe.image }
                     />
                     <Card.Body className="favorite-body">
-
                       <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
                         {recipe.type === 'comida'
                           ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
@@ -100,7 +100,6 @@ function StarRecipes() {
                       >
                         {recipe.name}
                       </Card.Title>
-
                     </Card.Body>
                   </div>
                 </Link>
@@ -108,6 +107,7 @@ function StarRecipes() {
               </div>
             ))}
         </div>
+        <HomeAndReturn />
       </div>
     );
   }

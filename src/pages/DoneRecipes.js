@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DoneRecipe from '../components/DoneRecipe';
 import Header from '../components/Header';
+import HomeAndReturn from '../components/HomeAndReturn';
 import '../styles/global.css';
 
 function DoneRecipes() {
@@ -43,12 +44,14 @@ function DoneRecipes() {
           Drinks
         </button>
       </div>
+      {recipesToMap.length === 0 && <h4 className="noDone">Não há receitas feitas</h4>}
       {recipesToMap.map((recipe, index) => (
         <DoneRecipe
           key={ index }
           recipe={ recipe }
           index={ index }
         />))}
+      <HomeAndReturn />
     </div>
   );
 }

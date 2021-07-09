@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
@@ -16,47 +17,61 @@ function DoneRecipe({ recipe: {
     setTimeout(() => { setCopiedLink(false); }, miliSeconds2Wait);
   }
   useEffect(() => {}, [copiedLink]);
-  return (
-    <div>
-      <div>
-        <Link to={ `/${type}s/${id}` }>
-          <img
-            src={ image }
-            alt="recipe representation"
-            data-testid={ `${index}-horizontal-image` }
-            style={ imgStyle }
-          />
-        </Link>
-      </div>
-      <div>
-        <p data-testid={ `${index}-horizontal-top-text` }>
-          {
-            type === 'comida' ? `${area} - ${category}`
-              : `${alcoholicOrNot} - ${category}`
-          }
-        </p>
-        <Link to={ `/${type}s/${id}` }>
-          <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-        </Link>
-        <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-        {tags.map((tag, i) => (
-          <p
-            key={ i }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-          >
-            {tag}
-          </p>))}
-        <button type="button" onClick={ shareBtn }>
 
-          {copiedLink
-            ? <p data-testid={ `${index}-horizontal-share-btn` }>Link copiado!</p>
-            : (
-              <img
-                src={ shareIcon }
-                alt="share icon"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />)}
-        </button>
+  return (
+    <div className="favorite-recipes">
+      <div className="card-favorite">
+        <div>
+          <Link to={ `/${type}s/${id}` }>
+            <img
+              src={ image }
+              className="favorite-img"
+              alt="recipe representation"
+              data-testid={ `${index}-horizontal-image` }
+              style={ imgStyle }
+            />
+          </Link>
+        </div>
+        <Card.Body className="favorite-body">
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {
+              type === 'comida' ? `${area} - ${category}`
+                : `${alcoholicOrNot} - ${category}`
+            }
+          </p>
+          <Link to={ `/${type}s/${id}` }>
+            <Card.Title
+              className="cardTitle"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {name}
+            </Card.Title>
+          </Link>
+          <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+          {tags === null ? null : tags.map((tag, i) => (
+            <p
+              key={ i }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {tag}
+            </p>))}
+          <button type="button" className="share" onClick={ shareBtn }>
+            {copiedLink
+              ? (
+                <p
+                  className="copyText"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                >
+                  Link copiado!
+                </p>)
+              : (
+                <img
+                  src={ shareIcon }
+                  alt="share icon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />)}
+          </button>
+        </Card.Body>
       </div>
     </div>
   );
