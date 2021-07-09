@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import UseListaCategorias from '../hooks/UseListaCategorias';
 import AppReceitasContext from '../context/AppReceitasContext';
 
@@ -20,22 +21,26 @@ function ListaCategoriasReceitas() {
   return (
     <>
       {categorias.map(({ strCategory }) => (
-        <button
+        <Button
+          className="categButton"
+          variant="outline-danger"
           key={ strCategory }
           type="button"
           data-testid={ `${strCategory}-category-filter` }
           onClick={ () => { handleClick(strCategory); } }
         >
           {strCategory}
-        </button>
+        </Button>
       ))}
-      <button
+      <Button
+        className="categButton"
+        variant="outline-danger"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleClick('All') }
       >
         All
-      </button>
+      </Button>
     </>
   );
 }
