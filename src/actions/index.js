@@ -1,5 +1,5 @@
 import { SAVE_USER } from './types';
-import { getRecipes, getDrinks, getRandomRecipe, getRecipesByIngredients,
+import { getRecipes, getDrinks, getRecipesByIngredients,
   getRecipesByName, getDrinksByIngredients, getDrinksByName,
   getRecipesByFirstLetter, getDrinksByFirstLetter,
   getCategoriesRecipes, getCategoriesDrinks,
@@ -30,16 +30,6 @@ export const actionRecipes = () => (dispatch) => (
   getRecipes()
     .then((data) => dispatch({
       type: 'GET_RECIPES',
-      payload: {
-        data,
-      },
-    }))
-);
-
-export const actionRandomRecipe = () => (dispatch) => (
-  getRandomRecipe()
-    .then((data) => dispatch({
-      type: 'GET_RANDOM_RECIPE',
       payload: {
         data,
       },
