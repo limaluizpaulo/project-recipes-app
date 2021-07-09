@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { fetchDrinksAction, fetchIngrentAction } from '../actions';
 
+import '../css/IngredientCard.css';
+
 class IngredientCard extends React.Component {
   constructor() {
     super();
@@ -42,7 +44,6 @@ class IngredientCard extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { ingredients, pathname } = this.props;
     const { redirect } = this.state;
     const totalRecipes = 12;
@@ -57,13 +58,15 @@ class IngredientCard extends React.Component {
         ? recipe.strIngredient : recipe.strIngredient1;
       return (
         <button
+          className="card-container"
           key={ recipe.strIngredient1 || recipe.strIngredient }
           type="button"
           onClick={ () => (
             this.dispatchAction(comidaBebida)) }
         >
-          <div data-testid={ `${index}-ingredient-card` }>
+          <div data-testid={ `${index}-ingredient-card` } className="ingredient-card">
             <img
+              className="ingredient-img"
               data-testid={ `${index}-card-img` }
               src={ `https://${images[index]}` }
               alt={ recipe.strIngredient || recipe.strIngredient1 }

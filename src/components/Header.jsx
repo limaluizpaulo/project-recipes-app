@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -40,17 +41,19 @@ class Header extends Component {
       <header>
         <div>
           <div className="header">
-            <button
+            <Button
+              variant="light"
               type="button"
               data-testid="profile-top-btn"
               onClick={ this.changeRoute }
               src={ profile }
             >
               <img src={ profile } alt="profile-icon" />
-            </button>
+            </Button>
             <h2 data-testid="page-title">{title}</h2>
             { !hydeSearch ? (
-              <button
+              <Button
+                variant="light"
                 onClick={ this.showInput }
                 type="button"
                 page-title="search-top-btn"
@@ -58,7 +61,7 @@ class Header extends Component {
                 src={ search }
               >
                 <img src={ search } alt="search-icon" />
-              </button>)
+              </Button>)
               : null}
           </div>
 
