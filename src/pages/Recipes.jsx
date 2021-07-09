@@ -77,7 +77,6 @@ class Recipes extends Component {
         <h1>Recipes</h1>
         <h1>Recipes</h1>
         <button
-          className="button"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.setState({ filter: false }) }
