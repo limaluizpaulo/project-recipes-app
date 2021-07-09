@@ -17,6 +17,7 @@ import Instructions from '../components/Instructions';
 import Title from '../components/Title';
 import InProgressButton from '../components/InProgressButton';
 import '../styles/ReceitaDetalhes.css';
+import checkboxesChecked from '../services/CheckboxesChecked';
 
 function ReceitaEmProgresso({ match }) {
   const { url } = match;
@@ -27,7 +28,7 @@ function ReceitaEmProgresso({ match }) {
   const [copied, setCopied] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [checked, setChecked] = useState(null);
-  const recipeIngredientsList = [];
+  let recipeIngredientsList = [];
 
   useEffect(() => {
     fetchRecipe(url, food, id)
@@ -94,11 +95,14 @@ function ReceitaEmProgresso({ match }) {
       entry[0].match(/strIngredient/) && entry[1] !== '' && entry[1] !== null));
     const recipeQuantities = object.filter((entry) => (
       entry[0].match(/strMeasure/) && entry[1] !== ' ' && entry[1] !== null));
-    for (let i = 0; i < recipeIngredients.length; i += 1) {
-      recipeIngredientsList.push(
-        ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
-      );
-    }
+    recipeIngredientsList = recipeIngredients.map((entry, index) => (
+      ` ${recipeIngredients[index][1]} - ${recipeQuantities[index][1]}`
+    ));
+    // for (let i = 0; i < recipeIngredients.length; i += 1) {
+    //   recipeIngredientsList.push(
+    //     ` ${recipeIngredients[i][1]} - ${recipeQuantities[i][1]}`,
+    //   );
+    // }
   }
 
   const titleParams = {
@@ -139,12 +143,8 @@ function ReceitaEmProgresso({ match }) {
   checkFavorite(checkFavoriteParams);
   checkInProgress(checkInProgressParams);
   const missingIngredients = loadDoneItems({ url, id });
-  if (missingIngredients && !checked) {
-    const unmarkedCheckboxes = missingIngredients.filter((element) => element === '');
-    if (checked === null) {
-      setChecked(unmarkedCheckboxes.length);
-    }
-  }
+
+  checkboxesChecked({ missingIngredients, checked, setChecked });
 
   const inProgressLocalStorage = localStorage.getItem('inProgressRecipes');
   const ingredientsStepProps = {
@@ -156,9 +156,17 @@ function ReceitaEmProgresso({ match }) {
     setChecked,
   };
 
-  if (!inProgress && !inProgressLocalStorage) {
-    saveInProgress({ recipe, url, food, setInProgress });
-  }
+  const saveInProgressParams = {
+    recipe,
+    url,
+    food,
+    setInProgress,
+    inProgress,
+    inProgressLocalStorage,
+  };
+
+  saveInProgress(saveInProgressParams);
+
   const ingredientsQuantity = recipeIngredientsList.length;
 
   return (
