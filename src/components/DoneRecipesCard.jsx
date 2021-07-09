@@ -28,73 +28,80 @@ function DoneRecipesCard() {
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
   return (
-    <div className="card-my-recipes">
+    <>
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div key={ index }>
-          <div className="card-combined-itens">
+          <div className="food__card">
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <span
+                className="food__card_text"
+                data-testid={ `${index}-horizontal-name` }
+              >
+                { recipe.name }
+              </span>
+            </Link>
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
-                className="card-img-done"
+                className="food__card__img"
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
+
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              { recipe.type === 'comida'
+                ? `${recipe.area} - ${recipe.category}`
+                : recipe.alcoholicOrNot }
+            </p>
             <div>
+              <span>Receita feita em: </span>
               <span
-                data-testid={ `${index}-horizontal-top-text` }
+                data-testid={ `${index}-horizontal-done-date` }
               >
-                { recipe.type === 'comida'
-                  ? `${recipe.area} - ${recipe.category}`
-                  : recipe.alcoholicOrNot }
+                { recipe.doneDate }
               </span>
             </div>
-            <div>
-              <button
-                type="button"
-                onClick={ handleOnClick }
-              >
-                <img
-                  name={ recipe.type }
-                  id={ recipe.id }
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareRecipe }
-                  alt={ recipe.name }
-                />
-              </button>
-            </div>
-          </div>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-          </Link>
-          <div>
-            <span>Receita feita em: </span>
-            <span
-              data-testid={ `${index}-horizontal-done-date` }
+            <button
+              type="button"
+              onClick={ handleOnClick }
             >
-              { recipe.doneDate }
-            </span>
+              <img
+                name={ recipe.type }
+                id={ recipe.id }
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareRecipe }
+                alt={ recipe.name }
+              />
+            </button>
+
+            { recipe.tags.length === zero ? null : (
+              <div>
+                <button
+                className="food__tag__button"
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                >
+                  { recipe.tags[0] }
+                </button>
+                <button
+                className="food__tag__button"
+                  type="button"
+                  data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
+                >
+                  { recipe.tags[1] }
+                </button>
+              </div>
+            )}
+
           </div>
-          { recipe.tags.length === zero ? null : (
-            <div>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
-              >
-                { recipe.tags[0] }
-              </button>
-              <button
-                type="button"
-                data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
-              >
-                { recipe.tags[1] }
-              </button>
-            </div>
-          )}
+
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

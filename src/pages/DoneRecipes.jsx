@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import DoneRecipesCard from '../components/DoneRecipesCard';
 import Context from '../context/Context';
+import '../styles/doneRecipes.css';
 
 // Tela de receitas feitas: /receitas-feitas
 export default function DoneRecipes({ history }) {
@@ -13,12 +14,12 @@ export default function DoneRecipes({ history }) {
   };
 
   return (
-    <div>
+    <div className="foodPage">
       <Header history={ history } title="Receitas Feitas" />
-      <section className="profile-buttons">
+      <section className="food__category__container">
         <button
           type="button"
-          className="button-list"
+          className="food__category__button"
           data-testid="filter-by-all-btn"
           onClick={ () => setFilterRecipesDone('all') }
         >
@@ -26,7 +27,7 @@ export default function DoneRecipes({ history }) {
         </button>
         <button
           type="button"
-          className="button-list"
+          className="food__category__button"
           data-testid="filter-by-food-btn"
           onClick={ () => setFilterRecipesDone('bebida') }
         >
@@ -34,14 +35,14 @@ export default function DoneRecipes({ history }) {
         </button>
         <button
           type="button"
-          className="button-list"
+          className="food__category__button"
           data-testid="filter-by-drink-btn"
           onClick={ () => setFilterRecipesDone('comida') }
         >
           Drinks
         </button>
       </section>
-      <section>
+      <section className="food__cards__container">
         <DoneRecipesCard />
       </section>
     </div>
