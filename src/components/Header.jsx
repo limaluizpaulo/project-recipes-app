@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-
 import '../css/Header.css';
 
 class Header extends Component {

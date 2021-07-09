@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DrinkCard from '../components/DrinkCard';
-
 import { fetchDrinkAction } from '../actions';
 import DrinkButtons from '../components/DrinkButtons';
 

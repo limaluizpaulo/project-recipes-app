@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import FoodCard from './FoodCard';
-// import DrinkCard from './DrinkCard';
-
 import '../css/SearchBar.css';
-
 import { fetchIngrentAction, fetchDrinksAction } from '../actions';
 
 class SearchBar extends Component {
@@ -56,14 +52,6 @@ class SearchBar extends Component {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
-    // const renderCard = () => {
-    //   if (resultFood && title === 'Comidas' && resultFood.length > 1) {
-    //     return <FoodCard />;
-    //   }
-    //   if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
-    //     return <DrinkCard />;
-    //   }
-    // };
     return (
       <div className="search">
         <div className="search-container">
@@ -122,7 +110,6 @@ class SearchBar extends Component {
             Buscar
           </button>
         </div>
-        {/* {renderCard()} */}
       </div>
     );
   }
