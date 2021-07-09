@@ -62,7 +62,7 @@ class DrinkButtons extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div>
+      <div className="centraliza-buttons">
         {categories.map(({ strCategory }, index) => (
           <Button
             className="buttons"
