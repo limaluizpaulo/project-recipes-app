@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-//  import PropTypes from 'prop-types';
 
 function FoodCard(props) {
   const { resultFood } = props;
-
   const totalRecipes = 12;
   const food = resultFood.filter((elem, index) => index < totalRecipes);
 

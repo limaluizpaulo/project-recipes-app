@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -69,6 +70,9 @@ class Login extends React.Component {
           {' '}
           ENTRAR
         </button>
+        <footer>
+          <a href="https://pt.vecteezy.com/vetor-gratis/receita" className="link">Receita Vetores por Vecteezy</a>
+        </footer>
       </div>
     );
   }

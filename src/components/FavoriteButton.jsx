@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
 import white from '../images/whiteHeartIcon.svg';
 import black from '../images/blackHeartIcon.svg';
-
 import {
   setFavoriteRecipes,
   getFavoriteRecipes,

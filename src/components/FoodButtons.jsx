@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { fetchCategorieFoodFilterAction,
   fetchFoodAction } from '../actions';
 
@@ -91,8 +90,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // requestFoodCategories: () => (
-  //   dispatch(fetchCategorieFoodAction())),
   requestFoodFilter: (categorie) => (
     dispatch(fetchCategorieFoodFilterAction(categorie))),
   requestFood: () => (
