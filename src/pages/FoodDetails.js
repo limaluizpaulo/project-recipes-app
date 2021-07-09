@@ -26,7 +26,6 @@ function FoodDetails() {
   function progressFunction() {
     const { idMeal } = item[0];
     const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(meals);
     let flag = 0;
     Object
       .keys(meals).forEach((id) => { if (id === idMeal) flag += 1; });
@@ -38,7 +37,6 @@ function FoodDetails() {
   function start() {
     const { idMeal } = item[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
     inProgress.meals[`${idMeal}`] = [];
     console.log(inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
@@ -85,6 +83,8 @@ function FoodDetails() {
               <iframe
                 className="detailVideo"
                 data-testid="video"
+                width="420"
+                height="315"
                 src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
                 frameBorder="0"
                 allowFullScreen
