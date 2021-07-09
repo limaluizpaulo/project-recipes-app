@@ -30,7 +30,7 @@ const foodReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_FOOD_AREA:
     return {
       ...state,
-      area: action.payload.result.meals,
+      area: action.payload.meals,
     };
   default:
     return state;

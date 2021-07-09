@@ -69,8 +69,8 @@ class ExploreByArea extends Component {
   }
 
   render() {
-    const { loading } = this.state;
-    console.log(loading);
+    // const { loading } = this.state;
+    // console.log(loading);
     return (
       <>
         <section>
