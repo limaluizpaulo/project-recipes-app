@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
@@ -9,7 +9,7 @@ export default function Explorar() {
   const { openSearchBar } = useContext(Context);
 
   return (
-    <Container>
+    <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
       <ButtonGroup vertical>
@@ -31,16 +31,8 @@ export default function Explorar() {
         >
           Explorar Bebidas
         </Button>
-        {/* <Button
-          href="/"
-          variant="danger"
-          size="lg"
-          className="mb-2"
-        >
-          Logof
-        </Button> */}
       </ButtonGroup>
       <Footer />
-    </Container>
+    </div>
   );
 }

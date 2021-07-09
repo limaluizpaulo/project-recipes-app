@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Context from '../../context/Context';
 
 import Header from '../../components/Header';
@@ -10,7 +10,7 @@ export default function ExpComidas() {
   const { openSearchBar } = useContext(Context);
 
   return (
-    <Container>
+    <div>
       <Header />
       { openSearchBar ? <SearchBar /> : null }
       <ButtonGroup vertical>
@@ -52,6 +52,6 @@ export default function ExpComidas() {
         </Button> */}
       </ButtonGroup>
       <Footer />
-    </Container>
+    </div>
   );
 }
