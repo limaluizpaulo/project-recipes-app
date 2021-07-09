@@ -26,9 +26,11 @@ function IngredientsInProcess({ index, element, measures }) {
   function conditional(input) {
     const span = input.parentNode.children;
     const indexForRemove = state.indexOf(span[1].innerText);
+    console.log(indexForRemove);
     const newState = state.splice(indexForRemove, 1);
     console.log(newState);
-    setState(newState);
+    console.log(state, 'state');
+    setState(state);
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (document.URL.includes('bebidas')) {
       inProgressRecipes.cocktails[params.id] = state;

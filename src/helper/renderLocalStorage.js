@@ -1,4 +1,4 @@
-export function checkProgress(element, params) {
+function checkProgress(element, params) {
   if (localStorage.getItem('inProgressRecipes')) {
     let object2 = '';
     const object = JSON.parse(localStorage.getItem('inProgressRecipes'));

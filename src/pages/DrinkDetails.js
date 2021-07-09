@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
-import { Context } from '../context/ContextForm';
 
 function DrinkDetails() {
   const { id } = useParams();
@@ -18,7 +17,6 @@ function DrinkDetails() {
   }
 
   useEffect(() => {
-    setParam(id);
     const request = async () => {
       await requestByDetailsDrink(id)
         .then((response) => { setDrinkOnState(response.drinks); });
@@ -41,7 +39,6 @@ function DrinkDetails() {
     const { idDrink } = drink[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     inProgress.cocktails[`${idDrink}`] = [];
-    console.log(inProgress);
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     setProgress('Continuar Receita');
   }
