@@ -53,11 +53,11 @@ export default function FavoriteRecipes() {
       </div>
     ))
   );
-  
+
   useEffect(() => {
     setFavoriteStorage(getStorage('favoriteRecipes'));
   }, [state]);
-  
+
   return (
     <div>
       <Header pageName="Receitas Favoritas" />
