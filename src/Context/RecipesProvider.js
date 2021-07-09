@@ -12,8 +12,7 @@ function RecipesProvider({ children }) {
   const [toogle, setToogle] = useState(false);
   const [stateDrink, setStateDrink] = useState([{}]);
   const [stateMeals, setStateMeals] = useState([{}]);
-  const [ingredientsMeals, setIngredientsMeals] = useState([]);
-  const [measureMeals, setMeasureMeals] = useState([]);
+  const [favoriteFilters, setFavoriteFilters] = useState([]);
 
   const context = {
     login,
@@ -34,10 +33,8 @@ function RecipesProvider({ children }) {
     setStateDrink,
     stateMeals,
     setStateMeals,
-    measureMeals,
-    setMeasureMeals,
-    ingredientsMeals,
-    setIngredientsMeals,
+    favoriteFilters,
+    setFavoriteFilters,
   };
   return (
     <RecipesContext.Provider value={ context }>

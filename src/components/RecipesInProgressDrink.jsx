@@ -88,7 +88,8 @@ export default function RecipesInProgressDrink() {
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateDrink]);
 
-  const { idDrink, strAlcoholic, strDrink, strDrinkThumb, strCategory, strInstructions } = stateDrink[0];
+  const { idDrink, strAlcoholic, strDrink, strDrinkThumb,
+    strCategory, strInstructions } = stateDrink[0];
   const recipeDone = () => {
     const data = new Date();
     const day = data.getDate();
