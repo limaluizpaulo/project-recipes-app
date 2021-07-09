@@ -1,0 +1,62 @@
+.exploreIngredientsPage, .exploreIngredientsPage__loading {
+  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: calc(100vh - 19vh);
+  padding-bottom: 65px;
+}
+
+.exploreIngredientsPage__loading {
+  align-items: center;
+}
+
+.loading {
+  width: 200px;
+}
+
+.ingredients__card {
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgb(63, 62, 62);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  margin: 10px 5px;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.2s;
+  width: 45%;
+}
+
+.ingredients__card:hover {
+  transform: scale(1.02);
+}
+
+.ingredients__card__img {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  height: 65%;
+  justify-content: center;
+  width: 100%;
+}
+
+.ingredients__card_text {
+  align-items: center;
+  background-color: #ffeeb4;
+  border-radius: 0 0 5px 5px;
+  bottom: 0;
+  display: flex;
+  height: 35%;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.ingredients__card_text p {
+  font-family: rancho , sans-serif;
+  font-size: 1.5em;
+  margin: 0;
+}

@@ -28,13 +28,13 @@ const FoodInProgressList = () => {
             onChange={ () => handleCheck(number) }
           />
           <li className={ checkedClass }>
-            {number}
-            -
-            {' '}
-            {ingr}
-            {' '}
-            -
-            {meas}
+            <span className="inProgress__ingredientItem">
+              {ingr}
+              {' '}
+              -
+              {' '}
+              {meas}
+            </span>
           </li>
         </div>
       );
@@ -42,9 +42,12 @@ const FoodInProgressList = () => {
   };
   if (ingredients) {
     return (
-      <ul className="inProgress__list__container">
-        {renderList()}
-      </ul>
+      <div className="ingredientsList">
+        <h2 className="ingredientsList__title">Ingredients</h2>
+        <ul className="inProgress__list__container">
+          {renderList()}
+        </ul>
+      </div>
     );
   }
   return <p>Loading</p>;

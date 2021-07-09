@@ -1,0 +1,17 @@
+.explorePage {
+  align-items: center;
+  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  display: flex;
+  flex-wrap: wrap;
+  height: 81vh;
+  padding: 20% 0;
+}
+
+.explore__button {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  height: 25%;
+  margin: 5%;
+  width: 90%;
+}
