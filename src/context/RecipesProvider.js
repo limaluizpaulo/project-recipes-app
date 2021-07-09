@@ -30,11 +30,11 @@ function RecipesProvider({ children }) {
     setRecipes(allRecipes[mealsDrinks]);
   };
 
-  const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
+  const searchRecipesBy = async ({ drinksOrMeals, searchParameter, searchPayload }) => {
     const recipesBySearch = await fetchRecipesBySearch(
-      mealsOrDrinks, searchParameter, searchPayload,
+      drinksOrMeals, searchParameter, searchPayload,
     );
-    setRecipes(recipesBySearch[mealsOrDrinks]);
+    setRecipes(recipesBySearch[drinksOrMeals]);
   };
 
   const getRandomRecipe = async () => {
@@ -43,8 +43,10 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
-  const filterByIngredients = (searchPayload) => {
-    searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+  const filterByIngredients = async (drinksOrMeals, searchPayload) => {
+    searchRecipesBy(
+      { drinksOrMeals, searchParameter: 'ingredient', searchPayload },
+    );
     setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };

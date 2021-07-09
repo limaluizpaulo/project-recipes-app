@@ -30,10 +30,14 @@ function SearchForm() {
     if (searchParameter === 'firstLetter') {
       const validPayload = searchPayload.length === 1;
       return validPayload ? searchRecipesBy(
-        { searchParameter, searchPayload },
+        { drinksOrMeals: mealsOrDrinks, searchParameter, searchPayload },
       ) : alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    searchRecipesBy({ searchParameter, searchPayload });
+    const drinksOrMeals = mealsOrDrinks;
+    searchRecipesBy({ drinksOrMeals,
+      searchParameter,
+      searchPayload,
+    });
   };
 
   return (

@@ -20,7 +20,6 @@ export const fetchRecipesBySearch = async (
   mealsOrDrinks, searchParameter, searchPayload,
 ) => {
   const endpoint = searchRecipesUrls[mealsOrDrinks][searchParameter] + searchPayload;
-  console.log(endpoint);
   const request = await fetch(endpoint);
   const response = await request.json();
   return request.ok ? Promise.resolve(response) : Promise.reject(response);

@@ -45,7 +45,7 @@ function DrinksIngredients() {
         >
           <input
             type="radio"
-            onClick={ () => filterByIngredients(strIngredient1) }
+            onClick={ () => filterByIngredients('drinks', strIngredient1) }
             id={ strIngredient1 }
             className="search-icon-radio"
           />

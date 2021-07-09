@@ -13,6 +13,7 @@ function Recipes({ type }) {
     recipesCategory,
     setRecipesCategory,
     searchByCategory,
+    filtredByIngredients,
   } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
   const categoryButtonQuantity = 5;
@@ -31,15 +32,15 @@ function Recipes({ type }) {
   }, []);
 
   useEffect(() => {
-    searchByCategory(mealsOrDrinks);
+    if (!filtredByIngredients) {
+      searchByCategory(mealsOrDrinks);
+    }
   }, [recipesCategory]);
 
   return (
     <div>
       { lengthRecipes === null
       && global.alert(alertMsg) }
-      {/* { lengthRecipes === 1
-      && <Redirect to={ `/${type}/${recipes[0][idRecipeType]}` } /> } */}
       <div className="buttons">
         <button
           type="button"
