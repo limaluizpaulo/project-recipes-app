@@ -45,6 +45,7 @@ export default function FavoritesRecipes() {
   if (favorite.length === 0) {
     return (
       <div>
+        <HeaderSearch title="Receitas Favoritas" />
         <p>Você não tem receitas favoritas</p>
         <button
           type="button"

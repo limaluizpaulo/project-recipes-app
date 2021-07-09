@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-export default function DrinkInProgress() {
-  return (
-    <div>
-      Food In Progress
-=======
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router-dom';
@@ -119,7 +111,6 @@ export default function DrinkInProgress() {
       >
         Finalizar receita
       </button>
->>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
     </div>
   );
 }

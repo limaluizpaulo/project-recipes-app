@@ -18,10 +18,7 @@ export default function Login() {
     localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-<<<<<<< HEAD
-=======
     // localStorage.setItem('favoriteRecipes', []);
->>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
     history.push('/comidas');
     // https://dev.to/ino_gu/utilizando-usehistory-no-react-bgf
   };
