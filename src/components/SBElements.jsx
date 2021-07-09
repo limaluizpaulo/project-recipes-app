@@ -81,6 +81,9 @@ function SBElements({ history }) {
       getRecipes();
       break;
     case 'primeira letra':
+      // const searchInput = document.getElementById('searchInput').innerText;
+      // if (searchInput.length !== 1) {
+      //   return global.alert('Sua busca deve conter somente 1 (um) caracter');
       if (searchInput.name.length === 1) {
         getFirstLetter();
       } else {
