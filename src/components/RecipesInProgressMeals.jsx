@@ -92,7 +92,37 @@ export default function RecipesInProgress() {
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateMeals]);
 
-  const { strMeal, strMealThumb, strCategory, strInstructions } = stateMeals[0];
+  const { idMeal, strArea, strMeal, strMealThumb, strCategory, strInstructions, strTags,
+  } = stateMeals[0];
+
+  const recipeDone = () => {
+    const data = new Date();
+    const day = data.getDate();
+    const month = data.getMonth();
+    const year = data.getUTCFullYear();
+    const doneDate = `${day}-${month}-${year}`;
+    const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    const recipesDone = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate,
+      tags: strTags,
+    };
+    console.log(done);
+    if (!done) {
+      console.log('if');
+      localStorage.setItem('doneRecipes', JSON.stringify([recipesDone]));
+    } else {
+      console.log('else');
+      localStorage.setItem('doneRecipes', JSON.stringify([...done, recipesDone]));
+    }
+  };
+
   return (
     <main>
       <img
@@ -142,7 +172,7 @@ export default function RecipesInProgress() {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ disableButton !== ingredientsMeals.length }
-
+          onClick={ recipeDone }
         >
 
           Finalizar Receita
