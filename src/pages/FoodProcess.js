@@ -8,6 +8,44 @@ import '../styles/global.css';
 function FoodProcess() {
   const params = useParams();
   const [item, setItem] = useState([]);
+  const data = new Date();
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  const dataAtual = `${dia}/${mes}/${ano}`;
+
+  function doneStructure() {
+    if (item[0] !== undefined) {
+      const
+        { idMeal,
+          strArea,
+          id,
+          strCategory,
+          strMeal, strMealThumb, strTags } = item[0];
+
+      const doneElement = {
+        id: idMeal || id,
+        type: 'comida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+        doneDate: dataAtual,
+        tags: strTags === null ? null : strTags.split(','),
+      };
+      return doneElement;
+    }
+  }
+
+  function processDone(changeIcon) {
+    let done = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneElement = doneStructure();
+    if (changeIcon) {
+      done = [...done, doneElement];
+      localStorage.setItem('doneRecipes', JSON.stringify(done));
+    }
+  }
 
   useEffect(() => {
     const request = async () => {
@@ -36,7 +74,7 @@ function FoodProcess() {
             <div className="alignDetailsItens">
               <section className="detailsTitle-container">
                 <div>
-                  <h1 data-testid="recipe-title">{ strMeal }</h1>
+                  <h1 className="recipeTitle" data-testid="recipe-title">{ strMeal }</h1>
                   <span data-testid="recipe-category">{ strCategory }</span>
                 </div>
                 <Icons code={ item[0] } />
@@ -53,6 +91,7 @@ function FoodProcess() {
             <Link to="/receitas-feitas">
               <button
                 type="button"
+                onClick={ processDone }
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
               >

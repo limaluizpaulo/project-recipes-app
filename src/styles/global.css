@@ -91,21 +91,26 @@ body {
 
 .share {
   background-color: inherit;
-  border: inherit;
+  border: none;
+  outline: none;
+  margin-left: 7px;
 }
 
-.share:hover {
-  outline-style: none;
+.share:hover, .share:focus {
+  border: none;
+  outline: none;
 }
 
 .favorite {
   background-color: inherit;
-  border: inherit;
+  border: none;
   margin-left: 7px;
+  outline: none;
 }
 
-.favorite:hover {
-  outline-style: none;
+.favorite:hover, .favorite:focus {
+  border: none;
+  outline: none;
 }
 
 .ingredients {
@@ -154,6 +159,12 @@ body {
 .footer {
   display: flex;
   justify-content: space-between;
+}
+
+.homeAndReturnFooter {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 
 .inputs {
@@ -238,4 +249,58 @@ body {
   max-width: 95%;
   text-align: center;
   word-break: break-all;
+}
+
+.noDone {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 76vh;
+  min-width: 76vw;
+}
+
+.returnIcon {
+  border: none;
+  height: 26px;
+  outline: none;
+  width: 26px;
+}
+
+.returnBtn {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  margin-left: 4px;
+}
+
+.returnBtn:focus {
+  border: none;
+  outline: none;
+}
+
+.homeIcon {
+  height: 45px;
+  width: 45px;
+}
+
+.copyText {
+  width: 95px;
+}
+
+.recipeTitle {
+  width: 180px;
+}
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 91vh;
+  min-width: 91vw;
+}
+
+.credits-item {
+  margin-bottom: 10px;
 }

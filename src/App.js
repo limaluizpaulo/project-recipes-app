@@ -20,6 +20,7 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import StarRecipes from './pages/StarRecipes';
 import FoodRecipes from './pages/FoodRecipes';
+import Credits from './pages/Credits';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/receitas-feitas" component={ DoneRecipes } />
           <Route exact path="/receitas-favoritas" component={ StarRecipes } />
+          <Route exact path="/credits" component={ Credits } />
           <Route component={ NotFound } />
         </Switch>
       </Provider>

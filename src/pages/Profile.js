@@ -50,6 +50,14 @@ function Profile() {
             Receitas Favoritas
           </button>
         </Link>
+        <Link to="/credits">
+          <button
+            className="exploreButtons"
+            type="button"
+          >
+            Credits
+          </button>
+        </Link>
         <Link to="/">
           <button
             className="exitButton"
