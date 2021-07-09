@@ -36,7 +36,7 @@ export default function Details() {
   useEffect(() => {
     async function getRecipeDetails() {
       getDataById(domain, id).then((res) => {
-        setSingleContent(res[firstKey]);
+        setSingleContent(res[firstKey] || []);
 
         const list = Object.entries(res[firstKey][0]).filter((el) => (
           (el[0].includes('Ingredient')
