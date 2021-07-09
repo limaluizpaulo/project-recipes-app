@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import Card from '../components/Card';
@@ -9,6 +9,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import { getDataById, getRandomData } from '../services/apiRequest';
+import RecipesContext from '../context/RecipesContext';
 
 const SIX = 6;
 
@@ -16,12 +17,12 @@ export default function Details() {
   const { path } = useRouteMatch();
   const { id } = useParams();
 
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
+  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
+  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
 
-  const recDomain = path.includes('/comidas')
+  const recDomain = path.includes('comidas')
     ? 'thecocktaildb' : 'themealdb';
-  const recFirstKey = path.includes('/comidas')
+  const recFirstKey = path.includes('comidas')
     ? 'drinks' : 'meals';
 
   const history = useHistory();
@@ -30,8 +31,10 @@ export default function Details() {
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
 
-  const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
-  const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
+  const { setInProgress } = useContext(RecipesContext);
+
+  const imgSrc = path.includes('comidas') ? 'strMealThumb' : 'strDrinkThumb';
+  const title = path.includes('comidas') ? 'strMeal' : 'strDrink';
 
   useEffect(() => {
     async function getRecipeDetails() {
@@ -41,7 +44,6 @@ export default function Details() {
         const list = Object.entries(res[firstKey][0]).filter((el) => (
           (el[0].includes('Ingredient')
           || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
-
         setIngridientsList(list);
       });
 
@@ -51,11 +53,21 @@ export default function Details() {
     getRecipeDetails();
   }, [id, domain, firstKey, recDomain, recFirstKey]);
 
+  function handleIngredientsData() {
+    const ingredientFormated = ingredientsList.map((el, i, arr) => (
+      (el[0].includes('Ingredient')) && ([`${el[1]
+        + arr.filter((elt) => elt[0] === (`strMeasure${i + 1}`))
+          .map((result) => (` - ${result[1]}`))}`,
+      ]))).filter((fil) => fil);
+    return ingredientFormated;
+  }
+
   function handleFavorite() {
     saveFavoriteRecipe(id, path, singleContent[0])(title, imgSrc);
   }
 
   function handleRecipeInProgress() {
+    setInProgress([handleIngredientsData(), singleContent[0]]);
     history.push(`${path}/in-progress`);
   }
 
@@ -93,22 +105,10 @@ export default function Details() {
             <h4>
               Ingredients
             </h4>
-            {ingredientsList.map((el, i, arr) => (
+            {handleIngredientsData().map((string, i) => (
               <div key={ i }>
-                <p
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                >
-                  <span>
-                    {el[0].includes('Ingredient') && el[1]}
-                  </span>
-                  {arr.filter((elt) => elt[0] === (`strMeasure${i + 1}`))
-                    .map((result) => (
-                      <span
-                        key={ result }
-                      >
-                        { ` - ${result[1]}` }
-                      </span>
-                    ))}
+                <p data-testid={ `${i}-ingredient-name-and-measure` }>
+                  { string }
                 </p>
               </div>
             ))}
