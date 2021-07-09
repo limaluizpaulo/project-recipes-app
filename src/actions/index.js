@@ -3,7 +3,8 @@ import { getRecipes, getDrinks, getRecipesByIngredients,
   getRecipesByName, getDrinksByIngredients, getDrinksByName,
   getRecipesByFirstLetter, getDrinksByFirstLetter,
   getCategoriesRecipes, getCategoriesDrinks,
-  getRecipesByCategories, getDrinksByCategories } from '../services/api';
+  getRecipesByCategories, getDrinksByCategories,
+  getIngredientsRecipes } from '../services/api';
 
 export const actionSaveUser = (email) => ({
   type: SAVE_USER,
@@ -143,6 +144,16 @@ export const actionDrinksByCategories = (category) => (dispatch) => (
   getDrinksByCategories(category)
     .then((data) => dispatch({
       type: 'DRINKS_CATEGORY',
+      payload: {
+        data,
+      },
+    }))
+);
+
+export const actionIngredientsRecipes = () => (dispatch) => (
+  getIngredientsRecipes()
+    .then((data) => dispatch({
+      type: 'INGREDIENTS_RECIPES',
       payload: {
         data,
       },

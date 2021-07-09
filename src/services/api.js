@@ -2,6 +2,7 @@ const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
+const URL_INGREDIENTS_RECIPES = 'www.themealdb.com/api/json/v1/1/list.php?i=list';
 const LENGTH_DOZE = 12;
 const LENGTH_CINCO = 5;
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
@@ -74,6 +75,13 @@ export const getRecipesByCategories = async (category) => {
   } catch (_error) {
     global.alert(messageAlert);
   }
+};
+
+export const getIngredientsRecipes = async () => {
+  const result = await fetch(URL_INGREDIENTS_RECIPES);
+  const { meals } = await result.json();
+  console.log(meals);
+  return meals.slice(0, LENGTH_DOZE);
 };
 
 // ---------------------DRINKS-----------------------------------------------------------

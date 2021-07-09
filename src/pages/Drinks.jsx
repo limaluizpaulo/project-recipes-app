@@ -7,7 +7,7 @@ import DownMenu from '../components/DownMenu';
 import { actionCategoriesDrinks, actionDrinks,
   actionDrinksByCategories } from '../actions';
 import CardItem from '../components/CardItem';
-import '../Style/Recipes.css';
+// import '../Style/Recipes.css';
 
 class Drinks extends Component {
   constructor(props) {

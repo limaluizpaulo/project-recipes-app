@@ -1,6 +1,7 @@
 const INTIAL_STATE = {
   recipes: [],
   byCategories: [],
+  ingredients: [],
 };
 
 const recipes = (state = INTIAL_STATE, action) => {
@@ -15,6 +16,8 @@ const recipes = (state = INTIAL_STATE, action) => {
     return { ...state, recipes: action.payload.data };
   case 'RECIPES_CATEGORY':
     return { ...state, byCategories: action.payload.data };
+  case 'INGREDIENTS_RECIPES':
+    return { ...state, ingredients: action.payload.data };
   default:
     return state;
   }
