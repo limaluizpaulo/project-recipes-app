@@ -6,7 +6,6 @@ function checkFavorite(params) {
     favorite,
     setFavorite,
   } = params;
-  console.log(recipe);
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (url.match(food) && favorites) {
     favorites.forEach((favoriteItem) => {

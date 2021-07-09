@@ -15,7 +15,7 @@ import EmbedVideo from '../components/EmbedVideo';
 import Ingredients from '../components/Ingredients';
 import Instructions from '../components/Instructions';
 import Title from '../components/Title';
-import DetailsButton from './DetailsButton';
+import DetailsButton from '../components/DetailsButton';
 import '../styles/ReceitaDetalhes.css';
 
 function ReceitaDetalhes({ match }) {

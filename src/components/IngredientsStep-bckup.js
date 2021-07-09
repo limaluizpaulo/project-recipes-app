@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import loadDoneItems from '../services/LoadInProgress';
 
-function IngredientsStep(props) {
+function IngredientsStep2(props) {
   const { value: { recipe, url, id } } = props;
   const object = Object.entries(recipe);
   const recipeIngredients = object.filter((entry) => (
@@ -78,8 +78,8 @@ function IngredientsStep(props) {
   );
 }
 
-IngredientsStep.propTypes = {
+IngredientsStep2.propTypes = {
   value: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default IngredientsStep;
+export default IngredientsStep2;
