@@ -20,7 +20,9 @@ function Perfil() {
   useEffect(() => {
     const getEmail = () => {
       const email = JSON.parse(localStorage.getItem('user'));
-      setState(email.email);
+      if (email !== null) {
+        setState(email.email);
+      }
     };
     getEmail();
   },
