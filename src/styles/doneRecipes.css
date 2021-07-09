@@ -1,9 +1,5 @@
 .foodPage {
-  background: linear-gradient(
-    180deg,
-    var(--y-o) 0%,
-    rgba(255, 206, 33, 0.54) 77.6%
-  );
+  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
   min-height: calc(100vh - 19vh);
   padding-bottom: 65px;
 }
@@ -30,8 +26,8 @@
 }
 
 .food__card {
-  background-color: #f1ecea;
   align-items: center;
+  background-color: #f1ecea;
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgb(63, 62, 62);
   color: black;
@@ -59,7 +55,7 @@
 }
 
 .food__card p {
-  font-family: rancho, sans-serif;
+  font-family: rancho , sans-serif;
   font-size: 1.5em;
   margin: 0;
   text-align: center;
@@ -67,11 +63,11 @@
 }
 
 .food__card span {
-  color: black;
   background-color: #f1ecea;
-  font-family: rancho, sans-serif;
   border-radius: 0 0 5px 5px;
   bottom: 0;
+  color: black;
+  font-family: rancho , sans-serif;
   min-height: 20%;
   position: relative;
   width: 100%;
