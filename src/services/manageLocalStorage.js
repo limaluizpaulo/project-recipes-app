@@ -86,7 +86,6 @@ export const settingFavorite = (details, id, refresh) => {
     };
   }
   if (details.drinks) {
-    console.log(details.drinks);
     const { idDrink,
       strCategory,
       strDrink,
@@ -115,8 +114,9 @@ export const settingFavorite = (details, id, refresh) => {
 
 export const storageCheckGenerator = (id, index) => {
   const rawChecks = localStorage.getItem('inProgressCheck');
-  // inProgressCheck key doesn't exist yet
   const checks = JSON.parse(rawChecks);
+
+  // inProgressCheck key doesn't exist yet
   if (!checks) {
     localStorage.setItem('inProgressCheck',
       JSON.stringify([{ id, checkboxes: { [index]: false } }]));
@@ -167,4 +167,15 @@ export const checkBoolean = (id, index) => {
   const checks = JSON.parse(rawChecks);
   const checkValue = checks.find((obj) => obj.id === id);
   return checkValue.checkboxes[index];
+};
+
+export const disableFinishRecipeButton = (id) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  const findObj = checks.find((obj) => obj.id === id);
+  if (findObj
+    && Object.values(findObj.checkboxes).every((checkbox) => checkbox === true)) {
+    return false;
+  }
+  return true;
 };

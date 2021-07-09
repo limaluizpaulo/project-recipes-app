@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-
 import Context from '../context/Context';
 import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
@@ -8,11 +8,13 @@ import { verifyFavorite,
   settingFavorite,
   storageCheckGenerator,
   storageCheckUpdater,
-  checkBoolean } from '../services/manageLocalStorage';
+  checkBoolean,
+  disableFinishRecipeButton } from '../services/manageLocalStorage';
 
 function FoodInProgress({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  const [isRedirect, setIsRedirect] = useState(false);
   const [check, setCheck] = useState();
   const {
     details,
@@ -73,7 +75,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
       strYoutube,
     } = details.meals[0];
 
-    return (
+    return isRedirect ? <Redirect to="/receitas-feitas" /> : (
       <main>
         <img data-testid="recipe-photo" src={ strMealThumb } alt="Meal" width="200px" />
         <h1 data-testid="recipe-title">{strMeal}</h1>
@@ -109,7 +111,14 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
           title="Recipe"
         />
         <h3>Recomendações de Drinks</h3>
-        <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
+        <button
+          onClick={ () => setIsRedirect(true) }
+          disabled={ disableFinishRecipeButton(id) }
+          data-testid="finish-recipe-btn"
+          type="button"
+        >
+          Finalizar Receita
+        </button>
       </main>
     );
   }

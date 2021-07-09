@@ -48,6 +48,7 @@ function App() {
         <Route exact path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/receitas-feitas" component={ RecipesDone } />
       </Switch>
     </BrowserRouter>
   );
