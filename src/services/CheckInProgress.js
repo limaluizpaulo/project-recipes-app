@@ -8,14 +8,14 @@ function checkInProgress(params) {
   } = params;
   if (localStorage.getItem('inProgressRecipes')) {
     const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (url.match(food) && !inProgress && recipesInProgress.meals) {
+    if (url.match(food) && !inProgress && recipesInProgress.meals && recipe) {
       const mealsKeys = Object.keys(recipesInProgress.meals);
       mealsKeys.forEach((key) => {
         if (recipe.idMeal === key) {
           setInProgress(true);
         }
       });
-    } else if (!inProgress && recipesInProgress.cocktails) {
+    } else if (!inProgress && recipesInProgress.cocktails && recipe) {
       const cocktailsKeys = Object.keys(recipesInProgress.cocktails);
       cocktailsKeys.forEach((key) => {
         if (recipe.idDrink === key) {
