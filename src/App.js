@@ -16,10 +16,11 @@ import Profile from './pages/Profile/Profile';
 import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
-
+import FoodInProgress from './pages/FoodInProgress/FoodInProgress';
 import './app.css';
 
 const test = '';
+
 function App() {
   return (
     <Provider>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/" exact component={ Login } />
           <Route path="/comidas" exact component={ Food } />
           <Route path="/comidas/:id" exact component={ test } />
-          <Route path="/comidas/:id/in-progress" exact component={ test } />
+          <Route path="/comidas/:id/in-progress" exact component={ FoodInProgress } />
           <Route path="/bebidas" exact component={ Drinks } />
           <Route path="/bebidas/:id" exact component={ test } />
           <Route path="/bebidas/:id/in-progress" exact component={ test } />
