@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import SBElements from './SBElements';
@@ -24,22 +24,22 @@ function FoodPage({ history }) {
       { goSearch && <SBElements history={ history } /> }
       <FoodCategoryButtons history={ history } />
       <section>
-        { recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
+        {/* { recipes.length === 1
+          && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> } */}
         {recipes && recipes
           // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
-          .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
-            <article key={ index } data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ strMealThumb }
-                alt={ strMeal }
-                width="150"
-                data-testid={ `${index}-card-img` }
-              />
-              {/* <button type="submit"> */}
-              <span role="button" data-testid={ `${index}-card-name` }>{ strMeal }</span>
-              {/* </button> */}
-            </article>))}
-        ;
+          .map(({ idMeal, strMeal, strMealThumb }, index) => index <= maxLength && (
+            <Link to={ `/comidas/${idMeal}` }>
+              <article key={ index } data-testid={ `${index}-recipe-card` }>
+                <img
+                  src={ strMealThumb }
+                  alt={ strMeal }
+                  width="150"
+                  data-testid={ `${index}-card-img` }
+                />
+                <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
+              </article>
+            </Link>))}
       </section>
       <Footer history={ history } />
     </main>
