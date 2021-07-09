@@ -16,14 +16,15 @@ export const makeRecipe = ({ url }, history) => {
 };
 
 export const localStorageVerifier = (match, id, history) => {
+  const pushString = match.url.split('/')[1];
   const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
   const storageRecipe = JSON.parse(rawStorageRecipe);
-  let mealOrDrink;
+  let mealOrCockTail;
   if (storageRecipe) {
-    mealOrDrink = storageRecipe.meals ? storageRecipe.meals : storageRecipe.cocktails;
+    mealOrCockTail = storageRecipe.meals ? storageRecipe.meals : storageRecipe.cocktails;
   }
   if ((!storageRecipe) || (storageRecipe
-    && Object.keys(mealOrDrink)[0]
+    && Object.keys(mealOrCockTail)[0]
     !== id)) {
     return (
       <button
@@ -37,13 +38,13 @@ export const localStorageVerifier = (match, id, history) => {
     );
   }
   if (storageRecipe
-    && Object.keys(mealOrDrink)[0] === id) {
+    && Object.keys(mealOrCockTail)[0] === id) {
     return (
       <button
         type="button"
         data-testid="start-recipe-btn"
         className="start-recipe"
-        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        onClick={ () => history.push(`/${pushString}/${id}/in-progress`) }
       >
         Continuar Receita
       </button>
@@ -86,7 +87,6 @@ export const settingFavorite = (details, id, refresh) => {
     };
   }
   if (details.drinks) {
-    console.log(details.drinks);
     const { idDrink,
       strCategory,
       strDrink,
@@ -111,4 +111,72 @@ export const settingFavorite = (details, id, refresh) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(RemovedFavoriteArray));
   }
   return !refresh;
+};
+
+export const storageCheckGenerator = (id, index) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+
+  // inProgressCheck key doesn't exist yet
+  if (!checks) {
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([{ id, checkboxes: { [index]: false } }]));
+    return false;
+  }
+
+  // continue render case
+  if (checks.some((obj) => obj.id === id)) {
+    let nextObjValue = checks.find((obj) => obj.id === id);
+    // se está populando um objeto sem chaves retorna falso, se tiver chaves retorna o valor do estado atual do local storage
+    nextObjValue = { ...nextObjValue,
+      checkboxes: { ...nextObjValue.checkboxes,
+        [index]: nextObjValue.checkboxes[index]
+          ? nextObjValue.checkboxes[index]
+          : false } };
+    const prepareNewState = checks.filter((obj) => obj.id !== id);
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...prepareNewState, nextObjValue]));
+    return false;
+  }
+
+  // render new page if inProgressCheck already exists
+  if (!checks.some((obj) => obj.id === id)) {
+    const generateNewCheckObject = { id, checkboxes: { [index]: false } };
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...checks, generateNewCheckObject]));
+  }
+
+  return false;
+};
+
+export const storageCheckUpdater = (id, index, refresh) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  if (checks.some((obj) => obj.id === id)) {
+    const updateProgressObj = checks.find((obj) => obj.id === id);
+    updateProgressObj.checkboxes[index] = !updateProgressObj.checkboxes[index];
+    const prepareNewState = checks.filter((obj) => obj.id !== id);
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...prepareNewState, updateProgressObj]));
+    return !refresh;
+  }
+  return false;
+};
+
+export const checkBoolean = (id, index) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  const checkValue = checks.find((obj) => obj.id === id);
+  return checkValue.checkboxes[index];
+};
+
+export const disableFinishRecipeButton = (id) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
+  const findObj = checks.find((obj) => obj.id === id);
+  if (findObj
+    && Object.values(findObj.checkboxes).every((checkbox) => checkbox === true)) {
+    return false;
+  }
+  return true;
 };
