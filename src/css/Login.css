@@ -1,7 +1,7 @@
 .login {
   align-items: center;
   background-attachment: fixed;
-  background-image: url("../images/recipes.jpg");
+  background-image: url('../images/recipes.jpg');
   background-size: 100%;
   border: 3px solid green;
   border-radius: 10px;
@@ -17,7 +17,7 @@
 }
 
 .btnLogin {
-  background-color: 6127ae;
+  background-color: rgb(228, 204, 204);
   border: #6127ae 1px solid;
   border-radius: 4px;
   float: left;
