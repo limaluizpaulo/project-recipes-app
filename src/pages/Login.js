@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
-import { saveCockTailsToken,
-  saveMealsToken, saveUserEmail } from '../storage/localStorage';
+import { saveUserEmail } from '../storage/localStorage';
 
 const REGEX_EMAIL = /\S+@\S+\.\S+/;
 
@@ -26,8 +25,6 @@ export default function Login() {
   function handleLoginClick(e) {
     e.preventDefault();
     const { email } = user;
-    saveCockTailsToken();
-    saveMealsToken();
     saveUserEmail({ email });
     setInfo({ ...userInfo, email });
     history.push('/comidas');
