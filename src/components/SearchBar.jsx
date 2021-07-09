@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';

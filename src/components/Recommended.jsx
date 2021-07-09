@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { getMealsRecipes } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
