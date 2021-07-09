@@ -21,6 +21,8 @@ function SBElements({ history }) {
         .then((results) => {
           if (!results.meals) {
             global.alert(alertMsg);
+          } else if (results.meals.length === 1) {
+            return history.push(`/comidas/${results.meals[0].idMeal}`);
           } else {
             setRecipes(results.meals);
           }
@@ -33,6 +35,8 @@ function SBElements({ history }) {
         .then((results) => {
           if (!results.drinks) {
             global.alert(alertMsg);
+          } else if (results.drinks.length === 1) {
+            return history.push(`/bebidas/${results.drinks[0].idDrink}`);
           } else {
             setDrinks(results.drinks);
           }
