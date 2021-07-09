@@ -6,9 +6,9 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
-import createListIngredients from '../helpFunctions/ingredientsList';
+import createListIngredients from '../helpers/ingredientsList';
 import { checkListIngredients, handleDoneRecipes,
-  handleFavorite } from '../helpFunctions/handleStorageKeys';
+  handleFavorite } from '../helpers/handleStorageKeys';
 
 export default function InProgressDrink() {
   const bottomFixed = {

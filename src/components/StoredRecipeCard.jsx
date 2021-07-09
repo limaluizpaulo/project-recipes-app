@@ -5,7 +5,7 @@ import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { handleFavorite } from '../helpFunctions/handleStorageKeys';
+import { handleFavorite } from '../helpers/handleStorageKeys';
 import RecipeContext from '../context';
 
 function StoredRecipeCard({ recipe, index }) {
@@ -26,10 +26,10 @@ function StoredRecipeCard({ recipe, index }) {
   } = recipe;
 
   function handleShare(idRecipe, typeRecipe) {
-    const TRAINLING_URL = -1;
+    const TRAILING_URL = -1;
     const url = window.location.href
       .split('/')
-      .slice(0, TRAINLING_URL)
+      .slice(0, TRAILING_URL)
       .join('/')
       .concat(`/${typeRecipe}s/${idRecipe}`);
     clipboardCopy(url);
@@ -68,14 +68,7 @@ function StoredRecipeCard({ recipe, index }) {
         <button
           type="button"
           onClick={ () => {
-            handleFavorite({
-              id,
-              type,
-              area,
-              category,
-              name,
-              image,
-            }, isFavorite);
+            handleFavorite({ ...recipe, isFavorite });
             setIsFavorite(!isFavorite);
           } }
         >
@@ -88,7 +81,7 @@ function StoredRecipeCard({ recipe, index }) {
       {isCopy && (<p>Link copiado!</p>)}
       { tags && tags.map((tag) => (
         <p
-          key={ index }
+          key={ tag }
           data-testid={ `${index}-${tag}-horizontal-tag` }
         >
           { tag }

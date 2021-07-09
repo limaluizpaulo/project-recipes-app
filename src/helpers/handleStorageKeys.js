@@ -1,5 +1,5 @@
 export function handleFavorite({ id, type, area = '', category = '', alcoholicOrNot = '',
-  name, image }, isFavorite) {
+  name, image, isFavorite }) {
   const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   if (!isFavorite) {
     const favRecipe = {
@@ -20,7 +20,8 @@ export function handleFavorite({ id, type, area = '', category = '', alcoholicOr
   }
 }
 
-export function checkListIngredients({ checked, index, id, countChecked }, key) {
+export function checkListIngredients({ key, checked, index, id, countChecked }) {
+  console.log(`${key}, ${checked}, ${index}, ${id}, ${countChecked}`);
   const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
   || { cocktails: { [id]: [] }, meals: { [id]: [] } };
   if (checked) {
@@ -73,4 +74,19 @@ export function handleDoneRecipes({ id, type, area = '', category = '',
   // const newStorage = [...favRecipes.slice(0, favIndex),
   //   ...favRecipes.slice(favIndex + 1)];
   // localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+}
+
+export function handleRecipeInProgress({ id, key }) {
+  // setIdProgress(idDetail);
+  // setRecipeInProgress(recipes);
+  const recipesInProgress = JSON.parse(localStorage
+    .getItem('inProgressRecipes')) || { cocktails: {}, meals: {} };
+  const recipeInProgress = {
+    ...recipesInProgress,
+    [key]: {
+      ...recipesInProgress[key],
+      [id]: [],
+    },
+  };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
 }

@@ -26,6 +26,7 @@ export default function RecipeProvider({ children }) {
   const [inputValue, setInputValue] = useState('');
   const [redirectSearchBar, setRedirectSearchBar] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [areas, setAreas] = useState([]);
@@ -37,6 +38,7 @@ export default function RecipeProvider({ children }) {
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
 
   // Render all recipes
   // useEffect(() => {
@@ -164,6 +166,8 @@ export default function RecipeProvider({ children }) {
   return (
     <RecipeContext.Provider
       value={ {
+        isDisable,
+        setIsDisable,
         isFavorite,
         setIsFavorite,
         recipeInProgress,
@@ -177,11 +181,13 @@ export default function RecipeProvider({ children }) {
         setShowSearch,
         setCheckedRadio,
         setInputValue,
-        setRecipes,
         setRedirectSearchBar,
         setRouteFromSearch,
         routeFromSearch,
         recipes,
+        setRecipes,
+        suggestions,
+        setSuggestions,
         categories,
         ingredients,
         searchIngredient,

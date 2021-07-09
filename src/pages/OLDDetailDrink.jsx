@@ -6,8 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
-import createListIngredients from '../helpFunctions/ingredientsList';
-import { handleFavorite } from '../helpFunctions/handleStorageKeys';
+import createListIngredients from '../helpers/ingredientsList';
+import { handleFavorite } from '../helpers/handleStorageKeys';
 
 export default function DetailDrink() {
   const bottomFixed = {
@@ -42,7 +42,6 @@ export default function DetailDrink() {
       setIdProgress(storedDrink[0]);
       setCheckedIngredients(storedDrink[1]);
     }
-    setIsRecomendation(true);
     setIsRecomendation(true);
   }, []);
 

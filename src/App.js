@@ -13,10 +13,8 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import FoodIngredients from './pages/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients';
 import FoodOrigin from './pages/FoodOrigin';
-import DetailMeal from './pages/DetailMeal';
-import DetailDrink from './pages/DetailDrink';
-import InProgressMeal from './pages/InProgressMeal';
-import InProgressDrink from './pages/InProgressDrink';
+import RecipeDetails from './pages/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
 import NotFound from './pages/NotFound';
 import StoredRecipesList from './pages/StoredRecipesList';
 
@@ -42,7 +40,6 @@ function App() {
         <RecipeDetailProvider>
           <Switch>
             <Route exact path="/" component={ Login } />
-            {/* <Route exact path="/comidas" component={ Food } /> */}
             <Route
               exact
               path="/comidas"
@@ -53,12 +50,11 @@ function App() {
               path="/bebidas"
               render={ () => <Recipes urlRecipe={ urlDrink } /> }
             />
-            {/* <Route exact path="/bebidas" component={ Drink } /> */}
-            <Route exact path="/comidas/:id" component={ DetailMeal } />
-            <Route exact path="/bebidas/:id" component={ DetailDrink } />
+            <Route exact path="/comidas/:id" component={ RecipeDetails } />
+            <Route exact path="/bebidas/:id" component={ RecipeDetails } />
             <Route exact path="/perfil" component={ Profile } />
-            <Route exact path="/comidas/:id/in-progress" component={ InProgressMeal } />
-            <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrink } />
+            <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+            <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
             <Route exact path="/receitas-feitas" component={ StoredRecipesList } />
             <Route
               exact

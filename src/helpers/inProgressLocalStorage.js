@@ -1,4 +1,4 @@
-import ingredientList from './ingredientList';
+import ingredientList from './OLDingredientList';
 
 function ternary(measure) {
   return !measure ? '' : measure;

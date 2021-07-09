@@ -11,7 +11,7 @@ import { detailProgressDrinks, detailProgressMeal } from '../service/InProgressA
 import {
   inProgressLocalStorageDrinks,
   inProgressLocalStorageMeals }
-  from '../helpFunctions/inProgressLocalStorage';
+  from '../helpers/inProgressLocalStorage';
 
 export default function RecipeDetailProvider({ children }) {
   const NUM_SIX = 6;
