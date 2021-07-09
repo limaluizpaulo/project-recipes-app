@@ -28,7 +28,7 @@ export default function ExploreIngredientsFood() {
             data-testid={ `${index}-ingredient-card` }
             key={ ingredient.idIngredient }
             style={ { border: 'solid black 1px' } }
-            onClick={ () => history.push('/comidas') }
+            onClick={ () => history.push({ pathname: '/comidas', ingredient: ingredient.strIngredient }) }
           >
             <img
               data-testid={ `${index}-card-img` }
