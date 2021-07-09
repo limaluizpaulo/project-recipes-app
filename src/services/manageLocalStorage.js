@@ -33,6 +33,7 @@ export const makeRecipe = ({ url }, history) => {
     localStorage.setItem('inProgressRecipes',
       JSON.stringify([{ [mealCockTail]: recipeToAddToProgress, [remnant]: remnantObj }]));
   }
+  history.push(`/${mealOrDrink}/${id}/in-progress`);
 };
 
 export const localStorageVerifier = (match, id, history) => {
@@ -41,12 +42,13 @@ export const localStorageVerifier = (match, id, history) => {
   const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
   let mealOrCockTail;
   if (inProgressArrayVerifier) {
-    mealOrCockTail = inProgressArrayVerifier[0].meals ? inProgressArrayVerifier[0].meals
+    mealOrCockTail = pushString === 'comidas' ? inProgressArrayVerifier[0].meals
       : inProgressArrayVerifier[0].cocktails;
   }
+
   if ((!inProgressArrayVerifier) || (inProgressArrayVerifier
-    && Object.keys(mealOrCockTail)[0]
-    !== id)) {
+    && !Object.keys(mealOrCockTail).some((obj) => obj === id)
+  )) {
     return (
       <button
         type="button"
@@ -58,8 +60,9 @@ export const localStorageVerifier = (match, id, history) => {
       </button>
     );
   }
+
   if (inProgressArrayVerifier
-    && Object.keys(mealOrCockTail)[0] === id) {
+    && Object.keys(mealOrCockTail).some((obj) => obj === id)) {
     return (
       <button
         type="button"
