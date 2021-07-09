@@ -25,7 +25,9 @@ export default class Header extends React.Component {
     const { search, pathname } = this.props;
     const { disable } = this.state;
     const isArea = pathname.includes('area');
+    const isInProgressPage = pathname.includes('in-progress');
 
+    if (isInProgressPage) return null;
     return (
       <main>
         <header className="header">

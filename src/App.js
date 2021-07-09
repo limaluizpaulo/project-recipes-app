@@ -31,7 +31,7 @@ function App() {
       />
       <Route
         path="/explorar/bebidas/area"
-        component={ <NotFound /> }
+        component={ NotFound }
       />
       <Route
         exact

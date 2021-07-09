@@ -19,7 +19,7 @@ export default class MealDetails extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.takeURL = this.takeURL.bind(this);
     this.ingredients = this.ingredients.bind(this);
-    this.measures = this.measures.bind(this);
+    // this.measures = this.measures.bind(this);
   }
 
   componentDidMount() {
