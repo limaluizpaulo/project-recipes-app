@@ -8,6 +8,7 @@ import MainPage from './pages/MainPage';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import Details from './pages/Details';
+import InProgress from './pages/InProgress';
 
 function App() {
   return (
@@ -22,8 +23,8 @@ function App() {
       <Route exact path="/perfil" component={ Perfil } />
       {/* <Route path="/receitas-feitas" component={ ReceitasFeitas } /> */}
       {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
-      <Route path="/bebidas/:id/in-progress" component={ Details } />
-      <Route path="/comidas/:id/in-progress" component={ Details } />
+      <Route path="/bebidas/:id/in-progress" component={ InProgress } />
+      <Route path="/comidas/:id/in-progress" component={ InProgress } />
       <Route path="/bebidas/:id" component={ Details } />
       <Route path="/comidas/:id" component={ Details } />
       <Route exact path="/comidas" component={ MainPage } />

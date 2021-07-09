@@ -11,7 +11,7 @@ import Recommended from '../components/Recommended';
 import { getItem, setItem } from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
-function Details() {
+function InProgress() {
   const { id } = useParams();
   const history = useHistory();
   // const [idDetails, setIdDetails] = useState(id);
@@ -40,28 +40,35 @@ function Details() {
   }, [type, id]);
   const thirtyTwo = 32;
 
-  const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
-  const redirectInProgress = () => {
-    const item = getItem('inProgressRecipes');
-    setItem('inProgressRecipes', {
-      ...item,
-      [typeKey]: {
-        ...item[typeKey],
-        [id]: [],
-      },
-    });
-    // const progressInfo = JSON.stringify({ [typeKey]: { [id]: [] } });
-    history.push(`${pathname}/in-progress`);
-  };
+  // const recipeProgress = () => {
+  //   const item = getItem('inProgressRecipes');
+  //   return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
+  // };
 
-  const recipeProgress = () => {
-    const item = getItem('inProgressRecipes');
-    return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
-  };
-
-  const recipeIsDone = () => {
+  const recipeDone = () => {
     const itemList = getItem('doneRecipes');
+    itemList.push(
+      {
+        id,
+        type: (type === 'meals') ? 'comida' : 'bebida',
+        area: detailsData.strArea || '',
+        category: detailsData.strCategory || '',
+        alcoholicOrNot: detailsData.strAlcoholic || '',
+        name: detailsData[title],
+        image: detailsData[thumbnail],
+        doneDate: 'quando - a - receita - foi - concluida',
+        tags: detailsData.strTags || [],
+      },
+    );
+
+    setItem('doneRecipes', itemList);
+
     return itemList.some((item) => item.id === id);
+  };
+
+  const redirectRecipesDone = () => {
+    recipeDone();
+    history.push(`${pathname}/receitas-feitas`);
   };
 
   const video = () => {
@@ -104,8 +111,8 @@ function Details() {
     https://surajsharma.net/blog/current-url-in-react
   */
   const handleClickShare = async () => {
-    const url = window.location.href;
-
+    const { href } = window.location;
+    const url = href.slice(0, href.lastIndexOf('/'));
     await copy(url);
     setShareCopy(true);
 
@@ -139,9 +146,6 @@ function Details() {
           <button type="button" onClick={ handleClickShare }>
             <img src={ shareIcon } alt="Share" data-testid="share-btn" />
           </button>
-          {/* <button type="button">
-            <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-          </button> */}
           <FavoriteButton data={ detailsData } />
         </div>
         <section className="text-content">
@@ -155,7 +159,7 @@ function Details() {
                 (ingredient, index) => (
                   <li
                     key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    data-testid={ `${index}-ingredient-step` }
                   >
                     { ingredientsAndMeasures(detailsData[ingredient],
                       detailsData[`strMeasure${index + 1}`]) }
@@ -174,17 +178,16 @@ function Details() {
         <Recommended />
       </main>
       <footer className="footer-details">
-        {!recipeIsDone() && (
-          <Button
-            func={ () => redirectInProgress() }
-            className="start-recipe"
-            label={ recipeProgress() }
-            testid="start-recipe-btn"
-          />
-        )}
+        <Button
+          func={ () => redirectRecipesDone() }
+          className="start-recipe"
+          label="Finalizar receita"
+          testid="finish-recipe-btn"
+        />
+
       </footer>
     </div>)
   );
 }
 
-export default Details;
+export default InProgress;
