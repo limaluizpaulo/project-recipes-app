@@ -38,6 +38,13 @@ export async function fetchMealsByCategory(cat) {
   return meals;
 }
 
+// filter meals based on Ingredient
+export async function fetchMealsByIngredient(ing) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
+  const { meals } = await request.json();
+  return meals;
+}
+
 // return all meal Categories
 export async function fetchMealsCategories() {
   const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');

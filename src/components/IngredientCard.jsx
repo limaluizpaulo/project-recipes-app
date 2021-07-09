@@ -8,31 +8,31 @@ export default function ItemCard({ item, i }) {
   const [str, setStr] = useState('');
   const [thumb, setThumb] = useState('');
   const history = useHistory();
-  const { findMealsByFilter, findCocktailssByFilter } = useContext(Context);
+  const { setSelectedIngredient } = useContext(Context);
 
   const { strIngredient, strIngredient1 } = item;
 
   useEffect(() => {
     if (!strIngredient) {
       setStr(strIngredient1);
-      const url = `www.thecocktaildb.com/images/ingredients/${strIngredient1}.png`;
+      const url = `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`;
       setThumb(url);
     }
     if (!strIngredient1) {
       setStr(strIngredient);
-      const url = `www.themealdb.com/images/ingredients/${strIngredient}.png`;
+      const url = `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`;
       setThumb(url);
     }
   }, [strIngredient, strIngredient1]);
 
   const filterByIngredient = () => {
     if (strIngredient) {
-      findMealsByFilter({ searchText: str, filter: 'ingredient' });
+      setSelectedIngredient(strIngredient);
       history.push('/comidas');
     }
 
     if (strIngredient1) {
-      findCocktailssByFilter({ searchText: str, filter: 'ingredient' });
+      setSelectedIngredient(strIngredient1);
       history.push('/bebidas');
     }
   };
@@ -40,7 +40,7 @@ export default function ItemCard({ item, i }) {
   return (
     <Card
       style={ { width: '18rem' } }
-      data-testid={ `${i}-recipe-card` }
+      data-testid={ `${i}-ingredient-card` }
       onClick={ () => filterByIngredient() }
     >
       <Card.Img variant="top" src={ thumb } data-testid={ `${i}-card-img` } />

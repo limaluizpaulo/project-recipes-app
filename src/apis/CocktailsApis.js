@@ -38,6 +38,13 @@ export async function fetchCocktailsByCategory(cat) {
   return drinks;
 }
 
+// filter drinks based on Ingredient
+export async function fetchCocktailsByIngredient(ing) {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ing}`);
+  const { drinks } = await request.json();
+  return drinks;
+}
+
 // return all cocktails Categories
 export async function fetchCocktailsCategories() {
   const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');

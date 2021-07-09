@@ -6,14 +6,21 @@ import Context from '../context/Context';
 import '../styles/categories.css';
 
 export default function CategoryButton(props) {
-  const { selectedCategory, setSelectedCategory, filterByCategory } = useContext(Context);
+  const {
+    setSelectedIngredient,
+    selectedCategory,
+    setSelectedCategory,
+    filterByCategory,
+  } = useContext(Context);
   const { text, type } = props;
 
   const setCategory = () => {
     if (selectedCategory === text) {
+      setSelectedIngredient('');
       setSelectedCategory('All');
     }
     if (selectedCategory !== text) {
+      setSelectedIngredient('');
       setSelectedCategory(text);
     }
   };
