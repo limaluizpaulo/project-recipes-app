@@ -71,13 +71,12 @@ body {
   }
 }
 
-#email-input, #password-input{
-  padding: 5px 20px 10px 20px;
+#email-input, #password-input {
   margin: 1% 1% 1% 25%;
+  padding: 5px 20px 10px 20px;
 }
 
 .loginButton{
-  padding: 2% 10%;
   margin: 1% 34%;
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { initializeLocalStorage } from '../services/localStorage';
 
 function Login() {
@@ -62,7 +63,7 @@ function Login() {
         </label>
       </div>
       <Link to="/comidas">
-        <button
+        <Button
           className="loginButton"
           type="button"
           data-testid="login-submit-btn"
@@ -70,7 +71,7 @@ function Login() {
           onClick={ handleClick }
         >
           Entrar
-        </button>
+        </Button>
       </Link>
     </div>
   );
