@@ -43,34 +43,36 @@ export default function ExploreMealsIngredients({ history }) {
 
   return (
     <div>
-      <h4>ExploreMealsIngredients</h4>
       <Header history={ history } title="Explorar Ingredientes" />
-      {
-        ingredientsList.map(({ idIngredient, strIngredient }, idx) => (
-          <div
-            data-testid={ `${idx}-ingredient-card` }
-            id={ strIngredient }
-            key={ idIngredient }
-            onClick={ handleClick }
-            onKeyPress={ handleClick }
-            role="button"
-            tabIndex={ idx }
-          >
-            <img
-              data-testid={ `${idx}-card-img` }
+      <div className="foodPage">
+        {
+          ingredientsList.map(({ idIngredient, strIngredient }, idx) => (
+            <div
+              data-testid={ `${idx}-ingredient-card` }
               id={ strIngredient }
-              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-              alt={ strIngredient }
-            />
-            <h4
-              data-testid={ `${idx}-card-name` }
-              id={ strIngredient }
+              key={ idIngredient }
+              onClick={ handleClick }
+              onKeyPress={ handleClick }
+              role="button"
+              tabIndex={ idx }
             >
-              { strIngredient }
-            </h4>
-          </div>
-        ))
-      }
+              <img
+                data-testid={ `${idx}-card-img` }
+                id={ strIngredient }
+                src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+                alt={ strIngredient }
+              />
+              <h4
+                data-testid={ `${idx}-card-name` }
+                id={ strIngredient }
+              >
+                { strIngredient }
+              </h4>
+            </div>
+          ))
+        }
+      </div>
+
       <Footer />
     </div>
   );

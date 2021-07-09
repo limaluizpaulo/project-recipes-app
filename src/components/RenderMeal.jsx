@@ -93,7 +93,10 @@ function RenderMeal() {
               data-testid={ `${indexAll}-card-img` }
             />
           </div>
-          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+          <div className="food__card_text">
+            <p data-testid={ `${indexAll}-card-name` }>{itemAll.strMeal}</p>
+          </div>
+
         </Link>
       ));
     }
@@ -112,7 +115,9 @@ function RenderMeal() {
               data-testid={ `${index}-card-img` }
             />
           </div>
-          <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+          <div className="food__card_text">
+            <p data-testid={ `${index}-card-name` }>{item.strMeal}</p>
+          </div>
         </Link>
       ));
     }
@@ -125,15 +130,16 @@ function RenderMeal() {
           to={ `/comidas/${itemValue.idMeal}` }
         >
           <div className="food__card__img">
-
             <img
               src={ itemValue.strMealThumb }
               alt={ itemValue.strMealThumb }
               data-testid={ `${i}-card-img` }
             />
-
           </div>
-          <p data-testid={ `${i}-card-name` }>{itemValue.strMeal}</p>
+          <div className="food__card_text">
+            <p data-testid={ `${i}-card-name` }>{itemValue.strMeal}</p>
+          </div>
+
         </Link>
       ));
     }
@@ -153,8 +159,6 @@ function RenderMeal() {
       </div>
     ));
   }
-  // <div className="foodPage">
-  // <div className="food__category__container">
   return (
     <div className="foodPage">
       <div className="food__category__container">

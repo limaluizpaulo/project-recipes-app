@@ -66,7 +66,7 @@ export default function MainDrink() {
   function buttonCategories() {
     return filterCategoriesDrinks.map((categ, i) => (
       <button
-        className="food__category__button"
+        className="food__category__button__drink"
         type="button"
         key={ i }
         value={ categ.strCategory }
@@ -94,8 +94,9 @@ export default function MainDrink() {
               data-testid={ `${indexAll}-card-img` }
             />
           </div>
-          <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
-
+          <div className="food__card_text">
+            <p data-testid={ `${indexAll}-card-name` }>{itemAll.strDrink}</p>
+          </div>
         </Link>
       ));
     }
@@ -114,11 +115,13 @@ export default function MainDrink() {
               data-testid={ `${index}-card-img` }
             />
           </div>
-          <p
-            data-testid={ `${index}-card-name` }
-          >
-            {item.strDrink}
-          </p>
+          <div className="food__card_text">
+            <p
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strDrink}
+            </p>
+          </div>
 
         </Link>
       ));
@@ -139,13 +142,14 @@ export default function MainDrink() {
               }-card-img` }
             />
           </div>
-          <p
-            data-testid={ `${indexValue
-            }-card-name` }
-          >
-            {itemValue.strDrink}
-          </p>
-
+          <div className="food__card_text">
+            <p
+              data-testid={ `${indexValue
+              }-card-name` }
+            >
+              {itemValue.strDrink}
+            </p>
+          </div>
         </Link>
       ));
     }
@@ -170,12 +174,11 @@ export default function MainDrink() {
       ));
     }
   }
-
   return (
     <div className="foodPage">
       <div className="food__category__container">
         <button
-          className="food__category__button"
+          className="food__category__button__drink"
           data-testid="All-category-filter"
           type="button"
           value="All"

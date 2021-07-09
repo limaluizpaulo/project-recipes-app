@@ -32,6 +32,7 @@
 .header__form {
   background-color: var(--light-yellow-color);
   border-radius: 5px;
+  bottom: -150px;
   padding: 0 5px;
   position: absolute;
 }
@@ -64,6 +65,7 @@
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  margin: 5px 0;
   width: 50px;
 }
 

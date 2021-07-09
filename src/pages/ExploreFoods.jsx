@@ -5,18 +5,29 @@ import Footer from '../components/Footer';
 import ExploreIngredientButton from '../components/ExploreIngredientButton';
 import ExploreAreaButton from '../components/ExploreAreaButton';
 import ExploreSurpriseButton from '../components/ExploreSurpriseButton';
+import '../styles/explore.css';
 
 // Tela de explorar comidas: /explorar/comidas
 export default function ExploreFoods({ history }) {
   return (
-    <div>
-      <h4>ExploreMeals</h4>
+    <>
       <Header history={ history } title="Explorar Comidas" />
-      <ExploreIngredientButton history={ history } />
-      <ExploreAreaButton history={ history } />
-      <ExploreSurpriseButton history={ history } />
+      <div className="explorePage">
+        <ExploreIngredientButton
+          className="explore__button"
+          history={ history }
+        />
+        <ExploreAreaButton
+          className="explore__button"
+          history={ history }
+        />
+        <ExploreSurpriseButton
+          className="explore__button"
+          history={ history }
+        />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
