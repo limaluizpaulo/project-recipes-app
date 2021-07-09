@@ -54,9 +54,6 @@ export const actionRecipesByIngredients = (ingredients) => (dispatch) => (
         data,
       },
     }))
-    // .catch(() => (
-    //   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-    // ))
 );
 
 export const actionRecipesByName = (name) => (dispatch) => (
