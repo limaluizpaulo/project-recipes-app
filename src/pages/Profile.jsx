@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import DoneButton from '../components/DoneButton';
 import FavoriteButton from '../components/FavoriteButton';
 import LogoutButton from '../components/LogoutButton';
+import '../styles/profile.css';
 
 // Tela de perfil: /perfil
 export default function Profile({ history }) {
@@ -12,12 +13,13 @@ export default function Profile({ history }) {
 
   return (
     <div>
-      <h4>Profile</h4>
       <Header history={ history } title="Perfil" />
-      <p data-testid="profile-email">{user && user.email}</p>
-      <DoneButton history={ history } />
-      <FavoriteButton history={ history } />
-      <LogoutButton history={ history } />
+      <div className="profilePage">
+        <p data-testid="profile-email">{user && user.email}</p>
+        <DoneButton history={ history } />
+        <FavoriteButton history={ history } />
+        <LogoutButton history={ history } />
+      </div>
       <Footer />
     </div>
   );
