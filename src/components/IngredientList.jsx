@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Spinner } from 'react-bootstrap';
 import Context from '../context/Context';
 import IngredientCard from './IngredientCard';
@@ -20,18 +21,14 @@ export default function IngredientList({ type }) {
     getIngredients(type);
   }, []);
 
-  const renderCards = () => {
-
-    return ingredients.map((item, index) => {
-      return (
-        <IngredientCard
-          key={ index }
-          item={ item }
-          i={ index }
-          type={ type }
-        />);
-    });
-  };
+  const renderCards = () => (
+    ingredients.map((item, index) => (
+      <IngredientCard
+        key={ index }
+        item={ item }
+        i={ index }
+      />))
+  );
 
   return (
     <Container>
@@ -39,3 +36,7 @@ export default function IngredientList({ type }) {
     </Container>
   );
 }
+
+IngredientList.propTypes = {
+  type: PropTypes.string.isRequired,
+};

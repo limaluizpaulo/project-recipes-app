@@ -9,7 +9,7 @@ import {
   fetchMealsRecomendation,
   fetchMealsByIngredient,
   fetchMealsIngredients,
-  fetchMealsAreas,
+  // fetchMealsAreas,
 } from '../apis/MealsApis';
 import {
   fetchCocktailsApi,
