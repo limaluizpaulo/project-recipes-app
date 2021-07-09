@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import DrinksContext from '../context/DrinksContext';
 
 import HeaderDetails from '../components/HeaderDetails';
@@ -8,7 +9,7 @@ import InstructionsDetails from '../components/InstructionsDetails';
 import Recommended from '../components/Recommended';
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
 import '../styles/reset.css';
-import { PageDetails } from '../styles/Details';
+import { PageDetails, Loading } from '../styles/Details';
 
 function DrinkDetail() {
   const { id } = useParams();
@@ -58,7 +59,11 @@ function DrinkDetail() {
       </main>
       <ButtonStartRecipe id={ id } />
     </PageDetails>
-  ) : <h1>Loading</h1>;
+  ) : (
+    <Loading>
+      <Loader type="Bars" color="red" height={ 80 } width={ 80 } />
+    </Loading>
+  );
 }
 
 export default DrinkDetail;

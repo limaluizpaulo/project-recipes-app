@@ -3,12 +3,18 @@ import styled from 'styled-components';
 export const PageDetails = styled.main`background: #eea371;
   color: black;
 `;
+export const Loading = styled.div`background: #eea371;
 
+  text-align: center;
+  position: absolute;
+  left: 45%;
+  top: 30%
+
+`;
 export const Thumb = styled.img`height: 65vh;
   object-fit: cover;
   width: 100vw;
 `;
-
 export const BtnNext = styled.button`background: transparent;
   border: none;
   font-size: 60px;
@@ -24,7 +30,6 @@ export const BtnNext = styled.button`background: transparent;
     outline: 0;
   }
 `;
-
 export const BtnPrev = styled.button`background: transparent;
   border: none;
   font-size: 60px;
@@ -40,7 +45,6 @@ export const BtnPrev = styled.button`background: transparent;
     outline: 0;
   }
 `;
-
 export const Popup = styled.div`background: #f93602;
   border-radius: 10px;
   display: flex;
@@ -53,7 +57,6 @@ export const Popup = styled.div`background: #f93602;
   transition: ${(props) => (props.copied ? 'all 250ms linear' : 'all 250ms linear 2s')};
   width: 60px;
 `;
-
 export const Header = styled.section`background: #f93602;
   border-radius: 0 0 20px 20px;
   box-shadow: 2px 4px 10px #dc3545;
@@ -111,7 +114,6 @@ export const Header = styled.section`background: #f93602;
     }
   }
 `;
-
 export const Ingredients = styled.section`background: transparent;
   margin: 0 10px;
 
@@ -131,7 +133,6 @@ export const Ingredients = styled.section`background: transparent;
     padding: 10px;
   }
 `;
-
 export const Instructions = styled.section`background: transparent;
 
   h1 {
@@ -150,7 +151,6 @@ export const Instructions = styled.section`background: transparent;
     text-align: justify;
   }
 `;
-
 export const VideoRecipe = styled.section`background: transparent;
 
   h1 {
@@ -172,7 +172,6 @@ export const VideoRecipe = styled.section`background: transparent;
     }
   }
 `;
-
 export const RecommendedRecipes = styled.section`background: transparent;
   display: flex;
   flex-direction: column;
@@ -192,7 +191,6 @@ export const RecommendedRecipes = styled.section`background: transparent;
     margin-bottom: 90px;
   }
 `;
-
 export const Card = styled.div`background: #f93602;
   border-radius: 5px;
   box-shadow: 0 0 1em #dc3545;
@@ -233,7 +231,6 @@ export const Card = styled.div`background: #f93602;
     width: 100%;
   }
 `;
-
 export const BtnRecipes = styled.button`background: #dc3545;
   border: none;
   border-radius: 20px 20px 0 0;
