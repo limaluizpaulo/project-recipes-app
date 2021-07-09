@@ -1,4 +1,20 @@
 .header {
+  background-color: rgb(236, 224, 224);
   display: flex;
   justify-content: space-around;
+  width: 100%;
+}
+
+.button-profile {
+   background: transparent;
+}
+
+.button-search {
+  background: transparent;
+}
+
+.button-search-invisible {
+  background: transparent;
+  border: none;
+  font-size:0;
 }
