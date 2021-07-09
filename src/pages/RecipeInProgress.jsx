@@ -65,7 +65,7 @@ function RecipeInProgress({ match, history, savesFinished }) {
       />
       <FavoriteBtn
         id={ id }
-        type={ recipeType }
+        type={ recipeType === 'meals' }
         currentRecipe={ recipeInProgress }
         testId="favorite-btn"
       />
