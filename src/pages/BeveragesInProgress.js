@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import { Link } from 'react-router-dom';
 import fetchAPI from '../services/fetchApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import BeveragesInProgressInfo from '../components/BeveragesInProgressInfo';
 
 class BeveragesInProgress extends React.Component {
   constructor() {
@@ -25,6 +24,7 @@ class BeveragesInProgress extends React.Component {
     this.onClickFavoriteIcon = this.onClickFavoriteIcon.bind(this);
     this.handleFavoriteLocalStorage = this.handleFavoriteLocalStorage.bind(this);
     this.verifyChecks = this.verifyChecks.bind(this);
+    this.renderFavorite = this.renderFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -68,18 +68,12 @@ class BeveragesInProgress extends React.Component {
   onClickShare() {
     const url = window.location.href.split('/in-progress');
     copy(url[0]);
-    this.setState({
-      copyLink: true,
-    });
+    this.setState({ copyLink: true });
   }
 
   onClickFavoriteIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const { detailsRecipe } = this.state;
     const newFavorite = {
       id,
@@ -93,27 +87,21 @@ class BeveragesInProgress extends React.Component {
     if (favoriteRecipes) {
       const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
       if (isFavorite) {
-        this.setState({
-          isFavorite: false,
-        });
+        this.setState({ isFavorite: false });
         const newArray = favoriteRecipes.filter((recipe) => recipe.id !== id);
         return localStorage.setItem(
           'favoriteRecipes',
           JSON.stringify(newArray),
         );
       }
-      this.setState({
-        isFavorite: true,
-      });
+      this.setState({ isFavorite: true });
       const addFavorite = [...favoriteRecipes, newFavorite];
       return localStorage.setItem(
         'favoriteRecipes',
         JSON.stringify(addFavorite),
       );
     }
-    this.setState({
-      isFavorite: true,
-    });
+    this.setState({ isFavorite: true });
     return localStorage.setItem(
       'favoriteRecipes',
       JSON.stringify([newFavorite]),
@@ -143,39 +131,27 @@ class BeveragesInProgress extends React.Component {
   }
 
   async fetchDetails() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     this.setInitialLocal();
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { drinks } = responseAPI;
-    this.setState(
-      {
-        detailsRecipe: drinks,
-      },
-    );
+    this.setState({ detailsRecipe: drinks });
   }
 
   verifyChecks() {
-    const { ingQuant, checkedIngredients, setDisable } = this.state;
+    const { ingQuant, checkedIngredients } = this.state;
     console.log('entrei');
     if (checkedIngredients.length === (ingQuant + 1)) {
-      this.setState({
-        setDisable: false,
-      });
+      this.setState({ setDisable: false });
     } else {
-      this.setState({
-        setDisable: true,
-      });
+      this.setState({ setDisable: true });
     }
   }
 
   renderNumber() {
     let ingNumber = 0;
-    const { detailsRecipe, checkedIngredients } = this.state;
+    const { detailsRecipe } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
@@ -183,19 +159,12 @@ class BeveragesInProgress extends React.Component {
     }
     return arrayIngredients.map((position, index) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
-      if (
-        ingredients === ''
-        || ingredients === null
-        || ingredients === undefined
-      ) {
+      if (ingredients === '' || ingredients === null || ingredients === undefined) {
         return null;
       }
       ingNumber = index;
-      return this.setState({
-        ingQuant: ingNumber,
-      });
+      return this.setState({ ingQuant: ingNumber });
     });
-    // this.setState({ ingQuant: ingNumber });
   }
 
   renderFavorite() {
@@ -222,16 +191,12 @@ class BeveragesInProgress extends React.Component {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
       const ing = `${measure} ${ingredients}`;
-      if (
-        ingredients === ''
-        || ingredients === null
-        || ingredients === undefined
-      ) {
+      if (ingredients === '' || ingredients === null || ingredients === undefined) {
         return null;
       }
       ingNumber = index;
+      console.log(ingNumber);
       return (
-
         <li
           key={ position }
           data-testid={ `${position - 1}-ingredient-step` }
@@ -247,7 +212,6 @@ class BeveragesInProgress extends React.Component {
         </li>
       );
     });
-    // this.setState({ ingQuant: ingNumber });
   }
 
   render() {
@@ -256,42 +220,15 @@ class BeveragesInProgress extends React.Component {
       return <div>Carregando</div>;
     }
     return (
-      <section>
-        <img
-          src={ detailsRecipe[0].strDrinkThumb }
-          alt="Imagem da Bebida"
-          data-testid="recipe-photo"
-          width="350"
-        />
-        <h1 data-testid="recipe-title">{detailsRecipe[0].strDrink}</h1>
-        <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
-        <p>{copyLink ? 'Link copiado!' : null}</p>
-        <button
-          type="button"
-          onClick={ this.onClickShare }
-        >
-          <img data-testid="share-btn" src={ shareIcon } alt="Compartilhar" />
-        </button>
-        <button
-          type="button"
-          onClick={ this.onClickFavoriteIcon }
-        >
-          {this.renderFavorite()}
-        </button>
-        <p data-testid="recipe-category">
-          {`Categoria: ${detailsRecipe[0].strAlcoholic}`}
-        </p>
-        <p data-testid="instructions">
-          {`Instrução: ${detailsRecipe[0].strInstructions}`}
-        </p>
-        <h3>Ingredientes</h3>
-        <ul>{this.renderIngredients()}</ul>
-        <Link to="/receitas-feitas">
-          <button disabled={ setDisable } data-testid="finish-recipe-btn" type="button">
-            Finalizar receita
-          </button>
-        </Link>
-      </section>
+      <BeveragesInProgressInfo
+        detailsRecipe={ detailsRecipe }
+        copyLink={ copyLink }
+        setDisable={ setDisable }
+        onClickShare={ this.onClickShare }
+        onClickFavoriteIcon={ this.onClickFavoriteIcon }
+        renderIngredients={ this.renderIngredients }
+        renderFavorite={ this.renderFavorite }
+      />
     );
   }
 }
