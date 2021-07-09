@@ -8,6 +8,7 @@ import {
   getMealsFirstLetterFilter,
 } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
+import { alertMessage } from '../helpers/HelperFunctions';
 
 const selectedFilter = {
   ingredients: getMealsIngredientsFilter,
@@ -29,9 +30,6 @@ function SearchBar() {
 
   // useEffect(() => {
   const filterApi = async () => { //  tentar refatorar: jogar alerts dentro do getApi
-    const alertMessage = (fn, message) => {
-      fn(message);
-    };
     if (radioInput === 'firstLetter' && searchInput.length > 1) {
       alertMessage(alert, 'Sua busca deve conter somente 1 (um) caracter');
     }

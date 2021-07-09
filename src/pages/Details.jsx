@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { /* useLocation, */ useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import YouTube from 'react-youtube';
-// import { copy } from 'clipboard-copy';
+import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
+import { getItem, setItem } from '../helpers/HelperFunctions';
+import FavoriteButton from '../helpers/FavoriteButton';
 
 function Details() {
   const { id } = useParams();
+  const history = useHistory();
   // const [idDetails, setIdDetails] = useState(id);
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
+  const [shareCopy, setShareCopy] = useState(false);
 
   const capitalize = (text) => text.replace(
     /(?:^|\s)\S/g, (first) => first.toUpperCase(),
@@ -25,7 +29,7 @@ function Details() {
   const title = `str${singleType}`;
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
   // console.log(pathname);
   useEffect(() => {
     const getData = async () => {
@@ -35,17 +39,25 @@ function Details() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
-  // console.log(thumbnail);
-  // const videoId = type === 'meals'?(
-  // videoId = detailsData.strYoutube === undefined ? null
-  //   : detailsData.strYoutube.slice(thirtyTwo);
-  // const video = (
-  //   <section data-testid="video">
-  //     <h3>Video</h3>
-  //     <YouTube
-  //       videoId={ videoId }
-  //     />
-  //   </section>)) : '';
+
+  const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
+  const redirectInProgress = () => {
+    const item = getItem('inProgressRecipes');
+    setItem('inProgressRecipes', {
+      ...item,
+      [typeKey]: {
+        ...item[typeKey],
+        [id]: [],
+      },
+    });
+    // const progressInfo = JSON.stringify({ [typeKey]: { [id]: [] } });
+    history.push(`${pathname}/in-progress`);
+  };
+
+  const recipeProgress = () => {
+    const item = getItem('inProgressRecipes');
+    return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
+  };
   const video = () => {
     if (type === 'drinks') {
       return null;
@@ -76,6 +88,27 @@ function Details() {
   //   typeId = 'idDrink';
   // }
 
+  /*
+    Material consultado sobre dataset
+    https://developer.mozilla.org/pt-BR/docs/Learn/HTML/Howto/Use_data_attributes#acesso_no_javascript
+    { target: { dataset: { testid } } }
+    */
+  /*
+    Material consultado sobre URL absoluta da página
+    https://surajsharma.net/blog/current-url-in-react
+  */
+  const handleClickShare = async () => {
+    const url = window.location.href;
+
+    await copy(url);
+    setShareCopy(true);
+
+    const FIVE_SECONDS = 5000;
+    setTimeout(() => {
+      setShareCopy(false);
+    }, FIVE_SECONDS);
+  };
+
   return (detailsData === undefined ? <div /> : Object.keys(detailsData).length !== 0
   && (
     <div className="transparent">
@@ -96,12 +129,14 @@ function Details() {
           {detailsData[category]}
         </h2>
         <div className="actions">
-          <button type="button">
+          { shareCopy && (<p>Link copiado!</p>) }
+          <button type="button" onClick={ handleClickShare }>
             <img src={ shareIcon } alt="Share" data-testid="share-btn" />
           </button>
-          <button type="button">
+          {/* <button type="button">
             <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-          </button>
+          </button> */}
+          <FavoriteButton data={ detailsData } />
         </div>
         <section className="text-content">
           <h3>Ingredients</h3>
@@ -134,8 +169,9 @@ function Details() {
       </main>
       <footer className="footer-details">
         <Button
+          func={ () => redirectInProgress() }
           className="start-recipe"
-          label="Iniciar Receita"
+          label={ recipeProgress() }
           testid="start-recipe-btn"
         />
       </footer>
