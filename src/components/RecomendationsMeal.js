@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { requestMeal } from '../services/api';
 import '../styles/global.css';
@@ -34,7 +34,13 @@ function RecomendationsMeal() {
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
                   />
-                  <p data-testid={ `${index}-recomendation-title` }>{meal.strMeal}</p>
+                  <Card.Body>
+                    <Card.Title
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      {meal.strMeal}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}
@@ -53,11 +59,13 @@ function RecomendationsMeal() {
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
                   />
-                  <p
-                    data-testid={ `${index + 2}-recomendation-title` }
-                  >
-                    {meal.strMeal}
-                  </p>
+                  <Card.Body>
+                    <Card.Title
+                      data-testid={ `${index + 2}-recomendation-title` }
+                    >
+                      {meal.strMeal}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}
@@ -76,9 +84,11 @@ function RecomendationsMeal() {
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
                   />
-                  <p data-testid={ `${index + four}-recomendation-title` }>
-                    {meal.strMeal}
-                  </p>
+                  <Card.Body>
+                    <Card.Title data-testid={ `${index + four}-recomendation-title` }>
+                      {meal.strMeal}
+                    </Card.Title>
+                  </Card.Body>
                 </div>
               </Link>
             ))}

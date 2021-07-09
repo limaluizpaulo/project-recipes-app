@@ -11,6 +11,20 @@ function Form() {
   function submit(ev) {
     ev.preventDefault();
 
+    if (localStorage.getItem('favoriteRecipes') === null) {
+      const Favorite = [];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(Favorite));
+    }
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      const inProgressRecipes = {
+        meals: {
+        },
+        cocktails: {
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email }));

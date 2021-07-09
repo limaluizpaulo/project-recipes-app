@@ -9,10 +9,15 @@ import { searchByCategoryDrink } from '../services/searchApi';
 import { requestDrink } from '../services/api';
 
 function DrinkRecipes() {
-  const { setFirstDrinks, firstDrinks } = useContext(Context);
+  const { setFirstDrinks,
+    firstDrinks,
+    drinkPerIngredient,
+    setDrinkPerIngredient,
+    changeDrink } = useContext(Context);
   const [firstCategories, setFirstCategories] = useState([]);
   const numOfDrinks = 12;
   const numOfCategories = 5;
+  const btnClass = 'category-btn-dbl';
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -32,14 +37,25 @@ function DrinkRecipes() {
   }, []);
 
   async function handleClick({ target }) {
-    if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
+    if (target.innerText === 'All' || target.className === btnClass) {
       target.className = 'category-btn';
       const drinks = await requestDrink();
       return setFirstDrinks(drinks.slice(0, numOfDrinks));
     }
-    target.className = 'category-btn-dbl';
+    target.className = btnClass;
     const { drinks } = await searchByCategoryDrink(target.innerText);
     setFirstDrinks(drinks.splice(0, numOfDrinks));
+  }
+
+  async function handleClick1({ target }) {
+    if (target.innerText === 'All' || target.className === btnClass) {
+      target.className = 'category-btn';
+      const drinks = await requestDrink();
+      return setDrinkPerIngredient(drinks.slice(0, numOfDrinks));
+    }
+    target.className = btnClass;
+    const { drinks } = await searchByCategoryDrink(target.innerText);
+    setDrinkPerIngredient(drinks.splice(0, numOfDrinks));
   }
 
   return (
@@ -49,7 +65,7 @@ function DrinkRecipes() {
         <button
           className="category-btn"
           data-testid="All-category-filter"
-          onClick={ handleClick }
+          onClick={ changeDrink ? handleClick1 : handleClick }
           type="button"
         >
           All
@@ -58,7 +74,7 @@ function DrinkRecipes() {
           <button
             className="category-btn"
             data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ handleClick }
+            onClick={ changeDrink ? handleClick1 : handleClick }
             key={ index }
             type="button"
           >
@@ -67,7 +83,7 @@ function DrinkRecipes() {
         ))}
       </div>
       <div className="card-container">
-        {firstDrinks.map((drink, index) => (
+        {(changeDrink ? drinkPerIngredient : firstDrinks).map((drink, index) => (
           <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
             <Card
               data-testid={ `${index}-recipe-card` }

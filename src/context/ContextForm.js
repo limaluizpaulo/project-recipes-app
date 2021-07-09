@@ -13,6 +13,10 @@ function Provider({ children }) {
   const [firstDrinks, setFirstDrinks] = useState([]);
   const [firstFoodIngredients, setFirstFoodIngredients] = useState([]);
   const [firstDrinkIngredients, setFirstDrinkIngredients] = useState([]);
+  const [foodPerIngredient, setFoodPerIngredient] = useState([]);
+  const [drinkPerIngredient, setDrinkPerIngredient] = useState([]);
+  const [changeFood, setChangeFood] = useState(false);
+  const [changeDrink, setChangeDrink] = useState(false);
   const [search, setSearch] = useState([]);
   const [historyPage, sethistoryPage] = useState([]);
 
@@ -35,6 +39,14 @@ function Provider({ children }) {
     setFirstFoodIngredients,
     firstDrinkIngredients,
     setFirstDrinkIngredients,
+    foodPerIngredient,
+    setFoodPerIngredient,
+    drinkPerIngredient,
+    setDrinkPerIngredient,
+    changeFood,
+    setChangeFood,
+    changeDrink,
+    setChangeDrink,
     search,
     setSearch,
     historyPage,

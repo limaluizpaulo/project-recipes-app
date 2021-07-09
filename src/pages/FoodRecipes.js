@@ -9,10 +9,15 @@ import { searchByCategoryFood } from '../services/searchApi';
 import { requestMeal } from '../services/api';
 
 function FoodRecipes() {
-  const { setFirstMeals, firstMeals } = useContext(Context);
+  const { setFirstMeals,
+    firstMeals,
+    foodPerIngredient,
+    setFoodPerIngredient,
+    changeFood } = useContext(Context);
   const [firstCategories, setFirstCategories] = useState([]);
   const numOfMeals = 12;
   const numOfCategories = 5;
+  const btnClass = 'category-btn-dbl';
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -32,14 +37,25 @@ function FoodRecipes() {
   }, []);
 
   async function handleClick({ target }) {
-    if (target.innerText === 'All' || target.className === 'category-btn-dbl') {
+    if (target.innerText === 'All' || target.className === btnClass) {
       target.className = 'category-btn';
       const meals = await requestMeal();
       return setFirstMeals(meals.slice(0, numOfMeals));
     }
-    target.className = 'category-btn-dbl';
+    target.className = btnClass;
     const { meals } = await searchByCategoryFood(target.innerText);
     setFirstMeals(meals.splice(0, numOfMeals));
+  }
+
+  async function handleClick1({ target }) {
+    if (target.innerText === 'All' || target.className === btnClass) {
+      target.className = 'category-btn';
+      const meals = await requestMeal();
+      return setFoodPerIngredient(meals.slice(0, numOfMeals));
+    }
+    target.className = btnClass;
+    const { meals } = await searchByCategoryFood(target.innerText);
+    setFoodPerIngredient(meals.splice(0, numOfMeals));
   }
 
   return (
@@ -49,7 +65,7 @@ function FoodRecipes() {
         <button
           className="category-btn"
           data-testid="All-category-filter"
-          onClick={ handleClick }
+          onClick={ changeFood ? handleClick1 : handleClick }
           type="button"
         >
           All
@@ -57,7 +73,7 @@ function FoodRecipes() {
         {firstCategories.map((category, index) => (
           <button
             className="category-btn"
-            onClick={ handleClick }
+            onClick={ changeFood ? handleClick1 : handleClick }
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             type="button"
@@ -67,7 +83,7 @@ function FoodRecipes() {
         ))}
       </div>
       <div className="card-container">
-        {firstMeals.map((meal, index) => (
+        {(changeFood ? foodPerIngredient : firstMeals).map((meal, index) => (
           <Link
             to={ `/comidas/${meal.idMeal}` }
             key={ meal.strMeal }
@@ -78,6 +94,7 @@ function FoodRecipes() {
             >
               <Card.Img
                 data-testid={ `${index}-card-img` }
+                className="cardImg"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />
