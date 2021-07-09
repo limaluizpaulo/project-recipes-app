@@ -7,7 +7,7 @@ class RecipesByOrigin extends Component {
     return (
       <div>
         <Header header="Explorar Origem" explorer />
-        <h2> Recipes By Origin</h2>
+        <h2> presunto</h2>
         <DownMenu />
       </div>
     );
