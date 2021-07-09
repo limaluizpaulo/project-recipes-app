@@ -8,28 +8,22 @@ import {
   RecipeHeaderList,
 } from '../components';
 import { UserContext } from '../context/UserProvider';
-import { setOnLocalStorage } from '../services/helpers/localStorage';
 
 const Favorites = () => {
-  const { favorites } = useContext(UserContext);
-  const [copied, setCopied] = useState(false);
+  const { favorites, copied } = useContext(UserContext);
   const [filter, setFilter] = useState('');
-
-  setOnLocalStorage('favoriteRecipes', favorites);
-
-  const favoriteRecipes = favorites;
 
   return (
     <div>
-      <Header name="Receitas Feitas" />
+      <Header name="Receitas Favoritas" />
 
       <Filters clickFilter={ setFilter } />
 
       <div className="done-recipes">
         {copied ? 'Link copiado!' : ''}
 
-        {favoriteRecipes.length > 0
-          && favoriteRecipes
+        {favorites.length > 0
+          && favorites
             .filter(({ type }) => type.includes(filter))
             .map(
               (
@@ -69,11 +63,13 @@ const Favorites = () => {
                     <ShareButton
                       type={ type }
                       id={ id }
-                      changeCopy={ setCopied }
-                      index={ index }
+                      test={ `${index}-horizontal-share-btn` }
                     />
 
-                    <FavoriteButton id={ id } index={ index } />
+                    <FavoriteButton
+                      id={ id }
+                      test={ `${index}-horizontal-favorite-btn` }
+                    />
 
                     <h4 data-testid={ `${index}-horizontal-done-date` }>
                       {doneDate}

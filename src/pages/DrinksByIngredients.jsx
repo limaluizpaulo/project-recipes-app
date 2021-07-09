@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Header, IngredientCard } from '../components';
+import { Footer, Header, IngredientCard } from '../components';
 import { DrinksContext } from '../context/DrinksProvider';
 import fetchIngredients from '../services/api/fetchIngredients';
 
@@ -28,6 +28,7 @@ const DrinksByIngredients = () => {
             set={ setIngredientFilter }
           />
         ))}
+      <Footer />
     </div>
   );
 };

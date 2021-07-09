@@ -12,3 +12,4 @@ export { default as MealsByArea } from './MealsByArea';
 export { default as DrinksByIngredients } from './DrinksByIngredients';
 export { default as Done } from './Done';
 export { default as Favorites } from './Favorites';
+export { default as NotFound } from './NotFound';

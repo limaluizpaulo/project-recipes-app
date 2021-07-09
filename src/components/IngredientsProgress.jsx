@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Ingredients = ({ newObj }) => {
+const IngredientsProgress = ({ newObj }) => {
   const { ingredients, measures } = newObj;
+  const [done, setDone] = useState(false);
 
   return (
     <section>
@@ -13,6 +14,13 @@ const Ingredients = ({ newObj }) => {
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
+            <input
+              type="checkbox"
+              className={ done ? 'done' : '' }
+              onClick={ () => {
+                setDone(!done);
+              } }
+            />
             {`- ${ingredient} ${measures[index]}`}
           </li>
         ))}
@@ -21,9 +29,9 @@ const Ingredients = ({ newObj }) => {
   );
 };
 
-Ingredients.propTypes = {
+IngredientsProgress.propTypes = {
   ingredients: PropTypes.string,
   obj: PropTypes.object,
 }.isRequired;
 
-export default Ingredients;
+export default IngredientsProgress;
