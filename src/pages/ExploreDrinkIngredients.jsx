@@ -42,7 +42,6 @@ export default function ExploreDrinksIngredients({ history }) {
 
   return (
     <div>
-      <h4>ExploreDrinksIngredients</h4>
       <Header history={ history } title="Explorar Ingredientes" />
       {
         ingredientsList.map(({ strIngredient1 }, idx) => (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../context/Context';
-
+import '../styles/exploreMealsIngredients.css';
 // Tela de explorar comidas: /explorar/comidas
 export default function ExploreMealsIngredients({ history }) {
   const {
@@ -42,12 +42,13 @@ export default function ExploreMealsIngredients({ history }) {
   };
 
   return (
-    <div>
+    <>
       <Header history={ history } title="Explorar Ingredientes" />
-      <div className="foodPage">
+      <div className="exploreIngredientsPage">
         {
           ingredientsList.map(({ idIngredient, strIngredient }, idx) => (
             <div
+              className="ingredients__card"
               data-testid={ `${idx}-ingredient-card` }
               id={ strIngredient }
               key={ idIngredient }
@@ -56,25 +57,28 @@ export default function ExploreMealsIngredients({ history }) {
               role="button"
               tabIndex={ idx }
             >
-              <img
-                data-testid={ `${idx}-card-img` }
-                id={ strIngredient }
-                src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-                alt={ strIngredient }
-              />
-              <h4
-                data-testid={ `${idx}-card-name` }
-                id={ strIngredient }
-              >
-                { strIngredient }
-              </h4>
+              <div className="ingredients__card__img">
+                <img
+                  data-testid={ `${idx}-card-img` }
+                  id={ strIngredient }
+                  src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+                  alt={ strIngredient }
+                />
+              </div>
+              <div className="ingredients__card_text">
+                <p
+                  data-testid={ `${idx}-card-name` }
+                  id={ strIngredient }
+                >
+                  { strIngredient }
+                </p>
+              </div>
             </div>
           ))
         }
       </div>
-
       <Footer />
-    </div>
+    </>
   );
 }
 

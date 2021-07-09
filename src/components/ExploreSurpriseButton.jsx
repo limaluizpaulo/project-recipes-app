@@ -27,6 +27,7 @@ const ExploreSurpriseButton = ({ history }) => {
 
   return (
     <button
+      className="explore__button"
       data-testid="explore-surprise"
       onClick={ handleClick }
       type="button"

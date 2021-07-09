@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DropDownList from '../components/DropDownList';
 import Context from '../context/Context';
+import '../styles/exploreArea.css';
 
 // Tela de explorar comidas por local de origem: /explorar/comidas/area
 export default function FoodArea({ history }) {
@@ -15,12 +16,12 @@ export default function FoodArea({ history }) {
 
   return (
     <div>
-      <h4>ExploreMealsByOrigin</h4>
       <Header history={ history } title="Explorar Origem" />
       <DropDownList />
-      <div>
+      <div className="food__cards__container">
         { recipesByPlace.map(({ strMeal, strMealThumb, idMeal }, idx) => (
           <div
+            className="food__card"
             data-testid={ `${idx}-recipe-card` }
             key={ idMeal }
             id={ idMeal }
@@ -30,17 +31,20 @@ export default function FoodArea({ history }) {
             tabIndex={ idMeal }
           >
             <img
+              className="food__card__img"
               data-testid={ `${idx}-card-img` }
               src={ strMealThumb }
               alt={ strMeal }
               id={ idMeal }
             />
-            <h4
-              data-testid={ `${idx}-card-name` }
-              id={ idMeal }
-            >
-              { strMeal }
-            </h4>
+            <div className="food__card_text">
+              <h4
+                data-testid={ `${idx}-card-name` }
+                id={ idMeal }
+              >
+                { strMeal }
+              </h4>
+            </div>
           </div>
         )) }
       </div>

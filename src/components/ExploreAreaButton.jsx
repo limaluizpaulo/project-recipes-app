@@ -8,6 +8,7 @@ const ExploreAreaButton = ({ history }) => {
 
   return (
     <button
+      className="explore__button"
       data-testid="explore-by-area"
       onClick={ handleClick }
       type="button"
