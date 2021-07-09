@@ -12,16 +12,19 @@ function DrinkDetails() {
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
+  function setDrinkOnState(drink2BeSet) {
+    setDrink([...drink2BeSet]);
+  }
+
   useEffect(() => {
     const request = async () => {
-      const result = await requestByDetailsDrink(id)
-        .then(() => { setDrink(result.drinks); });
+      await requestByDetailsDrink(id)
+        .then((response) => { setDrinkOnState(response.drinks); });
     };
     request();
   }, [id]);
 
   function progressFunction() {
-    console.log(drink);
     const { idDrink } = drink[0];
     const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let flag = 0;
