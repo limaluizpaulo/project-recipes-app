@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import RecipeDetails from '../components/RecipeDetails';
-
 import { fetchDrinkIdAction, fetchFoodAction } from '../actions';
 
 class bebidas extends Component {

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import drinkImage from '../images/drinkIcon.svg';
 import exploreImage from '../images/exploreIcon.svg';
 import mealImage from '../images/mealIcon.svg';
-
 import '../css/Footer.css';
 
 class Footer extends React.Component {

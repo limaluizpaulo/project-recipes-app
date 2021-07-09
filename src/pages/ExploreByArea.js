@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 import { fetchFoodAction } from '../actions';
 import { fetchAreaAction,
   fetchRecipesFoodAreaAction } from '../actions/ingredientsActions';
@@ -69,8 +68,6 @@ class ExploreByArea extends Component {
   }
 
   render() {
-    // const { loading } = this.state;
-    // console.log(loading);
     return (
       <>
         <section>

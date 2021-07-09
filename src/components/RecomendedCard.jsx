@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import '../css/RecomendedCard.css';
 
 function RecomendedCard(props) {
   const { recipes } = props;
-
   const totalCards = 6;
   const cards = recipes.filter((elem, index) => index < totalCards);
 

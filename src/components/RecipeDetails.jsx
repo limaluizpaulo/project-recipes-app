@@ -3,13 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
-
 import shareIcon from '../images/shareIcon.svg';
 import white from '../images/whiteHeartIcon.svg';
 import black from '../images/blackHeartIcon.svg';
-
 import RecomendedCard from './RecomendedCard';
-
 import {
   setFavoriteRecipes,
   getFavoriteRecipes,

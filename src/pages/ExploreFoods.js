@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 import { fetchFoodRandom } from '../actions/index';
 
 class ExploreFoods extends Component {

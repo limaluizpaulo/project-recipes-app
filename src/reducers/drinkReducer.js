@@ -4,7 +4,6 @@ import { REQUEST_DRINK_INGREDIENTS } from '../actions/ingredientsActions';
 const INITIAL_STATE = {
   recipes: [],
   categories: [],
-  // drinks: [],
   drinkById: [],
   ingredients: [],
 };
@@ -16,16 +15,6 @@ const drinkReducer = (state = INITIAL_STATE, action) => {
       ...state,
       recipes: action.payload.result.drinks,
     };
-  // case REQUEST_CATEGORIE_DRINK:
-  //   return {
-  //     ...state,
-  //     categories: action.payload.result.drinks,
-  //   };
-  // case REQUEST_DRINK:
-  //   return {
-  //     ...state,
-  //     drinks: action.payload.result.drinks,
-  //   };
   case REQUEST_DRINK_BY_ID:
     return {
       ...state,
