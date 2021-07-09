@@ -70,3 +70,39 @@ body {
     transform: rotate(-10deg);
   }
 }
+/* 
+#email-input, #password-input {
+  margin: 1% 1% 1% 25%;
+  padding: 5px 20px 10px;
+} */
+
+.loginButton {
+  margin: 1% 34%;
+}
+
+.carouselimg {
+  min-width: 150px;
+  width: 50%;
+}
+
+.Detailsimg {
+  margin: 1%;
+  min-width: 300px;
+  width: 30%;
+}
+
+.carouselItem {
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  padding: 1% 10%;
+}
+
+h6 {
+  margin: 1% 30%;
+}
+
+h5 {
+  margin: 20%;
+  padding: 10% 10% 1% 1%;
+}
