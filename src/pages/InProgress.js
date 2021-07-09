@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import { useRouteMatch } from 'react-router-dom';
 
 import RecipesContext from '../context/RecipesContext';
 
@@ -7,26 +8,53 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function InProgress() {
-  const { inProgress } = useContext(RecipesContext);
+  const { path } = useRouteMatch();
+  const { inProgress, setInProgress } = useContext(RecipesContext);
+  const [validateCheckBox, setValidateCheckBox] = useState(0);
+  const [idCheckBox, setIDCheckBox] = useState([]);
+  const [isDisabled, setDisabled] = useState(true);
 
-  function handleFinished() {
-    // localStorage.setItem('doneRecipes', JSON.stringify(
-    //   [{ id,
-    //     type: path.includes('bebidas') ? 'bebida' : 'comida',
-    //     area: path.includes('bebidas') ? '' : singleContent[0].strArea,
-    //     category: singleContent[0].strCategory,
-    //     alcoholicOrNot: path.includes('bebidas') ? 'Alcoholic' : '',
-    //     name: singleContent[0][title],
-    //     image: singleContent[0][imgSrc],
-    //   }],
-    // ));
+  const imgSrc = path.includes('comidas') ? 'strMealThumb' : 'strDrinkThumb';
+  const title = path.includes('comidas') ? 'strMeal' : 'strDrink';
+
+  useEffect(() => {
+    if (inProgress[0]) {
+      if (validateCheckBox === inProgress[0].length) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }
+  }, [validateCheckBox, inProgress]);
+
+  function handleCheckBox({ target }) {
+    const { id } = target;
+
+    if (idCheckBox.includes(id)) {
+      target.parentNode.className = '';
+      setIDCheckBox(idCheckBox.filter((nmID) => nmID !== id));
+      setValidateCheckBox(validateCheckBox - 1);
+    } else {
+      target.parentNode.className = 'done';
+      setIDCheckBox([...idCheckBox, id]);
+      setValidateCheckBox(validateCheckBox + 1);
+    }
   }
 
+  function handleFinished() {
+    setInProgress([]);
+  }
+
+  if (inProgress.length === 0) return <h1>Upss... Try again!!</h1>;
   return (
     <>
-      <img data-testid="recipe-photo" scr="" alt="" />
+      <img
+        data-testid="recipe-photo"
+        src={ inProgress[1][imgSrc] }
+        alt={ inProgress[1][title] }
+      />
 
-      <p data-testid="recipe-title">nao sei ainda</p>
+      <p data-testid="recipe-title">{inProgress[1][title]}</p>
 
       <Button>
         <img data-testid="share-btn" src={ shareIcon } alt="" />
@@ -36,16 +64,32 @@ export default function InProgress() {
         <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
       </Button>
 
-      <p data-testid="recipe-category">nao sei ainda</p>
+      <p data-testid="recipe-category">{ inProgress[1].strCategory }</p>
 
-      {inProgress.map((item, i) => (
-        <p key={ item } data-testid={ `${i}-ingredient-step` }>{item}</p>))}
+      {inProgress[0].map((item, i) => (
+        <label key={ item } htmlFor={ `${i}-ingredient-step` }>
+          <p
+            data-testid={ `${i}-ingredient-step` }
+          >
+            <input
+              id={ `${i}-ingredient-step` }
+              name={ `step-${i + 1}` }
+              type="checkbox"
+              value={ false }
+              className=""
+              onChange={ handleCheckBox }
+            />
+            {` ${item}`}
+          </p>
+        </label>
+      ))}
 
-      <p data-testid="instructions">nao sei ainda</p>
+      <p data-testid="instructions">{ inProgress[1].strInstructions }</p>
 
       <Button
         data-testid="finish-recipe-btn"
         onClick={ handleFinished }
+        disabled={ isDisabled }
       >
         Finalizar Receita
       </Button>
