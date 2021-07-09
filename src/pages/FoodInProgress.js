@@ -113,12 +113,7 @@ class FoodInProgress extends React.Component {
   setInitialLocal() {
     const { match: { params: { id } } } = this.props;
     if (localStorage.getItem('inProgressRecipes') === null) {
-      const obj = {
-        cocktails: {},
-        meals: {
-          [id]: [],
-        },
-      };
+      const obj = { cocktails: {}, meals: { [id]: [] } };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
     } else {
       const prevStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -149,6 +144,20 @@ class FoodInProgress extends React.Component {
     }
   }
 
+  checkIngedients(name) {
+    const { checkedIngredients } = this.state;
+    if (checkedIngredients.includes(name)) { return true; }
+    return false;
+  }
+
+  renderFavorite() {
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      return (<img src={ blackHeartIcon } alt="favorito" data-testid="favorite-btn" />);
+    }
+    return (<img src={ whiteHeartIcon } alt="favorito" data-testid="favorite-btn" />);
+  }
+
   renderNumber() {
     let ingNumber = 0;
     const { detailsRecipe } = this.state;
@@ -167,16 +176,8 @@ class FoodInProgress extends React.Component {
     });
   }
 
-  renderFavorite() {
-    const { isFavorite } = this.state;
-    if (isFavorite) {
-      return (<img src={ blackHeartIcon } alt="favorito" data-testid="favorite-btn" />);
-    }
-    return (<img src={ whiteHeartIcon } alt="favorito" data-testid="favorite-btn" />);
-  }
-
   renderIngredients() {
-    const { detailsRecipe, checkedIngredients } = this.state;
+    const { detailsRecipe } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
@@ -216,6 +217,7 @@ class FoodInProgress extends React.Component {
     if (detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
+    console.log(document.getElementsByTagName('input')[0]);
     return (
       <FoodInProgressInfo
         detailsRecipe={ detailsRecipe }
