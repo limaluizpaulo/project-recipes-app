@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from './Context';
 import {
-  fetchAPI, getCategories, categoryFilter,
+  fetchAPI, getCategories,
 } from '../services/fetchAPI';
 
 const foodsEndPoint = 'https://www.themealdb.com/api/json/v1/1/';
@@ -126,9 +126,10 @@ function GlobalProvider({ children }) {
   };
 
   const filterCategory = async (category) => {
+    const filterType = 'filter.php?c=';
     let resultFilter = {};
     if (category) {
-      resultFilter = await categoryFilter(baseEndPoint, category);
+      resultFilter = await fetchAPI(baseEndPoint, filterType, category);
       if (resultFilter.meals) {
         setMeals(resultFilter[Object.keys(resultFilter)[0]]);
       } else {
