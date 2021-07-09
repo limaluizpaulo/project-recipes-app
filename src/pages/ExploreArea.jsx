@@ -52,7 +52,7 @@ function ExploreArea({ history }) {
   return (
     <>
       <main>
-        <Header />
+        <Header pathname={ history.location.pathname } />
         <label htmlFor="areas">
           <select
             data-testid="explore-by-area-dropdown"
