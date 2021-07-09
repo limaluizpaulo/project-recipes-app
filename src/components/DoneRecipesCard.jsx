@@ -81,14 +81,14 @@ function DoneRecipesCard() {
             { recipe.tags.length === zero ? null : (
               <div>
                 <button
-                className="food__tag__button"
+                  className="food__tag__button"
                   type="button"
                   data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                 >
                   { recipe.tags[0] }
                 </button>
                 <button
-                className="food__tag__button"
+                  className="food__tag__button"
                   type="button"
                   data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
                 >

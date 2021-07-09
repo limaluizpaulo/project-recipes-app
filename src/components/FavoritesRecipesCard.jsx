@@ -61,13 +61,21 @@ export default function FavoriteRecipesCard() {
       {filtredRecipesDone.map((recipe, index) => (
         <div
           key={ index }
-          className="card-recipes"
+          className="food__card"
           id={ `${index}-recipe-div` }
         >
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <span
+              className="food__card_text"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { recipe.name }
+            </span>
+          </Link>
           <div className="class-image">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
-                className="card-img-done"
+                className="food__card__img"
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
@@ -87,9 +95,7 @@ export default function FavoriteRecipesCard() {
                   : recipe.alcoholicOrNot }
               </span>
             </div>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
-              <h5 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h5>
-            </Link>
+
             <div
               className="buttons-tags"
             >
