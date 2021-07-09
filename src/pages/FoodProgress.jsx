@@ -1,128 +1,138 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router';
-import copyRecipe from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { fetchRecipeById } from '../services/RecipesServices';
 
-import LoginContext from '../context/LoginContext';
-
+import '../styles/Checked.css';
 import {
   PageDetails,
-  Header,
-  Thumb,
-  Popup,
   Ingredients,
   Instructions,
 } from '../styles/Details';
 
 import { BtnEndRecipe } from '../styles/InProgress';
+import FoodDetailsHeader from '../components/FoodDetailsHeader';
 
 function FoodProgress() {
   const { id } = useParams();
-  const URL = `http://localhost:3000/comidas/${id}`;
   const history = useHistory();
 
-  const {
-    getLocalStorage,
-    addLocalStorageFood,
-    removeLocalStorage,
-  } = useContext(LoginContext);
-
   const [recipe, setRecipe] = useState({});
-  const [copy, setCopy] = useState(false);
-  const [isFavorite, setISFavorite] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [countCheck, setCountCheck] = useState(1);
+  const [progress, setProgress] = useState([]);
 
   useEffect(() => {
     fetchRecipeById(id).then(setRecipe);
+    function checkedFunction() {
+      const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (localProgress && localProgress.meals && localProgress.meals[id]) {
+        setProgress([...localProgress.meals[id]]);
+      }
+    }
+    checkedFunction();
   }, [id, setRecipe]);
 
-  function copyURL() {
-    copyRecipe(URL);
-    setCopy(true);
-  }
+  useEffect(() => {
+    const currentProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-  function setLS() {
-    addLocalStorageFood(id, recipe);
-    setISFavorite(true);
-  }
+    let ingredientList = {};
 
-  function removeLS() {
-    removeLocalStorage(id);
-    setISFavorite(false);
-  }
+    if (currentProgress) {
+      ingredientList = {
+        ...currentProgress,
+        meals: {
+          ...currentProgress.meals,
+          [id]: progress,
+        },
+      };
+    } else {
+      ingredientList = {
+        ...currentProgress,
+        meals: {
+          [id]: progress,
+        },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientList));
+  }, [id, progress]);
+
+  const checkInProgress = useCallback(() => {
+    const ingredients = document.querySelectorAll('input');
+    console.log(ingredients);
+    const ingredientsArr = [...ingredients];
+    const listItens = document.querySelectorAll('li');
+    console.log(listItens);
+    const listItensArr = [...listItens];
+
+    ingredientsArr.forEach((ingredient) => {
+      listItensArr.forEach((item, index) => {
+        if (ingredient.checked[index]) {
+          item.className = 'checked';
+        }
+      });
+    });
+  }, []);
 
   useEffect(() => {
-    const xablau = getLocalStorage(id);
-    setISFavorite(xablau);
-  }, [getLocalStorage, id]);
+    checkInProgress();
+  });
 
-  function handleChecked({ target }) {
+  function buttonChecked() {
+    const ingredients = document.querySelectorAll('input');
+
+    let progressChecked = [];
+
+    if (ingredients.length > 0) {
+      ingredients.forEach((ingredient, index) => {
+        if (ingredient.checked) {
+          progressChecked = [...progressChecked, index];
+        }
+      });
+    }
+
+    setProgress([...progressChecked]);
+  }
+
+  const handleChecked = useCallback(({ target }) => {
     const li = target.parentNode;
+    setCountCheck(countCheck + 1);
     if (target.checked === true) {
       li.className = 'checked';
     }
     if (target.checked === false) li.className = '';
-  }
-
-  function disableButton() {
-    const checked = document.querySelectorAll('.checked');
-    const inputs = document.querySelectorAll('input');
-    if (checked.length + 1 === inputs.length) {
-      setDisable(false);
-    }
-    if (checked.length + 1 !== inputs.length) {
-      setDisable(true);
-    }
-  }
+    buttonChecked();
+  }, [countCheck]);
 
   const filterObj = (text, option) => Object.entries(option)
     .filter(([key, value]) => key.match(text) && value);
 
-  const renderCheckBox = (option) => {
+  const renderCheckBox = useCallback((option) => {
     const ingredients = filterObj(/Ingredient/, option);
-    return ingredients.map(([key, ingredient]) => (
-      <li key={ `${key}` } data-testid={ `${key}-ingredient-step` }>
+    return ingredients.map(([key, ingredient], index) => (
+      <li key={ `${key}` } data-testid={ `${index}-ingredient-step` }>
         <input
           className="mr-2"
-          id="checkbox"
+          id={ `checkbox ${index}` }
           type="checkbox"
+          checked={ progress.includes(index) }
           onChange={ handleChecked }
-          onClick={ disableButton }
         />
         {ingredient}
       </li>
     ));
-  };
+  }, [handleChecked, progress]);
 
-  function buttonShare() {
-    return (
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ copyURL }
-      >
-        <img src={ shareIcon } alt="Compartilhar receita" />
-      </button>
-    );
-  }
-
-  function buttonLike() {
-    return (
-      <button
-        type="button"
-        onClick={ () => (isFavorite ? removeLS() : setLS()) }
-      >
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="Icon Like"
-          data-testid="favorite-btn"
-        />
-      </button>
-    );
-  }
+  useEffect(() => {
+    renderCheckBox(recipe);
+    const checked = document.querySelectorAll('.checked');
+    const inputs = document.querySelectorAll('input');
+    const enable = checked.length === inputs.length;
+    if (!enable) {
+      setDisable(true);
+    } else if (enable) {
+      setDisable(false);
+    }
+  }, [renderCheckBox, recipe, countCheck]);
 
   function doneRecipe() {
     const date = new Date();
@@ -157,34 +167,7 @@ function FoodProgress() {
 
   return (
     <PageDetails>
-      <Header>
-        <Thumb
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb }
-          alt="Foto da receita"
-        />
-        <section>
-          <div>
-            <h1 data-testid="recipe-title">
-              { recipe.strMeal}
-            </h1>
-            <h2 data-testid="recipe-category">
-              { recipe.strCategory }
-            </h2>
-          </div>
-
-          <section>
-            { buttonShare() }
-            <Popup
-              copied={ copy }
-              onTransitionEnd={ () => setCopy(false) }
-            >
-              Link copiado!
-            </Popup>
-            { buttonLike() }
-          </section>
-        </section>
-      </Header>
+      <FoodDetailsHeader recipe={ recipe } id={ id } />
       <main>
         <Ingredients>
           <h1>Ingredientes</h1>
