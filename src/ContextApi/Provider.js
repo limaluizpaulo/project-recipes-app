@@ -43,6 +43,8 @@ function AuthProvider({ children }) {
 
   const [state, setstate] = useState(initialState);
 
+  const [foodAndDrinkList, setFoodAndDrinkList] = useState([]);
+
   useEffect(() => {
     setstate({
       ...state,
@@ -67,6 +69,8 @@ function AuthProvider({ children }) {
   const listOfContext = {
     state,
     setstate,
+    foodAndDrinkList,
+    setFoodAndDrinkList,
   };
 
   console.log(state);
