@@ -74,13 +74,13 @@ function SBElements({ history }) {
   };
   const handleClick = () => {
     switch (searchInput.searchBy) {
-    case 'ingredientes':
+    case 'Ingredientes':
       getIngredients();
       break;
-    case 'receita':
+    case 'Receita':
       getRecipes();
       break;
-    case 'primeira letra':
+    case 'Primeira letra':
       // const searchInput = document.getElementById('searchInput').innerText;
       // if (searchInput.length !== 1) {
       //   return global.alert('Sua busca deve conter somente 1 (um) caracter');
@@ -122,7 +122,7 @@ function SBElements({ history }) {
   // };
 
   const setFunctions = ({ target: { name, value } }) => {
-    setsearchInput({ ...searchInput, [name]: (value).toLowerCase() });
+    setsearchInput({ ...searchInput, [name]: value });
   };
 
   return (
