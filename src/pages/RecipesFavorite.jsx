@@ -8,7 +8,7 @@ function RecipesFavorite() {
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
 
   const removeFavorites = (Id) => {
-    const newArray = initialFavorites.filter(
+    const newArray = filterFavorites.filter(
       (recipe) => recipe.id !== Id,
     );
     setFilterFavorites(newArray);
@@ -29,6 +29,8 @@ function RecipesFavorite() {
             aux={ aux }
             index={ index }
             removeFavorites={ removeFavorites }
+            filterFavorites={ filterFavorites }
+            setFilterFavorites={ setFilterFavorites }
           />
         ))}
       </div>

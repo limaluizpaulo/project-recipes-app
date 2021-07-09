@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './CardsRecipes.css';
 import copy from 'clipboard-copy';
@@ -9,7 +10,15 @@ function copyUrl(setCopied, type, id) {
   copy(`http://localhost:3000/${type}s/${id}`).then(() => setCopied(true));
 }
 
-function CardsRecipesFavorite({ aux, index, removeFavorites }) {
+function remove(Id, filterFavorites, setFilterFavorites) {
+  const newArray = filterFavorites.filter(
+    (recipe) => recipe.id !== Id,
+  );
+  setFilterFavorites(newArray);
+  localStorage.favoriteRecipes = JSON.stringify(newArray);
+}
+
+function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites }) {
   const [copied, setCopied] = useState(false);
   const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
@@ -19,24 +28,29 @@ function CardsRecipesFavorite({ aux, index, removeFavorites }) {
   return (
     <div className="border">
       <div>
-        <img
-          className="img-tam"
-          src={ image }
-          data-testid={ `${index}-horizontal-image` }
-          alt="..."
-        />
+        <Link to={ `/${type}s/${id}` }>
+          <img
+            className="img-tam"
+            src={ image }
+            data-testid={ `${index}-horizontal-image` }
+            alt="..."
+          />
+        </Link>
       </div>
+      <p>{ `/${type}s/${id}` }</p>
       <div>
         <div>
           <p data-testid={ `${index}-horizontal-top-text` }>
             { `${area} - ${category}` }
           </p>
           {alcohol ? <p data-testid={ `${index}-horizontal-top-text` }>Alcoholic</p> : ''}
-          <h5
-            data-testid={ `${index}-horizontal-name` }
-          >
-            { name }
-          </h5>
+          <Link to={ `/${type}s/${id}` }>
+            <h5
+              data-testid={ `${index}-horizontal-name` }
+            >
+              { name }
+            </h5>
+          </Link>
           <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -45,7 +59,10 @@ function CardsRecipesFavorite({ aux, index, removeFavorites }) {
             />
           </button>
           { copied ? <p>Link copiado!</p> : ''}
-          <button type="button" onClick={ () => removeFavorites(id) }>
+          <button
+            type="button"
+            onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
+          >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }
               src={ imgBtnFavorite }
@@ -61,7 +78,8 @@ function CardsRecipesFavorite({ aux, index, removeFavorites }) {
 CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
-  removeFavorites: PropTypes.func.isRequired,
+  filterFavorites: PropTypes.func.isRequired,
+  setFilterFavorites: PropTypes.func.isRequired,
 };
 
 export default CardsRecipesFavorite;
