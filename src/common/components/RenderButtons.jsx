@@ -1,11 +1,28 @@
 import React, { useContext } from 'react';
-import { FaUtensils, FaBreadSlice,
+import PropTypes from 'prop-types';
+
+import { FaBookOpen, FaUtensils, FaBreadSlice,
   FaDrumstickBite, FaIceCream, FaMitten } from 'react-icons/fa';
 import store from '../../context/store';
 
-export default function RenderButtons({ clickCategory, foodOrDrink, path }) {
+export default function RenderButtons({ clickCategory, foodOrDrink, clickAll, path }) {
   const { recipes: { foods, categoriesMeals,
     categoriesDrinks, categoriesLimit } } = useContext(store);
+
+  const renderBtnAll = () => (
+    <div>
+      <button
+        type="button"
+        data-testid={ path ? 'filter-by-all-btn' : 'All-category-filter' }
+        onClick={ clickAll }
+      >
+        {(!path) && <FaBookOpen />}
+        <div className="categoryTitle">
+          All
+        </div>
+      </button>
+    </div>
+  );
 
   const renderButtons = () => {
     const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
@@ -24,7 +41,7 @@ export default function RenderButtons({ clickCategory, foodOrDrink, path }) {
 
     return (
       newCategories.map((category, index) => (
-        <div key={ index } className="categoriesBtns">
+        <div key={ index }>
           <button
             type="button"
             data-testid={ path
@@ -42,6 +59,24 @@ export default function RenderButtons({ clickCategory, foodOrDrink, path }) {
     );
   };
   return (
-    renderButtons()
+    <div className="containerBtns">
+      <div className="categoriesBtns">
+        {renderBtnAll()}
+        {renderButtons()}
+      </div>
+    </div>
   );
 }
+
+RenderButtons.propTypes = {
+  clickCategory: PropTypes.func,
+  clickAll: PropTypes.func.isRequired,
+  foodOrDrink: PropTypes.func,
+  path: PropTypes.bool,
+};
+
+RenderButtons.defaultProps = {
+  clickCategory: undefined,
+  foodOrDrink: () => console.log('nothing to do!'),
+  path: false,
+};

@@ -1,25 +1,15 @@
 import React from 'react';
-import { FaBookOpen } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import RenderButtons from './RenderButtons';
 
 export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, path }) { // Desestruturação de props
   return (
-    <div className="categoriesBtns">
-      <button
-        type="button"
-        data-testid={ path ? 'filter-by-all-btn' : 'All-category-filter' }
-        onClick={ clickAll }
-      >
-        {(!path) && <FaBookOpen />}
-        All
-      </button>
-      <RenderButtons
-        clickCategory={ clickCategory }
-        foodOrDrink={ foodOrDrink }
-        path={ path }
-      />
-    </div>
+    <RenderButtons
+      clickCategory={ clickCategory }
+      foodOrDrink={ foodOrDrink }
+      clickAll={ clickAll }
+      path={ path }
+    />
   );
 }
 

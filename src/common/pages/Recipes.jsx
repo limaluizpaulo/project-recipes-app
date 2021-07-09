@@ -67,13 +67,15 @@ export default function Recipes() {
   return (
     <main>
       <Header pageName={ (foods) ? 'Comidas' : 'Bebidas' } />
-      <CategoryButton
-        clickCategory={ handleClickCategory }
-        clickAll={ getRecipes }
-      />
-      <div className="Cards">
-        <RecipeCard />
-      </div>
+      <section className="mainContent">
+        <CategoryButton
+          clickCategory={ handleClickCategory }
+          clickAll={ getRecipes }
+        />
+        <div className="cards">
+          <RecipeCard />
+        </div>
+      </section>
       <Footer />
     </main>
   );

@@ -7,7 +7,7 @@
 :root {
   /*========== COLORS =========================================================================================================*/
   --first-color: #9D4BFF;
-  /* --first-color: #4D49BF; */
+  --second-color: #4D49BF;
   --first-color-dark: #314279;
   --first-color-light: #A49EAC;
   --first-color-lighten: #F2F2F2;
@@ -52,6 +52,8 @@ button {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   border: none;
+  background: inherit;
+  border-radius: inherit;
 }
 
 /* LOGIN PAGE ===========================================================================================================*/
@@ -267,18 +269,59 @@ button {
 
 /*  =========================================================================================================================*/
 
- /* RECIPES PAGE ===========================================================================================================*/
-.Cards {
+/* RECIPES PAGE ===========================================================================================================*/
+.mainContent {
+display: grid;
+justify-items: center;
+}
+
+.containerBtns {
+  background-color: var(--first-color-dark);
+  margin-top: 1rem;
+  padding: 10px 0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
+}
+
+.categoriesBtns {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+}
+
+.categoriesBtns div {
+  border-right: 1px solid rgba(235, 232, 232, 0.2);
+}
+
+.categoriesBtns div button {
+  display: grid;
+  justify-items: center;
+  color: var(--title-color);
+  font-size: var(--h1-font-size);
+  width: 10rem;
+  height: max-content;
+  padding: 3px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.categoriesBtns div button:hover {
+  color: #FFFF;
+  box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, .3);
+  padding: 7px;
+}
+
+.categoriesBtns div:last-child {
+  border-right: none;
+}
+
+.cards {
+  display: grid;
+  margin-top: 3rem;
 }
 
 .recipes {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-left: 10px;
 }
 
 .recipe {
@@ -288,11 +331,11 @@ button {
   border-radius: 1rem;
   overflow-y: hidden;
   cursor: pointer;
-  margin: 15px 5px 0 5px;
+  margin: 20px 5px 0 5px;
 }
 
 .recipe:hover {
-  box-shadow: 1px 2px 8px 2px #4D49BF;
+  box-shadow: 1px 2px 8px 2px var(--second-color);
 }
 
 .recipe img {
@@ -319,20 +362,16 @@ button {
   transition: .5s;
 }
 
+.recipe:hover .recipeTitle {
+  color: #FFFF;
+}
+
 .recipe:hover .recipeImg {
   transform: translateY(-4.5rem);
 }
 
 .recipe:hover .recipeData {
   transform: translateY(4.8rem);
-}
-
-.categoriesBtns {
-  display: flex;
-}
-
-.categoriesBtns button {
-  cursor: pointer;
 }
 
 /* RECIPES IN PROGRESS PAGE ===========================================================================================================*/
