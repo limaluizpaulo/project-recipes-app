@@ -5,14 +5,15 @@ import RecipeIngredients from './RecipeIngredients';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 import RecommendedRecipes from './RecommendedRecipes';
-import store from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 
 export default function RenderDetails({ btnFinish, id }) {
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
-  const { recipes: { foods, recipeDetail } } = useContext(store);
+  const { recipes: { foods, recipeDetail }, setRecipes } = useContext(store);
 
   const setRecipeInLS = () => {
+    setRecipes(setFetchOnDone(true));
     const inProgressInLS = getStorage('inProgressRecipes');
 
     const checkinProgress = inProgressInLS[id];

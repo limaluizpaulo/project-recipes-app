@@ -17,7 +17,7 @@ export default function Recipes() {
 
   const getRecipes = async () => {
     const LOADING_TIME = 2500;
-    const DONE_TIME = 1000;
+    const DONE_TIME = 1500;
     const Meals = await fetchAPI(MEALS);
     const catMeals = await fetchAPI(CATEG_MEALS);
     const Drinks = await fetchAPI(DRINKS);

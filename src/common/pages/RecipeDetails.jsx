@@ -14,7 +14,7 @@ export default function RecipeDetails() {
 
   const getDetailRecommendByID = async () => {
     const LOADING_TIME = 2500;
-    const DONE_TIME = 1000;
+    const DONE_TIME = 1500;
     if (foods === null) {
       setRecipes(setFetchOnDone(true));
     } else if (foods) {

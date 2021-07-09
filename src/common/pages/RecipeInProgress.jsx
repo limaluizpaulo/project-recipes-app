@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import store, { addRecipesDLoading, setFetchOnDone } from '../../context/store';
+import store, { addRecipesDLoading,
+  setDoneLoading, setFetchOnDone } from '../../context/store';
 import { getStorage, newDoneRecipe, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import RecipeIngredients from '../components/RecipeIngredients';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
+import Loading from '../components/Loading';
 
 export default function RecipeInProgress() {
   const { id } = useParams();
@@ -14,7 +16,9 @@ export default function RecipeInProgress() {
   const [ingrLS, setIngrLS] = useState(() => (
     getStorage('inProgressRecipes')[id] || [])); // LS = LocalStorage
 
-  const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
+  const {
+    recipes: { fetchOn, loading, done, recipeDetail, foods },
+    setRecipes } = useContext(store);
 
   const validationButton = () => {
     const ingredients = Object.keys(recipeDetail)
@@ -89,26 +93,40 @@ export default function RecipeInProgress() {
   );
 
   const getRecipeDetailByID = async () => {
+    const LOADING_TIME = 2500;
+    const DONE_TIME = 1500;
     if (foods === null) {
       setRecipes(setFetchOnDone(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
-      setRecipes(addRecipesDLoading(mealsDetails.meals[0], true));
+      setTimeout(() => {
+        setRecipes(addRecipesDLoading(mealsDetails.meals[0], true));
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
-      setRecipes(addRecipesDLoading(drinksDetails.drinks[0]), true);
+      setTimeout(() => {
+        setRecipes(addRecipesDLoading(drinksDetails.drinks[0]), true);
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     }
   };
 
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) getRecipeDetailByID(); });
+  useEffect(() => { if (fetchOn) getRecipeDetailByID(); });
   useEffect(validationButton, [ingrLS, recipeDetail]);
 
   // ---------------------------------------------------------------------------------------------
 
-  if (loading) return (<h5>Loading...</h5>);
+  if (!done) { return (<Loading loading={ loading } />); }
   return (
     renderRecipe()
   );
