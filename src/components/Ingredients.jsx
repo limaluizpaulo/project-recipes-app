@@ -8,13 +8,16 @@ import identification from '../helper/dictionaryApi';
 
 class Ingredients extends Component {
   checkIngredient() {
+    const { count, recipesLength, func } = this.props;
+
     return (
-      <input type="checkbox" />
+      <input onClick={ func } type="checkbox" />
     );
   }
 
   render() {
     const { data, isStart } = this.props;
+    console.log(data);
     const dictionary = identification(data);
     return (
       <section>
