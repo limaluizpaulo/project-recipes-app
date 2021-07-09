@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getIngredientsMealsList, getIngredientsDrinksList } from '../services';
-import { Footer } from '../components';
+import { Footer, Header } from '../components';
 
 function ExploreIngredients({ history }) {
   const { pathname } = history.location;
@@ -59,6 +59,7 @@ function ExploreIngredients({ history }) {
 
   return (
     <section>
+      <Header />
       {pathname.includes('comidas')
         ? renderMealsIngredients() : renderDrinksIngredients()}
       <Footer />

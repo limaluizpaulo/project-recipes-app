@@ -60,8 +60,13 @@ function FoodDetails({ match, history }) {
         alt={ strMeal || strDrink }
       />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <FavoriteBtn id={ id } type={ type } currentRecipe={ details[0] } />
-      <ShareBtn showCopiedMsg={ setWasCopied } />
+      <FavoriteBtn
+        id={ id }
+        type={ type }
+        currentRecipe={ details[0] }
+        testId="favorite-btn"
+      />
+      <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
       {wasCopied && <span>Link copiado!</span>}
       <div>
         {

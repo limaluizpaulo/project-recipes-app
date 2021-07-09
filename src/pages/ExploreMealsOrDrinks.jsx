@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Footer } from '../components';
+import { Footer, Header } from '../components';
 // import { getRandomIdMeal } from '../services';
 
 function ExploreMealsOrDrinks({ history }) {
@@ -51,6 +51,7 @@ function ExploreMealsOrDrinks({ history }) {
 
   return (
     <section>
+      <Header />
       {pathname.includes('comidas') ? renderExploreMeals() : renderExploreDrinks()}
       <Footer />
     </section>
