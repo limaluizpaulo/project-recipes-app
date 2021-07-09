@@ -3,41 +3,33 @@ import React from 'react';
 import MealsByIngre from '../pages/MealsByIngre';
 import renderWithRouter from './renderWithRouter';
 import meals from './mocks/mealsIngre';
-import { fetchIngreMeals } from '../services/mealsApi';
+import { fetchIngreMeals, fetchMealsByName } from '../services/mealsApi';
+
+jest.mock('../services/mealsApi');
 
 describe('Teste página MealsByIngre', () => {
+  fetchIngreMeals.mockResolvedValue(meals);
+  fetchMealsByName.mockResolvedValue(meals);
   it('Testa se o título esta correto', () => {
     const { getByTestId } = renderWithRouter(<MealsByIngre />);
+
     const titulo = getByTestId('page-title');
     expect(titulo.textContent).toBe('Explorar Ingredientes');
   });
   it('Testa se todos os componentes existem na página', async () => {
-    // const response = { json: jest.fn().mockResolvedValue(mealsIngre) };
-    // global.fetch = jest.fn().mockResolvedValue(response);
-    // console.log(response);
-    jest.mock('fetchIngreMeals');
-    const resp = { json: meals };
-    fetchIngreMeals.get.mockResolvedValue(resp);
     const { findByTestId } = renderWithRouter(<MealsByIngre />);
-    // const IngreCard = await findByTestId('-ingredient-card');
-    // const ImgCard = await findByTestId('-card-img');
-    // const NameCard = await findByTestId('-card-name');
-    // expect().toBeInTheDocument();
-    // expect().toBeInTheDocument();
-    // expect().toBeInTheDocument();
+    const ingreCard0 = await findByTestId('0-ingredient-card');
+    const imgCard0 = await findByTestId('0-card-img');
+    const nameCard0 = await findByTestId('0-card-name');
+    expect(ingreCard0).toBeInTheDocument();
+    expect(imgCard0).toBeInTheDocument();
+    expect(nameCard0).toBeInTheDocument();
 
-    const chickenIngreCard = await findByTestId('0-ingredient-card');
-    const chickenImgCard = await findByTestId('0-card-img');
-    const chickenNameCard = await findByTestId('0-card-name');
-    expect(chickenIngreCard).toBeInTheDocument();
-    expect(chickenImgCard).toBeInTheDocument();
-    expect(chickenNameCard).toBeInTheDocument();
-
-    // const salmonIngreCard = await findByTestId('1-ingredient-card');
-    // const salmonImgCard = await findByTestId('1-card-img');
-    // const salmonNameCard = await findByTestId('1-card-name');
-    // expect(salmonIngreCard).toBeInTheDocument();
-    // expect(salmonImgCard).toBeInTheDocument();
-    // expect(salmonNameCard).toBeInTheDocument();
+    const ingreCard11 = await findByTestId('1-ingredient-card');
+    const imgCard11 = await findByTestId('1-card-img');
+    const nameCard11 = await findByTestId('1-card-name');
+    expect(ingreCard11).toBeInTheDocument();
+    expect(imgCard11).toBeInTheDocument();
+    expect(nameCard11).toBeInTheDocument();
   });
 });
