@@ -5,6 +5,10 @@ import fetchRecipeByDetails from '../RequisiçõesAPI/food/RequestByDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+<<<<<<< HEAD
+=======
+import FoodPrepProgress from '../components/FoodPrepProgress';
+>>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
 
 export default function FoodInProgress() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -34,7 +38,15 @@ export default function FoodInProgress() {
   }, []);
 
   const handleCopyLink = () => {
+<<<<<<< HEAD
     copy(window.location.href);
+=======
+    const pathName = window.location.href
+      .split('/')
+      .filter((url) => url !== 'in-progress')
+      .join('/');
+    copy(pathName);
+>>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
     setIsCopy(true);
   };
 
@@ -94,11 +106,19 @@ export default function FoodInProgress() {
         />
       </button>
       <p data-testid="recipe-category">{ recipeDetails.strCategory }</p>
+<<<<<<< HEAD
+=======
+      <FoodPrepProgress />
+>>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
       <button
         style={ bottomFixed }
         type="button"
+<<<<<<< HEAD
         data-testid="start-recipe-btn"
+=======
+        data-testid="finish-recipe-btn"
+>>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
         onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar receita

@@ -10,8 +10,6 @@ export default function Header({ title }) {
   const [searchBar, setSearchBar] = useState(false);
 
   const history = useHistory();
-  // const { listOfContext: { searchButton }, setState } = useContext(AppContext);
-  // const [searchButton, setSearchButton] = useState(false);
 
   const handleClick = () => {
     history.push('/perfil');

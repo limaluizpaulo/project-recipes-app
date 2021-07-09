@@ -23,13 +23,17 @@ export default function FoodPreparation({ recipeId }) {
       && recipeDetails[`strIngredient${index}`] !== null
       ) {
         ingredientsList.push(
-          `${recipeDetails[`strIngredient${index}`]}: 
+          `${recipeDetails[`strIngredient${index}`]}:
             ${recipeDetails[`strMeasure${index}`]}`,
         );
       }
     }
     return ingredientsList;
   };
+
+  useEffect(() => {
+    preparation();
+  }, []);
 
   return (
     <div>

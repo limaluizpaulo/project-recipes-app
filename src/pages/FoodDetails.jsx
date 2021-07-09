@@ -54,7 +54,25 @@ export default function FoodDetais() {
   };
 
   const handleFavorite = ({ idMeal, strArea, strCategory, strMeal, strMealThumb }) => {
+<<<<<<< HEAD
     if (!isFavorite) {
+=======
+    if (!isFavorite && localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([
+        ...JSON.parse(localStorage.getItem('favoriteRecipes')),
+        {
+          id: idMeal,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strMeal,
+          image: strMealThumb,
+        },
+      ]));
+      setIsFavorite(true);
+    } else if (!isFavorite) {
+>>>>>>> 04f30f4ace55c317dfe7256fc952a042fa2126b3
       localStorage.setItem('favoriteRecipes', JSON.stringify([
         {
           id: idMeal,
