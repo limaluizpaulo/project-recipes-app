@@ -13,3 +13,10 @@
   height: 40px;
   width: 40px;
 }
+
+.centraliza-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
