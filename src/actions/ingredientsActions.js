@@ -46,6 +46,7 @@ export const fetchFoodArea = async () => {
 export const fetchAreaAction = () => async (dispatch) => {
   let result = {};
   result = await fetchFoodArea();
+  result.meals.unshift({ strArea: 'All' });
   dispatch({
     type: REQUEST_FOOD_AREA,
     payload: {

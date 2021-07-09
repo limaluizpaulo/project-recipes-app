@@ -36,9 +36,13 @@ class ExploreByArea extends Component {
 
   filtraArea(param) {
     const { getRecipesArea } = this.props;
-    this.setState({ area: param });
-
-    getRecipesArea(param);
+    if (param === 'All') {
+      this.setState({ area: param });
+      this.requisicao();
+    } else {
+      this.setState({ area: param });
+      getRecipesArea(param);
+    }
   }
 
   renderizaArea() {
