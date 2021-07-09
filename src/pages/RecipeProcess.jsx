@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 import '../Style/Progress.css';
 
+const copy = require('clipboard-copy');
+
 const number = 7;
 
 class RecipeProcess extends Component {
@@ -19,9 +21,13 @@ class RecipeProcess extends Component {
       recipe: [],
       count: 0,
       arrayFinal: [],
+      isFavorite: false,
+      share: false,
     };
 
     this.getRecipe = this.getRecipe.bind(this);
+    this.handleShare = this.handleShare.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleStorange = this.handleStorange.bind(this);
@@ -53,12 +59,23 @@ class RecipeProcess extends Component {
     }
     this.setState((state) => ({ ...state,
       className: 'Risk' }), () => {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(e.target.checked));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(''));
     });
   }
 
   handleClick() {
     this.setState({ redirect: true });
+  }
+
+  handleFavorite() {
+    this.setState((state) => ({ isFavorite: !state.isFavorite }));
+  }
+
+  handleShare() {
+    const { location: { pathname } } = this.props;
+    console.log(pathname);
+    copy(`http://localhost:3000${pathname}`);
+    this.setState({ share: true });
   }
 
   async getRecipe() {
@@ -84,7 +101,9 @@ class RecipeProcess extends Component {
   }
 
   render() {
-    const { redirect, recipe, className, active, arrayFinal } = this.state;
+    const { redirect,
+      recipe, className, active, arrayFinal, isFavorite, share } = this.state;
+    console.log(`favorito ${isFavorite}`);
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
@@ -171,8 +190,22 @@ class RecipeProcess extends Component {
             </p>
           );
         })}
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+        {share ? <p>Link copiado!</p> : ''}
+        <button
+          onClick={ this.handleShare }
+          data-testid="share-btn"
+          type="button"
+        >
+          Compartilhar
+
+        </button>
+        <button
+          onClick={ this.handleFavorite }
+          data-testid="favorite-btn"
+          type="button"
+        >
+          Favoritar
+        </button>
         <button
           data-testid="finish-recipe-btn"
           type="button"
@@ -188,6 +221,7 @@ class RecipeProcess extends Component {
 
 RecipeProcess.propTypes = {
   match: Proptypes.shape().isRequired,
+  location: Proptypes.shape().isRequired,
 };
 
 export default RecipeProcess;
