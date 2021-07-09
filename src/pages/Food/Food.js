@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import requestMeal,
 {
@@ -8,9 +8,10 @@ import requestMeal,
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './Food.css';
+import Context from '../../Provider/context';
 
 function Food() {
-  const [data, setData] = useState([]);
+  const { dataFood, setDataFood } = useContext(Context);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nameItem, setNameItem] = useState('');
@@ -19,27 +20,27 @@ function Food() {
     (async function resolved() {
       const resolveMeal = await requestMeal();
       const resolveCategory = await requestCategoryMeal();
-      setData(resolveMeal);
+      setDataFood(resolveMeal);
       setCategory(resolveCategory);
       setLoading(false);
     }());
-  }, []);
+  }, [setDataFood]);
 
   async function onClick({ target: { name } }) {
     if (name) {
       setNameItem(name);
       const request = await requestNamemeal(name);
-      setData(request);
+      setDataFood(request);
     }
     if (name === nameItem) {
       const request = await requestMeal();
-      setData(request);
+      setDataFood(request);
     }
   }
 
   async function allButton() {
     const request = await requestAllCategory();
-    setData(request);
+    setDataFood(request);
   }
 
   function mapCategory({ meals, categories }) {
@@ -117,7 +118,7 @@ function Food() {
         {
           loading
             ? 'Carregando...'
-            : (mapData(data))
+            : (mapData(dataFood))
         }
       </div>
       <Footer />
