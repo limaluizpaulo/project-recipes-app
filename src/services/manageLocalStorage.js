@@ -25,13 +25,13 @@ export const makeRecipe = ({ url }, history) => {
 
   if (inProgressArrayVerifier
     && !Object.keys(mealCockTail).some((obj) => obj.id === id)) {
-    let recipeToAddToProgress = inProgressArrayVerifier[0][mealCockTail];
-    const remnantObj = inProgressArrayVerifier[0][remnant];
+    let recipeToAddToProgress = inProgressArrayVerifier[mealCockTail];
+    const remnantObj = inProgressArrayVerifier[remnant];
     recipeToAddToProgress = {
       ...recipeToAddToProgress, [id]: [],
     };
     localStorage.setItem('inProgressRecipes',
-      JSON.stringify([{ [mealCockTail]: recipeToAddToProgress, [remnant]: remnantObj }]));
+      JSON.stringify({ [mealCockTail]: recipeToAddToProgress, [remnant]: remnantObj }));
   }
   history.push(`/${mealOrDrink}/${id}/in-progress`);
 };
@@ -42,8 +42,8 @@ export const localStorageVerifier = (match, id, history) => {
   const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
   let mealOrCockTail;
   if (inProgressArrayVerifier) {
-    mealOrCockTail = pushString === 'comidas' ? inProgressArrayVerifier[0].meals
-      : inProgressArrayVerifier[0].cocktails;
+    mealOrCockTail = pushString === 'comidas' ? inProgressArrayVerifier.meals
+      : inProgressArrayVerifier.cocktails;
   }
 
   if ((!inProgressArrayVerifier) || (inProgressArrayVerifier
