@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-// import data from '../data';
 
 import '../Style/Progress.css';
 
-// const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
-// const LENGTH_DOZE = 12;
-// const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-// const ingredients = [];
+const number = 7;
 
 class RecipeProcess extends Component {
   constructor(props) {
@@ -21,8 +17,8 @@ class RecipeProcess extends Component {
       chec: false,
       active: true,
       recipe: [],
-      // ingredients: [],
-      // response: [],
+      count: 0,
+      arrayFinal: [],
     };
 
     this.getRecipe = this.getRecipe.bind(this);
@@ -43,47 +39,52 @@ class RecipeProcess extends Component {
 
   handleChange(e) {
     console.log(e.target.checked);
+    const { count } = this.state;
+    if (e.target.checked) {
+      console.log('if');
+      this.setState((state) => ({ count: state.count + 1 }), () => {
+        console.log(count);
+      });
+    } else {
+      this.setState((state) => ({ count: state.count - 1 }));
+    }
+    if (count === number) {
+      this.setState({ active: false });
+    }
     this.setState((state) => ({ ...state,
-      className: 'Risk',
-      chec: !state.chec,
-      active: !state.active }), () => {
-      const { chec } = this.state;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(chec));
+      className: 'Risk' }), () => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(e.target.checked));
     });
   }
 
   handleClick() {
-    // console.log('entrou');
     this.setState({ redirect: true });
   }
 
   async getRecipe() {
-    // console.log('aqui getRecipe');
     const { match: { params: { id } } } = this.props;
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await result.json();
-    // console.log(meals);
-    this.setState({ recipe: meals });
+    this.setState({ recipe: meals }, () => {
+      const { recipe } = this.state;
+      const ingredientsKeys = Object.entries(recipe);
+      const arrayFinal = [];
+      ingredientsKeys.forEach((cur) => {
+        arrayFinal.push(cur[1].strIngredient1,
+          cur[1].strIngredient2,
+          cur[1].strIngredient3,
+          cur[1].strIngredient4,
+          cur[1].strIngredient5,
+          cur[1].strIngredient6,
+          cur[1].strIngredient7,
+          cur[1].strIngredient8);
+      });
+      this.setState({ arrayFinal });
+    });
   }
 
   render() {
-    const { redirect, recipe, className, chec, active } = this.state;
-    // console.log(recipe);
-    const ingredientsKeys = Object.entries(recipe);
-    console.log(ingredientsKeys);
-    const arrayFinal = [];
-    ingredientsKeys.forEach((cur) => {
-      console.log(cur);
-      arrayFinal.push(cur[1].strIngredient1,
-        cur[1].strIngredient2,
-        cur[1].strIngredient3,
-        cur[1].strIngredient4,
-        cur[1].strIngredient5,
-        cur[1].strIngredient6,
-        cur[1].strIngredient7,
-        cur[1].strIngredient8);
-    });
-    console.log(arrayFinal);
+    const { redirect, recipe, className, active, arrayFinal } = this.state;
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
@@ -99,10 +100,66 @@ class RecipeProcess extends Component {
             <h1 data-testid="recipe-title">{receita.idMeal}</h1>
             <p data-testid="recipe-category">{receita.strCategory}</p>
             <p data-testid="instructions">{receita.strInstructions}</p>
+            {/* <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient1}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient2}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient3}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient4}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient5}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient6}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient7}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p>
+            <p
+              className={ className }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {receita.strIngredient8}
+              <input onChange={ this.handleChange } type="checkbox" />
+            </p> */}
           </div>
         ))}
         {arrayFinal && arrayFinal.map((ing, index) => {
-          console.log(ing);
+          if (ing === '' || ing === null || ing === undefined) return;
           return (
             <p
               className={ className }
@@ -110,7 +167,7 @@ class RecipeProcess extends Component {
               data-testid={ `${index}-ingredient-step` }
             >
               {ing}
-              <input checked={ chec } onChange={ this.handleChange } type="checkbox" />
+              <input onChange={ this.handleChange } type="checkbox" />
             </p>
           );
         })}

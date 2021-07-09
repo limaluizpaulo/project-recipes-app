@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-// import data from '../data2';
 
 import '../Style/Progress.css';
+
+const copy = require('clipboard-copy');
+
+const number = 2;
 
 class DrinkProcess extends Component {
   constructor(props) {
@@ -12,11 +15,11 @@ class DrinkProcess extends Component {
 
     this.state = {
       className: '',
-      chec: false,
       active: true,
       redirect: false,
       drinks: [],
       ingredients: [],
+      count: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,13 +39,21 @@ class DrinkProcess extends Component {
   }
 
   handleChange(e) {
-    console.log(e.target.checked);
+    const { count } = this.state;
+    if (e.target.checked) {
+      console.log('if');
+      this.setState((state) => ({ count: state.count + 1 }), () => {
+        console.log(count);
+      });
+    } else {
+      this.setState((state) => ({ count: state.count - 1 }));
+    }
+    if (count === number) {
+      this.setState({ active: false });
+    }
     this.setState((state) => ({ ...state,
-      className: 'Risk',
-      chec: !state.chec,
-      active: false }), () => {
-      const { chec } = this.state;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(chec));
+      className: 'Risk' }), () => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(''));
     });
   }
 
@@ -66,7 +77,7 @@ class DrinkProcess extends Component {
   }
 
   render() {
-    const { drinks, ingredients, className, chec, active, redirect } = this.state;
+    const { drinks, ingredients, className, active, redirect, link } = this.state;
     // console.log(ingredients);
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
@@ -98,23 +109,34 @@ class DrinkProcess extends Component {
                 -
                 {valor}
                 <input
-                  checked={ chec }
+                  // name={ index }
                   onChange={ this.handleChange }
                   type="checkbox"
                 />
               </p>
             ))}
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ () => {
+              const { location: { pathname } } = this.props;
+              copy(`http://localhost:3000${pathname}`);
+              global.alert('Link copiado!');
+            } }
+          >
+            Compartilhar
+          </button>
+          <p>{link}</p>
+          <button data-testid="favorite-btn" type="button">Favoritar</button>
+          <button
+            onClick={ this.handleClick }
+            disabled={ active }
+            data-testid="finish-recipe-btn"
+            type="button"
+          >
+            Finalizar Receita
+          </button>
         </div>
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
-        <button
-          onClick={ this.handleClick }
-          disabled={ active }
-          data-testid="finish-recipe-btn"
-          type="button"
-        >
-          Finalizar Receita
-        </button>
       </div>
     );
   }
@@ -122,6 +144,7 @@ class DrinkProcess extends Component {
 
 DrinkProcess.propTypes = {
   match: Proptypes.shape().isRequired,
+  location: Proptypes.shape().isRequired,
 };
 
 export default DrinkProcess;
