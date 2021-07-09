@@ -29,7 +29,6 @@ function DrinkDetails() {
     let flag = 0;
     Object
       .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
-    console.log(flag);
     if (flag !== 0) setProgress('Continuar Receita');
     setFirst(true);
   }
