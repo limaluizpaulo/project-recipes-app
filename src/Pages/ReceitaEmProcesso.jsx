@@ -29,14 +29,9 @@ export default function ReceitaEmProcesso({ location }) {
     }
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
-    if (inProgress && checkboxes.length) {
-      if (inProgress[curr]) {
-        if (inProgress[curr][location.pathname.split('/')[2]]) {
-          if ((inProgress[curr][location.pathname.split('/')[2]]).length === checkboxes.length) {
-            setAllStepsOk(false);
-          }
-        }
-      }
+    if (inProgress && checkboxes.length && inProgress[curr] && ((
+      inProgress[curr][location.pathname.split('/')[2]]).length === checkboxes.length)) {
+      setAllStepsOk(false);
     }
   });
 

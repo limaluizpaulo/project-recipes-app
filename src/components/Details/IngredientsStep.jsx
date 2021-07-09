@@ -10,6 +10,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   const steps = [];
   const STRIPE_CLASS = 'step-checked';
   const NOT_STRIPE_CLASS = 'step-not-checked';
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   const generateNoClassElements = () => {
     if (ingredients) {
@@ -24,61 +25,47 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     setStepsClassName(steps);
   };
 
-  useEffect(() => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const generateWithClassElements = () => {
     const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
+    const keys = Object.keys(inProgress[curr]);
+    const recipe = keys.find((key) => key === currentRecipe.id);
+    const arrayIds = inProgress[curr][currentRecipe.id];
+    let className = '';
+    let classValue = false;
 
-    if (inProgress) {
-      if (!inProgress[curr]) {
-        if (ingredients) {
-          for (let index = 0; index < ingredients.length; index += 1) {
-            steps.push({
-              step: NOT_STRIPE_CLASS,
-              checked: false,
-              index,
-            });
+    if (recipe) {
+      for (let index = 0; index < ingredients.length; index += 1) {
+        for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
+          if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
+            className = STRIPE_CLASS;
+            classValue = true;
+            checkboxes[index].checked = true;
+            break;
+          } else {
+            className = NOT_STRIPE_CLASS;
+            classValue = false;
           }
         }
-        setStepsClassName(steps);
-        return;
+        steps.push({
+          step: className,
+          checked: classValue,
+          index,
+        });
       }
-      const keys = Object.keys(inProgress[curr]);
-      const recipe = keys.find((key) => key === currentRecipe.id);
+      setStepsClassName(steps);
+    }
+  };
 
-      if (recipe) {
-        const arrayIds = inProgress[curr][currentRecipe.id];
-        let className = '';
-        let classValue = false;
-
-        for (let index = 0; index < ingredients.length; index += 1) {
-          for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
-            if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
-              className = STRIPE_CLASS;
-              classValue = true;
-              checkboxes[index].checked = true;
-              break;
-            } else {
-              className = NOT_STRIPE_CLASS;
-              classValue = false;
-            }
-          }
-          steps.push({
-            step: className,
-            checked: classValue,
-            index,
-          });
-        }
-        setStepsClassName(steps);
-      }
-    } else {
+  useEffect(() => {
+    if (!inProgress || !inProgress[curr]) {
       generateNoClassElements();
+    } else {
+      generateWithClassElements();
     }
   }, []);
 
   // Pupula o estado que gerencia a classe CSS dos ingredientes
   const populateSteps = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
     if (inProgress) {
       if (!inProgress[curr]) {
         return;
@@ -105,7 +92,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
   // carrega local storage dos ingredientes
   const loadIngredientesLocalStorage = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id } = currentRecipe;
     switch (!inProgress) {
     case true:
