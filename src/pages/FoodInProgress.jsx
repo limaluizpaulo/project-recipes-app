@@ -98,6 +98,7 @@ function FoodInProgress({ history, match, match: { params: { id } } }) {
 
 FoodInProgress.propTypes = {
   match: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default FoodInProgress;

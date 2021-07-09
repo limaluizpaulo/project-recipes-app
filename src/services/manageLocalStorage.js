@@ -42,12 +42,12 @@ export const localStorageVerifier = (match, id, history) => {
   const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
   let mealOrCockTail;
   if (inProgressArrayVerifier) {
-    mealOrCockTail = pushString === 'comidas' ? inProgressArrayVerifier.meals
-      : inProgressArrayVerifier.cocktails;
+    mealOrCockTail = pushString === 'comidas' ? 'meals'
+      : 'cocktails';
   }
 
   if ((!inProgressArrayVerifier) || (inProgressArrayVerifier
-    && !Object.keys(mealOrCockTail).some((obj) => obj === id)
+    && !Object.keys(inProgressArrayVerifier[mealOrCockTail]).some((obj) => obj === id)
   )) {
     return (
       <button
@@ -62,7 +62,7 @@ export const localStorageVerifier = (match, id, history) => {
   }
 
   if (inProgressArrayVerifier
-    && Object.keys(mealOrCockTail).some((obj) => obj === id)) {
+    && Object.keys(inProgressArrayVerifier[mealOrCockTail]).some((obj) => obj === id)) {
     return (
       <button
         type="button"
