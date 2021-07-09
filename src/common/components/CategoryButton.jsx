@@ -5,7 +5,9 @@ import { FaBookOpen, FaUtensils, FaBreadSlice,
 
 import store from '../../context/store';
 
-export default function CategoryButton({ clickCategory, clickAll }) {
+const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
+
+export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, path }) { // Desestruturação de props
   const { recipes: { foods, categoriesMeals,
     categoriesDrinks, categoriesLimit } } = useContext(store);
 
@@ -13,17 +15,26 @@ export default function CategoryButton({ clickCategory, clickAll }) {
     const mealsBtns = [<FaUtensils key={ 0 } />, <FaBreadSlice key={ 1 } />,
       <FaDrumstickBite key={ 2 } />, <FaIceCream key={ 3 } />, <FaMitten key={ 4 } />];
 
-    const newCategories = (foods) ? (
-      categoriesMeals.slice(0, categoriesLimit)) : (
-      categoriesDrinks.slice(0, categoriesLimit));
+    let newCategories;
+    if (path) {
+      newCategories = foodDrinkButtons;
+    } else {
+      newCategories = (foods) ? (
+        categoriesMeals.slice(0, categoriesLimit)) : (
+        categoriesDrinks.slice(0, categoriesLimit));
+    }
 
     return (
       newCategories.map((category, index) => (
         <div key={ index } className="categoriesBtns">
           <button
             type="button"
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => clickCategory(category) }
+            data-testid={ path
+              ? `filter-by-${category.strCategory.toLowerCase()}-btn`
+              : `${category.strCategory}-category-filter` }
+            onClick={ path
+              ? (() => foodOrDrink(category.strCategory))
+              : (() => clickCategory(category)) }
           >
             {mealsBtns[index]}
             {category.strCategory}
@@ -38,7 +49,7 @@ export default function CategoryButton({ clickCategory, clickAll }) {
       <FaBookOpen />
       <button
         type="button"
-        data-testid="All-category-filter"
+        data-testid={ path ? 'filter-by-all-btn' : 'All-category-filter' }
         onClick={ clickAll }
       >
         All
@@ -51,4 +62,11 @@ export default function CategoryButton({ clickCategory, clickAll }) {
 CategoryButton.propTypes = {
   clickCategory: PropTypes.func.isRequired,
   clickAll: PropTypes.func.isRequired,
+  foodOrDrink: PropTypes.func,
+  path: PropTypes.bool,
+};
+
+CategoryButton.defaultProps = {
+  foodOrDrink: () => console.log('nothing to do!'),
+  path: false,
 };
