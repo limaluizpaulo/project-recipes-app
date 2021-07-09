@@ -13,10 +13,10 @@ export default function ExploreByIngridients() {
 
   const { path } = useRouteMatch();
 
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
-  const secondKey = path.includes('/comidas') ? 'strIngredient' : 'strIngredient1';
-  const homePath = path.includes('/comidas') ? '/comidas' : '/bebidas';
+  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
+  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
+  const secondKey = path.includes('comidas') ? 'strIngredient' : 'strIngredient1';
+  const homePath = path.includes('comidas') ? '/comidas' : '/bebidas';
 
   useEffect(() => {
     getDataIngredientsList(domain).then((result) => {
@@ -36,7 +36,7 @@ export default function ExploreByIngridients() {
         <Link
           data-testid={ `${i}-ingredient-card` }
           onClick={ () => handleClick(item[secondKey]) }
-          to={ `${homePath}` }
+          to={ homePath }
           key={ i }
         >
           <section>
