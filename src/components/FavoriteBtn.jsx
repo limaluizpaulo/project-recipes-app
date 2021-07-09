@@ -6,8 +6,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function FavoriteBtn({ id, type, currentRecipe, testId, setShouldUpdate, shouldUpdate }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const typePTBR = type === true ? 'comida' : 'bebida';
-  // console.log(type);
-  console.log(typePTBR);
 
   const {
     strMeal,

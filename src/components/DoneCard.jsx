@@ -85,7 +85,6 @@ function DoneCard({ filter }) {
           <p data-testid={ `${index}-horizontal-done-date` }>
             {`Feita em: ${doneDate || ''}`}
           </p>
-          {console.log(typeof tags)}
           {filterTags(tags, index)}
           <ShareBtn
             showCopiedMsg={ setShowCopiedMsg }

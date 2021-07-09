@@ -29,8 +29,6 @@ function IngList({ details }) {
     setMeasuresList(ingredientQuanti);
   }, [details]);
 
-  console.log(typeof details);
-
   return (
     <section>
       Lista de ingredientes

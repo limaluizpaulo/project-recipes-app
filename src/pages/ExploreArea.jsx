@@ -34,9 +34,7 @@ function ExploreArea({ history }) {
         return;
       }
       setShowFiltered(true);
-      console.log(area);
       const response = await getMealByArea(area);
-      console.log(response);
       setFilteredRecipes(response.slice(0, TWELVE));
     };
     filterByArea(filteredBy);
