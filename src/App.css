@@ -48,6 +48,19 @@ button, input:focus, select:focus {
   width: 80vw;
 }
 
+.start-recipe {
+  background: #3b7c56;
+  border: none;
+  border-radius: 30px 30px 0 0;
+  bottom: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 40px;
+  position: fixed;
+  width: 50vw;
+}
+
 .login {
   background: url('./images/background.jpg');
   background-attachment: fixed;

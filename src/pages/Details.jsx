@@ -5,10 +5,11 @@ import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
 import { getItem, setItem } from '../helpers/HelperFunctions';
+import FavoriteButton from '../helpers/FavoriteButton';
 
 function Details() {
   const { id } = useParams();
@@ -125,9 +126,10 @@ function Details() {
           <img src={ shareIcon } alt="Share" data-testid="share-btn" />
         </button>
         {shareCopy && (<p>Link copiado!</p>) }
-        <button type="button">
+        {/* <button type="button">
           <img src={ whiteHeartIcon } alt="Favorite" data-testid="favorite-btn" />
-        </button>
+        </button> */}
+        <FavoriteButton data={ detailsData } />
         <section>
           <h3>Ingredients</h3>
           <ul>
