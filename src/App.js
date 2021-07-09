@@ -5,6 +5,12 @@ import ReceitasFavoritas from './Pages/ReceitasFavoritas';
 
 import GenericComponent from './Components/GenericComponent';
 import { Login, ReceitasFeitas, Recipes, MealDetails, DrinkDetails } from './Pages';
+import Explore from './Pages/Explore';
+import ExploreByType from './Pages/ExploreByType';
+import ExploreIngredientes from './Pages/ExploreIngredientes';
+import RecipesByIngredient from './Pages/RecipesByIngredient';
+import ExploreByArea from './Pages/ExploreByArea';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -12,19 +18,25 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route
         path="/explorar/:recipeType/ingredientes"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ExploreIngredientes { ...props } /> }
       />
       <Route
+        exact
         path="/explorar/:recipeType"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ExploreByType { ...props } /> }
       />
       <Route
         path="/explorar/comidas/area"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <ExploreByArea { ...props } /> }
       />
       <Route
+        path="/explorar/bebidas/area"
+        component={ <NotFound /> }
+      />
+      <Route
+        exact
         path="/explorar"
-        render={ (props) => <GenericComponent { ...props } /> }
+        render={ (props) => <Explore { ...props } /> }
       />
 
       <Route
@@ -38,7 +50,7 @@ function App() {
 
       <Route
         path="/perfil"
-        render={ <Perfil /> }
+        render={ (props) => <Perfil {...props} /> }
       />
 
       <Route
@@ -49,6 +61,10 @@ function App() {
         exact
         path="/comidas/:id"
         render={ (props) => <MealDetails { ...props } /> }
+      />
+      <Route
+        path="/:recipeType/ingredientes/:ingredientName"
+        render={ (props) => <RecipesByIngredient { ...props } /> }
       />
       <Route
         exact

@@ -1,4 +1,5 @@
 import fetchComidasEBebidas from '../../Services/Fetch';
+import { fetchRandomRecipe } from '../../Services/FetchRandom';
 
 export const clearRecipes = () => ({
   type: 'reset-recipes',
@@ -25,8 +26,20 @@ export const requestCategoriesSuccess = (categories) => ({
   },
 });
 
+export const requestRandomRecipeSuccess = (randomRecipe) => ({
+  type: 'request-random-success',
+  payload: {
+    randomRecipe,
+  },
+});
+
 export const requestFetchError = (error) => ({
   type: 'request-error',
+  payload: { error },
+});
+
+export const requestRandomRecipeError = (error) => ({
+  type: 'request-random-error',
   payload: { error },
 });
 
@@ -54,3 +67,9 @@ export const setRecipeType = (recipeType) => ({
   type: 'set-recipeType',
   payload: recipeType,
 });
+
+export const fetchReceitaRandom = (type) => (dispatch) => fetchRandomRecipe(type)
+  .then((response) => {
+    dispatch(requestRandomRecipeSuccess(response));
+  })
+  .catch((error) => dispatch(requestRandomRecipeError(error)));
