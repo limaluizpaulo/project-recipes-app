@@ -46,7 +46,7 @@ export async function getMealDetails(id) {
 export async function getDrinkDetails(id) {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const { drinks } = await fetch(endpoint).then((data) => data.json());
-  return drinks;
+  return drinks || [{}];
 }
 export async function getRandomIdMeal() {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
