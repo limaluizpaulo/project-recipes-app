@@ -71,6 +71,16 @@ body {
   }
 }
 
+#email-input, #password-input{
+  padding: 5px 20px 10px 20px;
+  margin: 1% 1% 1% 25%;
+}
+
+.loginButton{
+  padding: 2% 10%;
+  margin: 1% 34%;
+}
+
 .carouselimg {
   min-width: 150px;
   width: 50%;
@@ -91,4 +101,9 @@ body {
 
 h6 {
   margin: 1% 30%;
+}
+
+h5 {
+  margin: 20%;
+  padding: 10% 10% 1% 1%;
 }

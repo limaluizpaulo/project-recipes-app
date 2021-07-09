@@ -4,7 +4,6 @@ import { Carousel } from 'react-bootstrap';
 
 function CarouselElement(props) {
   const { sugest } = props;
-  console.log(sugest);
   if (sugest[0].length > 0) {
     const type = [`str${sugest[1][3]}Thumb`];
     const name = [`str${sugest[1][3]}`];

@@ -38,27 +38,32 @@ function Login() {
   }, [login]);
 
   return (
-    <>
-      <label htmlFor="email-input">
-        <input
-          id="email-input"
-          type="email"
-          name="email"
-          data-testid="email-input"
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="password-input">
-        <input
-          id="password-input"
-          type="password"
-          name="password"
-          data-testid="password-input"
-          onChange={ handleChange }
-        />
-      </label>
+    <div>
+      <div>
+        <h5>Email</h5>
+        <label htmlFor="email-input">
+          <input
+            id="email-input"
+            type="email"
+            name="email"
+            data-testid="email-input"
+            onChange={ handleChange }
+          />
+        </label>
+        <h5>Senha</h5>
+        <label htmlFor="password-input">
+          <input
+            id="password-input"
+            type="password"
+            name="password"
+            data-testid="password-input"
+            onChange={ handleChange }
+          />
+        </label>
+      </div>
       <Link to="/comidas">
         <button
+          className="loginButton"
           type="button"
           data-testid="login-submit-btn"
           disabled={ disableBtn }
@@ -67,7 +72,7 @@ function Login() {
           Entrar
         </button>
       </Link>
-    </>
+    </div>
   );
 }
 

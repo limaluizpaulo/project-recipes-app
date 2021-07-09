@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Titulo(props) {
   const { type } = props;
-  // console.log(type);
+  console.log(type);
   // console.log(type[0][`str${type[1][0]}`]);
   return (
     <div>
