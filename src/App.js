@@ -50,7 +50,7 @@ function App() {
 
       <Route
         path="/perfil"
-        render={ (props) => <Perfil {...props} /> }
+        render={ (props) => <Perfil { ...props } /> }
       />
 
       <Route
