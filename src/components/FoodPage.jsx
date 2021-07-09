@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
+import FoodCategoryButtons from './FoodCategoryButtons';
 
 function FoodPage({ history }) {
   const { goSearch, setTitle, recipes } = useContext(ContextRecipes);
@@ -15,12 +16,13 @@ function FoodPage({ history }) {
   useEffect(() => {
     setTitle('Comidas');
   }, [setTitle]);
-  console.log(Object.values(recipes)[0]);
+  // console.log(Object.values(recipes)[0]);
 
   return (
     <main>
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
+      <FoodCategoryButtons history={ history } />
       <section>
         { recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
         {recipes && recipes

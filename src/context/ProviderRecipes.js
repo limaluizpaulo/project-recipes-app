@@ -8,6 +8,10 @@ function ProviderRecipes({ children }) {
   const [title, setTitle] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [foodCategoryName, setFoodCategoryName] = useState([]);
+  const [drinkCategory, setDrinkCategory] = useState([]);
+  const [drinkCategoryName, setDrinkCategoryName] = useState([]);
   const [searchInput, setsearchInput] = useState({
     // name: '',
   });
@@ -25,6 +29,14 @@ function ProviderRecipes({ children }) {
     searchInput,
     setsearchInput,
     setRecipes,
+    foodCategory,
+    setFoodCategory,
+    foodCategoryName,
+    setFoodCategoryName,
+    drinkCategory,
+    setDrinkCategory,
+    drinkCategoryName,
+    setDrinkCategoryName,
   };
 
   const fetchFoodRecipes = () => {
