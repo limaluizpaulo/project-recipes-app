@@ -65,7 +65,6 @@ export default function Login() {
           onChange={ (event) => handleChange(event) }
         />
       </Form.Group>
-
       <Button
         disabled={ !disabledButton }
         variant="secondary"
@@ -76,7 +75,6 @@ export default function Login() {
       >
         Entrar
       </Button>
-
     </Form>
   );
 }
