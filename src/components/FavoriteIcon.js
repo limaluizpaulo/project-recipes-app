@@ -6,7 +6,7 @@ import { getFavoritesRecipes, checkFavoriteId } from '../services/localStorage';
 
 const blackOrWhite = (iconFavorit) => (iconFavorit ? blackHeartIcon : whiteHeartIcon);
 
-const FavoriteIcon = ({ recipe, idTest }) => {
+const FavoriteIcon = ({ recipe, idTest, update = () => false }) => {
   const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
   const { idDrink, strDrink, strDrinkThumb } = recipe;
   const { id: idRec, category, name, image, area, alcoholicOrNot, type } = recipe;
@@ -14,15 +14,12 @@ const FavoriteIcon = ({ recipe, idTest }) => {
   const [iconFavorit, setIconFavorit] = useState(false);
   const favorites = getFavoritesRecipes() || [];
 
-  console.log(idTest);
   useEffect(() => {
     if (checkFavoriteId(idRecipe)) setIconFavorit(true);
   }, [idRecipe]);
 
   const addFavorite = () => {
     const verify = favorites.find(({ id }) => id === idRecipe);
-    console.log('verify', verify);
-    console.log('id', idRecipe);
     if (!verify) {
       const add = [...favorites, {
         id: idMeal || idDrink || idRec,
@@ -39,6 +36,7 @@ const FavoriteIcon = ({ recipe, idTest }) => {
       localStorage.favoriteRecipes = JSON.stringify(remove);
     }
     setIconFavorit(!iconFavorit);
+    return update();
   };
 
   const icon = blackOrWhite(iconFavorit);
@@ -57,6 +55,7 @@ const FavoriteIcon = ({ recipe, idTest }) => {
 FavoriteIcon.propTypes = {
   recipe: PropTypes.oneOfType([PropTypes.object]).isRequired,
   idTest: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default FavoriteIcon;
