@@ -28,6 +28,7 @@ export default function Provider({ children }) {
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
   const [cocktailsCategories, setCocktailsCategories] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
+  const [curr, setCurr] = useState('false');
 
   // boolean: searchBar appears or not
   const handleSearchBar = () => {
@@ -139,7 +140,6 @@ export default function Provider({ children }) {
 
   // Trata se deve gerar um estado com uma comida ou bebida
   const generateMealOrDrinkState = (mealById, drinkById) => {
-    // Verifica se é uma comida válida
     if (mealById) {
       const {
         idMeal,
@@ -162,6 +162,7 @@ export default function Provider({ children }) {
         area: strArea,
         type: 'comida',
       };
+      setCurr('meals');
       setCurrentRecipe(meal);
     }
     // Verifica se é uma bebida válida
@@ -175,7 +176,6 @@ export default function Provider({ children }) {
         strArea,
         strCategory,
       } = drinkById[0];
-      // Constrói o objeto de bebida
       const drink = {
         id: idDrink,
         name: strDrink,
@@ -187,6 +187,7 @@ export default function Provider({ children }) {
         type: 'bebida',
         category: strCategory,
       };
+      setCurr('cocktails');
       setCurrentRecipe(drink);
     }
   };
@@ -210,6 +211,7 @@ export default function Provider({ children }) {
     currentRecipe,
     resquestCocktailsApi,
     resquestMealsApi,
+    curr,
     requestMealCategories,
     mealsCategories,
     requestCocktailsCategories,
