@@ -10,7 +10,7 @@ import '../styles/Explore.css';
 
 function ExploreFoods(props) {
   const { surpriseFood, shouldRedirect, food, margato } = props;
-console.log(margato);
+  console.log(margato);
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
     <>

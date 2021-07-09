@@ -14,8 +14,7 @@ function ExpoFoodArea(props) {
   const { localsReceived, locals = [], infoFoods, foods } = props;
   const [listFood, setListFood] = useState([]);
   useEffect(() => {
-         localsReceived();
-    
+    localsReceived();
   }, []);
 
   useEffect(() => {
@@ -39,8 +38,8 @@ function ExpoFoodArea(props) {
       >
         <option data-testid="All-option">All</option>
 
-        {locals.length!==0 &&
-        locals.map((local) => (
+        {locals.length !== 0
+        && locals.map((local) => (
           <option
             key={ local.strArea }
             value={ local.strArea }
