@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
 import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite,
   settingFavorite,
-  storageCheckGenerator,
-  storageCheckUpdater,
-  checkBoolean,
   disableFinishRecipeButton } from '../services/manageLocalStorage';
 
-function FoodInProgress({ match, match: { params: { id } }, history }) {
+function FoodInProgress({ match, match: { params: { id } } }) {
   const [isCopied, setIsCopied] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const [isRedirect, setIsRedirect] = useState(false);
@@ -25,37 +23,6 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
   useEffect(() => {
     detailsSyncSetState(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   }, []);
-
-  function loopIngredientsAndMeasure(mealArray, IngredientsAndMeasures) {
-    return (
-      mealArray.map((_a, index) => (
-        <section
-          className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
-          data-testid={ `${index}-ingredient-step` }
-          key={ `ingredientAndMeasure${index + 1}` }
-        >
-          <input
-            checked={ checkBoolean(id, index) }
-            className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }
-            key={ index }
-            type="checkbox"
-            onClick={ () => {
-              setRefresh(storageCheckUpdater(id, index, refresh));
-            } }
-          />
-          <span className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }>
-            {' '}
-            {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
-          </span>
-          <span
-            className={ checkBoolean(id, index) ? 'showCss' : 'hideCss' }
-          >
-            {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
-          </span>
-        </section>
-      ))
-    );
-  }
 
   if (details.meals && id === details.meals[0].idMeal) {
     const IngredientsAndMeasures = generateIngredientsAndMeasure(details.meals[0]);
@@ -103,7 +70,10 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
         </button>
         <p data-testid="recipe-category">{strCategory}</p>
         <span data-testid="instructions">{strInstructions}</span>
-        {loopIngredientsAndMeasure(mealArray, IngredientsAndMeasures)}
+        {loopIngredientsAndMeasure(mealArray,
+          IngredientsAndMeasures,
+          id,
+          [refresh, setRefresh])}
         <iframe
           data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
@@ -129,7 +99,6 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
 
 FoodInProgress.propTypes = {
   match: PropTypes.shape().isRequired,
-  history: PropTypes.shape().isRequired,
 };
 
 export default FoodInProgress;
