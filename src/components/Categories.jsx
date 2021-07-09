@@ -44,7 +44,7 @@ export default function Categories() {
       setCategoriesData(results.filter((item, index) => index < maxCategories));
     };
     getCategories();
-  }, []);
+  }, [type]);
 
   useEffect(() => {
     const filterCategory = async () => {

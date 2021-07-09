@@ -33,7 +33,7 @@ body {
 
 .transparent {
   align-items: center;
-  background: #ffffffb0;
+  background: #ffffffd0;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -186,7 +186,7 @@ body {
 
 .card-list {
   display: grid;
-  gap: 30px;
+  gap: 20px;
   grid-template-columns: 1fr 1fr;
   padding: 10px;
 }
@@ -261,7 +261,7 @@ body {
 
 .text-content h3 {
   font-size: 1.5rem;
-  margin: 10px 0;
+  margin: 10px;
 }
 
 .text-content ul { margin-bottom: 30px;}
@@ -272,7 +272,10 @@ body {
 }
 
 .text-content p {
+  background: white;
+  font-size: 0.8rem;
   margin-bottom: 30px;
+  padding: 10px;
   text-align: justify;
   text-indent: 20px;
 }
@@ -285,7 +288,7 @@ body {
 
 .carousel-card, .carousel-card img {
   border-radius: 0;
-  width: 200px;
+  width: 150px;
 }
 
 .subtitle {
@@ -321,20 +324,22 @@ body {
 
 .categories {
   display: grid;
-  gap: 20px;
+  gap: 10px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   margin-bottom: 20px;
+  margin-left: 10px;
+  width: 100%;
 }
 
 .categories-btn {
   border: none;
   border-radius: 10px;
   color: white;
-  font-size: 1rem;
+  font-size: 0.8rem;
   height: 40px;
   padding: 0 5px;
-  width: 150px;
+  width: 100px;
 }
 
 .start-recipe {
@@ -355,6 +360,7 @@ body {
 
 .main {
   margin: 20px 10px 70px;
+  width: 100%;
 }
 
 .footer {
@@ -381,6 +387,13 @@ body {
 
 .hidden {
   display: none;
+}
+
+.title { margin-left: 10px;}
+
+.video {
+  margin-top: 10px;
+  width: 100%;
 }
 
 /* @keyframes slide-left {

@@ -54,8 +54,9 @@ function Details() {
       : detailsData.strYoutube.slice(thirtyTwo);
     return (
       <section data-testid="video">
-        <h3>Video</h3>
+        <h3 className="title">Video</h3>
         <YouTube
+          className="video"
           videoId={ videoId }
         />
       </section>);
