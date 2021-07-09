@@ -26,7 +26,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   };
 
   const generateWithClassElements = () => {
-    const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
     const keys = Object.keys(inProgress[curr]);
     const recipe = keys.find((key) => key === currentRecipe.id);
     const arrayIds = inProgress[curr][currentRecipe.id];
@@ -39,7 +38,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
           if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
             className = STRIPE_CLASS;
             classValue = true;
-            checkboxes[index].checked = true;
+            // checkboxes[index].checked = true;
             break;
           } else {
             className = NOT_STRIPE_CLASS;
@@ -177,22 +176,27 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       <table width="100%">
         <tbody>
           {
-            ingredients && ingredients.map(({ ingredient, measure }, index) => (
-              <tr key={ index } data-testid={ `${index}-ingredient-step` }>
-                <input
-                  type="checkbox"
-                  id={ `${index}` }
-                  value={ `${index}-ingredient` }
-                  onChange={ ({ target }) => doneStepEffect(target) }
-                />
-                <label
-                  className={ stepsClassName[index] && stepsClassName[index].step }
-                  htmlFor={ `${index}` }
-                >
-                  {`${ingredient} - ${measure}`}
-                </label>
-              </tr>
-            ))
+            stepsClassName.length && ingredients && ingredients.map(
+              ({ ingredient, measure }, index) => (
+                <tr key={ index } data-testid={ `${index}-ingredient-step` }>
+                  {/* {console.log(stepsClassName[index] && stepsClassName[index].checked,
+                  'steps ', stepsClassName, ' index ', index, ' ingred ', ingredient)} */}
+                  <input
+                    checked={ stepsClassName[index] && stepsClassName[index].checked }
+                    type="checkbox"
+                    id={ `${index}` }
+                    value={ `${index}-ingredient` }
+                    onChange={ ({ target }) => doneStepEffect(target) }
+                  />
+                  <label
+                    className={ stepsClassName[index] && stepsClassName[index].step }
+                    htmlFor={ `${index}` }
+                  >
+                    {`${ingredient} - ${measure}`}
+                  </label>
+                </tr>
+              ),
+            )
           }
         </tbody>
       </table>
