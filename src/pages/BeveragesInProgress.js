@@ -84,8 +84,8 @@ class BeveragesInProgress extends React.Component {
     const newFavorite = {
       id,
       type: 'bebida',
-      area: detailsRecipe[0].strArea,
-      category: detailsRecipe[0].strAlcoholic,
+      area: '',
+      category: detailsRecipe[0].strCategory,
       alcoholicOrNot: detailsRecipe[0].strAlcoholic,
       name: detailsRecipe[0].strDrink,
       image: detailsRecipe[0].strDrinkThumb,
