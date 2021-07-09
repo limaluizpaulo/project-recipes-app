@@ -1,47 +1,46 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
+import copy from 'clipboard-copy';
+import progress from '../helper/functions';
+import useRecipeDetail from '../helper/useRecipeDetail';
+import shareIcon from '../images/shareIcon.svg';
 import { fetchRecipeAllDrink,
   fetchRecipeAllFood,
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
 
 function RecipeDetail({ idRecipe, typeRecipe }) {
+  const location = useLocation();
   const [list, setList] = useState([]);
   const [leng, setLeng] = useState([]);
   const [reco, setReco] = useState([]);
+  const [show, setShow] = useState(false);
+  const [objectStart] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) !== null ? JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    ) : ({ cocktails: {}, meals: {} }),
+  );
+  const [button, setButton] = useState('Iniciar Receita');
 
-  useEffect(() => {
-    const func = async (api) => {
-      console.log(idRecipe);
-      const fun = await api(idRecipe);
-      const type = Object.keys(fun)[0];
-      const lista = fun[type];
-      const ingret = Object.keys(
-        lista[0],
-      ).filter((element) => element.includes('strIngredient'));
-      setLeng(ingret);
-      console.log(ingret);
-      console.log(lista[0]);
-      //   console.log(lista[0].strYoutube);
+  const history = useHistory();
 
-      setList(lista[0]);
-    };
+  useRecipeDetail({
+    idRecipe,
+    typeRecipe,
+    fetchRecipeIDFood,
+    fetchRecipeIDrinks,
+    fetchRecipeAllFood,
+    fetchRecipeAllDrink,
+    setLeng,
+    setList,
+    setReco,
+    setButton,
+    objectStart });
 
-    const rec = async (api) => {
-      const fun = await api();
-      const type = Object.keys(fun)[0];
-      const lista = fun[type];
-      const NUMBER = 6;
-      console.log(lista.slice(0, NUMBER));
-      setReco(lista.slice(0, NUMBER));
-    };
-    if (typeRecipe === 'food') {
-      func(fetchRecipeIDFood);
-      rec(fetchRecipeAllDrink);
-    } else {
-      func(fetchRecipeIDrinks);
-      rec(fetchRecipeAllFood);
-    }
-  }, [idRecipe, typeRecipe]);
+  function copyLink() {
+    copy(`http://localhost:3000${location.pathname}`);
+    setShow(true);
+  }
   return (
     <div>
 
@@ -58,7 +57,14 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         { typeRecipe === 'food' ? list.strMeal : list.strDrink }
 
       </p>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
+      <button
+        onClick={ copyLink }
+        type="button"
+        data-testid="share-btn"
+      >
+        <img src={ shareIcon } alt="Share Icon" />
+      </button>
+      <p>{show && 'Link copiado!'}</p>
       <button
         type="button"
         data-testid="favorite-btn"
@@ -95,34 +101,40 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />}
-      <div className="show-recipe">
+      <div className="recipe-list">
         { reco.map((item, index) => (
-          <button
+          <div
             data-testid={ `${index}-recomendation-card` }
-            type="button"
-            className="papai"
+            className="recipe-card"
             key={ index }
+            role="presentation"
           >
             <img
               className="filhinho"
               src={ typeRecipe !== 'food'
                 ? item.strMealThumb : item.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
+              data-testid={ `${index}-recomendation-img` }
               alt={ typeRecipe !== 'food' ? item.strMeal : item.strDrink }
               width="20%"
             />
-            <p data-testid={ `${index}-card-name` }>
+            <p data-testid={ `${index}-recomendation-title` }>
               { typeRecipe !== 'food' ? item.strMeal : item.strDrink }
             </p>
-          </button>))}
+          </div>))}
       </div>
       <button
+        onClick={ () => progress({
+          objectStart,
+          leng,
+          typeRecipe,
+          idRecipe,
+          history }) }
         className="start-recipe"
         type="button"
+        value={ button }
         data-testid="start-recipe-btn"
       >
-        Iniciar Receita
-
+        {button}
       </button>
 
     </div>
@@ -134,10 +146,5 @@ RecipeDetail.propTypes = {
   idRecipe: PropTypes.string,
   typeRecipe: PropTypes.string,
 }.isRequired;
-export default RecipeDetail;
 
-//   <ul data-testid={ `${index}-ingredient-name-and-measure` }>{' '}</ul>
-//   <p data-testid="instructions">{' '}</p>
-//   <video type="video" data-testid="video"><source src="" /></video>
-//   <button type="button" data-testid={ `${index}-recomendation-card` }>{' '}</button>
-//   <button type="button" data-testid="start-recipe-btn">{' '}</button>
+export default RecipeDetail;

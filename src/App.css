@@ -92,6 +92,38 @@
   position: fixed;
 }
 
+.recipe-list {
+  display: flex;
+  margin: 10px 0 30px;
+  overflow-x: scroll;
+  width: 360px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin: 20px;
+  width: 40vw;
+}
+
+
+.recipe-card > img {
+  border-radius: 0.6rem;
+  height: 200px;
+  object-fit: fill;
+  overflow: hidden;
+  width: 40vw;
+}
+
+.recipe-card > p {
+  overflow: hidden;
+  padding-bottom: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 @keyframes shake {
 
   0% {
