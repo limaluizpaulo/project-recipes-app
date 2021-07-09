@@ -105,6 +105,7 @@ export default function FoodInProgress() {
         style={ bottomFixed }
         type="button"
         data-testid="finish-recipe-btn"
+        data-testid="start-recipe-btn"
         onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar receita
