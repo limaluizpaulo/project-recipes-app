@@ -54,7 +54,6 @@ class comidas extends Component {
     return (
       recipeDetails && recipes ? (
         <section>
-          <h3>Detalhes Comidas</h3>
           <RecipeDetails
             recipeDetails={ recipeDetails }
             title="Comidas"

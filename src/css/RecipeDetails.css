@@ -3,6 +3,38 @@
 }
 
 .button {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
   bottom: 0;
+  height: 50px;
+  line-height: 1em;
+  margin: 1px;
   position: fixed;
+  width: 120px;
+}
+
+.recipe-details img {
+  height: 200px;
+  width: 100%;
+}
+
+.recipe-details-titles {
+  display: flex;
+}
+
+.recipe-details-titles h1 {
+  line-height: 1em;
+  margin-left: 20px;
+  margin-right: 120px;
+}
+
+.recipe-details-subtitles {
+  color: grey;
+  line-height: 0.5em;
+  margin-left: 20px;
+}
+
+.recipe-details-ingredients {
+  list-style: circle;
+  margin: 20px;
 }

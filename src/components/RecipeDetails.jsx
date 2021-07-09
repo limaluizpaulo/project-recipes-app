@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -11,6 +12,8 @@ import {
   setFavoriteRecipes,
   getFavoriteRecipes,
   removeFavoriteRecipe } from './RecipeDetailsFunc';
+
+import '../css/Buttons.css';
 
 class RecipeDetails extends React.Component {
   constructor(props) {
@@ -48,7 +51,7 @@ class RecipeDetails extends React.Component {
         if (ingrediente && apenasMedidas[index]) {
           return (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingrediente[1]}-${apenasMedidas[index]}`}
+              {`${ingrediente[1]} - ${apenasMedidas[index]}`}
             </li>);
         }
         return null;
@@ -82,14 +85,14 @@ class RecipeDetails extends React.Component {
   renderButton(btnMessage) {
     return (
       <div>
-        <button
+        <Button
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => this.setState({ redirectInProgress: true }) }
           className="button"
         >
           { btnMessage }
-        </button>
+        </Button>
       </div>
     );
   }
@@ -106,33 +109,34 @@ class RecipeDetails extends React.Component {
   }
 
   renderPage(recipeDetails) {
+    // Source https://developers.google.com/youtube/player_parameters?hl=pt-br
+    const video = recipeDetails[0].strYoutube.replace('watch?v=', 'embed/');
     const { title, recipes, btnVisible, btnMessage } = this.props;
     const { copied, favorite } = this.state;
     return (
       <section>
-        <div>
+        <div className="recipe-details">
           <img
             data-testid="recipe-photo"
             src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
             alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
             width="250px"
           />
+        </div>
+        <div className="recipe-details-titles">
           <h1 data-testid="recipe-title">
             { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
           </h1>
-          <div>
-            <span data-testid="recipe-category">
-              { recipeDetails[0].strAlcoholic }
-            </span>
-          </div>
-          <button
+          <Button
+            className="like-and-share"
             data-testid="share-btn"
             type="button"
             onClick={ this.copyLink }
           >
             <img src={ shareIcon } alt="shareIcon" />
-          </button>
-          <button
+          </Button>
+          <Button
+            className="like-and-share"
             type="button"
             onClick={ () => this.verifyFavorite(recipeDetails[0]) }
           >
@@ -141,13 +145,18 @@ class RecipeDetails extends React.Component {
               src={ favorite ? black : white }
               alt="favoriteIcon"
             />
-          </button>
+          </Button>
           {copied ? <span>Link copiado!</span> : null}
-          <div>
-            <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
-          </div>
         </div>
-        <div>
+        <div className="recipe-details-subtitles">
+          <span data-testid="recipe-category">
+            { recipeDetails[0].strAlcoholic }
+          </span>
+        </div>
+        <div className="recipe-details-subtitles">
+          <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
+        </div>
+        <div className="recipe-details-ingredients">
           <h4>Ingredientes</h4>
           {this.getIngredients()}
           <ul />
@@ -163,7 +172,7 @@ class RecipeDetails extends React.Component {
               <iframe
                 data-testid="video"
                 title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-                src={ recipeDetails[0].strYoutube }
+                src={ video }
               />
             </div>)}
         {this.renderRecommendedCard(recipes)}
