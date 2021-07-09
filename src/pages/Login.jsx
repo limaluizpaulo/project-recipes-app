@@ -21,10 +21,10 @@ export default function Login() {
     // const emailInfo = JSON.stringify({ email });
     setItem('user', { email });
 
-    setItem('inProgressRecipes', {
-      cocktails: {},
-      meals: {},
-    });
+    // setItem('inProgressRecipes', {
+    //   cocktails: {},
+    //   meals: {},
+    // });
 
     // const inProgressRecipes = JSON.stringify({
     //   cocktails: {},

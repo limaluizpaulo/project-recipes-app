@@ -55,7 +55,6 @@ function Details() {
 
   const recipeProgress = () => {
     const item = getItem('inProgressRecipes');
-
     return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
   };
   const video = () => {
