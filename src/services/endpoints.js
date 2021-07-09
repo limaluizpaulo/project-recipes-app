@@ -39,3 +39,13 @@ export const recipesById = {
   meals: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
   drinks: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
 };
+
+export const categoriesUrls = {
+  meals: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+};
+
+export const searchByCategory = {
+  meals: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
+  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
+};

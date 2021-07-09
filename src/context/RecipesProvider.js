@@ -10,12 +10,14 @@ import {
   fetchRecipesBySearch,
   fetchRandomRecipe,
   fetchRecipesByArea,
+  fetchRecipesByCategory,
 } from '../services/recipesAPI';
 
 function RecipesProvider({ children }) {
   const [user, setUser] = useState('');
   const [mealsOrDrinks, setMealsOrDrinks] = useState('meals');
   const [recipes, setRecipes] = useState([]);
+  const [recipesCategory, setRecipesCategory] = useState('All');
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
@@ -31,11 +33,11 @@ function RecipesProvider({ children }) {
     setRecipes(allRecipes[mealsDrinks]);
   };
 
-  const searchRecipesBy = async ({ searchParameter, searchPayload }) => {
+  const searchRecipesBy = async ({ drinksOrMeals, searchParameter, searchPayload }) => {
     const recipesBySearch = await fetchRecipesBySearch(
-      mealsOrDrinks, searchParameter, searchPayload,
+      drinksOrMeals, searchParameter, searchPayload,
     );
-    setRecipes(recipesBySearch[mealsOrDrinks]);
+    setRecipes(recipesBySearch[drinksOrMeals]);
   };
 
   const getRandomRecipe = async () => {
@@ -44,8 +46,10 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails(true);
   };
 
-  const filterByIngredients = (searchPayload) => {
-    searchRecipesBy({ searchParameter: 'ingredient', searchPayload });
+  const filterByIngredients = async (drinksOrMeals, searchPayload) => {
+    searchRecipesBy(
+      { drinksOrMeals, searchParameter: 'ingredient', searchPayload },
+    );
     setFiltredByIngredients(true);
     setRedirectToMainScreen(true);
   };
@@ -134,6 +138,16 @@ function RecipesProvider({ children }) {
     setIngredients(tempArray);
   };
 
+  const searchByCategory = async (drinksOrMeals) => {
+    if (recipesCategory !== 'All') {
+      const request = await fetchRecipesByCategory(drinksOrMeals, recipesCategory);
+      const recipesByCategory = request[drinksOrMeals];
+      setRecipes(recipesByCategory);
+    } else {
+      getInitialRecipes(drinksOrMeals);
+    }
+  };
+
   const context = {
     mealsOrDrinks,
     user,
@@ -158,6 +172,9 @@ function RecipesProvider({ children }) {
     ingredients,
     filtredByIngredients,
     setFiltredByIngredients,
+    recipesCategory,
+    setRecipesCategory,
+    searchByCategory,
   };
 
   useEffect(() => {
