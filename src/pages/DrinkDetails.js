@@ -14,8 +14,8 @@ function DrinkDetails() {
 
   useEffect(() => {
     const request = async () => {
-      const result = await requestByDetailsDrink(id);
-      setDrink(result.drinks);
+      const result = await requestByDetailsDrink(id)
+        .then(() => { setDrink(result.drinks); });
     };
     request();
   }, [id]);
@@ -32,6 +32,7 @@ function DrinkDetails() {
   }
 
   function start() {
+    console.log(drink);
     const { idDrink } = drink[0];
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     inProgress.cocktails[`${idDrink}`] = [];
@@ -39,13 +40,13 @@ function DrinkDetails() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     setProgress('Continuar Receita');
   }
-
-  if (!first && drink[0] !== undefined) {
+  console.log(drink);
+  if (!first && drink.length > 0) {
     progressFunction();
   }
 
   return (
-    drink && (
+    drink && drink.length > 0 && (
       drink.map((
         { idDrink, strDrink, strInstructions,
           strDrinkThumb, strAlcoholic, strSource, ...rest },
