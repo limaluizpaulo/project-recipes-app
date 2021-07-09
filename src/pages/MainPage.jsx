@@ -65,7 +65,7 @@ function MainPage({ history }) {
     <>
       <main>
         <section>
-          <Header pathname={ pathname } />
+          <Header pathname={ pathname } newRecipes={ setRecipes } />
         </section>
         <section>
           <button

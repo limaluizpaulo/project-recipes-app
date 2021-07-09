@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ pathname }) {
+function Header({ pathname, newRecipes }) {
   const [shouldShearchBar, setShouldSearchBar] = useState(false);
   const [pageTitle, setPageTitle] = useState(pathname);
   const showSearchBar = () => setShouldSearchBar(!shouldShearchBar);
@@ -48,7 +48,8 @@ function Header({ pathname }) {
         </button>
       </main>
       <article>
-        { shouldShearchBar && <SearchBar title={ pageTitle } /> }
+        { shouldShearchBar
+        && <SearchBar title={ pageTitle } newRecipes={ newRecipes } /> }
       </article>
     </header>
   );

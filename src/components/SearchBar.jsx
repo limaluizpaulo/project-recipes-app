@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRecipeSearch } from '../services';
 
-function SearchBar({ title }) {
+function SearchBar({ title, newRecipes }) {
   const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');
   const [inputValue, setInputValue] = useState('');
   const [endpointSearch, setEndpointSearch] = useState('');
@@ -42,7 +42,8 @@ function SearchBar({ title }) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (meals.length > 1) {
-      dispatch({ type: 'card content', content: meals });
+      newRecipes(meals);
+      /* dispatch({ type: 'card content', content: meals }); */
     }
     if (meals.length === 1) {
       setRedirectTo(`/comidas/${meals[0].idMeal}`);
@@ -56,7 +57,7 @@ function SearchBar({ title }) {
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (drinks.length > 1) {
-      dispatch({ type: 'card content', content: drinks });
+      /* dispatch({ type: 'card content', content: drinks }); */
     }
     if (drinks.length === 1) {
       setRedirectTo(`/bebidas/${drinks[0].idDrink}`);
