@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
+import '../App.css';
 
 function FoodPage({ history }) {
   const { goSearch, setTitle, recipes } = useContext(ContextRecipes);
@@ -18,15 +19,19 @@ function FoodPage({ history }) {
   console.log(Object.values(recipes)[0]);
 
   return (
-    <main>
+    <main className="main-container">
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
-      <section>
+      <section className="render-cards">
         { recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
         {recipes && recipes
           // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ strMeal, strMealThumb }, index) => index <= maxLength && (
-            <article key={ index } data-testid={ `${index}-recipe-card` }>
+            <article
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              className="recipe-card"
+            >
               <img
                 src={ strMealThumb }
                 alt={ strMeal }
@@ -37,7 +42,6 @@ function FoodPage({ history }) {
               <span role="button" data-testid={ `${index}-card-name` }>{ strMeal }</span>
               {/* </button> */}
             </article>))}
-        ;
       </section>
       <Footer history={ history } />
     </main>
