@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
-import favoriteIcon from '../images/blackHeartIcon.svg';
-import { addIngredients, getIngredients } from '../services/localStorage';
+import Ingredientes from '../components/ReceitaEmProgresso/Ingredientes';
+import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
 
 function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
   const { id } = useParams();
   const [apelidoAPI] = rotaAtual.match(/\w+/);
-  const ingredientesSalvos = getIngredients(apelidoAPI, id);
   const [parametrosBusca] = useState({ apelidoAPI, input: id });
-  const [receita, setReceita] = useState({});
+  const [receita, setReceita] = useState({
+    id: '',
+    type: '',
+    area: '',
+    category: '',
+    alcoholicOrNot: '',
+    name: '',
+    image: '',
+    tags: [],
+    instructions: '',
+  });
   const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
-  const [ingredientes, setIngredientes] = useState(ingredientesSalvos);
 
   const inicializarIngredientes = (objReceitas) => {
     let indexAuxiliar = 0;
@@ -34,99 +43,96 @@ function ReceitaEmProgresso() {
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(parametrosBusca);
-      setReceita(respostaApi);
+
+      const type = apelidoAPI.replace('s', '');
+      const category = respostaApi.strCategory;
+      const instructions = respostaApi.strInstructions;
+      const area = respostaApi.strArea ? respostaApi.strArea : '';
+      const alcoholicOrNot = respostaApi.strAlcoholic ? respostaApi.strAlcoholic : '';
+      const tags = respostaApi.strTags ? respostaApi.strTags.split(',') : [];
+      const name = apelidoAPI === 'comidas' ? respostaApi.strMeal : respostaApi.strDrink;
+      const image = apelidoAPI === 'comidas'
+        ? respostaApi.strMealThumb : respostaApi.strDrinkThumb;
+
+      setReceita({
+        id,
+        type,
+        area,
+        category,
+        alcoholicOrNot,
+        name,
+        image,
+        tags,
+        instructions,
+      });
       inicializarIngredientes(respostaApi);
     };
     didMount();
   }, [parametrosBusca]);
 
-  useEffect(() => {
-    if (!ingredientes) {
-      setIngredientes([]);
-    }
-
-    if (ingredientes) {
-      addIngredients(apelidoAPI, id, ingredientes);
-    }
-  }, [ingredientes]);
-
   const renderizaImagemReceita = () => {
-    const src = (
-      (apelidoAPI === 'comidas') ? receita.strMealThumb : receita.strDrinkThumb);
-    const alt = ((apelidoAPI === 'comidas') ? receita.strMeal : receita.strDrink);
+    const { image, name } = receita;
     return (
       <img
         data-testid="recipe-photo"
-        src={ `${src}` }
-        alt={ `${alt}` }
+        src={ image }
+        alt={ name }
       />
     );
   };
 
   const renderizaTituloReceitas = () => {
-    const titulo = ((apelidoAPI === 'comidas') ? receita.strMeal : receita.strDrink);
+    const { name } = receita;
     return (
-      <h2 data-testid="recipe-title">{titulo}</h2>
+      <h2 data-testid="recipe-title">{name}</h2>
     );
+  };
+
+  const copiarLink = () => {
+    const doisSegundos = 2000;
+    const tooltip = document.querySelector('.improvised-tooltip');
+    tooltip.innerHTML = 'Link copiado!';
+    const { URL } = document;
+    const [urlFormatado] = URL.match(/.+(?=\/in-progress)/);
+    clipboardCopy(urlFormatado);
+    const exibirTooltip = setTimeout(() => {
+      tooltip.innerHTML = '';
+      clearTimeout(exibirTooltip);
+    }, doisSegundos);
   };
 
   const renderizaBotoesTitulo = () => (
     <>
-      <button type="button">
+      <div>
+        <span className="improvised-tooltip" />
+      </div>
+      <button type="button" className="button-transparent" onClick={ copiarLink }>
         <img
           data-testid="share-btn"
           src={ shareIcon }
           alt="share-btn"
         />
       </button>
-      <button type="button">
-        <img
-          data-testid="favorite-btn"
-          src={ favoriteIcon }
-          alt="favorite-btn"
-        />
-      </button>
+      <BotaoFavorito
+        getFavoriteRecipesParams={ { apelidoAPI, id } }
+        receita={ receita }
+      />
     </>
   );
 
-  const renderizaCategoriaReceita = () => (
-    <div data-testid="recipe-category">{receita.strCategory}</div>
-  );
-
-  const handleChange = ({ target: { checked, name } }) => {
-    if (checked) {
-      setIngredientes([...ingredientes, name]);
-    } else {
-      setIngredientes(ingredientes.filter((ingrediente) => ingrediente !== name));
-    }
+  const renderizaCategoriaReceita = () => {
+    const { category } = receita;
+    return (
+      <div data-testid="recipe-category">{category}</div>
+    );
   };
 
-  const renderizaIngredientes = () => (
-    <>
-      {ingredientesCheckboxes.map(([nome, medida], index) => (
-        <div key={ nome } className="mb-3">
-          <label
-            htmlFor={ nome }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-              id={ nome }
-              name={ nome }
-              value={ nome }
-              onChange={ handleChange }
-              checked={ ingredientes.includes(nome) }
-            />
-            { `${medida} ${nome}` }
-          </label>
-        </div>
-      ))}
-    </>
-  );
-
-  const renderizaInstrucoes = () => (
-    <div data-testid="instructions">{receita.strInstructions}</div>
-  );
+  const renderizaInstrucoes = () => {
+    const { instructions } = receita;
+    return (
+      <div data-testid="instructions">{instructions}</div>
+    );
+  };
 
   const renderizaBotaoFinalizar = () => (
     <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
@@ -138,7 +144,11 @@ function ReceitaEmProgresso() {
       { renderizaTituloReceitas() }
       { renderizaBotoesTitulo() }
       { renderizaCategoriaReceita() }
-      { renderizaIngredientes() }
+      {ingredientesCheckboxes.length
+        && <Ingredientes
+          listaIngredientes={ ingredientesCheckboxes }
+          getIngredientsParams={ { apelidoAPI, id } }
+        />}
       { renderizaInstrucoes() }
       { renderizaBotaoFinalizar() }
     </>

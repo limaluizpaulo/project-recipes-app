@@ -41,6 +41,11 @@ body {
   font-weight: 900;
 }
 
+.button-transparent {
+  background: transparent;
+  border: none;
+}
+
 @keyframes shake {
 
   0% {

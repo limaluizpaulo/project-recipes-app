@@ -36,35 +36,46 @@ export function getItemLocalStorage(key) {
   return result;
 }
 
-export function addIngredients(typeRecipe, idRecipe, ingredient) {
+export function addIngredients(typeRecipe, idRecipe, ingredientsInProgressArr) {
   const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
   const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
-  if (!receitasEmProgresso[mealsOrCocktails][idRecipe]) {
-    setItemLocalStorage('inProgressRecipes', {
-      ...receitasEmProgresso,
-      [mealsOrCocktails]: {
-        ...receitasEmProgresso[mealsOrCocktails],
-        [idRecipe]: ingredient,
-      },
-    });
-  } else {
-    setItemLocalStorage('inProgressRecipes', {
-      ...receitasEmProgresso,
-      [mealsOrCocktails]: {
-        ...receitasEmProgresso[mealsOrCocktails],
-        [idRecipe]: [...ingredient],
-      },
-    });
-  }
+  setItemLocalStorage('inProgressRecipes', {
+    ...receitasEmProgresso,
+    [mealsOrCocktails]: {
+      ...receitasEmProgresso[mealsOrCocktails],
+      [idRecipe]: ingredientsInProgressArr,
+    },
+  });
 }
 
 export function getIngredients(typeRecipe, idRecipe) {
   const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
   const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
   if (!receitasEmProgresso) {
-    const stringifyValue = JSON.stringify({ cocktails: {}, meals: {} });
-    localStorage.setItem('inProgressRecipes', stringifyValue);
+    setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
     return undefined;
   }
   return receitasEmProgresso[mealsOrCocktails][idRecipe];
+}
+
+export function haveFavoriteRecipes(typeRecipe, idRecipe) {
+  const favoriteRecipes = getItemLocalStorage('favoriteRecipes');
+  if (!favoriteRecipes) {
+    setItemLocalStorage('favoriteRecipes', []);
+    return false;
+  }
+  return favoriteRecipes.some(({ id, type }) => id === idRecipe && type === typeRecipe);
+}
+
+export function addFavoriteRecipes(recipe) {
+  // const lengthPropsRecipe = Object.keys(recipe).length;
+  const favoriteRecipes = getItemLocalStorage('favoriteRecipes');
+  setItemLocalStorage('favoriteRecipes', [...favoriteRecipes, recipe]);
+}
+
+export function removeFavoriteRecipes(typeRecipe, idRecipe) {
+  const favoriteRecipes = getItemLocalStorage('favoriteRecipes');
+  const newFavoriteRecipes = favoriteRecipes
+    .filter(({ id, type }) => !(id === idRecipe && type === typeRecipe));
+  setItemLocalStorage('favoriteRecipes', newFavoriteRecipes);
 }
