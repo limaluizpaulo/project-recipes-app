@@ -115,12 +115,44 @@ export const settingFavorite = (details, id, refresh) => {
 
 export const storageCheckGenerator = (id, index) => {
   const rawChecks = localStorage.getItem('inProgressCheck');
+  // inProgressCheck key doesnt exist yet
   const checks = JSON.parse(rawChecks);
   if (!checks) {
-    localStorage.setItem('inProgressCheck', [{ id, checkboxes: { [index]: false } }]);
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([{ id, checkboxes: { [index]: false } }]));
+    return false;
   }
+
+  // continue render case
+  if (checks.some((obj) => obj.id === id)) {
+    let nextObjValue = checks.find((obj) => obj.id === id);
+    nextObjValue = { ...nextObjValue,
+      checkboxes: { ...nextObjValue.checkboxes, [index]: false } };
+    const prepareNewState = checks.filter((obj) => obj.id !== id);
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...prepareNewState, nextObjValue]));
+    return false;
+  }
+
+  // render new page if inProgressCheck already exists
+  if (!checks.some((obj) => obj.id === id)) {
+    const generateNewCheckObject = { id, checkboxes: { [index]: false } };
+    localStorage.setItem('inProgressCheck',
+      JSON.stringify([...checks, generateNewCheckObject]));
+  }
+
+  return false;
+};
+
+export const storageCheckUpdater = (id, index) => {
+  const rawChecks = localStorage.getItem('inProgressCheck');
+  const checks = JSON.parse(rawChecks);
   if (checks.some((obj) => obj.id === id)) {
     const updateProgressObj = checks.find((obj) => obj.id);
     updateProgressObj.checkboxes[index] = !updateProgressObj.checkboxes[index];
+    const prepareNewState = checks.filter((obj) => obj.id !== id);
+    localStorage.setItem('inProgressCheck', [...prepareNewState, updateProgressObj]);
+    return updateProgressObj.checkboxes[index];
   }
+  return false;
 };

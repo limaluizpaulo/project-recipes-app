@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
 import { copyLink, verifyCheck } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
-import { verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
+import { verifyFavorite, settingFavorite, storageCheckGenerator, storageCheckUpdater } from '../services/manageLocalStorage';
 
 function FoodInProgress({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -24,13 +24,13 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
     return (
       mealArray.map((_a, index) => (
         <section
-          className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
+          className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
           data-testid={ `${index}-ingredient-step` }
           key={ `ingredientAndMeasure${index + 1}` }
         >
           <input
             checked={ false }
-            className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
+            className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
             key={ index }
             type="checkbox"
             onClick={ () => {
@@ -39,7 +39,7 @@ function FoodInProgress({ match, match: { params: { id } }, history }) {
           />
           {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
           <span
-            className={ verifyCheck(index, check) ? 'showCss' : 'hideCss' }
+            className={ storageCheckGenerator(id, index) ? 'showCss' : 'hideCss' }
           >
             {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
           </span>
