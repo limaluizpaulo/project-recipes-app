@@ -7,25 +7,26 @@ import Icons from '../components/Icons';
 import '../styles/global.css';
 
 function DrinkDetails() {
-  const params = useParams();
+  const { id } = useParams();
   const [drink, setDrink] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
     const request = async () => {
-      const result = await requestByDetailsDrink(params.id);
+      const result = await requestByDetailsDrink(id);
       setDrink(result.drinks);
     };
     request();
-  }, [params.id]);
+  }, [id]);
 
   function progressFunction() {
+    console.log(drink);
     const { idDrink } = drink[0];
     const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let flag = 0;
     Object
-      .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
+      .keys(cocktails).forEach((id2) => { if (id2 === idDrink) flag += 1; });
     if (flag !== 0) setProgress('Continuar Receita');
     setFirst(true);
   }
