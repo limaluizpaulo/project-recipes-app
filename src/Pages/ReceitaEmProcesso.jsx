@@ -20,6 +20,21 @@ export default function ReceitaEmProcesso({ location }) {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
+  useEffect(() => {
+    let curr = location.pathname.split('/')[1];
+    if (curr === 'comidas') {
+      curr = 'meals';
+    } else {
+      curr = 'cocktails';
+    }
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
+    if (inProgress && checkboxes.length && inProgress[curr] && ((
+      inProgress[curr][location.pathname.split('/')[2]]).length === checkboxes.length)) {
+      setAllStepsOk(false);
+    }
+  });
+
   // Atualiza o estatus de progresso, para habilitar o botão
   const stepsProgress = (steps) => {
     const completeSteps = [];

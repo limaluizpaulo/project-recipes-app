@@ -6,15 +6,17 @@ import Context from '../../context/Context';
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
   const { curr } = useContext(Context);
+  const RADIX = 10;
+  const steps = [];
+  const STRIPE_CLASS = 'step-checked';
+  const NOT_STRIPE_CLASS = 'step-not-checked';
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-  // Pupula o estado que gerencia a classe CSS dos ingredientes
-  const populateSteps = () => {
-    const steps = [];
-
+  const generateNoClassElements = () => {
     if (ingredients) {
       for (let index = 0; index <= ingredients.length; index += 1) {
         steps.push({
-          step: 'step-not-checked',
+          step: NOT_STRIPE_CLASS,
           checked: false,
           index,
         });
@@ -23,9 +25,72 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     setStepsClassName(steps);
   };
 
+  const generateWithClassElements = () => {
+    const keys = Object.keys(inProgress[curr]);
+    const recipe = keys.find((key) => key === currentRecipe.id);
+    const arrayIds = inProgress[curr][currentRecipe.id];
+    let className = '';
+    let classValue = false;
+
+    if (recipe) {
+      for (let index = 0; index < ingredients.length; index += 1) {
+        for (let index2 = 0; index2 < arrayIds.length; index2 += 1) {
+          if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
+            className = STRIPE_CLASS;
+            classValue = true;
+            // checkboxes[index].checked = true;
+            break;
+          } else {
+            className = NOT_STRIPE_CLASS;
+            classValue = false;
+          }
+        }
+        steps.push({
+          step: className,
+          checked: classValue,
+          index,
+        });
+      }
+      setStepsClassName(steps);
+    }
+  };
+
+  useEffect(() => {
+    if (!inProgress || !inProgress[curr]) {
+      generateNoClassElements();
+    } else {
+      generateWithClassElements();
+    }
+  }, []);
+
+  // Pupula o estado que gerencia a classe CSS dos ingredientes
+  const populateSteps = () => {
+    if (inProgress) {
+      if (!inProgress[curr]) {
+        return;
+      }
+      const keys = Object.keys(inProgress[curr]);
+      const recipe = keys.find((key) => key === currentRecipe.id);
+
+      if (recipe) {
+        return;
+      }
+
+      if (ingredients) {
+        for (let index = 0; index < ingredients.length; index += 1) {
+          steps.push({
+            step: NOT_STRIPE_CLASS,
+            checked: false,
+            index,
+          });
+        }
+      }
+      setStepsClassName(steps);
+    }
+  };
+
   // carrega local storage dos ingredientes
   const loadIngredientesLocalStorage = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id } = currentRecipe;
     switch (!inProgress) {
     case true:
@@ -33,13 +98,49 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
         .stringify({ [curr]: { [id]: [] } }));
       break;
     default:
+      if (!inProgress[curr] || !inProgress[curr][id]) {
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({
+            ...inProgress,
+            [curr]: { ...inProgress[curr], [id]: [] },
+          }));
+      // } else if (!inProgress[curr][id]) {
+        // localStorage.setItem('inProgressRecipes', JSON
+        //   .stringify({
+        //     ...inProgress,
+        //     [curr]: { ...inProgress[curr], [id]: [] },
+        //   }));
+      } else {
+        localStorage.setItem('inProgressRecipes', JSON
+          .stringify({
+            ...inProgress,
+            [curr]:
+              { ...inProgress[curr],
+                [id]: [...inProgress[curr][id]],
+              } })); // dps passar o spread pros ids
+      }
+    }
+  };
+
+  const addOnceLocalStorage = (id, array, targetId) => {
+    if (array[curr][id].includes(targetId)) {
+      const updatedArray = array[curr][id].filter(
+        (arrayId) => Number.parseInt(arrayId, RADIX) !== Number.parseInt(targetId, RADIX),
+      );
+
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({
-          ...inProgress,
-          [curr]:
-          { ...inProgress[curr],
-            [id]: [...inProgress[curr][id]],
-          } })); // dps passar o spread pros ids
+          ...array,
+          [curr]: { ...array[curr],
+            [id]: [...updatedArray,
+            ] } }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({
+          ...array,
+          [curr]: { ...array[curr],
+            [id]: [...array[curr][id],
+              targetId] } }));
     }
   };
 
@@ -51,35 +152,22 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
     const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id, type } = currentRecipe;
+    const { id } = currentRecipe;
 
-    let step = 'step-checked';
+    let step = STRIPE_CLASS;
 
     if (stepsClassName[targetId].checked) {
-      step = 'step-not-checked';
-      if (type === 'bebidas') {
-        const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        console.log(cocktails[id]);
-        // const exist = cocktails[id].find((cocktail) => cocktail);
-        // console.log(exist);
-      }
-      // localStorage.removeItem('inProgressRecipes', JSON
-      //   .stringify({ ...newLocalStorage, [curr]: { ...newLocalStorage[curr], [id]: [...newLocalStorage[curr][id], ingredients[targetId].ingredient] } }));
+      step = NOT_STRIPE_CLASS;
     }
 
     setStepsClassName([
       ...stepsClassName,
       stepsClassName[targetId].checked = !stepsClassName[targetId].checked,
       stepsClassName[targetId].step = step,
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({
-          ...newLocalStorage,
-          [curr]: { ...newLocalStorage[curr],
-            [id]: [...newLocalStorage[curr][id],
-              ingredients[targetId].ingredient] } })),
     ]);
-
     stepsProgress(stepsClassName);
+    // adciona no localStorage
+    addOnceLocalStorage([id], newLocalStorage, [targetId][0]);
   };
 
   return (
@@ -88,22 +176,27 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
       <table width="100%">
         <tbody>
           {
-            ingredients && ingredients.map(({ ingredient, measure }, index) => (
-              <tr key={ index } data-testid={ `${index}-ingredient-step` }>
-                <input
-                  type="checkbox"
-                  id={ `${index}` }
-                  value={ `${index}-ingredient` }
-                  onChange={ ({ target }) => doneStepEffect(target) }
-                />
-                <label
-                  className={ stepsClassName[index] && stepsClassName[index].step }
-                  htmlFor={ `${index}` }
-                >
-                  {`${ingredient} - ${measure}`}
-                </label>
-              </tr>
-            ))
+            stepsClassName.length && ingredients && ingredients.map(
+              ({ ingredient, measure }, index) => (
+                <tr key={ index } data-testid={ `${index}-ingredient-step` }>
+                  {/* {console.log(stepsClassName[index] && stepsClassName[index].checked,
+                  'steps ', stepsClassName, ' index ', index, ' ingred ', ingredient)} */}
+                  <input
+                    checked={ stepsClassName[index] && stepsClassName[index].checked }
+                    type="checkbox"
+                    id={ `${index}` }
+                    value={ `${index}-ingredient` }
+                    onChange={ ({ target }) => doneStepEffect(target) }
+                  />
+                  <label
+                    className={ stepsClassName[index] && stepsClassName[index].step }
+                    htmlFor={ `${index}` }
+                  >
+                    {`${ingredient} - ${measure}`}
+                  </label>
+                </tr>
+              ),
+            )
           }
         </tbody>
       </table>

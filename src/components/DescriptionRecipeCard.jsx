@@ -7,23 +7,25 @@ import FavoriteButton from './Details/FavoriteButton';
 
 // *SOURCE* Semantic Value = https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-noninteractive-element-interactions.md
 
-export default function FavoritesCard({ favorite, index, updateCards, setUpdateCards }) {
+export default function DescriptionRecipeCard(
+  { recipe, index, updateCards, setUpdateCards, page },
+) {
   const history = useHistory();
 
   const generateMealOrDrinkTitle = () => {
-    switch (favorite.type) {
+    switch (recipe.type) {
     case 'comida':
       return (
         <h5>
           <span data-testid={ `${index}-horizontal-top-text` }>
-            { `${favorite.area} - ${favorite.category}` }
+            { `${recipe.area} - ${recipe.category}` }
           </span>
         </h5>
       );
     case 'bebida':
       return (
         <h5 data-testid={ `${index}-horizontal-top-text` }>
-          {`${favorite.alcoholicOrNot}`}
+          {`${recipe.alcoholicOrNot}`}
         </h5>
       );
     default:
@@ -32,8 +34,56 @@ export default function FavoritesCard({ favorite, index, updateCards, setUpdateC
   };
 
   const handleOpenRecipe = () => {
-    const route = `${favorite.type}s/${favorite.id}`;
+    const route = `${recipe.type}s/${recipe.id}`;
     history.push(route);
+  };
+
+  const generateTags = () => {
+    if (recipe.type === 'comida') {
+      return (
+        <span>
+          <h5>bun</h5>
+          <h5>banking</h5>
+        </span>
+      );
+    }
+  };
+
+  const generateActionButtons = () => {
+    switch (page) {
+    case 'favorites':
+      return (
+        <td>
+          <ShareButton
+            index={ index }
+            id={ recipe.id }
+            type={ recipe.type }
+          />
+          <FavoriteButton
+            updateCards={ updateCards }
+            setUpdateCards={ setUpdateCards }
+            dataTestId={ `${index}-horizontal-favorite-btn` }
+            recipe={ recipe }
+          />
+        </td>
+      );
+    case 'mades':
+      return (
+        <td>
+          <span>
+            Feita em: 10/10/2010
+          </span>
+          { generateTags() }
+          <ShareButton
+            index={ index }
+            id={ recipe.id }
+            type={ recipe.type }
+          />
+        </td>
+      );
+    default:
+      break;
+    }
   };
 
   const generateFavoriteTable = () => (
@@ -45,9 +95,9 @@ export default function FavoritesCard({ favorite, index, updateCards, setUpdateC
               role="presentation"
               onClick={ handleOpenRecipe }
               data-testid={ `${index}-horizontal-image` }
-              alt={ favorite.name }
+              alt={ recipe.name }
               width="140"
-              src={ favorite.image }
+              src={ recipe.image }
             />
           </td>
         </tr>
@@ -61,25 +111,11 @@ export default function FavoritesCard({ favorite, index, updateCards, setUpdateC
               onClick={ handleOpenRecipe }
               data-testid={ `${index}-horizontal-name` }
             >
-              { favorite.name }
+              { recipe.name }
             </h5>
           </td>
         </tr>
-        <tr>
-          <td>
-            <ShareButton
-              index={ index }
-              id={ favorite.id }
-              type={ favorite.type }
-            />
-            <FavoriteButton
-              updateCards={ updateCards }
-              setUpdateCards={ setUpdateCards }
-              dataTestId={ `${index}-horizontal-favorite-btn` }
-              recipe={ favorite }
-            />
-          </td>
-        </tr>
+        <tr>{ generateActionButtons() }</tr>
       </tbody>
     </table>
   );
@@ -91,7 +127,7 @@ export default function FavoritesCard({ favorite, index, updateCards, setUpdateC
   );
 }
 
-FavoritesCard.propTypes = {
+DescriptionRecipeCard.propTypes = {
   favorite: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
