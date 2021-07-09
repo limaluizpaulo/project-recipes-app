@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CardRecipesDone from '../components/CardRecipesDone';
 import Header from '../components/Header';
 
-export default function CookedRecipes() {
+export default function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
 
   return (

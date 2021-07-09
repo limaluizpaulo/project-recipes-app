@@ -72,3 +72,14 @@ export async function getRandomRecipe(domain) {
     console.log(e.toString());
   }
 }
+
+export async function getDataById(domain, id) {
+  try {
+    const URL_DETAILS = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
+    const res = await fetch(URL_DETAILS);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}

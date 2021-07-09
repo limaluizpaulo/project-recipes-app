@@ -8,19 +8,21 @@ import { saveFavoriteRecipe } from '../storage/localStorage';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-import { fetchAPI } from '../services/apiRequest';
+import { getDataById, getRandomData } from '../services/apiRequest';
 
 const SIX = 6;
 
-export default function FoodAndDrinkById() {
+export default function Details() {
   const { path } = useRouteMatch();
+  const { id } = useParams();
+
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
+
   const recDomain = path.includes('/comidas')
     ? 'thecocktaildb' : 'themealdb';
   const recFirstKey = path.includes('/comidas')
     ? 'drinks' : 'meals';
-  const { id } = useParams();
 
   const history = useHistory();
 
@@ -28,27 +30,26 @@ export default function FoodAndDrinkById() {
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
 
-  useEffect(() => {
-    async function getRecipeDetails() {
-      const URL = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
-      const URL_RECOMENDATION = `https://www.${recDomain}.com/api/json/v1/1/search.php?s=`;
-      const resolved = await fetchAPI(URL);
-      const recResolved = await fetchAPI(URL_RECOMENDATION);
-
-      setSingleContent(resolved[firstKey] || []);
-      setRecomentation(recResolved[recFirstKey].filter((_e, index) => index < SIX));
-
-      const list = Object.entries(resolved[firstKey][0]).filter((el) => (
-        (el[0].includes('Ingredient')
-        || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
-
-      setIngridientsList(list);
-    }
-    getRecipeDetails().catch(console.log);
-  }, [id, domain, firstKey, recDomain, recFirstKey]);
-
   const imgSrc = path.includes('/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('/comidas') ? 'strMeal' : 'strDrink';
+
+  useEffect(() => {
+    async function getRecipeDetails() {
+      getDataById(domain, id).then((res) => {
+        setSingleContent(res[firstKey]);
+
+        const list = Object.entries(res[firstKey][0]).filter((el) => (
+          (el[0].includes('Ingredient')
+          || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
+
+        setIngridientsList(list);
+      });
+
+      getRandomData(recDomain).then((res) => setRecomentation(res[recFirstKey]
+        .filter((_e, index) => index < SIX)));
+    }
+    getRecipeDetails();
+  }, [id, domain, firstKey, recDomain, recFirstKey]);
 
   function handleFavorite() {
     saveFavoriteRecipe(id, path, singleContent[0])(title, imgSrc);
@@ -68,6 +69,7 @@ export default function FoodAndDrinkById() {
             data-testid="recipe-photo"
             src={ singleContent[0][imgSrc] }
             alt={ singleContent[0][title] }
+            width="200px"
           />
           <div className="recipe-heading-container">
             <div className="info-heading">

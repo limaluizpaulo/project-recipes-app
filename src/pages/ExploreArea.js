@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function ExploreFoodsByLocation() {
+export default function ExploreArea() {
   return (
     <>
       <Header />
@@ -10,5 +10,3 @@ function ExploreFoodsByLocation() {
     </>
   );
 }
-
-export default ExploreFoodsByLocation;

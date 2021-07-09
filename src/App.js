@@ -10,11 +10,11 @@ export default function App() {
       <Switch>
         <Route
           path="/comidas/:id/in-progress"
-          component={ Pages.FoodRecipeByIdProgress }
+          component={ Pages.InProgress }
         />
         <Route
           path="/comidas/:id"
-          component={ Pages.FoodAndDrinkById }
+          component={ Pages.Details }
         />
         <Route
           path="/comidas"
@@ -22,11 +22,11 @@ export default function App() {
         />
         <Route
           path="/bebidas/:id/in-progress"
-          component={ Pages.DrinkRecipeByIdProgress }
+          component={ Pages.InProgress }
         />
         <Route
           path="/bebidas/:id"
-          component={ Pages.FoodAndDrinkById }
+          component={ Pages.Details }
         />
         <Route
           path="/bebidas"
@@ -34,11 +34,11 @@ export default function App() {
         />
         <Route
           path="/explorar/comidas/ingredientes"
-          component={ Pages.ExploreByIngredients }
+          component={ Pages.ExploreByIngridients }
         />
         <Route
           path="/explorar/comidas/area"
-          component={ Pages.ExploreFoodsByLocation }
+          component={ Pages.ExploreArea }
         />
         <Route
           path="/explorar/comidas"
@@ -46,7 +46,7 @@ export default function App() {
         />
         <Route
           path="/explorar/bebidas/ingredientes"
-          component={ Pages.ExploreByIngredients }
+          component={ Pages.IngridientsExplorer }
         />
         <Route
           exact
@@ -63,7 +63,7 @@ export default function App() {
         />
         <Route
           path="/receitas-feitas"
-          component={ Pages.CookedRecipes }
+          component={ Pages.DoneRecipes }
         />
         <Route
           path="/receitas-favoritas"

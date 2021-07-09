@@ -6,10 +6,13 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { getDataIngredientsList } from '../services/apiRequest';
 
-function ExploreFoodsByIngredients() {
-  const [ingredientsList, setIngredientsList] = useState([]);
+export default function ExploreByIngridients() {
   const { limit, setIngredientsResults } = useContext(RecipesContext);
+
+  const [ingredientsList, setIngredientsList] = useState([]);
+
   const { path } = useRouteMatch();
+
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
   const secondKey = path.includes('/comidas') ? 'strIngredient' : 'strIngredient1';
@@ -53,5 +56,3 @@ function ExploreFoodsByIngredients() {
     </>
   );
 }
-
-export default ExploreFoodsByIngredients;

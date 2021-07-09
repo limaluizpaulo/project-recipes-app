@@ -6,7 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FoodRecipeByIdProgress() {
+export default function InProgress() {
   const { inProgress } = useContext(RecipesContext);
 
   function handleFinished() {
@@ -52,5 +52,3 @@ function FoodRecipeByIdProgress() {
     </>
   );
 }
-
-export default FoodRecipeByIdProgress;

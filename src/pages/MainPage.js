@@ -15,7 +15,8 @@ const TWELVE = 12;
 const FIVE = 5;
 export default function MainPage() {
   const { path } = useRouteMatch();
-  const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
+
+  const searchId = path.includes('/comidas') ? 'idMeal' : 'idDrink';
   const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
   const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
 
@@ -25,16 +26,12 @@ export default function MainPage() {
     setLimit,
     ingredientsResults,
   } = useContext(RecipesContext);
+
   const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
   const [toggle, setToggle] = useState({ status: false, category: '' });
-
-  const lintChato = searchByCategory
-    ? console.log('yayyy... Vamo usar ela depois')
-    : console.log('Droga de lint');
 
   useEffect(() => {
     async function getInitialStatePopulated() {
@@ -72,7 +69,6 @@ export default function MainPage() {
     } else {
       getDataByCategory(domain, category)
         .then((res) => {
-          setSearchByCategory(res[firstKey]);
           setRenderer(res[firstKey].filter((_e, index) => index < limit));
         });
       setToggle({ status: true, category });
@@ -94,12 +90,11 @@ export default function MainPage() {
         setRenderer(res[firstKey].filter((_e, index) => index < limit));
       });
     }
-    if (ingredientsResults.length !== 0) { fetchApiData(); }
+    if (ingredientsResults.length) { fetchApiData(); }
   }, [ingredientsResults, domain, firstKey, limit]);
 
   return (
     <>
-      {lintChato}
       <Header />
       {categoriesList.map((category) => (
         <Button
