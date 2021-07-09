@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
 
-import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
-// import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-import Instructions from '../components/Instructions';
-import DetailsHeader from '../components/DetailsHeader';
-import SharedFavorites from '../components/SharedFavorites';
-
-class Detalhes extends Component {s
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
-import Ingredients from '../components/Ingredients';
-import '../css/Details.css';
 import Instructions from '../components/Instructions';
+import Ingredients from '../components/Ingredients';
 import DetailsHeader from '../components/DetailsHeader';
 import SharedFavorites from '../components/SharedFavorites';
+
 import { fetchDrinkDetails, fetchFoodDetails,
   startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
 import 'slick-carousel/slick/slick.css';
@@ -79,7 +68,7 @@ class Detalhes extends Component {
     history.push(`/${page}/${id}/in-progress`);
     isStart();
   }
-  
+
   instrutionVideo(data) {
     const keyName = identification(data);
     return (

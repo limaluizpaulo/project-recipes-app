@@ -30,8 +30,8 @@ class App extends Component {
           />
           <Route path="/explorar/comidas" component={ Explorarcomidas } />
           <Route path="/explorar/bebidas" component={ Explorarcomidas } />
-          <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />
           <Route path="/:page/:id/in-progress" component={ Progresso } />
+          <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" />
           <Route path="/explorar" component={ Explorar } />
