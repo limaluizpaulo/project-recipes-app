@@ -21,13 +21,6 @@
   --small-font-size: .75rem;
 }
 
-@media screen and (min-width: 768px) {
-  :root {
-    --normal-font-size: 1rem;
-    --small-font-size: .875rem;
-  }
-}
-
 /*===== BASE =====*/
 *,::before,::after {
   box-sizing: border-box;
@@ -215,56 +208,6 @@ button {
 /* Esconder a tela de registro / login */
 .none {
   display: none;
-}
-
-/* ===== MEDIA QUERIES =====*/
-@media screen and (min-width: 576px){
-  .login {
-    justify-items: center;
-  }
-
-  .loginForms {
-    width: 348px;
-    justify-self: center;
-  }
-}
-
-@media screen and (min-width: 1024px){
-  .login {
-    display: grid;
-    height: 100vh;
-    overflow: hidden;
-    grid-template-columns: repeat(2, max-content);
-    justify-content: center;
-    align-items: center;
-    margin-left: 10rem;
-  }
-
-  .loginImg {
-    display: flex;
-    width: 600px;
-    height: 588px;
-    background-color: var(--first-color-lighten);
-    border-radius: 1rem;
-    padding-left: 1rem;
-  }
-
-  .loginImg img {
-    width: 390px;
-    margin-top: 0;
-  }
-
-  .loginRegister, .loginCreate{
-    left: -11rem;
-  }
-
-  .loginRegister {
-    bottom: -2rem;
-  }
-
-  .loginCreate {
-    bottom: -5.5rem;
-  }
 }
 
 /*  =========================================================================================================================*/
@@ -533,3 +476,64 @@ justify-items: center;
   cursor: pointer;
 }
 /*  ====================================================================================================================================*/
+/* ===== MEDIA QUERIES ================================================================================*/
+@media screen and (min-width: 576px){
+  /* LOGIN PAGE */
+  .login {
+    justify-items: center;
+  }
+
+  .loginForms {
+    width: 348px;
+    justify-self: center;
+  }
+}
+
+/* =========================================================================== */
+@media screen and (min-width: 768px) {
+  /* LOGIN PAGE */
+  :root {
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+  }
+}
+
+/* ============================================================================== */
+@media screen and (min-width: 1024px){
+  /* LOGIN PAGE */
+  .login {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    margin-left: 10rem;
+  }
+
+  .loginImg {
+    display: flex;
+    width: 600px;
+    height: 588px;
+    background-color: var(--first-color-lighten);
+    border-radius: 1rem;
+    padding-left: 1rem;
+  }
+
+  .loginImg img {
+    width: 390px;
+    margin-top: 0;
+  }
+
+  .loginRegister, .loginCreate{
+    left: -11rem;
+  }
+
+  .loginRegister {
+    bottom: -2rem;
+  }
+
+  .loginCreate {
+    bottom: -5.5rem;
+  }
+}
