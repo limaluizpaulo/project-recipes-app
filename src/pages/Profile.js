@@ -7,10 +7,11 @@ import Header from '../components/Header';
 
 export default function Profile() {
   const history = useHistory();
-  const email = JSON.parse(localStorage.getItem('user'));
+  const { email } = JSON.parse(localStorage.getItem('user'));
 
   const clickButton = ({ target: { name } }) => {
     const domain = name === 'login' ? '' : name;
+    console.log(`/${domain}`);
     history.push(`/${domain}`);
   };
 
@@ -18,7 +19,7 @@ export default function Profile() {
     <>
       <Header />
       <p data-testid="profile-email">
-        { email && Object.values(email) }
+        { email }
       </p>
       <Button
         data-testid="profile-done-btn"

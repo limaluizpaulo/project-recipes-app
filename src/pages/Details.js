@@ -68,78 +68,76 @@ export default function Details() {
   }
 
   if (!singleContent[0]) return <h1>Loading...</h1>;
-  return (
-    <>
-      { singleContent.length > 0
-      && (
-        <>
-          <img
-            data-testid="recipe-photo"
-            src={ singleContent[0][imgSrc] }
-            alt={ singleContent[0][title] }
-            width="200px"
-          />
-          <div className="recipe-heading-container">
-            <div className="info-heading">
-              <h3 data-testid="recipe-title">{singleContent[0][title]}</h3>
-              <p data-testid="recipe-category">
-                {
-                  firstKey === 'drinks'
-                    ? singleContent[0].strAlcoholic
-                    : singleContent[0].strCategory
-                }
+  if (singleContent[0]) {
+    const { strAlcoholic, strCategory, strInstructions, strYoutube } = singleContent[0];
+    return (
+      <>
+        <img
+          data-testid="recipe-photo"
+          src={ singleContent[0][imgSrc] }
+          alt={ singleContent[0][title] }
+          width="200px"
+        />
+        <div className="recipe-heading-container">
+          <div className="info-heading">
+            <h3 data-testid="recipe-title">{singleContent[0][title]}</h3>
+            <p data-testid="recipe-category">
+              {
+                firstKey === 'drinks'
+                  ? strAlcoholic
+                  : strCategory
+              }
+            </p>
+          </div>
+          <Button>
+            <img data-testid="share-btn" src={ shareIcon } alt="" />
+          </Button>
+          <Button onClick={ handleFavorite }>
+            <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+          </Button>
+        </div>
+        <div className="ingredients-container">
+          <h4>
+            Ingredients
+          </h4>
+          {handleIngredientsData().map((string, i) => (
+            <div key={ i }>
+              <p data-testid={ `${i}-ingredient-name-and-measure` }>
+                { string }
               </p>
             </div>
-            <Button>
-              <img data-testid="share-btn" src={ shareIcon } alt="" />
-            </Button>
-            <Button onClick={ handleFavorite }>
-              <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-            </Button>
-          </div>
-          <div className="ingredients-container">
-            <h4>
-              Ingredients
-            </h4>
-            {handleIngredientsData().map((string, i) => (
-              <div key={ i }>
-                <p data-testid={ `${i}-ingredient-name-and-measure` }>
-                  { string }
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="instructions-video-container">
-            <p data-testid="instructions">
-              {singleContent[0].strInstructions}
-            </p>
-            { path.includes('/comidas') && (
-              <VideoPlayer
-                testID="video"
-                videoLink={ singleContent[0].strYoutube }
-                recipeTitle={ singleContent[0][title] }
-              />
-            ) }
-          </div>
-        </>
-      )}
-      <div className="recomendations-container">
-        { recomendations.map((item, i) => (
-          <Card
-            key={ i }
-            mealOrDrink={ item }
-            index={ i }
-            testId="recomendation"
-          />
-        ))}
-      </div>
+          ))}
+        </div>
+        <div className="instructions-video-container">
+          <p data-testid="instructions">
+            {strInstructions}
+          </p>
+          { path.includes('/comidas') && (
+            <VideoPlayer
+              testID="video"
+              videoLink={ strYoutube }
+              recipeTitle={ singleContent[0][title] }
+            />
+          ) }
+        </div>
+        <div className="recomendations-container">
+          { recomendations.map((item, i) => (
+            <Card
+              key={ i }
+              mealOrDrink={ item }
+              index={ i }
+              testId="recomendation"
+            />
+          ))}
+        </div>
 
-      <Button
-        onClick={ handleRecipeInProgress }
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </Button>
-    </>
-  );
+        <Button
+          onClick={ handleRecipeInProgress }
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </Button>
+      </>
+    );
+  }
 }
