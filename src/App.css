@@ -1,3 +1,7 @@
+html {
+  width: 320px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

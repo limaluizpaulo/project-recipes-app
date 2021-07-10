@@ -5,9 +5,12 @@
 }
 
 .explore-btn {
-  border: 3px black outset;
+  background-color: #2a9d8f;
+  border: 2px solid #264653;
   border-radius: 20px;
-  height: 60px;
-  margin: 5% 2%;
-  width: 96%;
+  color: white;
+  font-weight: 600;
+  height: 40px;
+  margin-top: 10%;
+  width: 90%;
 }

@@ -1,3 +1,9 @@
+.carousel {
+  margin: auto;
+  margin-bottom: 60px;
+  width: 90%;
+}
+
 div .card {
   width: 100px;
 }

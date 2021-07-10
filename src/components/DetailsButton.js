@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import saveInProgress from '../services/SaveInProgress';
+import '../styles/ReceitaDetalhes.css';
 
 function DetailsButton(props) {
   const { push } = useHistory();

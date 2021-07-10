@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/ReceitaDetalhes.css';
 
 function EmbedVideo(props) {
   const { value } = props;
@@ -22,7 +23,7 @@ function EmbedVideo(props) {
     );
   }
   return (
-    <div data-testid="video">
+    <div className="video" data-testid="video">
       No video found for this recipe.
       <br />
     </div>
