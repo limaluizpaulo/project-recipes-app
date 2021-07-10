@@ -19,7 +19,7 @@ export const makeRecipe = ({ url }, history) => {
       },
       [remnant]: {},
     };
-    localStorage.setItem('inProgressRecipes', JSON.stringify([inProgressRecipes]));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     history.push(`/${mealOrDrink}/${id}/in-progress`);
   }
 
