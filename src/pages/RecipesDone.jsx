@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { copyEachLink } from '../services/functions';
+
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDone() {
+  const [isCopied, setIsCopied] = useState([]);
   const rawDestructuredStorage = localStorage.getItem('doneRecipes');
   const destructuredStorage = JSON.parse(rawDestructuredStorage);
-  let a;
+  let AlcoholicAreaCategory;
   const checkAlcoholicOrNot = () => (
     destructuredStorage.map((each, index) => {
       if (each.alcoholicOrNot.length > 0) {
-        a = each.alcoholicOrNot;
+        AlcoholicAreaCategory = each.alcoholicOrNot;
       } else {
-        a = `${each.area} - ${each.category}`;
+        AlcoholicAreaCategory = `${each.area} - ${each.category}`;
       }
       return (
         <section key={ index }>
@@ -24,16 +27,22 @@ function RecipesDone() {
           <h1
             data-testid={ `${index}-horizontal-top-text` }
           >
-            {a}
+            {AlcoholicAreaCategory}
           </h1>
           <h1 data-testid={ `${index}-horizontal-name` }>{each.name}</h1>
           <p data-testid={ `${index}-horizontal-done-date` }>{each.doneDate}</p>
-          <button type="button">
+          <button
+            type="button"
+            onClick={ () => setIsCopied(
+              copyEachLink(`/${each.type}s/${each.id}`, index),
+            ) }
+          >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="shareIcon"
             />
+            {isCopied[index] ? <p>Link copiado!</p> : null }
           </button>
           <div data-testid={ `${index}-Pasta-horizontal-tag` }>{each.tags[0]}</div>
           <div data-testid={ `${index}-Curry-horizontal-tag` }>{each.tags[1]}</div>

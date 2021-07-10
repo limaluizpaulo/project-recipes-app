@@ -5,6 +5,11 @@ export const copyLink = ({ url }) => {
   return true;
 };
 
+export const copyEachLink = (url, index) => {
+  copy(`http://localhost:3000${url}`);
+  return { [index]: true };
+};
+
 export const copyLinkInProgress = ({ url }) => {
   const splittedURL = url.split('/');
   const urlNoProgress = `/${splittedURL[1]}/${splittedURL[2]}`;
