@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
@@ -36,3 +37,9 @@ export default function ShareButtonPerfil({ type, id, index }) {
     </main>
   );
 }
+
+ShareButtonPerfil.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string,
+  index: PropTypes.string,
+}.isRequired;

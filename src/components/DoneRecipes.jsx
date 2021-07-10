@@ -34,25 +34,25 @@ export default function DoneRecipes() {
                 width="50px"
               />
             </Link>
+            <Link to={ `/${type}s/${id}` }>
+
+              <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+
+            </Link>
             {area === '' ? null : (
-              <p
+              <h4
                 data-testid={ `${index}-horizontal-top-text` }
               >
                 {`${area} - ${category} `}
 
-              </p>
+              </h4>
             )}
             {alcoholicOrNot === '' ? null : (
-              <p data-testid={ `${index}-horizontal-top-text` }>
+              <h4 data-testid={ `${index}-horizontal-top-text` }>
                 {alcoholicOrNot}
-              </p>
+              </h4>
             )}
-            <Link to={ `/${type}s/${id}` }>
-
-              <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-
-            </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>{type}</p>
+            <h5 data-testid={ `${index}-horizontal-top-text` }>{type}</h5>
             <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
             <ShareButtonPerfil id={ id } type={ type } index={ index } />
             <div>
