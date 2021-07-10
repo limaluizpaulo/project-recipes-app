@@ -1,5 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 import RecipeIngredients from './RecipeIngredients';
 import LikeButton from './LikeButton';
@@ -25,8 +27,9 @@ export default function RenderDetails({ btnFinish, id }) {
   };
 
   const renderRecipe = () => (
-    <div>
-      <div>
+    <div data-aos="fade-up" className="recipeDetails">
+      {/* -------------------------------------------------------------------------- */}
+      <div className="box topDetails">
         <div className="titleDetails">
           <h1 data-testid="recipe-title">
             { recipeDetail.strMeal || recipeDetail.strDrink }
@@ -37,6 +40,8 @@ export default function RenderDetails({ btnFinish, id }) {
               recipeDetail.strAlcoholic
             ) }
           </h5>
+          <h3>Ingredientes</h3>
+          <RecipeIngredients Details />
         </div>
         <div className="imageButtons">
           <img
@@ -51,16 +56,14 @@ export default function RenderDetails({ btnFinish, id }) {
           </span>
         </div>
       </div>
-      <div>
-        <h3>Ingredientes</h3>
-        <RecipeIngredients Details />
-      </div>
-      <div>
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="fade-up" className="box instrDetails">
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
       </div>
+      {/* -------------------------------------------------------------------------- */}
       {(foods) ? (
-        <div>
+        <div data-aos="fade-up" className="box videoDetails">
           <h3>Vídeo</h3>
           <iframe
             title="recipeVideo"
@@ -74,26 +77,39 @@ export default function RenderDetails({ btnFinish, id }) {
           />
         </div>
       ) : ('')}
-      <div className="recommendedRecipes">
-        <h3>Receitas Recomendadas</h3>
-        <RecommendedRecipes />
-      </div>
-      <Link
-        to={ (foods) ? (
-          `/comidas/${recipeDetail.idMeal}/in-progress`) : (
-          `/bebidas/${recipeDetail.idDrink}/in-progress`) }
-      >
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
-          onClick={ setRecipeInLS }
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="zoom-out-down" className="box bottomDetails">
+        <div className="recommendedRecipes">
+          <h3>Receitas Recomendadas</h3>
+          <RecommendedRecipes />
+        </div>
+        <Link
+          to={ (foods) ? (
+            `/comidas/${recipeDetail.idMeal}/in-progress`) : (
+            `/bebidas/${recipeDetail.idDrink}/in-progress`) }
         >
-          {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
-        </button>
-      </Link>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
+            onClick={ setRecipeInLS }
+          >
+            {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        </Link>
+      </div>
+      {/* -------------------------------------------------------------------------- */}
     </div>
   );
+
+  // ---------------------------------------------------------------------------------------------
+  // CICLOS DE VIDA
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
+
+  // ---------------------------------------------------------------------------------------------
 
   return (
     renderRecipe()
