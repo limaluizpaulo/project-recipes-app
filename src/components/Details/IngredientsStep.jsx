@@ -38,7 +38,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
           if (index === (Number.parseInt(arrayIds[index2], RADIX))) {
             className = STRIPE_CLASS;
             classValue = true;
-            // checkboxes[index].checked = true;
             break;
           } else {
             className = NOT_STRIPE_CLASS;
@@ -104,12 +103,6 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
             ...inProgress,
             [curr]: { ...inProgress[curr], [id]: [] },
           }));
-      // } else if (!inProgress[curr][id]) {
-        // localStorage.setItem('inProgressRecipes', JSON
-        //   .stringify({
-        //     ...inProgress,
-        //     [curr]: { ...inProgress[curr], [id]: [] },
-        //   }));
       } else {
         localStorage.setItem('inProgressRecipes', JSON
           .stringify({

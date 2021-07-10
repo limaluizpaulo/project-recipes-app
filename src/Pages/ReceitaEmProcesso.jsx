@@ -9,7 +9,7 @@ import IngredientsStep from '../components/Details/IngredientsStep';
 import Instructions from '../components/Details/Instructions';
 
 export default function ReceitaEmProcesso({ location }) {
-  const { currentRecipe, storeCurrentRecipe } = useContext(Context);
+  const { currentRecipe, storeCurrentRecipe, curr } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image, ingredients,
   } = currentRecipe;
@@ -20,7 +20,7 @@ export default function ReceitaEmProcesso({ location }) {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
-  const activeButton = (curr) => {
+  const activeButton = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
     if (currentRecipe.ingredients.length === (
@@ -30,22 +30,8 @@ export default function ReceitaEmProcesso({ location }) {
   };
 
   useEffect(() => {
-    let curr = location.pathname.split('/')[1];
-
-    switch (curr) {
-    case 'comidas':
-      curr = 'meals';
-      break;
-    case 'bebidas':
-      curr = 'cocktails';
-      break;
-
-    default:
-      break;
-    }
-
     if (currentRecipe.ingredients) {
-      activeButton(curr);
+      activeButton();
     }
   });
 

@@ -10,31 +10,30 @@ import Instructions from '../components/Details/Instructions';
 import Video from '../components/Details/Video';
 
 export default function DetalhesComida({ location }) {
-  const { currentRecipe, storeCurrentRecipe } = useContext(Context);
+  const { currentRecipe, storeCurrentRecipe, curr } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image, video, ingredients,
   } = currentRecipe;
   const history = useHistory();
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
   const renderInProgressPage = () => {
-    // localStorage.setItem( // add key no localStorage
-    //   'inProgressRecipes',
-    //   JSON.stringify(
-    //     {
-    //       cocktails: {},
-    //       meals: {},
-    //     },
-    //   ),
-    // );
     if (video) {
       history.push(`/comidas/${id}/in-progress`);
     } else {
       history.push(`/bebidas/${id}/in-progress`);
     }
+  };
+
+  const continueRecipeText = () => {
+    if (inProgress && inProgress[curr] && inProgress[curr][currentRecipe.id]) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -57,7 +56,7 @@ export default function DetalhesComida({ location }) {
           variant="warning"
           block
         >
-          Iniciar Receita
+          { continueRecipeText() ? 'Continuar Receita' : 'Iniciar Receita' }
         </Button>
       </Container>
     ) : <Spinner variant="danger" animation="border" />
