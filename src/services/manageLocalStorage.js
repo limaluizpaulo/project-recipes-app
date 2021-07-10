@@ -1,6 +1,7 @@
 import React from 'react';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { generateCorrectObj } from './functions';
 
 export const makeRecipe = ({ url }, history) => {
   const mealOrDrink = url.split('/')[1];
@@ -209,7 +210,16 @@ export const finishRecipe = (id, details, history) => {
   const rawDoneRecipes = localStorage.getItem('doneRecipes');
   const doneRecipes = JSON.parse(rawDoneRecipes);
   if (!doneRecipes) {
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    const firstDoneRecipe = generateCorrectObj(details);
+    localStorage.setItem('doneRecipes', JSON.stringify([firstDoneRecipe]));
+  }
+  if (doneRecipes && !doneRecipes.some((eachDone) => eachDone.id === id)) {
+    const lastDoneRecipe = generateCorrectObj(details);
+    const newArrayRecipe = [
+      ...doneRecipes,
+      lastDoneRecipe,
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(newArrayRecipe));
   }
   history.push('/receitas-feitas');
 };
