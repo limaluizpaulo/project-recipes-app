@@ -8,7 +8,8 @@ import identification from '../helper/dictionaryApi';
 
 class Ingredients extends Component {
   checkIngredient() {
-    const { count, recipesLength, func } = this.props;
+//  const { count, recipesLength, func } = this.props;
+    const { func } = this.props;
 
     return (
       <input onClick={ func } type="checkbox" />
