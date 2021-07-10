@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import Card from '../components/Card';
@@ -9,7 +9,6 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import { getDataById, getRandomData } from '../services/apiRequest';
-import RecipesContext from '../context/RecipesContext';
 
 const SIX = 6;
 
@@ -30,8 +29,6 @@ export default function Details() {
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
-
-  const { setInProgress } = useContext(RecipesContext);
 
   const imgSrc = path.includes('comidas') ? 'strMealThumb' : 'strDrinkThumb';
   const title = path.includes('comidas') ? 'strMeal' : 'strDrink';
@@ -67,8 +64,7 @@ export default function Details() {
   }
 
   function handleRecipeInProgress() {
-    setInProgress([handleIngredientsData(), singleContent[0]]);
-    history.push(`${path}/in-progress`);
+    history.push(`${path.replace(':id', `${id}`)}/in-progress`);
   }
 
   if (!singleContent[0]) return <h1>Loading...</h1>;
