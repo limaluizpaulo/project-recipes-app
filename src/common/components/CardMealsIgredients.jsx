@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchAPI, EXPLORER_ING_MEALS } from '../../services';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import store, { addRecipes } from '../../context/store';
+import { fetchAPI, EXPLORER_ING_MEALS, INGREDIENT_MEALS } from '../../services';
 
 export default function CardMealsIgredients() {
+  const history = useHistory();
+  const { recipes, setRecipes } = useContext(store);
   const [dataCadsIgredientMeals, setDataCadsIgredientMeals] = useState([]);
 
   useEffect(() => {
@@ -10,33 +13,60 @@ export default function CardMealsIgredients() {
       .then((response) => setDataCadsIgredientMeals(response.meals));
   }, []);
 
+  function setMeals(response) {
+    const { drinks, categoriesMeals, categoriesDrinks } = recipes;
+    setRecipes(addRecipes(
+      response.meals, drinks, categoriesMeals, categoriesDrinks,
+    ));
+  }
+
+  function setIgredient(id) {
+    console.log(id);
+    fetchAPI(`${INGREDIENT_MEALS}${id}`)
+      .then((response) => setMeals(response));
+  }
+
+  const handleClick = ({ target: { id } }) => {
+    setIgredient(id);
+    history.push('/comidas');
+  };
+
   return (
     dataCadsIgredientMeals
       ? (
         <div>
-          {dataCadsIgredientMeals.slice(0, '12').map((item, index) => (
-            <Link
-              to={ `/comidas/${item.strIngredient}` }
-              key={ item.idIngredient }
+          {dataCadsIgredientMeals.slice(0, '12')
+            .map(({ idIngredient, strIngredient }, index) => (
 
-            >
               <div
                 data-testid={ `${index}-ingredient-card` }
+                id={ strIngredient }
+                key={ idIngredient }
+                onClick={ handleClick }
+                onKeyDown={ handleClick }
+                role="button"
+                tabIndex={ index }
               >
                 <div
                   className="imgContainer"
                 >
                   <img
-                    src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}.png` }
-                    alt={ item.strIngredient }
+                    src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-small.png` }
+                    alt={ strIngredient }
                     data-testid={ `${index}-card-img` }
+                    id={ strIngredient }
                     width="150px"
                   />
-                  <span data-testid={ `${index}-card-name` }>{item.strIngredient}</span>
+                  <span
+                    data-testid={ `${index}-card-name` }
+                    id={ strIngredient }
+                  >
+                    {strIngredient}
+
+                  </span>
                 </div>
               </div>
-            </Link>
-          ))}
+            ))}
         </div>) : <h5>Loading...</h5>
   );
 }
