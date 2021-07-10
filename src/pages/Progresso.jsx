@@ -114,10 +114,10 @@ class Progresso extends Component {
     }
     this.setState({ count: count + 1 });
   }
-//   updateState() {
-//     const { id } = this.state;
-//     this.setState({ should: true });
-//   }
+  //   updateState() {
+  //     const { id } = this.state;
+  //     this.setState({ should: true });
+  //   }
 
   render() {
     const { details } = this.props;
@@ -150,7 +150,7 @@ class Progresso extends Component {
                 count={ count }
                 func={ this.onClick }
                 recipesLength={ recipesLength }
-            />
+              />
             </span>
           </section>
           <section data-testid="instructions">
