@@ -26,6 +26,12 @@ export default function RenderDetails({ btnFinish, id }) {
 
   const renderRecipe = () => (
     <div>
+      <h5 data-testid="recipe-category">
+        Categoria:
+        { (foods) ? recipeDetail.strCategory : (
+          recipeDetail.strAlcoholic
+        ) }
+      </h5>
       <img
         data-testid="recipe-photo"
         src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
@@ -42,12 +48,6 @@ export default function RenderDetails({ btnFinish, id }) {
             <LikeButton recipe={ recipeDetail } />
           </span>
         </div>
-        <h5 data-testid="recipe-category">
-          Categoria:
-          { (foods) ? recipeDetail.strCategory : (
-            recipeDetail.strAlcoholic
-          ) }
-        </h5>
       </div>
       <div>
         <h3>Ingredientes</h3>
