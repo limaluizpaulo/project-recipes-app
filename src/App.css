@@ -96,12 +96,12 @@ body {
   display: flex;
   flex-direction: row;
   height: 10%;
-  padding: 1% 10%;
   margin-bottom: 3%;
+  padding: 1% 10%;
 }
 
-H2 {
-  margin: 10px
+h2 {
+  margin: 10px;
 }
 
 h4 {
@@ -117,15 +117,15 @@ h5 {
   padding: 10% 10% 1% 1%;
 }
 
-.col{
+.col {
   margin-bottom: 2%;
 }
 
-.btn{
+.btn {
   margin: 0.5% 2.5%;
 }
 
-.container{
+.container {
   text-align: center;
 }
 
@@ -143,17 +143,17 @@ h5 {
 }
 
 .preparo {
+  align-self: center;
+  border-style: double;
   margin: 2%;
   padding: 2%;
-  border-style: double;
-  align-self: center;
 }
 
 .salvarcompartilhar {
-display: flex;
-flex-direction: row;
-justify-content: flex-end;
-margin: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 2%;
 }
 
 .favoritebtn {
@@ -167,9 +167,9 @@ margin: 2%;
 }
 
 .iniciarbtn {
-  color: rgb(194, 10, 47);
   background-color: rgb(251, 228, 170);
-  opacity: 50%;
   border-style: groove;
+  color: rgb(194, 10, 47);
+  opacity: 50%;
   padding: 0.5px 5px;
 }
