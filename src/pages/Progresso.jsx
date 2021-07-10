@@ -38,19 +38,14 @@ class Progresso extends Component {
     this.updateState();
     console.log(localStorage);
     if (localStorage.length === 0) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({ cocktails: {}, meals: {} }));
     }
 
     if (page === 'comidas') {
       return foodDetails(id);
     }
     return drinksDetails(id);
-  }
-
-  updateState() {
-    const { id } = this.state;
-
-    this.setState({ should: true });
   }
 
   handleFavClick() {
@@ -69,48 +64,48 @@ class Progresso extends Component {
     }
   }
 
-  test(param) {
-    const { details, location } = this.props;
-    const { id, recipesLength, should } = this.state;
-    console.log(details);
+//   test(param) {
+//     const { details, location } = this.props;
+//     const { id, recipesLength, should } = this.state;
+//     console.log(details);
 
-    const total = [];
+//     const total = [];
 
-    if (should === true) {
-      const keyName = identification(details);
-      // console.log(keyName);
+//     if (should === true) {
+//       const keyName = identification(details);
+//       // console.log(keyName);
 
-      keyName.Ingredients.map((ingredient) => {
-        if (param[ingredient[0]] !== null && param[ingredient[0]] !== '') {
-          total.push(ingredient[0]);
-          // console.log(param[ingredient[0]]);
-        }
-        return this.setState({ recipesLength: total.length, id: details.idMeal, should: false });
-      });
-    }
+//       keyName.Ingredients.map((ingredient) => {
+//         if (param[ingredient[0]] !== null && param[ingredient[0]] !== '') {
+//           total.push(ingredient[0]);
+//           // console.log(param[ingredient[0]]);
+//         }
+//         return this.setState({ recipesLength: total.length, id: details.idMeal, should: false });
+//       });
+//     }
 
-    if (details !== undefined && location.pathname.includes('comidas')) {
-      const { id } = this.state;
-      if (param !== null) {
-        // return this.setState({ id: param, should: true });
-        const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        console.log(recovery);
-        recovery.meals[details.idMeal] = 'pão';
+//     if (details !== undefined && location.pathname.includes('comidas')) {
+//       const { id } = this.state;
+//       if (param !== null) {
+//         // return this.setState({ id: param, should: true });
+//         const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//         console.log(recovery);
+//         recovery.meals[details.idMeal] = 'pão';
 
-        // const meals = [];
-        // meals.push(recovery);
-        // // meals.push(details.idMeal);
-        localStorage.setItem('inProgressRecipes', JSON.stringify(recovery));
-        // return console.log('setei o id');
-      }
-      // meals.push(id);
-    }
-    if (details !== undefined && location.pathname.includes('bebidas')) {
-      const meals = { id: details.idMeal };
-      localStorage.setItem('inProgressRecipes', JSON.stringify({ meals }));
-      return console.log(meals);
-    }
-  }
+//         // const meals = [];
+//         // meals.push(recovery);
+//         // // meals.push(details.idMeal);
+//         localStorage.setItem('inProgressRecipes', JSON.stringify(recovery));
+//         // return console.log('setei o id');
+//       }
+//       // meals.push(id);
+//     }
+//     if (details !== undefined && location.pathname.includes('bebidas')) {
+//       const meals = { id: details.idMeal };
+//       localStorage.setItem('inProgressRecipes', JSON.stringify({ meals }));
+//       return console.log(meals);
+//     }
+//   }
 
   onClick() {
     const { count, recipesLength } = this.state;
@@ -118,6 +113,11 @@ class Progresso extends Component {
       this.setState({ isDisable: false });
     }
     this.setState({ count: count + 1 });
+  }
+  
+  updateState() {
+//     const { id } = this.state;
+    this.setState({ should: true });
   }
 
   render() {
@@ -186,6 +186,7 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+  location: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);
