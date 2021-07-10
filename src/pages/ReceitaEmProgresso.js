@@ -175,7 +175,7 @@ function ReceitaEmProgresso({ match }) {
       <Title value={ titleParams } />
       <IngredientsStep value={ ingredientsStepProps } />
       <Instructions value={ recipe } />
-      <InProgressButton value={ { ingredientsQuantity, checked } } />
+      <InProgressButton value={ { ingredientsQuantity, checked, recipe } } />
     </main>
   );
 }

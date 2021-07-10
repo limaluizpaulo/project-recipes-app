@@ -9,7 +9,6 @@ import fetchDrink,
 { DRINK_BY_INGREDIENT, DRINK_BY_LETTER, DRINK_BY_NAME } from '../services/DrinkAPI';
 
 function RecipesProvider({ children }) {
-  // const [state, newState] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassowd] = useState('');
 
@@ -42,7 +41,25 @@ function RecipesProvider({ children }) {
     const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
     history.push(link);
   }
-  // searchBar
+  //
+
+  // Receitas Feitas
+  function doneRecipes(recipe) {
+    console.log(recipe);
+    const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    localStorage.setItem('doneRecipes', JSON.stringify([...done, {
+      id: recipe.idMeal,
+      type: recipe.strCategory,
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: null,
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: null,
+      tags: recipe.strTags,
+    }]));
+  }
+  //
 
   const context = {
     email,
@@ -57,6 +74,7 @@ function RecipesProvider({ children }) {
     setEndpoint,
     results,
     setResults,
+    doneRecipes,
   };
 
   return (
