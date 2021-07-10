@@ -22,7 +22,7 @@ const FoodDetailsButton = () => {
   };
 
   const handleSubmit = () => {
-    setRecipeToProgress();
+    if (!isInProgress)setRecipeToProgress();
     Redirect();
   };
 
