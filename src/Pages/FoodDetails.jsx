@@ -5,6 +5,8 @@ import { getFoods } from '../redux/actions';
 import MealAPI from '../services/MealRecipesAPI';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import CarroselBebidas from '../Components/CarroselBebidas';
+import Share from '../images/shareIcon.svg';
+import Favorite from '../images/whiteHeartIcon.svg';
 
 class FoodDetails extends React.Component {
   constructor(props) {
@@ -111,8 +113,18 @@ class FoodDetails extends React.Component {
               <CarroselBebidas recomendations={ recomendations } />
             </>
           ))}
-          <button type="button" data-testid="share-btn">share</button>
-          <button type="button" data-testid="favorite-btn">favorite</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+          >
+            <img alt="share-btn" src={ Share } />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+          >
+            <img alt="favorite-btn" src={ Favorite } />
+          </button>
           <button
             type="button"
             className={ `btn-iniciar-receita ${visible}` }

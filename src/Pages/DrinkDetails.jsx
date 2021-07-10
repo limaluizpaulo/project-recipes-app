@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { copy } from 'fs-extra';
 import { getDrinks } from '../redux/actions';
 import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
+import Share from '../images/shareIcon.svg';
+import Favorite from '../images/whiteHeartIcon.svg';
 
 class DrinkDetails extends React.Component {
   constructor(props) {
@@ -19,6 +22,7 @@ class DrinkDetails extends React.Component {
     this.getIngredients = this.getIngredients.bind(this);
     this.checkBtnReceita = this.checkBtnReceita.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
+    this.shareChecker = this.shareChecker.bind(this);
   }
 
   componentDidMount() {
@@ -80,6 +84,7 @@ class DrinkDetails extends React.Component {
 
   render() {
     const { valueDrink, ingredients, recomendations, visible } = this.state;
+    const copy = require('clipboard-copy');
     if (valueDrink[0]) {
       return (
         <div>
@@ -109,8 +114,19 @@ class DrinkDetails extends React.Component {
               <CarroselComidas recomendations={ recomendations } />
             </>
           ))}
-          <button type="button" data-testid="share-btn">Search</button>
-          <button type="button" data-testid="favorite-btn">favorite</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => { copy('Link copiado!'); } }
+          >
+            <img alt="share-btn" src={ Share } />
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+          >
+            <img alt="favorite-btn" src={ Favorite } />
+          </button>
           <button
             type="button"
             className={ `btn-iniciar-receita ${visible}` }
