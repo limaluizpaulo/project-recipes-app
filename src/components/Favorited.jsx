@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import unfavIcon from '../images/blackHeartIcon.svg';
 
+import '../styles/FavRecipes.css';
 import '../styles/DoneRecipes.css';
 
 function Favorited(props) {
@@ -12,9 +13,9 @@ function Favorited(props) {
     indexNumber, setCopied, shareRecipe,
     unfavoriteRecipe, unfavoriteFilteredRecipe } = props;
   const renderAllRecipes = () => (
-    <main className="maincards">
+    <main className="maincards top-main">
       {favoriteList.map((favoriteRecipe, index) => (
-        <div key={ index } className="card">
+        <div key={ index } className="generic-card">
           <Link to={ `${favoriteRecipe.type}s/${favoriteRecipe.id}` }>
             <img
               src={ favoriteRecipe.image }
@@ -22,7 +23,12 @@ function Favorited(props) {
               data-testid={ `${index}-horizontal-image` }
               width="150px"
             />
-            <h4 data-testid={ `${index}-horizontal-name` }>{favoriteRecipe.name}</h4>
+            <h4
+              className="card-name"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {favoriteRecipe.name}
+            </h4>
           </Link>
           <h6 data-testid={ `${index}-horizontal-top-text` }>
             {favoriteRecipe.area}
@@ -60,10 +66,10 @@ function Favorited(props) {
     </main>);
 
   const renderByCategory = () => (
-    <main>
+    <main className="maincards top-main">
       {favoriteList.filter((recipe) => recipe.type === category)
         .map((favoriteRecipe, index) => (
-          <div key={ index } className="card">
+          <div key={ index } className="generic-card">
             <Link to={ `${favoriteRecipe.type}s/${favoriteRecipe.id}` }>
               <img
                 src={ favoriteRecipe.image }
@@ -71,7 +77,12 @@ function Favorited(props) {
                 data-testid={ `${index}-horizontal-image` }
                 width="150px"
               />
-              <h4 data-testid={ `${index}-horizontal-name` }>{favoriteRecipe.name}</h4>
+              <h4
+                className="card-name"
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {favoriteRecipe.name}
+              </h4>
             </Link>
             <h6 data-testid={ `${index}-horizontal-top-text` }>
               {favoriteRecipe.area}
@@ -79,6 +90,7 @@ function Favorited(props) {
               {' - '}
               {favoriteRecipe.category}
             </h6>
+            <br />
             <button
               type="button"
               onClick={ () => unfavoriteFilteredRecipe(favoriteRecipe.id) }
