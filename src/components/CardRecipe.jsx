@@ -5,6 +5,7 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg'
+import { Link } from 'react-router-dom';
 
 function CardRecipe({ id }) {
   const { data, imgRecipes, nameRecipes, typeFunc } = useContext(FetchContext);
@@ -36,12 +37,22 @@ function CardRecipe({ id }) {
     }
   }, [])
 
+  if (data.length > 0) {
+    const result = Object.keys(data[0]);
+    var filterIngredients = result.filter(
+      (res) => res.includes('strIngredient') && data[0][res],
+    );
+  }
+
+  console.log(filterIngredients)
+
   const renderCheckbox = () => {
     const result = Object.keys(data[0]);
 
     const filterIngredients = result.filter(
       (res) => res.includes('strIngredient') && data[0][res],
     );
+
     const filterMeasures = result.filter(
       (res) => res.includes('strMeasure') && data[0][res],
     );
@@ -73,6 +84,7 @@ function CardRecipe({ id }) {
         return localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
       }
 
+      console.log(progressObject[typeFunc][id])
       progressObject[typeFunc][id].splice(progressObject[typeFunc][id].indexOf(num), 1);
       localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
     }
@@ -120,7 +132,7 @@ function CardRecipe({ id }) {
     }
 
     let newFavorite = [];
-    if(typeFunc === 'meals') {
+    if (typeFunc === 'meals') {
       newFavorite = [
         ...favoriteRecipes,
         {
@@ -171,12 +183,15 @@ function CardRecipe({ id }) {
             </ul>
             <h2>Instructions</h2>
             <p data-testid="instructions">{recipe.strInstructions}</p>
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-            >
-              Finalizar Receita
-            </button>
+            <Link to="/receitas-feitas">
+              <button
+                type="button"
+                data-testid="finish-recipe-btn"
+                disabled={ checkArr.filter((res) => res).length !== filterIngredients.length }
+              >
+                Finalizar Receita
+              </button>
+            </Link>
           </div>
         ))
       }
