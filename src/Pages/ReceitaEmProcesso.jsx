@@ -11,8 +11,8 @@ import Instructions from '../components/Details/Instructions';
 export default function ReceitaEmProcesso({ location }) {
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
   const {
-    id, name, category, alcoholicOrNot, instructions, image, ingredients,
-  } = currentRecipe;
+    id, name, category, alcoholicOrNot, instructions, image,
+    ingredients, area, type, tags } = currentRecipe;
   const [allStepsOk, setAllStepsOk] = useState(true);
   const history = useHistory();
 
@@ -33,6 +33,27 @@ export default function ReceitaEmProcesso({ location }) {
     setAllStepsOk(completeSteps.some((step) => step === false));
   };
 
+  const doneRecipe = () => {
+    // *SOURCE* https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const recipe = [{
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      doneDate: `${day}/${month}/${year}`,
+      tags,
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(recipe));
+    history.push('/receitas-feitas');
+  };
+
   return (
     image ? (
       <Container>
@@ -50,7 +71,7 @@ export default function ReceitaEmProcesso({ location }) {
         />
         <Instructions instructions={ instructions } />
         <Button
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => doneRecipe() }
           disabled={ allStepsOk }
           data-testid="finish-recipe-btn"
           variant="warning"

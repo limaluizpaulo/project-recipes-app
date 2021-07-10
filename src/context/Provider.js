@@ -143,6 +143,9 @@ export default function Provider({ children }) {
 
     return ingredientsArray;
   };
+
+  const generateTagsArray = (strTags) => strTags.split(',');
+
   // Trata se deve gerar um estado com uma comida ou bebida
   const generateMealOrDrinkState = (mealById, drinkById) => {
     if (mealById) {
@@ -154,8 +157,8 @@ export default function Provider({ children }) {
         strMealThumb,
         strYoutube,
         strArea,
+        strTags,
       } = mealById[0];
-      // Constrói o obejeto de comias
       const meal = {
         id: idMeal,
         name: strMeal,
@@ -166,11 +169,10 @@ export default function Provider({ children }) {
         video: strYoutube,
         area: strArea,
         type: 'comida',
+        tags: generateTagsArray(strTags),
       };
-      setCurr('meals');
-      setCurrentRecipe(meal);
+      setCurr('meals'); setCurrentRecipe(meal);
     }
-    // Verifica se é uma bebida válida
     if (drinkById) {
       const {
         idDrink,
@@ -180,6 +182,7 @@ export default function Provider({ children }) {
         strDrinkThumb,
         strArea,
         strCategory,
+        strTags,
       } = drinkById[0];
       const drink = {
         id: idDrink,
@@ -191,9 +194,9 @@ export default function Provider({ children }) {
         area: strArea,
         type: 'bebida',
         category: strCategory,
+        tags: generateTagsArray(strTags),
       };
-      setCurr('cocktails');
-      setCurrentRecipe(drink);
+      setCurr('cocktails'); setCurrentRecipe(drink);
     }
   };
   // Busca uma bebida ou comida através do ID
