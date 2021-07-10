@@ -11,7 +11,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
 
-import identification from '../helper/dictionaryApi';
+// import identification from '../helper/dictionaryApi';
 
 class Progresso extends Component {
   constructor(props) {
@@ -19,8 +19,8 @@ class Progresso extends Component {
     this.state = {
       favIcon: false,
       favIconColor: whiteHeartIcon,
-      id: [],
-      should: false,
+//    id: [],
+//    should: false,
       recipesLength: [],
       count: 0,
       isDisable: true,
@@ -64,48 +64,48 @@ class Progresso extends Component {
     }
   }
 
-//   test(param) {
-//     const { details, location } = this.props;
-//     const { id, recipesLength, should } = this.state;
-//     console.log(details);
+// test(param) {
+//   const { details, location } = this.props;
+//   const { id, recipesLength, should } = this.state;
+//   console.log(details);
 
-//     const total = [];
+//   const total = [];
 
-//     if (should === true) {
-//       const keyName = identification(details);
-//       // console.log(keyName);
+//   if (should === true) {
+//     const keyName = identification(details);
+//     // console.log(keyName);
 
-//       keyName.Ingredients.map((ingredient) => {
-//         if (param[ingredient[0]] !== null && param[ingredient[0]] !== '') {
-//           total.push(ingredient[0]);
-//           // console.log(param[ingredient[0]]);
-//         }
-//         return this.setState({ recipesLength: total.length, id: details.idMeal, should: false });
-//       });
-//     }
-
-//     if (details !== undefined && location.pathname.includes('comidas')) {
-//       const { id } = this.state;
-//       if (param !== null) {
-//         // return this.setState({ id: param, should: true });
-//         const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-//         console.log(recovery);
-//         recovery.meals[details.idMeal] = 'pão';
-
-//         // const meals = [];
-//         // meals.push(recovery);
-//         // // meals.push(details.idMeal);
-//         localStorage.setItem('inProgressRecipes', JSON.stringify(recovery));
-//         // return console.log('setei o id');
+//     keyName.Ingredients.map((ingredient) => {
+//       if (param[ingredient[0]] !== null && param[ingredient[0]] !== '') {
+//         total.push(ingredient[0]);
+//         // console.log(param[ingredient[0]]);
 //       }
-//       // meals.push(id);
-//     }
-//     if (details !== undefined && location.pathname.includes('bebidas')) {
-//       const meals = { id: details.idMeal };
-//       localStorage.setItem('inProgressRecipes', JSON.stringify({ meals }));
-//       return console.log(meals);
-//     }
+//       return this.setState({ recipesLength: total.length, id: details.idMeal, should: false });
+//     });
 //   }
+
+//   if (details !== undefined && location.pathname.includes('comidas')) {
+//     const { id } = this.state;
+//     if (param !== null) {
+//       // return this.setState({ id: param, should: true });
+//       const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//       console.log(recovery);
+//       recovery.meals[details.idMeal] = 'pão';
+
+//       // const meals = [];
+//       // meals.push(recovery);
+//       // // meals.push(details.idMeal);
+//       localStorage.setItem('inProgressRecipes', JSON.stringify(recovery));
+//       // return console.log('setei o id');
+//     }
+//     // meals.push(id);
+//   }
+//   if (details !== undefined && location.pathname.includes('bebidas')) {
+//     const meals = { id: details.idMeal };
+//     localStorage.setItem('inProgressRecipes', JSON.stringify({ meals }));
+//     return console.log(meals);
+//   }
+// }
 
   onClick() {
     const { count, recipesLength } = this.state;
@@ -114,11 +114,10 @@ class Progresso extends Component {
     }
     this.setState({ count: count + 1 });
   }
-  
-  updateState() {
+//   updateState() {
 //     const { id } = this.state;
-    this.setState({ should: true });
-  }
+//     this.setState({ should: true });
+//   }
 
   render() {
     const { details } = this.props;
@@ -146,7 +145,12 @@ class Progresso extends Component {
           <section>
             <h3>Ingredients</h3>
             <span className="details-ingredients">
-              <Ingredients data={ details } count={ count } func={ this.onClick } recipesLength={ recipesLength } />
+              <Ingredients
+                data={ details }
+                count={ count }
+                func={ this.onClick }
+                recipesLength={ recipesLength }
+            />
             </span>
           </section>
           <section data-testid="instructions">
@@ -186,7 +190,7 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
-  location: PropTypes.shape.isRequired,
+//   location: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);
