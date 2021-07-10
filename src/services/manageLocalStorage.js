@@ -205,15 +205,10 @@ export const disableFinishRecipeButton = (id) => {
   return true;
 };
 
-export const finishRecipe = (id, details, history) => {
-  const rawDoneRecipes = localStorage.getItem('doneRecipes');
-  const doneRecipes = JSON.parse(rawDoneRecipes);
-
-  if (!doneRecipes) {
-    localStorage.setItem('doneRecipes', JSON.stringify([]));
-  }
-  if (doneRecipes && !doneRecipes.some((eachDone) => eachDone.id === id)) {
-    const newFinishedRecipe = {
+export const generateCorrectObj = (details) => {
+  let newFinishedRecipe;
+  if (details[0].meals) {
+    newFinishedRecipe = {
       id: details[0].idMeal,
       type: 'comida',
       area: 'Italian',
@@ -224,9 +219,34 @@ export const finishRecipe = (id, details, history) => {
       doneDate: '23/06/2020',
       tags: ['Pasta', 'Curry'],
     };
+  } else {
+    newFinishedRecipe = {
+      id: details[0].idDrink,
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '23/06/2020',
+      tags: ['Pasta', 'Curry'],
+    };
+  }
+  return newFinishedRecipe;
+};
+
+export const finishRecipe = (id, details, history) => {
+  const rawDoneRecipes = localStorage.getItem('doneRecipes');
+  const doneRecipes = JSON.parse(rawDoneRecipes);
+  if (!doneRecipes) {
+    const firstDoneRecipe = generateCorrectObj(details);
+    localStorage.setItem('doneRecipes', JSON.stringify([firstDoneRecipe]));
+  }
+  if (doneRecipes && !doneRecipes.some((eachDone) => eachDone.id === id)) {
+    const lastDoneRecipe = generateCorrectObj(details);
     const newArrayRecipe = [
       ...doneRecipes,
-      newFinishedRecipe,
+      lastDoneRecipe,
     ];
     localStorage.setItem('doneRecipes', JSON.stringify(newArrayRecipe));
   }
