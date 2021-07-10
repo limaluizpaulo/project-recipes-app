@@ -16,6 +16,9 @@ export const SUPRISE_ME_MEALS = 'https://www.themealdb.com/api/json/v1/1/random.
 export const SUPRISE_ME_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 export const AREA_MEALS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 export const AREA_SELECTED = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+export const EXPLORER_ING_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+export const IMG_INGR_DRINKS = 'https://www.thecocktaildb.com/images/ingredients/';
+export const EXPLORER_ING_MEALS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 
 export const fetchAPI = async (url) => {
   try {

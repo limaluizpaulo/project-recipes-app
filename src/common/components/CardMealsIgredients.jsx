@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAPI, INGREDIENT_MEALS } from '../../services';
+import { fetchAPI, EXPLORER_ING_MEALS } from '../../services';
 
 export default function CardMealsIgredients() {
   const [dataCadsIgredientMeals, setDataCadsIgredientMeals] = useState([]);
 
   useEffect(() => {
-    fetchAPI(INGREDIENT_MEALS)
+    fetchAPI(EXPLORER_ING_MEALS)
       .then((response) => setDataCadsIgredientMeals(response.meals));
   }, []);
 
@@ -16,8 +16,8 @@ export default function CardMealsIgredients() {
         <div>
           {dataCadsIgredientMeals.slice(0, '12').map((item, index) => (
             <Link
-              to={ `/comidas/${item.idMeal}` }
-              key={ item.idMeal }
+              to={ `/comidas/${item.strIngredient}` }
+              key={ item.idIngredient }
 
             >
               <div
@@ -27,12 +27,12 @@ export default function CardMealsIgredients() {
                   className="imgContainer"
                 >
                   <img
-                    src={ item.strMealThumb }
-                    alt={ item.strMeal }
+                    src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}.png` }
+                    alt={ item.strIngredient }
                     data-testid={ `${index}-card-img` }
                     width="150px"
                   />
-                  <span data-testid={ `${index}-card-name` }>{item.strMeal}</span>
+                  <span data-testid={ `${index}-card-name` }>{item.strIngredient}</span>
                 </div>
               </div>
             </Link>
