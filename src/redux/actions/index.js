@@ -1,4 +1,4 @@
-import fetchComidasEBebidas from '../../Services/index';
+import { fetchComidasEBebidas } from '../../Services';
 
 export const clearRecipes = () => ({
   type: 'reset-recipes',

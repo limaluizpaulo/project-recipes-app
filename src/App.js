@@ -9,56 +9,18 @@ function App() {
   // tudo com GenericComponent não foi implementado
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route
-        path="/explorar/:recipeType/ingredientes"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-      <Route
-        path="/explorar/:recipeType"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-      <Route
-        path="/explorar/comidas/area"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-      <Route
-        path="/explorar"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-
-      <Route
-        path="/receitas-feitas"
-        render={ (props) => <ReceitasFeitas { ...props } /> }
-      />
-      <Route
-        path="/receitas-favoritas"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-
-      <Route
-        path="/perfil"
-        render={ (props) => <GenericComponent { ...props } /> }
-      />
-
-      <Route
-        path="/:recipeType/:id-da-receita/in-progress"
-        component={ GenericComponent }
-      />
-      <Route
-        exact
-        path="/comidas/:id"
-        render={ (props) => <MealDetails { ...props } /> }
-      />
-      <Route
-        exact
-        path="/bebidas/:id"
-        render={ (props) => <DrinkDetails { ...props } /> }
-      />
-      <Route
-        path="/:recipeType"
-        render={ (props) => (<Recipes { ...props } />) }
-      />
+      <Route path="/explorar/comidas/area" component={ GenericComponent } />
+      <Route path="/explorar/:recipeType/ingredientes" component={ GenericComponent } />
+      <Route path="/:recipeType/:id-receita/in-progress" component={ GenericComponent } />
+      <Route path="/comidas/:idReceita" component={ MealDetails } />
+      <Route path="/bebidas/:idReceita" component={ DrinkDetails } />
+      <Route path="/explorar/:recipeType" component={ GenericComponent } />
+      <Route path="/receitas-favoritas" component={ GenericComponent } />
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route path="/:recipeType" component={ Recipes } />
+      <Route path="/explorar" component={ GenericComponent } />
+      <Route path="/perfil" component={ GenericComponent } />
+      <Route path="/" component={ Login } />
     </Switch>
   );
 }

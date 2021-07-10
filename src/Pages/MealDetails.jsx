@@ -1,28 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import fethByID from '../Services/fetchByID';
+import '../styles/ButtonDetails.css';
+
+import { fetchByID, fetchByRecomendation } from '../Services';
+import CardsDetails from '../Components/CardsDetails';
 
 export default class MealDetails extends React.Component {
   constructor() {
     super();
     this.state = {
       meals: {},
+      recomendation: [],
       like: false,
       loading: true,
       ingredients: [],
       measures: [],
     };
-    this.fetchAPI = this.fetchAPI.bind(this);
+    this.fetchIdAPI = this.fetchIdAPI.bind(this);
+    this.fecthRecomendationAPI = this.fecthRecomendationAPI.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.takeURL = this.takeURL.bind(this);
     this.ingredients = this.ingredients.bind(this);
     this.measures = this.measures.bind(this);
+    // this.takeURL = this.takeURL.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    this.fetchIdAPI();
+    this.fecthRecomendationAPI();
   }
 
   handleClick() {
@@ -53,26 +61,33 @@ export default class MealDetails extends React.Component {
     });
   }
 
-  takeURL() {
-    const { match: { url } } = this.props;
-    const urlLike = `localhost:3000${url}`;
-    console.log(urlLike);
-  }
+  // takeURL() {
+  //   const { match: { url } } = this.props;
+  //   const urlLike = `localhost:3000${url}`;
+  //   console.log(urlLike);
+  // }
 
-  async fetchAPI() {
-    const { match: { params: { id } } } = this.props;
-    const resultFetch = await fethByID('comidas', id);
-    console.log(resultFetch.meals[0]);
+  async fetchIdAPI() {
+    const { match: { params: { idReceita } } } = this.props;
+    const resultFetch = await fetchByID('comidas', idReceita);
     this.setState({
       meals: { ...resultFetch.meals[0] },
       like: false,
       loading: false,
     });
     this.ingredients();
+    this.measures();
+  }
+
+  async fecthRecomendationAPI() {
+    const { drinks } = await fetchByRecomendation('comidas');
+    this.setState({
+      recomendation: drinks,
+    });
   }
 
   render() {
-    const { loading, meals, like, ingredients } = this.state;
+    const { loading, meals, like, ingredients, measures, recomendation } = this.state;
     const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = meals;
 
     if (loading) return <h1> loading </h1>;
@@ -96,9 +111,13 @@ export default class MealDetails extends React.Component {
         <p data-testid="recipe-category">{ strCategory }</p>
 
         { ingredients.map((e, i) => (
-          <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-            { e }
-          </p>
+          <ul key={ i }>
+            <li
+              data-testid={ `${i}-ingredient-name-and-measure` }
+            >
+              { `${e}  ${measures[i]}` }
+            </li>
+          </ul>
         ))}
 
         <p data-testid="instructions">{ strInstructions }</p>
@@ -119,10 +138,24 @@ export default class MealDetails extends React.Component {
           allowFullScreen
         />
 
-        <button type="button" data-testid="start-recipe-btn">
-          ola
+        <CardsDetails type="comidas" recomendation={ recomendation } />
+
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="button-details"
+        >
+          Iniciar Receita
         </button>
       </main>
     );
   }
 }
+
+MealDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      idReceita: PropTypes.string,
+    }),
+  }).isRequired,
+};
