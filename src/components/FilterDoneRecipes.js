@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import React from 'react';
+import '../styles/card.css';
 
 export default function FilterDoneRecipes() {
   const dale = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -21,14 +22,14 @@ export default function FilterDoneRecipes() {
           Drinks
         </Button>
       </div>
-      <div>
+      <div className="card-container">
         { dale.length <= 1 ? <p>Não há receitas feitas</p>
           : dale.slice(1).map((el) => (
-            <div key={ el.id }>
-              <img src={ el.image } alt={ el.name } />
+            <button type="button" className="recipe-card" key={ el.id }>
+              <img className="card-img" src={ el.image } alt={ el.name } />
               <span>{ `${el.area} - ${el.category}` }</span>
               <h3>{ el.name }</h3>
-            </div>
+            </button>
           ))}
       </div>
     </div>
