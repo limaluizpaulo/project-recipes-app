@@ -9,7 +9,9 @@ import identification from '../helper/dictionaryApi';
 class Ingredients extends Component {
   checkIngredient() {
     return (
-      <input />
+      <input
+        type="checkbox"
+      />
     );
   }
 

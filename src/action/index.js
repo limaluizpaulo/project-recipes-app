@@ -96,6 +96,7 @@ export const fetchFilterFoodByCategories = (category) => (dispatch) => {
     .then((response) => response.json())
     .then((foodCategories) => {
       const recipes = foodCategories.meals.slice(0, maxRecipes);
+      console.log(recipes);
       dispatch(getFoodByCategories(recipes));
     });
 };
