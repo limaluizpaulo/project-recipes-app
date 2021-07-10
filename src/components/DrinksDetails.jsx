@@ -15,6 +15,7 @@ export default function DrinksDetails() {
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
+  // const [setChekButtonState] = useState(true);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateDrink[0]);
@@ -35,8 +36,13 @@ export default function DrinksDetails() {
   const removeFavorited = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorited) {
-      const filterLocalStorage = favorited.filter((element) => element.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+      const filterLocalStorage = favorited.filter(
+        (element) => element.id !== id,
+      );
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(filterLocalStorage),
+      );
     }
   };
 
@@ -59,10 +65,22 @@ export default function DrinksDetails() {
   };
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateDrink]);
-  const { strDrinkThumb, strDrink,
-    strInstructions, strAlcoholic, idDrink,
-
-  } = stateDrink[0];
+  const { strDrinkThumb, strDrink, strInstructions,
+    strAlcoholic, idDrink } = stateDrink[0];
+  // const checkButton = () => {
+  //   const url = pathname.split('/')[2];
+  //   const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   let checkrecipesDone = [];
+  //   if (recipesDone === null) {
+  //     checkrecipesDone = [];
+  //   } else {
+  //     checkrecipesDone = recipesDone;
+  //     const checkedButton = checkrecipesDone.some((e) => e.id === url);
+  //     setChekButtonState(checkedButton);
+  //     console.log(checkedButton);
+  //   }
+  // };
+  // useEffect(checkButton, []);
   return (
     <div>
       <img
@@ -79,11 +97,7 @@ export default function DrinksDetails() {
         setStateChangeHeart={ setStateChangeHeart }
         removeFavorited={ removeFavorited }
       />
-      <p data-testid="recipe-category">
-        {
-          strAlcoholic
-        }
-      </p>
+      <p data-testid="recipe-category">{strAlcoholic}</p>
       <h2>Ingredientes</h2>
       <ul>
         {ingredients.map((ingredient, index) => (
@@ -91,13 +105,14 @@ export default function DrinksDetails() {
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ ingredient }
           >
-            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
-          </li>))}
+            {`${ingredient} ${
+              measure[index] !== undefined ? `-${measure[index]}` : ''
+            }`}
+          </li>
+        ))}
       </ul>
       <h2>Instruções</h2>
-      <p data-testid="instructions">
-        {strInstructions}
-      </p>
+      <p data-testid="instructions">{strInstructions}</p>
       <Carousel>
         {mealsAll.map((meals, index) => (
           <Carousel.Item
@@ -110,21 +125,24 @@ export default function DrinksDetails() {
               src={ meals.strMealThumb }
               alt="slide"
               width="100px"
-
             />
             <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{meals.strMeal}</h3>
             </Carousel.Caption>
-          </Carousel.Item>))}
+          </Carousel.Item>
+        ))}
       </Carousel>
       <Link to={ `/bebidas/${idDrink}/in-progress` }>
+
         <button
           type="button"
           data-testid="start-recipe-btn"
+          clad
           className="iniciarReceita"
         >
           Iniciar Receita
         </button>
+        )
       </Link>
     </div>
   );

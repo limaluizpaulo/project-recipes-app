@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+.button {
+  display: none;
+}
+
 .riscado {
   text-decoration: none solid black;
 }
