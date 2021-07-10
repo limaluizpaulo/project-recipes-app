@@ -8,9 +8,13 @@ import Title from '../components/Details/Title';
 import Ingredients from '../components/Details/Ingredients';
 import Instructions from '../components/Details/Instructions';
 import Video from '../components/Details/Video';
+import Recommendation from '../components/Recommendation';
 
 export default function DetalhesComida({ location }) {
-  const { currentRecipe, storeCurrentRecipe, curr } = useContext(Context);
+  const {
+    currentRecipe, storeCurrentRecipe, curr, resquestMealsApi,
+    resquestCocktailsApi, recommendations,
+  } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image, video, ingredients,
   } = currentRecipe;
@@ -36,6 +40,23 @@ export default function DetalhesComida({ location }) {
     return false;
   };
 
+  useEffect(() => {
+    switch (curr) {
+    case 'meals':
+      resquestCocktailsApi();
+
+      break;
+    case 'cocktails':
+
+      resquestMealsApi();
+
+      break;
+
+    default:
+      break;
+    }
+  }, [curr]);
+
   return (
     image ? (
       <Container>
@@ -49,6 +70,9 @@ export default function DetalhesComida({ location }) {
         <Ingredients ingredients={ ingredients } />
         <Instructions instructions={ instructions } />
         { video && <Video video={ video } /> }
+        <Recommendation recommendations={ recommendations } />
+        <br />
+        <br />
         <Button
           className="button-fixed"
           onClick={ () => renderInProgressPage() }

@@ -32,6 +32,8 @@ export default function Provider({ children }) {
   const [cocktailsCategories, setCocktailsCategories] = useState([]);
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [curr, setCurr] = useState('false');
+  const [recommendations, setRecommendations] = useState([]);
+  const MAX_RECOMMENDATIONS = 6;
   // boolean: searchBar appears or not
   const handleSearchBar = () => {
     setOpenSearchBar(!openSearchBar);
@@ -56,6 +58,7 @@ export default function Provider({ children }) {
     if (!selectedIngredient.length) {
       const apiCocktails = await fetchCocktailsRecomendation();
       setCocktailsRecipes(apiCocktails);
+      setRecommendations(apiCocktails.slice(0, MAX_RECOMMENDATIONS));
     }
   };
   // update state of meals categories
@@ -78,6 +81,7 @@ export default function Provider({ children }) {
     if (!selectedIngredient.length) {
       const apiMeals = await fetchMealsRecomendation();
       setMealsRecipes(apiMeals);
+      setRecommendations(apiMeals.slice(0, MAX_RECOMMENDATIONS));
     }
   };
   // update array of meals ingredients with all ingredients
@@ -219,9 +223,11 @@ export default function Provider({ children }) {
     setSelectedCategory,
     filterByCategory,
     curr,
+    setCurr,
     setSelectedIngredient,
     ingredients,
     getIngredients,
+    recommendations,
   };
   return (
     <Context.Provider value={ context }>
