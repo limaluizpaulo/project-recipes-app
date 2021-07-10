@@ -179,21 +179,23 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
             stepsClassName.length && ingredients && ingredients.map(
               ({ ingredient, measure }, index) => (
                 <tr key={ index } data-testid={ `${index}-ingredient-step` }>
-                  {/* {console.log(stepsClassName[index] && stepsClassName[index].checked,
+                  <td>
+                    {/* {console.log(stepsClassName[index] && stepsClassName[index].checked,
                   'steps ', stepsClassName, ' index ', index, ' ingred ', ingredient)} */}
-                  <input
-                    checked={ stepsClassName[index] && stepsClassName[index].checked }
-                    type="checkbox"
-                    id={ `${index}` }
-                    value={ `${index}-ingredient` }
-                    onChange={ ({ target }) => doneStepEffect(target) }
-                  />
-                  <label
-                    className={ stepsClassName[index] && stepsClassName[index].step }
-                    htmlFor={ `${index}` }
-                  >
-                    {`${ingredient} - ${measure}`}
-                  </label>
+                    <input
+                      checked={ stepsClassName[index] && stepsClassName[index].checked }
+                      type="checkbox"
+                      id={ `${index}` }
+                      value={ `${index}-ingredient` }
+                      onChange={ ({ target }) => doneStepEffect(target) }
+                    />
+                    <label
+                      className={ stepsClassName[index] && stepsClassName[index].step }
+                      htmlFor={ `${index}` }
+                    >
+                      {`${ingredient} - ${measure}`}
+                    </label>
+                  </td>
                 </tr>
               ),
             )

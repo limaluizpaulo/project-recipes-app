@@ -20,18 +20,32 @@ export default function ReceitaEmProcesso({ location }) {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
+  const activeButton = (curr) => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (currentRecipe.ingredients.length === (
+      inProgress[curr][location.pathname.split('/')[2]]).length) {
+      setAllStepsOk(false);
+    }
+  };
+
   useEffect(() => {
     let curr = location.pathname.split('/')[1];
-    if (curr === 'comidas') {
+
+    switch (curr) {
+    case 'comidas':
       curr = 'meals';
-    } else {
+      break;
+    case 'bebidas':
       curr = 'cocktails';
+      break;
+
+    default:
+      break;
     }
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
-    if (inProgress && checkboxes.length && inProgress[curr] && ((
-      inProgress[curr][location.pathname.split('/')[2]]).length === checkboxes.length)) {
-      setAllStepsOk(false);
+
+    if (currentRecipe.ingredients) {
+      activeButton(curr);
     }
   });
 
