@@ -6,8 +6,12 @@ import ShareButtonPerfil from './ShareButtonPerfil';
 
 export default function DoneRecipes() {
   const { favoriteFilters } = useContext(RecipesContext);
-  console.log(favoriteFilters);
 
+  if (favoriteFilters === null) {
+    return (
+      <p />
+    );
+  }
   return (
     <main>
       {favoriteFilters.map(
