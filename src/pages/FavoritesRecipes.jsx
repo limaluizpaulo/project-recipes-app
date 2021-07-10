@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
+import Favorited from '../components/Favorited';
 import Header from '../components/Header';
 
 import '../styles/DoneRecipes.css';
-import Favorited from '../components/Favorited';
+import '../styles/FavRecipes.css';
 
 function FavoritesRecipes() {
   const [favoriteList, setFavoriteList] = useState([]);
@@ -48,12 +48,12 @@ function FavoritesRecipes() {
   };
 
   return (
-    <>
+    <section className="top-main">
       <Header profile name="Receitas Favoritas" />
       <section className="menu">
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-all-btn"
           onClick={ () => setCategory('all') }
         >
@@ -61,7 +61,7 @@ function FavoritesRecipes() {
         </button>
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-food-btn"
           onClick={ () => setCategory('comida') }
         >
@@ -69,7 +69,7 @@ function FavoritesRecipes() {
         </button>
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-drink-btn"
           onClick={ () => setCategory('bebida') }
 
@@ -87,7 +87,7 @@ function FavoritesRecipes() {
         unfavoriteRecipe={ unfavoriteRecipe }
         unfavoriteFilteredRecipe={ unfavoriteFilteredRecipe }
       />
-    </>
+    </section>
   );
 }
 

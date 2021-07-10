@@ -5,12 +5,12 @@
 }
 
 .areas-field {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 70px;
-  text-align: center;
+  justify-content: space-evenly;
+  margin-bottom: 50px;
+  max-width: 100vh;
+  min-height: 100vh;
 }
 
 .area-ingredient {
@@ -23,10 +23,12 @@
 }
 
 .select {
-  background: #eea371;
+  background: white;
   border: 1px solid rgba(0, 0, 0, 0.282);
   border-radius: 5px;
+  margin-left: 5%;
+  margin-top: 10px;
   padding: 10px;
-  width: 100%;
+  width: 90%;
 }
 

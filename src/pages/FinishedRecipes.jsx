@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 import '../styles/DoneRecipes.css';
+import '../styles/FavRecipes.css';
 
 function FinishedRecipes() {
   const [doneRecipesList, setDoneRecipesList] = useState([]);
@@ -38,7 +39,6 @@ function FinishedRecipes() {
     //   },
     // ];
     // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    // até aqui
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       setDoneRecipesList(doneRecipes);
@@ -53,10 +53,10 @@ function FinishedRecipes() {
   };
 
   const renderAllRecipes = () => (
-    <main>
+    <main className="maincards top-main">
       { doneRecipesList
       && doneRecipesList.map((doneRecipe, index) => (
-        <div key={ index } className="card">
+        <div key={ index } className="generic-card">
           <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
             <img
               src={ doneRecipe.image }
@@ -64,7 +64,12 @@ function FinishedRecipes() {
               data-testid={ `${index}-horizontal-image` }
               width="150px"
             />
-            <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
+            <h4
+              className="card-name"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {doneRecipe.name}
+            </h4>
           </Link>
           <h6 data-testid={ `${index}-horizontal-top-text` }>
             {doneRecipe.area}
@@ -99,11 +104,11 @@ function FinishedRecipes() {
     </main>);
 
   const renderByCategory = () => (
-    <main>
+    <main className="maincards top-main">
       {doneRecipesList
       && doneRecipesList.filter((recipe) => recipe.type === category)
         .map((doneRecipe, index) => (
-          <div key={ index } className="card">
+          <div key={ index } className="generic-card">
             <Link to={ `${doneRecipe.type}s/${doneRecipe.id}` }>
               <img
                 src={ doneRecipe.image }
@@ -111,7 +116,12 @@ function FinishedRecipes() {
                 data-testid={ `${index}-horizontal-image` }
                 width="150px"
               />
-              <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
+              <h4
+                className="card-name"
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {doneRecipe.name}
+              </h4>
             </Link>
             <h6 data-testid={ `${index}-horizontal-top-text` }>
               {doneRecipe.area}
@@ -147,12 +157,12 @@ function FinishedRecipes() {
   );
 
   return (
-    <>
+    <section className="top-main">
       <Header profile name="Receitas Feitas" />
       <section className="menu">
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-all-btn"
           onClick={ () => setCategory('all') }
         >
@@ -160,7 +170,7 @@ function FinishedRecipes() {
         </button>
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-food-btn"
           onClick={ () => setCategory('comida') }
         >
@@ -168,7 +178,7 @@ function FinishedRecipes() {
         </button>
         <button
           type="button"
-          className="btn btn-secondary"
+          className="menu-btn btn btn-danger"
           data-testid="filter-by-drink-btn"
           onClick={ () => setCategory('bebida') }
 
@@ -177,7 +187,7 @@ function FinishedRecipes() {
         </button>
       </section>
       {category === 'all' ? renderAllRecipes() : renderByCategory()}
-    </>
+    </section>
   );
 }
 
