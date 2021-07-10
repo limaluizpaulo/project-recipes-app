@@ -30,6 +30,10 @@ const RECIPE_API_INGREDIENTS_EXPLORE_FOOD = 'https://www.themealdb.com/api/json/
 
 const RECIPE_API_INGREDIENTS_EXPLORE_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
+const RECIPE_API_COUNTRY = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+const RECIPE_API_SELECTED_COUNTRY = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+
 const fetchRecipeFood = (type) => (
   fetch(`${RECIPE_API_FOOD}${type}`)
     .then((res) => res.json())
@@ -135,6 +139,20 @@ export const fetchRecipeIngredientsExploreFood = (ingredient) => (
 
 export const fetchRecipeIngredientsExploreDrink = (ingredient) => (
   fetch(`${RECIPE_API_INGREDIENTS_EXPLORE_DRINK}${ingredient}`)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const fetchRecipeCountry = () => (
+  fetch(RECIPE_API_COUNTRY)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const fetchRecipeBySelectedCountry = (country) => (
+  fetch(`${RECIPE_API_SELECTED_COUNTRY}${country}`)
     .then((res) => res.json())
     .then((json) => json)
     .catch((error) => console.log(error))

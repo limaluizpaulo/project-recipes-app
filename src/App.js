@@ -21,6 +21,7 @@ import ExploreDrink from './pages/Drinks/ExploreDrink';
 import RecipeProgressFood from './pages/Foods/RecipeProgressFood';
 import RecipeProgressDrink from './pages/Drinks/RecipeProgressDrink';
 import store from './Redux/store';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
             <Route exact path="/perfil" component={ Profile } />
             <Route exact path="/receitas-feitas" component={ RecipeDone } />
             <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+            <Route exact path="/explorar/bebidas/area" component={ NotFound } />
           </Switch>
         </Provider>
       </BrowserRouter>
