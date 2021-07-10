@@ -42,6 +42,10 @@ export const localStorageVerifier = (match, id, history) => {
   const rawInProgressArrayVerifier = localStorage.getItem('inProgressRecipes');
   const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
   let mealOrCockTail;
+  if (!inProgressArrayVerifier) {
+    const baseInProgressObj = { meals: {}, drinks: {} };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(baseInProgressObj));
+  }
   if (inProgressArrayVerifier) {
     mealOrCockTail = pushString === 'comidas' ? 'meals'
       : 'cocktails';

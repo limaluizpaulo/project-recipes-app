@@ -1,6 +1,4 @@
 const copy = require('clipboard-copy');
-// const month
-// const year
 
 export const copyLink = ({ url }) => {
   copy(`http://localhost:3000${url}`);
