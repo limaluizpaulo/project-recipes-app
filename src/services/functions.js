@@ -31,7 +31,7 @@ export const generateCorrectObj = (details) => {
       name: details[0].strMeal,
       image: details[0].strMealThumb,
       doneDate: 'dont know yet',
-      tags: details[0].strTags ? details[0].strTags.split(','),
+      tags: details[0].strTags ? details[0].strTags.split(',') : [],
     };
   } else {
     newFinishedRecipe = {
