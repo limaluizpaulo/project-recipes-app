@@ -1,6 +1,7 @@
 import React from 'react';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { generateCorrectObj } from './functions';
 
 export const makeRecipe = ({ url }, history) => {
   const mealOrDrink = url.split('/')[1];
@@ -203,36 +204,6 @@ export const disableFinishRecipeButton = (id) => {
     return false;
   }
   return true;
-};
-
-export const generateCorrectObj = (details) => {
-  let newFinishedRecipe;
-  if (details[0].meals) {
-    newFinishedRecipe = {
-      id: details[0].idMeal,
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    };
-  } else {
-    newFinishedRecipe = {
-      id: details[0].idDrink,
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    };
-  }
-  return newFinishedRecipe;
 };
 
 export const finishRecipe = (id, details, history) => {

@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
 import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
-import { verifyFavorite,
-  settingFavorite,
-  disableFinishRecipeButton } from '../services/manageLocalStorage';
+import { verifyFavorite, settingFavorite,
+  disableFinishRecipeButton, finishRecipe } from '../services/manageLocalStorage';
 
-function DrinkInProgress({ match, match: { params: { id } } }) {
+function DrinkInProgress({ match, history, match: { params: { id } } }) {
   const [isCopied, setIsCopied] = useState(false);
   const [refresh, setRefresh] = useState(true);
-  const [isRedirect, setIsRedirect] = useState(false);
   const [check, setCheck] = useState();
   const {
     details,
@@ -41,7 +38,7 @@ function DrinkInProgress({ match, match: { params: { id } } }) {
       strCategory,
     } = details.drinks[0];
 
-    return isRedirect ? <Redirect to="/receitas-feitas" /> : (
+    return (
       <main>
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Drink" width="200px" />
         <h1 data-testid="recipe-title">{strDrink}</h1>
@@ -75,7 +72,7 @@ function DrinkInProgress({ match, match: { params: { id } } }) {
           [refresh, setRefresh])}
         <h3>Recomendações de Drinks</h3>
         <button
-          onClick={ () => setIsRedirect(true) }
+          onClick={ () => finishRecipe(id, details.drinks, history) }
           disabled={ disableFinishRecipeButton(id) }
           data-testid="finish-recipe-btn"
           type="button"
@@ -92,6 +89,7 @@ function DrinkInProgress({ match, match: { params: { id } } }) {
 
 DrinkInProgress.propTypes = {
   match: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default DrinkInProgress;
