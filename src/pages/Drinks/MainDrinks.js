@@ -3,16 +3,22 @@ import FilterRecipe from '../../components/FilterRecipe';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
-import { fetchCategoryDrinks, fetchRecipeAllDrink } from '../../services/recipeAPI';
+import { fetchCategoryDrinks, fetchRecipeAllDrink,
+  fetchRecipeIngredientsExploreDrink } from '../../services/recipeAPI';
 
 // ERRO DE REQUISITOS - FETCH FAIL
-function MainDrinks() {
+function MainDrinks(match) {
   const [list, setList] = useState({});
   const [categoryList, setCategoryList] = useState({});
 
   useEffect(() => {
+    let fun;
     const func = async () => {
-      const fun = await fetchRecipeAllDrink();
+      if (match.location.ingredient) {
+        fun = await fetchRecipeIngredientsExploreDrink(match.location.ingredient);
+      } else {
+        fun = await fetchRecipeAllDrink();
+      }
       const category = await fetchCategoryDrinks();
 
       setCategoryList(category);

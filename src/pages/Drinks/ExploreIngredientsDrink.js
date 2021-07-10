@@ -28,7 +28,8 @@ function ExploreIngredientsDrink() {
             data-testid={ `${index}-ingredient-card` }
             key={ ingredient.idIngredient }
             style={ { border: 'solid black 1px' } }
-            onClick={ () => history.push('/bebidas') }
+            onClick={ () => history
+              .push({ pathname: '/bebidas', ingredient: ingredient.strIngredient1 }) }
           >
             <img data-testid={ `${index}-card-img` } width="20px" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } alt="" />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>

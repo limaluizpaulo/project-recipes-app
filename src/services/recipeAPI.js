@@ -28,6 +28,8 @@ const RECIPE_API_INGREDIENTS_DRINK = 'https://www.thecocktaildb.com/api/json/v1/
 
 const RECIPE_API_INGREDIENTS_EXPLORE_FOOD = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 
+const RECIPE_API_INGREDIENTS_EXPLORE_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+
 const fetchRecipeFood = (type) => (
   fetch(`${RECIPE_API_FOOD}${type}`)
     .then((res) => res.json())
@@ -126,6 +128,13 @@ export const fetchRecipeIngredientsDrink = () => (
 
 export const fetchRecipeIngredientsExploreFood = (ingredient) => (
   fetch(`${RECIPE_API_INGREDIENTS_EXPLORE_FOOD}${ingredient}`)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((error) => console.log(error))
+);
+
+export const fetchRecipeIngredientsExploreDrink = (ingredient) => (
+  fetch(`${RECIPE_API_INGREDIENTS_EXPLORE_DRINK}${ingredient}`)
     .then((res) => res.json())
     .then((json) => json)
     .catch((error) => console.log(error))

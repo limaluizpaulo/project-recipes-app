@@ -3,16 +3,22 @@ import FilterRecipe from '../../components/FilterRecipe';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
-import { fetchCategoryFood, fetchRecipeAllFood } from '../../services/recipeAPI';
+import { fetchCategoryFood, fetchRecipeAllFood,
+  fetchRecipeIngredientsExploreFood } from '../../services/recipeAPI';
 
-export default function MainFood() {
+export default function MainFood(match) {
   const [list, setList] = useState({});
   const [categoryList, setCategoryList] = useState({});
 
   // ERRO DE REQUISITOS - FETCH FAIL
   useEffect(() => {
+    let fun;
     const func = async () => {
-      const fun = await fetchRecipeAllFood();
+      if (match.location.ingredient) {
+        fun = await fetchRecipeIngredientsExploreFood(match.location.ingredient);
+      } else {
+        fun = await fetchRecipeAllFood();
+      }
       const category = await fetchCategoryFood();
 
       setList(fun);
