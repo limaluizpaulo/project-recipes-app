@@ -47,7 +47,7 @@ export const generateCorrectObj = (details) => {
       category: details[0].strCategory,
       alcoholicOrNot: details[0].strAlcoholic,
       name: details[0].strDrink,
-      image: details[0].strMealDrink,
+      image: details[0].strDrinkThumb,
       doneDate: `${calendar.getDate()}/${month}/${calendar.getFullYear()}`,
       tags: [],
     };
