@@ -5,6 +5,7 @@ import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
 import Ingredientes from '../components/ReceitaEmProgresso/Ingredientes';
 import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
+import formatIngredientsAndMeasuresArray from '../helpers/formatIngredientsMeasures';
 
 function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
@@ -24,22 +25,6 @@ function ReceitaEmProgresso() {
   });
   const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
-
-  const inicializarIngredientes = (objReceitas) => {
-    let indexAuxiliar = 0;
-    const ingsMeds = Object.keys(objReceitas).reduce((acc, key) => {
-      if (key.match(/strIngredient\d+/) && objReceitas[key]) {
-        return acc.concat([[objReceitas[key]]]);
-      }
-
-      if (key.match(/strMeasure\d+/) && objReceitas[key]) {
-        acc[indexAuxiliar].push(objReceitas[key]);
-        indexAuxiliar += 1;
-      }
-      return acc;
-    }, []);
-    setIngredientesCheckboxes(ingsMeds);
-  };
 
   useEffect(() => {
     const didMount = async () => {
@@ -66,10 +51,12 @@ function ReceitaEmProgresso() {
         tags,
         instructions,
       });
-      inicializarIngredientes(respostaApi);
+
+      const ingredientsAndMeasures = formatIngredientsAndMeasuresArray(respostaApi);
+      setIngredientesCheckboxes(ingredientsAndMeasures);
     };
     didMount();
-  }, [parametrosBusca]);
+  }, []);
 
   const renderizaImagemReceita = () => {
     const { image, name } = receita;
