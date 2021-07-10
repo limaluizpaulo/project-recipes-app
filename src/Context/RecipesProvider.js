@@ -13,7 +13,12 @@ function RecipesProvider({ children }) {
   const [stateDrink, setStateDrink] = useState([{}]);
   const [stateMeals, setStateMeals] = useState([{}]);
   const [favoriteFilters, setFavoriteFilters] = useState([]);
+<<<<<<< HEAD
   const [ingredientsMeals, setIngredientsMeals] = useState([]);
+=======
+  const [ingredientsMeals,
+    setIngredientsMeals] = useState([]);
+>>>>>>> 5e626630e647acea563c82980246c9f64d25a069
   const [measureMeals, setMeasureMeals] = useState([]);
 
   const context = {
@@ -37,10 +42,17 @@ function RecipesProvider({ children }) {
     setStateMeals,
     favoriteFilters,
     setFavoriteFilters,
+<<<<<<< HEAD
     measureMeals,
     setMeasureMeals,
     ingredientsMeals,
     setIngredientsMeals,
+=======
+    ingredientsMeals,
+    setIngredientsMeals,
+    measureMeals,
+    setMeasureMeals,
+>>>>>>> 5e626630e647acea563c82980246c9f64d25a069
   };
   return (
     <RecipesContext.Provider value={ context }>

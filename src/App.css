@@ -10,8 +10,12 @@
   width: 100%;
 }
 
+.button {
+  display: none;
+}
+
 .riscado {
-  text-decoration: line-through;
+  text-decoration: none solid black;
 }
 
 .naoRiscado {

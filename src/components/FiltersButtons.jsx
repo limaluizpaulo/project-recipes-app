@@ -13,7 +13,6 @@ export default function FiltersButtons() {
   }
 
   const { setFavoriteFilters } = useContext(RecipesContext);
-
   const filterFood = () => {
     const filter = favoriteRecipesStorage.filter(({ type }) => type === 'comida');
     setFavoriteFilters(filter);
