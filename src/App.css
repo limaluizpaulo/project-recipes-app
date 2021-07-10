@@ -10,6 +10,14 @@
   width: 100%;
 }
 
+.riscado {
+  text-decoration: line-through;
+}
+
+.naoRiscado {
+  text-decoration: none;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;

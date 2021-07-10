@@ -11,7 +11,11 @@ export default function ShareButton({ index }) {
   const TWO_SECONDS = 2000;
   const shareLink = () => {
     const url = `http://localhost:3000${pathname}`;
-    copy(url);
+    if (url.includes('in-progress')) {
+      copy(`${url.split('/in-progress')[0]}`);
+    } else {
+      copy(url);
+    }
     setMsgCopy(!msgCopy);
     setTimeout(() => {
       setMsgCopy(false);
