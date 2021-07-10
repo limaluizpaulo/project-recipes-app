@@ -182,7 +182,6 @@ export default function Provider({ children }) {
         strDrinkThumb,
         strArea,
         strCategory,
-        strTags,
       } = drinkById[0];
       const drink = {
         id: idDrink,
@@ -194,7 +193,6 @@ export default function Provider({ children }) {
         area: strArea,
         type: 'bebida',
         category: strCategory,
-        tags: generateTagsArray(strTags),
       };
       setCurr('cocktails'); setCurrentRecipe(drink);
     }

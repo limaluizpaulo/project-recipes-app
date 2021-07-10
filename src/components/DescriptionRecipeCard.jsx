@@ -38,21 +38,28 @@ export default function DescriptionRecipeCard(
     history.push(route);
   };
 
-  const generateTags = () => (
-    <span>
-      {recipe.tags.reverse().map(
-        (tag) => (
-          <span
-            key={ tag }
-            className="recipe-tag"
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-          >
-            { tag }
-          </span>
-        ),
-      )}
-    </span>
-  );
+  const generateTags = () => {
+    switch (recipe.type) {
+    case 'comida':
+      return (
+        <span>
+          {recipe.tags.reverse().map(
+            (tag) => (
+              <span
+                key={ tag }
+                className="recipe-tag"
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                { tag }
+              </span>
+            ),
+          )}
+        </span>
+      );
+    default:
+      break;
+    }
+  };
 
   const generateActionButtons = () => {
     switch (page) {
