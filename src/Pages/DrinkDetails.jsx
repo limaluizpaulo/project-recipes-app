@@ -109,7 +109,7 @@ class DrinkDetails extends React.Component {
               <CarroselComidas recomendations={ recomendations } />
             </>
           ))}
-          <button type="button" data-testid="share-btn">share</button>
+          <button type="button" data-testid="share-btn">Search</button>
           <button type="button" data-testid="favorite-btn">favorite</button>
           <button
             type="button"
