@@ -9,7 +9,7 @@ import IngredientsStep from '../components/Details/IngredientsStep';
 import Instructions from '../components/Details/Instructions';
 
 export default function ReceitaEmProcesso({ location }) {
-  const { currentRecipe, storeCurrentRecipe, curr } = useContext(Context);
+  const { currentRecipe, storeCurrentRecipe } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image, ingredients,
   } = currentRecipe;
@@ -19,21 +19,6 @@ export default function ReceitaEmProcesso({ location }) {
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
-
-  const activeButton = () => {
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (currentRecipe.ingredients.length === (
-      inProgress[curr][location.pathname.split('/')[2]]).length) {
-      setAllStepsOk(false);
-    }
-  };
-
-  useEffect(() => {
-    if (currentRecipe.ingredients) {
-      activeButton();
-    }
-  });
 
   // Atualiza o estatus de progresso, para habilitar o botão
   const stepsProgress = (steps) => {
