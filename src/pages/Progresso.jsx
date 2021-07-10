@@ -19,8 +19,8 @@ class Progresso extends Component {
     this.state = {
       favIcon: false,
       favIconColor: whiteHeartIcon,
-//    id: [],
-//    should: false,
+      //id: [],
+      //should: false,
       recipesLength: [],
       count: 0,
       isDisable: true,
