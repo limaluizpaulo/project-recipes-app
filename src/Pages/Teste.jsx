@@ -18,10 +18,11 @@ export class treste extends Component {
     e.preventDefault();
     const { dados } = this.state;
     dados.find((dado) => {
-      if (dado.item === 'name') { 
-        const res = dados.indexOf(dado);
+      if (dado.item === 'name') {
+        return dados.indexOf(dado);
       }
-      this.setState({ dados:{...dados, res: { ...dado, check: true } } });
+      this.setState({ dados: { ...dados, index: { ...dado, check: true } } });
+      return null;
     });
   }
 
