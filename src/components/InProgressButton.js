@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
+import RecipesContext from '../context/RecipesContext';
 
 function InProgressButton(props) {
+  const { value: { ingredientsQuantity, checked, recipe } } = props;
+
+  const { push } = useHistory();
   const [disabled, setDisabled] = useState(true);
-  const { value: { ingredientsQuantity, checked } } = props;
+
+  const { doneRecipes } = useContext(RecipesContext);
+
   if (ingredientsQuantity === checked && disabled === true) {
     setDisabled(false);
   }
@@ -13,8 +20,12 @@ function InProgressButton(props) {
       type="button"
       data-testid="finish-recipe-btn"
       disabled={ disabled }
+      onClick={ () => {
+        doneRecipes(recipe);
+        push('/receitas-feitas');
+      } }
     >
-      <a href="/receitas-feitas">Finalizar Receita</a>
+      Finalizar Receita
     </button>
   );
 }
