@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 
 import { getDataById } from '../services/apiRequest';
+import { saveFinished } from '../storage/localStorage';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -13,7 +14,7 @@ export default function InProgress() {
   const history = useHistory();
 
   const [validateCheckBox, setValidateCheckBox] = useState(0);
-  const [idCheckBox, setIDCheckBox] = useState([]);
+  const [nmCheckBox, setNmCheckBox] = useState([]);
   const [isDisabled, setDisabled] = useState(true);
   const [renderer, setRenderer] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
@@ -60,13 +61,13 @@ export default function InProgress() {
   function handleCheckBox({ target }) {
     const { name } = target;
 
-    if (idCheckBox.includes(name)) {
+    if (nmCheckBox.includes(name)) {
       target.parentNode.className = '';
-      setIDCheckBox(idCheckBox.filter((nm) => nm !== name));
+      setNmCheckBox(nmCheckBox.filter((nm) => nm !== name));
       setValidateCheckBox(validateCheckBox - 1);
     } else {
       target.parentNode.className = 'done';
-      setIDCheckBox([...idCheckBox, name]);
+      setNmCheckBox([...nmCheckBox, name]);
       setValidateCheckBox(validateCheckBox + 1);
     }
   }
@@ -76,57 +77,61 @@ export default function InProgress() {
   }
 
   function handleFinished() {
+    const date = new Date();
+    saveFinished(renderer[0], path, date);
     history.push('/receitas-feitas');
   }
+  if (!renderer[0]) return <h1>Loading...</h1>;
+  if (renderer[0]) {
+    const { strCategory, strInstructions } = renderer[0];
+    return (
+      <>
+        <img
+          data-testid="recipe-photo"
+          src={ renderer[0][imgSrc] }
+          alt={ renderer[0][title] }
+        />
 
-  if (!renderer[0]) return <h1>Upss... Try again!!</h1>;
-  return (
-    <>
-      <img
-        data-testid="recipe-photo"
-        src={ renderer[0][imgSrc] }
-        alt={ renderer[0][title] }
-      />
+        <p data-testid="recipe-title">{renderer[0][title]}</p>
 
-      <p data-testid="recipe-title">{renderer[0][title]}</p>
+        <Button onClick={ handleShare }>
+          <img data-testid="share-btn" src={ shareIcon } alt="" />
+        </Button>
 
-      <Button onClick={ handleShare }>
-        <img data-testid="share-btn" src={ shareIcon } alt="" />
-      </Button>
+        <Button>
+          <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
+        </Button>
 
-      <Button>
-        <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
-      </Button>
+        <p data-testid="recipe-category">{ strCategory }</p>
 
-      <p data-testid="recipe-category">{ renderer[0].strCategory }</p>
+        {handleIngredientsData().map((item, i) => (
+          <label key={ item } htmlFor={ `${i}-ingredient-step` }>
+            <p
+              data-testid={ `${i}-ingredient-step` }
+            >
+              <input
+                id={ `${i}-ingredient-step` }
+                name={ `step-${i + 1}` }
+                type="checkbox"
+                value={ false }
+                className=""
+                onChange={ handleCheckBox }
+              />
+              {` ${item}`}
+            </p>
+          </label>
+        ))}
 
-      {handleIngredientsData().map((item, i) => (
-        <label key={ item } htmlFor={ `${i}-ingredient-step` }>
-          <p
-            data-testid={ `${i}-ingredient-step` }
-          >
-            <input
-              id={ `${i}-ingredient-step` }
-              name={ `step-${i + 1}` }
-              type="checkbox"
-              value={ false }
-              className=""
-              onChange={ handleCheckBox }
-            />
-            {` ${item}`}
-          </p>
-        </label>
-      ))}
+        <p data-testid="instructions">{ strInstructions }</p>
 
-      <p data-testid="instructions">{ renderer[0].strInstructions }</p>
-
-      <Button
-        data-testid="finish-recipe-btn"
-        onClick={ handleFinished }
-        disabled={ isDisabled }
-      >
-        Finalizar Receita
-      </Button>
-    </>
-  );
+        <Button
+          data-testid="finish-recipe-btn"
+          onClick={ handleFinished }
+          disabled={ isDisabled }
+        >
+          Finalizar Receita
+        </Button>
+      </>
+    );
+  }
 }
