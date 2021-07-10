@@ -1,4 +1,6 @@
 const copy = require('clipboard-copy');
+// const month
+// const year
 
 export const copyLink = ({ url }) => {
   copy(`http://localhost:3000${url}`);
@@ -21,6 +23,8 @@ export const verifyCheck = (index, check) => {
 
 export const generateCorrectObj = (details) => {
   let newFinishedRecipe;
+  const date = new Date();
+  console.log(date.getDay());
   if (details[0].idMeal) {
     newFinishedRecipe = {
       id: details[0].idMeal,
