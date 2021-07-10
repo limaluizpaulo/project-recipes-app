@@ -26,23 +26,25 @@ export default function RenderDetails({ btnFinish, id }) {
 
   const renderRecipe = () => (
     <div>
-      <h5 data-testid="recipe-category">
-        Categoria:
-        { (foods) ? recipeDetail.strCategory : (
-          recipeDetail.strAlcoholic
-        ) }
-      </h5>
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
-        alt="recipe-img"
-        width="350px"
-      />
       <div>
-        <div className="titleButtons">
+        <div className="titleDetails">
           <h1 data-testid="recipe-title">
             { recipeDetail.strMeal || recipeDetail.strDrink }
           </h1>
+          <h5 data-testid="recipe-category">
+            Categoria:
+            { (foods) ? recipeDetail.strCategory : (
+              recipeDetail.strAlcoholic
+            ) }
+          </h5>
+        </div>
+        <div className="imageButtons">
+          <img
+            data-testid="recipe-photo"
+            src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
+            alt="recipe-img"
+            width="350px"
+          />
           <span className="likeShareBtns">
             <ShareButton />
             <LikeButton recipe={ recipeDetail } />
