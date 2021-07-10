@@ -294,9 +294,10 @@ justify-items: center;
 .categoriesBtns div button {
   display: grid;
   justify-items: center;
+  /* align-items: space-around; */
   color: var(--title-color);
   font-size: var(--h1-font-size);
-  width: 10rem;
+  width: 13rem;
   height: max-content;
   padding: 3px;
   cursor: pointer;

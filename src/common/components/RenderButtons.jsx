@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { FaBookOpen, FaUtensils, FaBreadSlice,
-  FaDrumstickBite, FaIceCream, FaMitten } from 'react-icons/fa';
+  FaDrumstickBite, FaIceCream, FaMitten,
+  FaGlassMartini, FaCocktail, FaMugHot, FaBeer, FaCoffee } from 'react-icons/fa';
 import store from '../../context/store';
 
 export default function RenderButtons({ clickCategory, foodOrDrink, clickAll, path }) {
@@ -30,6 +31,9 @@ export default function RenderButtons({ clickCategory, foodOrDrink, clickAll, pa
     const mealsBtns = [<FaUtensils key={ 0 } />, <FaBreadSlice key={ 1 } />,
       <FaDrumstickBite key={ 2 } />, <FaIceCream key={ 3 } />, <FaMitten key={ 4 } />];
 
+    const drinksBtns = [<FaGlassMartini key={ 0 } />, <FaCocktail key={ 1 } />,
+      <FaMugHot key={ 2 } />, <FaBeer key={ 3 } />, <FaCoffee key={ 4 } />];
+
     let newCategories;
     if (path) {
       newCategories = foodDrinkButtons;
@@ -51,7 +55,7 @@ export default function RenderButtons({ clickCategory, foodOrDrink, clickAll, pa
               ? (() => foodOrDrink(category.strCategory))
               : (() => clickCategory(category)) }
           >
-            {(!path) && mealsBtns[index]}
+            {(!path) && (foods) ? mealsBtns[index] : drinksBtns[index]}
             {category.strCategory}
           </button>
         </div>

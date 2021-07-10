@@ -12,7 +12,7 @@ import Loading from '../components/Loading';
 export default function RecipeInProgress() {
   const { id } = useParams();
   const [disabledBtn, setDisabledBtn] = useState(true);
-  const [doneRecipes] = useState(() => getStorage('doneRecipes'));
+  const [doneRecipes] = useState(getStorage('doneRecipes'));
   const [ingrLS, setIngrLS] = useState(() => (
     getStorage('inProgressRecipes')[id] || [])); // LS = LocalStorage
 
