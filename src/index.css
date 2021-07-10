@@ -487,6 +487,12 @@ justify-items: center;
     width: 348px;
     justify-self: center;
   }
+
+  /* RECIPES PAGE */
+  .categoriesBtns {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+  }
 }
 
 /* =========================================================================== */
@@ -495,6 +501,12 @@ justify-items: center;
   :root {
     --normal-font-size: 1rem;
     --small-font-size: .875rem;
+  }
+  
+  /* RECIPES PAGE */
+  .categoriesBtns {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
   }
 }
 
@@ -535,5 +547,56 @@ justify-items: center;
 
   .loginCreate {
     bottom: -5.5rem;
+  }
+
+  /* RECIPES PAGE */
+  .containerBtns {
+    background-color: var(--first-color-dark);
+    margin-top: 1rem;
+    padding: 10px 0;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
+  }
+  
+  .categoriesBtns {
+    display: flex;
+  }
+  
+  .categoriesBtns div {
+    border-right: 1px solid rgba(235, 232, 232, 0.2);
+  }
+  
+  .categoriesBtns div button {
+    display: grid;
+    justify-items: center;
+    /* align-items: space-around; */
+    color: var(--title-color);
+    font-size: var(--h1-font-size);
+    width: 13rem;
+    height: max-content;
+    padding: 3px;
+    cursor: pointer;
+    transition: .3s;
+  }
+  
+  .categoriesBtns div button:hover {
+    color: #FFFF;
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, .3);
+    padding: 7px;
+  }
+  
+  .categoriesBtns div:last-child {
+    border-right: none;
+  }
+  
+  .cards {
+    display: grid;
+    margin-top: 3rem;
+  }
+  
+  .recipes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
