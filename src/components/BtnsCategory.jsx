@@ -30,7 +30,7 @@ export default function BtnsCategory({ label, title }) {
   };
 
   return (
-    <div>
+    <span className="btns-category">
       <button
         type="button"
         value={ strCategory }
@@ -39,7 +39,7 @@ export default function BtnsCategory({ label, title }) {
       >
         {strCategory}
       </button>
-    </div>
+    </span>
   );
 }
 

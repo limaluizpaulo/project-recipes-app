@@ -44,8 +44,13 @@ export default function RecipeInProgress() {
     <div>
       <HeaderDetails recipe={ recipe } pathname={ pathname } />
       <Ingredients recipe={ recipe } radioBtn setEnableBtn={ setEnableBtn } />
+      <div className="instructions">
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
       <Link to="/receitas-feitas">
         <button
+          className="finishi-recipe-btn"
           disabled={ enableBtn }
           type="button"
           data-testid="finish-recipe-btn"

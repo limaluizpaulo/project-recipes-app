@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
@@ -21,6 +23,7 @@ export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
 
     navigator.clipboard.writeText(link);
     setCopyLink(true);
+    toast.success('Link Copiado');
   };
 
   return (
@@ -35,7 +38,8 @@ export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
           data-testid={ doneRecipe ? `${index}-horizontal-share-btn` : 'share-btn' }
         />
       </button>
-      {copyLink && <p>Link copiado!</p>}
+      {/* {copyLink && <p>Link copiado!</p>} */}
+      {copyLink ? <ToastContainer autoClose={ 2500 } /> : ''}
     </div>
   );
 }

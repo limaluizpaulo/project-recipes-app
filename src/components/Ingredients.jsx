@@ -23,7 +23,8 @@ export default function Ingredients({ recipe, radioBtn, setEnableBtn }) {
   }, [arrChecked, checkEnableBtn, ingredients, radioBtn, recipe, setEnableBtn]);
 
   return (
-    <div>
+    <div className="ingredients-container">
+      <h4>Ingredients</h4>
       {ingredients.map((ingredient, index) => (radioBtn ? (
         <div key={ index } className="ingredients-check">
           <label htmlFor="ingre" data-testid={ `${index}-ingredient-step` }>

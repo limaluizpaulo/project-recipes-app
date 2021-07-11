@@ -33,10 +33,12 @@ export default function Login() {
   const NUM = 6;
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
-          Email
+
+    <section className="login-section">
+      <div className="login-container">
+        <form onSubmit={ handleSubmit }>
+          {/* <label htmlFor="email">
+          Email */}
           <input
             value={ email }
             name="email"
@@ -44,27 +46,30 @@ export default function Login() {
             id="email"
             data-testid="email-input"
             onChange={ handleValue }
+            placeholder="Email"
           />
-        </label>
-
-        <label htmlFor="password">
-          Password
+          {/* </label> */}
+          {/* <label htmlFor="password">
+          Password */}
           <input
             value={ password }
             name="password"
             data-testid="password-input"
             type="password"
             onChange={ handleValue }
+            placeholder="Senha"
           />
-        </label>
-        <button
-          data-testid="login-submit-btn"
-          disabled={ password.length <= NUM || (!handleEmailverify()) }
-          type="submit"
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+          {/* </label> */}
+          <button
+            data-testid="login-submit-btn"
+            disabled={ password.length <= NUM || (!handleEmailverify()) }
+            type="submit"
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
+    </section>
+
   );
 }

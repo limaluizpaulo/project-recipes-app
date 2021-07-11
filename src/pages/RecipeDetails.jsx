@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
+import { ClipLoader } from 'react-spinners';
 import { fetchMealById } from '../services/mealsApi';
 import { fetchDrinkById } from '../services/drinksApi';
 import HeaderDetails from '../components/HeaderDetails';
@@ -43,17 +44,35 @@ export default function RecipeDetails() {
     return 'Iniciar Receita';
   };
 
+  if ((Object.keys(recipe).length === 0)) {
+    return (<ClipLoader
+      size="120px"
+      css="margin: 250px 130px"
+    />);
+  }
+
   return (
     <div>
       <HeaderDetails recipe={ recipe } pathname={ pathname } />
       <section className="ingredients">
         <Ingredients recipe={ recipe } />
       </section>
+      <div className="instructions">
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      <div className="video-container">
+        <h4>Video</h4>
+        {strMeal && <ReactPlayer
+          url={ strYoutube }
+          controls
+          data-testid="video"
+          width="100%"
+          height="85%"
+        />}
 
-      {/* ReactPlayer based on: https://www.youtube.com/watch?v=7sDY4m8KNLc */}
-
-      {strMeal && <ReactPlayer url={ strYoutube } controls data-testid="video" />}
-      <div>
+      </div>
+      <div className="recomendations">
         <Recomendations strMeal={ strMeal } />
       </div>
       <div className="btn-start-container">
@@ -75,6 +94,8 @@ export default function RecipeDetails() {
           </Link>
         )}
       </div>
+
     </div>
+
   );
 }

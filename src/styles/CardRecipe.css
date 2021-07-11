@@ -1,0 +1,22 @@
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 90%;
+  justify-content: space-around;
+}
+
+.recipe-container img {
+  width: 9.5rem;
+}
+
+.recipe-card {
+  margin: 0.3rem 0.3rem 1rem 0.3rem;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid rgba(156, 175, 172, 0.527);
+}
+
+.recipe-name {
+  margin: 0.2rem 0 -0.8rem 0;
+}

@@ -14,7 +14,7 @@ export default function Recomendations({ strMeal }) {
   // CAROUSEL BASED ON: https://react-bootstrap.github.io/components/carousel/
   return (
     <div className="recomendations">
-      <Carousel>
+      <Carousel className="carousel">
         {arrRecomendations.map((recipe, index) => (
           <Carousel.Item
             key={ recipe.strMeal || recipe.strDrink }

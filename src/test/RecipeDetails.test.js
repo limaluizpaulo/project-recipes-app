@@ -3,10 +3,27 @@ import { screen } from '@testing-library/react';
 // import { act } from 'react-dom/test-utils';
 import renderWithRouter from './renderWithRouter';
 import RecipeDetails from '../pages/RecipeDetails';
-// import mockFetch from '../../cypress/mocks/fetch';
+// import MealsContextProvider from '../context/mealsContext';
+// import oneMeal from '../../cypress/mocks/oneMeal';
+import meals from '../../cypress/mocks/meals';
+// import drinks from '../../cypress/mocks/drinks';
 
+// import mockFetch from '../../cypress/mocks/fetch';
 // const oneMeal = require('../mocks/oneMeal');
 // const foodDetails = oneMeal.meals[0];
+
+jest.fn(() => Promise.resolve({
+  json: () => Promise.resolve(
+    meals.meals[0],
+  ),
+
+}));
+
+// global.fetch = jest.fn(() => Promise.resolve({
+//   json: () => Promise.resolve(
+//     drinks,
+//   ),
+// }));
 
 describe('Teste da página Receitas Feitas', () => {
   it('Verifica a existencia de um header', () => {
@@ -46,6 +63,8 @@ describe('Teste da página Receitas Feitas', () => {
     renderWithRouter(<RecipeDetails />);
     const btn = screen.getByTestId('start-recipe-btn');
     expect(btn.textContent).toBe('Iniciar Receita');
+    // fireEvent.click(btn);
+    // expect(history.location.pathname).toBe('/comidas/52771');
   });
 
   // it('Vefica se o video é renderizado', async () => {

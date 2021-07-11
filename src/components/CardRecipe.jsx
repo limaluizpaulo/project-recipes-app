@@ -13,7 +13,9 @@ export default function CardRecipe({ data, index }) {
           alt={ strMeal || strDrink }
           data-testid={ `${index}-card-img` }
         />
-        <p data-testid={ `${index}-card-name` }>{strMeal || strDrink}</p>
+        <div className="recipe-name">
+          <p data-testid={ `${index}-card-name` }>{strMeal || strDrink}</p>
+        </div>
       </Link>
     </div>
   );

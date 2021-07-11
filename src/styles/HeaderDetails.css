@@ -1,0 +1,42 @@
+.header-details {
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0 0.3rem;
+  margin: 0.7rem 1rem 0rem 1rem;
+}
+
+.img-details-container {
+  height: 11rem;
+}
+
+.details-category-name h4 {
+  margin-bottom: -0.2rem;
+}
+
+.img-details-container img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.share-like {
+  display: flex;
+  width: 5rem;
+  justify-content: space-around;
+  align-items: center;
+  height: 3rem;
+}
+
+.share-like button {
+  background: none;
+  border: none;
+}
+
+.instructions {
+  width: 21rem;
+  border: 1px solid rgb(171, 190, 187);
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}

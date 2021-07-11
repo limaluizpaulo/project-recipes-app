@@ -80,58 +80,65 @@ export default function SearchBar() {
 
   return (
     <div>
-      <input
-        name="searchText"
-        type="text"
-        placeholder="Buscar Receita"
-        data-testid="search-input"
-        onChange={ handleValue }
-      />
-      <label htmlFor="ingredient">
-        Ingrediente
+      <div className="text-input">
         <input
-          type="radio"
-          id="ingredient"
-          data-testid="ingredient-search-radio"
-          name="filter"
-          value="ingredient"
-          onClick={ handleValue }
+          name="searchText"
+          type="text"
+          placeholder="Buscar Receita"
+          data-testid="search-input"
+          onChange={ handleValue }
         />
-      </label>
+      </div>
+      <div className="radio-inputs">
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            id="ingredient"
+            data-testid="ingredient-search-radio"
+            name="filter"
+            value="ingredient"
+            onClick={ handleValue }
+          />
+          Ingrediente
 
-      <label htmlFor="name">
-        Nome
-        <input
-          type="radio"
-          id="name"
-          data-testid="name-search-radio"
-          name="filter"
-          value="name"
-          onClick={ handleValue }
+        </label>
 
-        />
-      </label>
+        <label htmlFor="name">
+          <input
+            type="radio"
+            id="name"
+            data-testid="name-search-radio"
+            name="filter"
+            value="name"
+            onClick={ handleValue }
 
-      <label htmlFor="firstLetter">
-        Primeira Letra
-        <input
-          type="radio"
-          id="firstLetter"
-          data-testid="first-letter-search-radio"
-          name="filter"
-          value="firstLetter"
-          onClick={ handleValue }
+          />
+          Nome
+        </label>
 
-        />
-      </label>
+        <label htmlFor="firstLetter">
+          <input
+            type="radio"
+            id="firstLetter"
+            data-testid="first-letter-search-radio"
+            name="filter"
+            value="firstLetter"
+            onClick={ handleValue }
 
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ handleSubmit }
-      >
-        Buscar
-      </button>
+          />
+          Primeira Letra
+        </label>
+      </div>
+      <div className="button-search-food">
+
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ handleSubmit }
+        >
+          Buscar
+        </button>
+      </div>
     </div>
   );
 }

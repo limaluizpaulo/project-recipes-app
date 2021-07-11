@@ -1,3 +1,21 @@
+@import './styles/Login.css';
+@import './styles/Header.css';
+@import './styles/SearchBar.css';
+@import './styles/BtnsCategory.css';
+@import './styles/CardRecipe.css';
+@import './styles/Footer.css';
+@import './styles/HeaderDetails.css';
+@import './styles/Ingredients.css';
+@import './styles/RecipeDetails.css';
+@import './styles/RecipeInProgress.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
 .recipe-card {
   border-radius: 9px;
   box-shadow: 3px 4px 4px rgba(8, 8, 8, 0.25);
@@ -69,4 +87,4 @@
 .btn-start {
   bottom: 0;
   position: fixed;
-}
+} */

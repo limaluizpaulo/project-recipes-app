@@ -9,8 +9,15 @@ export default function HeaderDetails({ recipe, pathname }) {
   const [fav, setFav] = useState(false);
   const { handleToggleFavorite } = useFavorite();
   const {
-    strMeal, strDrink, strMealThumb, strDrinkThumb,
-    strCategory, strInstructions, strAlcoholic, idMeal, idDrink,
+    strMeal,
+    strDrink,
+    strMealThumb,
+    strDrinkThumb,
+    strCategory,
+    // strInstructions,
+    strAlcoholic,
+    idMeal,
+    idDrink,
   } = recipe;
 
   const id = idMeal || idDrink;
@@ -28,14 +35,27 @@ export default function HeaderDetails({ recipe, pathname }) {
 
   return (
     <>
-      <header>
-        <div className="header-details" data-testid="header-details">
+      <div className="img-details-container">
+        <img
+          className="img-detail"
+          src={ strMealThumb || strDrinkThumb }
+          alt="avatar"
+          data-testid="recipe-photo"
+        />
+      </div>
+      <div className="header-details" data-testid="header-details">
+        <div className="details-category-name">
           <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
+          <p data-testid="recipe-category">
+            {strMeal ? strCategory : strAlcoholic}
+          </p>
+        </div>
+
+        <div className="share-like">
           <ShareBtn pathname={ pathname } recipe={ recipe } />
           <button
             type="button"
-            onClick={ () => handleToggleFavorite(fav,
-              setFav, favoriteRecipes, recipe) }
+            onClick={ () => handleToggleFavorite(fav, setFav, favoriteRecipes, recipe) }
           >
             <img
               data-testid="favorite-btn"
@@ -44,15 +64,12 @@ export default function HeaderDetails({ recipe, pathname }) {
             />
           </button>
         </div>
-        <img
-          className="img-detail"
-          src={ strMealThumb || strDrinkThumb }
-          alt="avatar"
-          data-testid="recipe-photo"
-        />
-      </header>
-      <p data-testid="recipe-category">{strMeal ? strCategory : strAlcoholic}</p>
-      <p data-testid="instructions">{strInstructions}</p>
+
+      </div>
+      {/* <div className="instructions">
+        <h3>Instructions</h3>
+        <p data-testid="instructions">{strInstructions}</p>
+      </div> */}
     </>
   );
 }
