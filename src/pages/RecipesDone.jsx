@@ -24,21 +24,18 @@ export default function RecipesDone({ history }) {
       filteredList = destructuredStorage
         .filter((eachOne) => eachOne.type === 'bebida');
     }
-    return (filteredList.map((each, index) => {
-      if (whatIsActivated === 0) {
-        return <BodyRecipesDone index={ index } history={ history } each={ each } />;
-      }
-      if (whatIsActivated === 1/*  && each.type === 'comida' */) {
-        return <BodyRecipesDone index={ index } history={ history } each={ each } />;
-      }
-      if (whatIsActivated === 2/*  && each.type === 'bebida' */) {
-        return <BodyRecipesDone index={ index } history={ history } each={ each } />;
-      }
-      return null;
-    }));
+    return (filteredList
+      .map((each, index) => (
+        <BodyRecipesDone
+          key={ index }
+          index={ index }
+          history={ history }
+          each={ each }
+        />
+      )));
   };
   return (
-    <>
+    <article>
       <Header title="Receitas Feitas" />
       <button
         data-testid="filter-by-all-btn"
@@ -61,8 +58,8 @@ export default function RecipesDone({ history }) {
       >
         Bebidas
       </button>
-      {renderFilteredList()}
-    </>
+      {destructuredStorage ? renderFilteredList() : null}
+    </article>
   );
 }
 

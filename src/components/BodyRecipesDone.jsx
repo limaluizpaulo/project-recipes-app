@@ -32,16 +32,13 @@ export default function BodyRecipesDone({ index, history, each }) {
       >
         {AlcoholicAreaCategory}
       </h1>
-      <h1
+      <button
         data-testid={ `${index}-horizontal-name` }
+        type="button"
+        onClick={ () => history.push(templateString) }
       >
-        <button
-          type="button"
-          onClick={ () => history.push(templateString) }
-        >
-          {each.name}
-        </button>
-      </h1>
+        {each.name}
+      </button>
       <p data-testid={ `${index}-horizontal-done-date` }>{each.doneDate}</p>
       <button
         type="button"
