@@ -10,7 +10,6 @@ const localStorageAction = async (newItem, action, actualArray, helper) => {
     return [...actualArray, newItem];
 
   case 'addToggle':
-    console.log(findItem);
     if (findItem) {
       const filteredArray = actualArray.filter(
         (item) => Number.parseInt(item.id, DECIMAL_RADIX)
@@ -19,7 +18,6 @@ const localStorageAction = async (newItem, action, actualArray, helper) => {
 
       return filteredArray;
     }
-    console.log([...actualArray, newItem]);
     return [...actualArray, newItem];
 
   case 'addToggleStep':

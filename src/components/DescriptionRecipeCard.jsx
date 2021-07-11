@@ -93,6 +93,8 @@ export default function DescriptionRecipeCard(
             index={ index }
             id={ recipe.id }
             type={ recipe.type }
+            updateCards={ updateCards }
+            setUpdateCards={ setUpdateCards }
           />
         </td>
       );

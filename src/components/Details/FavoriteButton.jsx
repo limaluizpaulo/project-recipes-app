@@ -7,7 +7,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import localStorageAction from '../../helpers/localStorageAction';
 
 export default function FavoriteButton(
-  { recipe, dataTestId, updateCards = function () {}, setUpdateCards = function () {} },
+  { recipe, dataTestId, updateCards, setUpdateCards },
 ) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
@@ -55,12 +55,14 @@ export default function FavoriteButton(
     const newFavorite = generateLocalStorageObject(type);
     const action = await localStorageAction(newFavorite, 'addToggle', allFavorites);
     await setFavoriteRecipes(action);
+    if (setUpdateCards) {
+      setUpdateCards(!updateCards);
+    }
   };
 
   // // Ação ao clicar em favoritar
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
-    setUpdateCards(!updateCards);
     updateFavoritesLocalStorage();
   };
 
