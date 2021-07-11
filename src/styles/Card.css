@@ -10,3 +10,11 @@
     overflow: hidden;
   }
 }
+
+.card-details { 
+  height: 100%;
+  margin-left: 35px;
+  margin-right: 15px;
+  margin-top: 15px;
+  width: 100%;
+}

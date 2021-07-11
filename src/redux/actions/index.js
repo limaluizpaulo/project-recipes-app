@@ -6,6 +6,7 @@ export const [
   DRINKS,
   FOODS,
   RANDOM,
+  RECIPESDETAILS,
   INGREDIENTS,
   FOOD_CATEGORIES,
   DRINK_CATEGORIES,
@@ -16,6 +17,7 @@ export const [
   'DRINKS',
   'FOODS',
   'RANDOM',
+  'RECIPESDETAILS',
   'INGREDIENTS',
   'FOOD_CATEGORIES',
   'DRINK_CATEGORIES',
@@ -47,6 +49,11 @@ const actionGetDrinks = (payload) => ({
 
 const actionGetRandom = (payload) => ({
   type: RANDOM,
+  payload,
+});
+
+const actionGetRecipesDetails = (payload) => ({
+  type: RECIPESDETAILS,
   payload,
 });
 
@@ -97,6 +104,11 @@ export function getDrinks(value, callback) {
 export function getRandom(callback) {
   return (dispatch) => callback()
     .then((random) => dispatch(actionGetRandom(random)));
+}
+
+export function GetRecipesDetails(value, callback) {
+  return (dispatch) => callback(value)
+    .then((recipesDetails) => dispatch(actionGetRecipesDetails(recipesDetails)));
 }
 
 export function getIngredient(callback) {
