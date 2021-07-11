@@ -31,15 +31,17 @@ export default function RenderDetails({ btnFinish, id }) {
       {/* -------------------------------------------------------------------------- */}
       <div className="box topDetails">
         <div className="titleDetails">
-          <h1 data-testid="recipe-title">
-            { recipeDetail.strMeal || recipeDetail.strDrink }
-          </h1>
-          <h5 data-testid="recipe-category">
-            Categoria:
-            { (foods) ? recipeDetail.strCategory : (
-              recipeDetail.strAlcoholic
-            ) }
-          </h5>
+          <div className="titleCategory">
+            <h1 data-testid="recipe-title">
+              { recipeDetail.strMeal || recipeDetail.strDrink }
+            </h1>
+            <h5 data-testid="recipe-category">
+              Categoria:
+              { (foods) ? recipeDetail.strCategory : (
+                recipeDetail.strAlcoholic
+              ) }
+            </h5>
+          </div>
           <h3>Ingredientes</h3>
           <RecipeIngredients Details />
         </div>
@@ -48,7 +50,7 @@ export default function RenderDetails({ btnFinish, id }) {
             data-testid="recipe-photo"
             src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
             alt="recipe-img"
-            width="350px"
+            className="recipeImage"
           />
           <span className="likeShareBtns">
             <ShareButton />
