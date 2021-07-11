@@ -12,7 +12,6 @@ export default function ScreenFavoriteButton({ id, index }) {
   // const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
 
   const { favoriteFilters } = useContext(RecipesContext);
-  const [saveRecipe, setSaveRecipe] = useState('');
   // const [stateChangeHeart, setStateChangeHeart] = useState(true);
 
   const removeFavorited = () => {
