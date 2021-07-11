@@ -95,7 +95,6 @@ export function haveFavoriteRecipes(typeRecipe, idRecipe) {
 }
 
 export function addFavoriteRecipes(recipe) {
-  // const lengthPropsRecipe = Object.keys(recipe).length;
   const favoriteRecipes = getItemLocalStorage('favoriteRecipes');
   setItemLocalStorage('favoriteRecipes', [...favoriteRecipes, recipe]);
 }
@@ -105,4 +104,13 @@ export function removeFavoriteRecipes(typeRecipe, idRecipe) {
   const newFavoriteRecipes = favoriteRecipes
     .filter(({ id, type }) => !(id === idRecipe && type === typeRecipe));
   setItemLocalStorage('favoriteRecipes', newFavoriteRecipes);
+}
+
+export function addDoneRecipes(recipe) {
+  const doneRecipes = getItemLocalStorage('doneRecipes');
+  if (!doneRecipes) {
+    setItemLocalStorage('doneRecipes', [recipe]);
+  } else {
+    setItemLocalStorage('doneRecipes', [...doneRecipes, recipe]);
+  }
 }

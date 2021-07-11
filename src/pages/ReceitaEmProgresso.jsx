@@ -6,6 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import Ingredientes from '../components/ReceitaEmProgresso/Ingredientes';
 import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
 import formatIngredientsAndMeasuresArray from '../helpers/formatIngredientsMeasures';
+import { addDoneRecipes } from '../services/localStorage';
+import customDate from '../helpers/Date';
 
 function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
@@ -122,12 +124,30 @@ function ReceitaEmProgresso() {
     );
   };
 
+  const handleClick = () => {
+    const { type, area, category, alcoholicOrNot, name, image, tags } = receita;
+    const doneDate = customDate();
+    const doneRecipe = {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      doneDate,
+      tags,
+    };
+    addDoneRecipes(doneRecipe);
+  };
+
   const renderizaBotaoFinalizar = () => (
     <Link to="/receitas-feitas">
       <button
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ !isComplete }
+        onClick={ handleClick }
       >
         Finalizar receita
       </button>
