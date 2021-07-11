@@ -13,8 +13,11 @@ class BeveragesInProgressInfo extends Component {
   onClickFinishRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const { match: { params: { id } }, detailsRecipe } = this.props;
-    const { getDate, getFullYear, getMonth } = new Date();
-    const currentDate = `${getDate()}/0${getMonth() + 1}/${getFullYear()}`;
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const currentDate = `${day}/0${month + 1}/${year}`;
     const newRecipe = {
       id,
       type: 'bebida',
@@ -28,7 +31,6 @@ class BeveragesInProgressInfo extends Component {
     };
     if (doneRecipes) {
       const checkRegister = doneRecipes.filter((recipe) => recipe.id === id);
-      console.log('aqui');
       if (checkRegister.length > 0) return null;
       return localStorage.setItem(
         'doneRecipes',

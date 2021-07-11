@@ -188,7 +188,7 @@ class BeverageRecipe extends React.Component {
 
   render() {
     const { detailsRecipe, copyLink } = this.state;
-    if (detailsRecipe.length === 0) {
+    if (!detailsRecipe || detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
     return (
