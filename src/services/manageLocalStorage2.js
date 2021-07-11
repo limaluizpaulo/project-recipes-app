@@ -27,4 +27,16 @@ export const settingFavorite2 = (details, id, refresh) => {
   return !refresh;
 };
 
-export const nextFn = () => {};
+export const getEmail = () => {
+  const rawEmail = localStorage.getItem('user');
+  const email = JSON.parse(rawEmail);
+  if (!email) {
+    return 'Sem email cadastrado. O usuário chegou até aqui driblando a tela de login...';
+  }
+  return email.email;
+};
+
+export const clearStorageAndPushToLogin = (history) => {
+  localStorage.clear();
+  history.push('/');
+};
