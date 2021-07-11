@@ -1,11 +1,16 @@
 iframe {
+  margin-bottom: 20px;
   width: 360px;
+}
+
+.video {
+  margin-bottom: 20px;
 }
 
 .details-image {
   height: 150px;
   object-fit: cover;
-  width: 360px;
+  width: 320px;
 }
 
 .carousel-items {
@@ -14,26 +19,45 @@ iframe {
   width: 100%;
 }
 
-.ingredients li {
+.ingredients ul {
+  font-weight: 100;
   list-style: none;
+  padding: 10px;
+  text-align: left;
   width: 360px;
 }
 
+.instructions h5 {
+  text-align: center;
+}
+
 .instructions {
+  font-weight: 100;
+  padding: 15px;
   text-align: justify;
-  width: 360px;
+  width: 320px;
 }
 
 .title {
   align-items: center;
+  background-color: #2a9d8f;
+  color: white;
   display: flex;
   justify-content: space-between;
-  width: 360px;
+  margin-bottom: 20px;
+  width: 320px;
+}
+
+.title img {
+  display: flex;
+  filter: invert(100%);
+  height: 25px;
+  width: 25px;
 }
 
 .title h6 {
   align-self: flex-start;
-  color: grey;
+  color: white;
 }
 
 .title-left {
@@ -44,12 +68,6 @@ iframe {
   width: 230px;
 }
 
-.title img {
-  display: flex;
-  height: 25px;
-  width: 25px;
-}
-
 .title button {
   background: none;
   border: none;
@@ -58,9 +76,20 @@ iframe {
 }
 
 .start {
+  background-color: #2a9d8f;
+  border: 2px solid #264653;
+  border-radius: 25px;
   bottom: 0;
-  left: 120px;
+  color: white;
+  height: 30px;
+  left: 70px;
   position: fixed;
+  width: 180px;
+}
+
+.start a {
+  color: white;
+  font-weight: 600;
 }
 
 .tachado {
