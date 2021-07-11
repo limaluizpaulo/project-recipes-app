@@ -1,7 +1,6 @@
 import invokeAlert from '../helper/alertMsg';
 
 export const ERROR = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-
 export const USER_EMAIL = 'USER_EMAIL';
 export const ALL_FOOD_CATEGORIES = 'ALL_FOOD_CATEGORIES';
 export const ALL_DRINK_CATEGORIES = 'ALL_DRINK_CATEGORIES';
@@ -19,7 +18,7 @@ export const FAV_ICON = 'FAV_ICON';
 export const FAV_ICON_COLOR = 'FAV_ICON_COLOR';
 export const START_RECIPE = 'START_RECIPE';
 export const CHECK_PAGE = 'CHECK_PAGE';
-
+export const CHECK_INGREDIENTS = 'CHECK_INGREDIENTS';
 export const addFavicon = (favIcon) => ({ type: FAV_ICON, favIcon });
 export const faviconColor = (color) => ({ type: FAV_ICON_COLOR, color });
 export const addEmail = (email) => ({ type: USER_EMAIL, email });
@@ -50,6 +49,8 @@ export const startRecipe = () => ({
   type: START_RECIPE, isStart: true });
 export const checkPage = (bool) => ({
   type: CHECK_PAGE, isDrink: bool });
+export const ingredients = (obj) => ({
+  type: CHECK_INGREDIENTS, ingredients: obj });
 
 export const fetchApiFoodCategories = () => (dispatch) => {
   dispatch(isLoading());

@@ -3,6 +3,7 @@ import {
   RECIPE_DETAILS_DRINK,
   START_RECIPE,
   CHECK_PAGE,
+  CHECK_INGREDIENTS
 } from '../action';
 
 const INITIAL_STATE = {
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
   details: {},
   isStart: false,
   isDrink: false,
+  ingredients: [],
 };
 
 const recipeDetails = (state = INITIAL_STATE, action) => {
@@ -35,6 +37,11 @@ const recipeDetails = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isDrink: action.isDrink,
+    };
+  case CHECK_INGREDIENTS:
+    return {
+      ...state,
+      ingredients: action.ingredients,
     };
   default:
     return state;

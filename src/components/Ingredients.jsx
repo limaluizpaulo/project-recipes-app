@@ -9,9 +9,7 @@ import identification from '../helper/dictionaryApi';
 class Ingredients extends Component {
   checkIngredient() {
     return (
-      <input
-        type="checkbox"
-      />
+      <input type="checkbox" />
     );
   }
 
@@ -27,7 +25,11 @@ class Ingredients extends Component {
                 (data[ingredient[0]] !== null && data[ingredient[0]] !== '') ? (
                   <tr
                     key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    data-testid={
+                      isStart
+                        ? `${index}-ingredient-step`
+                        : `${index}-ingredient-name-and-measure`
+                    }
                   >
                     <td>{isStart ? this.checkIngredient() : <VscCircleOutline />}</td>
                     <td>{data[ingredient[0]]}</td>

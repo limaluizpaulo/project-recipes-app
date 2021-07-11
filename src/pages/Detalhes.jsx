@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import '../css/Details.css';
 import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
-import Ingredients from '../components/Ingredients';
-import '../css/Details.css';
 import Instructions from '../components/Instructions';
+import Ingredients from '../components/Ingredients';
 import DetailsHeader from '../components/DetailsHeader';
 import SharedFavorites from '../components/SharedFavorites';
+
 import { fetchDrinkDetails, fetchFoodDetails,
   startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
 import 'slick-carousel/slick/slick.css';
