@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import HeadBar from '../Components/HeadBar';
+import { Link } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
 import Footer from '../Components/Footer';
 import IngredientsDrinksTab from '../Components/IngredientsDrinksTab';
 import BeverageRecipesAPI from '../services/BeverageRecipesAPI';
@@ -21,7 +22,16 @@ function ExpoDrinksIng(props) {
 
   return loading ? <h3>Loading...</h3> : (
     <div>
-      <HeadBar title="Ingredientes" />
+      <header className="header-container">
+        <div>
+          <Link to="/perfil">
+            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          </Link>
+        </div>
+        <div>
+          <h1 data-testid="page-title">Explorar Ingredientes</h1>
+        </div>
+      </header>
       <IngredientsDrinksTab ingredients={ ingredients } />
       <Footer />
     </div>

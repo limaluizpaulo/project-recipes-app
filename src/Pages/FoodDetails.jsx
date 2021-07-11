@@ -1,157 +1,149 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { connect } from 'react-redux';
-import { getFoods } from '../redux/actions';
-import MealAPI from '../services/MealRecipesAPI';
-import BeverageAPI from '../services/BeverageRecipesAPI';
+import { GetRecipesDetails, getFoods } from '../redux/actions';
 import CarroselBebidas from '../Components/CarroselBebidas';
+import BeverageAPI from '../services/BeverageRecipesAPI';
+import MealRecipesAPI from '../services/MealRecipesAPI';
 import Share from '../images/shareIcon.svg';
-import Favorite from '../images/whiteHeartIcon.svg';
+import FavoriteWhite from '../images/whiteHeartIcon.svg';
+import FavoriteBlack from '../images/blackHeartIcon.svg';
+import '../styles/Card.css';
 
-class FoodDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      valueFood: [],
-      ingredients: [],
-      recomendations: [],
-      visible: 'hidden',
-    };
-    this.resultFood = this.resultFood.bind(this);
-    this.getIngredients = this.getIngredients.bind(this);
-    this.checkBtnReceita = this.checkBtnReceita.bind(this);
-    this.iniciarReceita = this.iniciarReceita.bind(this);
+const FoodDetails = (props) => {
+  const { match: { params: { id } } } = props;
+  const [item, setItem] = useState({});
+  const [visible, setVisible] = useState('hidden');
+  const [favoriteBtn, setFavoriteBtn] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const {
+    foodId,
+    getFoodId,
+    food,
+    redirect,
+  } = props;
+
+  async function resultFood() {
+    const listRecomendations = await BeverageAPI.getByDefault();
+    await getFoodId(id, MealRecipesAPI.getFoodById);
+    setItem({ listRecomendations });
   }
-
-  componentDidMount() {
-    this.resultFood();
-    this.checkBtnReceita();
-  }
-
-  getIngredients() {
-    const { valueFood } = this.state;
-    const arrayIngredients = [];
-    const arrayMeasures = [];
-    const ingredientsAndMeasures = [];
-    const FOOD = Object.entries(valueFood[0]);
-
-    if (FOOD) {
-      FOOD.forEach(([key, value]) => {
-        if (key.includes('strIngredient') && value) {
-          arrayIngredients.push(value);
-        }
-      });
-      FOOD.forEach(([key, value]) => {
-        if (key.includes('strMeasure') && value) {
-          arrayMeasures.push(value);
-        }
-      });
-      for (let i = 0; i < arrayMeasures.length; i += 1) {
-        ingredientsAndMeasures.push([arrayIngredients[i], arrayMeasures[i]]);
-      }
+  // const recomendationsList = item.listRecomendations;
+  useEffect(() => {
+    if (loading) {
+      foodId(id)
+        .then(() => resultFood()
+          .then(() => setLoading(false)));
     }
-    this.setState({ ingredients: ingredientsAndMeasures });
-  }
+  }, []);
 
-  checkBtnReceita() {
-    const { match } = this.props;
-    const { id } = match.params;
-    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const getReceitaStorage = [...valueStorage];
+  function checkBtnReceita() {
+    const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
       if (receita === id) {
-        this.setState({ visible: '' });
+        setVisible('');
       }
     });
   }
 
-  async resultFood() {
-    const { getFoodId, match } = this.props;
-    const recomendations = await BeverageAPI.getByDefault();
-    const { id } = match.params;
-    const { payload } = await getFoodId(id, MealAPI.getFoodById);
-    this.setState({ valueFood: payload, recomendations }, () => this.getIngredients());
-  }
-
-  iniciarReceita() {
-    const { match } = this.props;
-    const { id } = match.params;
+  function iniciarReceita() {
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
-    this.checkBtnReceita();
+    checkBtnReceita();
   }
 
-  render() {
-    const { valueFood, ingredients, recomendations, visible } = this.state;
-    if (valueFood[0]) {
-      // console.log(recomendations);
-      return (
-        <div>
-          {valueFood.map((food, index) => (
-            <>
+  function favoriteChanger() {
+    setFavoriteBtn(!favoriteBtn);
+  }
+
+  return !redirect ? <h3>Loading</h3>
+    : (
+      <div className="card-details">
+        { food.map((foodItem, index) => (
+          <>
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              <img alt="share-btn" src={ Share } />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ favoriteChanger }
+            >
               <img
-                key={ index }
-                data-testid="recipe-photo"
-                src={ food.strMealThumb }
-                alt="drink"
-                width="300"
+                alt="favorite-btn"
+                data-testid="favorite-btn"
+                src={ favoriteBtn ? FavoriteWhite : FavoriteBlack }
               />
-              <h1 data-testid="recipe-title">{food.strMeal}</h1>
-              <h6 data-testid="recipe-category">{food.strCategory}</h6>
-              <ul>
-                {ingredients.map(([ingredient, measure], i) => (
-                  <li
-                    key={ i }
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                  >
-                    {`${ingredient} ${measure}`}
-                  </li>
-                ))}
-              </ul>
-              <p data-testid="instructions">{food.strInstructions}</p>
-              <img data-testid="video" src={ food.strVideo } alt="video" />
-              <CarroselBebidas recomendations={ recomendations } />
-            </>
-          ))}
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            <img alt="share-btn" src={ Share } />
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            <img alt="favorite-btn" src={ Favorite } />
-          </button>
-          <button
-            type="button"
-            className={ `btn-iniciar-receita ${visible}` }
-            data-testid="start-recipe-btn"
-            onClick={ this.iniciarReceita }
-          >
-            iniciar receita
+            </button>
+            <img
+              key={ index }
+              data-testid="recipe-photo"
+              src={ foodItem.strMealThumb }
+              alt="food"
+              width="300"
+            />
+            <h3 data-testid="recipe-title">{foodItem.strMeal}</h3>
+            <h6 data-testid="recipe-category">{foodItem.strCategory}</h6>
+            <div>
+              {
+                Object.entries(foodItem).filter((entrie) => {
+                  const [key, value] = entrie;
+                  return key.startsWith('strIngredient') && value;
+                }).map((el, i) => (
+                  <>
+                    <input
+                      type="checkbox"
+                      key={ el[0] }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                    />
+                    {`${el[1]} ${foodItem[`strMeasure${i + 1}`]}`}
+                  </>
+                ))
+              }
+            </div>
+            <p data-testid="instructions">{foodItem.strInstructions}</p>
+            <iframe
+              data-testid="video"
+              src={ foodItem.strVideo }
+              title={ foodItem.strFood }
+              frameBorder="0"
+              allow="accelerometer; autoplay;
+              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            <CarroselBebidas recomendations={ item.listRecomendations || [] } />
+            <button
+              type="button"
+              className={ `btn-iniciar-receita ${visible}` }
+              data-testid="start-recipe-btn"
+              onClick={ iniciarReceita }
+            >
+              iniciar receita
 
-          </button>
-        </div>
-      );
-    }
-    return null;
-  }
-}
+            </button>
+          </>
+        ))}
+      </div>
+    );
+};
 
 FoodDetails.propTypes = {
-  getFoodId: PropTypes.func,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }),
+  id: PropTypes.any,
+  FoodById: PropTypes.any,
 }.isRequired;
 
+const mapStateToProps = (state) => ({
+  food: state.details.item,
+  redirect: state.details.shouldRedirect,
+});
+
 const mapDispatchToProps = (dispatch) => ({
+  foodId: (value) => dispatch(GetRecipesDetails(value, MealRecipesAPI.getFoodById)),
   getFoodId: (value, callback) => dispatch(getFoods(value, callback)),
 });
 
-export default connect(null, mapDispatchToProps)(FoodDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);

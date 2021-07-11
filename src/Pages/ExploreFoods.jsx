@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import HeadBar from '../Components/HeadBar';
+import profileIcon from '../images/profileIcon.svg';
 import Footer from '../Components/Footer';
 import { getRandom } from '../redux/actions';
 import MealRecipes from '../services/MealRecipesAPI';
@@ -14,7 +14,16 @@ function ExploreFoods(props) {
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
     <>
-      <HeadBar title="Explorar" />
+      <header className="header-container">
+        <div>
+          <Link to="/perfil">
+            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          </Link>
+        </div>
+        <div>
+          <h1 data-testid="page-title">Explorar Comidas</h1>
+        </div>
+      </header>
       <Link
         to="/explorar/comidas/ingredientes"
         data-testid="explore-by-ingredient"

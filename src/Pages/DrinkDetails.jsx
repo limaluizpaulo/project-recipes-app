@@ -7,12 +7,15 @@ import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 import Share from '../images/shareIcon.svg';
-import Favorite from '../images/whiteHeartIcon.svg';
+import FavoriteWhite from '../images/whiteHeartIcon.svg';
+import FavoriteBlack from '../images/blackHeartIcon.svg';
 import '../styles/Card.css';
 
 const DrinkDetails = (props) => {
   const { match: { params: { id } } } = props;
   const [item, setItem] = useState({});
+  const [visible, setVisible] = useState('hidden');
+  const [favoriteBtn, setFavoriteBtn] = useState(true);
   const [loading, setLoading] = useState(true);
   const {
     drinkId,
@@ -20,7 +23,7 @@ const DrinkDetails = (props) => {
     drink,
     redirect,
   } = props;
-  console.log(drink);
+
   async function resultDrink() {
     const listRecomendations = await MealRecipesAPI.getByDefault();
     await getDrinkId(id, BeverageAPI.getDrinkById);
@@ -34,6 +37,29 @@ const DrinkDetails = (props) => {
           .then(() => setLoading(false)));
     }
   }, []);
+
+  function checkBtnReceita() {
+    const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    getReceitaStorage.forEach((receita) => {
+      if (receita === id) {
+        setVisible('');
+      }
+    });
+  }
+
+  function iniciarReceita() {
+    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
+    checkBtnReceita();
+  }
+
+  function favoriteChanger() {
+    setFavoriteBtn(!favoriteBtn);
+  }
+
+  function Checker() {
+    console.log(drink[0]);
+  }
 
   return !redirect ? <h3>Loading</h3>
     : (
@@ -49,8 +75,13 @@ const DrinkDetails = (props) => {
             <button
               type="button"
               data-testid="favorite-btn"
+              onClick={ favoriteChanger }
             >
-              <img alt="favorite-btn" src={ Favorite } />
+              <img
+                alt="favorite-btn"
+                data-testid="favorite-btn"
+                src={ favoriteBtn ? FavoriteWhite : FavoriteBlack }
+              />
             </button>
             <img
               key={ index }
@@ -61,24 +92,27 @@ const DrinkDetails = (props) => {
             />
             <h3 data-testid="recipe-title">{drinkItem.strDrink}</h3>
             <h6 data-testid="recipe-category">{drinkItem.strAlcoholic}</h6>
-            <ul>
+            <div>
               {
                 Object.entries(drinkItem).filter((entrie) => {
                   const [key, value] = entrie;
                   return key.startsWith('strIngredient') && value;
                 }).map((el, i) => (
-                  <li
-                    key={ el[0] }
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                  >
+                  <>
+                    <input
+                      type="checkbox"
+                      key={ el[0] }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      onChange={ Checker }
+                    />
                     {`${el[1]} ${drinkItem[`strMeasure${i + 1}`]}`}
-                  </li>))
+                  </>
+                ))
               }
-            </ul>
+            </div>
             <p data-testid="instructions">{drinkItem.strInstructions}</p>
             <iframe
-              width="560"
-              height="315"
+              data-testid="video"
               src={ drinkItem.strVideo }
               title={ drinkItem.strDrink }
               frameBorder="0"
@@ -87,6 +121,15 @@ const DrinkDetails = (props) => {
               allowFullScreen
             />
             <CarroselComidas recomendations={ item.listRecomendations || [] } />
+            <button
+              type="button"
+              className={ `btn-iniciar-receita ${visible}` }
+              data-testid="start-recipe-btn"
+              onClick={ iniciarReceita }
+            >
+              iniciar receita
+
+            </button>
           </>
         ))}
       </div>
@@ -96,7 +139,7 @@ const DrinkDetails = (props) => {
 DrinkDetails.propTypes = {
   id: PropTypes.any,
   drinkById: PropTypes.any,
-}.isRiquered;
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   drink: state.details.item,

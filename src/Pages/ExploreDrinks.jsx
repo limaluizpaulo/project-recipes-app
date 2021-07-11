@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import HeadBar from '../Components/HeadBar';
+import profileIcon from '../images/profileIcon.svg';
 import Footer from '../Components/Footer';
 import { getIngredient, getRandom } from '../redux/actions';
 import BeverageAPI from '../services/BeverageRecipesAPI';
@@ -19,7 +19,16 @@ function ExploreDrinks(props) {
 
   return shouldRedirect ? <Redirect to={ `/bebidas/${drink[0].idDrink}` } /> : (
     <>
-      <HeadBar title="Explorar" />
+      <header className="header-container">
+        <div>
+          <Link to="/perfil">
+            <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          </Link>
+        </div>
+        <div>
+          <h1 data-testid="page-title">Explorar Bebidas</h1>
+        </div>
+      </header>
       <Link
         to="/explorar/bebidas/ingredientes"
         data-testid="explore-by-ingredient"
