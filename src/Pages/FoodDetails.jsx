@@ -13,7 +13,7 @@ class FoodDetails extends React.Component {
       valueFood: [],
       ingredients: [],
       recomendations: [],
-      visible: 'hidden',
+      visible: '',
     };
     this.resultFood = this.resultFood.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
@@ -54,11 +54,10 @@ class FoodDetails extends React.Component {
   checkBtnReceita() {
     const { match } = this.props;
     const { id } = match.params;
-    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const getReceitaStorage = [...valueStorage];
+    const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
-      if (receita === id) {
-        this.setState({ visible: '' });
+      if (receita.id === id) {
+        this.setState({ visible: 'hidden' });
       }
     });
   }
@@ -71,11 +70,27 @@ class FoodDetails extends React.Component {
     this.setState({ valueFood: payload, recomendations }, () => this.getIngredients());
   }
 
-  iniciarReceita() {
-    const { match } = this.props;
+  async iniciarReceita() {
+    const { match, getDrinkId } = this.props;
     const { id } = match.params;
+    const { payload: { idDrink,
+      strDrink,
+      strCategory,
+      strTags,
+      strAlcoholic, strDrinkThumb } } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    const receita = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: this.dataAtual(),
+      tags: strTags || [],
+    };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
+    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, receita]));
     this.checkBtnReceita();
   }
 

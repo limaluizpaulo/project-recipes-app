@@ -13,12 +13,13 @@ class DrinkDetails extends React.Component {
       valueDrink: [],
       ingredients: [],
       recomendations: [],
-      visible: 'hidden',
+      visible: '',
     };
     this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.checkBtnReceita = this.checkBtnReceita.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
+    this.checkedIngredients = this.checkedIngredients.bind(this);
   }
 
   componentDidMount() {
@@ -45,7 +46,11 @@ class DrinkDetails extends React.Component {
         }
       });
       for (let i = 0; i < arrayMeasures.length; i += 1) {
-        ingredientsAndMeasures.push([arrayIngredients[i], arrayMeasures[i]]);
+        ingredientsAndMeasures.push({
+          ingredient: arrayIngredients[i],
+          quantidade: arrayMeasures[i],
+          checked: false,
+        });
       }
     }
     this.setState({ ingredients: ingredientsAndMeasures });
@@ -56,8 +61,8 @@ class DrinkDetails extends React.Component {
     const { id } = match.params;
     const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
-      if (receita === id) {
-        this.setState({ visible: '' });
+      if (receita.id === id) {
+        this.setState({ visible: 'hidden' });
       }
     });
   }
@@ -70,11 +75,44 @@ class DrinkDetails extends React.Component {
     this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
   }
 
-  iniciarReceita() {
-    const { match } = this.props;
+  dataAtual() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+
+    today = `${mm}/${dd}/${yyyy}`;
+    return today;
+  }
+
+  checkedIngredients(value, i) {
+    value.checked = !value.checked;
+    const { ingredients } = this.state;
+    ingredients[i] = value;
+    this.setState({ ingredients });
+  }
+
+  async iniciarReceita() {
+    const { match, getDrinkId } = this.props;
     const { id } = match.params;
+    const { payload: { idDrink,
+      strDrink,
+      strCategory,
+      strTags,
+      strAlcoholic, strDrinkThumb } } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    const receita = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: this.dataAtual(),
+      tags: strTags || [],
+    };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, id]));
+    localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, receita]));
     this.checkBtnReceita();
   }
 
@@ -95,13 +133,19 @@ class DrinkDetails extends React.Component {
               <h1 data-testid="recipe-title">{drink.strDrink}</h1>
               <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
               <ul>
-                {ingredients.map((ingredient, i) => (
-                  <li
-                    key={ i }
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                  >
-                    {ingredient}
-                  </li>
+                {ingredients.map(({ ingredient, quantidade, checked }, i) => (
+                  <>
+                    <input
+                      key={ i }
+                      type="checkbox"
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      checked={ checked }
+                      onChange={ () => this.checkedIngredients({
+                        ingredient, quantidade, checked }, i) }
+                    />
+                    {`${ingredient} ${quantidade}`}
+                  </>
+
                 ))}
               </ul>
               <p data-testid="instructions">{drink.strInstructions}</p>
