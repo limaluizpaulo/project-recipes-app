@@ -1,9 +1,46 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 class FoodInProgressInfo extends Component {
+  constructor() {
+    super()
+    this.onClickFinishRecipe = this.onClickFinishRecipe.bind(this);
+  }
+
+  onClickFinishRecipe() {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const { match: { params: { id } }, detailsRecipe } = this.props;
+    const today = new Date();
+    const currentDate = `${today.getDate()}/0${today.getMonth() + 1}/${today.getFullYear()}`;
+    const newRecipe = {
+      id,
+      type: 'comida',
+      area: detailsRecipe[0].strArea,
+      category: detailsRecipe[0].strCategory,
+      alcoholicOrNot: '',
+      name: detailsRecipe[0].strMeal,
+      image: detailsRecipe[0].strMealThumb,
+      doneDate: currentDate,
+      tags: [detailsRecipe[0].strTags],
+    };
+    if (doneRecipes) {
+      const checkRegister = doneRecipes.filter((recipe) => recipe.id === id);
+      console.log('aqui')
+      if (checkRegister.length > 0) return null;
+      return localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...doneRecipes, newRecipe])
+      );
+    };
+    return localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([newRecipe])
+    );
+  }
+
   render() {
     const {
       detailsRecipe,
@@ -46,7 +83,12 @@ class FoodInProgressInfo extends Component {
         <ul>{renderIngredients()}</ul>
 
         <Link to="/receitas-feitas">
-          <button disabled={ setDisable } data-testid="finish-recipe-btn" type="button">
+          <button
+            disabled={ setDisable }
+            data-testid="finish-recipe-btn"
+            type="button"
+            onClick={ this.onClickFinishRecipe }
+          >
             Finalizar receita
           </button>
         </Link>
@@ -65,4 +107,4 @@ FoodInProgressInfo.propTypes = {
   renderFavorite: PropTypes.func.isRequired,
 };
 
-export default FoodInProgressInfo;
+export default withRouter(FoodInProgressInfo);

@@ -141,7 +141,6 @@ class BeveragesInProgress extends React.Component {
 
   verifyChecks() {
     const { ingQuant, checkedIngredients } = this.state;
-    console.log('entrei');
     if (checkedIngredients.length === (ingQuant + 1)) {
       this.setState({ setDisable: false });
     } else {
@@ -163,7 +162,7 @@ class BeveragesInProgress extends React.Component {
         return null;
       }
       ingNumber = index;
-      return this.setState({ ingQuant: ingNumber });
+      return this.setState({ ingQuant: ingNumber }, () => this.verifyChecks());
     });
   }
 
@@ -180,7 +179,6 @@ class BeveragesInProgress extends React.Component {
   }
 
   renderIngredients() {
-    let ingNumber = 0;
     const { detailsRecipe, checkedIngredients } = this.state;
     const NUMBER_OF_INGREDIENTS = 20;
     const arrayIngredients = [];
@@ -194,8 +192,6 @@ class BeveragesInProgress extends React.Component {
       if (ingredients === '' || ingredients === null || ingredients === undefined) {
         return null;
       }
-      ingNumber = index;
-      console.log(ingNumber);
       return (
         <li
           key={ position }
