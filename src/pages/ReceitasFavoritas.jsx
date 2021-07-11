@@ -49,7 +49,7 @@ function ReceitasFavoritas() {
               data-testid={ `${index}-horizontal-top-text` }
             >
               { `${area} - ${category}` }
-               </span>
+            </span>
             }
             <ShareButtonPerfil type={ type } id={ id } index={ index } />
             <ScreenFavoriteButton
@@ -63,7 +63,6 @@ function ReceitasFavoritas() {
           </div>
         ))}
     </>
-
   );
 }
 
