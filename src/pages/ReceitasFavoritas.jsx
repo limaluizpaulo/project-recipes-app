@@ -58,7 +58,6 @@ function ReceitasFavoritas() {
           </div>
         ))}
     </>
-
   );
 }
 

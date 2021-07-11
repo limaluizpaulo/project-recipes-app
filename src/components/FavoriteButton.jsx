@@ -10,12 +10,11 @@ function FavoriteButton(props) {
   const { pathname } = useLocation();
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
-  // const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
     strAlcoholic } = stateDrink[0];
   const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
 
-  const { stateChangeHeart, setStateChangeHeart, removeFavorited, index } = props;
+  const { stateChangeHeart, setStateChangeHeart, removeFavorited } = props;
 
   const saveStorage = () => {
     const type = pathname.includes('comida') ? 'comida' : 'bebida';
@@ -43,14 +42,6 @@ function FavoriteButton(props) {
       }
     }
   };
-
-  // const removeFavorited = () => {
-  //   const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   if (favorited) {
-  //     const filterLocalStorage = favorited.filter((element) => element.id !== id);
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
-  //   }
-  // };
 
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);
@@ -81,15 +72,13 @@ function FavoriteButton(props) {
   };
 
   useEffect(setInlocalStorage, [saveRecipe]);
-  const pathRoute = ['/receitas-favoritas', '/receitas-feitas'].includes(pathname);
 
   return (
     <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
       <img
         src={ stateChangeHeart ? whiteHeartIcon : blackHeartIcon }
         alt="imagem de favoritar"
-        // data-testid="favorite-btn"
-        data-testid={ pathRoute ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
+        data-testid="favorite-btn"
       />
     </button>
   );
