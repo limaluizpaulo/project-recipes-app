@@ -43,7 +43,7 @@ export default function DescriptionRecipeCard(
     case 'comida':
       return (
         <span>
-          {recipe.tags.reverse().map(
+          {recipe.tags && recipe.tags.reverse().map(
             (tag) => (
               <span
                 key={ tag }

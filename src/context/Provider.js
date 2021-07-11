@@ -144,7 +144,7 @@ export default function Provider({ children }) {
     return ingredientsArray;
   };
 
-  const generateTagsArray = (strTags) => strTags.split(',');
+  const generateTagsArray = (strTags) => strTags && strTags.split(',');
 
   // Trata se deve gerar um estado com uma comida ou bebida
   const generateMealOrDrinkState = (mealById, drinkById) => {
@@ -182,6 +182,7 @@ export default function Provider({ children }) {
         strDrinkThumb,
         strArea,
         strCategory,
+        strTags,
       } = drinkById[0];
       const drink = {
         id: idDrink,
@@ -193,6 +194,7 @@ export default function Provider({ children }) {
         area: strArea,
         type: 'bebida',
         category: strCategory,
+        tags: generateTagsArray(strTags),
       };
       setCurr('cocktails'); setCurrentRecipe(drink);
     }

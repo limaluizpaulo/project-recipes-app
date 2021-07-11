@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { Container, Button, Image } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import localStorageAction from '../../helpers/localStorageAction';
 
 export default function FavoriteButton(
   { recipe, dataTestId, updateCards, setUpdateCards },
 ) {
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const allFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
   // Atualiza o estado de item favoritado
   const updateFavoriteState = (favorites) => {
     const { id } = recipe;

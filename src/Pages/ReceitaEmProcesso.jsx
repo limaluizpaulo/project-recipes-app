@@ -7,8 +7,12 @@ import Thumb from '../components/Details/Thumb';
 import Title from '../components/Details/Title';
 import IngredientsStep from '../components/Details/IngredientsStep';
 import Instructions from '../components/Details/Instructions';
+import useLocalStorage from '../hooks/useLocalStorage';
+import localStorageAction from '../helpers/localStorageAction';
 
 export default function ReceitaEmProcesso({ location }) {
+  const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [doneRecipes, setDoneRecipes] = useLocalStorage('doneRecipes', []);
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image,
@@ -33,13 +37,18 @@ export default function ReceitaEmProcesso({ location }) {
     setAllStepsOk(completeSteps.some((step) => step === false));
   };
 
-  const doneRecipe = () => {
+  const actualDate = () => {
     // *SOURCE* https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-    const recipe = [{
+
+    return `${day}/${month}/${year}`;
+  }
+
+  const doneRecipe = async () => {
+    const recipe = {
       id,
       type,
       area,
@@ -47,10 +56,10 @@ export default function ReceitaEmProcesso({ location }) {
       alcoholicOrNot,
       name,
       image,
-      doneDate: `${day}/${month}/${year}`,
+      doneDate: actualDate(),
       tags,
-    }];
-    localStorage.setItem('doneRecipes', JSON.stringify(recipe));
+    };
+    await setDoneRecipes( await localStorageAction(recipe,'addOnce', allDoneRecipes));
     history.push('/receitas-feitas');
   };
 
