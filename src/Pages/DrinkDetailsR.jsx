@@ -1,47 +1,48 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getFoods } from '../redux/actions';
-import MealAPI from '../services/MealRecipesAPI';
+import { getDrinks } from '../redux/actions';
+import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
-import CarroselBebidas from '../Components/CarroselBebidas';
+import MealRecipesAPI from '../services/MealRecipesAPI';
 import Share from '../images/shareIcon.svg';
 import Favorite from '../images/whiteHeartIcon.svg';
 
-class FoodDetails extends React.Component {
+class DrinkDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valueFood: [],
+      valueDrink: [],
       ingredients: [],
       recomendations: [],
       visible: 'hidden',
     };
-    this.resultFood = this.resultFood.bind(this);
+    this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.checkBtnReceita = this.checkBtnReceita.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
+    this.shareChecker = this.shareChecker.bind(this);
   }
 
   componentDidMount() {
-    this.resultFood();
+    this.resultDrink();
     this.checkBtnReceita();
   }
 
   getIngredients() {
-    const { valueFood } = this.state;
+    const { valueDrink } = this.state;
     const arrayIngredients = [];
     const arrayMeasures = [];
     const ingredientsAndMeasures = [];
-    const FOOD = Object.entries(valueFood[0]);
+    const DRINK = Object.entries(valueDrink[0]);
 
-    if (FOOD) {
-      FOOD.forEach(([key, value]) => {
+    if (DRINK) {
+      DRINK.forEach(([key, value]) => {
         if (key.includes('strIngredient') && value) {
           arrayIngredients.push(value);
         }
       });
-      FOOD.forEach(([key, value]) => {
+      DRINK.forEach(([key, value]) => {
         if (key.includes('strMeasure') && value) {
           arrayMeasures.push(value);
         }
@@ -56,8 +57,7 @@ class FoodDetails extends React.Component {
   checkBtnReceita() {
     const { match } = this.props;
     const { id } = match.params;
-    const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const getReceitaStorage = [...valueStorage];
+    const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
       if (receita === id) {
         this.setState({ visible: '' });
@@ -65,12 +65,12 @@ class FoodDetails extends React.Component {
     });
   }
 
-  async resultFood() {
-    const { getFoodId, match } = this.props;
-    const recomendations = await BeverageAPI.getByDefault();
+  async resultDrink() {
+    const { getDrinkId, match } = this.props;
     const { id } = match.params;
-    const { payload } = await getFoodId(id, MealAPI.getFoodById);
-    this.setState({ valueFood: payload, recomendations }, () => this.getIngredients());
+    const recomendations = await MealRecipesAPI.getByDefault();
+    const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
   }
 
   iniciarReceita() {
@@ -82,35 +82,34 @@ class FoodDetails extends React.Component {
   }
 
   render() {
-    const { valueFood, ingredients, recomendations, visible } = this.state;
-    if (valueFood[0]) {
-      // console.log(recomendations);
+    const { valueDrink, ingredients, recomendations, visible } = this.state;
+    if (valueDrink[0]) {
       return (
         <div>
-          {valueFood.map((food, index) => (
+          {valueDrink.map((drink, index) => (
             <>
               <img
                 key={ index }
                 data-testid="recipe-photo"
-                src={ food.strMealThumb }
+                src={ drink.strDrinkThumb }
                 alt="drink"
                 width="300"
               />
-              <h1 data-testid="recipe-title">{food.strMeal}</h1>
-              <h6 data-testid="recipe-category">{food.strCategory}</h6>
+              <h1 data-testid="recipe-title">{drink.strDrink}</h1>
+              <h6 data-testid="recipe-category">{drink.strAlcoholic}</h6>
               <ul>
-                {ingredients.map(([ingredient, measure], i) => (
+                {ingredients.map((ingredient, i) => (
                   <li
                     key={ i }
                     data-testid={ `${i}-ingredient-name-and-measure` }
                   >
-                    {`${ingredient} ${measure}`}
+                    {ingredient}
                   </li>
                 ))}
               </ul>
-              <p data-testid="instructions">{food.strInstructions}</p>
-              <img data-testid="video" src={ food.strVideo } alt="video" />
-              <CarroselBebidas recomendations={ recomendations } />
+              <p data-testid="instructions">{drink.strInstructions}</p>
+              <img data-testid="video" src={ drink.strVideo } alt="video" />
+              <CarroselComidas recomendations={ recomendations } />
             </>
           ))}
           <button
@@ -141,17 +140,13 @@ class FoodDetails extends React.Component {
   }
 }
 
-FoodDetails.propTypes = {
-  getFoodId: PropTypes.func,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }),
-}.isRequired;
+DrinkDetails.propTypes = {
+  drink: PropTypes.any,
+  getDrinkById: PropTypes.any,
+}.isRiquered;
 
 const mapDispatchToProps = (dispatch) => ({
-  getFoodId: (value, callback) => dispatch(getFoods(value, callback)),
+  getDrinkId: (value, callback) => dispatch(getDrinks(value, callback)),
 });
 
-export default connect(null, mapDispatchToProps)(FoodDetails);
+export default connect(null, mapDispatchToProps)(DrinkDetails);
