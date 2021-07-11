@@ -10,7 +10,7 @@ function FavoriteButton(props) {
   const { pathname } = useLocation();
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
-  const [stateChangeHeart, setStateChangeHeart] = useState(true);
+  // const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
     strAlcoholic } = stateDrink[0];
   const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];

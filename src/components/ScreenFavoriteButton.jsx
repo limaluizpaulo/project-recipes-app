@@ -6,7 +6,7 @@ import RecipesContext from '../Context/RecipesContext';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function ScreenFavoriteButton({ index }) {
+export default function ScreenFavoriteButton({ id, index }) {
   // const { pathname } = useLocation();
   // const { stateDrink, stateMeals } = useContext(RecipesContext);
   // const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
@@ -15,25 +15,20 @@ export default function ScreenFavoriteButton({ index }) {
   const [saveRecipe, setSaveRecipe] = useState('');
   // const [stateChangeHeart, setStateChangeHeart] = useState(true);
 
-  const removeFavorited = (index) => {
-    // const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const removeFavorited = () => {
+    const filtersRemoved = favoriteFilters.filter((recipes) => recipes.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filtersRemoved));
     console.log(favoriteFilters);
-    // favoriteFilters.filter((recipes) => {recipes.id ===  });
-
-    if (favorited) {
-      const filterLocalStorage = favorited.filter((element) => element.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
-    }
   };
 
-  const setInlocalStorage = () => {
-    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (saveRecipe && !favorited) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([saveRecipe]));
-    } else if (saveRecipe) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...favorited, saveRecipe]));
-    }
-  };
+  // const setInlocalStorage = () => {
+  //   const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   if (saveRecipe && !favorited) {
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([saveRecipe]));
+  //   } else if (saveRecipe) {
+  //     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorited, saveRecipe]));
+  //   }
+  // };
 
   // const changeHeart = () => {
   //   setStateChangeHeart(!stateChangeHeart);
@@ -52,7 +47,7 @@ export default function ScreenFavoriteButton({ index }) {
   //   }
   // };
 
-  useEffect(setInlocalStorage, [saveRecipe]);
+  // useEffect(setInlocalStorage, [saveRecipe]);
 
   return (
     <button type="button" onClick={ () => removeFavorited() }>

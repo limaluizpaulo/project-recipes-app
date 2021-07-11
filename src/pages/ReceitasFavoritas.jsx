@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import FiltersButtons from '../components/FiltersButtons';
 import RecipesContext from '../Context/RecipesContext';
 import ShareButtonPerfil from '../components/ShareButtonPerfil';
-import ScreenFavoriteButton from '../components/FavoriteButton';
+import ScreenFavoriteButton from '../components/ScreenFavoriteButton';
 
 function ReceitasFavoritas() {
   const { favoriteFilters } = useContext(RecipesContext);
@@ -61,6 +61,7 @@ function ReceitasFavoritas() {
             // stateChangeHeart={ stateChangeHeart }
             // setStateChangeHeart={ setStateChangeHeart }
             // removeFavorited={ removeFavorited }
+            id={ id }
             index={ index }
           />
           {
