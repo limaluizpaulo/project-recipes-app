@@ -1,27 +1,68 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useState } from 'react';
+import { PropTypes } from 'prop-types';
 
-function RecipesDone() {
+import Header from '../components/Header';
+import BodyRecipesDone from '../components/BodyRecipesDone';
+
+export default function RecipesDone({ history }) {
+  const [whatIsActivated, setWhatIsActivated] = useState(0);
+  const rawDestructuredStorage = localStorage.getItem('doneRecipes');
+  const destructuredStorage = JSON.parse(rawDestructuredStorage);
+  const attStateFilter = (selected) => {
+    setWhatIsActivated(selected);
+  };
+  const renderFilteredList = () => {
+    let filteredList = [];
+    if (whatIsActivated === 0) {
+      filteredList = destructuredStorage;
+    }
+    if (whatIsActivated === 1) {
+      filteredList = destructuredStorage
+        .filter((eachOne) => eachOne.type === 'comida');
+    }
+    if (whatIsActivated === 2) {
+      filteredList = destructuredStorage
+        .filter((eachOne) => eachOne.type === 'bebida');
+    }
+    return (filteredList
+      .map((each, index) => (
+        <BodyRecipesDone
+          key={ index }
+          index={ index }
+          history={ history }
+          each={ each }
+        />
+      )));
+  };
   return (
-    <>
+    <article>
       <Header title="Receitas Feitas" />
-      <button data-testid="filter-by-all-btn" type="button">Todas</button>
-      <button data-testid="filter-by-food-btn" type="button">Comidas</button>
-      <button data-testid="filter-by-drink-btn" type="button">Bebidas</button>
-      <img data-testid="0-horizontal-image" alt="horizontal" />
-      <h1 data-testid="0-horizontal-top-text">a</h1>
-      <h1 data-testid="0-horizontal-name">a</h1>
-      <p data-testid="0-horizontal-done-date">a</p>
-      <button data-testid="0-horizontal-share-btn" type="button">a</button>
-      <div data-testid="0-Pasta-horizontal-tag">a</div>
-      <div data-testid="0-Curry-horizontal-tag">a</div>
-      <img data-testid="1-horizontal-image" alt="horizontal" />
-      <h1 data-testid="1-horizontal-top-text">b</h1>
-      <h1 data-testid="1-horizontal-name">b</h1>
-      <button data-testid="1-horizontal-share-btn" type="button">b</button>
-      <p data-testid="1-horizontal-done-date">b</p>
-    </>
+      <button
+        data-testid="filter-by-all-btn"
+        onClick={ () => attStateFilter(0) }
+        type="button"
+      >
+        Todas
+      </button>
+      <button
+        data-testid="filter-by-food-btn"
+        onClick={ () => attStateFilter(1) }
+        type="button"
+      >
+        Comidas
+      </button>
+      <button
+        data-testid="filter-by-drink-btn"
+        onClick={ () => attStateFilter(2) }
+        type="button"
+      >
+        Bebidas
+      </button>
+      {destructuredStorage ? renderFilteredList() : null}
+    </article>
   );
 }
 
-export default RecipesDone;
+RecipesDone.propTypes = {
+  history: PropTypes.shape().isRequired,
+};

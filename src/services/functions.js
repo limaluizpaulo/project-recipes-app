@@ -1,10 +1,13 @@
 const copy = require('clipboard-copy');
-// const month
-// const year
 
 export const copyLink = ({ url }) => {
   copy(`http://localhost:3000${url}`);
   return true;
+};
+
+export const copyEachLink = (url, index) => {
+  copy(`http://localhost:3000${url}`);
+  return { [index]: true };
 };
 
 export const copyLinkInProgress = ({ url }) => {
@@ -23,8 +26,12 @@ export const verifyCheck = (index, check) => {
 
 export const generateCorrectObj = (details) => {
   let newFinishedRecipe;
-  const date = new Date();
-  console.log(date.getDay());
+  const NINE = 9;
+  const calendar = new Date();
+  let month = calendar.getMonth() + 1;
+  if (month <= NINE) {
+    month = `0${month}`;
+  }
   if (details[0].idMeal) {
     newFinishedRecipe = {
       id: details[0].idMeal,
@@ -34,7 +41,7 @@ export const generateCorrectObj = (details) => {
       alcoholicOrNot: '',
       name: details[0].strMeal,
       image: details[0].strMealThumb,
-      doneDate: 'dont know yet',
+      doneDate: `${calendar.getDate()}/${month}/${calendar.getFullYear()}`,
       tags: details[0].strTags ? details[0].strTags.split(',') : [],
     };
   } else {
@@ -45,8 +52,8 @@ export const generateCorrectObj = (details) => {
       category: details[0].strCategory,
       alcoholicOrNot: details[0].strAlcoholic,
       name: details[0].strDrink,
-      image: details[0].strMealDrink,
-      doneDate: 'dont/know/yet',
+      image: details[0].strDrinkThumb,
+      doneDate: `${calendar.getDate()}/${month}/${calendar.getFullYear()}`,
       tags: [],
     };
   }
