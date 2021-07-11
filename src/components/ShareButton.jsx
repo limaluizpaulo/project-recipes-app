@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -40,3 +41,7 @@ export default function ShareButton({ index }) {
     </main>
   );
 }
+
+ShareButton.propTypes = {
+  index: PropTypes.number.isRequired,
+};

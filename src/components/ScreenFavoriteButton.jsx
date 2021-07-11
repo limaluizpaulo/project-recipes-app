@@ -23,7 +23,6 @@ export default function ScreenFavoriteButton({ id, index }) {
     </button>
   );
 }
-//
 
 ScreenFavoriteButton.propTypes = {
   id: PropTypes.string.isRequired,
