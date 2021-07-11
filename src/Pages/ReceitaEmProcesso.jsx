@@ -21,6 +21,10 @@ export default function ReceitaEmProcesso({ location }) {
   const history = useHistory();
 
   useEffect(() => {
+
+  }, [doneRecipes]);
+
+  useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
@@ -45,7 +49,7 @@ export default function ReceitaEmProcesso({ location }) {
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;
-  }
+  };
 
   const doneRecipe = async () => {
     const recipe = {
@@ -59,7 +63,7 @@ export default function ReceitaEmProcesso({ location }) {
       doneDate: actualDate(),
       tags,
     };
-    await setDoneRecipes( await localStorageAction(recipe,'addOnce', allDoneRecipes));
+    await setDoneRecipes(await localStorageAction(recipe, 'addOnce', allDoneRecipes));
     history.push('/receitas-feitas');
   };
 
