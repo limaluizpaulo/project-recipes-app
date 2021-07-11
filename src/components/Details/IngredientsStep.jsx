@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import localStorageAction from '../../helpers/localStorageAction';
 
 export default function IngredientsStep({ ingredients, currentRecipe, stepsProgress }) {
   const [stepsClassName, setStepsClassName] = useState([]);
@@ -11,6 +13,10 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
   const STRIPE_CLASS = 'step-checked';
   const NOT_STRIPE_CLASS = 'step-not-checked';
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [progress, setProgress] = useLocalStorage('inProgressRecipes', []);
+
+  useEffect(() => {
+  }, [progress]);
 
   const generateNoClassElements = () => {
     if (ingredients) {
@@ -115,26 +121,12 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     }
   };
 
-  const addOnceLocalStorage = (id, array, targetId) => {
-    if (array[curr][id].includes(targetId)) {
-      const updatedArray = array[curr][id].filter(
-        (arrayId) => Number.parseInt(arrayId, RADIX) !== Number.parseInt(targetId, RADIX),
-      );
-
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({
-          ...array,
-          [curr]: { ...array[curr],
-            [id]: [...updatedArray,
-            ] } }));
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON
-        .stringify({
-          ...array,
-          [curr]: { ...array[curr],
-            [id]: [...array[curr][id],
-              targetId] } }));
-    }
+  const addOnceLocalStorage = async (array, targetId) => {
+    const { id } = currentRecipe;
+    const newProgress = await localStorageAction(
+      targetId, 'addToggleStep', array[curr][id], { id, curr, array },
+    );
+    setProgress(newProgress);
   };
 
   useEffect(() => {
@@ -144,9 +136,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
 
   // Adiciona efeito ao clicar em um item da lista de ingredientes
   const doneStepEffect = ({ id: targetId }) => {
-    const newLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { id } = currentRecipe;
-
+    const allProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     let step = STRIPE_CLASS;
 
     if (stepsClassName[targetId].checked) {
@@ -160,7 +150,7 @@ export default function IngredientsStep({ ingredients, currentRecipe, stepsProgr
     ]);
     stepsProgress(stepsClassName);
     // adciona no localStorage
-    addOnceLocalStorage([id], newLocalStorage, [targetId][0]);
+    addOnceLocalStorage(allProgress, [targetId][0]);
   };
 
   return (
