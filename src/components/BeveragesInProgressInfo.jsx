@@ -115,3 +115,4 @@ BeveragesInProgressInfo.propTypes = {
 };
 
 export default withRouter(BeveragesInProgressInfo);
+//  teste
