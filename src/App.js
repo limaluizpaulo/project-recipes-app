@@ -51,6 +51,7 @@ function App() {
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route component={ NotFound } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       </Switch>
     </BrowserRouter>
   );
