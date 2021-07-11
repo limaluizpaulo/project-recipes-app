@@ -36,26 +36,53 @@ export function getItemLocalStorage(key) {
   return result;
 }
 
-export function addIngredients(typeRecipe, idRecipe, ingredientsInProgressArr) {
+export function getIngredients(typeRecipe, idRecipe) {
+  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
+  const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
+  if (!receitasEmProgresso) {
+    setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+    return [];
+  }
+
+  if (!receitasEmProgresso[mealsOrCocktails][idRecipe]) {
+    return [];
+  }
+  return receitasEmProgresso[mealsOrCocktails][idRecipe];
+}
+
+export function addIngredients(typeRecipe, idRecipe, ingredient) {
+  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
+  const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
+  if (!receitasEmProgresso[mealsOrCocktails][idRecipe]) {
+    setItemLocalStorage('inProgressRecipes', {
+      ...receitasEmProgresso,
+      [mealsOrCocktails]: {
+        ...receitasEmProgresso[mealsOrCocktails],
+        [idRecipe]: [ingredient],
+      },
+    });
+  } else {
+    setItemLocalStorage('inProgressRecipes', {
+      ...receitasEmProgresso,
+      [mealsOrCocktails]: {
+        ...receitasEmProgresso[mealsOrCocktails],
+        [idRecipe]: [...receitasEmProgresso[mealsOrCocktails][idRecipe], ingredient],
+      },
+    });
+  }
+}
+
+export function removeIngredient(typeRecipe, idRecipe, ingredient) {
   const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
   const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
   setItemLocalStorage('inProgressRecipes', {
     ...receitasEmProgresso,
     [mealsOrCocktails]: {
       ...receitasEmProgresso[mealsOrCocktails],
-      [idRecipe]: ingredientsInProgressArr,
+      [idRecipe]: receitasEmProgresso[mealsOrCocktails][idRecipe]
+        .filter((ingredientInProgress) => ingredientInProgress !== ingredient),
     },
   });
-}
-
-export function getIngredients(typeRecipe, idRecipe) {
-  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
-  const receitasEmProgresso = getItemLocalStorage('inProgressRecipes');
-  if (!receitasEmProgresso) {
-    setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
-    return undefined;
-  }
-  return receitasEmProgresso[mealsOrCocktails][idRecipe];
 }
 
 export function haveFavoriteRecipes(typeRecipe, idRecipe) {

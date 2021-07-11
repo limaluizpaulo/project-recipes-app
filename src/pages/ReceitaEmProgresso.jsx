@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { buscaReceita } from '../services/servicesApi';
 import shareIcon from '../images/shareIcon.svg';
@@ -123,7 +123,15 @@ function ReceitaEmProgresso() {
   };
 
   const renderizaBotaoFinalizar = () => (
-    <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+    <Link to="/receitas-feitas">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ !isComplete }
+      >
+        Finalizar receita
+      </button>
+    </Link>
   );
 
   return (
@@ -139,7 +147,7 @@ function ReceitaEmProgresso() {
           setIsComplete={ setIsComplete }
         />}
       { renderizaInstrucoes() }
-      { isComplete && renderizaBotaoFinalizar() }
+      { renderizaBotaoFinalizar() }
     </>
   );
 }
