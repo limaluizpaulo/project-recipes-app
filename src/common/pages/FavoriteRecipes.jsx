@@ -3,16 +3,17 @@ import Header from '../components/Header/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import CategoryButton from '../components/CategoryButton';
-import { getStorage, setStorage } from '../../functions';
+import { getStorage, setStorage, handleClickType } from '../../functions';
+
+const FAVORITE_RECIPES = 'favoriteRecipes';
 
 export default function FavoriteRecipes() {
   const [state, setState] = useState(false);
-  const [favoriteStorage, setFavoriteStorage] = useState(
+  const [favoriteRecipes, setFavoriteRecipes] = useState(
     () => getStorage('favoriteRecipes'),
   ); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
 
-  const handleClickCategory = () => console.log('handleClickCategory'); // esse consoles.log e o de baixo foram apenas pra poder chamar certinho lá no CategoryButton.
-  const getRecipes = () => console.log('getRecipes');
+  const handleClickAll = () => setFavoriteRecipes(getStorage(FAVORITE_RECIPES));
 
   // aqui vai ser a função lá do passo 1
   const setFavorited = (favorited) => (
@@ -32,13 +33,13 @@ export default function FavoriteRecipes() {
   );
 
   const handleLikeClick = (id) => {
-    const newFavorites = favoriteStorage.filter((fav) => fav.id !== id);
+    const newFavorites = favoriteRecipes.filter((fav) => fav.id !== id);
     setStorage('favoriteRecipes', newFavorites);
-    setFavoriteStorage(newFavorites);
+    setFavoriteRecipes(newFavorites);
   };
 
   const renderFavorites = () => (
-    favoriteStorage.map((favorited, index) => (
+    favoriteRecipes.map((favorited, index) => (
       <div key={ index }>
         <img
           data-testid={ `${index}-horizontal-image` }
@@ -65,16 +66,17 @@ export default function FavoriteRecipes() {
   );
 
   useEffect(() => {
-    setFavoriteStorage(getStorage('favoriteRecipes'));
+    setFavoriteRecipes(getStorage('favoriteRecipes'));
   }, [state]);
 
   return (
     <div>
       <Header pageName="Receitas Favoritas" />
       <CategoryButton
-        clickCategory={ handleClickCategory }
-        clickAll={ getRecipes }
-        path
+        foodOrDrink={ handleClickType }
+        setState={ setFavoriteRecipes }
+        clickAll={ handleClickAll }
+        path={ FAVORITE_RECIPES }
       />
       { renderFavorites() }
     </div>

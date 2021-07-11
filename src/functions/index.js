@@ -38,3 +38,10 @@ export const infoFavorite = (recipeDetail, foods) => {
   };
   return infoFav;
 };
+
+export const handleClickType = (type, key, setState) => {
+  const translate = (type === 'Food') ? 'comida' : 'bebida';
+  const storageRecipes = getStorage(key);
+  const foodsOrDrinks = storageRecipes.filter((recipe) => recipe.type === translate);
+  setState(foodsOrDrinks);
+};
