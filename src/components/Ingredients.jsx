@@ -8,13 +8,17 @@ import identification from '../helper/dictionaryApi';
 
 class Ingredients extends Component {
   checkIngredient() {
+    //  const { count, recipesLength, func } = this.props;
+    const { func } = this.props;
+
     return (
-      <input type="checkbox" />
+      <input onClick={ func } type="checkbox" />
     );
   }
 
   render() {
     const { data, isStart } = this.props;
+    console.log(data);
     const dictionary = identification(data);
     return (
       <section>
@@ -52,6 +56,7 @@ const mapStateToProps = (state) => ({
 Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
+  func: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Ingredients);
