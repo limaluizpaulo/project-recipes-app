@@ -19,6 +19,7 @@ body {
 
 .header-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 15px 15px 0;
 }
@@ -235,6 +236,14 @@ body {
   width: 250px;
 }
 
+.exploreFoodAndDrink {
+  background-color: lightgray;
+  font-size: 18px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 160px;
+}
+
 .exitButton {
   background-color: rgb(224, 20, 20);
   font-size: 30px;
@@ -303,4 +312,81 @@ body {
 
 .credits-item {
   margin-bottom: 10px;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput {
+  margin-top: 18px;
+  max-width: 100%;
+  width: 330px;
+}
+
+.radioSearch {
+  display: flex;
+  justify-content: space-between;
+}
+
+#ingredients {
+  margin-left: 3px;
+}
+
+#name {
+  margin-left: 3px;
+}
+
+#first-letter {
+  margin-left: 3px;
+}
+
+.searchBtn {
+  background-color: lightgray;
+  margin-bottom: 18px;
+  max-width: 100%;
+  width: 330px;
+}
+
+.selectByCountry {
+  font-size: 26px;
+  max-width: 100%;
+  width: 170px;
+}
+
+.select-container {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0;
+  overflow: hidden;
+}
+
+.videoAndBtn {
+  position: relative;
+  height: 258px;
+}
+
+.btnContainer {
+  position:absolute;
+  top:80%;
+  left:50%;
+  -webkit-transform:translate3d(-50%, -50%, 0);
+  -moz-transform:translate3d(-50%, -50%, 0);
+  transform:translate3d(-50%, -50%, 0);
+}
+
+.video {
+  width: 100%;
+  position: relative;
+}
+
+.videoAndBtn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 82vh;
+  min-width: 82vw;
+  margin-top: 9px;
 }

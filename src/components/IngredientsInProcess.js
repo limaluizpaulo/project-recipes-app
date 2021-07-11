@@ -4,7 +4,7 @@ import '../styles/global.css';
 
 function IngredientsInProcess({ index, element, measures }) {
   const [checked, setchecked] = useState(false);
-  console.log(element);
+
   const divStyle1 = {
     textDecoration: 'line-through',
   };
@@ -22,7 +22,7 @@ function IngredientsInProcess({ index, element, measures }) {
       <input
         type="checkbox"
         className="inputs"
-        onChange={ () => toogleClass() }
+        onChange={ toogleClass }
         key={ index }
       />
       <span style={ checked ? divStyle1 : divStyle2 }>

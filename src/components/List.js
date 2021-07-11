@@ -7,7 +7,6 @@ import IngredientsDetails from './IngredientsDetails';
 export default function List({ array, drinks }) {
   const history = useHistory();
   const { pathname } = history.location;
-  console.log(array);
 
   function filterIngredients(arrayList) {
     const ingredients = Object.entries(arrayList)

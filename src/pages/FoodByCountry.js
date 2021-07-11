@@ -9,7 +9,6 @@ import { requestAreas, requestMeal, requestMealByAreas } from '../services/api';
 
 function FoodByCountry() {
   const { setFirstMeals, firstMeals, area, setArea } = useContext(Context);
-  // const [filterBy, setFilterBy] = useState('All');
   const numOfMeals = 12;
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function FoodByCountry() {
   return (
     <div>
       <Header title="Explorar Origem" />
-      <div>
+      <div className="select-container">
         <select
           className="selectByCountry"
           data-testid="explore-by-area-dropdown"
