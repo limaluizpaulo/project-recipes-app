@@ -36,7 +36,7 @@ export default function FavoriteRecipes({ history }) {
   };
   return (
     <article>
-      <Header title="Receitas Feitas" />
+      <Header title="Receitas Favoritas" />
       <button
         data-testid="filter-by-all-btn"
         onClick={ () => attStateFilter(0) }

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
-
+import { verifyFavorite } from '../services/manageLocalStorage';
+import { settingFavorite2 } from '../services/manageLocalStorage2';
 import { copyEachLink } from '../services/functions';
 
 import shareIcon from '../images/shareIcon.svg';
 
 export default function BodyFavoriteRecipes({ index, history, each }) {
   const [isCopied, setIsCopied] = useState([]);
+  const [refresh, setRefresh] = useState(true);
   let AlcoholicAreaCategory;
   if (each.alcoholicOrNot.length > 0) {
     AlcoholicAreaCategory = each.alcoholicOrNot;
@@ -51,6 +53,16 @@ export default function BodyFavoriteRecipes({ index, history, each }) {
           alt="shareIcon"
         />
         {isCopied[index] ? <p>Link copiado!</p> : null }
+      </button>
+      <button
+        type="button"
+        onClick={ () => setRefresh(settingFavorite2(each, each.id, refresh)) }
+      >
+        <img
+          alt="Favorite"
+          src={ verifyFavorite(each.id) }
+          data-testid={ `${index}-horizontal-favorite-btn` }
+        />
       </button>
     </section>);
 }
