@@ -30,6 +30,7 @@ export default function ShareButton({ id, type, index, path }) { // desestrutura
       />
     </button>
   );
+
   return (
     <div>
       {renderButtons()}

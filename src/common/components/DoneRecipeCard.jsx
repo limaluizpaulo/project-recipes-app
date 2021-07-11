@@ -58,7 +58,6 @@ export default function DoneRecipeCard({ recipe, index }) { // Desestruturação
       </Link>
       <ShareButton id={ id } type={ type } index={ index } path />
     </div>
-
   );
 }
 

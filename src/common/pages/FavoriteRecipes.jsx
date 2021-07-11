@@ -3,12 +3,13 @@ import Header from '../components/Header/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import CategoryButton from '../components/CategoryButton';
-import { getStorage } from '../../functions';
+import { getStorage, setStorage } from '../../functions';
 
 export default function FavoriteRecipes() {
   const [state, setState] = useState(false);
-  const [favoriteStorage,
-    setFavoriteStorage] = useState(() => getStorage('favoriteRecipes')); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
+  const [favoriteStorage, setFavoriteStorage] = useState(
+    () => getStorage('favoriteRecipes'),
+  ); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
 
   const handleClickCategory = () => console.log('handleClickCategory'); // esse consoles.log e o de baixo foram apenas pra poder chamar certinho lá no CategoryButton.
   const getRecipes = () => console.log('getRecipes');
@@ -17,6 +18,7 @@ export default function FavoriteRecipes() {
   const setFavorited = (favorited) => (
     setState(favorited)
   );
+
   const favoriteMeal = (index, area, category) => (
     <h5
       data-testid={ `${index}-horizontal-top-text` }
@@ -28,6 +30,12 @@ export default function FavoriteRecipes() {
   const favoriteDrink = (alcoholicOrNot, index) => (
     <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
   );
+
+  const handleLikeClick = (id) => {
+    const newFavorites = favoriteStorage.filter((fav) => fav.id !== id);
+    setStorage('favoriteRecipes', newFavorites);
+    setFavoriteStorage(newFavorites);
+  };
 
   const renderFavorites = () => (
     favoriteStorage.map((favorited, index) => (
@@ -47,17 +55,19 @@ export default function FavoriteRecipes() {
         <LikeButton
           recipe
           captureFavorited={ setFavorited }
+          clickFavBtn={ handleLikeClick }
+          id={ favorited.id }
           favPage
           index={ index }
         />
       </div>
     ))
   );
-  
+
   useEffect(() => {
     setFavoriteStorage(getStorage('favoriteRecipes'));
   }, [state]);
-  
+
   return (
     <div>
       <Header pageName="Receitas Favoritas" />
