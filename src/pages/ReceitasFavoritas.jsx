@@ -9,8 +9,8 @@ import ScreenFavoriteButton from '../components/ScreenFavoriteButton';
 function ReceitasFavoritas() {
   const { favoriteFilters } = useContext(RecipesContext);
   const history = useHistory();
-  const areaAndCategory = (area, index, category) => area
-&& <span data-testid={ `${index}-horizontal-top-text` }>{ `${area}-${category}` }</span>;
+  const areaAndCategory = (area, category) => category
+  && `${area} - ${category}`;
 
   return (
     <>
@@ -45,12 +45,14 @@ function ReceitasFavoritas() {
                 { name }
               </span>
             </button>
-            { areaAndCategory(area, index, category) }
             <ShareButtonPerfil type={ type } id={ id } index={ index } />
             <ScreenFavoriteButton
               id={ id }
               index={ index }
             />
+            <div data-testid={ `${index}-horizontal-top-text` }>
+              { areaAndCategory(area, category) }
+            </div>
             {
               alcoholicOrNot
             && <h3 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h3>
