@@ -1,31 +1,59 @@
 import React from 'react';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { generateCorrectObj } from './functions';
 
 export const makeRecipe = ({ url }, history) => {
   const mealOrDrink = url.split('/')[1];
   const id = url.split('/')[2];
   const mealCockTail = mealOrDrink === 'comidas' ? 'meals' : 'cocktails';
-  const inProgressRecipes = {
-    [mealCockTail]: {
-      [id]: [],
-    },
-  };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  const remnant = mealOrDrink === 'comidas' ? 'cocktails' : 'meals';
+  const rawInProgressArrayVerifier = localStorage.getItem('inProgressRecipes');
+  const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
+
+  // inProgressArray doesn't exist: create it and add first in progress recipe
+  if (!inProgressArrayVerifier) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    const inProgressRecipes = {
+      [mealCockTail]: {
+        [id]: [],
+      },
+      [remnant]: {},
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    history.push(`/${mealOrDrink}/${id}/in-progress`);
+  }
+
+  if (inProgressArrayVerifier
+    && !Object.keys(mealCockTail).some((obj) => obj.id === id)) {
+    let recipeToAddToProgress = inProgressArrayVerifier[mealCockTail];
+    const remnantObj = inProgressArrayVerifier[remnant];
+    recipeToAddToProgress = {
+      ...recipeToAddToProgress, [id]: [],
+    };
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify({ [mealCockTail]: recipeToAddToProgress, [remnant]: remnantObj }));
+  }
   history.push(`/${mealOrDrink}/${id}/in-progress`);
 };
 
 export const localStorageVerifier = (match, id, history) => {
   const pushString = match.url.split('/')[1];
-  const rawStorageRecipe = localStorage.getItem('inProgressRecipes');
-  const storageRecipe = JSON.parse(rawStorageRecipe);
+  const rawInProgressArrayVerifier = localStorage.getItem('inProgressRecipes');
+  const inProgressArrayVerifier = JSON.parse(rawInProgressArrayVerifier);
   let mealOrCockTail;
-  if (storageRecipe) {
-    mealOrCockTail = storageRecipe.meals ? storageRecipe.meals : storageRecipe.cocktails;
+  if (!inProgressArrayVerifier) {
+    const baseInProgressObj = { meals: {}, cocktails: {} };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(baseInProgressObj));
   }
-  if ((!storageRecipe) || (storageRecipe
-    && Object.keys(mealOrCockTail)[0]
-    !== id)) {
+  if (inProgressArrayVerifier) {
+    mealOrCockTail = pushString === 'comidas' ? 'meals'
+      : 'cocktails';
+  }
+
+  if ((!inProgressArrayVerifier) || (inProgressArrayVerifier
+    && !Object.keys(inProgressArrayVerifier[mealOrCockTail]).some((obj) => obj === id)
+  )) {
     return (
       <button
         type="button"
@@ -37,8 +65,9 @@ export const localStorageVerifier = (match, id, history) => {
       </button>
     );
   }
-  if (storageRecipe
-    && Object.keys(mealOrCockTail)[0] === id) {
+
+  if (inProgressArrayVerifier
+    && Object.keys(inProgressArrayVerifier[mealOrCockTail]).some((obj) => obj === id)) {
     return (
       <button
         type="button"
@@ -179,4 +208,22 @@ export const disableFinishRecipeButton = (id) => {
     return false;
   }
   return true;
+};
+
+export const finishRecipe = (id, details, history) => {
+  const rawDoneRecipes = localStorage.getItem('doneRecipes');
+  const doneRecipes = JSON.parse(rawDoneRecipes);
+  if (!doneRecipes) {
+    const firstDoneRecipe = generateCorrectObj(details);
+    localStorage.setItem('doneRecipes', JSON.stringify([firstDoneRecipe]));
+  }
+  if (doneRecipes && !doneRecipes.some((eachDone) => eachDone.id === id)) {
+    const lastDoneRecipe = generateCorrectObj(details);
+    const newArrayRecipe = [
+      ...doneRecipes,
+      lastDoneRecipe,
+    ];
+    localStorage.setItem('doneRecipes', JSON.stringify(newArrayRecipe));
+  }
+  history.push('/receitas-feitas');
 };

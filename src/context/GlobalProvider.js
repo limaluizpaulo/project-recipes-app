@@ -23,6 +23,7 @@ function GlobalProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [toggle, setToggle] = useState({
     categoryName: '', status: false, backup: { drinks, meals } });
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -152,6 +153,7 @@ function GlobalProvider({ children }) {
     recomendationsDrinks,
     recomendationsFoods,
     toggle,
+    refresh,
     resetParams,
     updateEndPoint,
     handleChange,
@@ -163,6 +165,7 @@ function GlobalProvider({ children }) {
     generateIngredientsAndMeasure,
     filterCategory,
     handleToggle,
+    setRefresh,
   };
 
   return (

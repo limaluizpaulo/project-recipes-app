@@ -18,6 +18,7 @@ import FoodInProgress from './pages/FoodInProgress';
 import DrinkInProgress from './pages/DrinkInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import NotFound from './pages/NotFound';
 // import rockGlass from './images/rockGlass.svg';
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
+        <Route component={ NotFound } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       </Switch>
     </BrowserRouter>
   );
