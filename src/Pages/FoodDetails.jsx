@@ -5,6 +5,8 @@ import { getFoods } from '../redux/actions';
 import MealAPI from '../services/MealRecipesAPI';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import CarroselBebidas from '../Components/CarroselBebidas';
+import BtnIniciar from '../Components/BtnIniciar';
+import BtnContinuar from '../Components/BtnContinuar';
 
 class FoodDetails extends React.Component {
   constructor(props) {
@@ -13,12 +15,15 @@ class FoodDetails extends React.Component {
       valueFood: [],
       ingredients: [],
       recomendations: [],
-      visible: '',
+      btnIniciar: true,
+      btnContinuar: false,
     };
     this.resultFood = this.resultFood.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.checkBtnReceita = this.checkBtnReceita.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
+    this.reiceitaEmProgresso = this.reiceitaEmProgresso.bind(this);
+    this.receitaFinalizada = this.receitaFinalizada.bind(this);
   }
 
   componentDidMount() {
@@ -57,9 +62,17 @@ class FoodDetails extends React.Component {
     const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
       if (receita.id === id) {
-        this.setState({ visible: 'hidden' });
+        this.setState((oldState) => ({ btnIniciar: !oldState.btnIniciar }));
       }
     });
+    const receitaStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (receitaStorage.meals) {
+      const idReceita = Object.keys(receitaStorage.meals)[0];
+      if (idReceita === id) {
+        this.setState((oldState) => ({
+          btnContinuar: !oldState.btnContinuar, btnIniciar: false }));
+      }
+    }
   }
 
   async resultFood() {
@@ -70,7 +83,7 @@ class FoodDetails extends React.Component {
     this.setState({ valueFood: payload, recomendations }, () => this.getIngredients());
   }
 
-  async iniciarReceita() {
+  async receitaFinalizada() {
     const { match, getDrinkId } = this.props;
     const { id } = match.params;
     const { payload: { idDrink,
@@ -91,13 +104,34 @@ class FoodDetails extends React.Component {
     };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, receita]));
-    this.checkBtnReceita();
+  }
+
+  iniciarReceita() {
+    this.reiceitaEmProgresso();
+    this.setState((oldState) => (
+      { btnIniciar: !oldState.btnIniciar }));
+  }
+
+  reiceitaEmProgresso() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { ingredients } = this.state;
+    const receitaProgresso = {
+      cocktails: {
+        [id]: ingredients,
+      },
+    };
+    const receitaStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    localStorage
+      .setItem('inProgressRecipes', JSON
+        .stringify({ ...receitaStorage, ...receitaProgresso }));
   }
 
   render() {
-    const { valueFood, ingredients, recomendations, visible } = this.state;
+    const {
+      valueFood, ingredients, recomendations, btnIniciar, btnContinuar } = this.state;
+    const { match: { url } } = this.props;
     if (valueFood[0]) {
-      console.log(recomendations);
       return (
         <div>
           {valueFood.map((food, index) => (
@@ -128,15 +162,10 @@ class FoodDetails extends React.Component {
           ))}
           <button type="button" data-testid="share-btn">share</button>
           <button type="button" data-testid="favorite-btn">favorite</button>
-          <button
-            type="button"
-            className={ `btn-iniciar-receita ${visible}` }
-            data-testid="start-recipe-btn"
-            onClick={ this.iniciarReceita }
-          >
-            iniciar receita
-
-          </button>
+          { btnIniciar
+          && <BtnIniciar iniciarReceita={ this.iniciarReceita } url={ url } />}
+          { btnContinuar
+          && <BtnContinuar iniciarReceita={ this.iniciarReceita } />}
         </div>
       );
     }

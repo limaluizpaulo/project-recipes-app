@@ -5,6 +5,8 @@ import { getDrinks } from '../redux/actions';
 import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
+import BtnContinuar from '../Components/BtnContinuar';
+import BtnIniciar from '../Components/BtnIniciar';
 
 class DrinkDetails extends React.Component {
   constructor(props) {
@@ -13,13 +15,15 @@ class DrinkDetails extends React.Component {
       valueDrink: [],
       ingredients: [],
       recomendations: [],
-      visible: '',
+      btnIniciar: true,
+      btnContinuar: false,
     };
     this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.checkBtnReceita = this.checkBtnReceita.bind(this);
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.checkedIngredients = this.checkedIngredients.bind(this);
+    this.reiceitaEmProgresso = this.reiceitaEmProgresso.bind(this);
   }
 
   componentDidMount() {
@@ -62,9 +66,18 @@ class DrinkDetails extends React.Component {
     const getReceitaStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     getReceitaStorage.forEach((receita) => {
       if (receita.id === id) {
-        this.setState({ visible: 'hidden' });
+        console.log('iniciar receita');
+        this.setState((oldState) => ({ btnIniciar: !oldState.btnIniciar }));
       }
     });
+    const receitaStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (receitaStorage.cocktails) {
+      const idReceita = Object.keys(receitaStorage.cocktails)[0];
+      if (idReceita === id) {
+        this.setState((oldState) => ({
+          btnContinuar: !oldState.btnContinuar, btnIniciar: false }));
+      }
+    }
   }
 
   async resultDrink() {
@@ -92,14 +105,15 @@ class DrinkDetails extends React.Component {
     this.setState({ ingredients });
   }
 
-  async iniciarReceita() {
+  async receitaFinalizada() {
     const { match, getDrinkId } = this.props;
     const { id } = match.params;
-    const { payload: { idDrink,
+    const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    const { idDrink,
       strDrink,
       strCategory,
       strTags,
-      strAlcoholic, strDrinkThumb } } = await getDrinkId(id, BeverageAPI.getDrinkById);
+      strAlcoholic, strDrinkThumb } = payload[0];
     const receita = {
       id: idDrink,
       type: 'bebida',
@@ -113,11 +127,33 @@ class DrinkDetails extends React.Component {
     };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     localStorage.setItem('doneRecipes', JSON.stringify([...valueStorage, receita]));
-    this.checkBtnReceita();
+  }
+
+  reiceitaEmProgresso() {
+    const { match } = this.props;
+    const { id } = match.params;
+    const { ingredients } = this.state;
+    const receitaProgresso = {
+      cocktails: {
+        [id]: ingredients,
+      },
+    };
+    const receitaStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    localStorage
+      .setItem('inProgressRecipes', JSON
+        .stringify({ ...receitaStorage, ...receitaProgresso }));
+  }
+
+  iniciarReceita() {
+    this.reiceitaEmProgresso();
+    this.setState((oldState) => (
+      { btnIniciar: !oldState.btnIniciar }));
   }
 
   render() {
-    const { valueDrink, ingredients, recomendations, visible } = this.state;
+    const {
+      valueDrink, ingredients, recomendations, btnIniciar, btnContinuar } = this.state;
+    const { match: { url } } = this.props;
     if (valueDrink[0]) {
       return (
         <div>
@@ -137,13 +173,20 @@ class DrinkDetails extends React.Component {
                   <>
                     <input
                       key={ i }
+                      id={ `${ingredient}${i}` }
                       type="checkbox"
-                      data-testid={ `${i}-ingredient-name-and-measure` }
                       checked={ checked }
                       onChange={ () => this.checkedIngredients({
                         ingredient, quantidade, checked }, i) }
                     />
-                    {`${ingredient} ${quantidade}`}
+                    <label
+                      htmlFor={ `${ingredient}${i}` }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                    >
+                      {`${ingredient} ${quantidade}`}
+
+                    </label>
+
                   </>
 
                 ))}
@@ -155,15 +198,11 @@ class DrinkDetails extends React.Component {
           ))}
           <button type="button" data-testid="share-btn">share</button>
           <button type="button" data-testid="favorite-btn">favorite</button>
-          <button
-            type="button"
-            className={ `btn-iniciar-receita ${visible}` }
-            data-testid="start-recipe-btn"
-            onClick={ this.iniciarReceita }
-          >
-            iniciar receita
+          { btnIniciar
+          && <BtnIniciar iniciarReceita={ this.iniciarReceita } url={ url } />}
+          { btnContinuar
+          && <BtnContinuar iniciarReceita={ this.iniciarReceita } />}
 
-          </button>
         </div>
       );
     }

@@ -17,6 +17,7 @@ import FoodDetails from './Pages/FoodDetails';
 import DrinkDetails from './Pages/DrinkDetails';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipesMade from './Pages/RecipesMade';
+import FoodInProgress from './Pages/FoodInProgress';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/explorar/comidas/ingredientes" component={ ExpoFoodsIng } />
         <Route exact path="/explorar/comidas/area" component={ ExpoFoodArea } />
         <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route exact path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/explorar/bebidas/ingredientes" component={ ExpoDrinksIng } />

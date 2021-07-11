@@ -24,7 +24,6 @@ function Foods(props) {
       .then(() => setLoading(false));
 
     if (!foods.length) {
-      console.log('if');
       getByDefault()
         .then((res) => setMainFoods(setList(res)));
     }
