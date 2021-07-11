@@ -24,7 +24,6 @@ class FavoriteRecipes extends React.Component {
   onClickShare(link) {
     const startLink = window.location.href;
     const split = startLink.split('/r');
-    console.log(split);
     copy(`${split[0]}${link}`);
     this.setState({
       copyLink: true,

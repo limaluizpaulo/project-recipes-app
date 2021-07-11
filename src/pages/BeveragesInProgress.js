@@ -185,7 +185,7 @@ class BeveragesInProgress extends React.Component {
     for (let index = 1; index < NUMBER_OF_INGREDIENTS; index += 1) {
       arrayIngredients.push(index);
     }
-    return arrayIngredients.map((position, index) => {
+    return arrayIngredients.map((position) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
       const ing = `${measure} ${ingredients}`;

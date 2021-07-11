@@ -6,15 +6,15 @@ import shareIcon from '../images/shareIcon.svg';
 
 class BeveragesInProgressInfo extends Component {
   constructor() {
-    super()
+    super();
     this.onClickFinishRecipe = this.onClickFinishRecipe.bind(this);
   }
 
   onClickFinishRecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const { match: { params: { id } }, detailsRecipe } = this.props;
-    const today = new Date();
-    const currentDate = `${today.getDate()}/0${today.getMonth() + 1}/${today.getFullYear()}`;
+    const { getDate, getFullYear, getMonth } = new Date();
+    const currentDate = `${getDate()}/0${getMonth() + 1}/${getFullYear()}`;
     const newRecipe = {
       id,
       type: 'bebida',
@@ -28,19 +28,19 @@ class BeveragesInProgressInfo extends Component {
     };
     if (doneRecipes) {
       const checkRegister = doneRecipes.filter((recipe) => recipe.id === id);
-      console.log('aqui')
+      console.log('aqui');
       if (checkRegister.length > 0) return null;
       return localStorage.setItem(
         'doneRecipes',
-        JSON.stringify([...doneRecipes, newRecipe])
+        JSON.stringify([...doneRecipes, newRecipe]),
       );
-    };
+    }
     return localStorage.setItem(
       'doneRecipes',
-      JSON.stringify([newRecipe])
+      JSON.stringify([newRecipe]),
     );
   }
-  
+
   render() {
     const {
       detailsRecipe,
@@ -105,6 +105,11 @@ BeveragesInProgressInfo.propTypes = {
   onClickFavoriteIcon: PropTypes.func.isRequired,
   renderIngredients: PropTypes.func.isRequired,
   renderFavorite: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default withRouter(BeveragesInProgressInfo);
