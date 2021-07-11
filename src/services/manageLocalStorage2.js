@@ -1,6 +1,4 @@
 export const settingFavorite2 = (details, id, refresh) => {
-  console.log('details', details);
-  console.log('id', id);
   const favoritesArrayVerifier = localStorage.getItem('favoriteRecipes');
   if (!favoritesArrayVerifier) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));

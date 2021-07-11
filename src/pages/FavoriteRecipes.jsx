@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { verifyFavorite } from '../services/manageLocalStorage';
+import { settingFavorite2 } from '../services/manageLocalStorage2';
 
 import Header from '../components/Header';
 import BodyFavoriteRecipes from '../components/BodyFavoriteRecipes';
 
 export default function FavoriteRecipes({ history }) {
   const [whatIsActivated, setWhatIsActivated] = useState(0);
+  const [refresh, setRefresh] = useState(true);
   const rawDestructuredStorage = localStorage.getItem('favoriteRecipes');
   const destructuredStorage = JSON.parse(rawDestructuredStorage);
+
   const attStateFilter = (selected) => {
     setWhatIsActivated(selected);
   };
@@ -26,12 +30,24 @@ export default function FavoriteRecipes({ history }) {
     }
     return (filteredList
       .map((each, index) => (
-        <BodyFavoriteRecipes
-          key={ index }
-          index={ index }
-          history={ history }
-          each={ each }
-        />
+        <main key={ index }>
+          <BodyFavoriteRecipes
+            key={ index }
+            index={ index }
+            history={ history }
+            each={ each }
+          />
+          <button
+            type="button"
+            onClick={ () => setRefresh(settingFavorite2(each, each.id, refresh)) }
+          >
+            <img
+              alt="Favorite"
+              src={ verifyFavorite(each.id) }
+              data-testid={ `${index}-horizontal-favorite-btn` }
+            />
+          </button>
+        </main>
       )));
   };
   return (
