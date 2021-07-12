@@ -7,7 +7,7 @@ import { fetchRandomDrink } from '../Service/drinkApi';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import AreaExplorer from './AreaExplorer';
+import AreaExplorer from '../components/AreaExplorer';
 import SearchIngredients from './SearchIngredients';
 
 export default function Explorar() {
