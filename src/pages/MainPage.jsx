@@ -17,8 +17,7 @@ function MainPage() {
   } = useContext(RecipesContext);
 
   const getApiAll = () => {
-    if (responseApiLupaMeal.length === 0 || resposeApiLupaDrink.length === 0) {
-      console.log('cheguei');
+    if (responseApiLupaMeal.length === 0 && resposeApiLupaDrink.length === 0) {
       fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
       fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
     }

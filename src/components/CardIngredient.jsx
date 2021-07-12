@@ -36,19 +36,19 @@ export default function CardIngredient() {
   const path = positionInArray === 0 ? '/bebidas' : '/comidas';
 
   const fetchByingredient = (innerHTML) => {
-    const DELAY_FETCH = 1000;
+    const DELAY_FETCH = 300;
     if (pathname.includes('comidas')) {
       fetchIngredientesMeal(innerHTML)
         .then((response) => {
           setResponseApiLupaMeal(response);
         });
-      setTimeout(history.push(path), DELAY_FETCH);
+      setTimeout(() => history.push(path), DELAY_FETCH);
     } else {
       fetchIngredientesDrinks(innerHTML)
         .then((response) => {
           setResponseApiLupaDrink(response);
         });
-      setTimeout(history.push(path), DELAY_FETCH);
+      setTimeout(() => history.push(path), DELAY_FETCH);
     }
   };
 
