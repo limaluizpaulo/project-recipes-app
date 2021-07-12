@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { renderFiltered, updateRecipes } from '../actions';
 import {
   getRecipeByCategory,
   getFoodCategories,
@@ -11,21 +9,18 @@ import {
   getDrinkByCategory,
 } from '../services';
 
+import './mainpage.css';
 import '../main.css';
 import { RecipeCards, Footer, Header } from '../components';
 
 const FIVE = 5; // number of categories to render
 const TWELVE = 12; // number of recipes to render
 
-function MainPage({
-  history,
-  updateFiltered,
-  filteredRecipes,
-  showFiltered,
-  shouldRenderFiltered,
-}) {
+function MainPage({ history }) {
   const [categories, setCategories] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [showFiltered, setShowFiltered] = useState(false);
   const [filteredBy, setFilteredBy] = useState('');
 
   const { pathname } = history.location;
@@ -57,15 +52,15 @@ function MainPage({
       const response = pathname.includes('/comidas')
         ? await getRecipeByCategory(category)
         : await getDrinkByCategory(category);
-      shouldRenderFiltered(true);
-      updateFiltered(response.slice(0, TWELVE));
+      setShowFiltered(true);
+      setFilteredRecipes(response.slice(0, TWELVE));
     } else {
-      shouldRenderFiltered(false);
+      setShowFiltered(false);
       setFilteredBy('');
     }
   };
 
-  const recipesToRender = filteredRecipes;
+  const recipesToRender = showFiltered ? filteredRecipes : recipes;
 
   return (
     <>
@@ -73,11 +68,12 @@ function MainPage({
         <section>
           <Header pathname={ pathname } newRecipes={ setRecipes } />
         </section>
-        <section>
+        <section className="btn-container">
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => shouldRenderFiltered(false) }
+            onClick={ () => setShowFiltered(false) }
+            className="categories-button"
           >
             All
           </button>
@@ -87,6 +83,7 @@ function MainPage({
               key={ idx }
               data-testid={ `${strCategory}-category-filter` }
               onClick={ () => { filterByCategory(strCategory); } }
+              className="categories-button"
             >
               {strCategory}
             </button>
@@ -99,18 +96,8 @@ function MainPage({
   );
 }
 
-const mapStateToProps = (state) => ({
-  filteredRecipes: state.recipes.filteredRecipes,
-  showFiltered: state.recipes.showFiltered,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateFiltered: (value) => dispatch(updateRecipes(value)),
-  shouldRenderFiltered: (value) => dispatch(renderFiltered(value)),
-});
-
 MainPage.propTypes = {
   history: PropTypes.object,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default MainPage;

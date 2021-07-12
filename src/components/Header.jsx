@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import arrangeTitle from '../services/getPageTitle';
+import './header.css';
 
 function Header({ pathname, newRecipes }) {
   const [shouldShearchBar, setShouldSearchBar] = useState(false);
@@ -27,9 +29,11 @@ function Header({ pathname, newRecipes }) {
             src={ profileIcon }
             alt="user frame"
           />
+          <AiOutlineUser />
         </Link>
         <p
           data-testid="page-title"
+          className="page-title"
         >
           { pageTitle }
         </p>
@@ -44,6 +48,7 @@ function Header({ pathname, newRecipes }) {
               src={ searchIcon }
               alt="search icon"
             />
+            <AiOutlineSearch />
           </button>
         )}
       </main>

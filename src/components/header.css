@@ -1,0 +1,50 @@
+header {
+  background-color: #fb9400;
+}
+
+header main{
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+  width: 100vw;
+  padding-top: 10px;
+}
+
+header main a {
+  align-self: center;
+  display: flex;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+}
+
+header main a img {
+  display: none;
+}
+
+header main button {
+  align-self: center;
+  display: flex;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+}
+
+header main button img {
+  display: none;
+}
+
+header main img {
+  height: 40px;
+}
+
+header main button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.page-title {
+  align-self: center;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: white;
+}

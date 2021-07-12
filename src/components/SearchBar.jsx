@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRecipeSearch } from '../services';
+import './searchbar.css';
 
 function SearchBar({ title, newRecipes }) {
   const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');
@@ -85,48 +86,52 @@ function SearchBar({ title, newRecipes }) {
 
   return (
     <section>
-      <form>
+      <form className="search-form">
         <input
           data-testid="search-input"
           type="text"
           onChange={ (e) => handleChange(e) }
+          placeholder="Digite sua busca"
+          className="search-input-text"
         />
-        <label htmlFor="ingredient-radio">
-          Ingrediente
-          <input
-            checked={ selectedRadio === '/filter.php?i=' }
-            id="ingredient-radio"
-            type="radio"
-            name="radio-search"
-            data-testid="ingredient-search-radio"
-            value="/filter.php?i="
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
-        <label htmlFor="name-radio">
-          Nome
-          <input
-            checked={ selectedRadio === '/search.php?s=' }
-            id="name-radio"
-            type="radio"
-            name="radio-search"
-            data-testid="name-search-radio"
-            value="/search.php?s="
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
-        <label htmlFor="first-letter-radio">
-          Primeira letra
-          <input
-            checked={ selectedRadio === '/search.php?f=' }
-            id="first-letter-radio"
-            type="radio"
-            name="radio-search"
-            data-testid="first-letter-search-radio"
-            value="/search.php?f="
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
+        <div className="search-radio">
+          <label htmlFor="ingredient-radio">
+            <input
+              checked={ selectedRadio === '/filter.php?i=' }
+              id="ingredient-radio"
+              type="radio"
+              name="radio-search"
+              data-testid="ingredient-search-radio"
+              value="/filter.php?i="
+              onChange={ (e) => handleChange(e) }
+            />
+            Ingrediente
+          </label>
+          <label htmlFor="name-radio">
+            <input
+              checked={ selectedRadio === '/search.php?s=' }
+              id="name-radio"
+              type="radio"
+              name="radio-search"
+              data-testid="name-search-radio"
+              value="/search.php?s="
+              onChange={ (e) => handleChange(e) }
+            />
+            Nome
+          </label>
+          <label htmlFor="first-letter-radio">
+            <input
+              checked={ selectedRadio === '/search.php?f=' }
+              id="first-letter-radio"
+              type="radio"
+              name="radio-search"
+              data-testid="first-letter-search-radio"
+              value="/search.php?f="
+              onChange={ (e) => handleChange(e) }
+            />
+            Primeira letra
+          </label>
+        </div>
         <section>
           <button
             type="button"

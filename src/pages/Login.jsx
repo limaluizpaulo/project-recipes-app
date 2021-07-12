@@ -50,6 +50,7 @@ function Login() {
     localStorage.setItem('mealsToken', JSON.stringify(mealToken));
     localStorage.setItem('cocktailsToken', JSON.stringify(cockTailsToken));
     localStorage.setItem('doneRecipes', JSON.stringify([]));
+    localStorage.setItem('inProgressRecipes', JSON.stringify([]));
     setRedirect(true);
   };
 
@@ -58,7 +59,7 @@ function Login() {
   }
 
   return (
-    <form>
+    <form className="form-login">
       <img className="app-logo" src={ logo } alt="logo do app" />
       <label htmlFor="email">
         Email

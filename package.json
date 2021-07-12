@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-elastic-carousel": "^0.11.5",
     "react-glider": "^2.2.0",
+    "react-icons": "^4.2.0",
     "react-iframe": "^1.8.0",
     "react-logger": "^1.1.0",
     "react-redux": "^7.2.4",
