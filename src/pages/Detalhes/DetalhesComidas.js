@@ -41,7 +41,7 @@ function DetalhesComidas({ match }) {
     setFavorited(!favorited);
   };
 
-  async function favorite() {
+  function favorite() {
     const mealToFav = data.meals[0];
     const favoriteRecipes = [{
       id: mealToFav.idMeal,
@@ -52,7 +52,15 @@ function DetalhesComidas({ match }) {
       name: mealToFav.strMeal,
       image: mealToFav.strMealThumb,
     }];
-    saveFavorite(favoriteRecipes);
+    setFavorited(!favorited);
+    if (localStorage.favoriteRecipes) {
+      const mealSaved = JSON.parse(localStorage.favoriteRecipes);
+      // console.log(mealSaved);
+      const filteredMeals = mealSaved.filter(({ id }) => id !== mealToFav.idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredMeals));
+    } else {
+      saveFavorite(favoriteRecipes);
+    }
   }
 
   // console.log(favoriteRecipes);

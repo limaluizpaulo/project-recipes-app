@@ -6,7 +6,7 @@ function favButton(favorited, id) {
   if (localStorage.favoriteRecipes) {
     const favoritos = JSON.parse(localStorage.favoriteRecipes);
     return (
-      (!favorited && (favoritos[0].id === id))
+      (favorited)
         ? (
           <img
             data-testid="favorite-btn"
@@ -24,7 +24,7 @@ function favButton(favorited, id) {
     );
   }
   return (
-    (favorited)
+    (!favorited)
       ? (
         <img
           data-testid="favorite-btn"
