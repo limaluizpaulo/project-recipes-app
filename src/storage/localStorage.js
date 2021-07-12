@@ -70,7 +70,7 @@ export function saveFavoritRecipes(content, path, favoritStatus) {
 }
 
 export const saveFavoriteRecipe = (path, obj) => {
-  const [id, title, img, type, area, alcoholicOrNot] = path.includes('comidas')
+  const [id, name, image, type, area, alcoholicOrNot] = path.includes('comidas')
     ? [obj.idMeal, obj.strMeal, obj.strMealThumb, 'comida', obj.strArea, '']
     : [obj.idDrink, obj.strDrink, obj.strDrinkThumb, 'bebida', '', obj.strAlcoholic];
   if (localStorage.getItem('favoriteRecipes')) {
@@ -81,8 +81,8 @@ export const saveFavoriteRecipe = (path, obj) => {
         area,
         category: obj.strCategory,
         alcoholicOrNot,
-        name: obj[title],
-        image: obj[img],
+        name,
+        image,
       });
     }
     localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
@@ -93,8 +93,8 @@ export const saveFavoriteRecipe = (path, obj) => {
         area,
         category: obj.strCategory,
         alcoholicOrNot,
-        name: obj[title],
-        image: obj[img],
+        name,
+        image,
       }],
     ));
   }
