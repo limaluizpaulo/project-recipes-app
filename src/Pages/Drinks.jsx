@@ -7,7 +7,7 @@ import Footer from '../Components/Footer';
 import Card from '../Components/Card';
 import CategoryButtons from '../Components/CategoryButtons';
 import BeverageAPI from '../services/BeverageRecipesAPI';
-import { setList } from '../services/services';
+import { setList12 } from '../services/services';
 import '../styles/Card.css';
 
 function Drinks(props) {
@@ -24,13 +24,13 @@ function Drinks(props) {
 
     if (!drinks.length) {
       getByDefault()
-        .then((res) => setMainDrinks(setList(res)));
+        .then((res) => setMainDrinks(setList12(res)));
     }
   }, []);
 
   React.useEffect(() => {
     if (drinks.length) {
-      setMainDrinks(setList(drinks));
+      setMainDrinks(setList12(drinks));
     }
   }, [drinks]);
 
@@ -38,7 +38,7 @@ function Drinks(props) {
     <div className="foodScreen">
       <HeadBar title="Bebidas" />
       <CategoryButtons
-        setMainDrinks={ (list) => setMainDrinks(setList(list)) }
+        setMainDrinks={ (list) => setMainDrinks(setList12(list)) }
         type="cocktail"
         categories={ categories.map((category) => category.strCategory) }
       />

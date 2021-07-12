@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import Card from '../Components/Card';
-import { setList } from '../services/services';
+import { setList12 } from '../services/services';
 import { setArea, getAreas } from '../redux/actions';
 import fetchByArea from '../services/fetchByArea';
 import api from '../services/MealRecipesAPI';
@@ -50,7 +51,7 @@ function ExpoFoodArea(props) {
         ))}
       </select>
       <div className="items-list">
-        {setList(listFood).map((food, index) => (
+        {setList12(listFood).map((food, index) => (
           <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />
         ))}
       </div>

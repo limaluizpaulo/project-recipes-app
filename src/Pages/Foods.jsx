@@ -7,7 +7,7 @@ import Footer from '../Components/Footer';
 import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
-import { setList } from '../services/services';
+import { setList12 } from '../services/services';
 import '../styles/Card.css';
 
 function Foods(props) {
@@ -25,13 +25,13 @@ function Foods(props) {
 
     if (!foods.length) {
       getByDefault()
-        .then((res) => setMainFoods(setList(res)));
+        .then((res) => setMainFoods(setList12(res)));
     }
   }, []);
 
   React.useEffect(() => {
     if (foods.length) {
-      setMainFoods(setList(foods));
+      setMainFoods(setList12(foods));
     }
   }, [foods]);
 
@@ -39,7 +39,7 @@ function Foods(props) {
     <div className="tela-food">
       <HeadBar title="Comidas" />
       <CategoryButtons
-        setMainFoods={ (list) => setMainFoods(setList(list)) }
+        setMainFoods={ (list) => setMainFoods(setList12(list)) }
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
