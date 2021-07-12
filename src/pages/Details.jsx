@@ -8,7 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
-import { getItem, setItem } from '../helpers/HelperFunctions';
+import { getItem, setItem, setInitialItem } from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
 function Details() {
@@ -30,7 +30,15 @@ function Details() {
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
   const { pathname } = useLocation();
-  // console.log(pathname);
+
+  setInitialItem('inProgressRecipes', {
+    cocktails: {},
+    meals: {},
+  });
+
+  setInitialItem('doneRecipes', []);
+  setInitialItem('favoriteRecipes', []);
+
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);
