@@ -7,12 +7,15 @@
   .ingredient ul {
     top: 450px;
   }
+
   .recipe-photo {
     width: 50vw;
   }
+
   .recipe h2 {
     background: #6a8b4183;
   }
+  
   .ingredient img {
     height: auto;
     opacity: 0.3;
