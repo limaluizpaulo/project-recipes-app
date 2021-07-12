@@ -41,7 +41,7 @@ function DrinkCategoryButtons() {
 
   useEffect(() => {
     fetchDrinkCategoryName();
-  }, []);
+  });
 
   const handleClickAll = () => {
     fetchDrinkRecipes();

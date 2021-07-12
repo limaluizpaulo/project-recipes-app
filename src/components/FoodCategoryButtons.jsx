@@ -41,7 +41,7 @@ function FoodCategoryButtons() {
 
   useEffect(() => {
     fetchFoodCategoryName();
-  }, []);
+  });
 
   const handleClickAll = () => {
     fetchFoodRecipes();
