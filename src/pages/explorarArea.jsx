@@ -33,6 +33,7 @@ export class ExplorarArea extends Component {
     return (
       <div>
         <Header location={ location } />
+        console.log(location);
         <select onChange={ this.handleChange } data-testid="explore-by-area-dropdown">
           <option data-testid="All-option">
             All

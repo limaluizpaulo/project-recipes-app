@@ -80,7 +80,6 @@ class Progresso extends Component {
     const { favIcon, id } = this.state;
     const { details, match: { params: { page } } } = this.props;
     if (!favIcon) {
-
       const recovery = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const recipe = {
         id,
@@ -115,7 +114,6 @@ class Progresso extends Component {
         image: details.strMealThumb,
       }));
       console.log(recipe);
-
       // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
       this.setState({
         favIconColor: blackHeartIcon,
@@ -211,6 +209,7 @@ class Progresso extends Component {
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
+
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
