@@ -76,11 +76,9 @@ export default function MealsDetails() {
   useEffect(verifyHeart, []);
 
   const checkButton = () => {
-    const recipeFinish = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (recipeFinish) {
-      const buttonInvisible = recipeFinish.some((element) => element.id === id);
-      setInvisibleButton(buttonInvisible);
-    }
+    const recipeFinish = JSON.parse(localStorage.getItem('doneRecipes') || ('{}'));
+    const buttonInvisible = recipeFinish.some((element) => element.id === id);
+    setInvisibleButton(buttonInvisible);
   };
   useEffect(checkButton, []);
 
