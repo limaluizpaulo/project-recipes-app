@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.food-cards-container {
+  background-color: #f3ecec;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 350px;
+}
+
+
+.food-card {
+  align-items: center;
+  background-color: #e4cccc;
+  border-radius: 20px;
+  justify-content: center;
+  margin: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  width: 80%;
+}
+
+.food-card img {
+  border-radius: 8px;
+  height: 180px;
+  margin: 10px 0 20px;
+  width: 240px;
+}
+
+.food-card a {
+  color: black;
+  text-decoration: none;
+}
+
+.food-card a:hover {
+  color: gray;
+}

@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import FoodCard from '../components/FoodCard';
 import { fetchFoodAction } from '../actions';
 import FoodButtons from '../components/FoodButtons';
+import '../css/Foods.css';
 
 class Foods extends Component {
   constructor() {
@@ -27,14 +28,16 @@ class Foods extends Component {
   render() {
     const { resultFood } = this.props;
     return (
-      <>
-        <section>
-          <Header title="Comidas" />
-        </section>
+      <div className="foods-page">
+
+        <Header title="Comidas" />
+
         <FoodButtons />
-        {resultFood ? <FoodCard /> : null}
+        <div className="food-cards-container">
+          {resultFood ? <FoodCard /> : null}
+        </div>
         <Footer />
-      </>
+      </div>
     );
   }
 }

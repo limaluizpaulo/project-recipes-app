@@ -1,17 +1,25 @@
 .header {
-  background-color: rgb(236, 224, 224);
+  background-color: #e4cccc;
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.header h2 {
+  margin-top: 5px;
 }
 
 .button-profile {
   background: transparent;
+  border: #e4cccc;
+  border-radius: 0;
 }
 
 .button-search {
   background: transparent;
+  border: #e4cccc;
+  border-radius: 0;
 }
 
 .button-search-invisible {

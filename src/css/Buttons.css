@@ -1,6 +1,8 @@
 .buttons-container {
-  margin: 2px;
-  width: 100%;
+  background-color: #f3ecec;
+  padding-top: 10px;
+  text-align: center;
+  width: 350px;
 }
 
 .buttons {
@@ -12,13 +14,14 @@
   width: 115px;
 }
 
-.buttonss {
+.buttons-category {
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
+  border-radius: 8px;
   height: 45px;
   line-height: 1em;
-  margin: 1px;
-  width: 115px;
+  margin: 7px;
+  width: 150px;
 }
 
 .like-and-share {
