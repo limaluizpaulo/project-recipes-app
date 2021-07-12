@@ -36,7 +36,7 @@ export const getEmail = () => {
   return email.email;
 };
 
-export const clearStorageAndPushToLogin = () => {
+export const clearStorageAndPushToLogin = (history) => {
   localStorage.clear();
-  // history.push('/');
+  history.push('/');
 };
