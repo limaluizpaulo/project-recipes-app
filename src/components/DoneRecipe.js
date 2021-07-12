@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import '../styles/global.css';
+import '../styles/DoneRecipe.css';
 
 function DoneRecipe({ recipe: {
   id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
@@ -19,13 +19,13 @@ function DoneRecipe({ recipe: {
   useEffect(() => {}, [copiedLink]);
 
   return (
-    <div className="favorite-recipes">
-      <div className="card-favorite">
+    <div className="done-recipes">
+      <div className="done-card">
         <div>
           <Link to={ `/${type}s/${id}` }>
             <img
               src={ image }
-              className="favorite-img"
+              className="done-img"
               alt="recipe representation"
               data-testid={ `${index}-horizontal-image` }
               style={ imgStyle }
