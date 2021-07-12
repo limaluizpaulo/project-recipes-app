@@ -10,3 +10,8 @@
   width: 100vw;
   z-index: 2;
 }
+
+.none-button {
+  background-color: transparent;
+  border: none;
+}
