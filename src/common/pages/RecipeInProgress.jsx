@@ -85,21 +85,21 @@ export default function RecipeInProgress() {
         </div>
       </div>
       {/* -------------------------------------------------------------------------- */}
-      <div data-aos="fade-up" className="boxInProg instrInProgress">
+      <div data-aos="fade-up" className="boxInProg bottomInProgress">
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            disabled={ disabledBtn }
+            onClick={ addDoneRecipe }
+            style={ { cursor: 'pointer' } }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
-      <Link to="/receitas-feitas">
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          disabled={ disabledBtn }
-          onClick={ addDoneRecipe }
-          style={ { cursor: 'pointer' } }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
       {/* -------------------------------------------------------------------------- */}
     </div>
   );
