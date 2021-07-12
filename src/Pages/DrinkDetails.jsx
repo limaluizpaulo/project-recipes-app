@@ -99,10 +99,7 @@ class DrinkDetails extends React.Component {
     const { id } = match.params;
     const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
     const { idDrink,
-      strDrink,
-      strCategory,
-      strTags,
-      strAlcoholic, strDrinkThumb } = payload[0];
+      strDrink, strCategory, strTags, strAlcoholic, strDrinkThumb } = payload[0];
     const receita = {
       id: idDrink,
       type: 'bebida',
