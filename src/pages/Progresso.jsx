@@ -37,6 +37,7 @@ class Progresso extends Component {
       foodDetails, drinksDetails, isStart } = this.props;
     isStart(true);
     if (localStorage.length === 0) {
+
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ cocktails: {}, meals: {} }));
     }
@@ -47,6 +48,7 @@ class Progresso extends Component {
     }
     return drinksDetails(id);
   }
+
 
   componentDidUpdate() {
     const { id, allIngredients } = this.state;
@@ -88,6 +90,7 @@ class Progresso extends Component {
       });
     }
   }
+
 
   handleClick() {
     const { isStart } = this.props;
@@ -146,6 +149,7 @@ class Progresso extends Component {
         id, should: false });
     }
   }
+
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
@@ -221,6 +225,7 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+//   location: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);

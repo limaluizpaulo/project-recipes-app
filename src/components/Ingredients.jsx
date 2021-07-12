@@ -84,7 +84,9 @@ const mapStateToProps = (state) => ({
 Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
+
   state: PropTypes.shape.isRequired,
+
   func: PropTypes.func.isRequired,
 };
 
