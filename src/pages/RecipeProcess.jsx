@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import '../Style/Progress.css';
 
@@ -23,6 +25,8 @@ class RecipeProcess extends Component {
       arrayFinal: [],
       isFavorite: false,
       share: false,
+      heart: whiteHeartIcon,
+      favoriteRecipes: [],
     };
 
     this.getRecipe = this.getRecipe.bind(this);
@@ -31,6 +35,7 @@ class RecipeProcess extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleStorange = this.handleStorange.bind(this);
+    this.setIntialHeart = this.setIntialHeart.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +45,11 @@ class RecipeProcess extends Component {
 
   handleStorange() {
     const checSave = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    this.setState({ chec: checSave });
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favorite);
+    if (favorite) {
+      this.setState({ chec: checSave, favoriteRecipes: favorite });
+    }
   }
 
   handleChange(e) {
@@ -68,7 +77,45 @@ class RecipeProcess extends Component {
   }
 
   handleFavorite() {
-    this.setState((state) => ({ isFavorite: !state.isFavorite }));
+    const { heart, favoriteRecipes, recipe } = this.state;
+    console.log(favoriteRecipes);
+    const newFavorite = [...favoriteRecipes];
+    const {
+      strMealThumb,
+      idMeal,
+      strArea,
+      strMeal,
+      strCategory,
+    } = recipe[0];
+    console.log(recipe);
+    const modelo = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    if (heart === whiteHeartIcon) {
+      this.setState({ heart: blackHeartIcon },
+        () => {
+          newFavorite.push(modelo);
+          this.setState({ favoriteRecipes: newFavorite },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+            });
+        });
+    } else {
+      this.setState({ heart: whiteHeartIcon },
+        () => {
+          const teste = favoriteRecipes.filter((model) => model.id !== recipe.idMeal);
+          this.setState({ favoriteRecipes: teste },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify(teste));
+            });
+        });
+    }
   }
 
   async handleShare() {
@@ -77,11 +124,23 @@ class RecipeProcess extends Component {
     this.setState({ share: true });
   }
 
+  setIntialHeart() {
+    const { recipe, favoriteRecipes } = this.state;
+    console.log(recipe);
+    const testHeart = favoriteRecipes.some((fav) => fav.id === recipe[0].idMeal);
+    if (testHeart) {
+      this.setState({ heart: blackHeartIcon });
+    } else {
+      this.setState({ heart: whiteHeartIcon });
+    }
+  }
+
   async getRecipe() {
     const { match: { params: { id } } } = this.props;
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await result.json();
     this.setState({ recipe: meals }, () => {
+      this.setIntialHeart();
       const { recipe } = this.state;
       const ingredientsKeys = Object.entries(recipe);
       const arrayFinal = [];
@@ -101,7 +160,7 @@ class RecipeProcess extends Component {
 
   render() {
     const { redirect,
-      recipe, className, active, arrayFinal, isFavorite, share } = this.state;
+      recipe, className, active, arrayFinal, isFavorite, share, heart } = this.state;
     console.log(`favorito ${isFavorite}`);
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
@@ -118,62 +177,6 @@ class RecipeProcess extends Component {
             <h1 data-testid="recipe-title">{receita.idMeal}</h1>
             <p data-testid="recipe-category">{receita.strCategory}</p>
             <p data-testid="instructions">{receita.strInstructions}</p>
-            {/* <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient1}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient2}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient3}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient4}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient5}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient6}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient7}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p>
-            <p
-              className={ className }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {receita.strIngredient8}
-              <input onChange={ this.handleChange } type="checkbox" />
-            </p> */}
           </div>
         ))}
         {arrayFinal && arrayFinal.map((ing, index) => {
@@ -189,21 +192,24 @@ class RecipeProcess extends Component {
             </p>
           );
         })}
-        {share ? <p>Link copiado!</p> : ''}
+        {share && <p>Link copiado!</p>}
         <button
           onClick={ this.handleShare }
-          data-testid="share-btn"
           type="button"
+          data-testid="share-btn"
         >
           Compartilhar
-
         </button>
         <button
-          onClick={ this.handleFavorite }
-          data-testid="favorite-btn"
           type="button"
+          onClick={ this.handleFavorite }
         >
-          Favoritar
+          <img
+            data-testid="favorite-btn"
+            className="icons"
+            src={ heart }
+            alt="whiteHeartIcon"
+          />
         </button>
         <button
           data-testid="finish-recipe-btn"

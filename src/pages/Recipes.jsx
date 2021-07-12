@@ -27,9 +27,9 @@ class Recipes extends Component {
   }
 
   async fetchs() {
-    const { recipes, categories } = this.props;
-    recipes();
+    const { categories, listRecipes, recipes } = this.props;
     categories();
+    if (listRecipes.length === 0) recipes();
   }
 
   async fetchRecipesCategory(category) {
@@ -47,10 +47,9 @@ class Recipes extends Component {
 
   mapearLista({ strMealThumb, strMeal, idMeal }, index) {
     return (
-      <Link to={ `/comidas/${idMeal}` }>
+      <Link to={ `/comidas/${idMeal}` } key={ idMeal }>
         <CardItem
           className="list"
-          key={ index }
           index={ index }
           name={ strMeal }
           image={ strMealThumb }

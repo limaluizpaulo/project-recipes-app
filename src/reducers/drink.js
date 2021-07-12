@@ -1,6 +1,7 @@
 const INTIAL_STATE = {
   drinks: [],
   byCategories: [],
+  ingredients: [],
 };
 
 const drinks = (state = INTIAL_STATE, action) => {
@@ -15,6 +16,8 @@ const drinks = (state = INTIAL_STATE, action) => {
     return { ...state, drinks: action.payload.data };
   case 'DRINKS_CATEGORY':
     return { ...state, byCategories: action.payload.data };
+  case 'INGREDIENTS_DRINKS':
+    return { ...state, ingredients: action.payload.data };
   default:
     return state;
   }

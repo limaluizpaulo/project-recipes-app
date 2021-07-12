@@ -7,6 +7,7 @@ import
   actionRecipesByFirstLetter,
   actionDrinksByIngredients,
   actionDrinksByName, actionDrinksByFirstLetter } from '../actions';
+import '../Style/SearchBar.css';
 
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
