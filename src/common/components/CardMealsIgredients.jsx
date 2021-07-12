@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import store, { addRecipes } from '../../context/store';
+import store, { addRecipes, setLoading } from '../../context/store';
 import { fetchAPI, EXPLORER_ING_MEALS, INGREDIENT_MEALS } from '../../services';
 
 export default function CardMealsIgredients() {
@@ -15,6 +15,7 @@ export default function CardMealsIgredients() {
 
   function setMeals(response) {
     const { drinks, categoriesMeals, categoriesDrinks } = recipes;
+    setRecipes(setLoading(false));
     setRecipes(addRecipes(
       response.meals, drinks, categoriesMeals, categoriesDrinks,
     ));
@@ -23,12 +24,14 @@ export default function CardMealsIgredients() {
   function setIgredient(id) {
     console.log(id);
     fetchAPI(`${INGREDIENT_MEALS}${id}`)
-      .then((response) => setMeals(response));
+      .then((response) => {
+        setMeals(response);
+        history.push('/comidas');
+      });
   }
 
   const handleClick = ({ target: { id } }) => {
     setIgredient(id);
-    history.push('/comidas');
   };
 
   return (
@@ -51,7 +54,7 @@ export default function CardMealsIgredients() {
                   className="imgContainer"
                 >
                   <img
-                    src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-small.png` }
+                    src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                     alt={ strIngredient }
                     data-testid={ `${index}-card-img` }
                     id={ strIngredient }

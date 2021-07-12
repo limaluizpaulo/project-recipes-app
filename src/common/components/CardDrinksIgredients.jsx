@@ -51,7 +51,7 @@ export default function CardDrinksIgredients() {
                 className="imgContainer"
               >
                 <img
-                  src={ `${IMG_INGR_DRINKS}${strIngredient1}-small.png` }
+                  src={ `${IMG_INGR_DRINKS}${strIngredient1}-Small.png` }
                   alt={ strIngredient1 }
                   id={ strIngredient1 }
                   data-testid={ `${index}-card-img` }
