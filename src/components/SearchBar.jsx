@@ -56,6 +56,7 @@ class SearchBar extends Component {
       <div className="search">
         <div className="search-container">
           <input
+            className="search-input"
             data-testid="search-input"
             type="text"
             placeholder="Buscar Receita"

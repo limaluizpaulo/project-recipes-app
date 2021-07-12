@@ -11,11 +11,28 @@ form {
 .search {
   display: flex;
   justify-content: center;
+  margin-bottom: 200px;
+  margin-top: 20px;
 }
 
 .search-container {
+  background-color: #f3ecec;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 80%;
+}
+
+.search-input {
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.btt-search {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  border-radius: 8px;
+  height: 35px;
+  line-height: 1em;
+  width: 100%;
 }

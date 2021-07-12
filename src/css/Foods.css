@@ -14,6 +14,7 @@
 }
 
 .foods-page header {
+  background-color: #f3ecec;
   display: flex;
-  height: 50px;
+  height: 180px;
 }
