@@ -12,15 +12,21 @@ class Profile extends React.Component {
 
   onClickLogOut() {
     const { history } = this.props;
-    localStorage.removeItem('email');
+    localStorage.removeItem('user');
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
     history.push('/');
   }
 
   render() {
+    console.log(JSON.parse(localStorage.getItem('email')));
     return (
       <section>
         <Header title="Perfil" />
-        <p data-testid="profile-email">{JSON.parse(localStorage.getItem('email'))}</p>
+        <p data-testid="profile-email">{JSON.parse(localStorage.getItem('user')).email}</p>
         <Link to="/receitas-feitas">
           <button data-testid="profile-done-btn" type="button">
             Receitas Feitas

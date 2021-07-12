@@ -42,11 +42,15 @@ class FoodByOrigin extends React.Component {
     );
   }
 
-  filterByArea() {
+  async filterByArea() {
     const { respOriginal, filter } = this.state;
     let countryArea;
+    console.log('FILTER', filter);
     if (filter !== 'All') {
-      countryArea = respOriginal.filter((food) => food.strArea === filter);
+      const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${filter}`;
+      const responseAPI = await fetchAPI(url);
+      console.log(responseAPI);
+      countryArea = responseAPI.meals;
     } else {
       countryArea = respOriginal;
     }
@@ -73,7 +77,6 @@ class FoodByOrigin extends React.Component {
   }
 
   renderCards() {
-    console.log(nada);
     const { respAPI } = this.state;
     const maxNumberOfCards = 11;
     if (respAPI !== null) {
