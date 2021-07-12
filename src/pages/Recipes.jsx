@@ -46,10 +46,9 @@ class Recipes extends Component {
 
   mapearLista({ strMealThumb, strMeal, idMeal }, index) {
     return (
-      <Link to={ `/comidas/${idMeal}` }>
+      <Link to={ `/comidas/${idMeal}` } key={ idMeal }>
         <CardItem
           className="list"
-          key={ index }
           index={ index }
           name={ strMeal }
           image={ strMealThumb }
