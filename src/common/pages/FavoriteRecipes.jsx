@@ -8,7 +8,7 @@ import { getStorage } from '../../functions';
 export default function FavoriteRecipes() {
   const [state, setState] = useState(false);
   const [favoriteStorage,
-    setFavoriteStorage] = useState(() => getStorage('favoriteRecipes')); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
+    setFavoriteStorage] = useState(getStorage('favoriteRecipes')); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
 
   const handleClickCategory = () => console.log('handleClickCategory'); // esse consoles.log e o de baixo foram apenas pra poder chamar certinho lá no CategoryButton.
   const getRecipes = () => console.log('getRecipes');
@@ -28,10 +28,13 @@ export default function FavoriteRecipes() {
   const favoriteDrink = (alcoholicOrNot, index) => (
     <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
   );
-
+  const removeMe = (favorited) => {
+    const newFavoriteStorage = favoriteStorage.filter((item) => item.id !== favorited.id); // quando clico no LikeButton, chamo essa função.Essa função serve pra remover do localstorage a receita favoritada em que acabei de clicar no LikeButton. O filter vai retornar um array com todos os favoritados menos o que acabei de clicar.
+    setFavoriteStorage(newFavoriteStorage); // aí depois vou atualizar o estado favoriteStorage com essa remoção que foi feita.
+  };
   const renderFavorites = () => (
     favoriteStorage.map((favorited, index) => (
-      <div key={ index }>
+      <div key={ favorited.id }>
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ favorited.image }
@@ -49,6 +52,7 @@ export default function FavoriteRecipes() {
           captureFavorited={ setFavorited }
           favPage
           index={ index }
+          removeMe={ removeMe }
         />
       </div>
     ))
