@@ -42,8 +42,10 @@ export default function RenderDetails({ btnFinish, id }) {
               ) }
             </h5>
           </div>
-          <h3>Ingredientes</h3>
-          <RecipeIngredients Details />
+          <div className="ingredients">
+            <h3>Ingredientes</h3>
+            <RecipeIngredients Details />
+          </div>
         </div>
         <div className="imageButtons">
           <img
