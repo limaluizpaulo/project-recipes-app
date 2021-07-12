@@ -59,8 +59,8 @@ class Recipes extends Component {
   render() {
     const { filter } = this.state;
     const { listRecipes, listCategories, listByCategory, recipes } = this.props;
-    if (listRecipes.length === 0) recipes();
     if (!listRecipes || !listCategories) return (<h3>Loading...</h3>); // OBS possível bug
+    if (listRecipes.length === 0) recipes();
     if (listRecipes.length === 1) {
       return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;
     }
