@@ -78,7 +78,7 @@ IngredientsInProcess.propTypes = {
   measures: PropTypes.arrayOf(PropTypes.array).isRequired,
   ingredientsUsed: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateIngredientsUsed: PropTypes.func.isRequired,
-  idMeal: PropTypes.number.isRequired,
+  idMeal: PropTypes.string.isRequired,
 };
 
 export default IngredientsInProcess;

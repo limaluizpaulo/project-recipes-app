@@ -5,6 +5,18 @@ import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
 
+const returnArrayOfIngredients = (object) => {
+  const maxIngredients = 20;
+  const arrayOfIngredients = [];
+  for (let i = 1; i <= maxIngredients; i += 1) {
+    const ingredientToPush = `strIngredient${i}`;
+    if (object[ingredientToPush] !== '' && object[ingredientToPush] !== null) {
+      arrayOfIngredients.push(object[ingredientToPush]);
+    }
+  }
+  return arrayOfIngredients;
+};
+
 function FoodProcess() {
   const params = useParams();
   const [item, setItem] = useState([]);
@@ -68,7 +80,6 @@ function FoodProcess() {
     };
     request();
   }, [params.id]);
-
   return (
     item && (
       item.map((
@@ -77,6 +88,9 @@ function FoodProcess() {
         index,
       ) => {
         const array = rest;
+        const arrayOfIngredients = returnArrayOfIngredients(array);
+        console.log(arrayOfIngredients);
+        console.log(ingredientsUsed);
         return (
           <div key={ index }>
             <img
@@ -113,6 +127,7 @@ function FoodProcess() {
                 onClick={ processDone }
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
+                disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >
                 Finalizar Receita
               </button>
