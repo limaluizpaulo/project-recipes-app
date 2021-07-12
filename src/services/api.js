@@ -11,13 +11,9 @@ const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses f
 // -------------------------RECIPES--------------------------------
 
 export const getRecipes = async () => {
-  try {
-    const result = await fetch(URL_RECIPES);
-    const { meals } = await result.json();
-    return meals.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(URL_RECIPES);
+  const { meals } = await result.json();
+  return meals.slice(0, LENGTH_DOZE);
 };
 
 export const getRecipesByIngredients = async (ingredient) => {
@@ -82,13 +78,9 @@ export const getIngredientsRecipes = async () => {
 // ---------------------DRINKS-----------------------------------------------------------
 
 export const getDrinks = async () => {
-  try {
-    const result = await fetch(URL_DRINKS);
-    const { drinks } = await result.json();
-    return drinks.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(URL_DRINKS);
+  const { drinks } = await result.json();
+  return drinks.slice(0, LENGTH_DOZE);
 };
 
 export const getDrinksByIngredients = async (ingredient) => {
