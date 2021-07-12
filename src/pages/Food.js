@@ -7,6 +7,7 @@ import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
 import FavoriteIcon from '../components/FavoriteIcon';
 import ShareButton from '../components/ShareButton';
+import Rolo from '../images/Rolo.svg';
 
 const Food = ({ match }) => {
   const history = useHistory();
@@ -23,14 +24,22 @@ const Food = ({ match }) => {
   const url = `http://localhost:3000${history.location.pathname}`;
 
   return (
-    <div>
+    <div className="recipe">
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <h3 data-testid="recipe-category">{meal.strCategory}</h3>
-      <img data-testid="recipe-photo" src={ meal.strMealThumb } alt={ meal.strMeal } />
-      <ul>
-        Ingredientes:
-        {renderIngredients(meal)}
-      </ul>
+      <img
+        className="recipe-photo"
+        data-testid="recipe-photo"
+        src={ meal.strMealThumb }
+        alt={ meal.strMeal }
+      />
+      <section className="ingredient">
+        <img src={ Rolo } alt="Imagem de um rolo" />
+        <h1>Ingredientes:</h1>
+        <ul>
+          {renderIngredients(meal)}
+        </ul>
+      </section>
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
       <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />

@@ -9,7 +9,7 @@ const Header = ({ search, title, food = false }) => {
   const [searchInput, toggleSearch] = useState();
 
   return (
-    <div>
+    <div className="hero-container">
       <h1 data-testid="page-title">{title}</h1>
       <Link to="/perfil">
         <img
