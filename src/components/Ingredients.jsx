@@ -35,9 +35,6 @@ class Ingredients extends Component {
   }
 
   render() {
-    const ingredients = [
-      { checked: false, ingredient: 'Potatoes', measure: '2 larges' },
-    ];
     const { data, isStart } = this.props;
     const dictionary = identification(data);
     return (
@@ -87,6 +84,7 @@ Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
   func: PropTypes.func.isRequired,
+  state: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps)(Ingredients);

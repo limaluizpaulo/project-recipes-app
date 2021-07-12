@@ -176,8 +176,8 @@ class Detalhes extends Component {
       const checkInProgressRecipes = JSON.parse(localStorage
         .getItem('inProgressRecipes'));
 
-      const mealsKeys = Object.keys(checkInProgressRecipes.meals);
-      const drinksKeys = Object.keys(checkInProgressRecipes.cocktails);
+      const mealsKeys = Object.keys(checkInProgressRecipes.meals || {});
+      const drinksKeys = Object.keys(checkInProgressRecipes.cocktails || {});
 
       if (mealsKeys.some((item) => item === id)) {
         this.setState({ startedRecipe: true });
