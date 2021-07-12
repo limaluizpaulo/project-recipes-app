@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import { localStorageVerifier,
   verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
 import { copyLink } from '../services/functions';
+import DecentFooter from '../components/DecentFooter';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -102,6 +103,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         />
         <h3>Recomendações de Drinks</h3>
         {loopRecomendationsDrinks()}
+        <DecentFooter />
         {localStorageVerifier(match, id, history)}
       </main>
     );

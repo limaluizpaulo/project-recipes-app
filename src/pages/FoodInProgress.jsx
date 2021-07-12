@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
 import { copyLinkInProgress } from '../services/functions';
+import DecentFooter from '../components/DecentFooter';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite,
   settingFavorite,
@@ -79,8 +80,9 @@ function FoodInProgress({ history, match, match: { params: { id } } }) {
           width="300px"
           title="Recipe"
         />
-        <h3>Recomendações de Drinks</h3>
+        <DecentFooter />
         <button
+          className="finish-recipe"
           onClick={ () => finishRecipe(id, details.meals, history) }
           disabled={ disableFinishRecipeButton(id) }
           data-testid="finish-recipe-btn"

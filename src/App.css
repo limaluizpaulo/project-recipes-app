@@ -24,6 +24,12 @@
   position: fixed;
 }
 
+.finish-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
+
 .hideCss {
   color: red;
 }
@@ -85,7 +91,7 @@
   }
 }
 
-footer {
+.footer-generic {
   bottom: 0;
   position: fixed;
   text-align: center;
@@ -104,4 +110,16 @@ footer {
 .footer-icons {
   display: flex;
   justify-content: space-around;
+}
+
+.button-no-border {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+
+.decent-footer {
+  display: flex;
+  justify-content: space-evenly;
 }

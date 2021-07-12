@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
+import DecentFooter from '../components/DecentFooter';
 import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite, settingFavorite,
@@ -79,6 +80,7 @@ function DrinkInProgress({ match, history, match: { params: { id } } }) {
         >
           Finalizar Receita
         </button>
+        <DecentFooter />
       </main>
     );
   }

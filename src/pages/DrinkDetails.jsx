@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
+import DecentFooter from '../components/DecentFooter';
 import shareIcon from '../images/shareIcon.svg';
 import { localStorageVerifier,
   verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
@@ -98,6 +99,7 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
         {loopIngredientsAndMeasure()}
         <h3>Recomendações de Comidas</h3>
         {loopRecomendationsFoods()}
+        <DecentFooter />
         {localStorageVerifier(match, id, history)}
       </main>
     );
