@@ -19,7 +19,6 @@ function FoodByCountry() {
       setFirstMeals(meals.slice(0, numOfMeals));
       setArea(areas);
     };
-    console.log("OPA");
     fetchMeals();
   }, [setFirstMeals, setArea]);
 
