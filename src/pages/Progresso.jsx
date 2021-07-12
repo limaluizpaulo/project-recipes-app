@@ -80,12 +80,12 @@ class Progresso extends Component {
     const { favIcon, id } = this.state;
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
+    const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (!favIcon) {
       this.setState({
         favIconColor: blackHeartIcon,
         favIcon: true,
       });
-      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const recipe = {
         id: details[keyName.Id],
         type: page,
@@ -96,10 +96,7 @@ class Progresso extends Component {
         image: details[keyName.Thumb],
       };
 
-      console.log(recovery);
-      console.log(recipe);
       recovery.push(recipe);
-      console.log(recovery);
 
       localStorage.setItem('favoriteRecipes', JSON.stringify(recovery));
     }
@@ -108,6 +105,9 @@ class Progresso extends Component {
         favIconColor: whiteHeartIcon,
         favIcon: false,
       });
+      const favoriteKeys = recovery.filter((el) => el.id !== id) || {};
+      console.log(favoriteKeys);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(recovery));
     }
   }
 
@@ -142,13 +142,19 @@ class Progresso extends Component {
     const { match: { params: { id } } } = this.props;
     this.setState({ should: true, id });
 
-    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (recovery.meals[id] !== undefined) {
-      // console.log(recovery.meals[id], 'existo');
-      console.log(recovery.meals[id], 'existo');
-      return this.setState({ allIngredients: recovery.meals[id] });
+    const recoveryFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(recoveryFavorite[id]);
+    console.log(recoveryFavorite);
+    if (recoveryFavorite[id] !== undefined) {
+      console.log('entrei no recovery');
+      this.setState({ favIconColor: blackHeartIcon,
+        favIcon: true });
     }
 
+    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (recovery.meals[id] !== undefined) {
+      return this.setState({ allIngredients: recovery.meals[id] });
+    }
     if (recovery.cocktails[id] !== undefined) {
       return this.setState({ allIngredients: recovery.cocktails[id] });
     }
