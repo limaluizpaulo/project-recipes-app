@@ -8,34 +8,54 @@ import Title from '../components/Details/Title';
 import Ingredients from '../components/Details/Ingredients';
 import Instructions from '../components/Details/Instructions';
 import Video from '../components/Details/Video';
+import Recommendation from '../components/Recommendation';
 
 export default function DetalhesComida({ location }) {
-  const { currentRecipe, storeCurrentRecipe } = useContext(Context);
+  const {
+    currentRecipe, storeCurrentRecipe, curr, resquestMealsApi,
+    resquestCocktailsApi, recommendations,
+  } = useContext(Context);
   const {
     id, name, category, alcoholicOrNot, instructions, image, video, ingredients,
   } = currentRecipe;
   const history = useHistory();
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   useEffect(() => {
     storeCurrentRecipe(location.pathname.split('/')[2]);
   }, []);
 
   const renderInProgressPage = () => {
-    // localStorage.setItem( // add key no localStorage
-    //   'inProgressRecipes',
-    //   JSON.stringify(
-    //     {
-    //       cocktails: {},
-    //       meals: {},
-    //     },
-    //   ),
-    // );
     if (video) {
       history.push(`/comidas/${id}/in-progress`);
     } else {
       history.push(`/bebidas/${id}/in-progress`);
     }
   };
+
+  const continueRecipeText = () => {
+    if (inProgress && inProgress[curr] && inProgress[curr][currentRecipe.id]) {
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    switch (curr) {
+    case 'meals':
+      resquestCocktailsApi();
+
+      break;
+    case 'cocktails':
+
+      resquestMealsApi();
+
+      break;
+
+    default:
+      break;
+    }
+  }, [curr]);
 
   return (
     image ? (
@@ -50,6 +70,9 @@ export default function DetalhesComida({ location }) {
         <Ingredients ingredients={ ingredients } />
         <Instructions instructions={ instructions } />
         { video && <Video video={ video } /> }
+        <Recommendation recommendations={ recommendations } />
+        <br />
+        <br />
         <Button
           className="button-fixed"
           onClick={ () => renderInProgressPage() }
@@ -57,7 +80,7 @@ export default function DetalhesComida({ location }) {
           variant="warning"
           block
         >
-          Iniciar Receita
+          { continueRecipeText() ? 'Continuar Receita' : 'Iniciar Receita' }
         </Button>
       </Container>
     ) : <Spinner variant="danger" animation="border" />

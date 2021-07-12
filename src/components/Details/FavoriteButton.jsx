@@ -3,39 +3,32 @@ import PropTypes from 'prop-types';
 import { Container, Button, Image } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import localStorageAction from '../../helpers/localStorageAction';
 
 export default function FavoriteButton(
   { recipe, dataTestId, updateCards, setUpdateCards },
 ) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
 
-  // Atualiza o estado de item favoritado
-  const updateFavoriteState = (favorites) => {
-    const { id } = recipe;
+  const updateFavoriteState = () => {
+    const allFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-    const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
+    const exist = allFavorites.find(({ id: idFavorito }) => idFavorito === recipe.id);
     if (exist) {
       setIsFavorite(true);
-    }
-  };
-
-  // Carrega todo o localstorage
-  const loadFavoritesLocalStorage = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    switch (!favorites) {
-    case true:
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-      break;
-    default:
-      updateFavoriteState(favorites);
-      break;
+    } else {
+      setIsFavorite(false);
     }
   };
 
   useEffect(() => {
-    loadFavoritesLocalStorage();
-  }, []);
+    updateFavoriteState();
+  });
+
+  useEffect(() => {
+  }, [favoriteRecipes]);
 
   // Gera o objeto que será adicionado no localstorage
   const generateLocalStorageObject = (type) => {
@@ -55,45 +48,21 @@ export default function FavoriteButton(
     }
   };
 
-  // Cria um localStorage, caso não exista
-  const createFavoriteToLocalStorage = (newFavorite) => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
-  };
-
-  // Adiciona/Remove item do local
-  const addFavoriteToLocalStorage = (favorites, newFavorite) => {
-    const { id } = recipe;
-    const exist = favorites.find(({ id: idFavorito }) => idFavorito === id);
-
-    if (!exist) {
-      favorites.push(newFavorite);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-    } else {
-      const removed = favorites.filter(({ id: idFavorito }) => idFavorito !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(removed));
-    }
-  };
-
   // Atualiza o localStorage
-  const updateFavoritesLocalStorage = () => {
+  const updateFavoritesLocalStorage = async () => {
+    const allFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const { type } = recipe;
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const newFavorite = generateLocalStorageObject(type);
-
-    switch (!favorites) {
-    case true:
-      createFavoriteToLocalStorage(newFavorite);
-      break;
-    default:
-      addFavoriteToLocalStorage(favorites, newFavorite);
-      break;
+    const action = await localStorageAction(newFavorite, 'addToggle', allFavorites);
+    await setFavoriteRecipes(action);
+    if (setUpdateCards) {
+      setUpdateCards(!updateCards);
     }
   };
 
   // // Ação ao clicar em favoritar
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
-    setUpdateCards(!updateCards);
     updateFavoritesLocalStorage();
   };
 

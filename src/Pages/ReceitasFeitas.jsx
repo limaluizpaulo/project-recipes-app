@@ -4,20 +4,20 @@ import DescriptionRecipeCard from '../components/DescriptionRecipeCard';
 import Header from '../components/Header';
 
 export default function ReceitasFeitas() {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const [updateCards, setUpdateCards] = useState(false);
 
   return (
     <Container>
       <Header title="Receitas Feitas" />
       {
-        favorites && favorites.map((favorite, index) => (
+        doneRecipes && doneRecipes.map((recipe, index) => (
           <DescriptionRecipeCard
             updateCards={ updateCards }
             setUpdateCards={ setUpdateCards }
-            key={ favorite.id }
+            key={ recipe.id }
             index={ index }
-            recipe={ favorite }
+            recipe={ recipe }
             page="mades"
           />
         ))

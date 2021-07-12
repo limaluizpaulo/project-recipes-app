@@ -7,33 +7,26 @@ import Thumb from '../components/Details/Thumb';
 import Title from '../components/Details/Title';
 import IngredientsStep from '../components/Details/IngredientsStep';
 import Instructions from '../components/Details/Instructions';
+import useLocalStorage from '../hooks/useLocalStorage';
+import localStorageAction from '../helpers/localStorageAction';
 
 export default function ReceitaEmProcesso({ location }) {
+  const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [doneRecipes, setDoneRecipes] = useLocalStorage('doneRecipes', []);
   const { currentRecipe, storeCurrentRecipe } = useContext(Context);
   const {
-    id, name, category, alcoholicOrNot, instructions, image, ingredients,
-  } = currentRecipe;
+    id, name, category, alcoholicOrNot, instructions, image,
+    ingredients, area, type, tags } = currentRecipe;
   const [allStepsOk, setAllStepsOk] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
-    storeCurrentRecipe(location.pathname.split('/')[2]);
-  }, []);
+
+  }, [doneRecipes]);
 
   useEffect(() => {
-    let curr = location.pathname.split('/')[1];
-    if (curr === 'comidas') {
-      curr = 'meals';
-    } else {
-      curr = 'cocktails';
-    }
-    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const checkboxes = document.querySelectorAll('input[type=\'checkbox\']');
-    if (inProgress && checkboxes.length && inProgress[curr] && ((
-      inProgress[curr][location.pathname.split('/')[2]]).length === checkboxes.length)) {
-      setAllStepsOk(false);
-    }
-  });
+    storeCurrentRecipe(location.pathname.split('/')[2]);
+  }, []);
 
   // Atualiza o estatus de progresso, para habilitar o botão
   const stepsProgress = (steps) => {
@@ -46,6 +39,32 @@ export default function ReceitaEmProcesso({ location }) {
     }
 
     setAllStepsOk(completeSteps.some((step) => step === false));
+  };
+
+  const actualDate = () => {
+    // *SOURCE* https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
+  const doneRecipe = async () => {
+    const recipe = {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      doneDate: actualDate(),
+      tags,
+    };
+    await setDoneRecipes(await localStorageAction(recipe, 'addOnce', allDoneRecipes));
+    history.push('/receitas-feitas');
   };
 
   return (
@@ -65,7 +84,7 @@ export default function ReceitaEmProcesso({ location }) {
         />
         <Instructions instructions={ instructions } />
         <Button
-          onClick={ () => history.push('/receitas-feitas') }
+          onClick={ () => doneRecipe() }
           disabled={ allStepsOk }
           data-testid="finish-recipe-btn"
           variant="warning"

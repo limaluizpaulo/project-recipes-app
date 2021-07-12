@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
 import Footer from '../components/Footer';
@@ -8,7 +8,11 @@ import MealList from '../components/MealList';
 import CategoryFilter from '../components/CategoryFilter';
 
 export default function Comidas({ match: { url } }) {
-  const { openSearchBar } = useContext(Context);
+  const { openSearchBar, setCurr } = useContext(Context);
+
+  useEffect(() => {
+    setCurr('cocktails');
+  }, []);
 
   return (
     <div>

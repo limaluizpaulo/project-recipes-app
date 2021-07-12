@@ -39,13 +39,25 @@ export default function DescriptionRecipeCard(
   };
 
   const generateTags = () => {
-    if (recipe.type === 'comida') {
+    switch (recipe.type) {
+    case 'comida':
       return (
         <span>
-          <h5>bun</h5>
-          <h5>banking</h5>
+          {recipe.tags && recipe.tags.reverse().map(
+            (tag) => (
+              <span
+                key={ tag }
+                className="recipe-tag"
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                { tag }
+              </span>
+            ),
+          )}
         </span>
       );
+    default:
+      break;
     }
   };
 
@@ -70,14 +82,19 @@ export default function DescriptionRecipeCard(
     case 'mades':
       return (
         <td>
-          <span>
-            Feita em: 10/10/2010
+          <span data-testid={ `${index}-horizontal-done-date` }>
+            Feita em:
+            {' '}
+            {recipe.doneDate}
           </span>
+          <br />
           { generateTags() }
           <ShareButton
             index={ index }
             id={ recipe.id }
             type={ recipe.type }
+            updateCards={ updateCards }
+            setUpdateCards={ setUpdateCards }
           />
         </td>
       );
