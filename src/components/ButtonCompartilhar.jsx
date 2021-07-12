@@ -4,22 +4,29 @@ import copy from 'clipboard-copy';
 import { Overlay, Tooltip, Card, Button } from 'react-bootstrap';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ButtonCompartilhar({ dados: { index, id, type } }) {
-  const typeURL = type === 'comida' ? type : 'bebida';
+export default function ButtonCompartilhar({ parametrosURL: { id, type }, dataTestId }) {
+  const typeURL = 'comidas'.includes(type) ? 'comidas' : 'bebidas';
   const [show, setShow] = useState(false);
   const target = useRef(null);
+  const handleClick = () => {
+    const doisSegundos = 2000;
+    setShow(true);
+    copy(`http://localhost:3000/${typeURL}/${id}`);
+    const removeTooltip = setTimeout(() => {
+      setShow(false);
+      clearTimeout(removeTooltip);
+    }, doisSegundos);
+  };
+
   return (
     <>
       <Button
         ref={ target }
         variant="ligth"
-        onClick={ () => {
-          setShow(!show);
-          copy(`http://localhost:3000/${typeURL}s/${id}`);
-        } }
+        onClick={ handleClick }
       >
         <Card.Img
-          data-testid={ `${index}-horizontal-share-btn` }
+          data-testid={ dataTestId }
           src={ shareIcon }
         />
       </Button>
@@ -42,9 +49,9 @@ export default function ButtonCompartilhar({ dados: { index, id, type } }) {
 }
 
 ButtonCompartilhar.propTypes = {
-  dados: shape({
-    index: PropTypes.number,
+  parametrosURL: shape({
     id: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,
+  dataTestId: PropTypes.string.isRequired,
 };
