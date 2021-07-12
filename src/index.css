@@ -441,6 +441,7 @@ justify-items: center;
   display: grid;
   justify-content: center;
   padding: 25px;
+  /* width: 50vw; */
 }
 
 .bottomDetails .recommendedRecipes h3 {
@@ -451,7 +452,98 @@ justify-items: center;
 
 
 /*  ====================================================================================================================================*/
+/* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
 
+.recommendedRecipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 850px;
+}
+
+.recommendedImg {
+  width: 150px;
+  margin: 15px 0;
+  border-radius: 10px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+}
+
+.recommendedTitle {
+  margin-top: -2px;
+  font-family: var(--body-font);
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+}
+
+.left-arrow {
+  position: absolute;
+  top: 16%;
+  left: 13.5rem;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 16%;
+  right: 13.5rem;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.imgTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  display: none;
+  /* opacity: 0; */
+  transition: all 1.5s ease;
+}
+
+.active {
+  display: block;
+  /* opacity: 1; */
+  height: 380px;
+  border-radius: 10px;
+  transform: scale(1.08);
+  transition: all 1.5s ease;
+}
+
+
+/*  ====================================================================================================================================*/
+
+/* DETAILS PAGE ===========================================================================================================*/
+.btnFinishNone {
+  display: none;
+  cursor: pointer;
+}
+
+.btnFinish {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+/*  ====================================================================================================================================*/
 /* RECIPES IN PROGRESS PAGE ===========================================================================================================*/
 .completedRecipe {
   text-decoration: line-through solid black;
@@ -510,96 +602,6 @@ justify-items: center;
   /* flex-direction: column;
 } */
 
-/* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
-
-.recommendedRecipes {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.slider {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 850px;
-}
-
-.recommendedImg {
-  width: 300px;
-  margin: 30px 30px -10px 30px;
-  border-radius: 40px;
-  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
-}
-
-.recommendedTitle {
-  font-family: var(--body-font);
-  font-size: var(--h3-font-size);
-  color: var(--title-color);
-}
-
-.left-arrow {
-  position: absolute;
-  top: 40%;
-  left: 3px;
-  font-size: 3rem;
-  color: #000;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-}
-
-.right-arrow {
-  position: absolute;
-  top: 40%;
-  right: 3px;
-  font-size: 3rem;
-  color: #000;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-}
-
-.imgTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.slide {
-  display: none;
-  /* opacity: 0; */
-  transition: all 1.5s ease;
-}
-
-.active {
-  display: block;
-  /* opacity: 1; */
-  height: 380px;
-  border-radius: 10px;
-  transform: scale(1.08);
-  transition: all 1.5s ease;
-}
-
-
-/*  ====================================================================================================================================*/
-/* DETAILS PAGE ===========================================================================================================*/
-.btnFinishNone {
-  display: none;
-  cursor: pointer;
-}
-
-.btnFinish {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  cursor: pointer;
-}
-
-/*  ====================================================================================================================================*/
 /* PROFILE PAGE ===========================================================================================================*/
 
 .buttonsInProfile {
@@ -629,7 +631,23 @@ justify-items: center;
   }
 
   /* RECIPE DETAIL */
+  /* RECOMMENDED RECIPES COMPONENT */
+  .recommendedImg {
+    width: 200px;
+    margin: 15px;
+    border-radius: 20px;
+    filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  }
+
+  .left-arrow {
+    top: 24%;
+    left: 9.5rem;
+  }
   
+  .right-arrow {
+    top: 24%;
+    right: 9.5rem;
+  }
 }
 
 /* =========================================================================== */
@@ -651,8 +669,6 @@ justify-items: center;
     width: 560px;
     height: 315px;
   }
-  
-
 }
 
 /* ============================================================================== */
@@ -797,5 +813,80 @@ justify-items: center;
     width: 600px;
     height: 415px;
   }
+
+  /* RECOMMENDED RECIPES COMPONENENT */
+
+.recommendedRecipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 850px;
+}
+
+.recommendedImg {
+  width: 300px;
+  margin: 30px;
+  border-radius: 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+}
+
+.recommendedTitle {
+  margin-top: -10px;
+  font-family: var(--body-font);
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+}
+
+.left-arrow {
+  position: absolute;
+  top: 40%;
+  left: 3px;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 40%;
+  right: 3px;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.imgTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  display: none;
+  /* opacity: 0; */
+  transition: all 1.5s ease;
+}
+
+.active {
+  display: block;
+  /* opacity: 1; */
+  height: 380px;
+  border-radius: 10px;
+  transform: scale(1.08);
+  transition: all 1.5s ease;
+}
 
 }
