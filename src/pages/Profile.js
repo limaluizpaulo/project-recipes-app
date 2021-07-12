@@ -26,7 +26,9 @@ class Profile extends React.Component {
     return (
       <section>
         <Header title="Perfil" />
-        <p data-testid="profile-email">{JSON.parse(localStorage.getItem('user')).email}</p>
+        <p data-testid="profile-email">
+          {JSON.parse(localStorage.getItem('user')).email}
+        </p>
         <Link to="/receitas-feitas">
           <button data-testid="profile-done-btn" type="button">
             Receitas Feitas
