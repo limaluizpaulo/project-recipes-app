@@ -90,7 +90,5 @@ describe('Renders the Search', () => {
       userEvent.click(checkboxOneLetter);
       userEvent.click(buttonFilter);
     });
-
-    const card = getAllByRole('div');
   });
 });
