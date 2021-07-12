@@ -41,9 +41,9 @@ function Receitas() {
   }, [parametrosBusca]);
 
   if (receitas.length === 1) {
-    const goatId = 52968;
-    if (receitas[0].idMeal !== goatId) {
-      console.log();
+    console.log(receitas[0]);
+    if (receitas[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') {
+      console.log('entrei');
       const [receitaUnica] = receitas;
       const { location: { pathname } } = history;
       const id = (
