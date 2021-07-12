@@ -321,14 +321,14 @@ justify-items: center;
 
 /*  ====================================================================================================================================*/
 
-/* RECIPE DETAILS   ====================================================================================================================*/
+/* RECIPE DETAILS PAGE  ====================================================================================================================*/
 .recipeDetails {
   display: grid;
   justify-content: center;
 }
 
 .box {
-  margin: 20px 20px 0 20px;
+  margin: 20px 20px 15px 20px;
   height: max-content;
   width: 100vw;
   box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3);
@@ -433,21 +433,49 @@ justify-items: center;
 }
 
 /* .bottomDetails {
-  display: grid;
-  justify-content: center;
+ padding: 15px;
 } */
 
 .bottomDetails .recommendedRecipes {
   display: grid;
   justify-content: center;
-  padding: 25px;
-  /* width: 50vw; */
 }
 
 .bottomDetails .recommendedRecipes h3 {
   color: var(--first-color-dark);
   font-size: var(--h1-font-size);
   text-align: center;
+}
+
+.bottomDetails a button {
+  width: 80%;
+  padding: 1rem;
+  margin-left: 3rem;
+  margin-bottom: 5px;
+  background-color: var(--first-color);
+  color: var(--title-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.bottomDetails a button:hover {
+  background-color: var(--first-color-dark);
+  color: #FFFF;
+}
+
+.btnFinishNone {
+  display: none;
+  cursor: pointer;
+}
+
+.btnFinish {
+  position: fixed;
+  bottom: 10px;
+  cursor: pointer;
 }
 
 
@@ -530,20 +558,6 @@ justify-items: center;
 
 /*  ====================================================================================================================================*/
 
-/* DETAILS PAGE ===========================================================================================================*/
-.btnFinishNone {
-  display: none;
-  cursor: pointer;
-}
-
-.btnFinish {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  cursor: pointer;
-}
-
-/*  ====================================================================================================================================*/
 /* RECIPES IN PROGRESS PAGE ===========================================================================================================*/
 .completedRecipe {
   text-decoration: line-through solid black;
@@ -648,6 +662,10 @@ justify-items: center;
     top: 24%;
     right: 9.5rem;
   }
+
+  .bottomDetails a button {
+    margin-left: 4rem;
+  }
 }
 
 /* =========================================================================== */
@@ -668,6 +686,12 @@ justify-items: center;
   .videoDetails iframe {
     width: 560px;
     height: 315px;
+  }
+  /* RECOMMENDED RECIPES COMPONENT */
+  .bottomDetails a button {
+    width: 200px;
+    padding: 10px;
+    margin-left: 3rem;
   }
 }
 
@@ -821,6 +845,7 @@ justify-items: center;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  margin-bottom: 5rem;
 }
 
 .slider {
