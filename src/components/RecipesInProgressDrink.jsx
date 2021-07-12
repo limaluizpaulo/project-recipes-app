@@ -51,32 +51,30 @@ export default function RecipesInProgressDrink() {
     }
   };
   const saveLocalStorage = () => {
+    const ingredientSaved = JSON.parse(localStorage
+      .getItem('inProgressRecipes') || ('{}'));
     const id = pathname.split('/')[2];
-    const ingredientSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (ingredientSaved) {
-      const save = {
-        ...ingredientSaved,
-        cocktails: {
-          [id]: ingredientMade,
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(save));
-    } else {
-      const save = {
-        cocktails: {
-          [id]: ingredientMade,
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(save));
-    }
+
+    const save = {
+      ...ingredientSaved,
+      cocktails: {
+        ...ingredientSaved.cocktails,
+        [id]: ingredientMade,
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(save));
   };
   const getLocalStorage = () => {
-    const ingredientSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (ingredientSaved != null) {
-      const numberCheck = ingredientSaved.length;
-      setDisableButton(numberCheck);
-      setIngreditentMade(ingredientSaved);
+    const id = pathname.split('/')[2];
+    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{cocktails}'));
+    if (!(cocktails && cocktails[id])) {
+      cocktails[id] = [];
     }
+    const numberCheck = cocktails[id].length;
+    const recipesLocalStorage = cocktails[id];
+    setDisableButton(numberCheck);
+    setIngreditentMade(recipesLocalStorage);
   };
   useEffect(getLocalStorage, []);
   useEffect(saveLocalStorage, [handleChange]);
