@@ -51,30 +51,76 @@ class Progresso extends Component {
   componentDidUpdate() {
     const { id, allIngredients } = this.state;
     const { match: { params: { page } } } = this.props;
+
+    if (localStorage.length === 0) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ cocktails: {}, meals: {} }));
+    }
+
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (page === 'comidas') {
-      return localStorage.setItem('inProgressRecipes', JSON.stringify({ ...recovery,
+    if (page === 'comidas' && recovery.meals !== null) {
+      console.log('entrei na condition', recovery.meals);
+      return localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...recovery,
         meals: { ...recovery.meals,
           [id]: allIngredients },
       }));
     }
-
-    return localStorage.setItem('inProgressRecipes', JSON.stringify({ ...recovery,
-      cocktails: { ...recovery.cocktails,
-        [id]: allIngredients },
-    }));
+    if (page === 'bebidas' && recovery.cocktails !== null) {
+      return localStorage.setItem('inProgressRecipes', JSON.stringify({ ...recovery,
+        cocktails: { ...recovery.cocktails,
+          [id]: allIngredients },
+      }));
+    }
   }
 
   componentWillUnmount() {
     const { isStart } = this.props;
     isStart(false);
+    if (localStorage.length === 0) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ cocktails: {}, meals: {} }));
+    }
   }
 
   handleFavClick() {
-    const { favIcon } = this.state;
-    // const { details } = this.props;
+    const { favIcon, id } = this.state;
+    const { details, match: { params: { page } } } = this.props;
     if (!favIcon) {
-      // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const recipe = {
+        id,
+        type: page,
+        area: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: details.strDrinkAlternate,
+        name: details.strMeal,
+        image: details.strMealThumb,
+      };
+      // console.log(recovery.push(recipe));
+      console.log(recovery);
+      if (recovery === null) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{
+          id,
+          type: page,
+          area: details.strArea,
+          category: details.strCategory,
+          alcoholicOrNot: details.strDrinkAlternate,
+          name: details.strMeal,
+          image: details.strMealThumb,
+        }]));
+      }
+      localStorage.setItem('favoriteRecipes', JSON.stringify({
+        ...recovery,
+        id,
+        type: page,
+        area: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: details.strDrinkAlternate,
+        name: details.strMeal,
+        image: details.strMealThumb,
+      }));
+      console.log(recipe);
 
       this.setState({
         favIconColor: blackHeartIcon,
