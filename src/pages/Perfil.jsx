@@ -8,7 +8,6 @@ import { getItemLocalStorage } from '../services/localStorage';
 export default function Perfil() {
   const user = getItemLocalStorage('user');
   const { email } = user || '';
-  console.log(localStorage);
   return (
     <section>
       <Header />

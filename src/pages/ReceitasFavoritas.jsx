@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import ReceitasFeitas from './ReceitasFeitas';
 
 export default function ReceitasFavoritas() {
   return (
     <section>
-      <Header />
-      ReceitasFavoritas
+      <ReceitasFeitas />
     </section>
   );
 }
