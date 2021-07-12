@@ -1,81 +1,43 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
-import copy from 'clipboard-copy';
-import progress from '../helper/functions';
-import useRecipeDetail from '../helper/useRecipeDetail';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import React, { useState, useEffect } from 'react';
 import { fetchRecipeAllDrink,
   fetchRecipeAllFood,
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
 
 function RecipeDetail({ idRecipe, typeRecipe }) {
-  const location = useLocation();
   const [list, setList] = useState([]);
   const [leng, setLeng] = useState([]);
   const [reco, setReco] = useState([]);
-  const [show, setShow] = useState(false);
-  const [favorite, setFavorite] = useState(false);
-  const [objectStart] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')) !== null ? JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    ) : ({ cocktails: {}, meals: {} }),
-  );
-  const [arrayFavorite] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')) !== null ? JSON.parse(
-      localStorage.getItem('favoriteRecipes'),
-    ) : ([]),
-  );
-  const [button, setButton] = useState('Iniciar Receita');
+  console.log(list);
 
-  const history = useHistory();
+  useEffect(() => {
+    const func = async (api) => {
+      const fun = await api(idRecipe);
+      const type = Object.keys(fun)[0];
+      const lista = fun[type];
+      const ingret = Object.keys(
+        lista[0],
+      ).filter((element) => element.includes('strIngredient'));
+      setLeng(ingret);
 
-  useRecipeDetail({
-    idRecipe,
-    typeRecipe,
-    fetchRecipeIDFood,
-    fetchRecipeIDrinks,
-    fetchRecipeAllFood,
-    fetchRecipeAllDrink,
-    setLeng,
-    setList,
-    setReco,
-    setButton,
-    objectStart,
-    arrayFavorite,
-    setFavorite,
-  });
+      setList(lista[0]);
+    };
 
-  function copyLink() {
-    copy(`http://localhost:3000${location.pathname}`);
-    setShow(true);
-  }
-
-  function alcoholicCheck() {
-    return list.strAlcoholic === 'Alcoholic' ? 'Alcoholic' : 'Non Alcoholic';
-  }
-
-  function favoriteClick() {
-    if (favorite) {
-      setFavorite(false);
+    const rec = async (api) => {
+      const fun = await api();
+      const type = Object.keys(fun)[0];
+      const lista = fun[type];
+      const NUMBER = 6;
+      setReco(lista.slice(0, NUMBER));
+    };
+    if (typeRecipe === 'food') {
+      func(fetchRecipeIDFood);
+      rec(fetchRecipeAllDrink);
     } else {
-      setFavorite(true);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(
-        [...arrayFavorite,
-          {
-            id: idRecipe,
-            type: typeRecipe === 'food' ? 'comida' : 'bebida',
-            area: typeRecipe === 'food' ? list.strArea : '',
-            category: list.strCategory,
-            alcoholicOrNot: typeRecipe === 'food' ? '' : (alcoholicCheck()),
-            name: typeRecipe === 'food' ? list.strMeal : list.strDrink,
-            image: typeRecipe === 'food' ? list.strMealThumb : list.strDrinkThumb,
-          }],
-      ));
+      func(fetchRecipeIDrinks);
+      rec(fetchRecipeAllFood);
     }
-  }
+  }, [idRecipe, typeRecipe]);
   return (
     <div>
 
@@ -92,22 +54,13 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         { typeRecipe === 'food' ? list.strMeal : list.strDrink }
 
       </p>
+      <button type="button" data-testid="share-btn">Compartilhar</button>
       <button
-        onClick={ copyLink }
         type="button"
-        data-testid="share-btn"
-      >
-        <img src={ shareIcon } alt="Share Icon" />
-      </button>
-      <p>{show && 'Link copiado!'}</p>
-      <img
-        src={ favorite ? blackHeartIcon : whiteHeartIcon }
-        alt="No Favorite"
-        onClick={ favoriteClick }
-        type="button"
-        role="presentation"
         data-testid="favorite-btn"
-      />
+      >
+        Favoritar
+      </button>
       <p data-testid="recipe-category">
         { typeRecipe === 'food' ? list.strCategory : list.strAlcoholic }
       </p>
@@ -138,40 +91,34 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />}
-      <div className="recipe-list">
+      <div className="show-recipe">
         { reco.map((item, index) => (
-          <div
+          <button
             data-testid={ `${index}-recomendation-card` }
-            className="recipe-card"
+            type="button"
+            className="papai"
             key={ index }
-            role="presentation"
           >
             <img
               className="filhinho"
               src={ typeRecipe !== 'food'
                 ? item.strMealThumb : item.strDrinkThumb }
-              data-testid={ `${index}-recomendation-img` }
+              data-testid={ `${index}-card-img` }
               alt={ typeRecipe !== 'food' ? item.strMeal : item.strDrink }
               width="20%"
             />
-            <p data-testid={ `${index}-recomendation-title` }>
+            <p data-testid={ `${index}-card-name` }>
               { typeRecipe !== 'food' ? item.strMeal : item.strDrink }
             </p>
-          </div>))}
+          </button>))}
       </div>
       <button
-        onClick={ () => progress({
-          objectStart,
-          leng,
-          typeRecipe,
-          idRecipe,
-          history }) }
         className="start-recipe"
         type="button"
-        value={ button }
         data-testid="start-recipe-btn"
       >
-        {button}
+        Iniciar Receita
+
       </button>
 
     </div>
@@ -183,5 +130,10 @@ RecipeDetail.propTypes = {
   idRecipe: PropTypes.string,
   typeRecipe: PropTypes.string,
 }.isRequired;
-
 export default RecipeDetail;
+
+//   <ul data-testid={ `${index}-ingredient-name-and-measure` }>{' '}</ul>
+//   <p data-testid="instructions">{' '}</p>
+//   <video type="video" data-testid="video"><source src="" /></video>
+//   <button type="button" data-testid={ `${index}-recomendation-card` }>{' '}</button>
+//   <button type="button" data-testid="start-recipe-btn">{' '}</button>
