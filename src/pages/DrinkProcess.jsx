@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 import '../Style/Progress.css';
 
@@ -21,12 +23,16 @@ class DrinkProcess extends Component {
       ingredients: [],
       count: 0,
       share: false,
+      heart: whiteHeartIcon,
+      favoriteRecipes: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleStorange = this.handleStorange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.getDrink = this.getDrink.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
+    this.setIntialHeart = this.setIntialHeart.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +42,11 @@ class DrinkProcess extends Component {
 
   handleStorange() {
     const checSave = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    this.setState({ chec: checSave });
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favorite);
+    if (favorite) {
+      this.setState({ chec: checSave, favoriteRecipes: favorite });
+    }
   }
 
   handleChange(e) {
@@ -62,6 +72,60 @@ class DrinkProcess extends Component {
     this.setState({ redirect: true });
   }
 
+  handleFavorite() {
+    const { heart, favoriteRecipes, drinks } = this.state;
+    console.log(drinks);
+    const newFavorite = [...favoriteRecipes];
+    const {
+      idDrink,
+      strDrink,
+      strCategory,
+      strAlcoholic,
+      strDrinkThumb,
+    } = drinks[0];
+    const modelo = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    if (heart === whiteHeartIcon) {
+      this.setState({ heart: blackHeartIcon },
+        () => {
+          newFavorite.push(modelo);
+          this.setState({ favoriteRecipes: newFavorite },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+            });
+        });
+    } else {
+      console.log('else');
+      this.setState({ heart: whiteHeartIcon },
+        () => {
+          const teste = favoriteRecipes.filter((model) => model.id !== drinks[0].idDrink);
+          console.log(teste);
+          console.log(drinks);
+          this.setState({ favoriteRecipes: teste },
+            () => {
+              localStorage.setItem('favoriteRecipes', JSON.stringify(teste));
+            });
+        });
+    }
+  }
+
+  setIntialHeart() {
+    const { drinks, favoriteRecipes } = this.state;
+    const testHeart = favoriteRecipes.some((fav) => fav.id === drinks[0].idDrink);
+    if (testHeart) {
+      this.setState({ heart: blackHeartIcon });
+    } else {
+      this.setState({ heart: whiteHeartIcon });
+    }
+  }
+
   async getDrink() {
     // console.log('aqui getRecipe');
     const { match: { params: { id } } } = this.props;
@@ -73,12 +137,15 @@ class DrinkProcess extends Component {
       // console.log(cur);
       const aux = Object.entries(cur);
       // console.log(aux);
-      this.setState({ drinks, ingredients: aux });
+      this.setState({ drinks, ingredients: aux }, () => {
+        this.setIntialHeart();
+      });
     });
   }
 
   render() {
-    const { drinks, ingredients, className, active, redirect, link, share } = this.state;
+    const { drinks, ingredients, className, active, redirect, link, share,
+      heart } = this.state;
     // console.log(ingredients);
     if (redirect) return <Redirect to="/receitas-feitas" />;
     return (
@@ -129,7 +196,17 @@ class DrinkProcess extends Component {
           </button>
           {share && <p>Link copiado!</p> }
           <p>{link}</p>
-          <button data-testid="favorite-btn" type="button">Favoritar</button>
+          <button
+            type="button"
+            onClick={ this.handleFavorite }
+          >
+            <img
+              className="icons"
+              src={ heart }
+              alt="whiteHeartIcon"
+              data-testid="favorite-btn"
+            />
+          </button>
           <button
             onClick={ this.handleClick }
             disabled={ active }
