@@ -83,6 +83,7 @@ const RecipeProvider = ({ children }) => {
       image: strDrinkThumb || strMealThumb,
     });
   };
+
   const objContext = {
     selectedFood,
     setSelectedFood,
@@ -114,7 +115,7 @@ const RecipeProvider = ({ children }) => {
     setTest,
   };
   return (
-    <RecipeContext.Provider value={objContext}>
+    <RecipeContext.Provider value={ objContext }>
       {children}
     </RecipeContext.Provider>
   );
