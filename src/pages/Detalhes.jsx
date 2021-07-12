@@ -32,6 +32,8 @@ class Detalhes extends Component {
     this.handleFetch = this.handleFetch.bind(this);
     this.redirectForInProgress = this.redirectForInProgress.bind(this);
     this.checkStorage = this.checkStorage.bind(this);
+    this.btnStartRecipes = this.btnStartRecipes.bind(this);
+    this.btnContinueRecipe = this.btnContinueRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -187,6 +189,40 @@ class Detalhes extends Component {
     }
   }
 
+  btnStartRecipes() {
+    return (
+      <section>
+        <button
+          className="details-btn-startRecipe"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            this.redirectForInProgress();
+          } }
+        >
+          Iniciar Receita
+        </button>
+      </section>
+    );
+  }
+
+  btnContinueRecipe() {
+    return (
+      <section>
+        <button
+          className="details-btn-startRecipe"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            this.redirectForInProgress();
+          } }
+        >
+          Continuar Receita
+        </button>
+      </section>
+    );
+  }
+
   render() {
     const { startedRecipe, finishedRecipe } = this.state;
     const { details, isDrink } = this.props;
@@ -217,26 +253,8 @@ class Detalhes extends Component {
             }
           </section>
         </section>
-        <button
-          className={ finishedRecipe ? 'invisible' : 'details-btn-startRecipe' }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => {
-            this.redirectForInProgress();
-          } }
-        >
-          Iniciar Receita
-        </button>
-        <button
-          className={ startedRecipe ? 'details-btn-startRecipe' : 'invisible' }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => {
-            this.redirectForInProgress();
-          } }
-        >
-          Continuar Receita
-        </button>
+        { finishedRecipe ? null : this.btnStartRecipes() }
+        { startedRecipe ? this.btnContinueRecipe() : null }
       </section>
     );
   }

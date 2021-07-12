@@ -211,6 +211,7 @@ class Progresso extends Component {
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
+
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
