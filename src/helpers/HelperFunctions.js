@@ -44,7 +44,7 @@ export const createDoneRecipe = (id, type, detailsData) => {
     alcoholicOrNot: detailsData.strAlcoholic || '',
     name: detailsData[title],
     image: detailsData[thumbnail],
-    doneDate: 'quando - a - receita - foi - concluida',
+    doneDate: new Date(),
     tags: detailsData.strTags || [],
   };
   return item;

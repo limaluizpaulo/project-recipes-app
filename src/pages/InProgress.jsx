@@ -8,7 +8,8 @@ import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
-import { getItem, setItem, createDoneRecipe } from '../helpers/HelperFunctions';
+import { getItem, setItem, createDoneRecipe, setInitialItem }
+  from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
 function InProgress() {
@@ -18,6 +19,7 @@ function InProgress() {
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
   const [shareCopy, setShareCopy] = useState(false);
+  const [ingredientList, setIngredientList] = useState({});
 
   const capitalize = (text) => text.replace(
     /(?:^|\s)\S/g, (first) => first.toUpperCase(),
@@ -30,7 +32,16 @@ function InProgress() {
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
   const { pathname } = useLocation();
-  // console.log(pathname);
+  const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
+
+  setInitialItem('inProgressRecipes', {
+    cocktails: {},
+    meals: {},
+    [typeKey]: { [id]: [] },
+  });
+  setInitialItem('doneRecipes', []);
+  setInitialItem('favoriteRecipes', []);
+
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);
@@ -49,6 +60,9 @@ function InProgress() {
 
   const redirectRecipesDone = () => {
     recipeDone();
+    const inProgressRecipes = getItem('inProgressRecipes');
+    delete inProgressRecipes[typeKey][id];
+    setItem('inProgressRecipes', inProgressRecipes);
     history.push(`${pathname}/receitas-feitas`);
   };
 
@@ -70,17 +84,24 @@ function InProgress() {
 
   const ingredientsAndMeasures = (ingredient, measure) => (measure !== null
     ? `${ingredient} - ${measure}` : ingredient);
-  // if (type === 'meals') {
-  //   title = 'Comidas';
-  //   strTitle = 'strMeal';
-  //   thumbnail = 'strMealThumb';
-  //   typeId = 'idMeal';
-  // } else {
-  //   title = 'Bebidas';
-  //   strTitle = 'strDrink';
-  //   thumbnail = 'strDrinkThumb';
-  //   typeId = 'idDrink';
-  // }
+
+  const checkOnClick = ({ target }) => {
+    const inProgressRecipes = getItem('inProgressRecipes');
+    if (target.checked) {
+      inProgressRecipes[typeKey][id].push(target.name);
+    } else {
+      inProgressRecipes[typeKey][id] = inProgressRecipes[typeKey][id]
+        .filter((ing) => ing !== target.name);
+    }
+    setItem('inProgressRecipes', inProgressRecipes);
+    console.log(target.checked);
+  };
+
+  // const checkedBool = ({ target }) => {
+  //   const inProgressRecipes = getItem('inProgressRecipes');
+  //   return (inProgressRecipes[typeKey][id]
+  //     .includes(target.name));
+  // };
 
   /*
     Material consultado sobre dataset
@@ -138,13 +159,28 @@ function InProgress() {
                 (key) => (key.includes('strIngredient') && detailsData[key]),
               ).map(
                 (ingredient, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-step` }
-                  >
-                    { ingredientsAndMeasures(detailsData[ingredient],
-                      detailsData[`strMeasure${index + 1}`]) }
-                  </li>),
+                  <div data-testid={ `${index}-ingredient-step` } key={ index }>
+                    {/* {setIngredientList(
+                      { ...ingredientList,
+                        [detailsData[ingredient]]: false,
+                      },
+                    )}
+                    {console.log(ingredientList[ingredient])} */}
+                    <input
+                      name={ detailsData[ingredient] }
+                      // data-testid={ `${index}-ingredient-step` }
+                      type="checkbox"
+                      id={ detailsData[ingredient] }
+                      onClick={ checkOnClick }
+                      // checked={ ingredientList[ingredient] }
+                    />
+                    <label
+                      htmlFor={ detailsData[ingredient] }
+                    >
+                      { ingredientsAndMeasures(detailsData[ingredient],
+                        detailsData[`strMeasure${index + 1}`]) }
+                    </label>
+                  </div>),
               )
             }
           </ul>
