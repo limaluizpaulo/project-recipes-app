@@ -18,33 +18,34 @@ export default function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <p data-testid="profile-email">{ emailUser.email }</p>
-
-      <Link to="/receitas-feitas">
-        <button
-          data-testid="profile-done-btn"
-          type="button"
-        >
-          Receitas Feitas
-        </button>
-      </Link>
-      <Link to="/receitas-favoritas">
-        <button
-          data-testid="profile-favorite-btn"
-          type="button"
-        >
-          Receitas Favoritas
-        </button>
-      </Link>
-      <Link to="/">
-        <button
-          data-testid="profile-logout-btn"
-          type="button"
-          onClick={ () => deleteUser() }
-        >
-          Sair
-        </button>
-      </Link>
+      <p data-testid="profile-email" className="email-user">{ emailUser.email }</p>
+      <div className="links-page">
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="profile-done-btn"
+            type="button"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link to="/receitas-favoritas">
+          <button
+            data-testid="profile-favorite-btn"
+            type="button"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link to="/">
+          <button
+            data-testid="profile-logout-btn"
+            type="button"
+            onClick={ () => deleteUser() }
+          >
+            Sair
+          </button>
+        </Link>
+      </div>
       <Footer />
     </div>
   );

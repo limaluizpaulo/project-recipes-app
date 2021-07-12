@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function BtnsFilters({ setValue }) {
   return (
-    <div>
+    <div className="btns-filters">
       <button
         value="All"
         data-testid="filter-by-all-btn"

@@ -12,30 +12,32 @@ export default function ExploreMeals() {
   return (
     <>
       <Header title="Explorar Comidas" />
-      <Link to="/explorar/comidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-        >
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button
-          type="button"
-          data-testid="explore-by-area"
-        >
-          Por Local de Origem
-        </button>
-      </Link>
-      <Link to={ `/comidas/${id}` }>
-        <button
-          type="button"
-          data-testid="explore-surprise"
-        >
-          Me Surpreenda!
-        </button>
-      </Link>
+      <div className="links-page">
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <button
+            type="button"
+            data-testid="explore-by-area"
+          >
+            Por Local de Origem
+          </button>
+        </Link>
+        <Link to={ `/comidas/${id}` }>
+          <button
+            type="button"
+            data-testid="explore-surprise"
+          >
+            Me Surpreenda!
+          </button>
+        </Link>
+      </div>
       <Footer />
     </>
   );

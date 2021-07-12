@@ -8,6 +8,11 @@
 @import './styles/Ingredients.css';
 @import './styles/RecipeDetails.css';
 @import './styles/RecipeInProgress.css';
+@import './styles/DoneRecipes.css';
+@import './styles/Profile.css';
+@import './styles/FavoriteRecipes.css';
+@import './styles/Explore.css';
+@import './styles/ExploreByArea.css';
 
 * {
   margin: 0;

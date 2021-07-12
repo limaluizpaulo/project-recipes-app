@@ -7,25 +7,26 @@ export default function Explore() {
   return (
     <div>
       <Header title="Explorar" />
-      <Link to="/explorar/comidas">
-        <button
-          type="button"
-          data-testid="explore-food"
-        >
-          Explorar Comidas
-        </button>
-      </Link>
-      <br />
-      <Link to="/explorar/bebidas">
-        <button
-          type="button"
-          data-testid="explore-drinks"
-        >
-          Explorar Bebidas
-        </button>
-      </Link>
-      <Footer />
-      <h1>explore</h1>
+      <div className="links-page">
+        <Link to="/explorar/comidas">
+          <button
+            type="button"
+            data-testid="explore-food"
+          >
+            Explorar Comidas
+          </button>
+        </Link>
+        <br />
+        <Link to="/explorar/bebidas">
+          <button
+            type="button"
+            data-testid="explore-drinks"
+          >
+            Explorar Bebidas
+          </button>
+        </Link>
+        <Footer />
+      </div>
     </div>
   );
 }

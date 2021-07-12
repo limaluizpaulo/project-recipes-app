@@ -44,58 +44,69 @@ export default function RecipeDetails() {
     return 'Iniciar Receita';
   };
 
-  if ((Object.keys(recipe).length === 0)) {
-    return (<ClipLoader
-      size="120px"
-      css="margin: 250px 130px"
-    />);
-  }
+  // if ((!Object.keys(recipe).length)) {
+  //   return (<ClipLoader
+  //     size="120px"
+  //     css="margin: 250px 130px"
+  //   />);
+  // }
 
   return (
     <div>
       <HeaderDetails recipe={ recipe } pathname={ pathname } />
-      <section className="ingredients">
-        <Ingredients recipe={ recipe } />
-      </section>
-      <div className="instructions">
-        <h3>Instructions</h3>
-        <p data-testid="instructions">{recipe.strInstructions}</p>
-      </div>
-      <div className="video-container">
-        <h4>Video</h4>
-        {strMeal && <ReactPlayer
-          url={ strYoutube }
-          controls
-          data-testid="video"
-          width="100%"
-          height="85%"
-        />}
+      {Object.keys(recipe).length ? (
+        <main>
+          <section className="ingredients">
+            <Ingredients recipe={ recipe } />
+          </section>
+          <div className="instructions">
+            <h3>Instructions</h3>
+            <p data-testid="instructions">{recipe.strInstructions}</p>
+          </div>
+          <div className="video-container">
 
-      </div>
-      <div className="recomendations">
-        <Recomendations strMeal={ strMeal } />
-      </div>
-      <div className="btn-start-container">
-        {!showBtn && (
-          <Link
-            to={
-              idMeal
-                ? `/comidas/${idMeal}/in-progress`
-                : `/bebidas/${idDrink}/in-progress`
-            }
-          >
-            <button
-              className="btn-start"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              {checkInProgrss()}
-            </button>
-          </Link>
-        )}
-      </div>
-
+            {strMeal && (
+              <div>
+                <h4>Video</h4>
+                <ReactPlayer
+                  url={ strYoutube }
+                  controls
+                  data-testid="video"
+                  width="100%"
+                  height="85%"
+                />
+              </div>
+            )}
+          </div>
+          <div className="recomendations">
+            <Recomendations strMeal={ strMeal } />
+          </div>
+          <div className="btn-start-container">
+            {!showBtn && (
+              <Link
+                to={
+                  idMeal
+                    ? `/comidas/${idMeal}/in-progress`
+                    : `/bebidas/${idDrink}/in-progress`
+                }
+              >
+                <button
+                  className="btn-start"
+                  type="button"
+                  data-testid="start-recipe-btn"
+                >
+                  {checkInProgrss()}
+                </button>
+              </Link>
+            )}
+          </div>
+        </main>
+      ) : (
+        <ClipLoader
+          size="120px"
+          css="margin: 150px 130px"
+        />
+      )}
     </div>
-
   );
 }

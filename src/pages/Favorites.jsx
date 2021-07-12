@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import DoneAndFavorite from '../components/DoneAndFavorite';
+// import DoneAndFavorite from '../components/DoneAndFavorite';
 import BtnsFilters from '../components/BtnsFilters';
-import ShareBtn from '../components/ShareBtn';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import ShareBtn from '../components/ShareBtn';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FavoriteRecipes from '../components/FavoriteRecipe';
 
 export default function Favorites() {
   const [value, setValue] = useState();
@@ -39,7 +40,12 @@ export default function Favorites() {
       <BtnsFilters setValue={ setValue } />
       {renderRecipe().map((item, index) => (
         <div key={ item.id }>
-          <DoneAndFavorite item={ item } index={ index } />
+          <FavoriteRecipes
+            item={ item }
+            index={ index }
+            handleFavorite={ handleFavorite }
+          />
+          {/* <DoneAndFavorite item={ item } index={ index } />
           <ShareBtn recipe={ item } index={ index } doneRecipe />
           <button
             type="button"
@@ -50,10 +56,9 @@ export default function Favorites() {
               src={ blackHeartIcon }
               alt="favorite"
             />
-          </button>
+          </button> */}
 
         </div>
-
       ))}
     </div>
   );

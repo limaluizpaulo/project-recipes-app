@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import ShareBtn from '../components/ShareBtn';
+// import ShareBtn from '../components/ShareBtn';
 import BtnsFilters from '../components/BtnsFilters';
-import DoneAndFavorite from '../components/DoneAndFavorite';
+// import DoneAndFavorite from '../components/DoneAndFavorite';
+import CardDoneRecipes from '../components/CardDoneRecipes';
 
 export default function DoneRecipes() {
   const [value, setValue] = useState();
@@ -21,20 +22,26 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header title="Receitas Feitas" />
-      <div className="btns-filters">
+      <div>
         <BtnsFilters setValue={ setValue } />
       </div>
       <div className="recipe-cards" />
       {renderRecipe().map((item, index) => (
         <div key={ item.id }>
-          <DoneAndFavorite item={ item } index={ index } />
-          <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
-          <div className="tags">
-            {(item.type === 'comida' ? item.tags.slice(0, 2) : item.tags).map((tag) => (
-              <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-            ))}
-          </div>
-          <ShareBtn recipe={ item } index={ index } doneRecipe />
+          <CardDoneRecipes item={ item } index={ index } />
+          {/* <DoneAndFavorite item={ item } index={ index } />
+          <div className="done-favorite-infos">
+
+            Feita em:
+            <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
+
+            <div className="tags">
+              {(item.type === 'comida' ? item.tags.slice(0, 2) : item.tags).map((tag) => (
+                <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
+              ))}
+            </div>
+            <ShareBtn recipe={ item } index={ index } doneRecipe />
+          </div> */}
         </div>
       ))}
     </div>

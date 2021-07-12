@@ -15,16 +15,16 @@ export default function Header({ title, search = false }) {
         </Link>
         <p className="page-title" data-testid="page-title">{title}</p>
         {search
-      && (
-        <button
-          type="button"
-          data-testid="show-btn"
-          onClick={ () => setSearchBar(!searchBar) }
-          className="button-search"
-        >
-          <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
-        </button>
-      )}
+          ? (
+            <button
+              type="button"
+              data-testid="show-btn"
+              onClick={ () => setSearchBar(!searchBar) }
+              className="button-search"
+            >
+              <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
+            </button>
+          ) : <div className="space" />}
       </header>
       {searchBar && <SearchBar /> }
     </section>

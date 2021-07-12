@@ -18,5 +18,11 @@
 }
 
 .recipe-name {
-  margin: 0.2rem 0 -0.8rem 0;
+  margin: 0.2rem auto -0.3rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  font-size: 15px;
 }

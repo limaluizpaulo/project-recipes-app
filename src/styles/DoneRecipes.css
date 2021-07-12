@@ -1,0 +1,66 @@
+.btns-filters {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+
+.btns-filters button {
+  margin: 0.3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 9rem;
+  padding: 0.2rem;
+}
+
+.recipe-card-img {
+  width: 7rem;
+  height: 100%;
+  object-fit: cover;
+}
+
+.done-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+}
+
+.card-done {
+  display: flex;
+  /* background-color: red; */
+  width: 90%;
+  margin: 2rem auto;
+  justify-content: space-between;
+  border: 1px solid rgb(157, 177, 170);
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.done-right-content {
+  display: flex;
+  margin-left: 0.2rem;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.tags {
+  display: flex;
+  width: 5rem;
+  width: 70%;
+  justify-content: flex-start;
+}
+
+.tag {
+  border: 1px solid rgb(163, 182, 171);
+  border-radius: 10px;
+  padding: 0.1rem 0.3rem;
+  font-size: 12px;
+  margin: 0.2rem;
+}
+
+.share-button {
+  background: transparent;
+  border: none;
+}

@@ -35,14 +35,18 @@ export default function HeaderDetails({ recipe, pathname }) {
 
   return (
     <>
-      <div className="img-details-container">
-        <img
-          className="img-detail"
-          src={ strMealThumb || strDrinkThumb }
-          alt="avatar"
-          data-testid="recipe-photo"
-        />
-      </div>
+      {Object.keys(recipe).length ? (
+        <div className="img-details-container">
+          <img
+            className="img-detail"
+            src={ strMealThumb || strDrinkThumb }
+            alt="avatar"
+            data-testid="recipe-photo"
+          />
+        </div>
+      ) : (
+        ''
+      )}
       <div className="header-details" data-testid="header-details">
         <div className="details-category-name">
           <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
@@ -64,7 +68,6 @@ export default function HeaderDetails({ recipe, pathname }) {
             />
           </button>
         </div>
-
       </div>
       {/* <div className="instructions">
         <h3>Instructions</h3>

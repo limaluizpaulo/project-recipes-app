@@ -1,0 +1,20 @@
+.links-page {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.email-user {
+  text-align: center;
+}
+
+.links-page button {
+  margin: 0.3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 12rem;
+  padding: 1rem;
+}

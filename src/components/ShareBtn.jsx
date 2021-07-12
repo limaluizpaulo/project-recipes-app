@@ -23,7 +23,7 @@ export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
 
     navigator.clipboard.writeText(link);
     setCopyLink(true);
-    toast.success('Link Copiado');
+    toast.success('Link copiado!');
   };
 
   return (
@@ -31,6 +31,7 @@ export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
       <button
         type="button"
         onClick={ handleClipBoard }
+        className="share-button"
       >
         <img
           src={ shareIcon }
@@ -38,8 +39,7 @@ export default function ShareBtn({ pathname, recipe, doneRecipe, index }) {
           data-testid={ doneRecipe ? `${index}-horizontal-share-btn` : 'share-btn' }
         />
       </button>
-      {/* {copyLink && <p>Link copiado!</p>} */}
-      {copyLink ? <ToastContainer autoClose={ 2500 } /> : ''}
+      {copyLink ? <ToastContainer autoClose={ 2000 } /> : ''}
     </div>
   );
 }

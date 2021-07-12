@@ -42,7 +42,7 @@ export default function CardIngre({ data, index }) {
   }, [pathname, serValueMealsInput, serValueDrinksInput]);
 
   return (
-    <div data-testid={ `${index}-ingredient-card` } className="ingre-card">
+    <div data-testid={ `${index}-ingredient-card` } className="recipe-card">
       <Link to={ checkLink() } onClick={ handleClick }>
         <img
           src={ checkThumb() }

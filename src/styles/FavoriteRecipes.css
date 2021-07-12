@@ -1,0 +1,44 @@
+.share-and-like-buttons {
+  display: flex;
+  /* background-color: red; */
+  height: 2rem;
+}
+
+.like-button {
+  background: transparent;
+  border: none;
+  margin-left: 1rem;
+}
+
+.done-right-content-favorite {
+  /* background-color: red; */
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card-done-favorite {
+  display: flex;
+  margin: 2rem;
+  border: 1px solid rgb(157, 177, 170);
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.name-and-icons {
+  display: flex;
+}
+
+.name-and-links {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.share-and-like-favorite {
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+}

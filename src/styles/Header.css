@@ -10,3 +10,11 @@
   border: none;
   background: none;
 }
+
+.navbar-no-search header {
+  width: 85%;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto;
+  text-align: center;
+}

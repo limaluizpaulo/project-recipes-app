@@ -1,16 +1,24 @@
 .finishi-recipe-btn {
-  bottom: 0;
-  position: fixed;
+  /* bottom: 0;
+  position: fixed; */
   margin-left: 7rem;
   width: 10rem;
   padding: 0.4rem 0.2rem;
   border-radius: 10px;
+  background: none;
 }
 
-.instructions {
+.instructions-in-progress {
   width: 21rem;
   border: 1px solid rgb(171, 190, 187);
-  margin: 1rem auto;
+  margin: 2rem auto 1.5rem auto;
   padding: 1rem;
   border-radius: 10px;
+}
+.checked {
+  text-decoration: line-through;
+}
+
+.check-input {
+  margin-right: 0.2rem;
 }

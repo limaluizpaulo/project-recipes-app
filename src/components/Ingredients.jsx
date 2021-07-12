@@ -22,18 +22,30 @@ export default function Ingredients({ recipe, radioBtn, setEnableBtn }) {
     }
   }, [arrChecked, checkEnableBtn, ingredients, radioBtn, recipe, setEnableBtn]);
 
+  // if (!ingredients.length) {
+  //   return (<ClipLoader
+  //     size="120px"
+  //     css="margin: 100px 130px"
+  //   />);
+  // }
   return (
     <div className="ingredients-container">
       <h4>Ingredients</h4>
       {ingredients.map((ingredient, index) => (radioBtn ? (
         <div key={ index } className="ingredients-check">
-          <label htmlFor="ingre" data-testid={ `${index}-ingredient-step` }>
+          <label
+            htmlFor="ingre"
+            data-testid={ `${index}-ingredient-step` }
+            className={ checkedBtn(inProgreArr, index, recipe) ? 'checked' : '' }
+          >
             <input
+              className="check-input"
               checked={ checkedBtn(inProgreArr, index, recipe) }
               id={ index }
               value={ index }
               type="checkbox"
               onChange={ (e) => handleIngredients(e, recipe, setArrChecked) }
+
             />
             {ingredient}
           </label>

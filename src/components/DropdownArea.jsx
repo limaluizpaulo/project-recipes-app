@@ -14,18 +14,20 @@ export default function DropdownArea({ data }) {
     }
   };
   return (
-    <select data-testid="explore-by-area-dropdown" onClick={ handleClick }>
-      {data.map(({ strArea }, index) => (
-        <option
-          key={ index }
-          value={ strArea }
-          data-testid={ [`${strArea}-option`] }
+    <div className="drop-down">
+      <select data-testid="explore-by-area-dropdown" onClick={ handleClick }>
+        {data.map(({ strArea }, index) => (
+          <option
+            key={ index }
+            value={ strArea }
+            data-testid={ [`${strArea}-option`] }
 
-        >
-          {strArea}
-        </option>
-      ))}
-    </select>
+          >
+            {strArea}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
