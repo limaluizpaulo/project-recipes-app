@@ -3,7 +3,8 @@ import ContextRecipes from '../context/contextRecipes';
 
 function FoodCategoryButtons() {
   const { setRecipes,
-    foodCategoryName, setFoodCategoryName } = useContext(ContextRecipes);
+    foodCategoryName, setFoodCategoryName,
+    toggleFood, setToggleFood } = useContext(ContextRecipes);
   const maxLength = 4;
 
   const fetchFoodCategories = (category) => {
@@ -14,7 +15,22 @@ function FoodCategoryButtons() {
       .catch((error) => console.log(error));
   };
 
-  const handleClick = (category) => fetchFoodCategories(category);
+  const fetchFoodRecipes = () => {
+    const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setRecipes(results.meals)));
+  };
+
+  const handleClick = (category) => {
+    if (toggleFood === false) {
+      fetchFoodCategories(category);
+      setToggleFood(true);
+    } else {
+      setToggleFood(false);
+      fetchFoodRecipes();
+    }
+  };
 
   const fetchFoodCategoryName = () => {
     const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -25,11 +41,21 @@ function FoodCategoryButtons() {
 
   useEffect(() => {
     fetchFoodCategoryName();
-  }, []);
+  });
+
+  const handleClickAll = () => {
+    fetchFoodRecipes();
+  };
 
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ handleClickAll }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {foodCategoryName.map(({ strCategory }, index) => index <= maxLength && (
         <button
           key={ index }
