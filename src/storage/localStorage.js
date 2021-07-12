@@ -69,29 +69,32 @@ export function saveFavoritRecipes(content, path, favoritStatus) {
   }
 }
 
-export const saveFavoriteRecipe = (id, path, content) => (title, img) => {
+export const saveFavoriteRecipe = (path, obj) => {
+  const [id, title, img, type, area, alcoholicOrNot] = path.includes('comidas')
+    ? [obj.idMeal, obj.strMeal, obj.strMealThumb, 'comida', obj.strArea, '']
+    : [obj.idDrink, obj.strDrink, obj.strDrinkThumb, 'bebida', '', obj.strAlcoholic];
   if (localStorage.getItem('favoriteRecipes')) {
     const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    // if (!arrayFavorites.find((el) => el.id === id)) {
-    arrayFavorites.push({ id,
-      type: path.includes('bebidas') ? 'bebida' : 'comida',
-      area: path.includes('bebidas') ? '' : content.strArea,
-      category: content.strCategory,
-      alcoholicOrNot: path.includes('bebidas') ? content.strAlcoholic : '',
-      name: content[title],
-      image: content[img],
-    });
-    // }
+    if (!arrayFavorites.find((el) => el.id === id)) {
+      arrayFavorites.push({ id,
+        type,
+        area,
+        category: obj.strCategory,
+        alcoholicOrNot,
+        name: obj[title],
+        image: obj[img],
+      });
+    }
     localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
   } else {
     localStorage.setItem('favoriteRecipes', JSON.stringify(
       [{ id,
-        type: path.includes('bebidas') ? 'bebida' : 'comida',
-        area: path.includes('bebidas') ? '' : content.strArea,
-        category: content.strCategory,
-        alcoholicOrNot: path.includes('bebidas') ? content.strAlcoholic : '',
-        name: content[title],
-        image: content[img],
+        type,
+        area,
+        category: obj.strCategory,
+        alcoholicOrNot,
+        name: obj[title],
+        image: obj[img],
       }],
     ));
   }

@@ -57,7 +57,7 @@ export default function Details() {
   function handleFavorite() {
     setFavorit({ status: !favorit.status,
       img: favorit.img === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon });
-    saveFavoriteRecipe(id, path, singleContent[0])(title, imgSrc);
+    saveFavoriteRecipe(path, singleContent[0]);
     // saveFavoritRecipes(path, singleContent[0], favorit.status);
   }
 
