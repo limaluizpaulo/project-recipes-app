@@ -7,6 +7,10 @@ import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 import BtnContinuar from '../Components/BtnContinuar';
 import BtnIniciar from '../Components/BtnIniciar';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import dataAtual from '../services/dataAtual';
+import ingredientsAndMeasures from '../services/ingredientsAndMeasures';
 
 class DrinkDetails extends React.Component {
   constructor(props) {
@@ -17,6 +21,8 @@ class DrinkDetails extends React.Component {
       recomendations: [],
       btnIniciar: true,
       btnContinuar: false,
+      copySuccess: 'share',
+      favorite: whiteHeartIcon,
     };
     this.resultDrink = this.resultDrink.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
@@ -24,40 +30,33 @@ class DrinkDetails extends React.Component {
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.checkedIngredients = this.checkedIngredients.bind(this);
     this.reiceitaEmProgresso = this.reiceitaEmProgresso.bind(this);
+    this.copyToClipboard = this.copyToClipboard.bind(this);
+    this.receitaFavorita = this.receitaFavorita.bind(this);
+    this.receitaFavoritada = this.receitaFavoritada.bind(this);
   }
 
   componentDidMount() {
     this.resultDrink();
     this.checkBtnReceita();
+    this.receitaFavoritada();
   }
 
   getIngredients() {
     const { valueDrink } = this.state;
-    const arrayIngredients = [];
-    const arrayMeasures = [];
-    const ingredientsAndMeasures = [];
-    const DRINK = Object.entries(valueDrink[0]);
+    const ingredients = ingredientsAndMeasures(valueDrink[0]);
+    this.setState({ ingredients });
+  }
 
-    if (DRINK) {
-      DRINK.forEach(([key, value]) => {
-        if (key.includes('strIngredient') && value) {
-          arrayIngredients.push(value);
-        }
-      });
-      DRINK.forEach(([key, value]) => {
-        if (key.includes('strMeasure') && value) {
-          arrayMeasures.push(value);
-        }
-      });
-      for (let i = 0; i < arrayMeasures.length; i += 1) {
-        ingredientsAndMeasures.push({
-          ingredient: arrayIngredients[i],
-          quantidade: arrayMeasures[i],
-          checked: false,
-        });
+  receitaFavoritada() {
+    const { match: { params: { id } } } = this.props;
+    const receitaFavorita = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    receitaFavorita.forEach((receita) => {
+      if (receita.id === id) {
+        this.setState({ favorite: blackHeartIcon });
+      } else {
+        this.setState({ favorite: whiteHeartIcon });
       }
-    }
-    this.setState({ ingredients: ingredientsAndMeasures });
+    });
   }
 
   checkBtnReceita() {
@@ -88,16 +87,6 @@ class DrinkDetails extends React.Component {
     this.setState({ valueDrink: payload, recomendations }, () => this.getIngredients());
   }
 
-  dataAtual() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-    const yyyy = today.getFullYear();
-
-    today = `${mm}/${dd}/${yyyy}`;
-    return today;
-  }
-
   checkedIngredients(value, i) {
     value.checked = !value.checked;
     const { ingredients } = this.state;
@@ -122,7 +111,7 @@ class DrinkDetails extends React.Component {
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
       image: strDrinkThumb,
-      doneDate: this.dataAtual(),
+      doneDate: dataAtual(),
       tags: strTags || [],
     };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -150,9 +139,41 @@ class DrinkDetails extends React.Component {
       { btnIniciar: !oldState.btnIniciar }));
   }
 
+  copyToClipboard() {
+    const { match: { url } } = this.props;
+    navigator.clipboard.writeText(`http://localhost:3000${url}`).then((res) => res);
+    console.log(`http://localhost:3000/${url}`);
+    this.setState({ copySuccess: 'Link copiado!' });
+  }
+
+  async receitaFavorita() {
+    const { favorite } = this.state;
+    const { match, getDrinkId } = this.props;
+    const { id } = match.params;
+    const { payload } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    const { idDrink, strCategory, strDrink, strDrinkThumb, strAlcoholic } = payload[0];
+    const favoriteRecipes = [{
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    }];
+    if (favorite === blackHeartIcon) {
+      this.setState({ favorite: whiteHeartIcon });
+    } else {
+      this.setState({ favorite: blackHeartIcon });
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
   render() {
     const {
-      valueDrink, ingredients, recomendations, btnIniciar, btnContinuar } = this.state;
+      valueDrink,
+      ingredients,
+      recomendations, btnIniciar, btnContinuar, copySuccess, favorite } = this.state;
     const { match: { url } } = this.props;
     if (valueDrink[0]) {
       return (
@@ -184,11 +205,8 @@ class DrinkDetails extends React.Component {
                       data-testid={ `${i}-ingredient-name-and-measure` }
                     >
                       {`${ingredient} ${quantidade}`}
-
                     </label>
-
                   </>
-
                 ))}
               </ul>
               <p data-testid="instructions">{drink.strInstructions}</p>
@@ -196,13 +214,25 @@ class DrinkDetails extends React.Component {
               <CarroselComidas recomendations={ recomendations } />
             </>
           ))}
-          <button type="button" data-testid="share-btn">share</button>
-          <button type="button" data-testid="favorite-btn">favorite</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ this.copyToClipboard }
+          >
+            {copySuccess}
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ this.receitaFavorita }
+            src={ favorite }
+          >
+            <img src={ favorite } alt="coracao" />
+          </button>
           { btnIniciar
           && <BtnIniciar iniciarReceita={ this.iniciarReceita } url={ url } />}
           { btnContinuar
           && <BtnContinuar iniciarReceita={ this.iniciarReceita } />}
-
         </div>
       );
     }

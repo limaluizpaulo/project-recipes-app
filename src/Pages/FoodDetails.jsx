@@ -7,6 +7,10 @@ import BeverageAPI from '../services/BeverageRecipesAPI';
 import CarroselBebidas from '../Components/CarroselBebidas';
 import BtnIniciar from '../Components/BtnIniciar';
 import BtnContinuar from '../Components/BtnContinuar';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import dataAtual from '../services/dataAtual';
+import ingredientsAndMeasures from '../services/ingredientsAndMeasures';
 
 class FoodDetails extends React.Component {
   constructor(props) {
@@ -17,6 +21,8 @@ class FoodDetails extends React.Component {
       recomendations: [],
       btnIniciar: true,
       btnContinuar: false,
+      copySuccess: 'share',
+      favorite: whiteHeartIcon,
     };
     this.resultFood = this.resultFood.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
@@ -24,36 +30,33 @@ class FoodDetails extends React.Component {
     this.iniciarReceita = this.iniciarReceita.bind(this);
     this.reiceitaEmProgresso = this.reiceitaEmProgresso.bind(this);
     this.receitaFinalizada = this.receitaFinalizada.bind(this);
+    this.copyToClipboard = this.copyToClipboard.bind(this);
+    this.receitaFavorita = this.receitaFavorita.bind(this);
+    this.receitaFavoritada = this.receitaFavoritada.bind(this);
   }
 
   componentDidMount() {
     this.resultFood();
     this.checkBtnReceita();
+    this.receitaFavoritada();
   }
 
   getIngredients() {
     const { valueFood } = this.state;
-    const arrayIngredients = [];
-    const arrayMeasures = [];
-    const ingredientsAndMeasures = [];
-    const FOOD = Object.entries(valueFood[0]);
+    const ingredients = ingredientsAndMeasures(valueFood[0]);
+    this.setState({ ingredients });
+  }
 
-    if (FOOD) {
-      FOOD.forEach(([key, value]) => {
-        if (key.includes('strIngredient') && value) {
-          arrayIngredients.push(value);
-        }
-      });
-      FOOD.forEach(([key, value]) => {
-        if (key.includes('strMeasure') && value) {
-          arrayMeasures.push(value);
-        }
-      });
-      for (let i = 0; i < arrayMeasures.length; i += 1) {
-        ingredientsAndMeasures.push([arrayIngredients[i], arrayMeasures[i]]);
+  receitaFavoritada() {
+    const { match: { params: { id } } } = this.props;
+    const receitaFavorita = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    receitaFavorita.forEach((receita) => {
+      if (receita.id === id) {
+        this.setState({ favorite: blackHeartIcon });
+      } else {
+        this.setState({ favorite: whiteHeartIcon });
       }
-    }
-    this.setState({ ingredients: ingredientsAndMeasures });
+    });
   }
 
   checkBtnReceita() {
@@ -84,22 +87,19 @@ class FoodDetails extends React.Component {
   }
 
   async receitaFinalizada() {
-    const { match, getDrinkId } = this.props;
+    const { match, getFoodId } = this.props;
     const { id } = match.params;
-    const { payload: { idDrink,
-      strDrink,
-      strCategory,
-      strTags,
-      strAlcoholic, strDrinkThumb } } = await getDrinkId(id, BeverageAPI.getDrinkById);
+    const { payload } = await getFoodId(id, MealAPI.getFoodById);
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = payload[0];
     const receita = {
-      id: idDrink,
-      type: 'bebida',
-      area: '',
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
       category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-      doneDate: this.dataAtual(),
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: dataAtual(),
       tags: strTags || [],
     };
     const valueStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -117,7 +117,7 @@ class FoodDetails extends React.Component {
     const { id } = match.params;
     const { ingredients } = this.state;
     const receitaProgresso = {
-      cocktails: {
+      meals: {
         [id]: ingredients,
       },
     };
@@ -127,9 +127,41 @@ class FoodDetails extends React.Component {
         .stringify({ ...receitaStorage, ...receitaProgresso }));
   }
 
+  copyToClipboard() {
+    const { match: { url } } = this.props;
+    navigator.clipboard.writeText(`http://localhost:3000${url}`).then((res) => res);
+    console.log(`http://localhost:3000/${url}`);
+    this.setState({ copySuccess: 'Link copiado!' });
+  }
+
+  async receitaFavorita() {
+    const { favorite } = this.state;
+    const { match, getFoodId } = this.props;
+    const { id } = match.params;
+    const { payload } = await getFoodId(id, MealAPI.getFoodById);
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = payload[0];
+    const favoriteRecipes = [{
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    }];
+    if (favorite === blackHeartIcon) {
+      this.setState({ favorite: whiteHeartIcon });
+    } else {
+      this.setState({ favorite: blackHeartIcon });
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
   render() {
     const {
-      valueFood, ingredients, recomendations, btnIniciar, btnContinuar } = this.state;
+      valueFood,
+      ingredients,
+      recomendations, btnIniciar, btnContinuar, copySuccess, favorite } = this.state;
     const { match: { url } } = this.props;
     if (valueFood[0]) {
       return (
@@ -146,13 +178,23 @@ class FoodDetails extends React.Component {
               <h1 data-testid="recipe-title">{food.strMeal}</h1>
               <h6 data-testid="recipe-category">{food.strCategory}</h6>
               <ul>
-                {ingredients.map(([ingredient, measure], i) => (
-                  <li
-                    key={ i }
-                    data-testid={ `${i}-ingredient-name-and-measure` }
-                  >
-                    {`${ingredient} ${measure}`}
-                  </li>
+                {ingredients.map(({ ingredient, quantidade, checked }, i) => (
+                  <>
+                    <input
+                      key={ i }
+                      id={ `${ingredient}${i}` }
+                      type="checkbox"
+                      checked={ checked }
+                      onChange={ () => this.checkedIngredients({
+                        ingredient, quantidade, checked }, i) }
+                    />
+                    <label
+                      htmlFor={ `${ingredient}${i}` }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                    >
+                      {`${ingredient} ${quantidade}`}
+                    </label>
+                  </>
                 ))}
               </ul>
               <p data-testid="instructions">{food.strInstructions}</p>
@@ -160,8 +202,21 @@ class FoodDetails extends React.Component {
               <CarroselBebidas recomendations={ recomendations } />
             </>
           ))}
-          <button type="button" data-testid="share-btn">share</button>
-          <button type="button" data-testid="favorite-btn">favorite</button>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ this.copyToClipboard }
+          >
+            {copySuccess}
+          </button>
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ this.receitaFavorita }
+            src={ favorite }
+          >
+            <img src={ favorite } alt="coracao" />
+          </button>
           { btnIniciar
           && <BtnIniciar iniciarReceita={ this.iniciarReceita } url={ url } />}
           { btnContinuar
