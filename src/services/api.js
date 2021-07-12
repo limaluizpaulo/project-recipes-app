@@ -1,9 +1,9 @@
 const URL_RECIPES = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const URL_SEARCH_MEALS = 'https://www.themealdb.com/api/json/v1/1/';
-// const URL_RECIPES_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const URL_INGREDIENTS_RECIPES = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const URL_INGREDIENTS_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_SEARCH_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/';
-// const URL_DRINKS_INGREDIENTS = 'www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const LENGTH_DOZE = 12;
 const LENGTH_CINCO = 5;
 const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
@@ -11,13 +11,9 @@ const messageAlert = 'Sinto muito, não encontramos nenhuma receita para esses f
 // -------------------------RECIPES--------------------------------
 
 export const getRecipes = async () => {
-  try {
-    const result = await fetch(URL_RECIPES);
-    const { meals } = await result.json();
-    return meals.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(URL_RECIPES);
+  const { meals } = await result.json();
+  return meals.slice(0, LENGTH_DOZE);
 };
 
 export const getRecipesByIngredients = async (ingredient) => {
@@ -72,16 +68,19 @@ export const getRecipesByCategories = async (category) => {
   }
 };
 
+export const getIngredientsRecipes = async () => {
+  const result = await fetch(URL_INGREDIENTS_RECIPES);
+  const { meals } = await result.json();
+  console.log(meals);
+  return meals.slice(0, LENGTH_DOZE);
+};
+
 // ---------------------DRINKS-----------------------------------------------------------
 
 export const getDrinks = async () => {
-  try {
-    const result = await fetch(URL_DRINKS);
-    const { drinks } = await result.json();
-    return drinks.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(URL_DRINKS);
+  const { drinks } = await result.json();
+  return drinks.slice(0, LENGTH_DOZE);
 };
 
 export const getDrinksByIngredients = async (ingredient) => {
@@ -132,4 +131,11 @@ export const getDrinksByCategories = async (category) => {
   } catch (_error) {
     global.alert(messageAlert);
   }
+};
+
+export const getIngredientsDrinks = async () => {
+  const result = await fetch(URL_INGREDIENTS_DRINKS);
+  const { drinks } = await result.json();
+  console.log(drinks);
+  return drinks.slice(0, LENGTH_DOZE);
 };
