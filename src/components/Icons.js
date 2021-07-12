@@ -185,8 +185,6 @@ function Icons(item) {
           />
         </button>
       </div>
-      {console.log(historyPage[historyPage
-        .length - 2])}
       { (changeCopy
        || historyPage[historyPage
          .length - 2] === '/receitas-favoritas')
