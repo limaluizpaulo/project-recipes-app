@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+
 import RecipesContext from '../Context/RecipesContext';
+
 import CategoryDrinks from './CategoryDrinks';
 
 export default function CardDrink() {
