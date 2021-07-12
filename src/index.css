@@ -322,12 +322,17 @@ justify-items: center;
 /*  ====================================================================================================================================*/
 
 /* RECIPE DETAILS   ====================================================================================================================*/
+.recipeDetails {
+  display: grid;
+  justify-content: center;
+}
 
 .box {
   margin: 20px 20px 50px 20px;
   height: max-content;
   box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+  max-width: 70rem;
 }
 
 .topDetails {
@@ -394,6 +399,12 @@ justify-items: center;
 
 .instrDetails {
   padding: 25px;
+}
+
+.instrDetails h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
 }
 
 
