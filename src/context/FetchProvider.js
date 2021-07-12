@@ -7,10 +7,15 @@ function FetchProvider({ children }) {
   const [data, setData] = useState([]);
   const [imgRecipes, setImgRecipes] = useState('');
   const [nameRecipes, setNameRecipes] = useState('');
+  const [idRecip, setIdRecip] = useState('');
+  const [categories, setCategories] = useState([]);
+  // const [toggle, setToggle] = useState(true);
+  const [ingredient, setIngredient] = useState([]);
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
     setImgRecipes('strMealThumb');
+    setIdRecip('idMeal');
     if (radioButton === 'ingrediente') {
       return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchText}`)
         .then((res) => res.json())
@@ -40,6 +45,7 @@ function FetchProvider({ children }) {
   const handleDrinks = (radioButton, searchText) => {
     setNameRecipes('strDrink');
     setImgRecipes('strDrinkThumb');
+    setIdRecip('idDrink');
     if (radioButton === 'ingrediente') {
       return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchText}`)
         .then((res) => res.json())
@@ -66,16 +72,25 @@ function FetchProvider({ children }) {
     }
   };
 
+  console.log('teste');
+
   const contextValue = {
     typeFunc,
     setTypeFunc,
     handleFoods,
     handleDrinks,
     data,
+    setData,
     imgRecipes,
     setImgRecipes,
     nameRecipes,
     setNameRecipes,
+    categories,
+    setCategories,
+    idRecip,
+    setIdRecip,
+    ingredient,
+    setIngredient,
   };
 
   return (
