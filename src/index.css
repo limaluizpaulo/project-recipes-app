@@ -614,7 +614,7 @@ justify-items: center;
   justify-content: center;
   font-size: var(--h3-font-size);
   text-align: justify;
-  margin-left: 7rem;
+  margin-left: 0rem;
 }
 
 .titleInProgress .titleCategory, .ingredients h3 {
@@ -784,6 +784,11 @@ justify-items: center;
   .bottomDetails a button {
     margin-left: 4rem;
   }
+
+  /* RECIPE IN PROGRESS */
+  .bottomInProgress a button {
+    margin-left: 4rem;
+  }
 }
 
 /* =========================================================================== */
@@ -805,8 +810,15 @@ justify-items: center;
     width: 560px;
     height: 315px;
   }
-  /* RECOMMENDED RECIPES COMPONENT */
+
   .bottomDetails a button {
+    width: 200px;
+    padding: 10px;
+    margin-left: 3rem;
+  }
+
+  /* RECIPE IN PROGRESS */
+  .bottomInProgress a button {
     width: 200px;
     padding: 10px;
     margin-left: 3rem;
@@ -958,78 +970,127 @@ justify-items: center;
 
   /* RECOMMENDED RECIPES COMPONENENT */
 
-.recommendedRecipes {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 5rem;
-}
+  .recommendedRecipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 5rem;
+  }
 
-.slider {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 850px;
-}
+  .slider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 850px;
+  }
 
-.recommendedImg {
-  width: 300px;
-  margin: 30px;
-  border-radius: 40px;
-  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
-}
+  .recommendedImg {
+    width: 300px;
+    margin: 30px;
+    border-radius: 40px;
+    filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  }
 
-.recommendedTitle {
-  margin-top: -10px;
-  font-family: var(--body-font);
-  font-size: var(--h3-font-size);
-  color: var(--title-color);
-}
+  .recommendedTitle {
+    margin-top: -10px;
+    font-family: var(--body-font);
+    font-size: var(--h3-font-size);
+    color: var(--title-color);
+  }
 
-.left-arrow {
-  position: absolute;
-  top: 40%;
-  left: 3px;
-  font-size: 3rem;
-  color: #000;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-}
+  .left-arrow {
+    position: absolute;
+    top: 40%;
+    left: 3px;
+    font-size: 3rem;
+    color: #000;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+  }
 
-.right-arrow {
-  position: absolute;
-  top: 40%;
-  right: 3px;
-  font-size: 3rem;
-  color: #000;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1;
-}
+  .right-arrow {
+    position: absolute;
+    top: 40%;
+    right: 3px;
+    font-size: 3rem;
+    color: #000;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+  }
 
-.imgTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .imgTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-.slide {
-  display: none;
-  /* opacity: 0; */
-  transition: all 1.5s ease;
-}
+  .slide {
+    display: none;
+    /* opacity: 0; */
+    transition: all 1.5s ease;
+  }
 
-.active {
-  display: block;
-  /* opacity: 1; */
-  height: 380px;
-  border-radius: 10px;
-  transform: scale(1.08);
-  transition: all 1.5s ease;
-}
+  .active {
+    display: block;
+    /* opacity: 1; */
+    height: 380px;
+    border-radius: 10px;
+    transform: scale(1.08);
+    transition: all 1.5s ease;
+  }
+
+  /* RECIPE IN PROGRESS */
+  .topInProgress {
+    display: grid;
+    height: max-content;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 25px;
+  }
+
+  .titleInProgress {
+    margin-right: -9rem;
+    min-height: 450px;
+    width: 300px;
+  }
+
+  .titleInProgress .titleCategory {
+    font-size: var(--h3-font-size);
+  }
+
+  .titleInProgress .ingredients {
+    margin-left: 0rem;
+  }
+
+  .topInProgress .imageButtons {
+    display: grid;
+    border-radius: 40px;
+    margin-top: 0;
+    padding-left: 1rem;
+    padding-right: 3rem;
+  }
+
+  .topInProgress .imageButtons .recipeImage {
+    justify-self: center;
+    width: 430px;
+    margin-left: 6rem;
+    margin-top: 2rem;
+    border-radius: 40px;
+    filter: drop-shadow(2px 2px 15px rgba(8,9,13,.4));
+  }
+
+  .topInProgress .imageButtons .likeShareBtns {
+    margin: -1rem 2.0rem 0.5rem 9.0rem;
+  }
+
+  .bottomInProgress {
+    font-size: var(--normal-font-size);
+  }
 
 }
