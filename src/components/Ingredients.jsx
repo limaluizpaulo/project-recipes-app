@@ -30,7 +30,6 @@ class Ingredients extends Component {
           onChange={ () => func(param, element, '') }
           type="checkbox"
           id={ `checkbox-${index}` }
-
         />
       </label>);
   }
