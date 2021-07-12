@@ -124,6 +124,14 @@
 }
 
 
+.div-cards-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 80%;
+
+}
+
 @keyframes shake {
 
   0% {
@@ -153,3 +161,4 @@
     transform: rotate(-10deg);
   }
 }
+
