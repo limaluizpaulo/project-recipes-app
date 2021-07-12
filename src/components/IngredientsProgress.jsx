@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { remove } from 'lodash';
 import { updateLocalStorage,
   getFromLocalStorage, removeFromLocalStorage } from '../services/helpers/localStorage';
 import { UserContext } from '../context/UserProvider';

@@ -4,7 +4,7 @@ export { default as Footer } from './Footer';
 export { default as Card } from './Card';
 export { default as Categories } from './Categories';
 export { default as Ingredients } from './Ingredients';
-export { default as IngredientsProgress } from './Ingredients';
+export { default as IngredientsProgress } from './IngredientsProgress';
 export { default as Instructions } from './Instructions';
 export { default as HeaderRecipes } from './HeaderRecipes';
 export { default as Filters } from './Filters';
