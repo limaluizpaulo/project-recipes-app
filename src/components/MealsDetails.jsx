@@ -9,17 +9,23 @@ import RecipesContext from '../Context/RecipesContext';
 import FavoriteButton from './FavoriteButton';
 
 export default function MealsDetails() {
-  const { stateMeals, setStateMeals, ingredientsMeals, setIngredientsMeals,
-    measureMeals, setMeasureMeals } = useContext(RecipesContext);
+  const {
+    stateMeals,
+    setStateMeals,
+    ingredientsMeals,
+    setIngredientsMeals,
+    measureMeals,
+    setMeasureMeals,
+  } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
+  // const [setChekButtonState] = useState(true);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
-    const arrayKeysIngredients = keysIngredientes.filter(
-      (e) => e.includes('strIngredient'),
-    );
+    const arrayKeysIngredients = keysIngredientes
+      .filter((e) => e.includes('strIngredient'));
     const ingredient = [];
     const measures = [];
 
@@ -46,8 +52,13 @@ export default function MealsDetails() {
   const removeFavorited = () => {
     const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorited) {
-      const filterLocalStorage = favorited.filter((element) => element.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+      const filterLocalStorage = favorited.filter(
+        (element) => element.id !== id,
+      );
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(filterLocalStorage),
+      );
     }
   };
 
@@ -63,8 +74,26 @@ export default function MealsDetails() {
 
   useEffect(verifyHeart, []);
 
-  const { strMealThumb, strMeal,
-    strCategory, strInstructions, strVideo, idMeal } = stateMeals[0];
+  // const checkButton = () => {
+  //   /// const url = pathname.split('/')[2];
+  //   const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   // let checkrecipesDone = [];
+  //   if (recipesDone === null) {
+  //     checkrecipesDone = [];
+  //   } else {
+  //     checkrecipesDone = recipesDone;
+  //     // const checkedButton = checkrecipesDone.some((e) => e.id === url);
+  //   }
+  // };
+  // useEffect(checkButton, []);
+  const {
+    strMealThumb,
+    strMeal,
+    strCategory,
+    strInstructions,
+    strVideo,
+    idMeal,
+  } = stateMeals[0];
   return (
     <div>
       <img
@@ -73,27 +102,26 @@ export default function MealsDetails() {
         data-testid="recipe-photo"
         width="100px"
       />
-      <h1 data-testid="recipe-title">{ strMeal }</h1>
+      <h1 data-testid="recipe-title">{strMeal}</h1>
       <ShareButton />
       <FavoriteButton
         stateChangeHeart={ stateChangeHeart }
         setStateChangeHeart={ setStateChangeHeart }
         removeFavorited={ removeFavorited }
       />
-      <p data-testid="recipe-category">{ strCategory }</p>
+      <p data-testid="recipe-category">{strCategory}</p>
       <h2>Ingredients</h2>
       <ul>
         {ingredientsMeals.map((ingredient, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            { `${ingredient} ${measureMeals[index] !== undefined
-              ? `-${measureMeals[index]}` : ''}`}
-          </li>))}
+          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+            {`${ingredient} ${
+              measureMeals[index] !== undefined ? `-${measureMeals[index]}` : ''
+            }`}
+          </li>
+        ))}
       </ul>
       <h2>Instructions</h2>
-      <p data-testid="instructions">{ strInstructions }</p>
+      <p data-testid="instructions">{strInstructions}</p>
       <iframe
         data-testid="video"
         width="560"
@@ -119,17 +147,19 @@ export default function MealsDetails() {
             <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{drink.strDrink}</h3>
             </Carousel.Caption>
-          </Carousel.Item>))}
+          </Carousel.Item>
+        ))}
       </Carousel>
       <Link to={ `/comidas/${idMeal}/in-progress` }>
+
         <button
           type="button"
           data-testid="start-recipe-btn"
           className="iniciarReceita"
         >
           Iniciar Receita
-
         </button>
+        )
       </Link>
     </div>
   );

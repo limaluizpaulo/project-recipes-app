@@ -12,6 +12,7 @@ function RecipesProvider({ children }) {
   const [toogle, setToogle] = useState(false);
   const [stateDrink, setStateDrink] = useState([{}]);
   const [stateMeals, setStateMeals] = useState([{}]);
+  const [favoriteFilters, setFavoriteFilters] = useState([]);
   const [ingredientsMeals, setIngredientsMeals] = useState([]);
   const [measureMeals, setMeasureMeals] = useState([]);
 
@@ -34,6 +35,8 @@ function RecipesProvider({ children }) {
     setStateDrink,
     stateMeals,
     setStateMeals,
+    favoriteFilters,
+    setFavoriteFilters,
     measureMeals,
     setMeasureMeals,
     ingredientsMeals,
