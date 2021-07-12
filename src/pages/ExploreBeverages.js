@@ -33,7 +33,12 @@ class ExploreBeverages extends React.Component {
       <section>
         <Header title="Explorar Bebidas" />
         <Link to="/explorar/bebidas/ingredientes">
-          <button type="button" data-testid="explore-by-ingredient">Por Ingredientes</button>
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
         </Link>
         <Link to={ url }>
           <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
