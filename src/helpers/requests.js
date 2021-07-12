@@ -102,4 +102,12 @@ export async function requestFoodById(id) {
   return resolve;
 }
 
+export async function requestDrinkById(id) {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  const request = await fetch(url + id);
+  const resolve = await request.json();
+  console.log(resolve);
+  return resolve;
+}
+
 export default requestMeal;

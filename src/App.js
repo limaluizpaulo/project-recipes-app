@@ -17,6 +17,7 @@ import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 import FoodInProgress from './pages/FoodInProgress/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress/DrinkInProgress';
 import './app.css';
 
 const test = '';
@@ -32,7 +33,7 @@ function App() {
           <Route path="/comidas/:id/in-progress" exact component={ FoodInProgress } />
           <Route path="/bebidas" exact component={ Drinks } />
           <Route path="/bebidas/:id" exact component={ test } />
-          <Route path="/bebidas/:id/in-progress" exact component={ test } />
+          <Route path="/bebidas/:id/in-progress" exact component={ DrinkInProgress } />
           <Route path="/explorar" exact component={ Explorar } />
           <Route path="/explorar/comidas" exact component={ ExplorerFoods } />
           <Route path="/explorar/bebidas" exact component={ ExplorerDrinks } />
