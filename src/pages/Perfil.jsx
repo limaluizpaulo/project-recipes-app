@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
@@ -20,9 +21,9 @@ class Perfil extends Component {
   }
 
   getEmail() {
-    const { email } = JSON.parse(localStorage.getItem('user'));
+    const { email } = this.props;
     console.log(email);
-
+    console.log(email);
     this.setState({
       email,
     });
@@ -72,5 +73,9 @@ class Perfil extends Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
+
+Perfil.propTypes = {
+  email: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps)(Perfil);

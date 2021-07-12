@@ -23,7 +23,7 @@ class RecipesByOrigin extends Component {
   }
 
   render() {
-    const { areas } = this.state;
+    const areas = this.state;
     const something = areas;
     console.log(areas);
     console.log(something[0]);
