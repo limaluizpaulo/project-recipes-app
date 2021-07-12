@@ -58,7 +58,7 @@ function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites 
               alt="share-btn"
             />
           </button>
-          { copied ? <p>Link copiado!</p> : ''}
+          { copied ? <p>Link copiado!</p> : ' '}
           <button
             type="button"
             onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
