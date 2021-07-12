@@ -59,16 +59,16 @@ const FoodProgress = ({ match }) => {
       <label
         className={ findSelecteds(key) && 'checked' }
         data-testid={ `${idx}-ingredient-step` }
-        htmlFor="ingredient"
+        htmlFor={ `ingredient-${idx}` }
         key={ `${key} - ${ingredient}` }
       >
-        {ingredient}
         <input
           onClick={ () => handleSelect(key) }
           defaultChecked={ findSelecteds(key) }
           type="checkbox"
-          id="ingredient"
+          id={ `ingredient-${idx}` }
         />
+        {ingredient}
       </label>
     ));
   };
@@ -102,6 +102,8 @@ const FoodProgress = ({ match }) => {
 
   const addRecipeDone = () => {
     const { idMeal, strArea, strCategory, strMeal, strMealThumb, strTags } = meal;
+    // const tags = strTags;
+    // if (strTags !== null) strTags.split(',');
     const tags = strTags.split(',');
     const data = new Date();
     const recipe = {

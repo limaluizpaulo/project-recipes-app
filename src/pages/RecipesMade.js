@@ -53,7 +53,7 @@ function RecipesMade() {
 
   return (
     <div>
-      <button type="button" data-testid="filter-by-all-btn" />
+      {/* <button type="button" data-testid="filter-by-all-btn">{}</button> */}
       <Header title="Receitas Feitas" />
       <button
         type="button"
