@@ -12,6 +12,7 @@ export default function Explore() {
           <button
             type="button"
             data-testid="explore-food"
+            className="btn btn-success"
           >
             Explorar Comidas
           </button>
@@ -21,6 +22,7 @@ export default function Explore() {
           <button
             type="button"
             data-testid="explore-drinks"
+            className="btn btn-success"
           >
             Explorar Bebidas
           </button>

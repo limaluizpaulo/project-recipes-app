@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import login from '../images/login.gif';
 
 export default function Login() {
   const [state, setState] = useState({ email: '', password: '', redirect: false });
@@ -33,43 +34,49 @@ export default function Login() {
   const NUM = 6;
 
   return (
+    <main>
 
-    <section className="login-section">
-      <div className="login-container">
-        <form onSubmit={ handleSubmit }>
-          {/* <label htmlFor="email">
+      <section className="login-section">
+        {/* <div className="animation-icon">aqui</div> */}
+        <img src={ login } alt="" className="login-icon" />
+
+        <div className="login-container">
+          <form onSubmit={ handleSubmit }>
+            {/* <label htmlFor="email">
           Email */}
-          <input
-            value={ email }
-            name="email"
-            type="email"
-            id="email"
-            data-testid="email-input"
-            onChange={ handleValue }
-            placeholder="Email"
-          />
-          {/* </label> */}
-          {/* <label htmlFor="password">
+            <input
+              value={ email }
+              name="email"
+              type="email"
+              id="email"
+              data-testid="email-input"
+              onChange={ handleValue }
+              placeholder="Email"
+            />
+            {/* </label> */}
+            {/* <label htmlFor="password">
           Password */}
-          <input
-            value={ password }
-            name="password"
-            data-testid="password-input"
-            type="password"
-            onChange={ handleValue }
-            placeholder="Senha"
-          />
-          {/* </label> */}
-          <button
-            data-testid="login-submit-btn"
-            disabled={ password.length <= NUM || (!handleEmailverify()) }
-            type="submit"
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
-    </section>
+            <input
+              value={ password }
+              name="password"
+              data-testid="password-input"
+              type="password"
+              onChange={ handleValue }
+              placeholder="Senha"
+            />
+            {/* </label> */}
+            <button
+              data-testid="login-submit-btn"
+              disabled={ password.length <= NUM || (!handleEmailverify()) }
+              type="submit"
+              className="btn btn-success"
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
 
   );
 }

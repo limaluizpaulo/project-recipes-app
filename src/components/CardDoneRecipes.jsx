@@ -57,7 +57,6 @@ export default function CardDoneRecipes({ item, index }) {
 
         </div>
         <div className="done-favorite-infos">
-          Feita em:
           <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
 
           <div className="tags">

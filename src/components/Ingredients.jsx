@@ -30,13 +30,14 @@ export default function Ingredients({ recipe, radioBtn, setEnableBtn }) {
   // }
   return (
     <div className="ingredients-container">
-      <h4>Ingredients</h4>
+      <h4 className="ingredients-title">Ingredients</h4>
       {ingredients.map((ingredient, index) => (radioBtn ? (
         <div key={ index } className="ingredients-check">
           <label
             htmlFor="ingre"
             data-testid={ `${index}-ingredient-step` }
-            className={ checkedBtn(inProgreArr, index, recipe) ? 'checked' : '' }
+            className={ checkedBtn(inProgreArr, index, recipe)
+              ? 'checked' : 'no-checked' }
           >
             <input
               className="check-input"
@@ -54,6 +55,7 @@ export default function Ingredients({ recipe, radioBtn, setEnableBtn }) {
         <p
           key={ index }
           data-testid={ `${index}-ingredient-name-and-measure` }
+          className="ingredient-recipe"
         >
           {ingredient}
           -

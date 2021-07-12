@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import searchIcon from '../images/searchIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
+import { BsSearch } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
+// import searchIcon from '../images/searchIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
 
 export default function Header({ title, search = false }) {
@@ -11,7 +13,7 @@ export default function Header({ title, search = false }) {
     <section className="navbar-header">
       <header data-testid="header-top">
         <Link to="/perfil">
-          <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+          <CgProfile className="profile-top-btn" />
         </Link>
         <p className="page-title" data-testid="page-title">{title}</p>
         {search
@@ -22,7 +24,13 @@ export default function Header({ title, search = false }) {
               onClick={ () => setSearchBar(!searchBar) }
               className="button-search"
             >
-              <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
+              <BsSearch className="search-top-btn" />
+              {/* <img
+                src={ searchIcon }
+                alt="search icon"
+                data-testid="search-top-btn"
+                className="search-top-btn"
+              /> */}
             </button>
           ) : <div className="space" />}
       </header>

@@ -19,16 +19,16 @@ export default function ExploreByArea() {
   }, [areaSelected, setMealsFiltered]);
 
   return (
-    <div>
-      <Header title="Explorar Origem" search />
-      <DropdownArea data={ areaList } />
-      <div className="recipe-container">
-
+    <>
+      <div className="explore-by-area">
+        <Header title="Explorar Origem" search />
+        <DropdownArea data={ areaList } />
         {mealsFiltered.map((
           data, index,
         ) => <CardRecipe key={ index } data={ data } index={ index } />)}
       </div>
       <Footer />
-    </div>
+
+    </>
   );
 }

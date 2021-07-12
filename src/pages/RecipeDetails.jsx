@@ -91,7 +91,7 @@ export default function RecipeDetails() {
                 }
               >
                 <button
-                  className="btn-start"
+                  className="btn-start btn-success"
                   type="button"
                   data-testid="start-recipe-btn"
                 >

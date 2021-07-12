@@ -26,8 +26,11 @@
 
 @import './styles/ExploreByArea.css' ;
 
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Qahiri&display=swap') ;
+
 * {
   box-sizing: border-box;
+  font-family: Otomanopee One , sans-serif;
   margin: 0;
   padding: 0;
 }

@@ -84,7 +84,7 @@ export default function RecipeInProgress() {
           </div>
           <Link to="/receitas-feitas">
             <button
-              className="finishi-recipe-btn"
+              className="finishi-recipe-btn btn btn-success"
               disabled={ enableBtn }
               type="button"
               data-testid="finish-recipe-btn"

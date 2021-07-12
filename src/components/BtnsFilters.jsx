@@ -9,6 +9,7 @@ export default function BtnsFilters({ setValue }) {
         data-testid="filter-by-all-btn"
         type="button"
         onClick={ () => setValue('All') }
+        className="btn btn-outline-success"
       >
         All
       </button>
@@ -17,6 +18,7 @@ export default function BtnsFilters({ setValue }) {
         data-testid="filter-by-food-btn"
         type="button"
         onClick={ () => setValue('Food') }
+        className="btn btn-outline-success"
       >
         Food
       </button>
@@ -25,6 +27,7 @@ export default function BtnsFilters({ setValue }) {
         data-testid="filter-by-drink-btn"
         type="button"
         onClick={ () => setValue('Drinks') }
+        className="btn btn-outline-success"
       >
         Drinks
       </button>

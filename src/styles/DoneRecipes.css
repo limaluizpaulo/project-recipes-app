@@ -6,7 +6,6 @@
 }
 
 .btns-filters button {
-  border: none;
   border-radius: 5px;
   cursor: pointer;
   margin: 0.3rem;
@@ -17,7 +16,7 @@
 .recipe-card-img {
   height: 100%;
   object-fit: cover;
-  width: 7rem;
+  width: 7.5rem;
 }
 
 .done-name {
@@ -30,6 +29,7 @@
 .card-done {
   border: 1px solid rgb(157, 177, 170);
   border-radius: 10px;
+  box-shadow: 1px 4px 4px rgba(8, 8, 8, 0.25);
   display: flex;
   justify-content: space-between;
   margin: 2rem auto;
@@ -41,13 +41,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 0.2rem;
 }
 
 .tags {
   display: flex;
   justify-content: flex-start;
-  width: 5rem;
+  /* width: 5rem; */
 }
 
 .tag {
@@ -61,4 +60,17 @@
 .share-button {
   background: transparent;
   border: none;
+}
+
+.done-favorite-infos p {
+  font-size: 15px;
+  font-family: Merienda;
+}
+
+.done-right-content h4 {
+  color: black;
+}
+
+.done-category p {
+  color: rgb(192, 190, 190);
 }

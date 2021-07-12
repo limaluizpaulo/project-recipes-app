@@ -18,8 +18,13 @@
   width: 85%;
 }
 
+.radio-inputs label {
+  font-family: Merienda;
+  font-weight: 600;
+}
+
 .radio-inputs input {
-  margin-right: 0.2rem;
+  margin-right: 0.3rem;
 }
 
 .button-search-food {
@@ -31,4 +36,10 @@
   border: none;
   color: #eee;
   padding: 0.2rem 0.8rem;
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  color: rgb(168, 165, 165);
+  font-family: Arial;
 }

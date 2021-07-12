@@ -17,6 +17,7 @@ export default function ExploreMeals() {
           <button
             type="button"
             data-testid="explore-by-ingredient"
+            className="btn btn-success"
           >
             Por Ingredientes
           </button>
@@ -25,6 +26,7 @@ export default function ExploreMeals() {
           <button
             type="button"
             data-testid="explore-by-area"
+            className="btn btn-success"
           >
             Por Local de Origem
           </button>
@@ -33,6 +35,7 @@ export default function ExploreMeals() {
           <button
             type="button"
             data-testid="explore-surprise"
+            className="btn btn-success"
           >
             Me Surpreenda!
           </button>

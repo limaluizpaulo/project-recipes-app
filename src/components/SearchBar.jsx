@@ -87,6 +87,7 @@ export default function SearchBar() {
           placeholder="Buscar Receita"
           data-testid="search-input"
           onChange={ handleValue }
+          className="form-control"
         />
       </div>
       <div className="radio-inputs">
@@ -135,6 +136,7 @@ export default function SearchBar() {
           type="button"
           data-testid="exec-search-btn"
           onClick={ handleSubmit }
+          className="btn btn-secondary"
         >
           Buscar
         </button>

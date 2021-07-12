@@ -1,5 +1,6 @@
 .video-container {
   margin: 2rem;
+
 }
 
 .recomendations {
@@ -30,4 +31,22 @@
 
 .cliploader {
   width: 200rem;
+}
+
+.instructions p {
+  font-family: Merienda;
+}
+
+.instructions h3 {
+  margin-bottom: 1.5rem;
+}
+
+.instructions {
+  box-shadow: 1px 4px 4px rgba(10, 10, 10, 0.50);
+
+}
+
+.details-category-name p {
+ color: rgb(179, 174, 174)
+
 }

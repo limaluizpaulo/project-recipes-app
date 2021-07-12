@@ -1,4 +1,7 @@
-.recipe-container {
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap');
+
+.recipe-container,
+.explore-by-area {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -6,8 +9,10 @@
   width: 90%;
 }
 
-.recipe-container img {
+.recipe-container img,
+.explore-by-area img {
   width: 9.5rem;
+  object-fit: cover;
 }
 
 .recipe-card {
@@ -32,3 +37,13 @@
   width: 8rem;
 }
 
+.recipe-name p {
+  color: black;
+  font-family: Merienda, cursive;
+  font-size: 15px;
+}
+
+.recipe-card p {
+  color: black;
+  font-family: Merienda;
+}

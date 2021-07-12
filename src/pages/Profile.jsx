@@ -24,6 +24,7 @@ export default function Profile() {
           <button
             data-testid="profile-done-btn"
             type="button"
+            className="btn btn-outline-success"
           >
             Receitas Feitas
           </button>
@@ -32,6 +33,7 @@ export default function Profile() {
           <button
             data-testid="profile-favorite-btn"
             type="button"
+            className="btn btn-outline-success"
           >
             Receitas Favoritas
           </button>
@@ -41,6 +43,7 @@ export default function Profile() {
             data-testid="profile-logout-btn"
             type="button"
             onClick={ () => deleteUser() }
+            className="btn btn-outline-danger"
           >
             Sair
           </button>
