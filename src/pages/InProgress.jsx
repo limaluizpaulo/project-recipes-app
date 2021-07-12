@@ -8,7 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
-import { getItem, setItem } from '../helpers/HelperFunctions';
+import { getItem, setItem, createDoneRecipe } from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
 function InProgress() {
@@ -40,30 +40,11 @@ function InProgress() {
   }, [type, id]);
   const thirtyTwo = 32;
 
-  // const recipeProgress = () => {
-  //   const item = getItem('inProgressRecipes');
-  //   return (item[typeKey][id.toString()]) ? 'Continuar Receitas' : 'Iniciar Receita';
-  // };
-
   const recipeDone = () => {
     const itemList = getItem('doneRecipes');
-    itemList.push(
-      {
-        id,
-        type: (type === 'meals') ? 'comida' : 'bebida',
-        area: detailsData.strArea || '',
-        category: detailsData.strCategory || '',
-        alcoholicOrNot: detailsData.strAlcoholic || '',
-        name: detailsData[title],
-        image: detailsData[thumbnail],
-        doneDate: 'quando - a - receita - foi - concluida',
-        tags: detailsData.strTags || [],
-      },
-    );
+    itemList.push(createDoneRecipe(id, type, detailsData));
 
     setItem('doneRecipes', itemList);
-
-    return itemList.some((item) => item.id === id);
   };
 
   const redirectRecipesDone = () => {
