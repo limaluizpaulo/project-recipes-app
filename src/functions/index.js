@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const setStorage = (key, value) => (
   localStorage.setItem(key, JSON.stringify(value)));
 
@@ -45,3 +47,21 @@ export const handleClickType = (type, key, setState) => {
   const foodsOrDrinks = storageRecipes.filter((recipe) => recipe.type === translate);
   setState(foodsOrDrinks);
 };
+
+export const mealInfo = (index, area, category) => (
+  <p
+    className="doneCategory"
+    data-testid={ `${index}-horizontal-top-text` }
+  >
+    {`${area} - ${category}`}
+  </p>
+);
+
+export const drinkInfo = (index, alcoholicOrNot) => (
+  <p
+    className="doneCategory"
+    data-testid={ `${index}-horizontal-top-text` }
+  >
+    {`${alcoholicOrNot}`}
+  </p>
+);

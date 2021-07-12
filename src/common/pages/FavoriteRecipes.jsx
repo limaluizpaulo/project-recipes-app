@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header/Header';
-import LikeButton from '../components/LikeButton';
-import ShareButton from '../components/ShareButton';
+// import LikeButton from '../components/LikeButton';
+// import ShareButton from '../components/ShareButton';
 import CategoryButton from '../components/CategoryButton';
 import { getStorage, setStorage, handleClickType } from '../../functions';
+import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 const FAVORITE_RECIPES = 'favoriteRecipes';
 
 export default function FavoriteRecipes() {
-  const [state, setState] = useState(false);
+  // const [state, setState] = useState(false);
   const [favoriteRecipes, setFavoriteRecipes] = useState(
     () => getStorage('favoriteRecipes'),
   ); // pego o que tá no storage, e jogo nesse estado. Aí vou fazer o MAP nesse favoriteStorage
@@ -16,21 +17,21 @@ export default function FavoriteRecipes() {
   const handleClickAll = () => setFavoriteRecipes(getStorage(FAVORITE_RECIPES));
 
   // aqui vai ser a função lá do passo 1
-  const setFavorited = (favorited) => (
-    setState(favorited)
-  );
+  // const setFavorited = (favorited) => (
+  //   setState(favorited)
+  // );
 
-  const favoriteMeal = (index, area, category) => (
-    <h5
-      data-testid={ `${index}-horizontal-top-text` }
-    >
-      { `${area} - ${category}`}
-    </h5>
-  );
+  // const favoriteMeal = (index, area, category) => (
+  //   <h5
+  //     data-testid={ `${index}-horizontal-top-text` }
+  //   >
+  //     { `${area} - ${category}`}
+  //   </h5>
+  // );
 
-  const favoriteDrink = (alcoholicOrNot, index) => (
-    <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
-  );
+  // const favoriteDrink = (alcoholicOrNot, index) => (
+  //   <h5 data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</h5>
+  // );
 
   const handleLikeClick = (id) => {
     const newFavorites = favoriteRecipes.filter((fav) => fav.id !== id);
@@ -38,32 +39,32 @@ export default function FavoriteRecipes() {
     setFavoriteRecipes(newFavorites);
   };
 
-  const renderFavorites = () => (
-    favoriteRecipes.map((favorited, index) => (
-      <div key={ index }>
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          src={ favorited.image }
-          alt="card"
-          width="150px"
-        />
-        { favorited.type === 'comida'
-          ? favoriteMeal(index, favorited.area, favorited.category)
-          : favoriteDrink(favorited.alcoholicOrNot, index) }
+  // const renderFavorites = () => (
+  //   favoriteRecipes.map((favorited, index) => (
+  //     <div key={ index }>
+  //       <img
+  //         data-testid={ `${index}-horizontal-image` }
+  //         src={ favorited.image }
+  //         alt="card"
+  //         width="150px"
+  //       />
+  //       { favorited.type === 'comida'
+  //         ? favoriteMeal(index, favorited.area, favorited.category)
+  //         : favoriteDrink(favorited.alcoholicOrNot, index) }
 
-        <h1 data-testid={ `${index}-horizontal-name` }>{ favorited.name }</h1>
-        <ShareButton id={ favorited.id } type={ favorited.type } index={ index } path />
-        <LikeButton
-          recipe
-          captureFavorited={ setFavorited }
-          clickFavBtn={ handleLikeClick }
-          id={ favorited.id }
-          favPage
-          index={ index }
-        />
-      </div>
-    ))
-  );
+  //       <h1 data-testid={ `${index}-horizontal-name` }>{ favorited.name }</h1>
+  //       <ShareButton id={ favorited.id } type={ favorited.type } index={ index } path />
+  //       <LikeButton
+  //         recipe
+  //         captureFavorited={ setFavorited }
+  //         clickFavBtn={ handleLikeClick }
+  //         id={ favorited.id }
+  //         favPage
+  //         index={ index }
+  //       />
+  //     </div>
+  //   ))
+  // );
 
   useEffect(() => {
     setFavoriteRecipes(getStorage('favoriteRecipes'));
@@ -78,7 +79,15 @@ export default function FavoriteRecipes() {
         clickAll={ handleClickAll }
         path={ FAVORITE_RECIPES }
       />
-      { renderFavorites() }
+      {/* { renderFavorites() } */}
+      { favoriteRecipes.map((recipe, i) => (
+        <FavoriteRecipeCard
+          recipe={ recipe }
+          index={ i }
+          handleLikeClick={ handleLikeClick }
+          key={ i }
+        />
+      )) }
     </div>
   );
 }

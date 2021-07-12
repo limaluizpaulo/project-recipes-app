@@ -7,7 +7,8 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import store from '../../context/store';
 
-export default function LikeButton({ recipe, captureFavorited, clickFavBtn, id, favPage, index }) { // Desestruturando props
+export default function LikeButton({ recipe, captureFavorited,
+  clickFavBtn, id, favPage, index }) { // Desestruturando props
   const { pathname } = useLocation();
   const { recipes: { foods } } = useContext(store);
   const [favorited, setFavorited] = useState(false);
