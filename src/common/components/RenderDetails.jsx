@@ -72,8 +72,8 @@ export default function RenderDetails({ btnFinish, id }) {
           <iframe
             title="recipeVideo"
             data-testid="video"
-            width="560"
-            height="315"
+            // width="560"
+            // height="315"
             frameBorder="0"
             allowFullScreen
             allow="autoplay; encrypted-media"
