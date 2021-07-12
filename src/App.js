@@ -10,6 +10,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DetailsFoodPage from './components/DetailsFoodPage';
 import DetailsDrinkPage from './components/DetailsDrinkPage';
+import ExploreFoods from './components/ExploreFoods';
+import ExploreDrinks from './components/ExploreDrinks';
 
 function App() {
   return (
@@ -28,7 +30,15 @@ function App() {
         />
         <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
-        <Route path="/explore" render={ (props) => <ExplorePage { ...props } /> } />
+        <Route
+          path="/explorar/comidas"
+          render={ (props) => <ExploreFoods { ...props } /> }
+        />
+        <Route
+          path="/explorar/bebidas"
+          render={ (props) => <ExploreDrinks { ...props } /> }
+        />
+        <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
