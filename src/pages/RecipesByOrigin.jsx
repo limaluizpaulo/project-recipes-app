@@ -22,24 +22,25 @@ class RecipesByOrigin extends Component {
     this.setState({ areas: meals });
   }
 
+  // mappingAreas() {
+  //   areas
+  // }
+
   render() {
-    const areas = this.state;
-    const something = areas;
+    const { areas } = this.state;
+    const something = (areas);
+    // console.log(Object.keys(areas).map(...areas));
     console.log(areas);
-    console.log(something[0]);
+    console.log(something);
+    // if (areas<1)
     const options = [
+      { ...something },
       {
         type: 'group',
         name: 'group1',
         items: [
-        ],
-      },
-      {
-        type: 'group',
-        name: 'group2',
-        items: [
-          { value: 'five', label: 'Five' },
-          { value: 'six', label: 'Six' },
+          { value: 'three', label: 'Three', className: 'myOptionClassName' },
+          { value: 'four', label: 'Four' },
         ],
       },
     ];
@@ -50,7 +51,7 @@ class RecipesByOrigin extends Component {
         <Header header="Explorar Origem" explorer />
         <div data-testid="explore-by-area-dropdown">
           <Dropdown
-            options={ something }
+            options={ Object.keys(...options) }
             placeholder="select something"
           />
         </div>
