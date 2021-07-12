@@ -36,7 +36,7 @@ function Foods(props) {
   }, [foods]);
 
   return loading ? <div>Loading...</div> : (
-    <div>
+    <div className="tela-food">
       <HeadBar title="Comidas" />
       <CategoryButtons
         setMainFoods={ (list) => setMainFoods(setList(list)) }

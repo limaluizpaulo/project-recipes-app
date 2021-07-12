@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import logo from '../images/receitaDaVovo.png';
 
 const Login = () => {
   const [user, setUser] = React.useState(
@@ -36,38 +37,41 @@ const Login = () => {
   }
 
   return isRedirect ? <Redirect to="/comidas" /> : (
-    <form>
-      <label htmlFor="email">
-        <span>E-mail:</span>
+    <div className="tela-login">
+      <form className="form-login">
+        <img src={ logo } alt="" />
+        <label htmlFor="email">
+          <span>E-mail:</span>
         &nbsp;
-        <input
-          type="email"
-          name="email"
-          id="email"
-          data-testid="email-input"
-          onChange={ handlechange }
-        />
-      </label>
-      <label htmlFor="password">
-        <span>Senha:</span>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            data-testid="email-input"
+            onChange={ handlechange }
+          />
+        </label>
+        <label htmlFor="password">
+          <span>Senha:</span>
         &nbsp;
-        <input
-          type="password"
-          name="password"
-          id="password"
-          data-testid="password-input"
-          onChange={ handlechange }
-        />
-      </label>
-      <button
-        onClick={ setTokensNEmail }
-        disabled={ !(user.email && user.password) }
-        type="submit"
-        data-testid="login-submit-btn"
-      >
-        Entrar
-      </button>
-    </form>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            data-testid="password-input"
+            onChange={ handlechange }
+          />
+        </label>
+        <button
+          onClick={ setTokensNEmail }
+          disabled={ !(user.email && user.password) }
+          type="submit"
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
   );
 };
 

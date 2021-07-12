@@ -1,0 +1,41 @@
+body {
+  background-color: #f4a261;
+  color: #f7ecf7;
+  margin: 0;
+  padding: 0;
+}
+
+.tela-login {
+  background-color: #f1533e;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-login {
+  align-items: center;
+  color: #f7ecf7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+}
+
+.form-login > button {
+  background-color: #583e24;
+  border-color: #a5502d;
+  border-radius: 5px;
+  color: #f7ecf7;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.form-login > button:hover {
+  background-color: #a5502d;
+}
+
+.form-login > input {
+  background-color: #a5502d;
+}
