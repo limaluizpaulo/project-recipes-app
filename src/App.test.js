@@ -11,8 +11,8 @@ describe('Recipes APP', () => {
       <App />,
       {
         initialState: {
-          foodReducer: {},
-          drinkReducer: {},
+          food: {},
+          drink: {},
         },
       },
     );
@@ -29,8 +29,8 @@ describe('Recipes APP', () => {
       <App />,
       {
         initialState: {
-          foodReducer: {},
-          drinkReducer: {},
+          food: {},
+          drink: {},
         },
       },
     );
@@ -50,8 +50,8 @@ describe('Recipes APP', () => {
       <App />,
       {
         initialState: {
-          foodReducer: {},
-          drinkReducer: {},
+          food: {},
+          drink: {},
         },
       },
     );
