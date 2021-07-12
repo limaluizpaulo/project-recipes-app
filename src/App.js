@@ -14,25 +14,12 @@ import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
 import ExpIngredients from './components/ExpIngredients';
 import ExpArea from './components/ExpArea';
-import ExpSurprise from './components/ExpSurprise';
 
 function App() {
   return (
     <ProviderRecipes>
       {/* <div className="meals"> */}
       <Switch>
-        <Route
-          exact
-          path="/comidas/:id"
-          render={ (props) => <DetailsFoodPage { ...props } /> }
-        />
-        <Route
-          exact
-          path="/bebidas/:id"
-          render={ (props) => <DetailsDrinkPage { ...props } /> }
-        />
-        <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
-        <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
         <Route
           path="/explorar/comidas/ingredientes"
           render={ (props) => <ExpIngredients { ...props } /> }
@@ -43,19 +30,25 @@ function App() {
         />
         <Route
           path="/explorar/comidas/:id"
-          render={ (props) => <ExpSurprise { ...props } /> }
-        />
-        <Route
-          path="/explorar/comidas"
-          render={ (props) => <ExploreFoods { ...props } /> }
+          render={ (props) => <DetailsFoodPage { ...props } /> }
         />
         <Route
           path="/explorar/bebidas/ingredientes"
           render={ (props) => <ExpIngredients { ...props } /> }
         />
         <Route
-          path="/explorar/bebidas/:id"
-          render={ (props) => <ExpSurprise { ...props } /> }
+          exact
+          path="/comidas/:id"
+          render={ (props) => <DetailsFoodPage { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id"
+          render={ (props) => <DetailsDrinkPage { ...props } /> }
+        />
+        <Route
+          path="/explorar/comidas"
+          render={ (props) => <ExploreFoods { ...props } /> }
         />
         <Route
           path="/explorar/bebidas"
@@ -63,6 +56,8 @@ function App() {
         />
         <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
+        <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
       {/* </div> */}
