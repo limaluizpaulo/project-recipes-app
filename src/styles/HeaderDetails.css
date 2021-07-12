@@ -1,6 +1,5 @@
 .header-details {
   display: flex;
-  height: 4rem;
   justify-content: space-between;
   margin: 0.7rem 1rem 0;
   padding: 0 0.3rem;
@@ -25,12 +24,12 @@
   display: flex;
   height: 3rem;
   justify-content: space-around;
-  width: 5rem;
 }
 
 .share-like button {
   background: transparent;
   border: none;
+  margin-left: .5rem;
 }
 
 .instructions {

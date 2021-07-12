@@ -101,12 +101,14 @@ export default function RecipeDetails() {
             )}
           </div>
         </main>
+
       ) : (
         <ClipLoader
           size="120px"
           css="margin: 150px 130px"
         />
       )}
+
     </div>
   );
 }

@@ -49,7 +49,7 @@ export default function HeaderDetails({ recipe, pathname }) {
       )}
       <div className="header-details" data-testid="header-details">
         <div className="details-category-name">
-          <h4 data-testid="recipe-title">{strMeal || strDrink}</h4>
+          <h4 data-testid="recipe-title">{(strMeal || strDrink)}</h4>
           <p data-testid="recipe-category">
             {strMeal ? strCategory : strAlcoholic}
           </p>
