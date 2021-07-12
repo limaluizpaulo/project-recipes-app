@@ -9,7 +9,8 @@ function FetchProvider({ children }) {
   const [nameRecipes, setNameRecipes] = useState('');
   const [idRecip, setIdRecip] = useState('');
   const [categories, setCategories] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  // const [toggle, setToggle] = useState(true);
+  const [ingredient, setIngredient] = useState([]);
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
@@ -71,6 +72,8 @@ function FetchProvider({ children }) {
     }
   };
 
+  console.log('teste');
+
   const contextValue = {
     typeFunc,
     setTypeFunc,
@@ -84,10 +87,10 @@ function FetchProvider({ children }) {
     setNameRecipes,
     categories,
     setCategories,
-    toggle,
-    setToggle,
     idRecip,
     setIdRecip,
+    ingredient,
+    setIngredient,
   };
 
   return (
