@@ -35,4 +35,4 @@ export class teste extends Component {
   }
 }
 
-export default treste;
+export default teste;
