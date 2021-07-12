@@ -77,9 +77,45 @@ class Progresso extends Component {
   }
 
   handleFavClick() {
-    const { favIcon } = this.state;
-    // const { details } = this.props;
+    const { favIcon, id } = this.state;
+    const { details, match: { params: { page } } } = this.props;
     if (!favIcon) {
+
+      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const recipe = {
+        id,
+        type: page,
+        area: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: details.strDrinkAlternate,
+        name: details.strMeal,
+        image: details.strMealThumb,
+      };
+      // console.log(recovery.push(recipe));
+      console.log(recovery);
+      if (recovery === null) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([{
+          id,
+          type: page,
+          area: details.strArea,
+          category: details.strCategory,
+          alcoholicOrNot: details.strDrinkAlternate,
+          name: details.strMeal,
+          image: details.strMealThumb,
+        }]));
+      }
+      localStorage.setItem('favoriteRecipes', JSON.stringify({
+        ...recovery,
+        id,
+        type: page,
+        area: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: details.strDrinkAlternate,
+        name: details.strMeal,
+        image: details.strMealThumb,
+      }));
+      console.log(recipe);
+
       // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
       this.setState({
         favIconColor: blackHeartIcon,
@@ -175,11 +211,6 @@ class Progresso extends Component {
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
-
-  render() {
-    const { details, match: { params: { page, id } } } = this.props;
-    // console.log(page);
-
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
@@ -231,7 +262,6 @@ class Progresso extends Component {
               this.handleClick();
               this.saveDoneRecipes();
             } }
-            onClick={ this.handleClick }
             disabled={ isDisable }
           >
             Finalizar Receita
