@@ -1,0 +1,16 @@
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.explore-btn {
+  background-color: #2a9d8f;
+  border: 2px solid #264653;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  height: 40px;
+  margin-top: 10%;
+  width: 90%;
+}
