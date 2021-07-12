@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import ShareButtonDoneRecipes from './ShareButtonDoneRecipes';
-import shareIcon from '../images/shareIcon.svg';
 
 export default function BodyFavoriteRecipes({ index, history, each }) {
-  const [isCopied, setIsCopied] = useState([]);
   let AlcoholicAreaCategory;
   if (each.alcoholicOrNot.length > 0) {
     AlcoholicAreaCategory = each.alcoholicOrNot;
