@@ -20,8 +20,8 @@
 }
 
 .btn-start {
-  bottom: 0;
   border-radius: 10px;
+  bottom: 0;
   margin-left: 7rem;
   padding: 0.4rem 0.2rem;
   position: fixed;

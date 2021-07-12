@@ -1,7 +1,7 @@
 .navbar-header header {
   display: flex;
-  margin: 1rem auto;
   justify-content: space-between;
+  margin: 1rem auto;
   text-align: center;
   width: 85%;
 }
