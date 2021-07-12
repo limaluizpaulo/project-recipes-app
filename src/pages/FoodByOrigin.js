@@ -65,13 +65,11 @@ class FoodByOrigin extends React.Component {
         onChange={ (target) => this.onChangeSelect(target) }
       >
         <option data-testid="All-option"> All </option>
-        {respArea.map(({ strArea }, index) => {
-          return (
-            <option key={ index } data-testid={ `${strArea}-option` }>
-              { strArea }
-            </option>
-          );
-        })}
+        {respArea.map(({ strArea }, index) => (
+          <option key={ index } data-testid={ `${strArea}-option` }>
+            { strArea }
+          </option>
+        ))}
       </select>
     );
   }
