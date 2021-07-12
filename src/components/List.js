@@ -5,10 +5,10 @@ import IngredientsInProcess from './IngredientsInProcess';
 import IngredientsDetails from './IngredientsDetails';
 import '../styles/List.css';
 
-export default function List({ array, drinks }) {
+export default function List({ array, drinks, ingredientsUsed,
+  updateIngredientsUsed, idMeal }) {
   const history = useHistory();
   const { pathname } = history.location;
-
   function filterIngredients(arrayList) {
     const ingredients = Object.entries(arrayList)
       .filter((ingredient) => ingredient[0].includes('strIngredient'));
@@ -26,6 +26,9 @@ export default function List({ array, drinks }) {
                     index={ index }
                     element={ element }
                     measures={ measures }
+                    ingredientsUsed={ ingredientsUsed }
+                    updateIngredientsUsed={ updateIngredientsUsed }
+                    idMeal={ idMeal }
                   />)
                 : (
                   <IngredientsDetails

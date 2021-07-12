@@ -5,6 +5,18 @@ import { requestByDetailsDrink } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
 
+const returnArrayOfIngredients = (object) => {
+  const maxIngredients = 15;
+  const arrayOfIngredients = [];
+  for (let i = 1; i <= maxIngredients; i += 1) {
+    const ingredientToPush = `strIngredient${i}`;
+    if (object[ingredientToPush] !== null && object[ingredientToPush] !== '') {
+      arrayOfIngredients.push(object[ingredientToPush]);
+    }
+  }
+  return arrayOfIngredients;
+};
+
 function DrinkProcess() {
   const params = useParams();
   const [drink, setDrink] = useState([]);
@@ -13,6 +25,7 @@ function DrinkProcess() {
   const mes = String(data.getMonth() + 1).padStart(2, '0');
   const ano = data.getFullYear();
   const dataAtual = `${dia}/${mes}/${ano}`;
+  const { id: drinkId } = useParams();
 
   function doneStructure() {
     if (drink[0] !== undefined) {
@@ -40,6 +53,18 @@ function DrinkProcess() {
     }
   }
 
+  function returnIngredientsUsed() {
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inLocalStorage) return inLocalStorage.cocktails[drinkId];
+    return [];
+  }
+
+  const [ingredientsUsed, setIngredientsUsed] = useState(returnIngredientsUsed());
+
+  function updateIngredientsUsed() {
+    setIngredientsUsed(returnIngredientsUsed());
+  }
+
   function processDone(changeIcon) {
     let done = JSON.parse(localStorage.getItem('doneRecipes'));
     const doneElement = doneStructure();
@@ -56,7 +81,6 @@ function DrinkProcess() {
     };
     request();
   }, [params.id]);
-
   return (
     drink && (
       drink.map((
@@ -65,6 +89,7 @@ function DrinkProcess() {
         index,
       ) => {
         const drinks = rest;
+        const arrayOfIngredients = returnArrayOfIngredients(drinks);
         return (
           <div key={ index }>
             <img
@@ -81,7 +106,12 @@ function DrinkProcess() {
                 </div>
                 <Icons code={ drink[0] } />
               </section>
-              <List drinks={ drinks } />
+              <List
+                ingredientsUsed={ ingredientsUsed }
+                updateIngredientsUsed={ updateIngredientsUsed }
+                idMeal={ drinkId }
+                drinks={ drinks }
+              />
               <h2>Instructions</h2>
               <p
                 className="instructions"
@@ -96,6 +126,7 @@ function DrinkProcess() {
                 onClick={ processDone }
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
+                disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >
                 Finalizar Receita
               </button>

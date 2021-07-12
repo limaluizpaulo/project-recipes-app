@@ -5,6 +5,18 @@ import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
 import '../styles/global.css';
 
+const returnArrayOfIngredients = (object) => {
+  const maxIngredients = 20;
+  const arrayOfIngredients = [];
+  for (let i = 1; i <= maxIngredients; i += 1) {
+    const ingredientToPush = `strIngredient${i}`;
+    if (object[ingredientToPush] !== '' && object[ingredientToPush] !== null) {
+      arrayOfIngredients.push(object[ingredientToPush]);
+    }
+  }
+  return arrayOfIngredients;
+};
+
 function FoodProcess() {
   const params = useParams();
   const [item, setItem] = useState([]);
@@ -38,6 +50,20 @@ function FoodProcess() {
     }
   }
 
+  const { id } = useParams();
+
+  function returnIngredientsUsed() {
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inLocalStorage) return inLocalStorage.meals[id];
+    return [];
+  }
+
+  const [ingredientsUsed, setIngredientsUsed] = useState(returnIngredientsUsed());
+
+  function updateIngredientsUsed() {
+    setIngredientsUsed(returnIngredientsUsed());
+  }
+
   function processDone(changeIcon) {
     let done = JSON.parse(localStorage.getItem('doneRecipes'));
     const doneElement = doneStructure();
@@ -54,7 +80,6 @@ function FoodProcess() {
     };
     request();
   }, [params.id]);
-
   return (
     item && (
       item.map((
@@ -63,6 +88,9 @@ function FoodProcess() {
         index,
       ) => {
         const array = rest;
+        const arrayOfIngredients = returnArrayOfIngredients(array);
+        console.log(arrayOfIngredients);
+        console.log(ingredientsUsed);
         return (
           <div key={ index }>
             <img
@@ -79,7 +107,12 @@ function FoodProcess() {
                 </div>
                 <Icons code={ item[0] } />
               </section>
-              <List array={ array } />
+              <List
+                array={ array }
+                ingredientsUsed={ ingredientsUsed }
+                updateIngredientsUsed={ updateIngredientsUsed }
+                idMeal={ id }
+              />
               <h2>Instructions</h2>
               <p
                 className="instructions"
@@ -94,6 +127,7 @@ function FoodProcess() {
                 onClick={ processDone }
                 className="startRecipeBtn"
                 data-testid="finish-recipe-btn"
+                disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >
                 Finalizar Receita
               </button>
