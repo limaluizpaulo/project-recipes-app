@@ -1,19 +1,41 @@
-.header-container {
+.header-principal {
   align-items: center;
+  background-color: #a5502d;
+  border-bottom: 3px solid #72341a;
+  color: #f7ecf7;
   display: flex;
   justify-content: space-between;
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
-.header-container > button {
-  background-color: inherit;
-  border: none;
-}
-
-.header-container > h1 {
-  max-width: 180px;
+  padding: 0 10px;
   text-align: center;
+  width: 100vw;
+  z-index: 1;
+}
+
+.searchBar {
+  background-color: #a5502d;
+  padding: 5px;
+  text-align: center;
+}
+
+.barra-pesquisar {
+  margin-bottom: 5px;
+}
+
+.barra-pesquisar input {
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.barra-pesquisar button {
+  background-color: #f47766;
+  border: none;
+  border-radius: 5px;
+  margin: 1px;
+}
+
+.btn-radio {
+  align-items: center;
+  margin-right: 2px;
 }
 

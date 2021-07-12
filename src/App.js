@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router';
 import './App.css';
 import './styles/login.css';
 import './styles/foods.css';
+import './styles/Header.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Foods from './Pages/Foods';
@@ -20,6 +21,8 @@ import DrinkDetails from './Pages/DrinkDetails';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipesMade from './Pages/RecipesMade';
 import FoodInProgress from './Pages/FoodInProgress';
+import './styles/cards.css';
+import './styles/details.css';
 
 function App() {
   return (

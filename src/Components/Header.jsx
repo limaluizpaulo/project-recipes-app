@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-import '../styles/Header.css';
-
 export default function Header(props) {
   const { title, setSearchBar, searchBar } = props;
   return (
-    <header className="header-container">
+    <header className="header-principal">
       <div>
         <Link to="/perfil">
           <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />

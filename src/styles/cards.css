@@ -1,0 +1,25 @@
+.card-body {
+  border: 2px solid #a5502d;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.card-body img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-subtitle {
+  background-color: #a5502d;
+  bottom: 0;
+  color: #f7ecf7;
+  opacity: 0.7;
+  position: absolute;
+  width: 98%;
+}
+
+.card-subtitle:hover {
+  opacity: 1;
+}

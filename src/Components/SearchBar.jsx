@@ -47,9 +47,8 @@ function SearchBar(props) {
   return shouldRedirect ? <Redirect
     to={ `/${pageTitle}/${itemPage[0][itemID]}` }
   /> : (
-    <form>
-      <fieldset />
-      <label htmlFor="search">
+    <form className="searchBar">
+      <div className="barra-pesquisar">
         <input
           id="search"
           type="text"
@@ -58,14 +57,21 @@ function SearchBar(props) {
           placeholder="Buscar Receita"
           data-testid="search-input"
         />
-      </label>
-      {' '}
-      <br />
+
+        <button
+          type="submit"
+          data-testid="exec-search-btn"
+          onClick={ handleClick }
+        >
+          Busca
+        </button>
+      </div>
       &nbsp;
       <label htmlFor="ingredient">
         <input
           id="ingredient"
           type="radio"
+          className="btn-radio"
           ref={ ingredientRadio }
           name="radioFilter"
           data-testid="ingredient-search-radio"
@@ -77,6 +83,7 @@ function SearchBar(props) {
         <input
           id="name"
           type="radio"
+          className="btn-radio"
           ref={ nameRadio }
           name="radioFilter"
           data-testid="name-search-radio"
@@ -89,19 +96,14 @@ function SearchBar(props) {
           id="letter"
           type="radio"
           ref={ letterRadio }
+          className="btn-radio"
           name="radioFilter"
           data-testid="first-letter-search-radio"
         />
         Primeira letra
       </label>
       &nbsp;
-      <button
-        type="submit"
-        data-testid="exec-search-btn"
-        onClick={ handleClick }
-      >
-        Busca
-      </button>
+
     </form>
   );
 }
