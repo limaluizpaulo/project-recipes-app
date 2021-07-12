@@ -27,8 +27,7 @@ class Recipes extends Component {
   }
 
   async fetchs() {
-    const { recipes, categories } = this.props;
-    recipes();
+    const { categories } = this.props;
     categories();
   }
 

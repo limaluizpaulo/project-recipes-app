@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
-import { actionIngredientsRecipes } from '../actions';
+import { actionIngredientsRecipes, actionRecipesByIngredients } from '../actions';
+import CardIngredients from '../components/CardIngredients';
 
 class RecipesByIngredients extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      redirect: false,
+    };
+
     this.fetch = this.fetch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.fetch();
+  }
+
+  handleClick(ingredient) {
+    const { recipesByIng } = this.props;
+    recipesByIng(ingredient);
+    this.setState({ redirect: true });
   }
 
   fetch() {
@@ -22,23 +35,23 @@ class RecipesByIngredients extends Component {
   }
 
   render() {
+    const { redirect } = this.state;
     const { listIngredients } = this.props;
     if (!listIngredients) return <p>Loading...</p>;
+    if (redirect) return <Redirect to="/comidas" />;
     console.log(listIngredients);
     return (
       <div>
         <Header header="Explorar Ingredientes" />
         <h2> Recipes By Ingredients</h2>
         {listIngredients.map(({ strIngredient }, index) => (
-          <div key={ index } data-testid={ `${index}-ingredient-card` }>
-            <img
-              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-              alt={ strIngredient }
-              data-testid={ `${index}-card-img` }
-              width="30px"
-            />
-            <p data-testid={ `${index}-card-name` }>{strIngredient}</p>
-          </div>
+          <button
+            key={ index }
+            type="button"
+            onClick={ () => this.handleClick(strIngredient) }
+          >
+            <CardIngredients ingredient={ strIngredient } index={ index } />
+          </button>
         ))}
         <DownMenu />
       </div>
@@ -48,6 +61,7 @@ class RecipesByIngredients extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   ingredients: () => dispatch(actionIngredientsRecipes()),
+  recipesByIng: (ingredientes) => dispatch(actionRecipesByIngredients(ingredientes)),
 });
 
 const mapStateToProps = (state) => ({
@@ -56,6 +70,7 @@ const mapStateToProps = (state) => ({
 
 RecipesByIngredients.propTypes = {
   ingredients: PropTypes.func.isRequired,
+  recipesByIng: PropTypes.func.isRequired,
   listIngredients: PropTypes.arrayOf().isRequired,
 };
 
