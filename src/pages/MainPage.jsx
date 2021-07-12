@@ -12,12 +12,15 @@ import CardDrink from '../components/CardDrink';
 
 function MainPage() {
   const { pathname } = useLocation();
-  const { setResponseApiLupaMeal, setResponseApiLupaDrink,
+  const { responseApiLupaMeal, setResponseApiLupaMeal,
+    resposeApiLupaDrink, setResponseApiLupaDrink,
   } = useContext(RecipesContext);
 
   const getApiAll = () => {
-    fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
-    fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
+    if (responseApiLupaMeal.length === 0 || resposeApiLupaDrink.length === 0) {
+      fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
+      fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
+    }
   };
 
   useEffect(getApiAll, []);

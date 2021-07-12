@@ -51,6 +51,6 @@ export const fetchRandomDrink = async () => {
 export const fetchDrinksIngredients = async () => {
   const allIngredients = await
   fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
-  const { Ingredients } = await allIngredients.json();
-  return Ingredients;
+  const { drinks } = await allIngredients.json();
+  return drinks;
 };
