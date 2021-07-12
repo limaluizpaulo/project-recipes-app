@@ -680,28 +680,6 @@ justify-items: center;
   color: #FFFF;
 }
 
-
-
-/* .titleButtons {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.titleButtons h1 {
-  margin-right: 50px;
-}
-
-.titleButtons button {
-  margin-left: 2px;
-  cursor: pointer;
-}
-
-.likeShareBtns {
-  display: flex;
-  justify-content: space-around;
-} */
-
 /*  ====================================================================================================================================*/
 
 /* SHAREBUTTONS COMPONENT ===========================================================================================================*/
