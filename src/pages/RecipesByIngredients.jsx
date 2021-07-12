@@ -50,7 +50,7 @@ class RecipesByIngredients extends Component {
             type="button"
             onClick={ () => this.handleClick(strIngredient) }
           >
-            <CardIngredients ingredient={ strIngredient } index={ index } />
+            <CardIngredients type="comida" ingredient={ strIngredient } index={ index } />
           </button>
         ))}
         <DownMenu />

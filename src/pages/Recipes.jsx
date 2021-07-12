@@ -27,8 +27,9 @@ class Recipes extends Component {
   }
 
   async fetchs() {
-    const { categories } = this.props;
+    const { categories, listRecipes, recipes } = this.props;
     categories();
+    if (listRecipes.length === 0) return recipes();
   }
 
   async fetchRecipesCategory(category) {
@@ -59,7 +60,8 @@ class Recipes extends Component {
 
   render() {
     const { filter } = this.state;
-    const { listRecipes, listCategories, listByCategory } = this.props;
+    const { listRecipes, listCategories, listByCategory, recipes } = this.props;
+    if (!listRecipes) return recipes();
     if (!listRecipes || !listCategories) return (<h3>Loading...</h3>); // OBS possível bug
     if (listRecipes.length === 1) {
       return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;

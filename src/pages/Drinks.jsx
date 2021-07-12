@@ -27,9 +27,9 @@ class Drinks extends Component {
   }
 
   fetchs() {
-    const { drinks, categories } = this.props;
-    drinks();
+    const { categories, listDrinks, drinks } = this.props;
     categories();
+    if (listDrinks.length === 0) return drinks();
   }
 
   async fetchDrinksCategory(category) {

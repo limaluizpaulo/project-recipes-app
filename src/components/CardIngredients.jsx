@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 class CardIngredients extends Component {
   render() {
-    const { ingredient, index } = this.props;
+    const { ingredient, index, type } = this.props;
     return (
-      <div key={ index } data-testid={ `${index}-ingredient-card` }>
+      <div data-testid={ `${index}-ingredient-card` }>
         <img
-          src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
+          src={ type === 'comida'
+            ? `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`
+            : `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
           alt={ ingredient }
           data-testid={ `${index}-card-img` }
           width="30px"
@@ -21,6 +23,7 @@ class CardIngredients extends Component {
 CardIngredients.propTypes = {
   ingredient: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default CardIngredients;

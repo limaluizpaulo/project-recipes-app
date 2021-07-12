@@ -4,7 +4,8 @@ import { getRecipes, getDrinks, getRecipesByIngredients,
   getRecipesByFirstLetter, getDrinksByFirstLetter,
   getCategoriesRecipes, getCategoriesDrinks,
   getRecipesByCategories, getDrinksByCategories,
-  getIngredientsRecipes } from '../services/api';
+  getIngredientsRecipes,
+  getIngredientsDrinks } from '../services/api';
 
 export const actionSaveUser = (email) => ({
   type: SAVE_USER,
@@ -151,6 +152,16 @@ export const actionIngredientsRecipes = () => (dispatch) => (
   getIngredientsRecipes()
     .then((data) => dispatch({
       type: 'INGREDIENTS_RECIPES',
+      payload: {
+        data,
+      },
+    }))
+);
+
+export const actionIngredientsDrinks = () => (dispatch) => (
+  getIngredientsDrinks()
+    .then((data) => dispatch({
+      type: 'INGREDIENTS_DRINKS',
       payload: {
         data,
       },
