@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { arrayOf, func, shape, string } from 'prop-types';
-import { addIngredients, getIngredients } from '../../services/localStorage';
+import { addIngredients, getIngredients,
+  removeIngredient } from '../../services/localStorage';
 
 function Ingredientes({ listaIngredientes, getIngredientsParams, setIsComplete }) {
-  const [ingredientesEmProgresso, setIngredientesEmProgresso] = useState([]);
-
-  const handleChange = ({ target: { checked, name } }) => {
-    if (checked) {
-      setIngredientesEmProgresso([...ingredientesEmProgresso, name]);
-    } else {
-      setIngredientesEmProgresso(ingredientesEmProgresso.filter(
-        (ingrediente) => ingrediente !== name,
-      ));
-    }
-  };
+  const { apelidoAPI, id } = getIngredientsParams;
+  const ingredientesSalvos = getIngredients(apelidoAPI, id);
+  const [ingredientesMarcados, setIngredientesMarcados] = useState(null);
 
   useEffect(() => {
-    const { apelidoAPI, id } = getIngredientsParams;
-    const ingredientesSalvos = getIngredients(apelidoAPI, id);
-    if (ingredientesSalvos) {
-      setIngredientesEmProgresso(ingredientesSalvos);
+    if (!ingredientesSalvos.length) {
+      setIngredientesMarcados(0);
     }
   }, []);
 
   useEffect(() => {
-    const { apelidoAPI, id } = getIngredientsParams;
-    addIngredients(apelidoAPI, id, ingredientesEmProgresso);
-    if (ingredientesEmProgresso.length === listaIngredientes.length) {
+    if (ingredientesMarcados === listaIngredientes.length) {
       setIsComplete(true);
+    } else {
+      setIsComplete(false);
     }
-  }, [ingredientesEmProgresso]);
+  }, [ingredientesMarcados]);
+
+  const handleChange = ({ target: { checked, name } }) => {
+    if (checked) {
+      addIngredients(apelidoAPI, id, name);
+      setIngredientesMarcados(ingredientesMarcados + 1);
+    } else {
+      removeIngredient(apelidoAPI, id, name);
+      setIngredientesMarcados(ingredientesMarcados - 1);
+    }
+  };
 
   return (
     <>
@@ -45,7 +46,7 @@ function Ingredientes({ listaIngredientes, getIngredientsParams, setIsComplete }
               name={ nome }
               value={ nome }
               onChange={ handleChange }
-              checked={ ingredientesEmProgresso.includes(nome) }
+              checked={ ingredientesSalvos.includes(nome) }
             />
             { `${medida} ${nome}` }
           </label>

@@ -96,12 +96,12 @@ body {
   display: flex;
   flex-direction: row;
   height: 10%;
-  padding: 1% 10%;
   margin-bottom: 3%;
+  padding: 1% 10%;
 }
 
-H2 {
-  margin: 10px
+h2 {
+  margin: 10px;
 }
 
 h4 {
@@ -116,6 +116,7 @@ h5 {
   margin: 20%;
   padding: 10% 10% 1% 1%;
 }
+
 
 .email-input {
   margin: 1% 1% 1% 25%;
@@ -155,8 +156,9 @@ h5 {
 .preparo {
   align-self: center;
   border-style: double;
-  padding: 2%;
   margin: 2%;
+  padding: 2%;
+
 }
 
 .salvarcompartilhar {
@@ -177,7 +179,6 @@ h5 {
 }
 
 .iniciarbtn {
-  color: rgb(194, 10, 47);
   background-color: rgb(251, 228, 170);
   border-style: groove;
   opacity: 50%;
