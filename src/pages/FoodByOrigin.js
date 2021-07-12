@@ -73,6 +73,7 @@ class FoodByOrigin extends React.Component {
   }
 
   renderCards() {
+    console.log(nada);
     const { respAPI } = this.state;
     const maxNumberOfCards = 11;
     if (respAPI !== null) {
