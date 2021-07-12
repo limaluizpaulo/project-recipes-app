@@ -4,17 +4,18 @@ function useRecipeDetail({
   idRecipe, typeRecipe,
   fetchRecipeIDFood,
   fetchRecipeIDrinks, fetchRecipeAllFood, fetchRecipeAllDrink, setLeng,
-  setList, setReco, setButton, objectStart, arrayFavorite, setFavorite }) {
+  setList, setReco, arrayFavorite, setFavorite, setButton, objectStart }) {
   useEffect(() => {
     const func = async (api) => {
       const fun = await api(idRecipe);
       const type = Object.keys(fun)[0];
       const lista = fun[type];
-      console.log(lista);
       const ingret = Object.keys(
         lista[0],
       ).filter((element) => element.includes('strIngredient'));
-      setLeng(ingret);
+      const ingretF = ingret.filter((element) => lista[0][element] !== null);
+      const ingretFinal = ingretF.filter((element) => lista[0][element] !== '');
+      setLeng(ingretFinal);
       setList(lista[0]);
     };
 

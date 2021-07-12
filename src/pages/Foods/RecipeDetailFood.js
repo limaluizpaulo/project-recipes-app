@@ -4,7 +4,6 @@ import RecipeDetail from '../../components/RecipeDetail';
 
 function RecipeDetailFood({ match: { params: { id },
 } }) {
-  console.log(id);
   return (
     <RecipeDetail idRecipe={ id } typeRecipe="food" />
   );

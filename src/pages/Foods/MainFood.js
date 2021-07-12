@@ -26,7 +26,7 @@ export default function MainFood(match) {
     };
 
     func();
-  }, []);
+  }, [match.location.ingredient]);
 
   return (
     <div

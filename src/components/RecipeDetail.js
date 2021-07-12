@@ -134,7 +134,8 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
           leng,
           typeRecipe,
           idRecipe,
-          history }) }
+          history,
+          list }) }
         className="start-recipe"
         type="button"
         value={ button }
