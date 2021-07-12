@@ -22,6 +22,7 @@ export default function Header({ pageName }) { // Desestruturação de props
           data-testid="profile-top-btn"
           src={ profileIcon }
           alt="perfil"
+          title="Perfil"
         />
         <h1
           data-testid="page-title"
@@ -31,6 +32,7 @@ export default function Header({ pageName }) { // Desestruturação de props
         <div>
           <input
             className="search"
+            title="Pesquisar"
             type="image"
             onClick={ () => setBar(!showSearchBar) }
             data-testid="search-top-btn"
