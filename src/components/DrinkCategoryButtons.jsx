@@ -3,7 +3,8 @@ import ContextRecipes from '../context/contextRecipes';
 
 function DrinkCategoryButtons() {
   const { setDrinks,
-    drinkCategoryName, setDrinkCategoryName } = useContext(ContextRecipes);
+    drinkCategoryName, setDrinkCategoryName, setToggleFood,
+    toggleFood } = useContext(ContextRecipes);
   const maxLength = 4;
 
   const fetchDrinkCategories = (category) => {
@@ -14,7 +15,22 @@ function DrinkCategoryButtons() {
       .catch((error) => console.log(error));
   };
 
-  const handleClick = (category) => fetchDrinkCategories(category);
+  const fetchDrinkRecipes = () => {
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setDrinks(results.drinks)));
+  };
+
+  const handleClick = (category) => {
+    if (toggleFood === false) {
+      fetchDrinkCategories(category);
+      setToggleFood(true);
+    } else {
+      setToggleFood(false);
+      fetchDrinkRecipes();
+    }
+  };
 
   const fetchDrinkCategoryName = () => {
     const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -25,11 +41,21 @@ function DrinkCategoryButtons() {
 
   useEffect(() => {
     fetchDrinkCategoryName();
-  }, []);
+  });
+
+  const handleClickAll = () => {
+    fetchDrinkRecipes();
+  };
 
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ handleClickAll }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {drinkCategoryName.map(({ strCategory }, index) => index <= maxLength && (
         <button
           key={ index }
