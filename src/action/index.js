@@ -46,8 +46,8 @@ export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
-export const startRecipe = () => ({
-  type: START_RECIPE, isStart: true });
+export const startRecipe = (boolean) => ({
+  type: START_RECIPE, isStart: boolean });
 export const checkPage = (bool) => ({
   type: CHECK_PAGE, isDrink: bool });
 

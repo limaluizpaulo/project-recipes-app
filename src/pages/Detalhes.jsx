@@ -66,7 +66,7 @@ class Detalhes extends Component {
   onClick() {
     const { isStart, history, match: { params: { page, id } } } = this.props;
     history.push(`/${page}/${id}/in-progress`);
-    isStart();
+    isStart(true);
   }
 
   instrutionVideo(data) {
@@ -196,7 +196,7 @@ class Detalhes extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  isStart: () => dispatch(startRecipe()),
+  isStart: (e) => dispatch(startRecipe(e)),
   drinksDetails: (id) => dispatch(fetchDrinkDetails(id)),
   foodDetails: (id) => dispatch(fetchFoodDetails(id)),
   reboot: (e) => dispatch(getFoodDetails(e)),
