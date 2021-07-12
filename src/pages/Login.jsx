@@ -46,6 +46,7 @@ function Login() {
         <label htmlFor="email-input">
           <input
             id="email-input"
+            className="email-input"
             type="email"
             name="email"
             data-testid="email-input"
@@ -56,6 +57,7 @@ function Login() {
         <label htmlFor="password-input">
           <input
             placeholder="Senha"
+            className="password-input"
             id="password-input"
             type="password"
             name="password"
