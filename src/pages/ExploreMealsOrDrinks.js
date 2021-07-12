@@ -7,13 +7,15 @@ import Header from '../components/Header';
 import { getRandomRecipe } from '../services/apiRequest';
 
 function ExploreFoods() {
+  const { path } = useRouteMatch();
+  const history = useHistory();
+
   const [verifyPath, setVerifyPath] = useState(true);
   const [idRandom, setIdRandom] = useState('');
-  const { path } = useRouteMatch();
-  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
-  const secondKey = path.includes('comidas') ? 'idMeal' : 'idDrink';
-  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
-  const history = useHistory();
+
+  const [domain, firstKey, secondKey] = path.includes('comidas')
+    ? ['themealdb', 'meals', 'idMeal']
+    : ['thecocktaildb', 'drinks', 'idDrink'];
 
   useEffect(() => {
     setVerifyPath(path.includes('comidas'));

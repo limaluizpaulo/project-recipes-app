@@ -16,9 +16,9 @@ const FIVE = 5;
 export default function MainPage() {
   const { path } = useRouteMatch();
 
-  const searchId = path.includes('comidas') ? 'idMeal' : 'idDrink';
-  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
+  const [searchId, firstKey, domain] = path.includes('comidas')
+    ? ['idMeal', 'meals', 'themealdb']
+    : ['idDrink', 'drinks', 'thecocktaildb'];
 
   const {
     searchResult,

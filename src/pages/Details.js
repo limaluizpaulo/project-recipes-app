@@ -7,31 +7,26 @@ import { saveFavoriteRecipe } from '../storage/localStorage';
 
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { getDataById, getRandomData } from '../services/apiRequest';
 
 const SIX = 6;
 
 export default function Details() {
+  const history = useHistory();
   const { path } = useRouteMatch();
   const { id } = useParams();
 
-  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
-  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
-
-  const recDomain = path.includes('comidas')
-    ? 'thecocktaildb' : 'themealdb';
-  const recFirstKey = path.includes('comidas')
-    ? 'drinks' : 'meals';
-
-  const history = useHistory();
+  const [domain, firstKey, imgSrc, title, recDomain, recFirstKey] = path
+    .includes('comidas')
+    ? ['themealdb', 'meals', 'strMealThumb', 'strMeal', 'thecocktaildb', 'drinks']
+    : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink', 'themealdb', 'meals'];
 
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
-
-  const imgSrc = path.includes('comidas') ? 'strMealThumb' : 'strDrinkThumb';
-  const title = path.includes('comidas') ? 'strMeal' : 'strDrink';
+  const [favorit, setFavorit] = useState({ status: false, img: whiteHeartIcon });
 
   useEffect(() => {
     async function getRecipeDetails() {
@@ -60,7 +55,10 @@ export default function Details() {
   }
 
   function handleFavorite() {
+    setFavorit({ status: !favorit.status,
+      img: favorit.img === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon });
     saveFavoriteRecipe(id, path, singleContent[0])(title, imgSrc);
+    // saveFavoritRecipes(path, singleContent[0], favorit.status);
   }
 
   function handleRecipeInProgress() {
@@ -70,6 +68,7 @@ export default function Details() {
   if (!singleContent[0]) return <h1>Loading...</h1>;
   if (singleContent[0]) {
     const { strAlcoholic, strCategory, strInstructions, strYoutube } = singleContent[0];
+    const { img } = favorit;
     return (
       <>
         <img
@@ -93,7 +92,7 @@ export default function Details() {
             <img data-testid="share-btn" src={ shareIcon } alt="" />
           </Button>
           <Button onClick={ handleFavorite }>
-            <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+            <img data-testid="favorite-btn" src={ img } alt="" />
           </Button>
         </div>
         <div className="ingredients-container">

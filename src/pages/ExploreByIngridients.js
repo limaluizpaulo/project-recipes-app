@@ -13,10 +13,9 @@ export default function ExploreByIngridients() {
 
   const { path } = useRouteMatch();
 
-  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
-  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
-  const secondKey = path.includes('comidas') ? 'strIngredient' : 'strIngredient1';
-  const homePath = path.includes('comidas') ? '/comidas' : '/bebidas';
+  const [domain, firstKey, secondKey, homePath] = path.includes('comidas')
+    ? ['themealdb', 'meals', 'strIngredient', '/comidas']
+    : ['thecocktaildb', 'drinks', 'strIngredient1', '/bebidas'];
 
   useEffect(() => {
     getDataIngredientsList(domain).then((result) => {
@@ -25,7 +24,6 @@ export default function ExploreByIngridients() {
   }, [domain, firstKey, limit]);
 
   const handleClick = (ingredient) => {
-    console.log(ingredient.replace('_', ' '));
     setIngredientsResults(ingredient.replace('_', ' '));
   };
 

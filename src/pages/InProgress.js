@@ -19,11 +19,9 @@ export default function InProgress() {
   const [renderer, setRenderer] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
 
-  const domain = path.includes('comidas') ? 'themealdb' : 'thecocktaildb';
-  const firstKey = path.includes('comidas') ? 'meals' : 'drinks';
-
-  const imgSrc = path.includes('comidas') ? 'strMealThumb' : 'strDrinkThumb';
-  const title = path.includes('comidas') ? 'strMeal' : 'strDrink';
+  const [domain, firstKey, imgSrc, title] = path.includes('comidas')
+    ? ['themealdb', 'meals', 'strMealThumb', 'strMeal']
+    : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink'];
 
   useEffect(() => {
     async function getApiData() {
