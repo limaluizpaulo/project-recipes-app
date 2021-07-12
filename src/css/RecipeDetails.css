@@ -10,7 +10,7 @@
   line-height: 1em;
   margin: 1px;
   position: fixed;
-  width: 120px;
+  width: 100%;
 }
 
 .recipe-details img {
@@ -20,12 +20,12 @@
 
 .recipe-details-titles {
   display: flex;
+  width: 90%;
 }
 
 .recipe-details-titles h1 {
   line-height: 1em;
   margin-left: 20px;
-  margin-right: 120px;
 }
 
 .recipe-details-subtitles {

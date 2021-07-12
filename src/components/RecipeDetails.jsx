@@ -109,8 +109,6 @@ class RecipeDetails extends React.Component {
   }
 
   renderPage(recipeDetails) {
-    // Source https://developers.google.com/youtube/player_parameters?hl=pt-br
-    const video = recipeDetails[0].strYoutube.replace('watch?v=', 'embed/');
     const { title, recipes, btnVisible, btnMessage } = this.props;
     const { copied, favorite } = this.state;
     return (
@@ -172,7 +170,8 @@ class RecipeDetails extends React.Component {
               <iframe
                 data-testid="video"
                 title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-                src={ video }
+                // Source https://developers.google.com/youtube/player_parameters?hl=pt-br
+                src={ recipeDetails[0].strYoutube.replace('watch?v=', 'embed/') }
               />
             </div>)}
         {this.renderRecommendedCard(recipes)}
