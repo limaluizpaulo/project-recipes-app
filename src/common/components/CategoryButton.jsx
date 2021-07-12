@@ -56,7 +56,7 @@ export default function CategoryButton({ clickCategory, foodOrDrink, setState,
 }
 
 CategoryButton.propTypes = {
-  clickCategory: PropTypes.func.isRequired,
+  clickCategory: PropTypes.func,
   clickAll: PropTypes.func.isRequired,
   foodOrDrink: PropTypes.func,
   setState: PropTypes.func,
@@ -64,6 +64,7 @@ CategoryButton.propTypes = {
 };
 
 CategoryButton.defaultProps = {
+  clickCategory: undefined,
   foodOrDrink: () => console.log('nothing to do!'),
   setState: () => console.log('no state to set'),
   path: '',

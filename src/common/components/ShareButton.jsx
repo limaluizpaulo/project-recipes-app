@@ -40,7 +40,7 @@ export default function ShareButton({ id, type, index, path }) { // desestrutura
 }
 
 ShareButton.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   type: PropTypes.string,
   path: PropTypes.bool,
   index: PropTypes.number,

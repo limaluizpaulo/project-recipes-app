@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 import LikeButton from './LikeButton';
+import store, { setLoading } from '../../context/store';
 
 import { mealInfo, drinkInfo } from '../../functions';
 
 export default function FavoriteRecipeCard({ recipe, index,
   handleLikeClick }) { // descontrução de props
+  const { setRecipes } = useContext(store);
+
   const {
     id,
     type,
@@ -18,10 +21,12 @@ export default function FavoriteRecipeCard({ recipe, index,
     image,
   } = recipe;
 
-  console.log(handleLikeClick);
   return (
     <div>
-      <Link to={ `/${type}s/${id}` }>
+      <Link
+        to={ `/${type}s/${id}` }
+        onClick={ () => setRecipes(setLoading(true)) }
+      >
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ image }
@@ -49,8 +54,15 @@ export default function FavoriteRecipeCard({ recipe, index,
 }
 
 FavoriteRecipeCard.propTypes = {
-  recipe: PropTypes.shape.isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    area: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
   index: PropTypes.number.isRequired,
-  // setFavorited: PropTypes.func.isRequired,
   handleLikeClick: PropTypes.func.isRequired,
 };
