@@ -87,7 +87,6 @@ describe('77 -  Redireciona a pessoa usuária ao clicar no card do ingrediente, 
     });
 
     cy.get('[data-testid="0-ingredient-card"]').click();
-
     mealsByIngredientMock.meals.slice(0, 12).forEach((meal, index) => {
       cy.get(`[data-testid="${index}-recipe-card"]`);
 
