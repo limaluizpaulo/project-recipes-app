@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ClipboardJS from 'clipboard';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setProgressItem } from '../services/services';
 import { GetRecipesDetails, getDrinks } from '../redux/actions';
 import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
@@ -11,22 +14,23 @@ import Favorite from '../images/whiteHeartIcon.svg';
 import '../styles/Card.css';
 
 const DrinkDetails = (props) => {
+  const clipboard = new ClipboardJS('.share');
   const { match: { params: { id } } } = props;
   const [item, setItem] = useState({});
+  const [isCopy, setIsCopy] = useState(false);
   const [loading, setLoading] = useState(true);
+  const inProgressItems = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  const inProgressItemsIDs = Object.keys(inProgressItems.cocktails || {});
   const {
     drinkId,
-    getDrinkId,
     drink,
     redirect,
   } = props;
-  console.log(drink);
   async function resultDrink() {
     const listRecomendations = await MealRecipesAPI.getByDefault();
-    await getDrinkId(id, BeverageAPI.getDrinkById);
+    await BeverageAPI.getDrinkById(id);
     setItem({ listRecomendations });
   }
-  // const recomendationsList = item.listRecomendations;
   useEffect(() => {
     if (loading) {
       drinkId(id)
@@ -35,16 +39,26 @@ const DrinkDetails = (props) => {
     }
   }, []);
 
+  useEffect(() => () => clipboard.destroy(), []);
+
+  function copyLink() {
+    setIsCopy(true);
+  }
+
   return !redirect ? <h3>Loading</h3>
     : (
       <div className="card-details">
         { drink.map((drinkItem, index) => (
-          <>
+          <React.Fragment key={ index }>
+
             <button
               type="button"
               data-testid="share-btn"
+              className="share"
+              data-clipboard-text={ window.location.href }
+              onClick={ copyLink }
             >
-              <img alt="share-btn" src={ Share } />
+              {isCopy ? 'Link copiado!' : <img alt="share-btn" src={ Share } />}
             </button>
             <button
               type="button"
@@ -53,11 +67,10 @@ const DrinkDetails = (props) => {
               <img alt="favorite-btn" src={ Favorite } />
             </button>
             <img
-              key={ index }
               data-testid="recipe-photo"
               src={ drinkItem.strDrinkThumb }
               alt="drink"
-              width="300"
+              width="100"
             />
             <h3 data-testid="recipe-title">{drinkItem.strDrink}</h3>
             <h6 data-testid="recipe-category">{drinkItem.strAlcoholic}</h6>
@@ -76,7 +89,7 @@ const DrinkDetails = (props) => {
               }
             </ul>
             <p data-testid="instructions">{drinkItem.strInstructions}</p>
-            <iframe
+            {/* <iframe
               width="560"
               height="315"
               src={ drinkItem.strVideo }
@@ -85,9 +98,21 @@ const DrinkDetails = (props) => {
               allow="accelerometer; autoplay;
               clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            />
+            /> */}
             <CarroselComidas recomendations={ item.listRecomendations || [] } />
-          </>
+            <Link to={ `/bebidas/${id}/in-progress` }>
+              <button
+                className="start"
+                type="button"
+                data-testid="start-recipe-btn"
+                onClick={ () => setProgressItem(id, 'cocktails') }
+              >
+                {inProgressItemsIDs.includes(id)
+                  ? 'Continuar Receita' : 'Iniciar Receita'}
+              </button>
+            </Link>
+          </React.Fragment>
+
         ))}
       </div>
     );
