@@ -47,52 +47,48 @@ class Login extends React.Component {
   }
 
   render() {
-    // const { disabled, email } = this.state;
     const { disabled } = this.state;
-    // const { adicionarUsuarioState } = this.props
     return (
-      <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            name="email"
-            type="email"
-            placeholder="Digite seu email"
-            data-testid="email-input"
-            onChange={ this.handleChange }
-          />
-        </Form.Group>
+      <div className="login-background">
+        <h1> Recipes App</h1>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              name="email"
+              type="email"
+              placeholder="Digite seu email"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
-            name="password"
-            type="password"
-            placeholder="Digite sua senha"
-            data-testid="password-input"
-            onChange={ this.handleChange }
-          />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ disabled }
-          onClick={ this.onClickSubmit }
-        >
-          Entrar
-        </Button>
-      </Form>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control
+              name="password"
+              type="password"
+              placeholder="Digite sua senha"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+            />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ disabled }
+            onClick={ this.onClickSubmit }
+          >
+            Entrar
+          </Button>
+        </Form>
+      </div>
     );
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   adicionarUsuarioState: (email) => dispatch(adicionarUsuario(email)),
-// });
-
 Login.propTypes = {
-  // adicionarUsuarioState: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
