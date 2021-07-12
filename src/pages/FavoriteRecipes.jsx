@@ -66,7 +66,6 @@ class FavoriteRecipes extends Component {
 
   render() {
     const { favoriteRecipes, linkCopiado } = this.state;
-
     return (
       <div className="page-favorite-recipes">
         <Header header="Receitas Favoritas" />
@@ -95,7 +94,7 @@ class FavoriteRecipes extends Component {
             </button>
           </div>
           <div className="box-favorite-recipes">
-            {favoriteRecipes.map((recipe, index) => {
+            {favoriteRecipes && favoriteRecipes.map((recipe, index) => {
               if (recipe.type === 'comida') {
                 return (
                   <div key={ recipe.id } className="favorite-recipe">
