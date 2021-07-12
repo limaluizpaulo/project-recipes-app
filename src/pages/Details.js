@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
-import Card from '../components/Card';
+import CardRecomendation from '../components/CardRecomendation';
 import VideoPlayer from '../components/VideoPlayer';
 import { saveFavoriteRecipe } from '../storage/localStorage';
+import '../styles/details.css';
 
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -26,7 +27,7 @@ export default function Details() {
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
-  const [favorit, setFavorit] = useState({ status: false, img: whiteHeartIcon });
+  const [favorit, setFavorit] = useState({ status: false, imagem: whiteHeartIcon });
 
   useEffect(() => {
     async function getRecipeDetails() {
@@ -56,7 +57,7 @@ export default function Details() {
 
   function handleFavorite() {
     setFavorit({ status: !favorit.status,
-      img: favorit.img === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon });
+      imagem: favorit.imagem === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon });
     saveFavoriteRecipe(path, singleContent[0]);
     // saveFavoritRecipes(path, singleContent[0], favorit.status);
   }
@@ -66,9 +67,9 @@ export default function Details() {
   }
 
   if (!singleContent[0]) return <h1>Loading...</h1>;
-  if (singleContent[0]) {
+  if (singleContent[0] && recomendations) {
     const { strAlcoholic, strCategory, strInstructions, strYoutube } = singleContent[0];
-    const { img } = favorit;
+    const { imagem } = favorit;
     return (
       <>
         <img
@@ -92,7 +93,7 @@ export default function Details() {
             <img data-testid="share-btn" src={ shareIcon } alt="" />
           </Button>
           <Button onClick={ handleFavorite }>
-            <img data-testid="favorite-btn" src={ img } alt="" />
+            <img data-testid="favorite-btn" src={ imagem } alt="" />
           </Button>
         </div>
         <div className="ingredients-container">
@@ -121,7 +122,7 @@ export default function Details() {
         </div>
         <div className="recomendations-container">
           { recomendations.map((item, i) => (
-            <Card
+            <CardRecomendation
               key={ i }
               mealOrDrink={ item }
               index={ i }
@@ -131,6 +132,7 @@ export default function Details() {
         </div>
 
         <Button
+          className="start-recipe-btn"
           onClick={ handleRecipeInProgress }
           data-testid="start-recipe-btn"
         >
