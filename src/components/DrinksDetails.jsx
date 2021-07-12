@@ -15,7 +15,7 @@ export default function DrinksDetails() {
   const { stateDrink, setStateDrink } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
-  // const [setChekButtonState] = useState(true);
+  const [checkButtonstate, setChekButtonState] = useState(false);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateDrink[0]);
@@ -67,20 +67,14 @@ export default function DrinksDetails() {
   useEffect(filterDetails, [stateDrink]);
   const { strDrinkThumb, strDrink, strInstructions,
     strAlcoholic, idDrink } = stateDrink[0];
-  // const checkButton = () => {
-  //   const url = pathname.split('/')[2];
-  //   const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   let checkrecipesDone = [];
-  //   if (recipesDone === null) {
-  //     checkrecipesDone = [];
-  //   } else {
-  //     checkrecipesDone = recipesDone;
-  //     const checkedButton = checkrecipesDone.some((e) => e.id === url);
-  //     setChekButtonState(checkedButton);
-  //     console.log(checkedButton);
-  //   }
-  // };
-  // useEffect(checkButton, []);
+  const checkButton = () => {
+    const url = pathname.split('/')[2];
+    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+    const keysCocktais = Object.keys(cocktails);
+    const checkKeys = keysCocktais.includes(url);
+    setChekButtonState(checkKeys);
+  };
+  useEffect(checkButton, []);
   return (
     <div>
       <img
@@ -140,7 +134,7 @@ export default function DrinksDetails() {
           clad
           className="iniciarReceita"
         >
-          Iniciar Receita
+          {checkButtonstate ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
         )
       </Link>

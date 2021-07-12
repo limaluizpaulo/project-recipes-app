@@ -71,12 +71,10 @@ export default function RecipesInProgress() {
   };
   const getLocalStorage = () => {
     const id = pathname.split('/')[2];
-    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{meals}'));
-    if (!(meals && meals[id])) {
-      meals[id] = [];
-    }
-    const numberCheck = meals[id].length;
-    const recipesLocalStorage = meals[id];
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+
+    const numberCheck = meals && meals[id] ? meals[id].length : 0;
+    const recipesLocalStorage = meals && meals[id] ? meals[id] : [];
     setDisableButton(numberCheck);
     setIngreditentMade(recipesLocalStorage);
   };

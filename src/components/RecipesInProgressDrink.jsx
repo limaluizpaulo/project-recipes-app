@@ -67,12 +67,10 @@ export default function RecipesInProgressDrink() {
   };
   const getLocalStorage = () => {
     const id = pathname.split('/')[2];
-    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{cocktails}'));
-    if (!(cocktails && cocktails[id])) {
-      cocktails[id] = [];
-    }
-    const numberCheck = cocktails[id].length;
-    const recipesLocalStorage = cocktails[id];
+    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+
+    const numberCheck = cocktails && cocktails[id] ? cocktails[id].length : 0;
+    const recipesLocalStorage = cocktails && cocktails[id] ? cocktails[id] : [];
     setDisableButton(numberCheck);
     setIngreditentMade(recipesLocalStorage);
   };

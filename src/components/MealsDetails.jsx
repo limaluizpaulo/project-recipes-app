@@ -21,8 +21,7 @@ export default function MealsDetails() {
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const [invisibleButton, setInvisibleButton] = useState(false);
-  const [stateChangeButton, setStateChangeButton] = useState(false);
-  // const [setChekButtonState] = useState(true);
+  const [checkButtonstate, setChekButtonState] = useState(false);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -84,13 +83,7 @@ export default function MealsDetails() {
     }
   };
   useEffect(checkButton, []);
-  const changeButton = () => {
-    const modButton = JSON.parse(localStorage.getItem(`${id}`));
-    if (modButton) {
-      setStateChangeButton(true);
-    }
-  };
-  useEffect(changeButton, []);
+
   const {
     strMealThumb,
     strMeal,
@@ -99,6 +92,15 @@ export default function MealsDetails() {
     strVideo,
     idMeal,
   } = stateMeals[0];
+
+  const changeButton = () => {
+    const url = pathname.split('/')[2];
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+    const keysCocktais = Object.keys(meals);
+    const checkKeys = keysCocktais.includes(url);
+    setChekButtonState(checkKeys);
+  };
+  useEffect(changeButton, []);
 
   return (
     <div>
@@ -163,7 +165,7 @@ export default function MealsDetails() {
           data-testid="start-recipe-btn"
           className={ invisibleButton ? 'iniciarReceitaInvisible' : 'iniciarReceita' }
         >
-          {stateChangeButton ? 'Continuar Receita' : 'Iniciar Receita'}
+          {checkButtonstate ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
         )
       </Link>
