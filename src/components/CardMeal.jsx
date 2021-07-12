@@ -41,7 +41,6 @@ export default function CardMeal() {
           </Link>
         ))}
       </ul>
-      {/*  // ) */}
 
     </main>
   );

@@ -18,6 +18,7 @@ function MainPage() {
 
   const getApiAll = () => {
     if (responseApiLupaMeal.length === 0 || resposeApiLupaDrink.length === 0) {
+      console.log('cheguei');
       fetchAllDrinks().then((result) => setResponseApiLupaDrink(result));
       fetchAllMeals().then((result) => setResponseApiLupaMeal(result));
     }

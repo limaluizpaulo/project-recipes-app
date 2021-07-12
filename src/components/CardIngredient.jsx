@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { fetchMealsIngredients, fetchIngredientesMeal } from '../Service/foodApi';
 import { fetchDrinksIngredients, fetchIngredientesDrinks } from '../Service/drinkApi';
@@ -7,7 +7,8 @@ import RecipesContext from '../Context/RecipesContext';
 
 export default function CardIngredient() {
   const twelve = 12;
-  const { pathname } = useLocation();
+  const { location: { pathname } } = useHistory();
+  const history = useHistory();
   let src = '';
   let positionInArray;
 
@@ -32,26 +33,38 @@ export default function CardIngredient() {
   };
   useEffect(getApi, []);
   let finalArray = ingredientArray;
+  const path = positionInArray === 0 ? '/bebidas' : '/comidas';
 
-  const fetchByingredient = ({ target, target: { nextSibling: { innerHTML } } }) => {
+  const fetchByingredient = (innerHTML) => {
+    const DELAY_FETCH = 1000;
     if (pathname.includes('comidas')) {
-      console.log(innerHTML, target);
-      fetchIngredientesMeal(innerHTML).then((response) => setResponseApiLupaMeal(response));
+      fetchIngredientesMeal(innerHTML)
+        .then((response) => {
+          setResponseApiLupaMeal(response);
+        });
+      setTimeout(history.push(path), DELAY_FETCH);
     } else {
-      fetchIngredientesDrinks(innerHTML).then((response) => setResponseApiLupaDrink(response));
+      fetchIngredientesDrinks(innerHTML)
+        .then((response) => {
+          setResponseApiLupaDrink(response);
+        });
+      setTimeout(history.push(path), DELAY_FETCH);
     }
   };
 
   if (ingredientArray.length > twelve) {
     finalArray = ingredientArray.filter((_e, index) => index < twelve);
   }
-  const path = positionInArray === 0 ? 'bebidas' : 'comidas';
   if (finalArray) {
     return (
       <main>
         <ul>
           {finalArray.map((obj, index) => (
-            <Link to={ `/${path}` } key={ index } onClick={ fetchByingredient }>
+            <button
+              type="button"
+              key={ index }
+              onClick={ () => fetchByingredient(Object.values(obj)[positionInArray]) }
+            >
               <li key={ index } data-testid={ `${index}-ingredient-card` }>
                 <img
                   width="80px"
@@ -63,7 +76,7 @@ export default function CardIngredient() {
                   { Object.values(obj)[positionInArray] }
                 </div>
               </li>
-            </Link>
+            </button>
           ))}
         </ul>
       </main>

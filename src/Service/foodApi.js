@@ -67,10 +67,3 @@ export const fetchMealsIngredients = async () => {
   const { meals } = await allIngredients.json();
   return meals;
 };
-
-export const fetchMealsArea = async () => {
-  const areas = await
-  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-  const { meals } = await areas.json();
-  return meals;
-};

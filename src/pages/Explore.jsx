@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import AreaExplorer from '../components/AreaExplorer';
 import SearchIngredients from './SearchIngredients';
+import NotFound from './NotFound';
 
 export default function Explorar() {
   const { pathname } = useLocation();
@@ -87,6 +88,10 @@ export default function Explorar() {
   case '/explorar/comidas/area':
     return (
       <AreaExplorer />
+    );
+  case '/explorar/bebidas/area':
+    return (
+      <NotFound />
     );
   default:
     break;
