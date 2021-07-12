@@ -16,7 +16,7 @@ function Footer({ history }) {
     // setTitle('Bebidas');
   };
   const goExplore = () => {
-    history.push('/explore');
+    history.push('/explorar');
     // setTitle('Explore');
   };
   const goFood = () => {
