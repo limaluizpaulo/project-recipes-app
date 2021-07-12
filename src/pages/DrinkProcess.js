@@ -13,6 +13,7 @@ function DrinkProcess() {
   const mes = String(data.getMonth() + 1).padStart(2, '0');
   const ano = data.getFullYear();
   const dataAtual = `${dia}/${mes}/${ano}`;
+  const { id: drinkId } = useParams();
 
   function doneStructure() {
     if (drink[0] !== undefined) {
@@ -38,6 +39,18 @@ function DrinkProcess() {
       };
       return doneElement;
     }
+  }
+
+  function returnIngredientsUsed() {
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inLocalStorage) return inLocalStorage.cocktails[drinkId];
+    return [];
+  }
+
+  const [ingredientsUsed, setIngredientsUsed] = useState(returnIngredientsUsed());
+
+  function updateIngredientsUsed() {
+    setIngredientsUsed(returnIngredientsUsed());
   }
 
   function processDone(changeIcon) {
@@ -81,7 +94,12 @@ function DrinkProcess() {
                 </div>
                 <Icons code={ drink[0] } />
               </section>
-              <List drinks={ drinks } />
+              <List
+                ingredientsUsed={ ingredientsUsed }
+                updateIngredientsUsed={ updateIngredientsUsed }
+                idMeal={ drinkId }
+                drinks={ drinks }
+              />
               <h2>Instructions</h2>
               <p
                 className="instructions"
