@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
+import { Button, Card } from 'react-bootstrap';
 import RecipeContext from '../context';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -74,42 +75,58 @@ export default function RecipeInProgress() {
   return (
     <div>
       {recipes.length > 0 && (
-        <div>
-          <h2 data-testid="recipe-title">{ name }</h2>
-          <img src={ image } alt={ name } data-testid="recipe-photo" />
-          <button type="button" onClick={ () => handleShare() }>
-            <img src={ shareIcon } alt="share icon" data-testid="share-btn" />
-          </button>
-          {isCopy && (<p>Link copiado!</p>)}
-          <button
-            type="button"
-            onClick={ () => {
-              handleFavorite({ id, isFavorite, ...recipe });
-              setIsFavorite(!isFavorite);
-            } }
-          >
-            <img
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="heart icon"
-              data-testid="favorite-btn"
-            />
-          </button>
-          <p data-testid="recipe-category">{strCategory}</p>
-          <IngredientsCheckList keyInProgress={ key } />
-          <p data-testid="instructions">{strInstructions}</p>
-          <button
-            style={ bottomFixed }
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled={ isDisable }
-            onClick={ () => {
-              handleDoneRecipes({ id, ...recipe });
-              history.push('/receitas-feitas');
-            } }
-          >
-            Finalizar Receita
-          </button>
-        </div>
+        <Card>
+          <Card.Header data-testid="recipe-title">{ name }</Card.Header>
+          <Card.Img src={ image } alt={ name } data-testid="recipe-photo" />
+          <Card.Body>
+            <Button variant="ligth" type="button" onClick={ () => handleShare() }>
+              <img
+                src={ shareIcon }
+                alt="share icon"
+                data-testid="share-btn"
+                width="20"
+              />
+            </Button>
+            {isCopy && (<p>Link copiado!</p>)}
+            <Button
+              variant="ligth"
+              type="button"
+              onClick={ () => {
+                handleFavorite({ id, isFavorite, ...recipe });
+                setIsFavorite(!isFavorite);
+              } }
+            >
+              <img
+                src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+                alt="heart icon"
+                data-testid="favorite-btn"
+                width="20"
+              />
+            </Button>
+            <Card.Text>
+              <p data-testid="recipe-category">{strCategory}</p>
+              <IngredientsCheckList keyInProgress={ key } />
+              <p
+                data-testid="instructions"
+                className="text-justify"
+              >
+                {strInstructions}
+              </p>
+              <Button
+                style={ bottomFixed }
+                type="button"
+                data-testid="finish-recipe-btn"
+                disabled={ isDisable }
+                onClick={ () => {
+                  handleDoneRecipes({ id, ...recipe });
+                  history.push('/receitas-feitas');
+                } }
+              >
+                Finalizar Receita
+              </Button>
+            </Card.Text>
+          </Card.Body>
+        </Card>
       )}
     </div>
   );

@@ -41,7 +41,7 @@ function RecipesList({ url }) {
   }
 
   return (
-    <div>
+    <div className="d-flex flex-wrap justify-content-around" style={ { width: '100%', marginBottom: '55px' } }>
       {recipes && recipes.map((recipe, index) => (
         <RecipeCard
           key={ index }

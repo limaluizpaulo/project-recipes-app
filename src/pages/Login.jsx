@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Form, Button, Container } from 'react-bootstrap';
 
 function Login() {
   const history = useHistory();
@@ -28,36 +29,40 @@ function Login() {
   });
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email:
-        <input
-          name="email"
-          type="email"
-          data-testid="email-input"
-          onChange={ ({ target }) => setEmail(target.value) }
-          placeholder="Digite seu email"
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          name="password"
-          type="password"
-          data-testid="password-input"
-          onChange={ ({ target }) => setPassword(target.value) }
-          placeholder="Digite sua senha"
-        />
-      </label>
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ isDisable }
-        onClick={ () => handleClick() }
-      >
-        Entrar
-      </button>
-    </div>
+    <Container>
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            name="email"
+            type="email"
+            data-testid="email-input"
+            onChange={ ({ target }) => setEmail(target.value) }
+            placeholder="Digite seu email"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Senha:</Form.Label>
+          <Form.Control
+            name="password"
+            type="password"
+            data-testid="password-input"
+            onChange={ ({ target }) => setPassword(target.value) }
+            placeholder="Digite sua senha"
+          />
+        </Form.Group>
+        <Button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ isDisable }
+          onClick={ () => handleClick() }
+          variant="primary"
+        >
+          Entrar
+        </Button>
+      </Form>
+    </Container>
+
   );
 }
 

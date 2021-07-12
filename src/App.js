@@ -35,51 +35,49 @@ const urlMeal = {
 
 function App() {
   return (
-    <div>
-      <RecipeProvider>
-        <RecipeDetailProvider>
-          <Switch>
-            <Route exact path="/" component={ Login } />
-            <Route
-              exact
-              path="/comidas"
-              render={ () => <Recipes urlRecipe={ urlMeal } /> }
-            />
-            <Route
-              exact
-              path="/bebidas"
-              render={ () => <Recipes urlRecipe={ urlDrink } /> }
-            />
-            <Route exact path="/comidas/:id" component={ RecipeDetails } />
-            <Route exact path="/bebidas/:id" component={ RecipeDetails } />
-            <Route exact path="/perfil" component={ Profile } />
-            <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
-            <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
-            <Route exact path="/receitas-feitas" component={ StoredRecipesList } />
-            <Route
-              exact
-              path="/receitas-favoritas"
-              render={ () => <StoredRecipesList favorite /> }
-            />
-            <Route exact path="/explorar" component={ Explore } />
-            <Route exact path="/explorar/comidas" component={ ExploreFoods } />
-            <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-            <Route
-              exact
-              path="/explorar/comidas/ingredientes"
-              component={ FoodIngredients }
-            />
-            <Route
-              exact
-              path="/explorar/bebidas/ingredientes"
-              component={ DrinkIngredients }
-            />
-            <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
-            <Route path="*" component={ NotFound } />
-          </Switch>
-        </RecipeDetailProvider>
-      </RecipeProvider>
-    </div>
+    <RecipeProvider>
+      <RecipeDetailProvider>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route
+            exact
+            path="/comidas"
+            render={ () => <Recipes urlRecipe={ urlMeal } /> }
+          />
+          <Route
+            exact
+            path="/bebidas"
+            render={ () => <Recipes urlRecipe={ urlDrink } /> }
+          />
+          <Route exact path="/comidas/:id" component={ RecipeDetails } />
+          <Route exact path="/bebidas/:id" component={ RecipeDetails } />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/receitas-feitas" component={ StoredRecipesList } />
+          <Route
+            exact
+            path="/receitas-favoritas"
+            render={ () => <StoredRecipesList favorite /> }
+          />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ FoodIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ DrinkIngredients }
+          />
+          <Route exact path="/explorar/comidas/area" component={ FoodOrigin } />
+          <Route path="*" component={ NotFound } />
+        </Switch>
+      </RecipeDetailProvider>
+    </RecipeProvider>
   );
 }
 

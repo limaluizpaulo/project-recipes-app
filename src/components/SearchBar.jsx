@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Form, Button, FormGroup } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import RecipeContext from '../context';
 
@@ -26,49 +27,48 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        onChange={ (e) => setSearchInputValue(e.target.value) }
-      />
-      <label htmlFor="search">
-        <input
-          type="radio"
+    <Form>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Control
+          type="text"
+          data-testid="search-input"
+          onChange={ (e) => setSearchInputValue(e.target.value) }
+          placeholder="Pesquisar..."
+        />
+      </Form.Group>
+      <FormGroup>
+        <Form.Check
+          label="Ingredients"
           name="search"
-          data-testid="ingredient-search-radio"
+          type="radio"
           value="Ingredientes"
+          data-testid="ingredient-search-radio"
           onChange={ (e) => setRadioValue(e.target.value) }
         />
-        Ingredientes
-      </label>
-      <label htmlFor="search">
-        <input
+        <Form.Check
+          label="Nome"
           type="radio"
           name="search"
           data-testid="name-search-radio"
           value="Nome"
           onChange={ (e) => setRadioValue(e.target.value) }
         />
-        Nome
-      </label>
-      <label htmlFor="search">
-        <input
+        <Form.Check
+          label="Primeira letra"
           type="radio"
           name="search"
           data-testid="first-letter-search-radio"
           value="Primeira letra"
           onChange={ (e) => setRadioValue(e.target.value) }
         />
-        Primeira letra
-      </label>
-      <button
+      </FormGroup>
+      <Button
         type="button"
         data-testid="exec-search-btn"
         onClick={ (() => handleClick()) }
       >
         Buscar
-      </button>
-    </div>
+      </Button>
+    </Form>
   );
 }

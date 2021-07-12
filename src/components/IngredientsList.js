@@ -1,20 +1,21 @@
 import React, { useContext } from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import RecipeContext from '../context';
 import createListIngredients from '../helpers/ingredientsList';
 
 function IngredientsList() {
   const { recipes } = useContext(RecipeContext);
   return (
-    <ul>
+    <ListGroup>
       { createListIngredients(recipes).map((ingredient, index) => (
-        <li
+        <ListGroupItem
           key={ ingredient }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
           {ingredient}
-        </li>
+        </ListGroupItem>
       ))}
-    </ul>
+    </ListGroup>
   );
 }
 

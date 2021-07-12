@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
+import { Card } from 'react-bootstrap';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -37,56 +38,61 @@ function StoredRecipeCard({ recipe, index }) {
   }
 
   return (
-    <div>
-      <Link to={ `/${type}s/${id}` }>
+    <div style={ { width: '100%', border: '1px solid black' } } className="d-flex ">
+      <Link to={ `/${type}s/${id}` } style={ { width: '50%' } }>
         <img
-          width="100"
+          width="100%"
+          variant="left"
           src={ image }
           alt={ name }
           data-testid={ `${index}-horizontal-image` }
         />
-        <p data-testid={ `${index}-horizontal-top-text` }>
-          { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
-        </p>
-        <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
       </Link>
-      {doneDate && (
-        <p data-testid={ `${index}-horizontal-done-date` }>
-          { doneDate }
-        </p>)}
-      <button
-        type="button"
-        onClick={ () => handleShare(id, type) }
-      >
-        <img
-          src={ shareIcon }
-          alt={ name }
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </button>
-      {pathname.includes('fav') && (
+      <div>
+        <Link to={ `/${type}s/${id}` }>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
+          </p>
+          <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
+        </Link>
+        {doneDate && (
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            { doneDate }
+          </p>)}
         <button
           type="button"
-          onClick={ () => {
-            handleFavorite({ ...recipe, isFavorite });
-            setIsFavorite(!isFavorite);
-          } }
+          onClick={ () => handleShare(id, type) }
         >
           <img
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="heart icon"
-            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ shareIcon }
+            alt={ name }
+            data-testid={ `${index}-horizontal-share-btn` }
           />
-        </button>)}
-      {isCopy && (<p>Link copiado!</p>)}
-      { tags && tags.map((tag) => (
-        <p
-          key={ tag }
-          data-testid={ `${index}-${tag}-horizontal-tag` }
-        >
-          { tag }
-        </p>
-      ))}
+        </button>
+        {pathname.includes('fav') && (
+          <button
+            type="button"
+            onClick={ () => {
+              handleFavorite({ ...recipe, isFavorite });
+              setIsFavorite(!isFavorite);
+            } }
+          >
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="heart icon"
+              data-testid={ `${index}-horizontal-favorite-btn` }
+            />
+          </button>)}
+        {isCopy && (<p>Link copiado!</p>)}
+        { tags && tags.map((tag) => (
+          <p
+            key={ tag }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+          >
+            { tag }
+          </p>
+        ))}
+      </div>
     </div>
   );
 }

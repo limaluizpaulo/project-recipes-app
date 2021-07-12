@@ -1,30 +1,39 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Navbar } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 import RecipeContext from '../context';
 
 function Header({ title, search }) {
   const history = useHistory();
   const { showSearch, setShowSearch } = useContext(RecipeContext);
 
-  const handleClick = () => {
-    history.push('/perfil');
-  };
+  // const handleClick = () => {
+  //   history.push('/perfil');
+  // };
 
   return (
-    <header>
-      <button type="button" onClick={ handleClick }>
-        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
-      </button>
-      <h2 data-testid="page-title">{title}</h2>
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="#home" className="d-flex">
+        <Link to="/perfil" className="mr-2">
+          <img
+            src={ profileIcon }
+            alt="profile icon"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        <h2 className="font-weight-normal" data-testid="page-title">{title}</h2>
+      </Navbar.Brand>
       {search && (
-        <button type="button" onClick={ () => setShowSearch(!showSearch) }>
-          <img src={ searchIcon } alt="search icon" data-testid="search-top-btn" />
-        </button>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
       )}
-    </header>
+      <Navbar.Collapse id="basic-navbar-nav">
+        <SearchBar />
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
 

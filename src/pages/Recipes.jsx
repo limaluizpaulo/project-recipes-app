@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import RecipeContext from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -7,9 +8,6 @@ import RecipesList from '../components/RecipesList';
 
 import SearchBar from '../components/SearchBar';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
-
-// const SEARCH_GENERAL_MEAL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-// const SEARCH_BY_CATEGORY_MEAL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
 function Recipes({ urlRecipe: { SEARCH_GENERAL, SEARCH_BY_CATEGORY } }) {
   const [setRecipeUrl] = useFetchRecipesApi();
@@ -33,12 +31,6 @@ function Recipes({ urlRecipe: { SEARCH_GENERAL, SEARCH_BY_CATEGORY } }) {
     }
   }
 
-  // function handleAll() {
-  //   setToggleBtnCategories(false);
-  //   setSelectedCategory('');
-  //   setRecipeUrl(SEARCH_GENERAL_MEAL);
-  // }
-
   return (
     <div>
       <Header
@@ -46,24 +38,29 @@ function Recipes({ urlRecipe: { SEARCH_GENERAL, SEARCH_BY_CATEGORY } }) {
         search
       />
       { showSearch && <SearchBar /> }
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => handleClick('') }
-        // onClick={ handleClick }
-      >
-        All
-      </button>
-      {categories.map(({ strCategory }) => (
-        <button
+      <div className="d-flex flex-wrap justify-content-center">
+        <Button
+          style={ { width: '33%' } }
+          size="sm"
           type="button"
-          data-testid={ `${strCategory}-category-filter` }
-          key={ strCategory }
-          onClick={ () => handleClick(strCategory) }
+          data-testid="All-category-filter"
+          onClick={ () => handleClick('') }
         >
-          { strCategory }
-        </button>
-      ))}
+          All
+        </Button>
+        {categories.map(({ strCategory }) => (
+          <Button
+            style={ { width: '33%' } }
+            size="sm"
+            type="button"
+            data-testid={ `${strCategory}-category-filter` }
+            key={ strCategory }
+            onClick={ () => handleClick(strCategory) }
+          >
+            { strCategory }
+          </Button>
+        ))}
+      </div>
       <RecipesList url={ SEARCH_GENERAL } />
       <Footer />
     </div>

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Carousel } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import RecipeContext from '../context';
 import useFetchRecipesApi from '../utils/useFetchRecipesApi';
@@ -30,33 +31,26 @@ function RecipesSuggestions() {
   });
 
   return (
-    <div>
+    <Carousel style={ { marginBottom: '45px' } }>
       {
-        generateKeys && generateKeys.map(({ name, image }, index) => {
-          if (index > 1) {
-            return (
-              <div
-                key={ name }
-                style={ { display: 'none' } }
-                data-testid={ `${index}-recomendation-card` }
+        generateKeys && generateKeys.map(({ name, image }, index) => (
+          <Carousel.Item
+            key={ name }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img src={ image } alt={ name } width="100%" />
+            <Carousel.Caption>
+              <h3
+                className="text-dark bg-light"
+                data-testid={ `${index}-recomendation-title` }
               >
-                <p data-testid={ `${index}-recomendation-title` }>{name}</p>
-                <img src={ image } alt={ name } />
-              </div>
-            );
-          }
-          return (
-            <div
-              key={ name }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <p data-testid={ `${index}-recomendation-title` }>{name}</p>
-              <img src={ image } alt={ name } />
-            </div>
-          );
-        })
+                {name}
+              </h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))
       }
-    </div>
+    </Carousel>
 
   );
 }

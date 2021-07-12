@@ -4,6 +4,7 @@ import StoredRecipeCard from '../components/StoredRecipeCard';
 import ButtonFilter from '../components/ButtonFilter';
 import Header from '../components/Header';
 import RecipeContext from '../context';
+import { ButtonGroup } from 'react-bootstrap';
 
 function StoredRecipesList({ favorite }) {
   const [storedRecipes, setStoredRecipes] = useState([]);
@@ -42,9 +43,11 @@ function StoredRecipesList({ favorite }) {
         title={ `Receitas ${favorite ? 'Favoritas' : 'Feitas'}` }
         search={ false }
       />
-      <ButtonFilter nameBtn="All" btnFn={ handleClick } />
-      <ButtonFilter nameBtn="Food" btnFn={ handleClick } />
-      <ButtonFilter nameBtn="Drink" btnFn={ handleClick } />
+      <ButtonGroup style={ { width: '100%' } }>
+        <ButtonFilter nameBtn="All" btnFn={ handleClick } />
+        <ButtonFilter nameBtn="Food" btnFn={ handleClick } />
+        <ButtonFilter nameBtn="Drink" btnFn={ handleClick } />
+      </ButtonGroup>
 
       {/* <button
         type="button"

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 import RecipeContext from '../context';
 import { checkListIngredients } from '../helpers/handleStorageKeys';
 import createListIngredients from '../helpers/ingredientsList';
@@ -35,21 +36,19 @@ function IngredientsCheckList({ keyInProgress }) {
   }
 
   return (
-    <>
+    <Form>
       {listIngredients.map((ingredient, index) => (
-        <div key={ ingredient }>
-          <label htmlFor={ ingredient } data-testid={ `${index}-ingredient-step` }>
-            <input
-              name={ ingredient }
-              type="checkbox"
-              defaultChecked={ checkedIngredients.includes(index) }
-              onClick={ (e) => handleCheck(e, index) }
-            />
-            {ingredient}
-          </label>
-        </div>
+        <Form.Check
+          key={ ingredient }
+          label={ ingredient }
+          name={ ingredient }
+          type="checkbox"
+          defaultChecked={ checkedIngredients.includes(index) }
+          onClick={ (e) => handleCheck(e, index) }
+          data-testid={ `${index}-ingredient-step` }
+        />
       ))}
-    </>
+    </Form>
   );
 }
 
