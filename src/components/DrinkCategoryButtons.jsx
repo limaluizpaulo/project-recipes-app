@@ -23,13 +23,30 @@ function DrinkCategoryButtons() {
         .then((results) => setDrinkCategoryName(results.drinks)));
   };
 
+  const fetchDrinkRecipes = () => {
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setDrinks(results.drinks)));
+  };
+
   useEffect(() => {
     fetchDrinkCategoryName();
   }, []);
 
+  const handleClickAll = () => {
+    fetchDrinkRecipes();
+  };
+
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ handleClickAll }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {drinkCategoryName.map(({ strCategory }, index) => index <= maxLength && (
         <button
           key={ index }
