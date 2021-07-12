@@ -1,9 +1,10 @@
-import { DRINKS, DRINK_CATEGORIES } from '../actions/index';
+import { DRINKS, DRINK_CATEGORIES, RANDOM } from '../actions/index';
 
 const initialState = {
   list: [],
   goToDrinksPage: false,
-  // drinkNotFound: false,
+  categories: [],
+  shouldRedirect: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,15 +12,22 @@ export default (state = initialState, { type, payload }) => {
   case DRINKS:
     return {
       ...state,
-      list: payload,
+      list: payload || [],
       goToDrinksPage: payload && payload.length === 1,
       // drinkNotFound: !payload,
     };
-  case DRINK_CATEGORIES:
+
+  case RANDOM:
     return {
       ...state,
       list: payload,
-      // drinkNotFound: false,
+      shouldRedirect: true,
+    };
+
+  case DRINK_CATEGORIES:
+    return {
+      ...state,
+      categories: payload,
     };
 
   default:

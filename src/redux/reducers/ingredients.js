@@ -1,4 +1,4 @@
-import { RANDOM } from '../actions/index';
+import { INGREDIENTS } from '../actions/index';
 
 const initialState = {
   list: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case RANDOM:
+  case INGREDIENTS:
     return {
       ...state,
       list: payload,

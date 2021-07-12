@@ -1,3 +1,19 @@
 .categories {
   display: inline-block;
 }
+
+.start {
+  bottom: 0;
+  position: fixed;
+}
+
+.fav {
+  position: fixed;
+  top: 50px;
+}
+
+.shr {
+  left: 10px;
+  position: fixed;
+  top: 50px;
+}

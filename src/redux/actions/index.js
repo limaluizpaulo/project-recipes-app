@@ -1,13 +1,29 @@
-import { listByCategories } from '../../services/services';
+import { fetchCategories } from '../../services/services';
+import fetchByArea from '../../services/fetchByArea';
 
 export const [
   USERLOGIN,
   DRINKS,
   FOODS,
   RANDOM,
+  RECIPESDETAILS,
+  INGREDIENTS,
   FOOD_CATEGORIES,
   DRINK_CATEGORIES,
-] = ['USERLOGIN', 'DRINKS', 'FOODS', 'RANDOM', 'FOOD_CATEGORIES', 'DRINK_CATEGORIES'];
+  AREA,
+  FOODSAREA,
+] = [
+  'USERLOGIN',
+  'DRINKS',
+  'FOODS',
+  'RANDOM',
+  'RECIPESDETAILS',
+  'INGREDIENTS',
+  'FOOD_CATEGORIES',
+  'DRINK_CATEGORIES',
+  'AREA',
+  'FOODSAREA',
+];
 
 export function userLogin(payload) {
   return {
@@ -21,6 +37,11 @@ const actionGetFoods = (payload) => ({
   payload,
 });
 
+const actionGetAreas = (payload) => ({
+  type: FOODSAREA,
+  payload,
+});
+
 const actionGetDrinks = (payload) => ({
   type: DRINKS,
   payload,
@@ -31,21 +52,46 @@ const actionGetRandom = (payload) => ({
   payload,
 });
 
-const actionSortCategoriesFood = (payload) => ({
+const actionGetRecipesDetails = (payload) => ({
+  type: RECIPESDETAILS,
+  payload,
+});
+
+const actionGetIngredients = (payload) => ({
+  type: INGREDIENTS,
+  payload,
+});
+
+export const actionSortCategoriesFood = (payload) => ({
   type: FOOD_CATEGORIES,
   payload,
 });
 
-const actionSortCategoriesDrink = (payload) => ({
+export const actionSortCategoriesDrink = (payload) => ({
   type: DRINK_CATEGORIES,
   payload,
 });
 
-// const actionGetDefault = (payload) => ({})
+export const areaList = (areas) => ({
+  type: AREA,
+  areas,
+});
+
+export function setArea() {
+  return async (dispatch) => {
+    const area = await fetchByArea();
+    return dispatch(areaList(area));
+  };
+}
 
 export function getFoods(value, callback) {
   return (dispatch) => callback(value)
     .then((food) => dispatch(actionGetFoods(food)));
+}
+
+export function getAreas(value, callback) {
+  return (dispatch) => callback(value)
+    .then((area) => dispatch(actionGetAreas(area)));
 }
 
 export function getDrinks(value, callback) {
@@ -58,9 +104,19 @@ export function getRandom(callback) {
     .then((random) => dispatch(actionGetRandom(random)));
 }
 
+export function GetRecipesDetails(value, callback) {
+  return (dispatch) => callback(value)
+    .then((recipesDetails) => dispatch(actionGetRecipesDetails(recipesDetails)));
+}
+
+export function getIngredient(callback) {
+  return (dispatch) => callback()
+    .then((ingredient) => dispatch(actionGetIngredients(ingredient)));
+}
+
 export function getCategory(category, type) {
   const actionCallback = type === 'meal'
     ? actionSortCategoriesFood : actionSortCategoriesDrink;
-  return (dispatch) => listByCategories(category, type)
+  return (dispatch) => fetchCategories(category, type)
     .then((list) => dispatch(actionCallback(list)));
 }

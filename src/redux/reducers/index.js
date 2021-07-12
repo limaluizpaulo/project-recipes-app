@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 import user from './user';
 import foods from './foods';
 import drinks from './drinks';
-import random from './random';
+import ingredients from './ingredients';
+import mealsArea from './mealsArea';
+import details from './details';
 
 const rootReducer = combineReducers({
-  user, foods, drinks, random,
+  mealsArea, user, foods, drinks, ingredients, details,
 });
 
 export default rootReducer;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,41 +7,47 @@ import Footer from '../Components/Footer';
 import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
-import { setList } from '../services/services';
+import { setList12 } from '../services/services';
 import '../styles/Card.css';
 
 function Foods(props) {
   const { getByDefault, getByCategory } = MealsAPI;
 
-  const [firstFoods, setFirstFoods] = React.useState();
+  const [mainFoods, setMainFoods] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const { foods } = props;
 
   React.useEffect(() => {
-    if (loading) {
-      getByCategory()
-        .then(setCategories)
-        .then(() => (
-          getByDefault()
-            .then(setFirstFoods)
-            .then(() => setLoading(false))
-        ));
+    getByCategory()
+      .then(setCategories)
+      .then(() => setLoading(false));
+
+    if (!foods.length) {
+      console.log('if');
+      getByDefault()
+        .then((res) => setMainFoods(setList12(res)));
     }
-  }, [setCategories, setLoading, setFirstFoods, getByCategory, getByDefault, loading]);
+  }, []);
+
+  React.useEffect(() => {
+    if (foods.length) {
+      setMainFoods(setList12(foods));
+    }
+  }, [foods]);
 
   return loading ? <div>Loading...</div> : (
     <div>
       <HeadBar title="Comidas" />
       <CategoryButtons
-        setFirstFoods={ setFirstFoods }
+        setMainFoods={ (list) => setMainFoods(setList12(list)) }
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
 
       <div className="items-list">
-        {setList(foods, firstFoods).map((food, index) => (
-          <Card key={ index } index={ index } item={ food } type="meal" />
+        {mainFoods.map((food, index) => (
+          <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />
         ))}
       </div>
       <Footer />
