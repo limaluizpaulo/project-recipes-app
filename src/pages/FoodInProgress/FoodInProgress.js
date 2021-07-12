@@ -45,10 +45,12 @@ function FoodInProgress({ match }) {
                 Ingredients:
               </p>
               { ingredients().map((key, index) => data.meals[0][key] !== '' && data.meals[0][key] !== null && (
-                <label key={ index } htmlFor={ index }>
-                  { data.meals[0][key] }
-                  <input type="checkbox" id={ index } data-testid={ `${index}-ingredient-step` } />
-                </label>
+                <li data-testid={ `${index}ingredient-step` }>
+                  <label key={ index } htmlFor={ index }>
+                    { data.meals[0][key] }
+                  </label>
+                  <input type="checkbox" id={ index } />
+                </li>
               )) }
               <button data-testid="share-btn" type="button">Compartilhar</button>
               <button data-testid="favorite-btn" type="button">Favoritar</button>

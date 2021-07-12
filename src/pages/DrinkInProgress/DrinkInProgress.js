@@ -43,14 +43,16 @@ function DrinkInProgress({ match }) {
               <p>
                 Ingredients:
               </p>
-              { ingredients().map((key, index) => data.drinks[0][key] !== '' && data.drinks[0][key] !== null && (
-                <div key={ index }>
-                  <label htmlFor={ index }>
-                    <input type="checkbox" id={ index } data-testid={ `${index}-ingredient-step` } />
-                    { data.drinks[0][key] }
-                  </label>
-                </div>
-              ))}
+              <ul>
+                { ingredients().map((key, index) => data.drinks[0][key] !== '' && data.drinks[0][key] !== null && (
+                  <li data-testid={ `${index}-ingredient-step` } key={ index }>
+                    <label htmlFor={ index }>
+                      <input type="checkbox" id={ index } />
+                      { data.drinks[0][key] }
+                    </label>
+                  </li>
+                ))}
+              </ul>
               <button data-testid="share-btn" type="button">Compartilhar</button>
               <button data-testid="favorite-btn" type="button">Favoritar</button>
               <button data-testid="instructions" type="button">Instructions</button>
