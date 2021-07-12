@@ -23,7 +23,11 @@ const FoodDetails = ({ children }) => {
   useEffect(() => {
     const favRecipes = getFromLocalStorage('favoriteRecipes');
     const isFavorited = favRecipes && favRecipes.find(({ id }) => id === recipeId);
-    if (isFavorited) setIsFavorite(true);
+    if (isFavorited) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
   }, [selectedFood.idMeal, selectedFood.idDrink, recipeId]);
   const handleShare = () => {
     const { location } = window;
