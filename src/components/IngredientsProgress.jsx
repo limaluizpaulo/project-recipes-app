@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { updateLocalStorage,
+  getFromLocalStorage } from '../services/helpers/localStorage';
+import { UserContext } from '../context/UserProvider';
 
 const IngredientsProgress = ({ newObj }) => {
-  const { ingredients, measures } = newObj;
-  const [done, setDone] = useState(false);
+  const { type, ingredients, measures, id } = newObj;
+  const [done, setDone] = useState([localStorage]);
+  const { inProgressRecipes } = useContext(UserContext);
+  // const [inProgressRecipes, setinProgressRecipes] = useContext(ashuasha)
+
+  useEffect(() => {
+    getFromLocalStorage('inProgressRecipes');
+  }, [inProgressRecipes]);
+
+  const handleLocalStorage = ({ target: { className } }) => {
+    if (className.includes('done')) {
+      progressRecipes(type, id);
+      updateLocalStorage('inProgressRecipes', inProgressRecipes);
+    }
+  };
 
   return (
     <section>
@@ -17,8 +33,9 @@ const IngredientsProgress = ({ newObj }) => {
             <input
               type="checkbox"
               className={ done ? 'done' : '' }
-              onClick={ () => {
+              onClick={ (event) => {
                 setDone(!done);
+                { () => handleLocalStorage(event); }
               } }
             />
             {`- ${ingredient} ${measures[index]}`}
@@ -28,7 +45,8 @@ const IngredientsProgress = ({ newObj }) => {
     </section>
   );
 };
-
+setOnlocalStorage('inProgressRecipes', inProgressRecipes);
+// JSON.parse(localStorage.getItem('state'));
 IngredientsProgress.propTypes = {
   ingredients: PropTypes.string,
   obj: PropTypes.object,

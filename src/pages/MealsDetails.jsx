@@ -107,7 +107,6 @@ const MealsDetails = ({
 
       <Instructions newObj={ newObj } />
       <Ingredients newObj={ newObj } />
-      <IngredientsProgress newObj={ newObj } />
       <DetailsRecipes newObj={ newObj } />
     </div>
   );

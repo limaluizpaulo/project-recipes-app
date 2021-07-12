@@ -11,9 +11,9 @@ const HeaderRecipes = ({ newObj }) => {
         src={ image }
         alt=""
       />
-      <title data-testid="recipe-title">
+      <h1 data-testid="recipe-title">
         {name}
-      </title>
+      </h1>
       <h2
         data-testid="recipe-category"
       >

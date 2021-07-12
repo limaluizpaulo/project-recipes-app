@@ -94,7 +94,6 @@ const DrinksDetails = ({
       />
 
       <Ingredients newObj={ newObj } />
-      <IngredientsProgress newObj={ newObj } />
       <Instructions newObj={ newObj } />
       <DetailsRecipes newObj={ newObj } />
     </div>

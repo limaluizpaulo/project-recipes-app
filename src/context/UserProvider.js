@@ -17,6 +17,12 @@ const UserProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [done, setDone] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [inProgressRecipes, setInProgressRecipes] = useState({
+    cocktails: {
+    },
+    meals: {
+    },
+  });
 
   useEffect(() => {
     if (!getFromLocalStorage('favoriteRecipes')) setOnLocalStorage('favoriteRecipes', []);
@@ -73,6 +79,17 @@ const UserProvider = ({ children }) => {
     validationUser();
   };
 
+  const progressRecipes = (type, id) => {
+    setInProgressRecipes(
+      {
+        ...inProgressRecipes,
+        [type]: {
+          [id]: [],
+        },
+      },
+    );
+  };
+
   const context = {
     favorites,
     done,
@@ -85,6 +102,7 @@ const UserProvider = ({ children }) => {
     validationUser,
     handleLogin,
     copyToClipboard,
+    progressRecipes,
   };
 
   return (
