@@ -64,6 +64,7 @@ export default function Login() {
             data-testid="login-submit-btn"
             disabled={ password.length <= NUM || (!handleEmailverify()) }
             type="submit"
+            className="btn btn-success"
           >
             Entrar
           </button>

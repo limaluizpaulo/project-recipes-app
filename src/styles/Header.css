@@ -3,7 +3,7 @@
   justify-content: space-between;
   margin: 1rem auto;
   text-align: center;
-  width: 85%;
+  width: 90%;
 }
 
 .button-search {
@@ -17,4 +17,8 @@
   margin: 1rem auto;
   text-align: center;
   width: 85%;
+}
+
+.page-title {
+  font-size: x-large;
 }

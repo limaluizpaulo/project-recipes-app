@@ -22,12 +22,9 @@ export default function ExploreByArea() {
     <div>
       <Header title="Explorar Origem" search />
       <DropdownArea data={ areaList } />
-      <div className="recipe-container">
-
-        {mealsFiltered.map((
-          data, index,
-        ) => <CardRecipe key={ index } data={ data } index={ index } />)}
-      </div>
+      {mealsFiltered.map((
+        data, index,
+      ) => <CardRecipe key={ index } data={ data } index={ index } />)}
       <Footer />
     </div>
   );

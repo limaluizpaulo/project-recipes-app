@@ -36,6 +36,7 @@ export default function BtnsCategory({ label, title }) {
         value={ strCategory }
         data-testid={ `${strCategory}-category-filter` }
         onClick={ handleFilterByCategory }
+        className="btn btn-outline-info"
       >
         {strCategory}
       </button>

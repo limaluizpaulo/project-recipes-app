@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap') ;
+
 .recipe-container {
   display: flex;
   flex-wrap: wrap;
@@ -30,4 +32,10 @@
   justify-content: center;
   margin: 0.2rem auto -0.3rem;
   width: 8rem;
+}
+
+.recipe-name p {
+  color: black;
+  font-family: Merienda , cursive;
+  font-size: 15px;
 }
