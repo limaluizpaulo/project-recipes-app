@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import fetchApiAction from '../redux/actions';
+import { addIngredients, fetchApiAction } from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class FoodIngredients extends React.Component {
@@ -13,10 +13,16 @@ class FoodIngredients extends React.Component {
 
     this.fetchFood = this.fetchFood.bind(this);
     this.renderCards = this.renderCards.bind(this);
+    this.handleIngredientName = this.handleIngredientName.bind(this);
   }
 
   componentDidMount() {
     this.fetchFood();
+  }
+
+  handleIngredientName({ target }) {
+    const { addIngredientsRedux } = this.props;
+    addIngredientsRedux(target.alt);
   }
 
   async fetchFood() {
@@ -34,8 +40,12 @@ class FoodIngredients extends React.Component {
       return meals.map((food, index) => {
         if (index <= maxNumberOfCards) {
           return (
-            <Link key={ index } to={ `/comidas/${food.idMeal}` }>
-              <div data-testid={ `${index}-ingredient-card` }>
+            <Link key={ index } to="/comidas">
+              <button
+                type="button"
+                data-testid={ `${index}-ingredient-card` }
+                onClick={ this.handleIngredientName }
+              >
                 <h3 data-testid={ `${index}-card-name` }>{ food.strIngredient }</h3>
                 <img
                   src={ `https://www.themealdb.com/images/ingredients/${food.strIngredient}-Small.png` }
@@ -43,7 +53,7 @@ class FoodIngredients extends React.Component {
                   data-testid={ `${index}-card-img` }
                   width="150px"
                 />
-              </div>
+              </button>
             </Link>
           );
         }
@@ -69,6 +79,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   SendApiToState: (payload) => dispatch(fetchApiAction(payload)),
+  addIngredientsRedux: (payload) => dispatch(addIngredients(payload)),
 });
 
 FoodIngredients.propTypes = {
@@ -76,6 +87,7 @@ FoodIngredients.propTypes = {
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   SendApiToState: PropTypes.func.isRequired,
+  addIngredientsRedux: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodIngredients);

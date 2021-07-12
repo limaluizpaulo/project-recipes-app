@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import fetchApiAction from '../redux/actions';
+import { fetchApiAction } from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class Beverages extends React.Component {

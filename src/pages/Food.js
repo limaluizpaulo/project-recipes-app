@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import fetchApiAction from '../redux/actions';
+import { fetchApiAction } from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class Food extends React.Component {
@@ -53,9 +53,10 @@ class Food extends React.Component {
   }
 
   async fetchFood() {
-    const { SendApiToState } = this.props;
+    const { SendApiToState, nameIngredientRedux } = this.props;
     const { apiEndPoint } = this.state;
-    const url = `https://www.themealdb.com/api/json/v1/1/${apiEndPoint}`;
+    let url = `https://www.themealdb.com/api/json/v1/1/${apiEndPoint}`;
+    if (nameIngredientRedux !== null) url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${nameIngredientRedux}`;
     const responseAPI = await fetchAPI(url);
     SendApiToState(responseAPI);
   }
@@ -130,6 +131,7 @@ class Food extends React.Component {
 
 const mapStateToProps = (state) => ({
   resultsApi: state.data.resultAPI,
+  nameIngredientRedux: state.data.resultAPI.nameIngredient,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -141,6 +143,7 @@ Food.propTypes = {
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   SendApiToState: PropTypes.func.isRequired,
+  nameIngredientRedux: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Food);

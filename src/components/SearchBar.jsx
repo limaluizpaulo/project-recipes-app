@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import fetchApiAction from '../redux/actions';
+import { fetchApiAction } from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class SearchBar extends React.Component {
