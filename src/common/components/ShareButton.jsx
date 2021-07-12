@@ -27,6 +27,7 @@ export default function ShareButton({ id, type, index, path }) { // desestrutura
         alt="share-icon"
         data-testid={ path ? `${index}-horizontal-share-btn` : 'share-btn' }
         width="30px"
+        style={ { cursor: 'pointer' } }
       />
     </button>
   );
