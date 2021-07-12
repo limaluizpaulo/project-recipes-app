@@ -60,7 +60,6 @@ export class explorarIngredientes extends Component {
     return (
       <div>
         <Header location={ location } />
-        welcome to power stone world
         { getApiIngredient.length !== 0 && this.renderElements(getApiIngredient)}
         <Footer />
       </div>
