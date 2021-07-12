@@ -2,13 +2,11 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function Card({ mealOrDrink, index, testId }) {
+export default function CardRecomendation({ mealOrDrink, index, testId }) {
   const { path } = useRouteMatch();
   const [imgSrcKey, titleKey] = path.includes('comidas')
     ? [mealOrDrink.strDrinkThumb, mealOrDrink.strDrink]
     : [mealOrDrink.strMealThumb, mealOrDrink.strMeal];
-  // const imgSrcKey = path.includes('comidas') ? mealOrDrink.strMealThumb : mealOrDrink.strDrinkThumb;
-  // const titleKey = path.includes('comidas') ? mealOrDrink.strMeal : mealOrDrink.strDrink;
 
   return (
     <section data-testid={ `${index}-${testId}-card` }>
@@ -28,7 +26,7 @@ export default function Card({ mealOrDrink, index, testId }) {
   );
 }
 
-Card.propTypes = {
+CardRecomendation.propTypes = {
   mealOrDrink: PropTypes.shape(Object).isRequired,
   index: PropTypes.number.isRequired,
   testId: PropTypes.string.isRequired,
