@@ -6,7 +6,17 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function CardRecipesDone({ mealOrDrink, index }) {
-  const { id, type, image, name, category, doneDate, tags } = mealOrDrink;
+  const {
+    id,
+    type,
+    image,
+    name,
+    area,
+    alcoholicOrNot,
+    category,
+    doneDate,
+    tags } = mealOrDrink;
+
   return (
     <div data-testid={ `${index}-horizontal-card` }>
       <Link
@@ -20,7 +30,9 @@ export default function CardRecipesDone({ mealOrDrink, index }) {
         />
       </Link>
 
-      <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+      <p data-testid={ `${index}-horizontal-top-text` }>
+        {type === 'bebida' ? `${category} - ${alcoholicOrNot}` : `${area} - ${category}` }
+      </p>
 
       <Link
         to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }
@@ -38,14 +50,17 @@ export default function CardRecipesDone({ mealOrDrink, index }) {
         />
       </Button>
 
-      {tags && tags.map((tag, i) => (
-        <p
-          data-testid={ `${index}-${tag}-horizontal-tag` }
-          key={ `${i} - ${tag}` }
-        >
-          {tag}
-        </p>
-      ))}
+      {typeof tags === 'object' && tags.length > 0
+        ? tags.map((tag, i) => (
+          <p
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+            key={ `${i} - ${tag}` }
+          >
+            {tag}
+          </p>
+
+        ))
+        : <p data-testid={ `${index}-${tags}-horizontal-tag` }>{tags}</p>}
 
     </div>
   );
