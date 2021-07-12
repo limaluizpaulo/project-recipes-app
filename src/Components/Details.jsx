@@ -19,14 +19,19 @@ export default function Details(props) {
     console.log(clipboard.info);
     setIsCopy(true);
   }
-
+  console.log(item);
   return (
-    <>
-
+    <div className="tela-details">
+      <img
+        className="img-principal"
+        data-testid="recipe-photo"
+        src={ item[`str${type}Thumb`] }
+        alt="some"
+      />
       <button
         type="button"
         data-testid="share-btn"
-        className="share"
+        className="btn-img"
         data-clipboard-text={ window.location.href }
         onClick={ copyLink }
       >
@@ -35,39 +40,37 @@ export default function Details(props) {
       <button
         type="button"
         data-testid="favorite-btn"
+        className="btn-img"
         onClick={ () => saveFavorite(id, item, tipo, setIsFavorite) }
         src={ isFavorite ? blackHeart : whiteHeart }
       >
         <img alt="favorite-btn" src={ isFavorite ? blackHeart : whiteHeart } />
       </button>
-      <img
-        data-testid="recipe-photo"
-        src={ item[`str${type}Thumb`] }
-        alt="some"
-        width="100"
-      />
-      <h3 data-testid="recipe-title">{item[`str${type}`]}</h3>
-      <h6 data-testid="recipe-category">
-        {type === 'Meal'
-          ? item.strCategory : item.strAlcoholic}
+      <div className="receita-details">
+        <h3 data-testid="recipe-title">{item[`str${type}`]}</h3>
+        <h6 data-testid="recipe-category">
+          {type === 'Meal'
+            ? item.strCategory : item.strAlcoholic}
 
-      </h6>
-      <ul>
-        {
-          Object.entries(item).filter((entrie) => {
-            const [key, value] = entrie;
-            return key.startsWith('strIngredient') && value;
-          }).map((el, i) => (
-            <li
-              key={ el[0] }
-              data-testid={ `${i}-ingredient-name-and-measure` }
-            >
-              {`${el[1]} ${item[`strMeasure${i + 1}`]}`}
-            </li>))
-        }
-      </ul>
-      <p data-testid="instructions">{item.strInstructions}</p>
+        </h6>
+        <ul>
+          {
+            Object.entries(item).filter((entrie) => {
+              const [key, value] = entrie;
+              return key.startsWith('strIngredient') && value;
+            }).map((el, i) => (
+              <li
+                key={ el[0] }
+                data-testid={ `${i}-ingredient-name-and-measure` }
+              >
+                {`${el[1]} ${item[`strMeasure${i + 1}`]}`}
+              </li>))
+          }
+        </ul>
+        <p data-testid="instructions">{item.strInstructions}</p>
+      </div>
       <span data-testid="video">video</span>
+
       {/* <embed
               width="560"
               height="315"
@@ -78,7 +81,7 @@ export default function Details(props) {
               clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             /> */}
-    </>
+    </div>
   );
 }
 

@@ -8,7 +8,6 @@ import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
 import { setList12 } from '../services/services';
-import '../styles/Card.css';
 
 function Foods(props) {
   const { getByDefault, getByCategory } = MealsAPI;

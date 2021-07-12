@@ -1,0 +1,33 @@
+.tela-details {
+  background-color: #ffbca8;
+  color: #f7ecf7;
+}
+
+.img-principal {
+  max-width: 100%;
+  object-fit: cover;
+  padding: 10px;
+}
+
+.btn-img {
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.receita-details {
+  border: 1px solid #f7ecf7;
+  border-radius: 5px;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+.receita-details p {
+  text-align: center;
+}
+
+video {
+  padding: 10px;
+  width: 100%;
+}

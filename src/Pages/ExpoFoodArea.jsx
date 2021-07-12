@@ -9,7 +9,6 @@ import { setArea, getAreas } from '../redux/actions';
 import fetchByArea from '../services/fetchByArea';
 import api from '../services/MealRecipesAPI';
 import Footer from '../Components/Footer';
-import '../styles/Card.css';
 
 function ExpoFoodArea(props) {
   const { localsReceived, locals = [], infoFoods, foods } = props;

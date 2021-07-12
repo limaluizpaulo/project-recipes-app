@@ -1,10 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import './App.css';
-import './styles/login.css';
-import './styles/foods.css';
-import './styles/Header.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Foods from './Pages/Foods';
 import Drinks from './Pages/Drinks';
@@ -20,9 +15,14 @@ import FoodDetails from './Pages/FoodDetails';
 import DrinkDetails from './Pages/DrinkDetails';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipesMade from './Pages/RecipesMade';
+import Progress from './Pages/Progress';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/cards.css';
 import './styles/details.css';
-import Progress from './Pages/Progress';
+import './App.css';
+import './styles/login.css';
+import './styles/foods.css';
+import './styles/Header.css';
 
 function App() {
   return (

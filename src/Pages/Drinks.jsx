@@ -8,7 +8,6 @@ import Card from '../Components/Card';
 import CategoryButtons from '../Components/CategoryButtons';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import { setList12 } from '../services/services';
-import '../styles/Card.css';
 
 function Drinks(props) {
   const { getByDefault, getByCategory } = BeverageAPI;
