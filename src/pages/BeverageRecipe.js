@@ -38,11 +38,7 @@ class BeverageRecipe extends React.Component {
 
   onClickFavoriteIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const { detailsRecipe } = this.state;
     const newFavorite = {
       id,
@@ -60,35 +56,22 @@ class BeverageRecipe extends React.Component {
           isFavorite: false,
         });
         const newArray = favoriteRecipes.filter((recipe) => recipe.id !== id);
-        return localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify(newArray),
-        );
+        return localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
       }
       this.setState({
         isFavorite: true,
       });
       const addFavorite = [...favoriteRecipes, newFavorite];
-      return localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify(addFavorite),
-      );
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(addFavorite));
     }
     this.setState({
       isFavorite: true,
     });
-    return localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify([newFavorite]),
-    );
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
   }
 
   async fetchDetails() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { drinks } = responseAPI;
@@ -114,11 +97,7 @@ class BeverageRecipe extends React.Component {
     return arrayIngredients.map((position) => {
       const ingredients = detailsRecipe[0][`strIngredient${position}`];
       const measure = detailsRecipe[0][`strMeasure${position}`];
-      if (
-        ingredients === undefined
-        || ingredients === null
-        || ingredients === ''
-      ) {
+      if (ingredients === undefined || ingredients === null || ingredients === '') {
         return null;
       }
       return (
@@ -133,12 +112,7 @@ class BeverageRecipe extends React.Component {
   }
 
   renderRecipeBtn() {
-    const {
-      match: {
-        params: { id },
-      },
-      history,
-    } = this.props;
+    const { match: { params: { id } }, history } = this.props;
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipesDone) {
       const isDone = recipesDone.find((recipe) => recipe.id === id);
@@ -156,9 +130,7 @@ class BeverageRecipe extends React.Component {
         </button>
       );
     }
-    const recipesInProgress = JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    );
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recipesInProgress && recipesInProgress.cocktails[id]) {
       return (
         <button
@@ -185,11 +157,7 @@ class BeverageRecipe extends React.Component {
 
   renderHeartIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     if (favoriteRecipes) {
       const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
       if (isFavorite) {
@@ -220,15 +188,13 @@ class BeverageRecipe extends React.Component {
 
   render() {
     const { detailsRecipe, copyLink } = this.state;
-    if (detailsRecipe.length === 0) {
+    if (!detailsRecipe || detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
     return (
       <section>
         <h1 data-testid="recipe-title">
-          {' '}
           {detailsRecipe[0].strDrink}
-          {' '}
         </h1>
         <img
           src={ detailsRecipe[0].strDrinkThumb }

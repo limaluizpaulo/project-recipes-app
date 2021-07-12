@@ -74,7 +74,7 @@ class DoneRecipes extends React.Component {
             />
           </button>
           {recipe.tags.map((tag, twoTag) => {
-            if (twoTag > 2) {
+            if (twoTag > 2 || tag === null) {
               return null;
             }
             return (

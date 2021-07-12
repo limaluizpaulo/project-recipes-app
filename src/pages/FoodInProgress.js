@@ -136,7 +136,6 @@ class FoodInProgress extends React.Component {
 
   verifyChecks() {
     const { ingQuant, checkedIngredients } = this.state;
-    console.log('entrei');
     if (checkedIngredients.length === (ingQuant + 1)) {
       this.setState({ setDisable: false });
     } else {
@@ -172,7 +171,7 @@ class FoodInProgress extends React.Component {
         return null;
       }
       ingNumber = index;
-      return this.setState({ ingQuant: ingNumber });
+      return this.setState({ ingQuant: ingNumber }, () => this.verifyChecks());
     });
   }
 
@@ -217,7 +216,6 @@ class FoodInProgress extends React.Component {
     if (detailsRecipe.length === 0) {
       return <div>Carregando</div>;
     }
-    console.log(document.getElementsByTagName('input')[0]);
     return (
       <FoodInProgressInfo
         detailsRecipe={ detailsRecipe }

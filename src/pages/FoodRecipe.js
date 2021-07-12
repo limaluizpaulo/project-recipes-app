@@ -40,11 +40,7 @@ class FoodRecipe extends React.Component {
 
   onClickFavoriteIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const { detailsRecipe } = this.state;
     const newFavorite = {
       id,
@@ -62,35 +58,22 @@ class FoodRecipe extends React.Component {
           isFavorite: false,
         });
         const newArray = favoriteRecipes.filter((recipe) => recipe.id !== id);
-        return localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify(newArray),
-        );
+        return localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
       }
       this.setState({
         isFavorite: true,
       });
       const addFavorite = [...favoriteRecipes, newFavorite];
-      return localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify(addFavorite),
-      );
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(addFavorite));
     }
     this.setState({
       isFavorite: true,
     });
-    return localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify([newFavorite]),
-    );
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
   }
 
   async fetchDetails() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const responseAPI = await fetchAPI(url);
     const { meals } = responseAPI;
@@ -131,12 +114,7 @@ class FoodRecipe extends React.Component {
   }
 
   renderRecipeBtn() {
-    const {
-      match: {
-        params: { id },
-      },
-      history,
-    } = this.props;
+    const { match: { params: { id } }, history } = this.props;
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipesDone) {
       const isDone = recipesDone.find((recipe) => recipe.id === id);
@@ -154,9 +132,7 @@ class FoodRecipe extends React.Component {
         </button>
       );
     }
-    const recipesInProgress = JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    );
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recipesInProgress && recipesInProgress.meals[id]) {
       return (
         <button
@@ -183,11 +159,7 @@ class FoodRecipe extends React.Component {
 
   renderHeartIcon() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     if (favoriteRecipes) {
       const isFavorite = favoriteRecipes.find((recipe) => recipe.id === id);
       if (isFavorite) {
