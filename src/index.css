@@ -432,6 +432,23 @@ justify-items: center;
   height: 250px;
 }
 
+/* .bottomDetails {
+  display: grid;
+  justify-content: center;
+} */
+
+.bottomDetails .recommendedRecipes {
+  display: grid;
+  justify-content: center;
+  padding: 25px;
+}
+
+.bottomDetails .recommendedRecipes h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
 
 /*  ====================================================================================================================================*/
 
