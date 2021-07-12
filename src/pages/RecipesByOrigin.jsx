@@ -24,17 +24,33 @@ class RecipesByOrigin extends Component {
 
   render() {
     const { areas } = this.state;
-    const something = { ...areas };
-    console.log(...areas);
+    const something = areas;
+    console.log(areas);
     console.log(something[0]);
-    const options = something;
+    const options = [
+      {
+        type: 'group',
+        name: 'group1',
+        items: [
+        ],
+      },
+      {
+        type: 'group',
+        name: 'group2',
+        items: [
+          { value: 'five', label: 'Five' },
+          { value: 'six', label: 'Six' },
+        ],
+      },
+    ];
+    console.log(options);
 
     return (
       <div>
         <Header header="Explorar Origem" explorer />
         <div data-testid="explore-by-area-dropdown">
           <Dropdown
-            options={ options }
+            options={ something }
             placeholder="select something"
           />
         </div>
