@@ -1,3 +1,13 @@
+export async function fetchAPI(URL) {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
 // Source: https://medium.com/swlh/promises-async-await-and-fetch-network-requests-in-modern-javascript-fd0b2b384f3e
 
 export async function getRandomData(domain) {
@@ -31,13 +41,6 @@ export async function getDataByCategory(domain, category) {
   } catch (e) {
     console.log(e.toString());
   }
-}
-
-export async function fetchAPI(URL) {
-  const response = await fetch(URL);
-  const data = await response.json();
-
-  return data;
 }
 
 export async function getDataIngredientsList(domain) {
