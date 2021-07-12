@@ -47,7 +47,7 @@ export const fetchComidasOnComponentDidMount = (
   recipeType, fetchType, ingredient,
 ) => (dispatch) => {
   dispatch(isFetching());
-  fetchComidasEBebidas(recipeType, fetchType, ingredient)
+  return fetchComidasEBebidas(recipeType, fetchType, ingredient)
     .then((response) => {
       dispatch(requestRecipesSuccess(response, fetchType));
     })

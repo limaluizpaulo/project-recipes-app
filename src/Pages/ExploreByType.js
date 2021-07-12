@@ -7,13 +7,10 @@ import Footer from '../Components/Footer';
 import { fetchReceitaRandom } from '../redux/actions';
 
 class ExploreByType extends Component {
-  constructor(props) {
-    super(props);
-
-    const { match: { params: { recipeType } } } = this.props;
+  constructor() {
+    super();
 
     this.state = {
-      recipeType,
       redirect: false,
       endpoint: '',
     };
@@ -43,15 +40,13 @@ class ExploreByType extends Component {
   }
 
   async fetchRandomRecipe() {
-    const { recipeType } = this.state;
-    const { dispatchFetchRecipeRandom } = this.props;
+    const { dispatchFetchRecipeRandom, match: { params: { recipeType } } } = this.props;
     await dispatchFetchRecipeRandom(recipeType);
     this.redirectToRandomRecipe();
   }
 
   redirectToRandomRecipe() {
-    const { recipeType } = this.state;
-    const { randomRecipe } = this.props;
+    const { randomRecipe, match: { params: { recipeType } } } = this.props;
     const recipe = Object.values(randomRecipe)[0];
     switch (recipeType) {
     case 'comidas':
@@ -72,8 +67,8 @@ class ExploreByType extends Component {
   }
 
   render() {
-    const { recipeType, redirect, endpoint } = this.state;
-    const { location: { pathname } } = this.props;
+    const { redirect, endpoint } = this.state;
+    const { match: { params: { recipeType } }, location: { pathname } } = this.props;
 
     if (redirect && typeof endpoint !== 'number') {
       return (

@@ -28,7 +28,7 @@ class CountryCard extends Component {
   async handleChange({ target }) {
     if (target.value === 'All') {
       const { dispatchRecipes } = this.props;
-      await dispatchRecipes('comidas');
+      await dispatchRecipes('comidas', 'recipes', '');
       const { recipes } = this.props;
       this.setState({
         area: target.value,
@@ -135,7 +135,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchRecipes:
-  (recipeType) => dispatch(fetchComidasOnComponentDidMount(recipeType)),
+  (recipeType, fetchType, ingredient) => dispatch(fetchComidasOnComponentDidMount(recipeType, fetchType, ingredient)),
 });
 
 CountryCard.propTypes = {

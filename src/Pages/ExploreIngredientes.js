@@ -5,13 +5,10 @@ import Footer from '../Components/Footer';
 import IngredientCard from '../Components/IngredientCard';
 
 class ExploreIngredientes extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const { match: { params: { recipeType } } } = this.props;
+  constructor() {
+    super();
 
     this.state = {
-      recipeType,
       ingredients: [],
     };
 
@@ -42,7 +39,7 @@ class ExploreIngredientes extends React.Component {
   }
 
   fetchIngredients() {
-    const { recipeType } = this.state;
+    const { match: { params: { recipeType } } } = this.props;
     switch (recipeType) {
     case 'comidas':
       return this.fetchInfo('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
@@ -54,8 +51,8 @@ class ExploreIngredientes extends React.Component {
   }
 
   render() {
-    const { recipeType, ingredients } = this.state;
-    const { location: { pathname } } = this.props;
+    const { location: { pathname }, match: { params: { recipeType } } } = this.props;
+    const { ingredients } = this.state;
 
     return (
       <div>
