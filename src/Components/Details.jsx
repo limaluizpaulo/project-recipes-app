@@ -20,10 +20,6 @@ export default function Details(props) {
     setIsCopy(true);
   }
 
-  React.useEffect(() => {
-    console.log(item);
-  }, []);
-
   return (
     <>
 
@@ -47,7 +43,7 @@ export default function Details(props) {
       <img
         data-testid="recipe-photo"
         src={ item[`str${type}Thumb`] }
-        alt="food"
+        alt="some"
         width="100"
       />
       <h3 data-testid="recipe-title">{item[`str${type}`]}</h3>

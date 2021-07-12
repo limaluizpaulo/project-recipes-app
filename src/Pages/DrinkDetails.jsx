@@ -7,8 +7,8 @@ import { setProgressItem } from '../services/services';
 import { GetRecipesDetails, getDrinks } from '../redux/actions';
 import Details from '../Components/Details';
 import CarroselComidas from '../Components/CarroselComidas';
-import BeverageAPI from '../services/BeverageRecipesAPI';
-import MealRecipesAPI from '../services/MealRecipesAPI';
+import DrinkApi from '../services/BeverageRecipesAPI';
+import MealAPI from '../services/MealRecipesAPI';
 
 const DrinkDetails = (props) => {
   const { match: { params: { id } } } = props;
@@ -17,18 +17,21 @@ const DrinkDetails = (props) => {
   const inProgressItems = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
   const inProgressItemsIDs = Object.keys(inProgressItems.cocktails || {});
   const {
-    drinkId,
+    setDrinkDetails,
     drink,
     redirect,
   } = props;
   async function resultDrink() {
-    const listRecomendations = await MealRecipesAPI.getByDefault();
-    await BeverageAPI.getDrinkById(id);
+    const listRecomendations = await MealAPI.getByDefault();
+    await DrinkApi.getDrinkById(id);
     setItem({ listRecomendations });
   }
+
   useEffect(() => {
+    // DrinkApi.getDrinkById(id)
+    //   .then((res) => localStorage.setItem('itemDetails', JSON.stringify(res[0])));
     if (loading) {
-      drinkId(id)
+      setDrinkDetails(id)
         .then(() => resultDrink()
           .then(() => setLoading(false)));
     }
@@ -37,7 +40,7 @@ const DrinkDetails = (props) => {
   return !redirect ? <h3>Loading</h3>
     : (
       <div className="card-details">
-        { drink.map((drinkItem, index) => (
+        { (drink || []).map((drinkItem, index) => (
           <React.Fragment key={ index }>
             <Details id={ id } item={ drinkItem } type="Drink" />
             <CarroselComidas recomendations={ item.listRecomendations || [] } />
@@ -70,7 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  drinkId: (value) => dispatch(GetRecipesDetails(value, BeverageAPI.getDrinkById)),
+  setDrinkDetails: (value) => dispatch(GetRecipesDetails(value, DrinkApi.getDrinkById)),
   getDrinkId: (value, callback) => dispatch(getDrinks(value, callback)),
 });
 
