@@ -52,12 +52,26 @@ export default function RecipesInProgressDrink() {
   };
   const saveLocalStorage = () => {
     const id = pathname.split('/')[2];
-    const save = ingredientMade;
-    localStorage.setItem(`${id}`, JSON.stringify(save));
+    const ingredientSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredientSaved) {
+      const save = {
+        ...ingredientSaved,
+        cocktails: {
+          [id]: ingredientMade,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(save));
+    } else {
+      const save = {
+        cocktails: {
+          [id]: ingredientMade,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(save));
+    }
   };
   const getLocalStorage = () => {
-    const id = pathname.split('/')[2];
-    const ingredientSaved = JSON.parse(localStorage.getItem(`${id}`));
+    const ingredientSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (ingredientSaved != null) {
       const numberCheck = ingredientSaved.length;
       setDisableButton(numberCheck);

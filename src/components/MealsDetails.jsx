@@ -20,6 +20,8 @@ export default function MealsDetails() {
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
+  const [invisibleButton, setInvisibleButton] = useState(false);
+  const [stateChangeButton, setStateChangeButton] = useState(false);
   // const [setChekButtonState] = useState(true);
 
   const filterDetails = () => {
@@ -74,18 +76,21 @@ export default function MealsDetails() {
 
   useEffect(verifyHeart, []);
 
-  // const checkButton = () => {
-  //   /// const url = pathname.split('/')[2];
-  //   const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   // let checkrecipesDone = [];
-  //   if (recipesDone === null) {
-  //     checkrecipesDone = [];
-  //   } else {
-  //     checkrecipesDone = recipesDone;
-  //     // const checkedButton = checkrecipesDone.some((e) => e.id === url);
-  //   }
-  // };
-  // useEffect(checkButton, []);
+  const checkButton = () => {
+    const recipeFinish = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (recipeFinish) {
+      const buttonInvisible = recipeFinish.some((element) => element.id === id);
+      setInvisibleButton(buttonInvisible);
+    }
+  };
+  useEffect(checkButton, []);
+  const changeButton = () => {
+    const modButton = JSON.parse(localStorage.getItem(`${id}`));
+    if (modButton) {
+      setStateChangeButton(true);
+    }
+  };
+  useEffect(changeButton, []);
   const {
     strMealThumb,
     strMeal,
@@ -94,6 +99,7 @@ export default function MealsDetails() {
     strVideo,
     idMeal,
   } = stateMeals[0];
+
   return (
     <div>
       <img
@@ -155,9 +161,9 @@ export default function MealsDetails() {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciarReceita"
+          className={ invisibleButton ? 'iniciarReceitaInvisible' : 'iniciarReceita' }
         >
-          Iniciar Receita
+          {stateChangeButton ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
         )
       </Link>
