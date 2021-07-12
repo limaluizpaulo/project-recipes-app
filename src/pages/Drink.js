@@ -7,6 +7,7 @@ import { renderIngredients } from '../utils';
 import Carousel from '../components/Carousel';
 import FavoriteIcon from '../components/FavoriteIcon';
 import ShareButton from '../components/ShareButton';
+import Rolo from '../images/Rolo.svg';
 
 const Drink = ({ match }) => {
   const history = useHistory();
@@ -23,7 +24,7 @@ const Drink = ({ match }) => {
   const url = `http://localhost:3000${history.location.pathname}`;
 
   return (
-    <div>
+    <div className="recipe">
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
       <img
@@ -31,10 +32,13 @@ const Drink = ({ match }) => {
         src={ drink.strDrinkThumb }
         alt={ drink.strDrink }
       />
-      <ul>
-        Ingredientes:
-        {renderIngredients(drink)}
-      </ul>
+      <section className="ingredient">
+        <img src={ Rolo } alt="Imagem de um rolo" />
+        <h1>Ingredientes:</h1>
+        <ul>
+          {renderIngredients(drink)}
+        </ul>
+      </section>
       <p data-testid="instructions">{drink.strInstructions}</p>
       <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
       <FavoriteIcon recipe={ drink } idTest="favorite-btn" />
