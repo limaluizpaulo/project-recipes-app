@@ -7,7 +7,7 @@ class DoneRecipesButtons extends Component {
   render() {
     const { statusButton } = this.props;
     return (
-      <div>
+      <div className="buttons-container">
         <Button
           type="button"
           className="buttons"

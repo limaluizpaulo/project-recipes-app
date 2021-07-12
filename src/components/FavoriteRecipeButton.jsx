@@ -8,7 +8,7 @@ class FavoriteRecipesButtons extends Component {
   render() {
     const { statusButton } = this.props;
     return (
-      <div>
+      <div className="buttons-container">
         <Button
           className="buttons"
           type="button"

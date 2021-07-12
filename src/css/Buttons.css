@@ -1,10 +1,15 @@
+.buttons-container {
+  margin: 2px;
+  width: 100%;
+}
+
 .buttons {
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
   height: 50px;
   line-height: 1em;
   margin: 1px;
-  width: 120px;
+  width: 115px;
 }
 
 .buttonss {
@@ -13,7 +18,7 @@
   height: 45px;
   line-height: 1em;
   margin: 1px;
-  width: 120px;
+  width: 115px;
 }
 
 .like-and-share {
@@ -24,9 +29,8 @@
   width: 40px;
 }
 
-.centraliza-buttons {
-  display: flex;
-  flex-flow: row wrap;
-  flex-direction: row;
-  justify-content: center;
+.like-and-share:hover {
+  background-color: white;
+  border: rgb(228, 204, 204);
 }
+

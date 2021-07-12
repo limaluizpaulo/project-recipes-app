@@ -99,7 +99,7 @@ class RecipeDetails extends React.Component {
 
   renderRecommendedCard(recipes) {
     return (
-      <div>
+      <div className="recipe-details-recommended">
         <h4>Recomendadas</h4>
         <div className="card-list">
           <RecomendedCard recipes={ recipes } />
@@ -122,29 +122,32 @@ class RecipeDetails extends React.Component {
           />
         </div>
         <div className="recipe-details-titles">
-          <h1 data-testid="recipe-title">
+          <h2 data-testid="recipe-title">
             { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-          </h1>
-          <Button
-            className="like-and-share"
-            data-testid="share-btn"
-            type="button"
-            onClick={ this.copyLink }
-          >
-            <img src={ shareIcon } alt="shareIcon" />
-          </Button>
-          <Button
-            className="like-and-share"
-            type="button"
-            onClick={ () => this.verifyFavorite(recipeDetails[0]) }
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ favorite ? black : white }
-              alt="favoriteIcon"
-            />
-          </Button>
-          {copied ? <span>Link copiado!</span> : null}
+          </h2>
+          <div className="recipe-details-links">
+            <Button
+              className="like-and-share"
+              data-testid="share-btn"
+              type="button"
+              onClick={ this.copyLink }
+            >
+              <img src={ shareIcon } alt="shareIcon" />
+            </Button>
+            <Button
+              className="like-and-share"
+              type="button"
+              onClick={ () => this.verifyFavorite(recipeDetails[0]) }
+            >
+              <img
+                data-testid="favorite-btn"
+                src={ favorite ? black : white }
+                alt="favoriteIcon"
+              />
+            </Button>
+            {copied ? <span>Link copiado!</span> : null}
+
+          </div>
         </div>
         <div className="recipe-details-subtitles">
           <span data-testid="recipe-category">
@@ -159,14 +162,14 @@ class RecipeDetails extends React.Component {
           {this.getIngredients()}
           <ul />
         </div>
-        <div>
+        <div className="recipe-details-instructions">
           <h4>Instruções</h4>
           <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
         </div>
         {title === 'Bebidas' ? null
           : (
-            <div>
-              <h4>Video</h4>
+            <div className="recipe-details-video">
+              <h4>Vídeo</h4>
               <iframe
                 data-testid="video"
                 title={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
