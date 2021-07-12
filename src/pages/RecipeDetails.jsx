@@ -108,7 +108,6 @@ export default function RecipeDetails() {
           css="margin: 150px 130px"
         />
       )}
-
     </div>
   );
 }
