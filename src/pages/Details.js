@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Carousel } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import CardRecomendation from '../components/CardRecomendation';
 import VideoPlayer from '../components/VideoPlayer';
@@ -120,16 +120,26 @@ export default function Details() {
             />
           ) }
         </div>
-        <div className="recomendations-container">
+        <Carousel>
           { recomendations.map((item, i) => (
-            <CardRecomendation
+            <Carousel.Item
+              className="recomendations-container"
               key={ i }
-              mealOrDrink={ item }
-              index={ i }
-              testId="recomendation"
-            />
+            >
+              <CardRecomendation
+                mealOrDrink={ item }
+                index={ i }
+                testId="recomendation"
+              />
+
+              {/* <CardRecomendation
+                mealOrDrink={ array[i + 1] || array[0] }
+                index={ i + 1 }
+                testId="recomendation"
+              /> */}
+            </Carousel.Item>
           ))}
-        </div>
+        </Carousel>
 
         <Button
           className="start-recipe-btn"
