@@ -1,3 +1,48 @@
+@import url(//db.onlinewebfonts.com/c/2a895939d05d9433ce269cd6870ab1dc?family=Lemon+Tuesday);
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+@media screen and (min-width: 350px) and (max-width:500px){
+
+  .ingredient ul {
+    top: 450px;
+  }
+  
+  .recipe-photo {
+    width:50vw;
+  }
+  
+  .recipe h2 {
+    background: #6a8b4183;
+  }
+
+  .ingredient img {
+    height: auto;
+    opacity: 0.3;
+    position: relative;
+  }
+  
+}
+
+*{
+  box-sizing: border-box;
+  font-family: 'Lemon Tuesday', Arial, sans-serif;
+  padding: 2px;
+  text-align: center;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.hero-container {
+  background-color: #6a8b41
+}
+
+.hero-container > h1{
+  color: #fff;
+  text-shadow: 1px 4px 12px rgba(0,0,0,0.83);
+}
+
 .cards {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 5px;
@@ -119,4 +164,44 @@ Ajuda Alessandra
   100% {
     transform: rotate(-10deg);
   }
+}
+
+
+.recipe h2 {
+  color:#7b3c15;
+  text-shadow: 1px 4px 12px rgba(0,0,0,0.83);
+}
+
+.recipe h3 {
+  color: #6a8b41;
+}
+
+.recipe p {
+  color: #6a8b41;
+  font-family: 'Cookie', cursive;
+  font-size:x-large;
+  text-shadow: -2px -2px 6px rgba(99, 97, 97, 0.54);
+}
+
+.ingredient img {
+  height: auto;
+  opacity: 0.3;
+  position: absolute;
+  width: 100%;
+}
+
+.ingredient h1 {
+  color: #7b3c15;
+  font-size: 30px;
+}
+
+.ingredient ul {
+  width: 100%;
+  text-align: center;
+}
+
+.ingredient li {
+  background:#46d69f2c;
+  font-family: 'Cookie', cursive;
+  font-size: x-large;
 }
