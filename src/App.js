@@ -24,9 +24,9 @@ function App() {
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/:recipeType/ingredientes/:ingredientName" component={ RecipesByIngredient } />
-      <Route path="/:recipeType" component={ Recipes } />
       <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
+      <Route path="/:recipeType" component={ Recipes } />
       <Route path="/" component={ Login } />
       <Route path="/explorar/bebidas/area" component={ NotFound } />
     </Switch>

@@ -20,6 +20,7 @@ class RecipeCard extends React.Component {
 
   componentDidMount() {
     const { dispatchRecipes, recipeType } = this.props;
+    console.log(this.props)
     dispatchRecipes(recipeType, 'recipes');
     dispatchRecipes(recipeType, 'categories');
   }
@@ -123,7 +124,7 @@ class RecipeCard extends React.Component {
         >
           All
         </button>
-        {recipes && !isFetching
+        {recipes.length && !isFetching
           ? this.renderRecipes(selectedCategory === 'All'
             ? recipes : recipesByIngredients)
           : <h1>Loading...</h1>}
