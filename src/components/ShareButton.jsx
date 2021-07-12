@@ -10,7 +10,11 @@ export default function ShareButton() {
   const TWO_SECONDS = 2000;
   const shareLink = () => {
     const url = `http://localhost:3000${pathname}`;
-    copy(url);
+    if (url.includes('in-progress')) {
+      copy(`${url.split('/in-progress')[0]}`);
+    } else {
+      copy(url);
+    }
     setMsgCopy(!msgCopy);
     setTimeout(() => {
       setMsgCopy(false);
@@ -21,8 +25,8 @@ export default function ShareButton() {
       <div>
         {msgCopy ? 'Link copiado!' : ''}
       </div>
-      <button type="button" data-testid="share-btn" onClick={ shareLink }>
-        <img src={ shareIcon } alt="botão de compartilhar" />
+      <button type="button" onClick={ shareLink }>
+        <img src={ shareIcon } alt="botão de compartilhar" data-testid="share-btn" />
       </button>
     </main>
   );

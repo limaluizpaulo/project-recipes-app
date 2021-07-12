@@ -9,11 +9,11 @@ import RecipesContext from '../Context/RecipesContext';
 import FavoriteButton from './FavoriteButton';
 
 export default function MealsDetails() {
-  const { stateMeals, setStateMeals } = useContext(RecipesContext);
-  const [ingredients, setIngredients] = useState([]);
-  const [measure, setMeasure] = useState([]);
+  const { stateMeals, setStateMeals, ingredientsMeals, setIngredientsMeals,
+    measureMeals, setMeasureMeals } = useContext(RecipesContext);
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
+  const [stateChangeHeart, setStateChangeHeart] = useState(true);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -28,8 +28,8 @@ export default function MealsDetails() {
     arrayKeysIngredients.forEach((element) => ingredient.push(stateMeals[0][element]));
     const filtroIngredients = ingredient.filter((word) => word !== '');
     const filtroMeasure = measures.filter((word) => word !== ' ');
-    setIngredients(filtroIngredients);
-    setMeasure(filtroMeasure);
+    setIngredientsMeals(filtroIngredients);
+    setMeasureMeals(filtroMeasure);
   };
 
   const getApiDetails = () => {
@@ -41,6 +41,28 @@ export default function MealsDetails() {
 
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateMeals]);
+
+  const id = pathname.split('/')[2];
+  const removeFavorited = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.filter((element) => element.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
+    }
+  };
+
+  const verifyHeart = () => {
+    const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorited) {
+      const filterLocalStorage = favorited.some((element) => element.id === id);
+      if (filterLocalStorage) {
+        setStateChangeHeart(false);
+      }
+    }
+  };
+
+  useEffect(verifyHeart, []);
+
   const { strMealThumb, strMeal,
     strCategory, strInstructions, strVideo, idMeal } = stateMeals[0];
   return (
@@ -53,17 +75,21 @@ export default function MealsDetails() {
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton
+        stateChangeHeart={ stateChangeHeart }
+        setStateChangeHeart={ setStateChangeHeart }
+        removeFavorited={ removeFavorited }
+      />
       <p data-testid="recipe-category">{ strCategory }</p>
       <h2>Ingredients</h2>
       <ul>
-        {console.log(ingredients)}
-        {ingredients.map((ingredient, index) => (
+        {ingredientsMeals.map((ingredient, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
           >
-            { `${ingredient} ${measure[index] !== undefined ? `-${measure[index]}` : ''}`}
+            { `${ingredient} ${measureMeals[index] !== undefined
+              ? `-${measureMeals[index]}` : ''}`}
           </li>))}
       </ul>
       <h2>Instructions</h2>
