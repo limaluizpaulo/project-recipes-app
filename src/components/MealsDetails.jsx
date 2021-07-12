@@ -96,7 +96,7 @@ export default function MealsDetails() {
   const changeButton = () => {
     const url = pathname.split('/')[2];
     const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
-    const keysCocktais = Object.keys(meals);
+    const keysCocktais = meals ? Object.keys(meals) : [];
     const checkKeys = keysCocktais.includes(url);
     setChekButtonState(checkKeys);
   };

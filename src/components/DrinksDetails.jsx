@@ -70,7 +70,7 @@ export default function DrinksDetails() {
   const checkButton = () => {
     const url = pathname.split('/')[2];
     const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
-    const keysCocktais = Object.keys(cocktails);
+    const keysCocktais = cocktails ? Object.keys(cocktails) : [];
     const checkKeys = keysCocktais.includes(url);
     setChekButtonState(checkKeys);
   };
