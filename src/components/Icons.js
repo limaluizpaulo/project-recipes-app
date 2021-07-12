@@ -95,7 +95,7 @@ function Icons(item) {
 
   function copyClipboard() {
     const url = document.URL;
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(url.replace('/in-progress', ''));
     setChangeCopy(true);
     setTimeout(() => {
       setChangeCopy(false);
@@ -185,6 +185,8 @@ function Icons(item) {
           />
         </button>
       </div>
+      {console.log(historyPage[historyPage
+        .length - 2])}
       { (changeCopy
        || historyPage[historyPage
          .length - 2] === '/receitas-favoritas')

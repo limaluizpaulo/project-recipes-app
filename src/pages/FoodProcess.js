@@ -38,6 +38,20 @@ function FoodProcess() {
     }
   }
 
+  const { id } = useParams();
+
+  function returnIngredientsUsed() {
+    const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inLocalStorage) return inLocalStorage.meals[id];
+    return [];
+  }
+
+  const [ingredientsUsed, setIngredientsUsed] = useState(returnIngredientsUsed());
+
+  function updateIngredientsUsed() {
+    setIngredientsUsed(returnIngredientsUsed());
+  }
+
   function processDone(changeIcon) {
     let done = JSON.parse(localStorage.getItem('doneRecipes'));
     const doneElement = doneStructure();
@@ -79,7 +93,12 @@ function FoodProcess() {
                 </div>
                 <Icons code={ item[0] } />
               </section>
-              <List array={ array } />
+              <List
+                array={ array }
+                ingredientsUsed={ ingredientsUsed }
+                updateIngredientsUsed={ updateIngredientsUsed }
+                idMeal={ id }
+              />
               <h2>Instructions</h2>
               <p
                 className="instructions"
