@@ -37,7 +37,6 @@ class Progresso extends Component {
       foodDetails, drinksDetails, isStart } = this.props;
     isStart(true);
     if (localStorage.length === 0) {
-
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ cocktails: {}, meals: {} }));
     }
