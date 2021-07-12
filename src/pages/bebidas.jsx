@@ -26,7 +26,6 @@ class Bebidas extends Component {
     const { dispatchDrinks, apiDrinkCategories, drinks, hasSearchBar } = this.props;
     hasSearchBar(true);
     if (drinks.length === 0) {
-      console.log('entrei');
       dispatchDrinks();
     }
     apiDrinkCategories();

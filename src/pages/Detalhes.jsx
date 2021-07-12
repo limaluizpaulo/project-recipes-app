@@ -22,16 +22,21 @@ class Detalhes extends Component {
     super(props);
     this.state = {
       currentId: '',
+      startedRecipe: false,
+      finishedRecipe: false,
     };
+
     this.instrutionVideo = this.instrutionVideo.bind(this);
     this.cardsMeals = this.cardsMeals.bind(this);
     this.cardsDrinks = this.cardsDrinks.bind(this);
     this.handleFetch = this.handleFetch.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.redirectForInProgress = this.redirectForInProgress.bind(this);
+    this.checkStorage = this.checkStorage.bind(this);
   }
 
   componentDidMount() {
     this.handleFetch();
+    this.checkStorage();
   }
 
   componentDidUpdate() {
@@ -63,7 +68,7 @@ class Detalhes extends Component {
     return drinksDetails(id);
   }
 
-  onClick() {
+  redirectForInProgress() {
     const { isStart, history, match: { params: { page, id } } } = this.props;
     history.push(`/${page}/${id}/in-progress`);
     isStart(true);
@@ -153,7 +158,39 @@ class Detalhes extends Component {
     );
   }
 
+  checkStorage() {
+    const { match: { params: { id } } } = this.props;
+    const { finishedRecipe } = this.state;
+
+    if (localStorage.doneRecipes) {
+      const checkDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+      checkDoneRecipes.forEach((recipe) => {
+        if (recipe.id === id) {
+          this.setState({ finishedRecipe: !finishedRecipe });
+        }
+      });
+    }
+
+    if (localStorage.inProgressRecipes) {
+      const checkInProgressRecipes = JSON.parse(localStorage
+        .getItem('inProgressRecipes'));
+
+      const mealsKeys = Object.keys(checkInProgressRecipes.meals);
+      const drinksKeys = Object.keys(checkInProgressRecipes.cocktails);
+
+      if (mealsKeys.some((item) => item === id)) {
+        this.setState({ startedRecipe: true });
+      }
+
+      if (drinksKeys.some((item) => item === id)) {
+        this.setState({ startedRecipe: true });
+      }
+    }
+  }
+
   render() {
+    const { startedRecipe, finishedRecipe } = this.state;
     const { details, isDrink } = this.props;
     return (
       <section className="page-details">
@@ -183,12 +220,24 @@ class Detalhes extends Component {
           </section>
         </section>
         <button
-          className="details-btn-startRecipe"
+          className={ finishedRecipe ? 'invisible' : 'details-btn-startRecipe' }
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => this.onClick() }
+          onClick={ () => {
+            this.redirectForInProgress();
+          } }
         >
           Iniciar Receita
+        </button>
+        <button
+          className={ startedRecipe ? 'details-btn-startRecipe' : 'invisible' }
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            this.redirectForInProgress();
+          } }
+        >
+          Continuar Receita
         </button>
       </section>
     );

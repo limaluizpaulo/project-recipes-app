@@ -11,6 +11,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
+import identification from '../helper/dictionaryApi';
 
 class Progresso extends Component {
   constructor(props) {
@@ -30,13 +31,18 @@ class Progresso extends Component {
     this.updateState = this.updateState.bind(this);
     this.onClick = this.onClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.saveDoneRecipes = this.saveDoneRecipes.bind(this);
   }
 
   componentDidMount() {
     const { match: { params: { page, id } },
       foodDetails, drinksDetails, isStart } = this.props;
     isStart(true);
-    if (localStorage.length === 0) {
+
+    const storage = Object.keys(localStorage);
+    const check = storage.some((key) => key === 'inProgressRecipes');
+
+    if (check === false) {
       localStorage.setItem('inProgressRecipes', JSON
         .stringify({ cocktails: {}, meals: {} }));
     }
@@ -121,6 +127,7 @@ class Progresso extends Component {
 
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recovery.meals[id] !== undefined) {
+      // console.log(recovery.meals[id], 'existo');
       console.log(recovery.meals[id], 'existo');
       return this.setState({ allIngredients: recovery.meals[id] });
     }
@@ -145,6 +152,33 @@ class Progresso extends Component {
         id, should: false });
     }
   }
+
+  saveDoneRecipes() {
+    const { details, match: { params: { page } } } = this.props;
+    const keyName = identification(details);
+    const currentDate = new Date().toLocaleDateString();
+    const currentHour = new Date().toLocaleTimeString();
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+    const recipe = {
+      id: details[keyName.Id],
+      type: page,
+      area: details[keyName.Area] ? details[keyName.Area] : '',
+      category: details[keyName.Category] ? details[keyName.Category] : '',
+      alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
+      name: details[keyName.Name],
+      image: details[keyName.Thumb],
+      doneDate: `${currentDate}, ${currentHour}`,
+      tags: details[keyName.Tags] ? details[keyName.Tags] : '',
+    };
+
+    doneRecipes.push(recipe);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }
+
+  render() {
+    const { details, match: { params: { page, id } } } = this.props;
+    // console.log(page);
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
@@ -193,6 +227,10 @@ class Progresso extends Component {
             className="details-btn-startRecipe"
             type="button"
             data-testid="finish-recipe-btn"
+            onClick={ () => {
+              this.handleClick();
+              this.saveDoneRecipes();
+            } }
             onClick={ this.handleClick }
             disabled={ isDisable }
           >

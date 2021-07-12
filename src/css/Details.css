@@ -43,3 +43,7 @@
   position: fixed;
   width: 21.2rem;
 }
+
+.invisible {
+  display: none;
+}
