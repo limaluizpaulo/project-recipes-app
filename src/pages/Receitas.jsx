@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import CardsDeReceitas from '../components/CardsDeReceitas';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -11,6 +11,7 @@ import { receitasApi } from '../services/servicesApi';
 function Receitas() {
   const { parametrosBusca } = useContext(AppReceitasContext);
   const [receitas, setReceitas] = useState([]);
+  const history = useHistory();
   const rotaAtual = useLocation().pathname;
   const apelidoAPI = rotaAtual.replace('/', '');
 
@@ -39,12 +40,18 @@ function Receitas() {
     }
   }, [parametrosBusca]);
 
-  // if (receitas.length === 1) {
-  //   const [receitaUnica] = receitas;
-  //   const { location: { pathname } } = history;
-  //   const id = ((pathname.match(/comidas/)) ? receitaUnica.idMeal : receitaUnica.idDrink);
-  //   history.push(`${pathname}/${id}`);
-  // }
+  if (receitas.length === 1) {
+    const goatId = 52968;
+    if (receitas[0].idMeal !== goatId) {
+      console.log();
+      const [receitaUnica] = receitas;
+      const { location: { pathname } } = history;
+      const id = (
+        (pathname.match(/comidas/)) ? receitaUnica.idMeal : receitaUnica.idDrink
+      );
+      history.push(`${pathname}/${id}`);
+    }
+  }
 
   return (
     <section>

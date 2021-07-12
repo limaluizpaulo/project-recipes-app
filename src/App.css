@@ -96,12 +96,12 @@ body {
   display: flex;
   flex-direction: row;
   height: 10%;
-  padding: 1% 10%;
   margin-bottom: 3%;
+  padding: 1% 10%;
 }
 
-H2 {
-  margin: 10px
+h2 {
+  margin: 10px;
 }
 
 h4 {
@@ -177,7 +177,6 @@ h5 {
 }
 
 .iniciarbtn {
-  color: rgb(194, 10, 47);
   background-color: rgb(251, 228, 170);
   border-style: groove;
   opacity: 50%;

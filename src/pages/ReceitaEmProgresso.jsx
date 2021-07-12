@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { buscaReceita } from '../services/servicesApi';
-import shareIcon from '../images/shareIcon.svg';
 import Ingredientes from '../components/ReceitaEmProgresso/Ingredientes';
 import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
+import formatIngredientsAndMeasuresArray from '../helpers/formatIngredientsMeasures';
+import { addDoneRecipes } from '../services/localStorage';
+import customDate from '../helpers/Date';
+import ButtonCompartilhar from '../components/ButtonCompartilhar';
 
 function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
@@ -24,22 +26,6 @@ function ReceitaEmProgresso() {
   });
   const [ingredientesCheckboxes, setIngredientesCheckboxes] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
-
-  const inicializarIngredientes = (objReceitas) => {
-    let indexAuxiliar = 0;
-    const ingsMeds = Object.keys(objReceitas).reduce((acc, key) => {
-      if (key.match(/strIngredient\d+/) && objReceitas[key]) {
-        return acc.concat([[objReceitas[key]]]);
-      }
-
-      if (key.match(/strMeasure\d+/) && objReceitas[key]) {
-        acc[indexAuxiliar].push(objReceitas[key]);
-        indexAuxiliar += 1;
-      }
-      return acc;
-    }, []);
-    setIngredientesCheckboxes(ingsMeds);
-  };
 
   useEffect(() => {
     const didMount = async () => {
@@ -66,10 +52,12 @@ function ReceitaEmProgresso() {
         tags,
         instructions,
       });
-      inicializarIngredientes(respostaApi);
+
+      const ingredientsAndMeasures = formatIngredientsAndMeasuresArray(respostaApi);
+      setIngredientesCheckboxes(ingredientsAndMeasures);
     };
     didMount();
-  }, [parametrosBusca]);
+  }, []);
 
   const renderizaImagemReceita = () => {
     const { image, name } = receita;
@@ -89,35 +77,13 @@ function ReceitaEmProgresso() {
     );
   };
 
-  const copiarLink = () => {
-    const doisSegundos = 2000;
-    const tooltip = document.querySelector('.improvised-tooltip');
-    tooltip.innerHTML = 'Link copiado!';
-    const { URL } = document;
-    const [urlFormatado] = URL.match(/.+(?=\/in-progress)/);
-    clipboardCopy(urlFormatado);
-    const exibirTooltip = setTimeout(() => {
-      tooltip.innerHTML = '';
-      clearTimeout(exibirTooltip);
-    }, doisSegundos);
-  };
-
   const renderizaBotoesTitulo = () => (
     <>
-      <div>
-        <span className="improvised-tooltip" />
-      </div>
-      <button type="button" className="button-transparent" onClick={ copiarLink }>
-        <img
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="share-btn"
-        />
-      </button>
-      <BotaoFavorito
-        getFavoriteRecipesParams={ { apelidoAPI, id } }
-        receita={ receita }
+      <ButtonCompartilhar
+        parametrosURL={ { id, type: apelidoAPI } }
+        dataTestId="share-btn"
       />
+      <BotaoFavorito receita={ receita } />
     </>
   );
 
@@ -135,8 +101,34 @@ function ReceitaEmProgresso() {
     );
   };
 
+  const handleClick = () => {
+    const { type, area, category, alcoholicOrNot, name, image, tags } = receita;
+    const doneDate = customDate();
+    const doneRecipe = {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      doneDate,
+      tags,
+    };
+    addDoneRecipes(doneRecipe);
+  };
+
   const renderizaBotaoFinalizar = () => (
-    <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+    <Link to="/receitas-feitas">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ !isComplete }
+        onClick={ handleClick }
+      >
+        Finalizar receita
+      </button>
+    </Link>
   );
 
   return (
@@ -152,7 +144,7 @@ function ReceitaEmProgresso() {
           setIsComplete={ setIsComplete }
         />}
       { renderizaInstrucoes() }
-      { isComplete && renderizaBotaoFinalizar() }
+      { renderizaBotaoFinalizar() }
     </>
   );
 }

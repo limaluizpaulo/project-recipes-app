@@ -5,10 +5,10 @@ import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita, receitasApi } from '../services/servicesApi';
 
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
 import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
 import CarouselElement from './detailsElements/CarouselElement';
+import ButtonCompartilhar from '../components/ButtonCompartilhar';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
@@ -95,9 +95,10 @@ function DetailsReceita(props) {
         <Link className="favoritebtn" to="/">
           <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
         </Link>
-        <Link to="/">
-          <img className="sharebtn" data-testid="share-btn" src={ shareIcon } alt="" />
-        </Link>
+        <ButtonCompartilhar
+          parametrosURL={ { id, type: apelidoAPI } }
+          dataTestId="share-btn"
+        />
       </div>
 
     </div>
