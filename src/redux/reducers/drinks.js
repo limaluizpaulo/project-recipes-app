@@ -4,6 +4,7 @@ const initialState = {
   list: [],
   goToDrinksPage: false,
   categories: [],
+  shouldRedirect: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -15,6 +16,7 @@ export default (state = initialState, { type, payload }) => {
       goToDrinksPage: payload && payload.length === 1,
       // drinkNotFound: !payload,
     };
+
   case RANDOM:
     return {
       ...state,
