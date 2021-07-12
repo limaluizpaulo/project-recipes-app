@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import '../css/Details.css';
-import ReactPlayer from 'react-player';
-import Slider from 'react-slick';
 import Instructions from '../components/Instructions';
 import Ingredients from '../components/Ingredients';
 import DetailsHeader from '../components/DetailsHeader';
@@ -12,10 +10,9 @@ import SharedFavorites from '../components/SharedFavorites';
 
 import { fetchDrinkDetails, fetchFoodDetails,
   startRecipe, getFoodDetails, fetchDrinksRecipes, fetchFoodRecipes } from '../action';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import identification from '../helper/dictionaryApi';
-import CarouselCards from '../components/CarouselCards';
+import CardMeals from '../components/CardsMeals';
+import CardsDrinks from '../components/CardsDrinks';
+import InstrutionVideo from '../components/InstrutionVideo';
 
 class Detalhes extends Component {
   constructor(props) {
@@ -26,9 +23,6 @@ class Detalhes extends Component {
       finishedRecipe: false,
     };
 
-    this.instrutionVideo = this.instrutionVideo.bind(this);
-    this.cardsMeals = this.cardsMeals.bind(this);
-    this.cardsDrinks = this.cardsDrinks.bind(this);
     this.handleFetch = this.handleFetch.bind(this);
     this.redirectForInProgress = this.redirectForInProgress.bind(this);
     this.checkStorage = this.checkStorage.bind(this);
@@ -74,90 +68,6 @@ class Detalhes extends Component {
     const { isStart, history, match: { params: { page, id } } } = this.props;
     history.push(`/${page}/${id}/in-progress`);
     isStart(true);
-  }
-
-  instrutionVideo(data) {
-    const keyName = identification(data);
-    return (
-      <section>
-        <h3>Video</h3>
-        <section className="video">
-          <ReactPlayer
-            controls
-            data-testid="video"
-            url={ data[keyName.Youtube] }
-            width="100%"
-            height="100%"
-          />
-        </section>
-      </section>
-    );
-  }
-
-  cardsMeals() {
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1,
-    };
-    const { meals } = this.props;
-    const max = 6;
-    const sliceMeals = meals.slice(0, max);
-    return (
-      <section>
-        <Slider { ...settings }>
-          {
-            sliceMeals.map((measl, index) => (
-              <CarouselCards
-                url="/comidas"
-                id={ measl.idMeal }
-                key={ measl.idMeal }
-                img={ measl.strMealThumb }
-                title={ measl.strMeal }
-                index={ index }
-                subTitle={ measl.strCategory }
-              />
-            ))
-          }
-        </Slider>
-      </section>
-    );
-  }
-
-  cardsDrinks() {
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1,
-    };
-    const { drinks } = this.props;
-    const max = 6;
-    const sliceDrinks = drinks.slice(0, max);
-    return (
-      <section>
-        <Slider { ...settings }>
-          {
-            sliceDrinks.map((drink, index) => (
-              <div key={ index }>
-                <CarouselCards
-                  url="/bebidas"
-                  id={ drink.idDrink }
-                  key={ index }
-                  img={ drink.strDrinkThumb }
-                  title={ drink.strDrink }
-                  index={ index }
-                  subTitle={ drink.strAlcoholic }
-                />
-              </div>
-            ))
-          }
-        </Slider>
-      </section>
-    );
   }
 
   checkStorage() {
@@ -244,12 +154,12 @@ class Detalhes extends Component {
             </span>
           </section>
           {
-            isDrink === false && this.instrutionVideo(details)
+            isDrink === false && <InstrutionVideo data={ details } />
           }
           <section>
             <h3>Recomendadas</h3>
             {
-              isDrink === false ? this.cardsDrinks() : this.cardsMeals()
+              isDrink === false ? <CardsDrinks /> : <CardMeals />
             }
           </section>
         </section>
@@ -288,8 +198,6 @@ Detalhes.propTypes = {
   match: PropTypes.shape.isRequired,
   history: PropTypes.shape.isRequired,
   isDrink: PropTypes.bool.isRequired,
-  drinks: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detalhes);
