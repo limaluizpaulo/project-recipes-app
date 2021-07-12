@@ -22,7 +22,6 @@ function Explore() {
       >
         Explorar Bebidas
       </Link>
-      <Teste />
       <Footer />
     </div>
   );

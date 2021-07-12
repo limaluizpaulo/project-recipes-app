@@ -34,7 +34,7 @@ function Drinks(props) {
   }, [drinks]);
 
   return loading ? <div>Loading...</div> : (
-    <div className="foodScreen">
+    <div className="tela-drink">
       <HeadBar title="Bebidas" />
       <CategoryButtons
         setMainDrinks={ (list) => setMainDrinks(setList12(list)) }

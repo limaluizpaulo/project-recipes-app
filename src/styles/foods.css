@@ -10,10 +10,21 @@
   width: 100%;
 }
 
+.tela-drink {
+  background-color: #f7ecf7;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 .categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 10px;
   text-align: center;
-  width: 100%;
+  width: 100vw;
 }
 
 .btn-categories {
@@ -25,9 +36,7 @@
 
 .items-list {
   display: grid;
-  gap: 5px;
   grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
   margin-top: 10px;
   text-align: center;
   width: 100%;

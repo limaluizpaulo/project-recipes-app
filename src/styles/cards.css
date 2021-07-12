@@ -1,3 +1,7 @@
+.card {
+  margin-top: 10px;
+}
+
 .card-body {
   border: 2px solid #a5502d;
   margin: 0;
