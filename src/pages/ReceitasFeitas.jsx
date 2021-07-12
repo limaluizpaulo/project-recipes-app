@@ -44,7 +44,6 @@ export default function ReceitasFeitas() {
     { image, category, name, doneDate, tags, id, type, area, alcoholicOrNot }, index,
   ) => {
     if (type === 'comida') {
-      console.log(type);
       return (
         <Col key={ id }>
           <Card>
