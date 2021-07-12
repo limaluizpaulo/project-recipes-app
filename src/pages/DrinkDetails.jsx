@@ -72,15 +72,11 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLink(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLink(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }

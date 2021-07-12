@@ -6,7 +6,7 @@ import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import '../App.css';
 
-export default function Footer({ history }) {
+export default function Footer() {
   return (
     <footer className="footer-generic " data-testid="footer">
       <div className="footer-icons">
@@ -19,7 +19,9 @@ export default function Footer({ history }) {
         <Link to="/comidas">
           <img data-testid="food-bottom-btn" src={ mealIcon } alt="meal icon" />
         </Link>
-        <ExitButton history={ history } />
+        <Link to="/">
+          <ExitButton />
+        </Link>
       </div>
     </footer>
   );

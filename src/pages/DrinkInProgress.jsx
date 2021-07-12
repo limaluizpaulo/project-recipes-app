@@ -46,15 +46,13 @@ function DrinkInProgress({ match, history, match: { params: { id } } }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLinkInProgress(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLinkInProgress(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
+
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }

@@ -1,8 +1,13 @@
 const copy = require('clipboard-copy');
 
-export const copyLink = ({ url }) => {
+export const copyLink = ({ url }, isCopied) => {
   copy(`http://localhost:3000${url}`);
-  return true;
+  return !isCopied;
+};
+
+export const copyLinkDoneRecipes = (templateString, isCopied) => {
+  copy(`http://localhost:3000${templateString}`);
+  return !isCopied;
 };
 
 export const copyEachLink = (url, index) => {
@@ -10,11 +15,11 @@ export const copyEachLink = (url, index) => {
   return { [index]: true };
 };
 
-export const copyLinkInProgress = ({ url }) => {
+export const copyLinkInProgress = ({ url }, isCopied) => {
   const splittedURL = url.split('/');
   const urlNoProgress = `/${splittedURL[1]}/${splittedURL[2]}`;
   copy(`http://localhost:3000${urlNoProgress}`);
-  return true;
+  return !isCopied;
 };
 
 export const verifyCheck = (index, check) => {
