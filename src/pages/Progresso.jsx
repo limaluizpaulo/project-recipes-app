@@ -178,10 +178,6 @@ class Progresso extends Component {
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
-    // console.log(page);
-
-  render() {
-    const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
     const { favIconColor, isDisable, allIngredients, link } = this.state;
     return (
@@ -231,7 +227,6 @@ class Progresso extends Component {
               this.handleClick();
               this.saveDoneRecipes();
             } }
-            onClick={ this.handleClick }
             disabled={ isDisable }
           >
             Finalizar Receita
