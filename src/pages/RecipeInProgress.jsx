@@ -1,18 +1,24 @@
-import React, { Redirect } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Ingredients, Instructions, HeaderRecipes } from '../components';
 
-const Progress = () => (
-  <div>
-    <Ingredients />
-    <Instructions />
-    <HeaderRecipes />
-    <button
-      type="button"
-      onClick={ () => (<Redirect to="/receitas-feitas" />) }
-    >
-      Finalizar Receita
-    </button>
-  </div>
+const Progress = () => {
+  const history = useHistory();
 
-);
+  return (
+    <div>
+      <Ingredients />
+      <Instructions />
+      <HeaderRecipes />
+      <button
+        type="button"
+        onClick={ () => history.push('/receitas-feitas') }
+      >
+        Finalizar Receita
+      </button>
+
+    </div>
+
+  );
+};
 export default Progress;

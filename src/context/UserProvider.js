@@ -16,12 +16,21 @@ const UserProvider = ({ children }) => {
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [done, setDone] = useState([]);
+  const [progress, setProgress] = useState({
+    cocktails: {
+    },
+    meals: {
+    },
+  });
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!getFromLocalStorage('favoriteRecipes')) setOnLocalStorage('favoriteRecipes', []);
+    if (!getFromLocalStorage('doneRecipes')) setOnLocalStorage('doneRecipes', []);
+    if (!getFromLocalStorage('inProgressRecipes')) setOnLocalStorage('inProgressRecipes', {});
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
     setDone(getFromLocalStorage('doneRecipes') || []);
+    setProgress(getFromLocalStorage('inProgressRecipes') || {});
   }, []);
 
   const copyToClipboard = () => {
@@ -73,18 +82,45 @@ const UserProvider = ({ children }) => {
     validationUser();
   };
 
+  const isDone = (id) => {
+    const doneStorage = getFromLocalStorage('doneRecipes');
+    return (!!doneStorage.find((complete) => complete.id === id));
+  };
+
+  const inProgress = (id, type) => {
+    const progressStorage = getFromLocalStorage('inProgressRecipes');
+    if (type === 'meals') {
+      return (!!progressStorage.find((progression) => progression.meals.id === id));
+    }
+    if (type === 'cocktails') {
+      return (!!progressStorage.find((progression) => progression.cocktails.id === id));
+    }
+  };
+
+  // const recipeInProgress = (id, type) => {
+  //   setProgress({
+  //     ...progress,
+  //     [type]: {
+  //       [id]: [],
+  //     },
+  //   });
+  // };
+
   const context = {
     favorites,
     done,
     copied,
+    progress,
+    verifyLogin,
     inFavorites,
     addFavorites,
     removeFavorites,
-    verifyLogin,
     handleChange,
     validationUser,
     handleLogin,
     copyToClipboard,
+    isDone,
+    inProgress,
   };
 
   return (

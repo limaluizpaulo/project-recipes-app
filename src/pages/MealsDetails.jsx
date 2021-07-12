@@ -14,6 +14,7 @@ import { UserContext } from '../context/UserProvider';
 
 const MealsDetails = ({
   match: {
+    url,
     params: { id },
   },
 }) => {
@@ -44,13 +45,15 @@ const MealsDetails = ({
     category: strCategory,
     name: strMeal,
     image: strMealThumb,
+    url,
     alcoholicOrNot: '',
-
     urlVideo: strYoutube,
     instructions: strInstructions,
     ingredients,
     measures,
     recomendations: drinks,
+    doneDate: false,
+    tags: [],
   };
 
   //   [{
@@ -113,6 +116,7 @@ const MealsDetails = ({
 
 MealsDetails.propTypes = {
   match: PropTypes.shape({
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

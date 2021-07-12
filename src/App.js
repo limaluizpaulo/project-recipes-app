@@ -19,6 +19,7 @@ import {
   DrinksByIngredients,
   MealsByArea,
   NotFound,
+  RecipeInProgress,
 } from './pages';
 
 // import rockGlass from './images/rockGlass.svg';
@@ -39,6 +40,8 @@ function App() {
       <Route exact path="/explorar/comidas/area" component={ MealsByArea } />
       <Route exact path="/explorar/comidas" component={ ExploreMeals } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+      <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route exact path="/comidas/:id" component={ MealsDetails } />
       <Route exact path="/bebidas/:id" component={ DrinksDetails } />
       <Route exact path="/comidas" component={ Meals } />
@@ -49,10 +52,6 @@ function App() {
       <Route exact path="/receitas-favoritas" component={ Favorites } />
       <Route exact path="/" component={ Login } />
       <Route component={ NotFound } />
-      {/*
-      <Route exact path="/comidas/:id/in-progress" component={} />
-        <Route exact path="/bebidas/:id/in-progress" component={} />
-        */}
     </Switch>
   );
 }
