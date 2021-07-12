@@ -1,11 +1,11 @@
 .ingredients-container {
-  width: 65%;
-  margin: 0rem 1.4rem;
-  padding: 1rem;
   border: 1px solid rgb(202, 218, 215);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   line-height: 0.8rem;
+  margin: 0 1.4rem;
+  padding: 1rem;
+  width: 65%;
 }

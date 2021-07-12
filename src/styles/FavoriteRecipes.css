@@ -1,6 +1,5 @@
 .share-and-like-buttons {
   display: flex;
-  /* background-color: red; */
   height: 2rem;
 }
 
@@ -11,19 +10,18 @@
 }
 
 .done-right-content-favorite {
-  /* background-color: red; */
-  margin-left: 0.5rem;
   display: flex;
   flex-direction: column;
+  margin-left: 0.5rem;
   width: 100%;
 }
 
 .card-done-favorite {
+  border: 1px solid rgb(157, 177, 170);
+  border-radius: 10px;
   display: flex;
   margin: 2rem;
-  border: 1px solid rgb(157, 177, 170);
   padding: 0.5rem;
-  border-radius: 10px;
 }
 
 .name-and-icons {
@@ -32,13 +30,13 @@
 
 .name-and-links {
   display: flex;
-  width: 100%;
   justify-content: space-between;
+  width: 100%;
 }
 
 .share-and-like-favorite {
-  width: 5rem;
+  align-self: flex-end;
   display: flex;
   justify-content: center;
-  align-self: flex-end;
+  width: 5rem;
 }

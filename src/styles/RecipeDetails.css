@@ -3,30 +3,29 @@
 }
 
 .recomendations {
+  margin: 1rem auto 4rem;
   width: 80%;
-  margin: 1rem auto 4rem auto;
 }
 
 .carousel {
-  border: 1px solid rgb(138, 167, 163);
-  padding: 0.5rem;
-  border-radius: 10px;
   background-color: rgba(218, 238, 235, 0.322);
+  border: 1px solid rgb(138, 167, 163);
+  border-radius: 10px;
+  padding: 0.5rem;
   z-index: 0;
 }
 
 .btn-start-container {
   margin-top: 1rem;
-  background-color: red;
 }
 
 .btn-start {
   bottom: 0;
-  position: fixed;
-  margin-left: 7rem;
-  width: 10rem;
-  padding: 0.4rem 0.2rem;
   border-radius: 10px;
+  margin-left: 7rem;
+  padding: 0.4rem 0.2rem;
+  position: fixed;
+  width: 10rem;
 }
 
 .cliploader {

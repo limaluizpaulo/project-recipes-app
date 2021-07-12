@@ -1,23 +1,35 @@
 @import './styles/Login.css';
+
 @import './styles/Header.css';
+
 @import './styles/SearchBar.css';
+
 @import './styles/BtnsCategory.css';
+
 @import './styles/CardRecipe.css';
+
 @import './styles/Footer.css';
+
 @import './styles/HeaderDetails.css';
+
 @import './styles/Ingredients.css';
+
 @import './styles/RecipeDetails.css';
+
 @import './styles/RecipeInProgress.css';
+
 @import './styles/DoneRecipes.css';
+
 @import './styles/Profile.css';
+
 @import './styles/FavoriteRecipes.css';
-@import './styles/Explore.css';
+
 @import './styles/ExploreByArea.css';
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 /*

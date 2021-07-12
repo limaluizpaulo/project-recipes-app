@@ -1,9 +1,9 @@
 .recipe-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
   margin: auto;
   width: 90%;
-  justify-content: space-around;
 }
 
 .recipe-container img {
@@ -11,18 +11,18 @@
 }
 
 .recipe-card {
-  margin: 0.3rem 0.3rem 1rem 0.3rem;
-  text-align: center;
-  border-radius: 10px;
   border: 1px solid rgba(156, 175, 172, 0.527);
+  border-radius: 10px;
+  margin: 0.3rem 0.3rem 1rem;
+  text-align: center;
 }
 
 .recipe-name {
-  margin: 0.2rem auto -0.3rem auto;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 8rem;
   font-size: 15px;
+  justify-content: center;
+  margin: 0.2rem auto -0.3rem;
+  width: 8rem;
 }

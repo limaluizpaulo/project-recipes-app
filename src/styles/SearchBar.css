@@ -1,23 +1,21 @@
 .text-input input {
-  width: 85%;
-  margin-left: 1.7rem;
   background-color: #f0f0f0;
-  outline: 0;
   border: 1px solid rgb(192, 206, 203);
-  padding: 0.2rem 0;
   border-radius: 3px;
+  margin-left: 1.7rem;
+  outline: 0;
   padding: 0.2rem 0.3rem;
   text-align: left;
+  width: 85%;
 }
 
 .radio-inputs {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
+  margin: 1rem auto;
   text-align: center;
   width: 85%;
-  margin: 1rem auto;
 }
 
 .radio-inputs input {
@@ -25,12 +23,12 @@
 }
 
 .button-search-food {
-  margin: -0.7rem 1.8rem 1rem 1.8rem;
+  margin: -0.7rem 1.8rem 1rem;
 }
 
 .button-search-food button {
-  border: none;
-  padding: 0.2rem 0.8rem;
   background-color: rgb(77, 74, 74);
+  border: none;
   color: #eee;
+  padding: 0.2rem 0.8rem;
 }

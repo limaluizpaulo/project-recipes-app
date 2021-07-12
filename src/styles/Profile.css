@@ -1,7 +1,7 @@
 .links-page {
-  height: 50vh;
   display: flex;
   flex-direction: column;
+  height: 50vh;
   justify-content: space-around;
   text-align: center;
 }
@@ -11,10 +11,10 @@
 }
 
 .links-page button {
-  margin: 0.3rem;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
-  width: 12rem;
+  cursor: pointer;
+  margin: 0.3rem;
   padding: 1rem;
+  width: 12rem;
 }

@@ -1,9 +1,9 @@
 .header-details {
   display: flex;
-  justify-content: space-between;
   height: 4rem;
+  justify-content: space-between;
+  margin: 0.7rem 1rem 0rem;
   padding: 0 0.3rem;
-  margin: 0.7rem 1rem 0rem 1rem;
 }
 
 .img-details-container {
@@ -21,11 +21,11 @@
 }
 
 .share-like {
-  display: flex;
-  width: 5rem;
-  justify-content: space-around;
   align-items: center;
+  display: flex;
   height: 3rem;
+  justify-content: space-around;
+  width: 5rem;
 }
 
 .share-like button {
@@ -34,9 +34,9 @@
 }
 
 .instructions {
-  width: 21rem;
   border: 1px solid rgb(171, 190, 187);
+  border-radius: 10px;
   margin: 1rem auto;
   padding: 1rem;
-  border-radius: 10px;
+  width: 21rem;
 }
