@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import RecipeContext from '../../context/Context';
+import { getRecipesDone } from '../../services/helpers/localStorage';
 
 const FoodInProgressBtn = () => {
   const [finished, setFinished] = useState(true);
   const history = useHistory();
-  const { ingredients } = useContext(RecipeContext);
+  const { ingredients, test, setTest } = useContext(RecipeContext);
 
   useEffect(() => {
     const checkIfIsFinished = () => {
@@ -57,7 +58,8 @@ const FoodInProgressBtn = () => {
         doneDate: getDate(),
         tags,
       };
-      console.log(foodObject); // apagar depois
+
+      setTest(foodObject);
     } else {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
       const request = await fetch(endpoint);
@@ -75,7 +77,7 @@ const FoodInProgressBtn = () => {
         doneDate: getDate(),
         tags,
       }
-      console.log(drinkObject); // apagar depois
+      setTest(drinkObject);
 
     }
   };
@@ -88,6 +90,7 @@ const FoodInProgressBtn = () => {
   }, []);
 
   const handleFinishRecipe = () => {
+    getRecipesDone(test)
     history.push('/receitas-feitas');
   };
 

@@ -15,7 +15,7 @@ function DoneRecipesCard() {
   };
 
   useEffect(() => {
-    getRecipesDone();
+
   }, []);
 
   function handleOnClick({ target }) {
@@ -23,7 +23,7 @@ function DoneRecipesCard() {
     toast.success('Link copiado!');
   }
 
-  const recipesIsDone = getRecipesDone();
+  const recipesIsDone = [];
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
@@ -31,68 +31,68 @@ function DoneRecipesCard() {
     <>
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
-        <div key={ index }>
+        <div key={index}>
           <div className="food__card__done">
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <Link to={`/${recipe.type}s/${recipe.id}`}>
               <span
                 className="food__card_text"
-                data-testid={ `${index}-horizontal-name` }
+                data-testid={`${index}-horizontal-name`}
               >
-                { recipe.name }
+                {recipe.name}
               </span>
             </Link>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <Link to={`/${recipe.type}s/${recipe.id}`}>
               <img
                 className="food__card__img"
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
+                src={recipe.image}
+                alt={recipe.name}
+                data-testid={`${index}-horizontal-image`}
               />
             </Link>
 
             <p
-              data-testid={ `${index}-horizontal-top-text` }
+              data-testid={`${index}-horizontal-top-text`}
             >
-              { recipe.type === 'comida'
+              {recipe.type === 'comida'
                 ? `${recipe.area} - ${recipe.category}`
-                : recipe.alcoholicOrNot }
+                : recipe.alcoholicOrNot}
             </p>
             <div>
               <span>Receita feita em: </span>
               <span
-                data-testid={ `${index}-horizontal-done-date` }
+                data-testid={`${index}-horizontal-done-date`}
               >
-                { recipe.doneDate }
+                {recipe.doneDate}
               </span>
             </div>
             <button
               type="button"
-              onClick={ handleOnClick }
+              onClick={handleOnClick}
             >
               <img
-                name={ recipe.type }
-                id={ recipe.id }
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareRecipe }
-                alt={ recipe.name }
+                name={recipe.type}
+                id={recipe.id}
+                data-testid={`${index}-horizontal-share-btn`}
+                src={shareRecipe}
+                alt={recipe.name}
               />
             </button>
 
-            { recipe.tags.length === zero ? null : (
+            {recipe.tags.length === zero ? null : (
               <div>
                 <button
                   className="food__tag__button"
                   type="button"
-                  data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
+                  data-testid={`${index}-${recipe.tags[0]}-horizontal-tag`}
                 >
-                  { recipe.tags[0] }
+                  {recipe.tags[0]}
                 </button>
                 <button
                   className="food__tag__button"
                   type="button"
-                  data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
+                  data-testid={`${index}-${recipe.tags[1]}-horizontal-tag`}
                 >
-                  { recipe.tags[1] }
+                  {recipe.tags[1]}
                 </button>
               </div>
             )}
