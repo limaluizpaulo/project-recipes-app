@@ -79,47 +79,29 @@ class Progresso extends Component {
   handleFavClick() {
     const { favIcon, id } = this.state;
     const { details, match: { params: { page } } } = this.props;
+    const keyName = identification(details);
     if (!favIcon) {
-      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const recipe = {
-        id,
-        type: page,
-        area: details.strArea,
-        category: details.strCategory,
-        alcoholicOrNot: details.strDrinkAlternate,
-        name: details.strMeal,
-        image: details.strMealThumb,
-      };
-      // console.log(recovery.push(recipe));
-      console.log(recovery);
-      if (recovery === null) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify([{
-          id,
-          type: page,
-          area: details.strArea,
-          category: details.strCategory,
-          alcoholicOrNot: details.strDrinkAlternate,
-          name: details.strMeal,
-          image: details.strMealThumb,
-        }]));
-      }
-      localStorage.setItem('favoriteRecipes', JSON.stringify({
-        ...recovery,
-        id,
-        type: page,
-        area: details.strArea,
-        category: details.strCategory,
-        alcoholicOrNot: details.strDrinkAlternate,
-        name: details.strMeal,
-        image: details.strMealThumb,
-      }));
-      console.log(recipe);
-
-      // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
       this.setState({
         favIconColor: blackHeartIcon,
         favIcon: true,
       });
+      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      const recipe = {
+        id: details[keyName.Id],
+        type: page,
+        area: details[keyName.Area] ? details[keyName.Area] : '',
+        category: details[keyName.Category] ? details[keyName.Category] : '',
+        alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
+        name: details[keyName.Name],
+        image: details[keyName.Thumb],
+      };
+
+      console.log(recovery);
+      console.log(recipe);
+      recovery.push(recipe);
+      console.log(recovery);
+
+      localStorage.setItem('favoriteRecipes', JSON.stringify(recovery));
     }
     if (favIcon) {
       this.setState({
@@ -213,7 +195,7 @@ class Progresso extends Component {
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
-    console.log(page);
+
     const { favIconColor, isDisable, allIngredients, link } = this.state;
     return (
       <section>
@@ -227,8 +209,8 @@ class Progresso extends Component {
             .then(() => this.setState({ link: true })) }
         >
           <img src={ shareIcon } alt={ shareIcon } />
-          {link && <p>Link copiado!</p>}
         </button>
+        {link && <p>Link copiado!</p>}
         <button
           className="details-btn-favorite"
           type="button"
