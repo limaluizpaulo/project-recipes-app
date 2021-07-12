@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   DetailsRecipes,
   Ingredients,
-  IngredientsProgress,
   Instructions,
   HeaderRecipes,
   ShareButton,
@@ -15,6 +14,7 @@ import { UserContext } from '../context/UserProvider';
 
 const MealsDetails = ({
   match: {
+    url,
     params: { id },
   },
 }) => {
@@ -38,6 +38,7 @@ const MealsDetails = ({
     strMealThumb,
   } = mealsDetails;
 
+  console.log(strMealThumb);
   const newObj = {
     id,
     type: 'comida',
@@ -45,13 +46,15 @@ const MealsDetails = ({
     category: strCategory,
     name: strMeal,
     image: strMealThumb,
+    url,
     alcoholicOrNot: '',
-
     urlVideo: strYoutube,
     instructions: strInstructions,
     ingredients,
     measures,
     recomendations: drinks,
+    doneDate: false,
+    tags: [],
   };
 
   //   [{
@@ -80,7 +83,7 @@ const MealsDetails = ({
   if (!loading) {
     return <div />;
   }
-
+  // if (newObj) { return <IngredientsProgress newObj={ newObj } />; }
   return (
     <div>
       <HeaderRecipes newObj={ newObj } />
@@ -114,6 +117,7 @@ const MealsDetails = ({
 
 MealsDetails.propTypes = {
   match: PropTypes.shape({
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

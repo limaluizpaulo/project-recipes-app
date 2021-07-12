@@ -16,3 +16,7 @@
   display: flex;
   overflow-x: scroll;
 }
+
+.hidden-button {
+  display: none;
+}

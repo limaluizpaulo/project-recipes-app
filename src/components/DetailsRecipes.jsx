@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../context/UserProvider';
 import '../styles/RecipesDetails.css';
 
 const DetailsRecipes = ({ newObj }) => {
-  const { urlVideo, type, recomendations } = newObj;
-  console.log(urlVideo);
+  const { isDone, inProgress } = useContext(UserContext);
+  const history = useHistory();
+
+  const {
+    id,
+    urlVideo,
+    type,
+    recomendations,
+    url,
+  } = newObj;
 
   const SEIS = 6;
   return (
     <div>
+
       <section>
         { type === 'comida' && (
           <iframe
@@ -73,10 +84,14 @@ const DetailsRecipes = ({ newObj }) => {
       <button
         data-testid="start-recipe-btn"
         type="button"
-        className="button-start"
-        // onClick={}
+        className={ `button-start
+        ${(isDone(id)) && 'hidden-button'}` }
+        onClick={ () => history.push({ pathname: `${url}/in-progress`,
+          state: { newObj } }) }
       >
-        Iniciar Receita
+        {(inProgress(id, type))
+          ? 'Continuar Receita'
+          : 'Iniciar Receita'}
       </button>
     </div>
 

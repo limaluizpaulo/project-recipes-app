@@ -1,15 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Header, Categories, Card, Footer, SearchBar } from '../components';
 import { MealsContext } from '../context/MealsProvider';
 
 const Meals = () => {
+  const [redirect, setRedirect] = useState(false);
   const {
     meals,
     categories,
+    selectedCategory,
     setFilterCategory,
   } = useContext(MealsContext);
 
+  useEffect(() => {
+    if (meals.length === 1 && !redirect && selectedCategory === 'All') {
+      setRedirect(true);
+    }
+  }, [meals]);
+
+  if (redirect) return <Redirect to={ `comidas/${meals[0].idMeal}` } />;
   return (
     <div>
 
@@ -21,7 +30,6 @@ const Meals = () => {
         categories={ categories }
         onClick={ setFilterCategory }
       />
-      {meals.length === 1 && <Redirect to={ `comidas/${meals[0].idMeal}` } />}
       {meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
         <Card
           id={ idMeal }

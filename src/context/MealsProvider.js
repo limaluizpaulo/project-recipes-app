@@ -1,5 +1,6 @@
-import React, { createContext, useEffect, useState, Redirect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+// import { Redirect } from 'react-router-dom';
 import fetchRecipes from '../services/api/fetchRecipes';
 import fetchCategories from '../services/api/fetchCategories';
 import fetchById from '../services/api/fetchById';
@@ -59,18 +60,16 @@ const MealsProvider = ({ children }) => {
     return result;
   };
 
-  const toComplete = () => <Redirect to="/receitas-feitas" />;
-
   const context = {
     meals,
     setMeals,
     categories,
+    selectedCategory,
     setFilterCategory,
     filterIngredients,
     filterById,
     filterAllMeasure,
     setIngredientFilter,
-    toComplete,
   };
 
   return (

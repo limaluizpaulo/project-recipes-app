@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   DetailsRecipes,
   Ingredients,
-  IngredientsProgress,
+  // IngredientsProgress,
   Instructions,
   HeaderRecipes,
   ShareButton,
