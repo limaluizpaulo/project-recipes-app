@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -50,7 +49,11 @@ class RecipeDetails extends React.Component {
       return ingredientes.map((ingrediente, index) => {
         if (ingrediente && apenasMedidas[index]) {
           return (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            <li
+              key={ index }
+              className=""
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
               {`${ingrediente[1]} - ${apenasMedidas[index]}`}
             </li>);
         }
@@ -85,14 +88,14 @@ class RecipeDetails extends React.Component {
   renderButton(btnMessage) {
     return (
       <div>
-        <Button
+        <button
+          className="button-start-recipe"
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => this.setState({ redirectInProgress: true }) }
-          className="button"
         >
           { btnMessage }
-        </Button>
+        </button>
       </div>
     );
   }
@@ -112,29 +115,31 @@ class RecipeDetails extends React.Component {
     const { title, recipes, btnVisible, btnMessage } = this.props;
     const { copied, favorite } = this.state;
     return (
-      <section>
-        <div className="recipe-details">
-          <img
-            data-testid="recipe-photo"
-            src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
-            alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-            width="250px"
-          />
-        </div>
+
+      <div className="recipe-details">
+        <img
+          className="recipe-img"
+          data-testid="recipe-photo"
+          src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
+          alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+          width="250px"
+        />
+
         <div className="recipe-details-titles">
           <h2 data-testid="recipe-title">
             { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
           </h2>
           <div className="recipe-details-links">
-            <Button
+            <button
               className="like-and-share"
               data-testid="share-btn"
               type="button"
               onClick={ this.copyLink }
             >
               <img src={ shareIcon } alt="shareIcon" />
-            </Button>
-            <Button
+            </button>
+
+            <button
               className="like-and-share"
               type="button"
               onClick={ () => this.verifyFavorite(recipeDetails[0]) }
@@ -144,7 +149,7 @@ class RecipeDetails extends React.Component {
                 src={ favorite ? black : white }
                 alt="favoriteIcon"
               />
-            </Button>
+            </button>
             {copied ? <span>Link copiado!</span> : null}
 
           </div>
@@ -159,8 +164,9 @@ class RecipeDetails extends React.Component {
         </div>
         <div className="recipe-details-ingredients">
           <h4>Ingredientes</h4>
-          {this.getIngredients()}
-          <ul />
+          <ul>
+            {this.getIngredients()}
+          </ul>
         </div>
         <div className="recipe-details-instructions">
           <h4>Instruções</h4>
@@ -179,7 +185,7 @@ class RecipeDetails extends React.Component {
             </div>)}
         {this.renderRecommendedCard(recipes)}
         {btnVisible ? this.renderButton(btnMessage) : null }
-      </section>
+      </div>
     );
   }
 

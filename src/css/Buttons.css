@@ -34,7 +34,6 @@
   outline: none;
 }
 
-
 .button-recipes-done {
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
@@ -71,16 +70,52 @@
   width: 310px;
 }
 
+.buttons-explore:hover {
+  background-color: #e7b2b2;
+}
+
+.buttons-explore:focus {
+  background-color: #e38c8c;
+  outline: none;
+}
+
 .like-and-share {
-  align-content: center;
-  background-color: white;
+  align-items: center;
+  background-color: #f3ecec;
   border: rgb(228, 204, 204);
   height: 40px;
-  width: 40px;
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+  width: 80px;
 }
 
-.like-and-share:hover {
-  background-color: white;
+.like-and-share:focus {
+  background-color: #f3ecec;
+  outline: none;
+}
+
+.like-and-share img {
+  height: 30px;
+  width: 30px;
+}
+
+.button-start-recipe {
+  background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
+  border-radius: 8px;
+  color: black;
+  height: 65px;
+  line-height: 1em;
+  margin: 15px;
+  width: 310px;
 }
 
+.button-start-recipe:hover {
+  background-color: #e7b2b2;
+}
+
+.button-start-recipe:focus {
+  background-color: #f3ecec;
+  outline: none;
+}

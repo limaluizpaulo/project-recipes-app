@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RecipeDetails from '../components/RecipeDetails';
 import { fetchFoodIdAction, fetchDrinkAction } from '../actions';
+import '../css/Page.css';
 
 class comidas extends Component {
   constructor() {
@@ -53,17 +54,19 @@ class comidas extends Component {
 
     return (
       recipeDetails && recipes ? (
-        <section>
-          <RecipeDetails
-            recipeDetails={ recipeDetails }
-            title="Comidas"
-            recipes={ recipes }
-            link={ pathname }
-            id={ comidaId }
-            btnVisible={ btnVisible }
-            btnMessage={ btnMessage }
-          />
-        </section>
+        <div className="page">
+          <div className="recipe-container">
+            <RecipeDetails
+              recipeDetails={ recipeDetails }
+              title="Comidas"
+              recipes={ recipes }
+              link={ pathname }
+              id={ comidaId }
+              btnVisible={ btnVisible }
+              btnMessage={ btnMessage }
+            />
+          </div>
+        </div>
       )
         : null
     );
