@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
@@ -31,7 +32,7 @@ class RecipesByIngredients extends Component {
         {listIngredients.map(({ strIngredient }, index) => (
           <div key={ index } data-testid={ `${index}-ingredient-card` }>
             <img
-              src={ `www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
               alt={ strIngredient }
               data-testid={ `${index}-card-img` }
               width="30px"
@@ -52,5 +53,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   listIngredients: state.recipes.ingredients,
 });
+
+RecipesByIngredients.propTypes = {
+  ingredients: PropTypes.func.isRequired,
+  listIngredients: PropTypes.arrayOf().isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipesByIngredients);
