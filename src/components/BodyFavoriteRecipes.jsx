@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
-import { copyEachLink } from '../services/functions';
-
-import shareIcon from '../images/shareIcon.svg';
+import ShareButtonDoneRecipes from './ShareButtonDoneRecipes';
 
 export default function BodyFavoriteRecipes({ index, history, each }) {
-  const [isCopied, setIsCopied] = useState([]);
   let AlcoholicAreaCategory;
   if (each.alcoholicOrNot.length > 0) {
     AlcoholicAreaCategory = each.alcoholicOrNot;
@@ -39,19 +36,7 @@ export default function BodyFavoriteRecipes({ index, history, each }) {
       >
         {each.name}
       </button>
-      <button
-        type="button"
-        onClick={ () => setIsCopied(
-          copyEachLink(templateString, index),
-        ) }
-      >
-        <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-          alt="shareIcon"
-        />
-        {isCopied[index] ? <p>Link copiado!</p> : null }
-      </button>
+      <ShareButtonDoneRecipes templateString={ templateString } index={ index } />
 
     </section>);
 }

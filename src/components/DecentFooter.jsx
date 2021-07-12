@@ -6,18 +6,18 @@ import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import '../App.css';
 
-export default function Footer() {
+export default function DecentFooter() {
   return (
-    <footer className="footer-generic " data-testid="footer">
-      <div className="footer-icons">
+    <footer>
+      <div className="decent-footer">
         <Link to="/bebidas">
-          <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />
+          <img src={ drinkIcon } alt="drink icon" />
         </Link>
         <Link to="/explorar">
-          <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore icon" />
+          <img src={ exploreIcon } alt="explore icon" />
         </Link>
         <Link to="/comidas">
-          <img data-testid="food-bottom-btn" src={ mealIcon } alt="meal icon" />
+          <img src={ mealIcon } alt="meal icon" />
         </Link>
         <Link to="/">
           <ExitButton />

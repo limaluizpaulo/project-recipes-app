@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
-
+import DecentFooter from '../components/DecentFooter';
 import Header from '../components/Header';
 import BodyRecipesDone from '../components/BodyRecipesDone';
 
@@ -59,6 +59,7 @@ export default function RecipesDone({ history }) {
         Bebidas
       </button>
       {destructuredStorage ? renderFilteredList() : null}
+      <DecentFooter />
     </article>
   );
 }

@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import { localStorageVerifier,
   verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
 import { copyLink } from '../services/functions';
+import DecentFooter from '../components/DecentFooter';
 
 function FoodDetails({ match, match: { params: { id } }, history }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -72,15 +73,11 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLink(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLink(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
@@ -102,6 +99,7 @@ function FoodDetails({ match, match: { params: { id } }, history }) {
         />
         <h3>Recomendações de Drinks</h3>
         {loopRecomendationsDrinks()}
+        <DecentFooter />
         {localStorageVerifier(match, id, history)}
       </main>
     );

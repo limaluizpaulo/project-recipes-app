@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import Context from '../context/Context';
+import DecentFooter from '../components/DecentFooter';
 import shareIcon from '../images/shareIcon.svg';
 import { localStorageVerifier,
   verifyFavorite, settingFavorite } from '../services/manageLocalStorage';
@@ -71,15 +72,11 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLink(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLink(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
@@ -98,6 +95,7 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
         {loopIngredientsAndMeasure()}
         <h3>Recomendações de Comidas</h3>
         {loopRecomendationsFoods()}
+        <DecentFooter />
         {localStorageVerifier(match, id, history)}
       </main>
     );

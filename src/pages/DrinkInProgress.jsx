@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
+import DecentFooter from '../components/DecentFooter';
 import { copyLinkInProgress } from '../services/functions';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite, settingFavorite,
@@ -45,15 +46,13 @@ function DrinkInProgress({ match, history, match: { params: { id } } }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLinkInProgress(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLinkInProgress(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
+
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
@@ -79,6 +78,7 @@ function DrinkInProgress({ match, history, match: { params: { id } } }) {
         >
           Finalizar Receita
         </button>
+        <DecentFooter />
       </main>
     );
   }

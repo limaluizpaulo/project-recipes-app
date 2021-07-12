@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { verifyFavorite } from '../services/manageLocalStorage';
 import { settingFavorite2 } from '../services/manageLocalStorage2';
-
+import DecentFooter from '../components/DecentFooter';
 import Header from '../components/Header';
 import BodyFavoriteRecipes from '../components/BodyFavoriteRecipes';
 
@@ -75,6 +75,7 @@ export default function FavoriteRecipes({ history }) {
         Bebidas
       </button>
       {destructuredStorage ? renderFilteredList() : null}
+      <DecentFooter />
     </article>
   );
 }

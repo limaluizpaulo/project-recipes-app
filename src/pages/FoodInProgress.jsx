@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import loopIngredientsAndMeasure from '../components/loopIngredientsAndMeasure';
 import Context from '../context/Context';
 import { copyLinkInProgress } from '../services/functions';
+import DecentFooter from '../components/DecentFooter';
 import shareIcon from '../images/shareIcon.svg';
 import { verifyFavorite,
   settingFavorite,
@@ -48,15 +49,11 @@ function FoodInProgress({ history, match, match: { params: { id } } }) {
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => setIsCopied(copyLinkInProgress(match, isCopied)) }
         >
-          <button
-            type="button"
-            onClick={ () => setIsCopied(copyLinkInProgress(match)) }
-          >
-            <img src={ shareIcon } alt="Share" />
-            {isCopied ? <p>Link copiado!</p> : null }
-          </button>
+          <img src={ shareIcon } alt="Share" />
         </button>
+        {isCopied ? <p>Link copiado!</p> : null }
         <button
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
@@ -79,8 +76,9 @@ function FoodInProgress({ history, match, match: { params: { id } } }) {
           width="300px"
           title="Recipe"
         />
-        <h3>Recomendações de Drinks</h3>
+        <DecentFooter />
         <button
+          className="finish-recipe"
           onClick={ () => finishRecipe(id, details.meals, history) }
           disabled={ disableFinishRecipeButton(id) }
           data-testid="finish-recipe-btn"
