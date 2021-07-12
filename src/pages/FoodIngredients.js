@@ -21,9 +21,10 @@ class FoodIngredients extends React.Component {
 
   async fetchFood() {
     const { SendApiToState } = this.props;
-    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     const responseAPI = await fetchAPI(url);
     SendApiToState(responseAPI);
+    console.log(responseAPI);
   }
 
   renderCards() {
@@ -34,11 +35,11 @@ class FoodIngredients extends React.Component {
         if (index <= maxNumberOfCards) {
           return (
             <Link key={ index } to={ `/comidas/${food.idMeal}` }>
-              <div data-testid={ `${index}-recipe-card` }>
-                <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
+              <div data-testid={ `${index}-ingredient-card` }>
+                <h3 data-testid={ `${index}-card-name` }>{ food.strIngredient }</h3>
                 <img
-                  src={ food.strMealThumb }
-                  alt={ food.strMeal }
+                  src={ `https://www.themealdb.com/images/ingredients/${food.strIngredient}-Small.png` }
+                  alt={ food.strIngredient }
                   data-testid={ `${index}-card-img` }
                   width="150px"
                 />
