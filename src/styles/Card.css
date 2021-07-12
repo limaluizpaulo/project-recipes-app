@@ -18,3 +18,8 @@
   margin-top: 15px;
   width: 100%;
 }
+
+.recipes-itens {
+  display: flex;
+  flex-wrap: wrap;
+}

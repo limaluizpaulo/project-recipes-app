@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import { copy } from 'fs-extra';
 import { GetRecipesDetails, getDrinks } from '../redux/actions';
 import CarroselComidas from '../Components/CarroselComidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
@@ -61,6 +62,8 @@ const DrinkDetails = (props) => {
     console.log(drink[0]);
   }
 
+  // const copy = require('clipboard-copy')
+
   return !redirect ? <h3>Loading</h3>
     : (
       <div className="card-details">
@@ -69,6 +72,7 @@ const DrinkDetails = (props) => {
             <button
               type="button"
               data-testid="share-btn"
+              // onClick={ () => copy('Link copiado!') }
             >
               <img alt="share-btn" src={ Share } />
             </button>
@@ -92,7 +96,7 @@ const DrinkDetails = (props) => {
             />
             <h3 data-testid="recipe-title">{drinkItem.strDrink}</h3>
             <h6 data-testid="recipe-category">{drinkItem.strAlcoholic}</h6>
-            <div>
+            <div className="recipes-itens">
               {
                 Object.entries(drinkItem).filter((entrie) => {
                   const [key, value] = entrie;

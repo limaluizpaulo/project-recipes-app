@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
-
 import Footer from '../Components/Footer';
-import Teste from './Teste';
 
 function Explore() {
   return (
@@ -32,7 +30,6 @@ function Explore() {
       >
         Explorar Bebidas
       </Link>
-      <Teste />
       <Footer />
     </div>
   );
