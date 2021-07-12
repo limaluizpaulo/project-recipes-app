@@ -20,7 +20,7 @@ class RecipeCard extends React.Component {
 
   componentDidMount() {
     const { dispatchRecipes, recipeType } = this.props;
-    console.log(this.props)
+
     dispatchRecipes(recipeType, 'recipes');
     dispatchRecipes(recipeType, 'categories');
   }

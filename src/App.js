@@ -16,14 +16,20 @@ function App() {
   return (
     <Switch>
       <Route path="/explorar/comidas/area" component={ ExploreByArea } />
-      <Route path="/explorar/:recipeType/ingredientes" component={ ExploreIngredientes } />
+      <Route
+        path="/explorar/:recipeType/ingredientes"
+        component={ ExploreIngredientes }
+      />
       <Route path="/:recipeType/:id-receita/in-progress" component={ GenericComponent } />
       <Route path="/comidas/:idReceita" component={ MealDetails } />
       <Route path="/bebidas/:idReceita" component={ DrinkDetails } />
       <Route path="/explorar/:recipeType" component={ ExploreByType } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route path="/:recipeType/ingredientes/:ingredientName" component={ RecipesByIngredient } />
+      <Route
+        path="/:recipeType/ingredientes/:ingredientName"
+        component={ RecipesByIngredient }
+      />
       <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/:recipeType" component={ Recipes } />
