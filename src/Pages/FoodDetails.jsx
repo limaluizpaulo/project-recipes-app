@@ -11,6 +11,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import dataAtual from '../services/dataAtual';
 import ingredientsAndMeasures from '../services/ingredientsAndMeasures';
+import shareIcon from '../images/shareIcon.svg';
 
 class FoodDetails extends React.Component {
   constructor(props) {
@@ -207,6 +208,7 @@ class FoodDetails extends React.Component {
             data-testid="share-btn"
             onClick={ this.copyToClipboard }
           >
+            <img src={ shareIcon } alt="compartilha" />
             {copySuccess}
           </button>
           <button
