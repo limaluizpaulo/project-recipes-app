@@ -1,0 +1,25 @@
+.Header {
+  align-items: center;
+  background-color: antiquewhite;
+  display: flex;
+  height: 55px;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 9999;
+}
+
+.Header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: fantasy;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 30px;
+}
+
+.Header button img {
+  width: 100%;
+}
