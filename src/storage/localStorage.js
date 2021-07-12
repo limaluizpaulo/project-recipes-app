@@ -73,7 +73,7 @@ export const saveFavoriteRecipe = (path, obj) => {
   const [id, name, image, type, area, alcoholicOrNot] = path.includes('comidas')
     ? [obj.idMeal, obj.strMeal, obj.strMealThumb, 'comida', obj.strArea, '']
     : [obj.idDrink, obj.strDrink, obj.strDrinkThumb, 'bebida', '', obj.strAlcoholic];
-  const { category } = obj.strCategory;
+  const category = obj.strCategory;
   if (localStorage.getItem('favoriteRecipes')) {
     const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!arrayFavorites.find((el) => el.id === id)) {
