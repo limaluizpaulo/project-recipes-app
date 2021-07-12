@@ -137,11 +137,11 @@ class Detalhes extends Component {
 
   render() {
     const { startedRecipe, finishedRecipe } = this.state;
-    const { details, isDrink } = this.props;
+    const { details, isDrink, match: { params: { page, id } } } = this.props;
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
-        <SharedFavorites />
+        <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>

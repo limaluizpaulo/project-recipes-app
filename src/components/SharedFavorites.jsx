@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 // import { addFavicon, faviconColor } from '../action';
+import copy from 'clipboard-copy';
+import identification from '../helper/dictionaryApi';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -10,46 +12,97 @@ class SharedFavorites extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favoriteIcon: false,
+      favIcon: false,
+      favIconColor: whiteHeartIcon,
+      link: false,
     };
-    this.handleClickFav = this.handleClickFav.bind(this);
+    this.handleFavClick = this.handleFavClick.bind(this);
+    this.renderState = this.renderState.bind(this);
   }
 
-  handleClickFav() {
-    const { favoriteIcon } = this.state;
-    this.setState({
-      favoriteIcon: true,
-    });
-    if (favoriteIcon) {
+  componentDidMount() {
+    this.renderState();
+  }
+
+  handleFavClick() {
+    const { favIcon } = this.state;
+    const { details, id, page } = this.props;
+    console.log(details, 'shared');
+    const keyName = identification(details);
+    const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (!favIcon) {
       this.setState({
-        favoriteIcon: false,
+        favIconColor: blackHeartIcon,
+        favIcon: true,
       });
+      const recipe = {
+        id: details[keyName.Id],
+        type: page,
+        area: details[keyName.Area] ? details[keyName.Area] : '',
+        category: details[keyName.Category] ? details[keyName.Category] : '',
+        alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
+        name: details[keyName.Name],
+        image: details[keyName.Thumb],
+      };
+      recovery.push(recipe);
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(recovery));
+    }
+    if (favIcon) {
+      console.log('sou verdadeiro', id, page);
+
+      this.setState({
+        favIconColor: whiteHeartIcon,
+        favIcon: false,
+      });
+      const favoriteKeys = recovery.filter((el) => el.id !== id) || {};
+      console.log(favoriteKeys);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteKeys));
+    }
+  }
+
+  renderState() {
+    const { id } = this.props;
+    const recoveryFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const check = recoveryFavorite.some((el) => el.id === id);
+
+    if (check) {
+      this.setState({ favIconColor: blackHeartIcon,
+        favIcon: true });
     }
   }
 
   render() {
-    const { favoriteIcon } = this.state;
+    const { favIconColor, link } = this.state;
+    const { page, id } = this.props;
     return (
       <section>
         <button
           className="details-btn-share"
           type="button"
           data-testid="share-btn"
+          onClick={ () => copy(`http://localhost:3000/${page}/${id}`)
+            .then(() => this.setState({ link: true })) }
         >
           <img src={ shareIcon } alt={ shareIcon } />
         </button>
+        {link && <p>Link copiado!</p>}
         <button
           className="details-btn-favorite"
           type="button"
           data-testid="favorite-btn"
-          onClick={ this.handleClickFav }
+          onClick={ this.handleFavClick }
         >
-          <img src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon } alt="Favorito" />
+          <img src={ favIconColor } alt={ favIconColor } />
         </button>
       </section>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  details: state.recipeDetails.details,
+});
+export default connect(mapStateToProps)(SharedFavorites);
 
 // const mapDispatchToProps = (dispatch) => ({
 //   addFavIcon: (favIcon) => dispatch(addFavicon(favIcon)),
@@ -61,9 +114,10 @@ class SharedFavorites extends Component {
 //   getFavIconColor: state.recipeDetails.favIconColor,
 // });
 
-// SharedFavorites.propTypes = {
-//   addFavicon: PropTypes.func,
-//   colorFavIcon: PropTypes.func,
-// }.isRequired;
+SharedFavorites.propTypes = {
+  details: PropTypes.shape.isRequired,
+  page: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
-export default SharedFavorites;
+// export default SharedFavorites;
