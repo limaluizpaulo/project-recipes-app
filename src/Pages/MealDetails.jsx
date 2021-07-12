@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -17,7 +18,7 @@ export default class MealDetails extends React.Component {
       like: false,
       loading: true,
       ingredients: [],
-      // measures: [],
+      measures: [],
     };
     this.fetchIdAPI = this.fetchIdAPI.bind(this);
     this.fecthRecomendationAPI = this.fecthRecomendationAPI.bind(this);
@@ -38,16 +39,16 @@ export default class MealDetails extends React.Component {
     }));
   }
 
-  // measures() {
-  //   const { meals } = this.state;
-  //   const arrayMeasure = Object.entries(meals);
-  //   const resultArrayMeasure = arrayMeasure.filter((value) => value[0]
-  //     .includes('strMeasure') && value[1]);
-  //   const MeasureList = resultArrayMeasure.map((e) => e[1]);
-  //   this.setState({
-  //     measures: MeasureList,
-  //   });
-  // }
+  measures() {
+    const { meals } = this.state;
+    const arrayMeasure = Object.entries(meals);
+    const resultArrayMeasure = arrayMeasure.filter((value) => value[0]
+      .includes('strMeasure') && value[1]);
+    const MeasureList = resultArrayMeasure.map((e) => e[1]);
+    this.setState({
+      measures: MeasureList,
+    });
+  }
 
   ingredients() {
     const { meals } = this.state;
