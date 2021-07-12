@@ -1,26 +1,26 @@
 import React from 'react';
 import home from '../images/home.png';
 import return0 from '../images/return0.png';
-import '../styles/global.css';
+import '../styles/HomeAndReturn.css';
 
 function HomeAndReturn() {
   return (
-    <div className="footer-container">
-      <div className="homeAndReturnFooter">
+    <div className="homeAndReturn-footer-container">
+      <div className="homeAndReturn-footer">
         <div>
           <a
             href="/comidas"
           >
-            <img className="homeIcon" src={ home } alt="drink icon" />
+            <img className="home-icon" src={ home } alt="drink icon" />
           </a>
         </div>
         <div>
           <button
             type="button"
-            className="returnBtn"
+            className="return-btn"
             onClick={ () => window.history.back() }
           >
-            <img className="returnIcon" src={ return0 } alt="drink icon" />
+            <img className="return-icon" src={ return0 } alt="drink icon" />
           </button>
         </div>
       </div>

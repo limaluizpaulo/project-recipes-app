@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { requestDrink } from '../services/api';
-import '../styles/global.css';
+import '../styles/Recomendations.css';
 
 function RecomendationsDrink() {
   const [recomendationsDrink, setRecomendationsDrink] = useState([]);
@@ -22,12 +22,12 @@ function RecomendationsDrink() {
     <div>
       <Carousel fade interval={ null } controls className="carousel">
         <Carousel.Item>
-          <div className="card-recomendations">
+          <div className="recomendations-card-container">
             {recomendationsDrink.slice(0, 2).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index}-recomendation-card` }
-                  className="card"
+                  className="recomendations-card"
                 >
                   <img
                     data-testid={ `${index}-card-img` }
@@ -48,12 +48,12 @@ function RecomendationsDrink() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="card-container">
+          <div className="recomendations-card-container">
             {recomendationsDrink.slice(2, four).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index + 2}-recomendation-card` }
-                  className="card"
+                  className="recomendations-card"
                 >
                   <img
                     data-testid={ `${index + 2}-card-img` }
@@ -74,12 +74,12 @@ function RecomendationsDrink() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="card-container">
+          <div className="recomendations-card-container">
             {recomendationsDrink.slice(four, six).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index + four}-recomendation-card` }
-                  className="card"
+                  className="recomendations-card"
                 >
                   <img
                     data-testid={ `${index + four}-card-img` }

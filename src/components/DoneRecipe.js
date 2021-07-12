@@ -32,7 +32,7 @@ function DoneRecipe({ recipe: {
             />
           </Link>
         </div>
-        <Card.Body className="favorite-body">
+        <Card.Body className="done-body">
           <p data-testid={ `${index}-horizontal-top-text` }>
             {
               type === 'comida' ? `${area} - ${category}`
@@ -41,7 +41,7 @@ function DoneRecipe({ recipe: {
           </p>
           <Link to={ `/${type}s/${id}` }>
             <Card.Title
-              className="cardTitle"
+              className="done-card-title"
               data-testid={ `${index}-horizontal-name` }
             >
               {name}
@@ -55,11 +55,11 @@ function DoneRecipe({ recipe: {
             >
               {tag}
             </p>))}
-          <button type="button" className="share" onClick={ shareBtn }>
+          <button type="button" className="done-share-btn" onClick={ shareBtn }>
             {copiedLink
               ? (
                 <p
-                  className="copyText"
+                  className="done-copyText"
                   data-testid={ `${index}-horizontal-share-btn` }
                 >
                   Link copiado!

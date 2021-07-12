@@ -1,0 +1,24 @@
+.recomendations-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recomendations-card {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  height: 238px;
+  margin: 5px;
+  max-width: 100%;
+  text-align: center;
+  width: 169px;
+}
+
+.carousel {
+  z-index: 0;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  filter: invert(1);
+  margin-top: 160px;
+  padding: 15px;
+}

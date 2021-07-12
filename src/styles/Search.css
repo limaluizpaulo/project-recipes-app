@@ -1,0 +1,17 @@
+.search {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBtn {
+  background-color: lightgray;
+  margin-bottom: 18px;
+  max-width: 100%;
+  width: 330px;
+}
+
+.searchInput {
+  margin-top: 18px;
+  max-width: 100%;
+  width: 330px;
+}

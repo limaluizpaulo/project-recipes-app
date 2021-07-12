@@ -1,0 +1,46 @@
+.icons-copyText {
+  width: 95px;
+}
+
+.icons-shareAndFavorite-container {
+  display: flex;
+  padding-top: 12px;
+}
+
+.icons-share-btn {
+  background-color: inherit;
+  border: none;
+  margin-left: 7px;
+  outline: none;
+}
+
+.home-icon {
+  height: 45px;
+  width: 45px;
+}
+
+.icons-return-btn {
+  background-color: inherit;
+  border: none;
+  margin-left: 4px;
+  outline: none;
+}
+
+.icons-return-btn:focus {
+  border: none;
+  outline: none;
+}
+
+.return-icon {
+  border: none;
+  height: 26px;
+  outline: none;
+  width: 26px;
+}
+
+.favorite-icon {
+  background-color: inherit;
+  border: none;
+  margin-left: 7px;
+  outline: none;
+}

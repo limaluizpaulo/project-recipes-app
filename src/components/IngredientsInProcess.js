@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/global.css';
+import '../styles/IngredientsInProcess.css';
 
 function IngredientsInProcess({ index, element, measures }) {
   const [checked, setchecked] = useState(false);
-
-  const divStyle1 = {
-    textDecoration: 'line-through',
-  };
-
-  const divStyle2 = {
-    textDecoration: 'none',
-  };
 
   function toogleClass() {
     setchecked(!checked);
@@ -21,11 +13,11 @@ function IngredientsInProcess({ index, element, measures }) {
     <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
-        className="inputs"
+        className="ingredientProgress-input"
         onChange={ toogleClass }
         key={ index }
       />
-      <span style={ checked ? divStyle1 : divStyle2 }>
+      <span className={ checked ? 'checked-item' : 'not-checked-item' }>
         { `${element[1]}
                 - ${measures[index][1] === null
       ? 'as you like' : measures[index][1]}` }
