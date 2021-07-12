@@ -50,6 +50,7 @@ button {
   border-radius: inherit;
 }
 
+/* CONFIGURAÇÕES DE TELA DE 0px até 576px */
 /* LOGIN PAGE ===========================================================================================================*/
 /* https://www.origamid.com/projetos/css-grid-layout-guia-completo/ */
 .login {
