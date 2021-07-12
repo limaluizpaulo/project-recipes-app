@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/header';
+import Footer from '../components/footer';
 import { getSearchBarResponse } from '../action';
 
 export class TelaDePerfil extends Component {
@@ -75,6 +76,7 @@ export class TelaDePerfil extends Component {
 
         <h1 data-testid="profile-email">{email}</h1>
         {this.buttonsRender()}
+        <Footer />
       </div>
 
     );
