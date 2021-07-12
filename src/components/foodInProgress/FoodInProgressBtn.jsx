@@ -62,7 +62,21 @@ const FoodInProgressBtn = () => {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
       const request = await fetch(endpoint);
       const { drinks } = await request.json();
-      console.log(drinks[0]); // apagar depois
+      const tag = drinks[0].strTags;
+      const tags = checkTags(tag);
+      const drinkObject = {
+        id: drinks[0].idDrink,
+        type,
+        area: '',
+        category: drinks[0].strCategory,
+        alcoholicOrNot: drinks[0].strAlcoholic,
+        name: drinks[0].strDrink,
+        image: drinks[0].strDrinkThumb,
+        doneDate: getDate(),
+        tags,
+      }
+      console.log(drinkObject); // apagar depois
+
     }
   };
 
@@ -85,8 +99,8 @@ const FoodInProgressBtn = () => {
         }
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={ !finished }
-        onClick={ handleFinishRecipe }
+        disabled={!finished}
+        onClick={handleFinishRecipe}
       >
         Finalizar
       </button>
