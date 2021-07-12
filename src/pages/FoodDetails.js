@@ -9,7 +9,7 @@ import '../styles/global.css';
 function FoodDetails() {
   const params = useParams();
   const [item, setItem] = useState([]);
-  const [first, setFirst] = useState(false);
+  // const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
@@ -20,16 +20,16 @@ function FoodDetails() {
     request();
   }, [params.id]);
 
-  function progressFunction() {
-    const { idMeal } = item[0];
-    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    let flag = 0;
-    Object
-      .keys(meals).forEach((id) => { if (id === idMeal) flag += 1; });
-    console.log(flag);
-    if (flag !== 0) setProgress('Continuar Receita');
-    setFirst(true);
-  }
+  // function progressFunction() {
+  //   const { idMeal } = item[0];
+  //   const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   let flag = 0;
+  //   Object
+  //     .keys(meals).forEach((id) => { if (id === idMeal) flag += 1; });
+  //   console.log(flag);
+  //   if (flag !== 0) setProgress('Continuar Receita');
+  //   setFirst(true);
+  // }
 
   function start() {
     const { idMeal } = item[0];
@@ -39,9 +39,9 @@ function FoodDetails() {
     setProgress('Continuar Receita');
   }
 
-  if (!first && item[0] !== undefined) {
-    progressFunction();
-  }
+  // if (!first && item[0] !== undefined) {
+  //   progressFunction();
+  // }
 
   return (
     item && (

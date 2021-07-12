@@ -9,7 +9,7 @@ import '../styles/global.css';
 function DrinkDetails() {
   const params = useParams();
   const [drink, setDrink] = useState([]);
-  const [first, setFirst] = useState(false);
+  // const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
@@ -20,15 +20,15 @@ function DrinkDetails() {
     request();
   }, [params.id]);
 
-  function progressFunction() {
-    const { idDrink } = drink[0];
-    const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    let flag = 0;
-    Object
-      .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
-    if (flag !== 0) setProgress('Continuar Receita');
-    setFirst(true);
-  }
+  // function progressFunction() {
+  //   const { idDrink } = drink[0];
+  //   const { cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   let flag = 0;
+  //   Object
+  //     .keys(cocktails).forEach((id) => { if (id === idDrink) flag += 1; });
+  //   if (flag !== 0) setProgress('Continuar Receita');
+  //   setFirst(true);
+  // }
 
   function start() {
     const { idDrink } = drink[0];
@@ -38,9 +38,10 @@ function DrinkDetails() {
     setProgress('Continuar Receita');
   }
 
-  if (!first && drink !== []) {
-    progressFunction();
-  }
+  // if (!first && drink !== []) {
+  //   console.log(drink);
+  //   progressFunction();
+  // }
 
   return (
     drink && (
