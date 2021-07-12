@@ -165,19 +165,17 @@ class Detalhes extends Component {
     if (localStorage.doneRecipes) {
       const checkDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
-      checkDoneRecipes.forEach((recipe) => {
-        if (recipe.id === id) {
-          this.setState({ finishedRecipe: !finishedRecipe });
-        }
-      });
+      if (checkDoneRecipes.some((item) => item.id === id)) {
+        this.setState({ finishedRecipe: !finishedRecipe });
+      }
     }
 
     if (localStorage.inProgressRecipes) {
       const checkInProgressRecipes = JSON.parse(localStorage
         .getItem('inProgressRecipes'));
 
-      const mealsKeys = Object.keys(checkInProgressRecipes.meals);
-      const drinksKeys = Object.keys(checkInProgressRecipes.cocktails);
+      const mealsKeys = Object.keys(checkInProgressRecipes.meals || {});
+      const drinksKeys = Object.keys(checkInProgressRecipes.cocktails || {});
 
       if (mealsKeys.some((item) => item === id)) {
         this.setState({ startedRecipe: true });
