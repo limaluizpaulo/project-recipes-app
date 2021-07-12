@@ -1,3 +1,5 @@
+import { capitalize } from 'lodash-es';
+
 export const pathTreament = (pathname) => {
   const negativeOne = -1;
   const lastLetter = pathname.slice(negativeOne);
@@ -26,4 +28,24 @@ export const setInitialItem = (key, value) => {
   if (!getItem(key)) {
     localStorage.setItem(key, JSON.stringify(value));
   }
+};
+
+export const createDoneRecipe = (id, type, detailsData) => {
+  const minusOne = -1;
+  const singleType = capitalize(type.slice(0, minusOne));
+  const thumbnail = `str${singleType}Thumb`;
+  const title = `str${singleType}`;
+
+  const item = {
+    id,
+    type: (type === 'meals') ? 'comida' : 'bebida',
+    area: detailsData.strArea || '',
+    category: detailsData.strCategory || '',
+    alcoholicOrNot: detailsData.strAlcoholic || '',
+    name: detailsData[title],
+    image: detailsData[thumbnail],
+    doneDate: 'quando - a - receita - foi - concluida',
+    tags: detailsData.strTags || [],
+  };
+  return item;
 };
