@@ -18,11 +18,11 @@ const renderWithRouterAndRedux = (
   const history = createMemoryHistory({ initialEntries });
   return {
     ...render(
-      <Router history={ history }>
-        <Provider store={ store }>
+      <Provider store={ store }>
+        <Router history={ history }>
           {component}
-        </Provider>
-      </Router>,
+        </Router>
+      </Provider>,
     ),
     history,
     store,
