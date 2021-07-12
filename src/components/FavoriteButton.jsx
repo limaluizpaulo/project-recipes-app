@@ -10,7 +10,6 @@ function FavoriteButton(props) {
   const { pathname } = useLocation();
   const { stateDrink, stateMeals } = useContext(RecipesContext);
   const [saveRecipe, setSaveRecipe] = useState('');
-  // const [stateChangeHeart, setStateChangeHeart] = useState(true);
   const { idDrink, strDrink, strDrinkThumb, strCategory: drinkCategory,
     strAlcoholic } = stateDrink[0];
   const { idMeal, strMeal, strMealThumb, strCategory, strArea } = stateMeals[0];
@@ -43,14 +42,6 @@ function FavoriteButton(props) {
       }
     }
   };
-
-  // const removeFavorited = () => {
-  //   const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   if (favorited) {
-  //     const filterLocalStorage = favorited.filter((element) => element.id !== id);
-  //     localStorage.setItem('favoriteRecipes', JSON.stringify(filterLocalStorage));
-  //   }
-  // };
 
   const changeHeart = () => {
     setStateChangeHeart(!stateChangeHeart);

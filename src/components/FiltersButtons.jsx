@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import RecipesContext from '../Context/RecipesContext';
 
 export default function FiltersButtons() {
@@ -10,6 +11,7 @@ export default function FiltersButtons() {
   } else {
     favoriteRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   }
+
   const { setFavoriteFilters } = useContext(RecipesContext);
   const filterFood = () => {
     const filter = favoriteRecipesStorage.filter(({ type }) => type === 'comida');
