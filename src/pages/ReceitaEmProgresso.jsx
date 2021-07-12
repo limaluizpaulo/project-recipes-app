@@ -83,10 +83,7 @@ function ReceitaEmProgresso() {
         parametrosURL={ { id, type: apelidoAPI } }
         dataTestId="share-btn"
       />
-      <BotaoFavorito
-        getFavoriteRecipesParams={ { apelidoAPI, id } }
-        receita={ receita }
-      />
+      <BotaoFavorito receita={ receita } />
     </>
   );
 
