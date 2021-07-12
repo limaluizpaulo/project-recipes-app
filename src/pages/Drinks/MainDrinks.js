@@ -3,32 +3,40 @@ import FilterRecipe from '../../components/FilterRecipe';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import RecipeList from '../../components/RecipeList';
-import { fetchCategoryDrinks, fetchRecipeAllDrink } from '../../services/recipeAPI';
+import { fetchCategoryDrinks, fetchRecipeAllDrink,
+  fetchRecipeIngredientsExploreDrink } from '../../services/recipeAPI';
 
-function MainDrinks() {
+// ERRO DE REQUISITOS - FETCH FAIL
+function MainDrinks(match) {
   const [list, setList] = useState({});
   const [categoryList, setCategoryList] = useState({});
 
   useEffect(() => {
+    let fun;
     const func = async () => {
-      const fun = await fetchRecipeAllDrink();
+      if (match.location.ingredient) {
+        fun = await fetchRecipeIngredientsExploreDrink(match.location.ingredient);
+      } else {
+        fun = await fetchRecipeAllDrink();
+      }
+      const category = await fetchCategoryDrinks();
+
+      setCategoryList(category);
       setList(fun);
     };
 
-    const category = async () => {
-      const fun = await fetchCategoryDrinks();
-      setCategoryList(fun);
-    };
-
-    category();
     func();
   }, []);
 
   return (
     <div>
       <Header title="Bebidas" display="true" />
-      <FilterRecipe list={ categoryList } recipeType="drinks" />
-      <RecipeList listAll={ list } />
+      { Object.keys(categoryList).length !== 0 && <FilterRecipe
+        list={ categoryList }
+        recipeType="drinks"
+      />}
+      {Object.keys(list).length !== 0
+        && <RecipeList listAll={ list } />}
       <Footer />
     </div>
   );

@@ -74,3 +74,9 @@ code {
 .search button {
   width: 100px;
 }
+
+.div-explore-food-drink {
+  display: flex;
+  flex-direction: column;
+
+}
