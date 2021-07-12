@@ -7,7 +7,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import store from '../../context/store';
 
-export default function LikeButton({ recipe, captureFavorited }) { // Desestruturando props
+export default function LikeButton({ recipe }) { // Desestruturando props
   const { pathname } = useLocation();
   const { recipes: { foods } } = useContext(store);
   const [favorited, setFavorited] = useState(false);
@@ -28,8 +28,6 @@ export default function LikeButton({ recipe, captureFavorited }) { // Desestrutu
       setStorage('favoriteRecipes', removedFav);
     }
     setFavorited(!favorited);
-    captureFavorited(favorited); // botei aqui a função q captura
-    console.log(favorited);
   };
 
   const checkFavStorage = () => {
@@ -62,6 +60,7 @@ export default function LikeButton({ recipe, captureFavorited }) { // Desestrutu
         alt="favorite-icon"
         data-testid="favorite-btn"
         width="30px"
+        style={ { cursor: 'pointer' } }
       />
     </button>
   );
@@ -74,5 +73,4 @@ export default function LikeButton({ recipe, captureFavorited }) { // Desestrutu
 
 LikeButton.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
-  captureFavorited: PropTypes.func.isRequired,
 };
