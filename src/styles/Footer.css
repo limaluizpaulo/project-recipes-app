@@ -7,6 +7,6 @@ footer {
 .footer {
   background: #f93602;
   display: flex;
-  height: 60px;
+  height: 45px;
   justify-content: space-between;
 }
