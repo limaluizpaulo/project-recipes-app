@@ -18,6 +18,8 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import DrinksRecipes from './pages/DrinksRecipes';
 import MealsRecipes from './pages/MealsRecipes';
 import NotFound from './pages/NotFound';
+import MealsInProgress from './pages/MealsInProgress';
+import DrinksInProgress from './pages/DrinksInProgress';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -54,6 +56,8 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/comidas" component={ MealsRecipes } />
         <Route exact path="/bebidas" component={ DrinksRecipes } />
+
+        <Route path="/bebidas/:id/in-progress" componente={ DrinksInProgress } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
@@ -70,6 +74,7 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ DrinksIngredients }
         />
+        <Route path="/comidas/:id/in-progress" component={ MealsInProgress } />
         <Route component={ NotFound } />
       </Switch>
       { verifyAllowanceToRenderFooter() }
