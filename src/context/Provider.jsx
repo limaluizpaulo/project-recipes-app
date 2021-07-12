@@ -16,6 +16,7 @@ const RecipeProvider = ({ children }) => {
   const [recipesByPlace, setRecipesByPlace] = useState([]);
   const [area, setArea] = useState();
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [test, setTest] = useState({});
   // const [selectedIngredient, setSelectedIngredient] = useState('');
   const [previousIsExploreIngredients, setPreviousIsExploreIngredients] = useState(false);
   const [filterDrinksIngredients, setFilterDrinksIngredients] = useState([]);
@@ -109,9 +110,11 @@ const RecipeProvider = ({ children }) => {
     setPreviousIsExploreIngredients,
     filterDrinksIngredients,
     setFilterDrinksIngredients,
+    test,
+    setTest,
   };
   return (
-    <RecipeContext.Provider value={ objContext }>
+    <RecipeContext.Provider value={objContext}>
       {children}
     </RecipeContext.Provider>
   );
