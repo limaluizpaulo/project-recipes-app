@@ -1,0 +1,13 @@
+.container-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-card {
+  width: 50vmax;
+}
+
+.list-cards {
+  display: flex;
+  overflow-x: scroll;
+}

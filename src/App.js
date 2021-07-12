@@ -15,66 +15,20 @@ import NotFound from './Pages/NotFound';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route
-        path="/explorar/:recipeType/ingredientes"
-        render={ (props) => <ExploreIngredientes { ...props } /> }
-      />
-      <Route
-        exact
-        path="/explorar/:recipeType"
-        render={ (props) => <ExploreByType { ...props } /> }
-      />
-      <Route
-        path="/explorar/comidas/area"
-        render={ (props) => <ExploreByArea { ...props } /> }
-      />
-      <Route
-        path="/explorar/bebidas/area"
-        component={ NotFound }
-      />
-      <Route
-        exact
-        path="/explorar"
-        render={ (props) => <Explore { ...props } /> }
-      />
-
-      <Route
-        path="/receitas-feitas"
-        render={ (props) => <ReceitasFeitas { ...props } /> }
-      />
-      <Route
-        path="/receitas-favoritas"
-        render={ (props) => <ReceitasFavoritas { ...props } /> }
-      />
-
-      <Route
-        path="/perfil"
-        render={ (props) => <Perfil { ...props } /> }
-      />
-
-      <Route
-        path="/:recipeType/:id-da-receita/in-progress"
-        component={ GenericComponent }
-      />
-      <Route
-        exact
-        path="/comidas/:id"
-        render={ (props) => <MealDetails { ...props } /> }
-      />
-      <Route
-        path="/:recipeType/ingredientes/:ingredientName"
-        render={ (props) => <RecipesByIngredient { ...props } /> }
-      />
-      <Route
-        exact
-        path="/bebidas/:id"
-        render={ (props) => <DrinkDetails { ...props } /> }
-      />
-      <Route
-        path="/:recipeType"
-        render={ (props) => (<Recipes { ...props } />) }
-      />
+      <Route path="/explorar/comidas/area" component={ ExploreByArea } />
+      <Route path="/explorar/:recipeType/ingredientes" component={ ExploreIngredientes } />
+      <Route path="/:recipeType/:id-receita/in-progress" component={ GenericComponent } />
+      <Route path="/comidas/:idReceita" component={ MealDetails } />
+      <Route path="/bebidas/:idReceita" component={ DrinkDetails } />
+      <Route path="/explorar/:recipeType" component={ ExploreByType } />
+      <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+      <Route path="/:recipeType/ingredientes/:ingredientName" component={ RecipesByIngredient } />
+      <Route path="/:recipeType" component={ Recipes } />
+      <Route path="/explorar" component={ Explore } />
+      <Route path="/perfil" component={ Perfil } />
+      <Route path="/" component={ Login } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
     </Switch>
   );
 }

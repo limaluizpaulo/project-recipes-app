@@ -3,27 +3,33 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import fethByID from '../Services/fetchByID';
+import '../styles/ButtonDetails.css';
+
+import { fetchByID, fetchByRecomendation } from '../Services';
+import CardsDetails from '../Components/CardsDetails';
 
 export default class DrinkDetails extends React.Component {
   constructor() {
     super();
     this.state = {
       drinks: {},
+      recomendation: [],
       like: false,
       loading: true,
       ingredients: [],
       measures: [],
     };
-    this.fetchAPI = this.fetchAPI.bind(this);
+    this.fetchIdAPI = this.fetchIdAPI.bind(this);
+    this.fecthRecomendationAPI = this.fecthRecomendationAPI.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.takeURL = this.takeURL.bind(this);
     this.ingredients = this.ingredients.bind(this);
     this.measures = this.measures.bind(this);
+    // this.takeURL = this.takeURL.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    this.fetchIdAPI();
+    this.fecthRecomendationAPI();
   }
 
   handleClick() {
@@ -54,15 +60,15 @@ export default class DrinkDetails extends React.Component {
     });
   }
 
-  takeURL() {
-    const { match: { url } } = this.props;
-    const urlLike = `localhost:3000${url}`;
-    console.log(urlLike);
-  }
+  // takeURL() {
+  //   const { match: { url } } = this.props;
+  //   const urlLike = `localhost:3000${url}`;
+  //   console.log(urlLike);
+  // }
 
-  async fetchAPI() {
-    const { match: { params: { id } } } = this.props;
-    const resultFetch = await fethByID('bebidas', id);
+  async fetchIdAPI() {
+    const { match: { params: { idReceita } } } = this.props;
+    const resultFetch = await fetchByID('bebidas', idReceita);
     this.setState({
       drinks: { ...resultFetch.drinks[0] },
       like: false,
@@ -72,8 +78,16 @@ export default class DrinkDetails extends React.Component {
     this.measures();
   }
 
+  async fecthRecomendationAPI() {
+    const { meals } = await fetchByRecomendation('bebidas');
+    console.log(meals);
+    this.setState({
+      recomendation: meals,
+    });
+  }
+
   render() {
-    const { loading, drinks, like, ingredients, measures } = this.state;
+    const { loading, drinks, like, ingredients, measures, recomendation } = this.state;
     const { strDrink, strDrinkThumb, strInstructions, strAlcoholic } = drinks;
 
     if (loading) return <h1> loading </h1>;
@@ -107,8 +121,14 @@ export default class DrinkDetails extends React.Component {
 
         <p data-testid="instructions">{ strInstructions }</p>
 
-        <button type="button" name="startrecipe" data-testid="start-recipe-btn">
-          ola
+        <CardsDetails type="bebidas" recomendation={ recomendation } />
+
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="button-details"
+        >
+          Iniciar Receita
         </button>
       </main>
     );
@@ -117,9 +137,8 @@ export default class DrinkDetails extends React.Component {
 
 DrinkDetails.propTypes = {
   match: PropTypes.shape({
-    url: PropTypes.string,
     params: PropTypes.shape({
-      id: PropTypes.number,
+      idReceita: PropTypes.string,
     }),
   }).isRequired,
 };
