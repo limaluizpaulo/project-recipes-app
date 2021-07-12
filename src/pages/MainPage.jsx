@@ -23,7 +23,7 @@ function MainPage() {
   return (
     <div>
       <Header />
-      {(pathname === '/bebidas') ? <CardDrink /> : <CardMeal /> }
+      {pathname.includes('/bebidas') ? <CardDrink /> : <CardMeal /> }
       <Footer />
     </div>
   );

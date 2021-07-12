@@ -88,7 +88,36 @@ export default function RecipesInProgressDrink() {
   useEffect(getApiDetails, []);
   useEffect(filterDetails, [stateDrink]);
 
-  const { strDrink, strDrinkThumb, strCategory, strInstructions } = stateDrink[0];
+  const { idDrink, strAlcoholic, strDrink, strDrinkThumb,
+    strCategory, strInstructions, strTags } = stateDrink[0];
+  const recipeDone = () => {
+    const data = new Date();
+    const day = data.getDate();
+    const month = data.getMonth();
+    const year = data.getUTCFullYear();
+    const doneDate = `${day}-${month}-${year}`;
+    const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log(strTags);
+    const recipesDone = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate,
+      tags: [strTags],
+    };
+    console.log(done);
+    if (!done) {
+      console.log('if');
+      localStorage.setItem('doneRecipes', JSON.stringify([recipesDone]));
+    } else {
+      console.log('else');
+      localStorage.setItem('doneRecipes', JSON.stringify([...done, recipesDone]));
+    }
+  };
   return (
     <main>
       <img
@@ -139,6 +168,7 @@ export default function RecipesInProgressDrink() {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ disableButton !== ingredients.length }
+          onClick={ recipeDone }
         >
           {console.log(disableButton, ingredients.length)}
 
