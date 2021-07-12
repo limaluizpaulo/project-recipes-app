@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import copy from 'clipboard-copy';
-import progress from '../helper/functions';
+import progress, { copyLink, favoriteClick, help } from '../helper/functions';
 import useRecipeDetail from '../helper/useRecipeDetail';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -18,20 +18,14 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
   const [reco, setReco] = useState([]);
   const [show, setShow] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [objectStart] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')) !== null ? JSON.parse(
-      localStorage.getItem('inProgressRecipes'),
-    ) : ({ cocktails: {}, meals: {} }),
-  );
-  const [arrayFavorite] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')) !== null ? JSON.parse(
-      localStorage.getItem('favoriteRecipes'),
-    ) : ([]),
-  );
+  const [objectStart] = useState(help(JSON.parse(
+    localStorage.getItem('inProgressRecipes'),
+  ), { cocktails: {}, meals: {} }));
+  const [arrayFavorite] = useState(help(JSON.parse(
+    localStorage.getItem('favoriteRecipes'),
+  ), []));
   const [button, setButton] = useState('Iniciar Receita');
-
   const history = useHistory();
-
   useRecipeDetail({
     idRecipe,
     typeRecipe,
@@ -48,34 +42,6 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
     setFavorite,
   });
 
-  function copyLink() {
-    copy(`http://localhost:3000${location.pathname}`);
-    setShow(true);
-  }
-
-  function alcoholicCheck() {
-    return list.strAlcoholic === 'Alcoholic' ? 'Alcoholic' : 'Non Alcoholic';
-  }
-
-  function favoriteClick() {
-    if (favorite) {
-      setFavorite(false);
-    } else {
-      setFavorite(true);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(
-        [...arrayFavorite,
-          {
-            id: idRecipe,
-            type: typeRecipe === 'food' ? 'comida' : 'bebida',
-            area: typeRecipe === 'food' ? list.strArea : '',
-            category: list.strCategory,
-            alcoholicOrNot: typeRecipe === 'food' ? '' : (alcoholicCheck()),
-            name: typeRecipe === 'food' ? list.strMeal : list.strDrink,
-            image: typeRecipe === 'food' ? list.strMealThumb : list.strDrinkThumb,
-          }],
-      ));
-    }
-  }
   return (
     <div>
 
@@ -92,18 +58,21 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         { typeRecipe === 'food' ? list.strMeal : list.strDrink }
 
       </p>
-      <button
-        onClick={ copyLink }
+      <img
+        style={ { padding: '20px' } }
+        role="presentation"
+        onClick={ () => copyLink(copy, setShow, location) }
         type="button"
         data-testid="share-btn"
-      >
-        <img src={ shareIcon } alt="Share Icon" />
-      </button>
+        src={ shareIcon }
+        alt="Share Icon"
+      />
       <p>{show && 'Link copiado!'}</p>
       <img
         src={ favorite ? blackHeartIcon : whiteHeartIcon }
         alt="No Favorite"
-        onClick={ favoriteClick }
+        onClick={ () => favoriteClick({
+          arrayFavorite, list, favorite, typeRecipe, idRecipe, setFavorite }) }
         type="button"
         role="presentation"
         data-testid="favorite-btn"
