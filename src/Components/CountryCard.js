@@ -135,7 +135,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchRecipes:
-  (recipeType, fetchType, ingredient) => dispatch(fetchComidasOnComponentDidMount(recipeType, fetchType, ingredient)),
+  (recipeType,fetchType,
+    ingredient) => dispatch(fetchComidasOnComponentDidMount(recipeType, fetchType,
+      ingredient)),
 });
 
 CountryCard.propTypes = {
