@@ -8,35 +8,6 @@ import Table from 'react-bootstrap/Table';
 import identification from '../helper/dictionaryApi';
 
 class Ingredients extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      checked: false,
-      ingredient: '',
-      measure: '',
-    };
-  }
-
-  componentDidMount() {
-    this.sendIngredients();
-  }
-
-  sendIngredients() {
-    const { data } = this.props;
-    const keyName = identification(data);
-
-    keyName.Ingredients.map((ingredient) => {
-      if (data[ingredient[0]] !== null && data[ingredient[0]] !== '') {
-        this.setState({
-          checked: false,
-          ingredient: ingredient[0],
-          measure: ingredient[1],
-        });
-      }
-    });
-  }
-
   checkIngredient(param, index) {
     const { func, state } = this.props;
     const ourState = state || [];
@@ -115,7 +86,6 @@ const mapStateToProps = (state) => ({
 Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
-  state: PropTypes.shape.isRequired,
   func: PropTypes.func.isRequired,
 };
 

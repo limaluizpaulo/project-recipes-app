@@ -128,6 +128,7 @@ class Progresso extends Component {
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recovery.meals[id] !== undefined) {
       // console.log(recovery.meals[id], 'existo');
+      console.log(recovery.meals[id], 'existo');
       return this.setState({ allIngredients: recovery.meals[id] });
     }
 
@@ -178,6 +179,10 @@ class Progresso extends Component {
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     // console.log(page);
+
+  render() {
+    const { details, match: { params: { page, id } } } = this.props;
+    console.log(page);
     const { favIconColor, isDisable, allIngredients, link } = this.state;
     return (
       <section>
@@ -226,6 +231,7 @@ class Progresso extends Component {
               this.handleClick();
               this.saveDoneRecipes();
             } }
+            onClick={ this.handleClick }
             disabled={ isDisable }
           >
             Finalizar Receita
