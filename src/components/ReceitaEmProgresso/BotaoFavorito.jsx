@@ -1,11 +1,11 @@
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import isFavoriteIcon from '../../images/blackHeartIcon.svg';
 import isNotFavoriteIcon from '../../images/whiteHeartIcon.svg';
 import { addFavoriteRecipes,
   haveFavoriteRecipes, removeFavoriteRecipes } from '../../services/localStorage';
 
-function BotaoFavorito({ receita }) {
+function BotaoFavorito({ receita, dataTestId, onClick }) {
   const [favorito, setFavorito] = useState(null);
 
   useEffect(() => {
@@ -33,12 +33,13 @@ function BotaoFavorito({ receita }) {
         image,
       });
     }
+    onClick();
   };
 
   return (
     <button type="button" className="button-transparent" onClick={ handleClick }>
       {favorito !== null && <img
-        data-testid="favorite-btn"
+        data-testid={ dataTestId }
         src={ ((favorito) ? isFavoriteIcon : isNotFavoriteIcon) }
         alt="favorite-icon"
       />}
@@ -56,6 +57,8 @@ BotaoFavorito.propTypes = {
     name: string,
     image: string,
   }).isRequired,
+  dataTestId: string.isRequired,
+  onClick: func.isRequired,
 };
 
 export default BotaoFavorito;

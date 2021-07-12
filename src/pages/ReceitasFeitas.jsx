@@ -1,48 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import ButtonCompartilhar from '../components/ButtonCompartilhar';
+import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
+import { getItemLocalStorage } from '../services/localStorage';
 
 export default function ReceitasFeitas() {
-  const doneRecipes = [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
-      tags: [],
-    },
-  ];
-
-  const [tipoFiltro, setTipoFiltro] = useState('All');
   const history = useHistory();
-
-  const filterCategory = () => (tipoFiltro !== 'All' ? doneRecipes
-    .filter((receita) => tipoFiltro === receita.type) : doneRecipes);
+  const { location: { pathname } } = history;
+  const [receitas, setReceitas] = useState([]);
+  const [tipoFiltro, setTipoFiltro] = useState('All');
+  const [renderCard, setRenderCard] = useState(false);
+  const filterCategory = () => (tipoFiltro !== 'All' ? receitas
+    .filter((receita) => tipoFiltro === receita.type) : receitas);
 
   const redirecionaDetalhesReceita = (type, id) => {
     history.push(`/${type}s/${id}`);
   };
 
-  const renderCards = (
-    { image, category, name, doneDate, tags, id, type, area, alcoholicOrNot }, index,
-  ) => {
+  useEffect(() => {
+    setReceitas(pathname === '/receitas-feitas'
+      ? getItemLocalStorage('doneRecipes') : getItemLocalStorage('favoriteRecipes'));
+  }, [pathname, renderCard]);
+
+  const renderCards = (receita, index) => {
+    const {
+      image, category, name, doneDate, tags, id, type, area, alcoholicOrNot } = receita;
     if (type === 'comida') {
       return (
         <Col key={ id }>
@@ -63,6 +47,11 @@ export default function ReceitasFeitas() {
                 parametrosURL={ { id, type } }
                 dataTestId={ `${index}-horizontal-share-btn` }
               />
+              <BotaoFavorito
+                receita={ receita }
+                dataTestId={ `${index}-horizontal-favorite-btn` }
+                onClick={ () => setRenderCard(!renderCard) }
+              />
               <Card.Title
                 onClick={ () => redirecionaDetalhesReceita(type, id) }
                 data-testid={ `${index}-horizontal-name` }
@@ -74,15 +63,16 @@ export default function ReceitasFeitas() {
               >
                 {doneDate}
               </Card.Text>
-              {tags.map((tagName, i) => (
-                <Card.Link
-                  key={ i }
-                  href="#"
-                  data-testid={ `${index}-${tagName}-horizontal-tag` }
-                >
-                  {tagName}
-                </Card.Link>
-              ))}
+              { pathname === '/receitas-feitas'
+                ? tags.map((tagName, i) => (
+                  <Card.Link
+                    key={ i }
+                    href="#"
+                    data-testid={ `${index}-${tagName}-horizontal-tag` }
+                  >
+                    {tagName}
+                  </Card.Link>
+                )) : null}
             </Card.Body>
           </Card>
         </Col>
@@ -102,6 +92,11 @@ export default function ReceitasFeitas() {
             <ButtonCompartilhar
               parametrosURL={ { id, type } }
               dataTestId={ `${index}-horizontal-share-btn` }
+            />
+            <BotaoFavorito
+              receita={ receita }
+              dataTestId={ `${index}-horizontal-favorite-btn` }
+              onClick={ () => setRenderCard(!renderCard) }
             />
             <Card.Title
               data-testid={ `${index}-horizontal-name` }
