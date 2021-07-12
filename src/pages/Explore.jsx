@@ -83,7 +83,7 @@ export default function Explorar() {
   case '/explorar/bebidas/ingredientes':
   case '/explorar/comidas/ingredientes':
     return (
-      <SearchIngredients />
+      <SearchIngredients pathname={ pathname } />
     );
   case '/explorar/comidas/area':
     return (
