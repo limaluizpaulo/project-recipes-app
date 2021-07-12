@@ -23,7 +23,7 @@ function ReceitaEmProgresso({ match }) {
   const { url } = match;
   const food = /comida/gi;
   const { id } = useParams();
-  const [recipe, setRecipe] = useState();
+  const [recipe, setRecipe] = useState(null);
   const [favorite, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const [inProgress, setInProgress] = useState(false);
@@ -32,7 +32,7 @@ function ReceitaEmProgresso({ match }) {
 
   useEffect(() => {
     fetchRecipe(url, food, id)
-      .then((response) => setRecipe(response));
+      .then((result) => setRecipe(result));
   }, []);
 
   function saveToFavorites() {
@@ -139,6 +139,9 @@ function ReceitaEmProgresso({ match }) {
   if (!recipe) {
     return (<h4 className="loading">Carregando...</h4>);
   }
+
+  console.log(recipe);
+
   ingredientsStep();
   checkFavorite(checkFavoriteParams);
   checkInProgress(checkInProgressParams);
@@ -165,7 +168,9 @@ function ReceitaEmProgresso({ match }) {
     inProgressLocalStorage,
   };
 
-  saveInProgress(saveInProgressParams);
+  if (!inProgress) {
+    saveInProgress(saveInProgressParams);
+  }
 
   const ingredientsQuantity = recipeIngredientsList.length;
 
