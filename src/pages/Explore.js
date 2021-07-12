@@ -21,7 +21,7 @@ function Explore() {
           >
             <track kind="captions" />
           </video>
-          <Link to="/explorar/comidas" className="btnContainer">
+          <Link to="/explorar/comidas" className="btnContainerFood">
             <button
               type="button"
               data-testid="explore-food"
@@ -41,7 +41,7 @@ function Explore() {
           >
             <track kind="captions" />
           </video>
-          <Link to="/explorar/bebidas" className="btnContainer">
+          <Link to="/explorar/bebidas" className="btnContainerDrink">
             <button
               type="button"
               data-testid="explore-drinks"

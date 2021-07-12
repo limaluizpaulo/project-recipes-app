@@ -18,10 +18,12 @@ body {
 }
 
 .header-container {
+  background-color: lightgray;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 15px 15px 0;
+  /* margin-bottom: 7px; */
+  padding: 15px 18px 0;
 }
 
 .card-container {
@@ -238,10 +240,11 @@ body {
 
 .exploreFoodAndDrink {
   background-color: lightgray;
-  font-size: 18px;
+  font-size: 19px;
   margin-bottom: 25px;
   text-align: center;
-  width: 160px;
+  width: 165px;
+  padding: 5px;
 }
 
 .exitButton {
@@ -250,6 +253,7 @@ body {
   margin-bottom: 25px;
   text-align: center;
   width: 250px;
+  border-radius: 25px;
 }
 
 .profileTitle {
@@ -367,7 +371,16 @@ body {
   height: 258px;
 }
 
-.btnContainer {
+.btnContainerDrink {
+  position:absolute;
+  top:25%;
+  left:50%;
+  -webkit-transform:translate3d(-50%, -50%, 0);
+  -moz-transform:translate3d(-50%, -50%, 0);
+  transform:translate3d(-50%, -50%, 0);
+}
+
+.btnContainerFood {
   position:absolute;
   top:80%;
   left:50%;
@@ -386,7 +399,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 82vh;
-  min-width: 82vw;
-  margin-top: 9px;
+  min-height: 73vh;
+  min-width: 73vw;
 }
