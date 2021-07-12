@@ -49,7 +49,6 @@ class Progresso extends Component {
     return drinksDetails(id);
   }
 
-
   componentDidUpdate() {
     const { id, allIngredients } = this.state;
     const { match: { params: { page } } } = this.props;
@@ -77,7 +76,6 @@ class Progresso extends Component {
     // const { details } = this.props;
     if (!favIcon) {
       // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
       this.setState({
         favIconColor: blackHeartIcon,
         favIcon: true,
@@ -90,7 +88,6 @@ class Progresso extends Component {
       });
     }
   }
-
 
   handleClick() {
     const { isStart } = this.props;
@@ -149,7 +146,6 @@ class Progresso extends Component {
         id, should: false });
     }
   }
-
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
