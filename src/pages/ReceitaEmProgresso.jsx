@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
 import { buscaReceita } from '../services/servicesApi';
-import shareIcon from '../images/shareIcon.svg';
 import Ingredientes from '../components/ReceitaEmProgresso/Ingredientes';
 import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
 import formatIngredientsAndMeasuresArray from '../helpers/formatIngredientsMeasures';
 import { addDoneRecipes } from '../services/localStorage';
 import customDate from '../helpers/Date';
+import ButtonCompartilhar from '../components/ButtonCompartilhar';
 
 function ReceitaEmProgresso() {
   const rotaAtual = useLocation().pathname;
@@ -78,31 +77,12 @@ function ReceitaEmProgresso() {
     );
   };
 
-  const copiarLink = () => {
-    const doisSegundos = 2000;
-    const tooltip = document.querySelector('.improvised-tooltip');
-    tooltip.innerHTML = 'Link copiado!';
-    const { URL } = document;
-    const [urlFormatado] = URL.match(/.+(?=\/in-progress)/);
-    clipboardCopy(urlFormatado);
-    const exibirTooltip = setTimeout(() => {
-      tooltip.innerHTML = '';
-      clearTimeout(exibirTooltip);
-    }, doisSegundos);
-  };
-
   const renderizaBotoesTitulo = () => (
     <>
-      <div>
-        <span className="improvised-tooltip" />
-      </div>
-      <button type="button" className="button-transparent" onClick={ copiarLink }>
-        <img
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="share-btn"
-        />
-      </button>
+      <ButtonCompartilhar
+        parametrosURL={ { id, type: apelidoAPI } }
+        dataTestId="share-btn"
+      />
       <BotaoFavorito
         getFavoriteRecipesParams={ { apelidoAPI, id } }
         receita={ receita }

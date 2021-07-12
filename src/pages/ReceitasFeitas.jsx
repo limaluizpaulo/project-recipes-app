@@ -44,6 +44,7 @@ export default function ReceitasFeitas() {
     { image, category, name, doneDate, tags, id, type, area, alcoholicOrNot }, index,
   ) => {
     if (type === 'comida') {
+      console.log(type);
       return (
         <Col key={ id }>
           <Card>
@@ -59,7 +60,10 @@ export default function ReceitasFeitas() {
               >
                 {`${area} - ${category}`}
               </span>
-              <ButtonCompartilhar dados={ { index, id, type } } />
+              <ButtonCompartilhar
+                parametrosURL={ { id, type } }
+                dataTestId={ `${index}-horizontal-share-btn` }
+              />
               <Card.Title
                 onClick={ () => redirecionaDetalhesReceita(type, id) }
                 data-testid={ `${index}-horizontal-name` }
@@ -96,7 +100,10 @@ export default function ReceitasFeitas() {
           />
           <Card.Body>
             <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
-            <ButtonCompartilhar dados={ { index, id, type } } />
+            <ButtonCompartilhar
+              parametrosURL={ { id, type } }
+              dataTestId={ `${index}-horizontal-share-btn` }
+            />
             <Card.Title
               data-testid={ `${index}-horizontal-name` }
               onClick={ () => redirecionaDetalhesReceita(type, id) }
