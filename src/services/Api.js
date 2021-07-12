@@ -5,6 +5,20 @@ export const fetchRecipesList = async () => {
   return data;
 };
 
+export const fetchAreaOrigens = async () => {
+  const origins = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const response = await origins.json();
+  const data = response.meals;
+  return data;
+};
+
+export const fetchArea = async (area) => {
+  const countries = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const response = await countries.json();
+  const data = response.meals;
+  return data;
+};
+
 export const fetchDrinksList = async () => {
   const drinks = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   const response = await drinks.json();
