@@ -5,6 +5,8 @@ import copy from 'clipboard-copy';
 import progress from '../helper/functions';
 import useRecipeDetail from '../helper/useRecipeDetail';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchRecipeAllDrink,
   fetchRecipeAllFood,
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
@@ -15,10 +17,16 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
   const [leng, setLeng] = useState([]);
   const [reco, setReco] = useState([]);
   const [show, setShow] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [objectStart] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) !== null ? JSON.parse(
       localStorage.getItem('inProgressRecipes'),
     ) : ({ cocktails: {}, meals: {} }),
+  );
+  const [arrayFavorite] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes')) !== null ? JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    ) : ([]),
   );
   const [button, setButton] = useState('Iniciar Receita');
 
@@ -35,11 +43,38 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
     setList,
     setReco,
     setButton,
-    objectStart });
+    objectStart,
+    arrayFavorite,
+    setFavorite,
+  });
 
   function copyLink() {
     copy(`http://localhost:3000${location.pathname}`);
     setShow(true);
+  }
+
+  function alcoholicCheck() {
+    return list.strAlcoholic === 'Alcoholic' ? 'Alcoholic' : 'Non Alcoholic';
+  }
+
+  function favoriteClick() {
+    if (favorite) {
+      setFavorite(false);
+    } else {
+      setFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(
+        [...arrayFavorite,
+          {
+            id: idRecipe,
+            type: typeRecipe === 'food' ? 'comida' : 'bebida',
+            area: typeRecipe === 'food' ? list.strArea : '',
+            category: list.strCategory,
+            alcoholicOrNot: typeRecipe === 'food' ? '' : (alcoholicCheck()),
+            name: typeRecipe === 'food' ? list.strMeal : list.strDrink,
+            image: typeRecipe === 'food' ? list.strMealThumb : list.strDrinkThumb,
+          }],
+      ));
+    }
   }
   return (
     <div>
@@ -65,12 +100,14 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         <img src={ shareIcon } alt="Share Icon" />
       </button>
       <p>{show && 'Link copiado!'}</p>
-      <button
+      <img
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="No Favorite"
+        onClick={ favoriteClick }
         type="button"
+        role="presentation"
         data-testid="favorite-btn"
-      >
-        Favoritar
-      </button>
+      />
       <p data-testid="recipe-category">
         { typeRecipe === 'food' ? list.strCategory : list.strAlcoholic }
       </p>

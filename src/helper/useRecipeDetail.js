@@ -4,12 +4,13 @@ function useRecipeDetail({
   idRecipe, typeRecipe,
   fetchRecipeIDFood,
   fetchRecipeIDrinks, fetchRecipeAllFood, fetchRecipeAllDrink, setLeng,
-  setList, setReco, setButton, objectStart }) {
+  setList, setReco, setButton, objectStart, arrayFavorite, setFavorite }) {
   useEffect(() => {
     const func = async (api) => {
       const fun = await api(idRecipe);
       const type = Object.keys(fun)[0];
       const lista = fun[type];
+      console.log(lista);
       const ingret = Object.keys(
         lista[0],
       ).filter((element) => element.includes('strIngredient'));
@@ -46,10 +47,12 @@ function useRecipeDetail({
       Object.keys(objectStart.cocktails).map((element) => element === idRecipe
                 && setButton('Continuar Receita'));
     }
-  }, [idRecipe,
-    objectStart,
-    setButton,
-    typeRecipe]);
+
+    if (arrayFavorite.length > 0) {
+      arrayFavorite.map((element) => element.id === idRecipe
+      && setFavorite(true));
+    }
+  }, [arrayFavorite, idRecipe, objectStart, setButton, setFavorite, typeRecipe]);
 }
 
 export default useRecipeDetail;
