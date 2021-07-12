@@ -7,13 +7,48 @@ import Table from 'react-bootstrap/Table';
 import identification from '../helper/dictionaryApi';
 
 class Ingredients extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      checked: false,
+      ingredient: '',
+      measure: '',
+    };
+  }
+
+  componentDidMount() {
+    this.sendIngredients();
+  }
+
+  sendIngredients() {
+    const { data } = this.props;
+    const keyName = identification(data);
+
+    keyName.Ingredients.map((ingredient) => {
+      if (data[ingredient[0]] !== null && data[ingredient[0]] !== '') {
+        this.setState({
+          checked: false,
+          ingredient: ingredient[0],
+          measure: ingredient[1],
+        });
+      }
+    });
+  }
+
   checkIngredient() {
+    //  const { count, recipesLength, func } = this.props;
+    const { func } = this.props;
+
     return (
-      <input type="checkbox" />
+      <input onClick={ func } type="checkbox" />
     );
   }
 
   render() {
+    const ingredients = [
+      { checked: false, ingredient: 'Potatoes', measure: '2 larges' },
+    ];
     const { data, isStart } = this.props;
     const dictionary = identification(data);
     return (
@@ -52,6 +87,7 @@ const mapStateToProps = (state) => ({
 Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
+  func: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Ingredients);

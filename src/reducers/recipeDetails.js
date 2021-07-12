@@ -3,7 +3,7 @@ import {
   RECIPE_DETAILS_DRINK,
   START_RECIPE,
   CHECK_PAGE,
-  CHECK_INGREDIENTS
+  CHECK_INGREDIENTS,
 } from '../action';
 
 const INITIAL_STATE = {
