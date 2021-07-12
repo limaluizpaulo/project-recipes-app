@@ -45,8 +45,8 @@ export const getDrinkByCategories = (drinks) => ({
   type: DRINK_BY_CATEGORIES, drinks });
 export const getAllDrinksRecipes = (recipes) => ({
   type: ALL_DRINKS_RECIPES, recipes });
-export const startRecipe = () => ({
-  type: START_RECIPE, isStart: true });
+export const startRecipe = (boolean) => ({
+  type: START_RECIPE, isStart: boolean });
 export const checkPage = (bool) => ({
   type: CHECK_PAGE, isDrink: bool });
 export const ingredients = (obj) => ({
@@ -97,7 +97,6 @@ export const fetchFilterFoodByCategories = (category) => (dispatch) => {
     .then((response) => response.json())
     .then((foodCategories) => {
       const recipes = foodCategories.meals.slice(0, maxRecipes);
-      console.log(recipes);
       dispatch(getFoodByCategories(recipes));
     });
 };

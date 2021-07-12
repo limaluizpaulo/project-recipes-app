@@ -107,7 +107,7 @@ class Comidas extends Component {
           </section>
         </main>
         { isRedirect === true && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
-        { this.categories() }
+        {/* { this.categories() }  */}
         <Footer />
       </div>
     );
