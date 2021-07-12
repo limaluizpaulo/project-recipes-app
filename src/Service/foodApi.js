@@ -50,6 +50,13 @@ export const fetchRandomMeal = async () => {
 export const fetchMealsIngredients = async () => {
   const allIngredients = await
   fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
-  const { Ingredients } = await allIngredients.json();
-  return Ingredients;
+  const { meals } = await allIngredients.json();
+  return meals;
+};
+
+export const fetchMealsArea = async () => {
+  const areas = await
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const { meals } = await areas.json();
+  return meals;
 };
