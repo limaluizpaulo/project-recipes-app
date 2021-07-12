@@ -5,10 +5,10 @@ import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita, receitasApi } from '../services/servicesApi';
 
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
 import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
 import CarouselElement from './detailsElements/CarouselElement';
+import ButtonCompartilhar from '../components/ButtonCompartilhar';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
@@ -76,24 +76,31 @@ function DetailsReceita(props) {
         {ingrFunction()}
         {ingredientes.map((ing, i) => <IngredientsList key={ i } ingr={ [ing, i] } />)}
       </ul>
-
-      <p data-testid="instructions">{receita.strInstructions}</p>
-      {videoRender()}
+      <div className="preparo">
+        <p>- Instruçoes de preparo</p>
+        <p data-testid="instructions">{receita.strInstructions}</p>
+        {videoRender()}
+      </div>
 
       <CarouselElement sugest={ [sugestoes, type] } />
+
       <Link
         className="footer"
         data-testid="start-recipe-btn"
         to={ `/${apelidoAPI}/${id}/in-progress` }
       >
-        iniciar receita
+        <p className="iniciarbtn">iniciar receita</p>
       </Link>
-      <Link to="/">
-        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-      </Link>
-      <Link to="/">
-        <img data-testid="share-btn" src={ shareIcon } alt="" />
-      </Link>
+      <div className="salvarcompartilhar">
+        <Link className="favoritebtn" to="/">
+          <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
+        </Link>
+        <ButtonCompartilhar
+          parametrosURL={ { id, type: apelidoAPI } }
+          dataTestId="share-btn"
+        />
+      </div>
+
     </div>
   );
 }

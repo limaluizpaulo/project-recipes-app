@@ -59,7 +59,10 @@ export default function ReceitasFeitas() {
               >
                 {`${area} - ${category}`}
               </span>
-              <ButtonCompartilhar dados={ { index, id, type } } />
+              <ButtonCompartilhar
+                parametrosURL={ { id, type } }
+                dataTestId={ `${index}-horizontal-share-btn` }
+              />
               <Card.Title
                 onClick={ () => redirecionaDetalhesReceita(type, id) }
                 data-testid={ `${index}-horizontal-name` }
@@ -96,7 +99,10 @@ export default function ReceitasFeitas() {
           />
           <Card.Body>
             <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
-            <ButtonCompartilhar dados={ { index, id, type } } />
+            <ButtonCompartilhar
+              parametrosURL={ { id, type } }
+              dataTestId={ `${index}-horizontal-share-btn` }
+            />
             <Card.Title
               data-testid={ `${index}-horizontal-name` }
               onClick={ () => redirecionaDetalhesReceita(type, id) }
@@ -119,21 +125,24 @@ export default function ReceitasFeitas() {
       <Header />
       <aside>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-all-btn"
           onClick={ () => setTipoFiltro('All') }
         >
           All
         </Button>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-food-btn"
           onClick={ () => { setTipoFiltro('comida'); } }
         >
           Food
         </Button>
         <Button
-          variant="dark"
+          variant="outline-danger"
+          size="sm"
           data-testid="filter-by-drink-btn"
           onClick={ () => setTipoFiltro('bebida') }
         >

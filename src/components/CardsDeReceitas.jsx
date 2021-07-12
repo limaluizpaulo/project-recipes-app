@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function CardsDeReceitas({ receitas, typeReceita }) {
   const renderCard = (key, strThumb, str, id) => (
-    <Link to={ `/${typeReceita}/${id}` }>
+    <Link className="cardLink" to={ `/${typeReceita}/${id}` }>
       <Col key={ key }>
         <Card data-testid={ `${key}-recipe-card` }>
           <Card.Img
