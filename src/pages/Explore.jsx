@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Link, useLocation } from 'react-router-dom';
 
 import { fetchRandomMeal } from '../Service/foodApi';
@@ -7,8 +6,9 @@ import { fetchRandomDrink } from '../Service/drinkApi';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import AreaExplorer from './AreaExplorer';
+import AreaExplorer from '../components/AreaExplorer';
 import SearchIngredients from './SearchIngredients';
+import NotFound from './NotFound';
 
 export default function Explorar() {
   const { pathname } = useLocation();
@@ -83,11 +83,15 @@ export default function Explorar() {
   case '/explorar/bebidas/ingredientes':
   case '/explorar/comidas/ingredientes':
     return (
-      <SearchIngredients />
+      <SearchIngredients pathname={ pathname } />
     );
   case '/explorar/comidas/area':
     return (
       <AreaExplorer />
+    );
+  case '/explorar/bebidas/area':
+    return (
+      <NotFound />
     );
   default:
     break;

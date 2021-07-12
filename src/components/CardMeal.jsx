@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, useLocation } from 'react-router-dom';
 
 import RecipesContext from '../Context/RecipesContext';
 import CategoryMeals from './CategoryMeals';
 
 export default function CardMeal() {
+  const { pathname } = useLocation();
   const { responseApiLupaMeal, redirect } = useContext(RecipesContext);
   let arrayMeal = responseApiLupaMeal;
 
@@ -24,8 +25,7 @@ export default function CardMeal() {
 
   return (
     <main>
-
-      <CategoryMeals />
+      { !pathname.includes('explorar') && <CategoryMeals />}
       <ul>
         {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
           <Link to={ `/comidas/${idMeal}` } key={ index }>
@@ -41,7 +41,6 @@ export default function CardMeal() {
           </Link>
         ))}
       </ul>
-      {/*  // ) */}
 
     </main>
   );
