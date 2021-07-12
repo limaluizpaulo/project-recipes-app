@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import logoGif from '../images/logonosso.gif';
+import logorecipes3 from '../images/logorecipes3.png';
 import useValidation from '../hooks/useValidation';
 import { setOnLocalStorage } from '../services/helpers/localStorage';
 import '../styles/login.css';
@@ -23,7 +23,7 @@ const Login = ({ history }) => {
   };
   return (
     <div className="login">
-      <img src={ logoGif } className="login__logo" alt="logo receitas" />
+      <img src={ logorecipes3 } className="login__logo" alt="logo receitas" />
       <div className="login__form">
         <div className="login__input__container">
 
