@@ -27,14 +27,14 @@ class Drinks extends Component {
   render() {
     const { resultDrink } = this.props;
     return (
-      <>
-        <section>
-          <Header title="Bebidas" />
-        </section>
+      <div className="page">
+        <Header title="Bebidas" />
         <DrinkButtons />
-        {resultDrink ? <DrinkCard /> : null}
+        <div className="cards-container">
+          {resultDrink ? <DrinkCard /> : null}
+        </div>
         <Footer />
-      </>
+      </div>
     );
   }
 }

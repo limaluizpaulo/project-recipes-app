@@ -18,10 +18,57 @@
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);
   border-radius: 8px;
+  color: black;
   height: 45px;
   line-height: 1em;
   margin: 7px;
   width: 150px;
+}
+
+.buttons-category:hover {
+  background-color: #e7b2b2;
+}
+
+.buttons-category:focus {
+  background-color: #e38c8c;
+  outline: none;
+}
+
+
+.button-recipes-done {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  border-radius: 8px;
+  color: black;
+  height: 65px;
+  line-height: 1em;
+  margin: 15px;
+  width: 300px;
+}
+
+.button-recipes-done:hover {
+  background-color: #e7b2b2;
+}
+
+.button-recipes-done:focus {
+  background-color: #e38c8c;
+  outline: none;
+}
+
+.buttons-explore-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-explore {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  border-radius: 8px;
+  color: black;
+  height: 65px;
+  line-height: 1em;
+  margin: 15px;
+  width: 310px;
 }
 
 .like-and-share {

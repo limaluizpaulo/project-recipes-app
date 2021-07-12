@@ -23,7 +23,9 @@ form {
 }
 
 .search-input {
+  border: rgb(228, 204, 204);
   border-radius: 5px;
+  height: 35px;
   margin-bottom: 5px;
 }
 
@@ -34,4 +36,13 @@ form {
   height: 35px;
   line-height: 1em;
   width: 100%;
+}
+
+.btt-search:hover {
+  background-color: #e7b2b2;
+}
+
+.btt-search:focus {
+  background-color: #e38c8c;
+  outline: none;
 }

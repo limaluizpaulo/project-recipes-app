@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { fetchCategorieDrinkFilterAction,
   fetchDrinkAction } from '../actions';
@@ -64,8 +63,8 @@ class DrinkButtons extends Component {
     return (
       <div className="buttons-container">
         {categories.map(({ strCategory }, index) => (
-          <Button
-            className="buttonss"
+          <button
+            className="buttons-category"
             data-testid={ `${strCategory}-category-filter` }
             type="button"
             key={ index }
@@ -74,16 +73,16 @@ class DrinkButtons extends Component {
             onClick={ () => this.handleClick({ strCategory }) }
           >
             {strCategory}
-          </Button>
+          </button>
         ))}
-        <Button
-          className="buttonss"
+        <button
+          className="buttons-category"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => this.handleClickAll() }
         >
           All
-        </Button>
+        </button>
       </div>
     );
   }

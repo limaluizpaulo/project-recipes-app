@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../css/Page.css';
+import '../css/Buttons.css';
 
 class Perfil extends Component {
   constructor() {
@@ -29,39 +31,52 @@ class Perfil extends Component {
 
   render() {
     return (
-      <>
-        <section>
-          <Header title="Perfil" searchIcon />
-        </section>
-        <section>
-          <p data-testid="profile-email">
-            {this.mailUser()}
-          </p>
-          <Link
-            to="/receitas-feitas"
-            type="button"
-            data-testid="profile-done-btn"
-          >
-            Receitas Feitas
-          </Link>
-          <Link
-            to="/receitas-favoritas"
-            type="button"
-            data-testid="profile-favorite-btn"
-          >
-            Receitas Favoritas
-          </Link>
-          <Link
-            to="/"
-            type="button"
-            data-testid="profile-logout-btn"
-            onClick={ this.clearStorage }
-          >
-            Sair
-          </Link>
-        </section>
-        <Footer />
-      </>
+      <div className="page">
+        <div className="perfil-container">
+          <section>
+            <Header title="Perfil" searchIcon />
+          </section>
+
+          <div className="buttons-recipes-container">
+            <p data-testid="profile-email" className="email-user">
+              {this.mailUser()}
+            </p>
+
+            <Link
+              to="/receitas-feitas"
+              type="button"
+              data-testid="profile-done-btn"
+            >
+              <button type="button" className="button-recipes-done">
+                Receitas Feitas
+              </button>
+            </Link>
+
+            <Link
+              to="/receitas-favoritas"
+              type="button"
+              data-testid="profile-favorite-btn"
+            >
+              <button type="button" className="button-recipes-done">
+                Receitas Favoritas
+              </button>
+            </Link>
+
+            <Link
+              to="/"
+              type="button"
+              data-testid="profile-logout-btn"
+              onClick={ this.clearStorage }
+            >
+              <button type="button" className="button-recipes-done">
+                Sair
+              </button>
+            </Link>
+          </div>
+          <Footer />
+        </div>
+      </div>
+
     );
   }
 }

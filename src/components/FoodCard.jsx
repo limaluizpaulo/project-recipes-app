@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../css/FoodCard.css';
+import '../css/Card.css';
 
 function FoodCard(props) {
   const { resultFood } = props;
@@ -9,7 +9,7 @@ function FoodCard(props) {
   const food = resultFood.filter((elem, index) => index < totalRecipes);
 
   return food.map((recipe, index) => (
-    <div key={ recipe.idMeal } className="food-card">
+    <div key={ recipe.idMeal } className="card">
       <Link to={ `/comidas/${recipe.idMeal}` }>
         <div data-testid={ `${index}-recipe-card` }>
           <img
