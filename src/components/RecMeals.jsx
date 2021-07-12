@@ -20,9 +20,8 @@ function RecMeals() {
       <div className="carousel--slides">
         {
           recFoods.map(({ strMealThumb, strMeal }, index) => (
-            <>
+            <section key={ index }>
               <div
-                key={ index }
                 data-testid={ `${index}-recomendation-card` }
                 className="carousel--slide"
               >
@@ -36,7 +35,7 @@ function RecMeals() {
               >
                 {strMeal}
               </h4>
-            </>
+            </section>
           ))
         }
       </div>

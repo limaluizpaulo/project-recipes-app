@@ -10,7 +10,6 @@ function ExploreMealsOrDrinks({ history }) {
   //   const id = await getRandomIdMeal();
   //   return id;
   // };
-  // console.log(idMeal());
   const renderExploreMeals = () => (
     <>
       <Link to="/explorar/comidas/ingredientes">

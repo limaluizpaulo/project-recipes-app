@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import logo from '../images/logo.png';
+
+import './login.css';
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({
@@ -56,6 +59,7 @@ function Login() {
 
   return (
     <form>
+      <img className="app-logo" src={ logo } alt="logo do app" />
       <label htmlFor="email">
         Email
         <input
@@ -72,7 +76,7 @@ function Login() {
           data-testid="password-input"
           type="password"
           name="password"
-          placeholder="password"
+          placeholder="mínimo 6 caracteres"
           onChange={ handleChange }
         />
       </label>
