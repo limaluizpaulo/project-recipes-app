@@ -72,8 +72,6 @@ export default function RenderDetails({ btnFinish, id }) {
           <iframe
             title="recipeVideo"
             data-testid="video"
-            // width="560"
-            // height="315"
             frameBorder="0"
             allowFullScreen
             allow="autoplay; encrypted-media"
@@ -109,9 +107,7 @@ export default function RenderDetails({ btnFinish, id }) {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => {
-    Aos.init({ duration: 2000 });
-  }, []);
+  useEffect(() => { Aos.init({ duration: 2000 }); }, []);
 
   // ---------------------------------------------------------------------------------------------
 

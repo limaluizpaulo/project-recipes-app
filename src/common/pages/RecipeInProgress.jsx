@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
 import store, { addRecipesDLoading,
   setDoneLoading, setFetchOnDone } from '../../context/store';
 import { getStorage, newDoneRecipe, setStorage } from '../../functions';
@@ -44,37 +47,45 @@ export default function RecipeInProgress() {
   };
 
   const renderRecipe = () => (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
-        alt="recipe-img"
-        width="350px"
-      />
-      <div>
-        <div className="titleButtons">
-          <h1 data-testid="recipe-title">
-            { recipeDetail.strMeal || recipeDetail.strDrink }
-          </h1>
+    <div data-aos="fade-up" className="recipeInProgress">
+      {/* -------------------------------------------------------------------------- */}
+      <div className="boxInProg topInProgress">
+        <div className="titleInProgress">
+          <div className="titleCategory">
+            <h1 data-testid="recipe-title">
+              { recipeDetail.strMeal || recipeDetail.strDrink }
+            </h1>
+            <h5 data-testid="recipe-category">
+              Categoria:
+              { (foods) ? recipeDetail.strCategory : (
+                recipeDetail.strAlcoholic
+              ) }
+            </h5>
+          </div>
+          <div className="ingredients">
+            <h3>Ingredientes</h3>
+            <RecipeIngredients
+              inProg
+              setIngrLS={ setIngrLS }
+              ingrLS={ ingrLS }
+            />
+          </div>
+        </div>
+        <div className="imageButtons">
+          <img
+            data-testid="recipe-photo"
+            src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
+            alt="recipe-img"
+            className="recipeImage"
+          />
           <span className="likeShareBtns">
             <ShareButton />
             <LikeButton recipe={ recipeDetail } />
           </span>
         </div>
-        <h5 data-testid="recipe-category">
-          Categoria:
-          { recipeDetail.strCategory }
-        </h5>
       </div>
-      <div>
-        <h3>Ingredientes</h3>
-        <RecipeIngredients
-          inProg
-          setIngrLS={ setIngrLS }
-          ingrLS={ ingrLS }
-        />
-      </div>
-      <div>
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="fade-up" className="boxInProg instrInProgress">
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
       </div>
@@ -89,6 +100,7 @@ export default function RecipeInProgress() {
           Finalizar Receita
         </button>
       </Link>
+      {/* -------------------------------------------------------------------------- */}
     </div>
   );
 
@@ -123,6 +135,7 @@ export default function RecipeInProgress() {
 
   useEffect(() => { if (fetchOn) getRecipeDetailByID(); });
   useEffect(validationButton, [ingrLS, recipeDetail]);
+  useEffect(() => { Aos.init({ duration: 2000 }); }, []);
 
   // ---------------------------------------------------------------------------------------------
 

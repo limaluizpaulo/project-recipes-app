@@ -562,7 +562,107 @@ justify-items: center;
   color:pink;
 }
 
-.titleButtons {
+.recipeInProgress {
+  display: grid;
+  justify-content: center;
+}
+
+.boxInProg {
+  margin: 20px 20px 15px 20px;
+  height: max-content;
+  width: 100vw;
+  box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  max-width: 70rem;
+}
+
+.topInProgress {
+  display: grid;
+  height: max-content;
+  overflow: hidden;
+  padding-bottom: 25px;
+}
+
+.titleInProgress {
+  margin: 25px;
+  justify-self: center;
+  z-index: 1;
+  width: 90vw;
+  background-color: var(--first-color-lighten);
+  padding: 2rem 1rem;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35,0,77,.2);
+  animation-duration: .4s;
+  animation-name: animate-login;
+}
+
+@keyframes animate-login {
+  0%{
+    transform: scale(1,1);
+  }
+  50%{
+    transform: scale(1.1,1.1);
+  }
+  100%{
+    transform: scale(1,1);
+  }
+}
+
+.titleInProgress .ingredients {
+  display: grid;
+  justify-content: center;
+  font-size: var(--h3-font-size);
+  text-align: justify;
+  margin-left: 7rem;
+}
+
+.titleInProgress .titleCategory, .ingredients h3 {
+  font-size: var(--h1-font-size);
+  color: var(--first-color-dark);
+}
+
+.topInProgress .imageButtons {
+  justify-self: center;
+  margin-top: -3rem;
+}
+
+.topInProgress .imageButtons .recipeImage {
+  width: 86vw;
+  border-radius: 0 0 40px 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  margin-bottom: 1.5rem;
+}
+
+.topInProgress .imageButtons .likeShareBtns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 10px;
+  border-radius: 40px;
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+}
+
+.topInProgress .imageButtons .likeShareBtns:hover {
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, .3);
+}
+
+.instrInProgress {
+  padding: 25px;
+  font-size: var(--h3-font-size);
+}
+
+.instrInProgress h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+
+
+/* .titleButtons {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -580,7 +680,7 @@ justify-items: center;
 .likeShareBtns {
   display: flex;
   justify-content: space-around;
-}
+} */
 
 /*  ====================================================================================================================================*/
 
