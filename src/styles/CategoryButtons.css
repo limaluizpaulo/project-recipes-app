@@ -1,0 +1,8 @@
+.category-buttons button {
+  background-color: #2a9d8f;
+  border: 2px solid #264653;
+  border-radius: 25px;
+  color: white;
+  margin: 5px;
+  width: 80px;
+}

@@ -13,11 +13,13 @@ function CardsCarousel(props) {
         <Card data-testid={ `${number}-recomendation-card` } style={ { width: '180px' } }>
           <Card.Img variant="top" src={ item.strDrinkThumb } />
           <Card.Body>
-            <Card.Title
-              data-testid={ `${number}-recomendation-title` }
-            >
-              { item.strDrink }
-            </Card.Title>
+            <a href={ `http://localhost:3000/bebidas/${item.idDrink}` }>
+              <Card.Title
+                data-testid={ `${number}-recomendation-title` }
+              >
+                { item.strDrink }
+              </Card.Title>
+            </a>
             <Card.Subtitle>{ item.strAlcoholic }</Card.Subtitle>
           </Card.Body>
         </Card>
@@ -27,11 +29,13 @@ function CardsCarousel(props) {
       <Card data-testid={ `${number}-recomendation-card` } style={ { width: '360px' } }>
         <Card.Img variant="top" src={ item.strMealThumb } />
         <Card.Body>
-          <Card.Title
-            data-testid={ `${number}-recomendation-title` }
-          >
-            { item.strMeal }
-          </Card.Title>
+          <a href={ `http://localhost:3000/comidas/${item.idMeal}` }>
+            <Card.Title
+              data-testid={ `${number}-recomendation-title` }
+            >
+              { item.strMeal }
+            </Card.Title>
+          </a>
           <Card.Subtitle>{ item.strCategory }</Card.Subtitle>
         </Card.Body>
       </Card>
