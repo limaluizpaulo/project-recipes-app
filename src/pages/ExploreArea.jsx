@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MainCards from '../components/MainCards';
+import RecipesContext from '../contexts/RecipesContext';
+import { getMealsAreas } from '../helpers/MealsAPI';
 
 export default function ExploreArea() {
   const [isFetching, setIsFetching] = useState(true);
   const [areas, setAreas] = useState([]);
   const [selectedArea, setSelectedArea] = useState('');
+  const { type } = useContext(RecipesContext);
 
   console.log(selectedArea);
 
