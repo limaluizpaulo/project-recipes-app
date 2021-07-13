@@ -14,14 +14,12 @@ class Ingredients extends Component {
     const element = document.getElementById(`input-${index}`);
     if (ourState.includes(param)) {
       return (
-        // <label htmlFor={ `checkbox-${index}` }>
         <input
           checked
           id={ `checkbox-${index}` }
           onChange={ () => func(param, element, 'checked') }
           type="checkbox"
         />
-        // </label>
       );
     }
     return (
@@ -35,9 +33,6 @@ class Ingredients extends Component {
   }
 
   render() {
-   // const ingredients = [
-   //   { checked: false, ingredient: 'Potatoes', measure: '2 larges' },
-   // ];
     const { data, isStart } = this.props;
     const dictionary = identification(data);
     return (
@@ -56,7 +51,6 @@ class Ingredients extends Component {
                         : `${index}-ingredient-name-and-measure`
                     }
                   >
-                    {/* <div width="500px" id={ `input-${index}` }> */}
                     <td>
                       {isStart === true
                         ? this.checkIngredient(data[ingredient[0]], index)
@@ -67,7 +61,6 @@ class Ingredients extends Component {
                       {data[ingredient[0]]}
                     </td>
                     <td>{data[ingredient[1]]}</td>
-                    {/* </div> */}
                   </tr>
                 ) : null
               ))
@@ -87,6 +80,7 @@ Ingredients.propTypes = {
   data: PropTypes.shape.isRequired,
   isStart: PropTypes.bool.isRequired,
   func: PropTypes.func.isRequired,
+  state: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps)(Ingredients);

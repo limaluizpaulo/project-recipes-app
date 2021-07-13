@@ -220,14 +220,13 @@ export const fetchByIngredient = (param) => (dispatch) => {
     .then((ingredientDetails) => {
       if (param === 'cocktail') {
         const type = 'drinks';
-        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
-        dispatch(getIngredients(ingredients));
+        const ingredients1 = ingredientDetails[type].slice(0, maxRecipes);
+        dispatch(getIngredients(ingredients1));
       }
       if (param === 'meal') {
         const type = `${param}s`;
-
-        const ingredients = ingredientDetails[type].slice(0, maxRecipes);
-        dispatch(getIngredients(ingredients));
+        const ingredients2 = ingredientDetails[type].slice(0, maxRecipes);
+        dispatch(getIngredients(ingredients2));
       }
     });
 };
