@@ -139,6 +139,7 @@ function DetalhesBebidas({ match }) {
           return (
             <div key={ index }>
               <img
+                className="image-food"
                 src={ item.strDrinkThumb }
                 data-testid="recipe-photo"
                 alt={ item.strDrink }

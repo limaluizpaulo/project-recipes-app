@@ -131,6 +131,7 @@ function DetalhesComidas({ match }) {
           return (
             <div key={ index }>
               <img
+                className="image-food"
                 src={ item.strMealThumb }
                 data-testid="recipe-photo"
                 alt={ item.strMeal }
@@ -198,6 +199,7 @@ function DetalhesComidas({ match }) {
     </div>
   );
 }
+
 //  Fonte Proptypes: https://stackoverflow.com/questions/47311310/proptypes-isrequired-on-react-router-4-params-prop
 DetalhesComidas.propTypes = {
   match: Proptypes.shape({
