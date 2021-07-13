@@ -19,7 +19,7 @@ function InProgress() {
   const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
   const [shareCopy, setShareCopy] = useState(false);
-  const [ingredientList, setIngredientList] = useState({});
+  // const [ingredientList, setIngredientList] = useState({});
 
   const capitalize = (text) => text.replace(
     /(?:^|\s)\S/g, (first) => first.toUpperCase(),
@@ -39,6 +39,7 @@ function InProgress() {
     meals: {},
     [typeKey]: { [id]: [] },
   });
+
   setInitialItem('doneRecipes', []);
   setInitialItem('favoriteRecipes', []);
 
