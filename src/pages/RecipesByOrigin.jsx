@@ -1,65 +1,46 @@
 import React, { Component } from 'react';
-import Dropdown from 'react-dropdown';
+// import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 
-class RecipesByOrigin extends Component {
+class Recipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      areas: [],
+      // locations: [],
     };
-    this.getLocation = this.getLocation.bind(this);
+    this.fetchLocations = this.fetchLocations.bind(this);
   }
 
   componentDidMount() {
-    this.getLocation();
+    this.fetchLocations();
   }
 
-  async getLocation() {
-    const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-    const { meals } = await result.json();
-    this.setState({ areas: meals });
+  async fetchLocations() {
+    const location = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const { meals } = await location.json();
+    console.log(meals);
+    // this.setState({ locations: meals.strArea });
   }
 
-  // mappingAreas() {
-  //   areas
+  // fetchRecipes() {
+  //   const { recipes } = this.props;
+  //   console.log(recipes());
+  //   return recipes();
   // }
 
   render() {
-    const { areas } = this.state;
-    const something = (areas);
-    // console.log(Object.keys(areas).map(...areas));
-    console.log(areas);
-    console.log(something);
-    // if (areas<1)
-    const options = [
-      { ...something },
-      {
-        type: 'group',
-        name: 'group1',
-        items: [
-          { value: 'three', label: 'Three', className: 'myOptionClassName' },
-          { value: 'four', label: 'Four' },
-        ],
-      },
-    ];
-    console.log(options);
+    // const { locations } = this.props;
+    // console.log(locations);
 
     return (
       <div>
-        <Header header="Explorar Origem" explorer />
-        <div data-testid="explore-by-area-dropdown">
-          <Dropdown
-            options={ Object.keys(...options) }
-            placeholder="select something"
-          />
-        </div>
-        <h2> presunto</h2>
+        <Header header="Comidas" explorer />
+        <h2>Recipes</h2>
         <DownMenu />
       </div>
     );
   }
 }
 
-export default RecipesByOrigin;
+export default (Recipes);
