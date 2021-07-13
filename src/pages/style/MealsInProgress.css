@@ -1,3 +1,7 @@
 .recipe-photo {
     width: 20%;
 }
+
+.checked {
+    text-decoration: line-through;
+}

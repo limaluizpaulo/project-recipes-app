@@ -12,11 +12,28 @@ const copy = require('clipboard-copy');
 function MealsInProgress({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState(false);
   const [isFav, setIsFav] = useState();
+  const [ingredients, setIngredients] = useState();
+
+  const getIngredients = (recipeObj) => {
+    const recipeKeys = Object.keys(recipeObj);
+    const keyIngredients = recipeKeys.filter((key) => key.includes('strIngredient'));
+    const keysIngredients = keyIngredients
+      .filter((key) => recipeObj[key] !== '' && recipeObj[key] !== null);
+    const nameIngredients = keysIngredients
+      .map((key) => ({ name: recipeObj[key], checked: false }));
+    setIngredients(nameIngredients);
+    console.log(nameIngredients);
+  };
+
+  const checkedTrue = (name) => {
+    setIngredients(ingredients);
+  };
 
   const getDetailsRecipes = async () => {
     const request = await fetchRecipesById(id, 'meals');
     setRecipe(request);
     console.log(request);
+    getIngredients(request);
   };
 
   useEffect(() => {
@@ -72,14 +89,27 @@ function MealsInProgress({ match: { params: { id } } }) {
     // setCopyLink('Link copiado!');
   };
 
+  // const progressObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  // if (progressObject === null) {
+  //   const inProgressRecipes = {
+  //     meals: {},
+  //   };
+  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  // }
+
+  // const Checkbox = () => {
+  //   const result = Object.keys(data[0]);
+  // };
+
   useEffect(() => {
     getDetailsRecipes();
   }, []);
 
+  // const arrIngredient = .map((res) => filterIngredients.indexOf(res) + 1)
   return (
     recipe && (
       <div>
-
         <h1 data-testid="recipe-title">
           { recipe.strMeal }
         </h1>
@@ -109,7 +139,37 @@ function MealsInProgress({ match: { params: { id } } }) {
             data-testid="favorite-btn"
           />
         </button>
+        <h1 data-testid="recipe-category">
+          Categoria:
+          {recipe.strCategory}
+        </h1>
+        <h2>Ingredientes</h2>
+        <li>
+          { ingredients && ingredients.map(({ name, checked }, index) => (
+            <ul
+              key={ name }
+              data-testid={ `${index}-ingredient-step` }
+            >
 
+              <input
+                type="checkbox"
+                id={ name }
+                onClick={ () => checkedTrue(name) }
+              />
+              <label
+                className={ checked ? 'checked' : '' }
+                htmlFor={ name }
+              >
+                {name}
+
+              </label>
+
+            </ul>
+          ))}
+        </li>
+        <h1>Intruções</h1>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <button type="button" data-testid="finish-recipe-btn">finalizar</button>
       </div>
     )
   );

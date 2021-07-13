@@ -22,13 +22,17 @@ function RecipesProvider({ children }) {
   const [redirectToMainScreen, setRedirectToMainScreen] = useState(false);
   const [redirectToRecipeDetails, setRedirectToRecipeDetails] = useState(false);
   const [filtredByIngredients, setFiltredByIngredients] = useState(false);
-
+  // const [ingredient, setIngredient] = useState([]);
   const location = useLocation();
 
   const getInitialRecipes = async (mealsDrinks) => {
     const allRecipes = await fetchAllRecipes(mealsDrinks);
     setRecipes(allRecipes[mealsDrinks]);
   };
+
+  // const ingredientsUrls = async ({ ingredient, serIgredient}) => {
+  //   const
+  // }
 
   const searchRecipesBy = async ({ drinksOrMeals, searchParameter, searchPayload }) => {
     const recipesBySearch = await fetchRecipesBySearch(
@@ -89,6 +93,8 @@ function RecipesProvider({ children }) {
     setRedirectToRecipeDetails,
     filterByIngredients,
     filterByArea,
+    // ingredient,
+    // setIngredient,
     lookDetailsRecipe,
     getInitialRecipes,
     searchByCategory,
