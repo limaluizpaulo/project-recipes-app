@@ -10,6 +10,7 @@ function DrinkInProgress({ match }) {
       const resolve = await requestDrinkById(id);
       setData(resolve);
     }());
+    localStorage.setItem('cocktails', 'bruno');
   }, [id]);
 
   function ingredients() {
@@ -23,7 +24,8 @@ function DrinkInProgress({ match }) {
   }
 
   function handleChange({ target: { name } }) {
-    console.log(name);
+    const pessoa = [name];
+    console.log(pessoa);
   }
 
   return (
@@ -59,6 +61,8 @@ function DrinkInProgress({ match }) {
                         onClick={ handleChange }
                       />
                       { data.drinks[0][key] }
+                      checked=
+                      {}
                     </label>
                   </li>
                 ))}
