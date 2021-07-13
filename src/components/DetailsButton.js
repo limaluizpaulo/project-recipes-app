@@ -36,12 +36,10 @@ function DetailsButton(props) {
       data-testid="start-recipe-btn"
       type="button"
       onClick={ () => {
-        // localStorage.setItem('doneRecipes', null);
         push(`${url}/in-progress`);
       } }
     >
       Continuar Receita
-      {/* <a href={ `${url}/in-progress` }>Continuar Receita</a> */}
     </button>
   );
 }
