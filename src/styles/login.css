@@ -1,0 +1,32 @@
+.container-login {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 8vh;
+  width: 64%;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-submit {
+  font-weight: 700;
+  margin: 15px auto;
+  width: 100px;
+}
+
+.inputs {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid blue;
+  border-right: 1px solid blue;
+  box-shadow: 16px 10px 46px -4px rgba(80, 35, 243, 0.53);
+}
+
+.inputs:focus {
+  border-bottom: 2px solid blue;
+  outline: none;
+}
