@@ -11,6 +11,7 @@ export default function Footer() {
       <Link to="/bebidas">
         <img
           type="image"
+          title="Drinks"
           data-testid="drinks-bottom-btn"
           src={ drinkIcon }
           alt="bebidas"
@@ -19,6 +20,7 @@ export default function Footer() {
       <Link to="/explorar">
         <img
           type="image"
+          title="Explorar"
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
           alt="explorar"
@@ -27,6 +29,7 @@ export default function Footer() {
       <Link to="/comidas">
         <img
           type="image"
+          title="Comidas"
           data-testid="food-bottom-btn"
           src={ mealIcon }
           alt="comidas"
