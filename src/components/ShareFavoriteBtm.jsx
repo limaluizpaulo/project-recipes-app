@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FetchContext from '../context/FetchContext';
+import ShareBtn from './ShareBtn';
 
-function ShareFavoriteBtm({ url, pageFoods, id, data, pageDrinks }) {
-  const [share, setShare] = useState(false);
+function ShareFavoriteBtm({ id, data }) {
+  const { typeFunc } = useContext(FetchContext);
   const [favorite, setFavorite] = useState(false);
 
   const recipesFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  if (recipesFavorite === null) {
+    const favoriteRecipes = [];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
 
   useEffect(() => {
     if (recipesFavorite !== null) {
@@ -27,7 +33,7 @@ function ShareFavoriteBtm({ url, pageFoods, id, data, pageDrinks }) {
     }
 
     let newFavorite = [];
-    if (pageFoods) {
+    if (typeFunc === 'meals') {
       newFavorite = [
         ...recipesFavorite,
         {
@@ -40,7 +46,7 @@ function ShareFavoriteBtm({ url, pageFoods, id, data, pageDrinks }) {
           image: data.strMealThumb,
         },
       ];
-    } if (pageDrinks) {
+    } else {
       newFavorite = [
         ...recipesFavorite,
         {
@@ -60,17 +66,7 @@ function ShareFavoriteBtm({ url, pageFoods, id, data, pageDrinks }) {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={ () => navigator.clipboard.writeText(`http://localhost:3000${url}`) && setShare(true) }
-        data-testid="share-btn"
-      >
-        <img
-          src={ shareIcon }
-          alt="Copiar Link"
-        />
-      </button>
-      {share ? <p>Link copiado!</p> : null}
+      <ShareBtn id={ id } />
       <button type="button" onClick={ headleFavorite }>
         <img
           data-testid="favorite-btn"
