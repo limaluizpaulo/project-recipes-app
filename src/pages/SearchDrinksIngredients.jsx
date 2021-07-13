@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../App.css';
+import FetchContext from '../context/FetchContext';
 
 function SearchDrinksIngredients() {
   SearchDrinksIngredients.displayName = 'Explorar Ingredientes';
+  const { setData, setFilterDrink } = useContext(FetchContext);
   const [drinksIng, setDrinkIng] = useState([]);
   const TWELVE = 12;
-
+  const history = useHistory();
   useEffect(() => {
     const fetchDrinks = async () => {
       try {
@@ -24,26 +27,36 @@ function SearchDrinksIngredients() {
   }, []);
 
   const renderDrinkIng = () => (
-    drinksIng.map((drinks, index) => (
-      <Link to="/bebidas" key={ drinks.strIngredient1 }>
+    drinksIng.map((ing, index) => (
+      <button
+        type="button"
+        key={ ing.strIngredient1 }
+        onClick={ () => {
+          fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ing.strIngredient1}`)
+            .then((res) => res.json())
+            .then(({ drinks }) => setData(drinks));
+          setFilterDrink(ing.strIngredient1);
+          history.push('/bebidas');
+        } }
+      >
         <div
           data-testid={ `${index}-ingredient-card` }
-          key={ drinks.strIngredient1 }
+          key={ ing.strIngredient1 }
         >
           <img
-            src={ `https://www.thecocktaildb.com/images/ingredients/${drinks.strIngredient1}-Small.png` }
-            alt={ `${drinks.strIngredient1}` }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${ing.strIngredient1}-Small.png` }
+            alt={ `${ing.strIngredient1}` }
             data-testid={ `${index}-card-img` }
           />
-          <p data-testid={ `${index}-card-name` }>{`${drinks.strIngredient1}`}</p>
+          <p data-testid={ `${index}-card-name` }>{`${ing.strIngredient1}`}</p>
         </div>
-      </Link>
+      </button>
     ))
   );
   return (
     <div>
       <Header title={ SearchDrinksIngredients.displayName } />
-      {renderDrinkIng()}
+      {drinksIng.length === 0 ? <h1>Loading...</h1> : renderDrinkIng()}
       <Footer />
     </div>
   );
