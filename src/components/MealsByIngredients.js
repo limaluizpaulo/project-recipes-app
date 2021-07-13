@@ -18,18 +18,18 @@ export default function MealsByIngredients() {
   } = useContext(RecipesContext);
   // onClick={ () => { setEndpoint(foodOrDrink.ingredient); } }
 
-  function handlefetch(endpoint) {
+  function handleFetch(endpoint) {
     return fetch(`${endpoint}`)
       .then((res) => res.json());
   }
 
   useEffect(() => {
     if (path === comidasPath) {
-      handlefetch(MEALS_INGREDIENTS)
+      handleFetch(MEALS_INGREDIENTS)
         .then((res) => res.meals)
         .then((res) => setIngredients(res));
     } else {
-      handlefetch(COCKTAIL_INGREDIENTS)
+      handleFetch(COCKTAIL_INGREDIENTS)
         .then((res) => res.drinks)
         .then((res) => setIngredients(res));
     }

@@ -9,6 +9,13 @@ import '../styles/Perfil.css';
 function Perfil() {
   const history = useHistory();
 
+  function checkUser() {
+    if (!localStorage.getItem('user')) {
+      return <p>Usuário não logado</p>;
+    }
+    return JSON.parse(localStorage.getItem('user')).email;
+  }
+
   return (
     <div>
       <Header />
@@ -17,7 +24,7 @@ function Perfil() {
           data-testid="profile-email"
           className="profile-item text"
         >
-          { JSON.parse(localStorage.getItem('user')).email }
+          { checkUser }
         </h3>
         <button
           type="button"
