@@ -20,7 +20,8 @@ export default function MealsDetails() {
   const { pathname } = useLocation();
   const [drinksAll, setDrinksAll] = useState([{ strDrink: '' }]);
   const [stateChangeHeart, setStateChangeHeart] = useState(true);
-  // const [setChekButtonState] = useState(true);
+  const [invisibleButton, setInvisibleButton] = useState(false);
+  const [checkButtonstate, setChekButtonState] = useState(false);
 
   const filterDetails = () => {
     const keysIngredientes = Object.keys(stateMeals[0]);
@@ -74,18 +75,13 @@ export default function MealsDetails() {
 
   useEffect(verifyHeart, []);
 
-  // const checkButton = () => {
-  //   /// const url = pathname.split('/')[2];
-  //   const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   // let checkrecipesDone = [];
-  //   if (recipesDone === null) {
-  //     checkrecipesDone = [];
-  //   } else {
-  //     checkrecipesDone = recipesDone;
-  //     // const checkedButton = checkrecipesDone.some((e) => e.id === url);
-  //   }
-  // };
-  // useEffect(checkButton, []);
+  const checkButton = () => {
+    const recipeFinish = JSON.parse(localStorage.getItem('doneRecipes') || ('[]'));
+    const buttonInvisible = recipeFinish.some((element) => element.id === id);
+    setInvisibleButton(buttonInvisible);
+  };
+  useEffect(checkButton, []);
+
   const {
     strMealThumb,
     strMeal,
@@ -94,6 +90,16 @@ export default function MealsDetails() {
     strVideo,
     idMeal,
   } = stateMeals[0];
+
+  const changeButton = () => {
+    const url = pathname.split('/')[2];
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+    const keysCocktais = meals ? Object.keys(meals) : [];
+    const checkKeys = keysCocktais.includes(url);
+    setChekButtonState(checkKeys);
+  };
+  useEffect(changeButton, []);
+
   return (
     <div>
       <img
@@ -155,9 +161,9 @@ export default function MealsDetails() {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          className="iniciarReceita"
+          className={ invisibleButton ? 'iniciarReceitaInvisible' : 'iniciarReceita' }
         >
-          Iniciar Receita
+          {checkButtonstate ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
         )
       </Link>

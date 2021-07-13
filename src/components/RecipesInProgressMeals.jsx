@@ -55,16 +55,28 @@ export default function RecipesInProgress() {
   };
 
   const saveLocalStorage = () => {
-    const save = ingredientMade;
-    localStorage.setItem('RecipesinProgress', JSON.stringify(save));
+    const ingredientSaved = JSON.parse(localStorage
+      .getItem('inProgressRecipes') || ('{}'));
+    const id = pathname.split('/')[2];
+
+    const save = {
+      ...ingredientSaved,
+      meals: {
+        ...ingredientSaved.meals,
+        [id]: ingredientMade,
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(save));
   };
   const getLocalStorage = () => {
-    const ingredientSaved = JSON.parse(localStorage.getItem('RecipesinProgress'));
-    if (ingredientSaved != null) {
-      const numberCheck = ingredientSaved.length;
-      setDisableButton(numberCheck);
-      setIngreditentMade(ingredientSaved);
-    }
+    const id = pathname.split('/')[2];
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes') || ('{}'));
+
+    const numberCheck = meals && meals[id] ? meals[id].length : 0;
+    const recipesLocalStorage = meals && meals[id] ? meals[id] : [];
+    setDisableButton(numberCheck);
+    setIngreditentMade(recipesLocalStorage);
   };
   useEffect(getLocalStorage, []);
   useEffect(saveLocalStorage, [handleChange]);
