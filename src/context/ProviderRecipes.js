@@ -16,6 +16,8 @@ function ProviderRecipes({ children }) {
     // name: '',
   });
   const [toggleFood, setToggleFood] = useState(false);
+  const [randomFood, setRandomFood] = useState([]);
+  const [randomDrink, setRandomDrink] = useState([]);
 
   const obj = {
     goSearch,
@@ -40,6 +42,10 @@ function ProviderRecipes({ children }) {
     setDrinkCategoryName,
     toggleFood,
     setToggleFood,
+    randomFood,
+    setRandomFood,
+    randomDrink,
+    setRandomDrink,
   };
 
   const fetchFoodRecipes = () => {
