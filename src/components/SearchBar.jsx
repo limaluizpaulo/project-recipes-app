@@ -27,7 +27,7 @@ function SearchBar() {
 
   const ingredienteFood = async (api, foodOrDrink, idMealOrDrink) => {
     if (searchBar === 'primeiraLetra' && inputSearchBar.length > 1) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
+      window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     const apiResults = await api(inputSearchBar);
     const resultSize = apiResults.length;
@@ -36,7 +36,7 @@ function SearchBar() {
     } else if (resultSize === 1) {
       history.push(`/${foodOrDrink}/${apiResults[0][idMealOrDrink]}`);
     } else {
-      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   };
 
