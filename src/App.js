@@ -16,6 +16,8 @@ import ExpFoodIngredients from './components/ExpFoodIngredients';
 import ExpArea from './components/ExpArea';
 import NotFoundPage from './components/NotFoundPage';
 import ExpDrinkIngredients from './components/ExpDrinkIngredients';
+import DoneRecipes from './components/DoneRecipes';
+import FavRecipes from './components/FavRecipes';
 
 function App() {
   return (
@@ -64,6 +66,14 @@ function App() {
         <Route path="/perfil" render={ (props) => <Profile { ...props } /> } />
         <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
+        <Route
+          path="/receitas-feitas"
+          render={ (props) => <DoneRecipes { ...props } /> }
+        />
+        <Route
+          path="/receitas-favoritas"
+          render={ (props) => <FavRecipes { ...props } /> }
+        />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
       {/* </div> */}

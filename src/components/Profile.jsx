@@ -12,6 +12,10 @@ function Profile({ history }) {
   const userEmail = JSON.parse(localStorage.getItem('user'));
   const { email } = userEmail;
 
+  const goFavorite = () => history.push('/receitas-favoritas');
+
+  const goDone = () => history.push('/receitas-feitas');
+
   const handleClick = () => {
     localStorage.clear();
     history.push('/');
@@ -29,12 +33,14 @@ function Profile({ history }) {
       <button
         type="button"
         data-testid="profile-done-btn"
+        onClick={ goDone }
       >
         Receitas Feitas
       </button>
       <button
         type="button"
         data-testid="profile-favorite-btn"
+        onClick={ goFavorite }
       >
         Receitas Favoritas
       </button>
