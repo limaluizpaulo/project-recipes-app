@@ -8,7 +8,7 @@ function saveToFavorites(props) {
   } else if (url.match(food) && !favorites) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([{
       id: recipe.idMeal,
-      type: 'comida',
+      type: 'comidas',
       area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: '',
@@ -19,7 +19,7 @@ function saveToFavorites(props) {
   } else if (!favorites) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([{
       id: recipe.idDrink,
-      type: 'bebida',
+      type: 'bebidas',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,
