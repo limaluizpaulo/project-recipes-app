@@ -10,10 +10,10 @@ export default function arrangeTitle() {
   if (currentURL.includes('perfil')) title = 'Perfil';
   if (currentURL.includes('receitas-favoritas')) title = 'Receitas Favoritas';
   if (currentURL.includes('comidas/ingredientes')) {
-    title = 'Explorar Ingredientes Favoritas';
+    title = 'Explorar Ingredientes';
   }
   if (currentURL.includes('bebidas/ingredientes')) {
-    title = 'Explorar Ingredientes Favoritas';
+    title = 'Explorar Ingredientes';
   }
   if (currentURL.includes('area')) {
     title = 'Explorar Origem';

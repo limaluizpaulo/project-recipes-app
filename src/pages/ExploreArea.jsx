@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getListArea, getFoodRecipes, getMealByArea } from '../services';
 import { RecipeCards, Footer, Header } from '../components';
+import './css/selectExploreArea.css';
 
 function ExploreArea({ history }) {
   const TWELVE = 12;

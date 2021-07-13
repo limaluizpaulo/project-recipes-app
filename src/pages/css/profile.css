@@ -1,0 +1,23 @@
+main p {
+  text-align: center;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px;
+}
+
+main section button {
+  outline: none;
+  margin: 7px 0;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 3px solid #F59600;
+}
+
+main section button a {
+  font-size: 17px;
+  color: #F59600;
+}

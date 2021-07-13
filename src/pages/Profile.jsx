@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer, Header } from '../components';
+import './css/profile.css';
 
 function Profile() {
   let userData = JSON.parse(localStorage.getItem('user'));
@@ -18,31 +19,33 @@ function Profile() {
     <main>
       <Header />
       <p data-testid="profile-email">{email}</p>
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-      >
-        <Link to="/receitas-feitas">
-          Receitas Feitas
-        </Link>
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-      >
-        <Link to="/receitas-favoritas">
-          Receitas Favoritas
-        </Link>
-      </button>
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ clearLocalStorage }
-      >
-        <Link to="/">
-          Sair
-        </Link>
-      </button>
+      <section>
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+        >
+          <Link to="/receitas-feitas">
+            Receitas Feitas
+          </Link>
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+        >
+          <Link to="/receitas-favoritas">
+            Receitas Favoritas
+          </Link>
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ clearLocalStorage }
+        >
+          <Link to="/">
+            Sair
+          </Link>
+        </button>
+      </section>
       <Footer />
     </main>
   );
