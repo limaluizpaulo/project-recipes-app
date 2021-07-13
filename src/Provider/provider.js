@@ -8,12 +8,18 @@ function Provider({ children }) {
     password: '',
   });
   const [inProgress, setInProgress] = useState(false);
+  const [dataFood, setDataFood] = useState([]);
+  const [dataDrink, setDataDrink] = useState([]);
 
   const context = {
     user,
     setUser,
     inProgress,
     setInProgress,
+    dataFood,
+    setDataFood,
+    dataDrink,
+    setDataDrink,
   };
 
   return (
