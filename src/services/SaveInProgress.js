@@ -9,8 +9,28 @@ function saveInProgress(props) {
     if (url.match(food)) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify({
+          meals: {
+            [recipe.idMeal]: [...amountOfIngredients],
+          },
+        }));
+      setInProgress(true);
+    } else {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
+          cocktails: {
+            [recipe.idDrink]: [...amountOfIngredients],
+          },
+        }));
+      setInProgress(true);
+    }
+  }
+  if (recipeInProgress) {
+    if (url.match(food)) {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify({
           ...recipeInProgress,
           meals: {
+            ...recipeInProgress.meals,
             [recipe.idMeal]: [...amountOfIngredients],
           },
         }));
@@ -20,6 +40,7 @@ function saveInProgress(props) {
         JSON.stringify({
           ...recipeInProgress,
           cocktails: {
+            ...recipeInProgress.cocktails,
             [recipe.idDrink]: [...amountOfIngredients],
           },
         }));
