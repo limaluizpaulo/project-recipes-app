@@ -98,8 +98,6 @@ class Progresso extends Component {
 
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recovery.meals[id] !== undefined) {
-      // console.log(recovery.meals[id], 'existo');
-      console.log(recovery.meals[id], 'existo');
       return this.setState({ allIngredients: recovery.meals[id] });
     }
 
