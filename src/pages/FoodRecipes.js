@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/DrinkAndFoodRecipes(page).css';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
@@ -62,16 +62,18 @@ function FoodRecipes() {
     <div>
       <Header title="Comidas" />
       <div className="recipesBtn-container">
-        <button
+        <Button
+          variant="outline-dark"
           className="recipes-categoryBtn"
           data-testid="All-category-filter"
           onClick={ changeFood ? handleClick1 : handleClick }
           type="button"
         >
           All
-        </button>
+        </Button>
         {firstCategories.map((category, index) => (
-          <button
+          <Button
+            variant="outline-dark"
             className="recipes-categoryBtn"
             onClick={ changeFood ? handleClick1 : handleClick }
             data-testid={ `${category.strCategory}-category-filter` }
@@ -79,16 +81,18 @@ function FoodRecipes() {
             type="button"
           >
             { category.strCategory }
-          </button>
+          </Button>
         ))}
       </div>
       <div className="recipesCard-container">
         {(changeFood ? foodPerIngredient : firstMeals).map((meal, index) => (
           <Link
+            className="container-card"
             to={ `/comidas/${meal.idMeal}` }
             key={ meal.strMeal }
           >
             <Card
+              bg="info"
               data-testid={ `${index}-recipe-card` }
               className="card"
             >

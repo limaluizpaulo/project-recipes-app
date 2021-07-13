@@ -1,19 +1,49 @@
+body {
+  background: rgb(45, 45, 45);
+}
+
 .recipesBtn-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+
 .recipes-categoryBtn {
-  background-color: lightgray;
+  background-color: rgb(37, 154, 175);
+  border-radius: 10px;
+  color: rgb(45, 45, 45);
   margin: 3px;
+  padding: 7px;
   width: 114px;
 }
 
+.recipes-categoryBtn:focus {
+  outline: none;
+}
+
+.recipes-categoryBtn:hover {
+  background: rgb(45, 45, 45);
+  border: solid 1px lightslategray;
+  color: white;
+}
+
 .recipes-categoryBtnAlternative {
-  background-color: lightgray;
+  background-color: rgb(37, 154, 175);
+  border-radius: 10px;
   margin: 3px;
+  padding: 7px;
   width: 114px;
+}
+
+.recipes-categoryBtnAlternative:focus {
+  outline: none;
+}
+
+.recipes-categoryBtnAlternative:hover {
+  background: rgb(45, 45, 45);
+  border: solid 1px lightslategray;
+  color: white;
 }
 
 .recipesCard-container {
@@ -23,6 +53,7 @@
 }
 
 .card {
+  border-radius: 10%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   height: 238px;
   margin: 5px;
@@ -31,7 +62,12 @@
   width: 169px;
 }
 
+.cardImg {
+  border-radius: 10% 10% 0 0;
+}
+
 .recipesCard-title {
+  color: black;
   display: inline-block;
   max-height: 2.3em;
   overflow: hidden;
