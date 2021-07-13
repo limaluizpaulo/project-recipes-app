@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
 import Proptypes from 'prop-types';
-import { requestDrinkById, requestMeal } from '../../helpers/requests';
-import shareIcon from '../../images/shareIcon.svg';
+import requestMeal, { requestDrinkById } from '../../helpers/requests';
 import renderIngredients from './renderIngredients';
 import startButton from './startButton';
 import './Detalhes.css';
 import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
+import ButtonShare from '../../components/ButtonShare/ButtonShare';
 
 function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -30,11 +28,6 @@ function DetalhesBebidas({ match }) {
     }());
   }, [id]);
 
-  function copyFunction() {
-    clipboardCopy(`http://localhost:3000${pathToCopy}`);
-    setCopied(true);
-  }
-
   function renderButtons(item) {
     const DrinkToFav = data.drinks[0];
     const favoriteRecipes = {
@@ -49,10 +42,10 @@ function DetalhesBebidas({ match }) {
 
     return (
       <>
-        <button data-testid="share-btn" type="button" onClick={ copyFunction }>
-          <img src={ shareIcon } alt="share icon" />
-        </button>
-        {copied ? <span>Link copiado!</span> : null}
+        <ButtonShare
+          path={ `http://localhost:3000${pathToCopy}` }
+          dataTest="share-btn"
+        />
 
         <ButtonFavorite
           id={ item.idDrink }
