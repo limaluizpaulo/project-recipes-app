@@ -8,19 +8,23 @@ export default function Card({ mealOrDrink, index, testId }) {
     ? [mealOrDrink.strMealThumb, mealOrDrink.strMeal]
     : [mealOrDrink.strDrinkThumb, mealOrDrink.strDrink];
 
+  const [imgSrcRecKey, titleRecKey] = path.includes('bebidas')
+    ? [mealOrDrink.strMealThumb, mealOrDrink.strMeal]
+    : [mealOrDrink.strDrinkThumb, mealOrDrink.strDrink];
+
   return (
     <section data-testid={ `${index}-${testId}-card` }>
       <img
         width="150px"
         data-testid={ `${index}-card-img` }
-        src={ imgSrcKey }
-        alt={ titleKey }
+        src={ imgSrcKey || imgSrcRecKey }
+        alt={ titleKey || titleRecKey }
       />
       <h3
         data-testid={ (testId === 'recipe') ? `${index}-card-name`
           : `${index}-recomendation-title` }
       >
-        {titleKey}
+        {titleKey || titleRecKey}
       </h3>
     </section>
   );
