@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import ExplorarReceitas from './pages/ExploreRecipes';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipesFavorite from './pages/RecipesFavorite';
 import RecipesProvider from './context/RecipesProvider';
 import ComidasArea from './pages/ComidasArea';
 import Ingredients from './pages/Ingredientes';
@@ -36,7 +37,7 @@ function App() {
           <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-          {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
+          <Route path="/receitas-favoritas" component={ RecipesFavorite } />
           <Route component={ NotFound } />
         </Switch>
       </LoginProvider>

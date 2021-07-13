@@ -33,8 +33,7 @@ function ReceitaDetalhes({ match }) {
       .then((response) => setRelated(response));
     fetchRecipe(url, food, id)
       .then((response) => setRecipe(response));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   function saveToFavorites() {
     const favorites = localStorage.getItem('favoriteRecipes');
