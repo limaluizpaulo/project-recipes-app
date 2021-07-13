@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const setStorage = (key, value) => (
   localStorage.setItem(key, JSON.stringify(value)));
 
@@ -38,3 +40,28 @@ export const infoFavorite = (recipeDetail, foods) => {
   };
   return infoFav;
 };
+
+export const handleClickType = (type, key, setState) => {
+  const translate = (type === 'Food') ? 'comida' : 'bebida';
+  const storageRecipes = getStorage(key);
+  const foodsOrDrinks = storageRecipes.filter((recipe) => recipe.type === translate);
+  setState(foodsOrDrinks);
+};
+
+export const mealInfo = (index, area, category) => (
+  <p
+    className="doneCategory"
+    data-testid={ `${index}-horizontal-top-text` }
+  >
+    {`${area} - ${category}`}
+  </p>
+);
+
+export const drinkInfo = (index, alcoholicOrNot) => (
+  <p
+    className="doneCategory"
+    data-testid={ `${index}-horizontal-top-text` }
+  >
+    {`${alcoholicOrNot}`}
+  </p>
+);
