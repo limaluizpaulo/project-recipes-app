@@ -76,7 +76,6 @@ class Perfil extends Component {
           <Footer />
         </div>
       </div>
-
     );
   }
 }
