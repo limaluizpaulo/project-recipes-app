@@ -4,7 +4,6 @@ import Recipes from './Recipes';
 
 function DrinksRecipes() {
   const { getInitialRecipes, recipes, filtredByIngredients } = useContext(RecipesContext);
-
   useEffect(() => {
     if (recipes.length === 0 && !filtredByIngredients) {
       getInitialRecipes('drinks');
@@ -14,7 +13,10 @@ function DrinksRecipes() {
 
   return (
     <div>
-      <Recipes type="bebidas" />
+      {
+        recipes.length > 0
+        && <Recipes type="bebidas" />
+      }
     </div>
   );
 }

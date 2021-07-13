@@ -63,7 +63,7 @@ function Recipes({ type }) {
       </div>
       <div className="cards">
         {
-          recipes
+          recipes.length > 0
           && recipes.map((recipe, i) => (
             i < cardMaximun
              && <FoodCard key={ i } order={ i } recipes={ recipe } type={ type } />

@@ -35,6 +35,11 @@ export const areasUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list
 
 export const recipesByArea = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
+export const recipesById = {
+  meals: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
+  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
+};
+
 export const categoriesUrls = {
   meals: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
   drinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
