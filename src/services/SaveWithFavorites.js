@@ -11,7 +11,7 @@ function saveWithFavorites(params) {
   if (url.match(food)) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
       id: recipe.idMeal,
-      type: recipe.strCategory,
+      type: 'comidas',
       area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: null,
@@ -24,7 +24,7 @@ function saveWithFavorites(params) {
   } else {
     localStorage.setItem('favoriteRecipes', JSON.stringify([...favorites, {
       id: recipe.idDrink,
-      type: recipe.strCategory,
+      type: 'bebidas',
       area: null,
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,
