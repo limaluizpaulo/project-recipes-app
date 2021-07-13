@@ -61,6 +61,7 @@ class Drinks extends Component {
   render() {
     const { filter } = this.state;
     const { listDrinks, listCategories, listByCategory } = this.props;
+    console.log(listDrinks);
     if (!listDrinks) return (<h3>Loading...</h3>);
     if (listDrinks.length === 1) {
       return <Redirect to={ `/bebidas/${listDrinks[0].idDrink}` } />;
