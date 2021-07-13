@@ -11,6 +11,8 @@ function FetchProvider({ children }) {
   const [categories, setCategories] = useState([]);
   // const [toggle, setToggle] = useState(true);
   const [ingredient, setIngredient] = useState([]);
+  const [filterMeals, setFilterMeals] = useState(null);
+  const [filterDrink, setFilterDrink] = useState(null);
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
@@ -91,6 +93,10 @@ function FetchProvider({ children }) {
     setIdRecip,
     ingredient,
     setIngredient,
+    setFilterMeals,
+    filterMeals,
+    setFilterDrink,
+    filterDrink,
   };
 
   return (
