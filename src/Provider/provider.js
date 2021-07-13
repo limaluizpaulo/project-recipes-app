@@ -7,11 +7,15 @@ function Provider({ children }) {
     userEmail: '',
     password: '',
   });
+  const [inProgress, setInProgress] = useState(false);
   const [dataFood, setDataFood] = useState([]);
   const [dataDrink, setDataDrink] = useState([]);
 
-  const context = { user,
+  const context = {
+    user,
     setUser,
+    inProgress,
+    setInProgress,
     dataFood,
     setDataFood,
     dataDrink,

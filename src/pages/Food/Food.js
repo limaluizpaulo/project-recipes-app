@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import requestMeal,
-{
+import requestMeal, {
   requestCategoryMeal,
   requestNamemeal,
   requestAllCategory } from '../../helpers/requests';
@@ -89,14 +88,20 @@ function Food() {
     return meals
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
-        <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
+        <div
+          key={ index }
+          className="card-meals-items"
+          data-testid={ `${index}-recipe-card` }
+        >
           <Link to={ `/comidas/${item.idMeal}` }>
             <img
+              className="card-img-top"
               data-testid={ `${index}-card-img` }
               src={ item.strMealThumb }
-              className="card-img-top"
               alt={ `imagem de ${item}` }
+              id={ item.idMeal }
             />
+            {/* <p data-testid={ `${index}-card-name` }>{item.strMeal}</p> */}
             <h5
               data-testid={ `${index}-card-name` }
               className="card-title"

@@ -12,8 +12,10 @@ import ExplorerFoods from './pages/ExplorerFoods/ExplorerFoods';
 import ExplorerDrinks from './pages/ExplorerDrinks/ExplorerDrinks';
 import FoodIngredients from './pages/FoodIngredients/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients/DrinkIngredients';
-import Profile from './pages/Profile/Profile';
+import DetalhesComidas from './pages/Detalhes/DetalhesComidas';
+import DetalhesBebidas from './pages/Detalhes/DetalhesBebidas';
 import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
+import Profile from './pages/Profile/Profile';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
 
@@ -27,10 +29,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={ Login } />
           <Route path="/comidas" exact component={ Food } />
-          <Route path="/comidas/:id" exact component={ test } />
+          <Route path="/comidas/:id" exact component={ DetalhesComidas } />
           <Route path="/comidas/:id/in-progress" exact component={ test } />
           <Route path="/bebidas" exact component={ Drinks } />
-          <Route path="/bebidas/:id" exact component={ test } />
+          <Route path="/bebidas/:id" exact component={ DetalhesBebidas } />
           <Route path="/bebidas/:id/in-progress" exact component={ test } />
           <Route path="/explorar" exact component={ Explorar } />
           <Route path="/explorar/comidas" exact component={ ExplorerFoods } />
