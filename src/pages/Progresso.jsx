@@ -188,10 +188,7 @@ class Progresso extends Component {
       <section>
         { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
-<<<<<<< HEAD
-=======
         <button type="button" onClick={ () => history.goBack() }>voltar</button>
->>>>>>> 52f4c3578ec8f5448c95ca6c845a0a4c0faed311
         <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
