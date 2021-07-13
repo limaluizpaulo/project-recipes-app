@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
@@ -6,16 +6,14 @@ import { requestDrink, requestMealById } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import renderIngredients from './renderIngredients';
 import startButton from './startButton';
-import favButton from './favButton';
 import './Detalhes.css';
-import Context from '../../Provider/context';
+import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
 
 function DetalhesComidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  const { favorited, setFavorited } = useContext(Context);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -29,21 +27,16 @@ function DetalhesComidas({ match }) {
       setRecomm(resolveRecomm);
       setLoading(false);
     }());
-  }, []);
+  }, [id]);
 
   function copyFunction() {
     clipboardCopy(`http://localhost:3000${pathToCopy}`);
     setCopied(true);
   }
 
-  const saveFavorite = (favoriteRecipes) => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    setFavorited(!favorited);
-  };
-
-  function favorite() {
+  function renderButtons(item) {
     const mealToFav = data.meals[0];
-    const favoriteRecipes = [{
+    const favoriteRecipes = {
       id: mealToFav.idMeal,
       type: 'comida',
       area: mealToFav.strArea,
@@ -51,29 +44,18 @@ function DetalhesComidas({ match }) {
       alcoholicOrNot: '',
       name: mealToFav.strMeal,
       image: mealToFav.strMealThumb,
-    }];
-    setFavorited(!favorited);
-    if (localStorage.favoriteRecipes) {
-      const mealSaved = JSON.parse(localStorage.favoriteRecipes);
-      // console.log(mealSaved);
-      const filteredMeals = mealSaved.filter(({ id }) => id !== mealToFav.idMeal);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredMeals));
-    } else {
-      saveFavorite(favoriteRecipes);
-    }
-  }
+    };
 
-  // console.log(favoriteRecipes);
-  function renderButtons(item) {
     return (
       <>
         <button data-testid="share-btn" type="button" onClick={ copyFunction }>
           <img src={ shareIcon } alt="share icon" />
         </button>
         {copied ? <span>Link copiado!</span> : null}
-        <button type="button" onClick={ favorite }>
-          {favButton(favorited, item.idMeal)}
-        </button>
+        <ButtonFavorite
+          id={ item.idMeal }
+          favoriteRecipes={ favoriteRecipes }
+        />
       </>
     );
   }
@@ -86,9 +68,8 @@ function DetalhesComidas({ match }) {
       .map((item, index) => {
         if (index === 0) {
           return (
-            <div className="d-flex carousel-item active">
+            <div className="d-flex carousel-item active" key={ index }>
               <div
-                key={ index }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
@@ -101,7 +82,6 @@ function DetalhesComidas({ match }) {
                 <p data-testid={ `${index}-recomendation-title` }>{item.strDrink}</p>
               </div>
               <div
-                key={ index }
                 data-testid={ `${index + 1}-recomendation-card` }
               >
                 <img
@@ -145,11 +125,11 @@ function DetalhesComidas({ match }) {
   function mapData(param) {
     const { meals } = param;
     return meals
-      .map((item) => {
+      .map((item, index) => {
         const path = `/comidas/${item.idMeal}`;
         if (path === history.location.pathname) {
           return (
-            <>
+            <div key={ index }>
               <img
                 src={ item.strMealThumb }
                 data-testid="recipe-photo"
@@ -201,7 +181,7 @@ function DetalhesComidas({ match }) {
                 </button>
               </div>
               { startButton('comidas', item, history) }
-            </>
+            </div>
           );
         }
         return null;

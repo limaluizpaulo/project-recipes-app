@@ -7,29 +7,13 @@ function Provider({ children }) {
     userEmail: '',
     password: '',
   });
-  // const [favoriteRecipes, setFavoriteRecipes] = useState([{
-  //   id: '',
-  //   type: '',
-  //   area: '',
-  //   category: '',
-  //   alcoholicOrNot: '',
-  //   name: '',
-  //   image: '',
-  // }]);
   const [inProgress, setInProgress] = useState(false);
-  const [favorited, setFavorited] = useState(false);
-
-  // localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
   const context = {
     user,
     setUser,
     inProgress,
     setInProgress,
-    favorited,
-    setFavorited,
-    // favoriteRecipes,
-    // setFavoriteRecipes,
   };
 
   return (

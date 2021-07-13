@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import Proptypes from 'prop-types';
@@ -6,16 +6,14 @@ import { requestDrinkById, requestMeal } from '../../helpers/requests';
 import shareIcon from '../../images/shareIcon.svg';
 import renderIngredients from './renderIngredients';
 import startButton from './startButton';
-import favButton from './favButton';
 import './Detalhes.css';
-import Context from '../../Provider/context';
+import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
 
 function DetalhesBebidas({ match }) {
   const [data, setData] = useState([]);
   const [recomm, setRecomm] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  const { favorited, setFavorited } = useContext(Context);
 
   const history = useHistory();
   const pathToCopy = history.location.pathname;
@@ -30,21 +28,16 @@ function DetalhesBebidas({ match }) {
       console.log(resolveRecomm);
       setLoading(false);
     }());
-  }, []);
+  }, [id]);
 
   function copyFunction() {
     clipboardCopy(`http://localhost:3000${pathToCopy}`);
     setCopied(true);
   }
 
-  const saveFavorite = (favoriteRecipes) => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    setFavorited(!favorited);
-  };
-
-  async function favorite() {
+  function renderButtons(item) {
     const DrinkToFav = data.drinks[0];
-    const favoriteRecipes = [{
+    const favoriteRecipes = {
       id: DrinkToFav.idDrink,
       type: 'bebida',
       area: '',
@@ -52,20 +45,19 @@ function DetalhesBebidas({ match }) {
       alcoholicOrNot: DrinkToFav.strAlcoholic,
       name: DrinkToFav.strDrink,
       image: DrinkToFav.strDrinkThumb,
-    }];
-    saveFavorite(favoriteRecipes);
-  }
+    };
 
-  function renderButtons(item) {
     return (
       <>
         <button data-testid="share-btn" type="button" onClick={ copyFunction }>
           <img src={ shareIcon } alt="share icon" />
         </button>
         {copied ? <span>Link copiado!</span> : null}
-        <button type="button" onClick={ favorite }>
-          {favButton(favorited, item.idDrink)}
-        </button>
+
+        <ButtonFavorite
+          id={ item.idDrink }
+          favoriteRecipes={ favoriteRecipes }
+        />
       </>
     );
   }
@@ -84,9 +76,8 @@ function DetalhesBebidas({ match }) {
       .map((item, index) => {
         if (index === 0) {
           return (
-            <div className="d-flex carousel-item active">
+            <div className="d-flex carousel-item active" key={ index }>
               <div
-                key={ index }
                 data-testid={ `${index}-recomendation-card` }
               >
                 <img
@@ -99,7 +90,6 @@ function DetalhesBebidas({ match }) {
                 <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
               </div>
               <div
-                key={ index }
                 data-testid={ `${index + 1}-recomendation-card` }
               >
                 <img
@@ -143,11 +133,11 @@ function DetalhesBebidas({ match }) {
   function mapData(param) {
     const { drinks } = param;
     return drinks
-      .map((item) => {
+      .map((item, index) => {
         const path = `/bebidas/${item.idDrink}`;
         if (path === history.location.pathname) {
           return (
-            <>
+            <div key={ index }>
               <img
                 src={ item.strDrinkThumb }
                 data-testid="recipe-photo"
@@ -169,7 +159,7 @@ function DetalhesBebidas({ match }) {
               <p>Recomendações: </p>
               {mapRecomm(recomm)}
               {startButton('bebidas', item, history)}
-            </>
+            </div>
           );
         }
         return null;
