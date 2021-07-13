@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserProvider';
 import '../styles/RecipesDetails.css';
 
 const DetailsRecipes = ({ newObj }) => {
-  const { isDone, inProgress } = useContext(UserContext);
+  const { isDone, inProgress, handleProgress } = useContext(UserContext);
   const history = useHistory();
 
   const {
@@ -14,9 +14,17 @@ const DetailsRecipes = ({ newObj }) => {
     type,
     recomendations,
     url,
+    ingredients,
   } = newObj;
 
   const SEIS = 6;
+
+  const handleDoubleFunction = () => {
+    handleProgress(type, id, ingredients);
+    history.push({ pathname: `${url}/in-progress`,
+      state: { newObj } });
+  };
+
   return (
     <div>
 
@@ -86,8 +94,7 @@ const DetailsRecipes = ({ newObj }) => {
         type="button"
         className={ `button-start
         ${(isDone(id)) && 'hidden-button'}` }
-        onClick={ () => history.push({ pathname: `${url}/in-progress`,
-          state: { newObj } }) }
+        onClick={ () => handleDoubleFunction() }
       >
         {(inProgress(id, type))
           ? 'Continuar Receita'

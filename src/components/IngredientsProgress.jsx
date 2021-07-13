@@ -6,14 +6,17 @@ import { UserContext } from '../context/UserProvider';
 const IngredientsProgress = ({ newObj }) => {
   const { type, ingredients, measures, id } = newObj;
   // const [done, setDone] = useState([localStorage]);
-  const { inProgressRecipes, handleProgress } = useContext(UserContext);
+  const { inProgressRecipes, setInProgressRecipes } = useContext(UserContext);
   // const [inProgressRecipes, setinProgressRecipes] = useContext(ashuasha)
 
   useEffect(() => {
     getFromLocalStorage('inProgressRecipes');
   }, [inProgressRecipes]);
 
-  const handleLocalStorage = () => {
+  const handleLocalStorage = ({ target: { name } }) => {
+    const arrayOfIngredients = inProgressRecipes[type][id];
+    const progress = arrayOfIngredients.find((recipe) => (recipe === name));
+    setInProgressRecipes(!progress);
   };
 
   return (
@@ -27,7 +30,9 @@ const IngredientsProgress = ({ newObj }) => {
           >
             <input
               type="checkbox"
-              checked={ () => handleLocalStorage() }
+              name={ index }
+              checked={ inProgressRecipes[ingredients] }
+              onChange={ (event) => handleLocalStorage(event) }
             />
             {`- ${ingredient} ${measures[index]}`}
           </li>

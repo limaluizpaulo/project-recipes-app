@@ -92,12 +92,13 @@ const UserProvider = ({ children }) => {
     validationUser();
   };
 
-  const handleProgress = (type, id) => {
+  const handleProgress = (type, id, ingredients) => {
     setInProgressRecipes(
       {
         ...inProgressRecipes,
         [type]: {
-          [id]: [],
+          ...inProgressRecipes[type],
+          [id]: [...ingredients],
         },
       },
     );
@@ -134,6 +135,7 @@ const UserProvider = ({ children }) => {
     handleProgress,
     isDone,
     inProgress,
+    setInProgressRecipes,
   };
 
   return (

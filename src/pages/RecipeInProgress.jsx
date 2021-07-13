@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IngredientsProgress, Instructions, HeaderRecipes } from '../components';
 
@@ -23,5 +24,7 @@ const Progress = ({ state }) => {
 
   );
 };
-// oi
+Progress.propTypes = {
+  state: PropTypes.obj(),
+}.isRequired;
 export default Progress;
