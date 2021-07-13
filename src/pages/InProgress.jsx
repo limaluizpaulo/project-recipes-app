@@ -92,7 +92,7 @@ function InProgress() {
     const inProgressRecipes = getItem('inProgressRecipes');
     delete inProgressRecipes[typeKey][id];
     setItem('inProgressRecipes', inProgressRecipes);
-    history.push(`${pathname}/receitas-feitas`);
+    history.push('/receitas-feitas');
   };
 
   const video = () => {
