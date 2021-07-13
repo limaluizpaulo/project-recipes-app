@@ -20,7 +20,7 @@ import '../styles/ReceitaDetalhes.css';
 
 function ReceitaDetalhes({ match }) {
   const { url } = match;
-  const food = /comidas/gi;
+  const food = /comida/gi;
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
   const [favorite, setFavorite] = useState(false);
@@ -42,7 +42,7 @@ function ReceitaDetalhes({ match }) {
     } else if (url.match(food) && !favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idMeal,
-        type: 'comidas',
+        type: 'comida',
         area: recipe.strArea,
         category: recipe.strCategory,
         alcoholicOrNot: '',
@@ -53,7 +53,7 @@ function ReceitaDetalhes({ match }) {
     } else if (!favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idDrink,
-        type: 'bebidas',
+        type: 'bebida',
         area: '',
         category: recipe.strCategory,
         alcoholicOrNot: recipe.strAlcoholic,

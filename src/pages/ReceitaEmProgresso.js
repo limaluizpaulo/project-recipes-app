@@ -21,7 +21,7 @@ import checkboxesChecked from '../services/CheckboxesChecked';
 
 function ReceitaEmProgresso({ match }) {
   const { url } = match;
-  const food = /comidas/gi;
+  const food = /comida/gi;
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [favorite, setFavorite] = useState(false);
@@ -43,7 +43,7 @@ function ReceitaEmProgresso({ match }) {
     } else if (url.match(food)) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idMeal,
-        type: 'comidas',
+        type: 'comida',
         area: recipe.strArea,
         category: recipe.strCategory,
         alcoholicOrNot: '',
@@ -54,7 +54,7 @@ function ReceitaEmProgresso({ match }) {
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idDrink,
-        type: 'bebidas',
+        type: 'bebida',
         area: '',
         category: recipe.strCategory,
         alcoholicOrNot: recipe.strAlcoholic,
