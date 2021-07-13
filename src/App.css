@@ -66,3 +66,108 @@
     transform: rotate(-10deg);
   }
 }
+
+.header {
+  background: #1e8449;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 5px;
+  width: 100%;
+}
+
+.footer {
+  background: #1e8449;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+}
+
+.card-container {
+  background: #f7f9f9;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: sans-serif;
+  justify-content: space-around;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.card-container img {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  width: 140px;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search input {
+  display: flex;
+  justify-content: center;
+  width: 40%;
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-icon {
+  background: #1e8449;
+  border-radius: 50%;
+}
+
+.category {
+  background: #2ecc71;
+  border-radius: 5px;
+}
+
+.explore {
+  display: flex;
+  justify-content: space-around;
+  z-index: 1;
+}
+
+.explore-btn {
+  background: #1e8449;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.explore-container {
+  z-index: 1;
+}
+
+.explore img {
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  position: fixed;
+  z-index: 0;
+}
+
+.perfil {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.buttons-drink {
+  background: #1e8449;
+}
+
+.perfil-container {
+  border: 5px solid green;
+  justify-content: center;
+  width: 200px;
+}

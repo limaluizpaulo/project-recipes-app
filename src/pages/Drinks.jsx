@@ -4,23 +4,22 @@ import Header from '../components/Header';
 import FetchContext from '../context/FetchContext';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
-import { categoryListMeal, fetchRecipesList } from '../services/Api';
+import { categoryListDrink, fetchDrinksList } from '../services/Api';
 import Category from '../components/Category';
 import '../App.css';
 
-function Foods() {
+function Drinks() {
   const {
     setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, setIdRecip,
-    filterMeals,
+    filterDrink,
   } = useContext(FetchContext);
 
-  Foods.displayName = 'Comidas';
+  Drinks.displayName = 'Bebidas';
 
   useEffect(() => {
     const renderCategorys = () => {
-      categoryListMeal().then((res) => setCategories(res));
+      categoryListDrink().then((res) => setCategories(res));
     };
-
     renderCategorys();
   }, [setCategories]);
 
@@ -33,35 +32,35 @@ function Foods() {
     return fnAlert(alert, msg);
   }
 
-  if (data.length === 1 && data[0].idMeal !== '52968') {
-    return <Redirect to={ `/comidas/${data[0].idMeal}` } />;
+  if (data.length === 1) {
+    return <Redirect to={ `/bebidas/${data[0].idDrink}` } />;
   }
 
-  const renderRecipes = () => {
-    setNameRecipes('strMeal');
-    setImgRecipes('strMealThumb');
-    setIdRecip('idMeal');
-    if (filterMeals === null) { fetchRecipesList().then((res) => setData(res)); }
+  const renderDrinks = () => {
+    setNameRecipes('strDrink');
+    setImgRecipes('strDrinkThumb');
+    setIdRecip('idDrink');
+    if (filterDrink === null) { fetchDrinksList().then((res) => setData(res)); }
   };
 
   return (
     <div>
-      { setTypeFunc('comidas')}
-      <Header title={ Foods.displayName } />
+      { setTypeFunc('bebidas') }
+      <Header title={ Drinks.displayName } />
       <button
         type="button"
         className="category"
-        onClick={ renderRecipes }
+        onClick={ renderDrinks }
         data-testid="All-category-filter"
       >
         All
       </button>
       <Category />
-      { data.length === 0 && renderRecipes() }
+      { data.length === 0 && renderDrinks() }
       <Cards />
       <Footer />
     </div>
   );
 }
 
-export default Foods;
+export default Drinks;
