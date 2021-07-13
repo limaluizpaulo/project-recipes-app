@@ -7,8 +7,7 @@ import Explorar from './pages/Explorar';
 import ExplorarComidasOuBebidas from './pages/ExplorarComidasOuBebidas';
 import ExplorarPorIngredientes from './pages/ExplorarComidasPorIngredientes';
 import ExplorarComidasPorArea from './pages/ExplorarComidasPorArea';
-import ReceitasFeitas from './pages/ReceitasFeitas';
-import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import ReceitasFeitasAndFavoritas from './pages/ReceitasFeitasAndFavoritas';
 import Perfil from './pages/Perfil';
 import DetailsReceita from './pages/DetailsReceita';
 
@@ -54,8 +53,12 @@ function App() {
           />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasPorArea } />
           <Route exact path="/perfil" component={ Perfil } />
-          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitasAndFavoritas } />
+          <Route
+            exact
+            path="/receitas-favoritas"
+            component={ ReceitasFeitasAndFavoritas }
+          />
         </Switch>
       </BrowserRouter>
     </AppReceitasProvider>
