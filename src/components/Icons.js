@@ -1,22 +1,25 @@
-import React, { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useRef, useState, useContext } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import home from '../images/home.png';
+import return0 from '../images/return0.png';
 import '../styles/global.css';
+import { Context } from '../context/ContextForm';
 
 function favoriteStructure(item) {
   if (item.code !== undefined) {
     const
       { idMeal,
         strArea,
-        idDrink,
+        idDrink, id,
         strCategory,
         strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } = item.code;
 
     const favoriteElement = {
-      id: idMeal || idDrink,
+      id: idMeal || idDrink || id,
       type: idMeal === undefined ? 'bebida' : 'comida',
       area: idMeal === undefined ? '' : strArea,
       category: strCategory,
@@ -28,15 +31,51 @@ function favoriteStructure(item) {
   }
 }
 
+function isHorizontal(pathname) {
+  return pathname
+    .includes('receitas-favoritas');
+}
+
+function shareData(item, pathname) {
+  return isHorizontal(pathname)
+    ? `${item.id}-horizontal-share-btn` : 'share-btn';
+}
+
+function imageData(item, pathname) {
+  return isHorizontal(pathname)
+    ? `${item.id}-horizontal-favorite-btn` : 'favorite-btn';
+}
+
+function processFavorites(changeIcon, pathname, path, item) {
+  let favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favoriteElement = favoriteStructure(item);
+  if (changeIcon) {
+    favorites = [...favorites, favoriteElement];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+  }
+  if (!changeIcon) {
+    favorites = favorites
+      .filter((fav) => fav.id !== favoriteElement.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+  }
+}
+
 function Icons(item) {
-  const [changeIcon, setChangeIcon] = useState(true);
+  const path = 'receitas-favoritas';
+  const [changeIcon, setChangeIcon] = useState(!item.fromHorizontal);
   const [changeCopy, setChangeCopy] = useState(false);
   const [first, setFirst] = useState(false);
+  const { setSearch, historyPage, sethistoryPage } = useContext(Context);
   const target = useRef(null);
   const history = useHistory();
   const { pathname } = history.location;
-
   const DOISMIL = 2000;
+
+  let originalPath = '';
+  if (item.fromHorizontal) {
+    if (item.code.type === 'comida') originalPath = (`/comidas/${item.code.id}`);
+    else originalPath = (`/bebidas/${item.code.id}`);
+  }
 
   function isFavorite() {
     const { idDrink, idMeal } = item.code;
@@ -44,22 +83,19 @@ function Icons(item) {
     let flag = 0;
     favorites
       .forEach((fav) => { if (fav.id === (idDrink || idMeal)) flag += 1; });
-    if (flag > 0) setChangeIcon(!changeIcon);
+    if (flag > 0) {
+      setChangeIcon(!changeIcon);
+    }
   }
   if (!first) {
     isFavorite();
+    sethistoryPage([...historyPage, pathname]);
     setFirst(true);
   }
 
   function copyClipboard() {
-    let url;
-    if (document.URL.includes('in-progress')) {
-      url = document.URL.split('/in-progress');
-      navigator.clipboard.writeText(url[0]);
-    } else {
-      url = document.URL;
-      navigator.clipboard.writeText(url);
-    }
+    const url = document.URL;
+    navigator.clipboard.writeText(url.replace('/in-progress', ''));
     setChangeCopy(true);
     setTimeout(() => {
       setChangeCopy(false);
@@ -68,24 +104,16 @@ function Icons(item) {
 
   function favorite() {
     setChangeIcon(!changeIcon);
-
-    let favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteElement = favoriteStructure(item);
-
-    favorites = favorites.filter((fav) => fav.id !== favoriteElement.id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-
-    if (changeIcon) {
-      favorites = [...favorites, favoriteElement];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-    }
+    processFavorites(changeIcon, pathname, path, item);
+    const act = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setSearch(act);
   }
 
   function speakCopy() {
     return (
       <Overlay target={ target.current } show={ changeCopy } placement="bottom">
         {(props) => (
-          <Tooltip id="overlay" { ...props }>
+          <Tooltip className="copyText" id="overlay" { ...props }>
             Link copiado!
           </Tooltip>
         )}
@@ -100,14 +128,50 @@ function Icons(item) {
           ref={ target }
           type="button"
           className="share"
-          onClick={ () => { copyClipboard(); speakCopy(); } }
+          onClick={ () => {
+            copyClipboard(); speakCopy();
+          } }
         >
-          <img
-            src={ shareIcon }
-            alt="share icon"
-            data-testid={ pathname.includes('receitas-favoritas')
-              ? '{index}-horizontal-share-btn' : 'share-btn' }
-          />
+          {
+            isHorizontal(pathname)
+              ? (
+                <Link to={ originalPath }>
+                  <img
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ shareData(item, pathname) }
+                  />
+                </Link>
+              )
+              : (
+                <div>
+                  <Link to="/comidas">
+                    <img
+                      className="homeIcon"
+                      src={ home }
+                      alt="home icon"
+                    />
+                  </Link>
+                  <button
+                    type="button"
+                    className="returnBtn"
+                    onClick={ () => window.history.back() }
+                  >
+                    <img
+                      className="returnIcon"
+                      src={ return0 }
+                      alt="return icon"
+                    />
+                  </button>
+                  <img
+                    className="share"
+                    src={ shareIcon }
+                    alt="share icon"
+                    data-testid={ shareData(item, pathname) }
+                  />
+                </div>
+              )
+          }
         </button>
         <button
           type="button"
@@ -117,11 +181,15 @@ function Icons(item) {
           <img
             src={ changeIcon ? whiteHeartIcon : blackHeartIcon }
             alt="favorite icons"
-            data-testid="favorite-btn"
+            data-testid={ imageData(item, pathname) }
           />
         </button>
       </div>
-      { changeCopy && <p>Link copiado!</p> }
+      { (changeCopy
+       || historyPage[historyPage
+         .length - 2] === '/receitas-favoritas')
+          && <p className="copyText">Link copiado!</p> }
+
     </div>
   );
 }

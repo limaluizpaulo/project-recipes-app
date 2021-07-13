@@ -1,6 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+
 import progressRecipeStorage from '../hooks/progressAddStorage';
 import '../styles/global.css';
 import { Context } from '../context/ContextForm';
@@ -8,37 +9,19 @@ import desrenderNull from '../helper/Condition';
 import start, { request } from '../helper/addIdStorage';
 import { requestByDetailsDrink, requestByDetailsMeal } from '../services/api';
 
-function IngredientsInProcess({ index, element, measures }) {
-  const { param, setParam } = useContext(Context);
-  const params = useParams();
+function returnType(pathname) {
+  const type = pathname.includes('comidas') ? 'meals' : 'cocktails';
+  return type;
+}
 
-  function countInputs() {
-    const array = [...document.querySelectorAll('input')];
-    console.log(array);
-  }
-
-  useEffect(() => {
-    setParam(params.id);
-    request(requestByDetailsDrink, requestByDetailsMeal, start, params);
-    countInputs();
-  }, [params.id]);
-
-  function renderChecks(array, objectItems) {
-    const drinks = document.URL.includes('bebidas') ? objectItems.cocktails[params.id]
-      : objectItems.meals[params.id];
-    array.map((input, idx) => {
-      const keys = Object.keys(drinks);
-      if (keys[idx] === input.id) {
-        input.checked = true;
-        const span = input.parentNode.children;
-        span[1].classList.add('marcado');
-        return input.checked;
-      }
-      const span = input.parentNode.children;
-      span[1].classList.remove('marcado');
-      return input;
-    });
-  }
+function IngredientsInProcess({ index, element, measures,
+  ingredientsUsed, updateIngredientsUsed, idMeal }) {
+  const [checked, setchecked] = useState(false);
+  const history = useHistory();
+  const { pathname } = history.location;
+  const divStyle1 = {
+    textDecoration: 'line-through',
+  };
 
   async function renderProgress() {
     const objectItems = await JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -79,23 +62,48 @@ function IngredientsInProcess({ index, element, measures }) {
     }
   }
 
+  function updateUsedIngredients(ingredientName) {
+    if (ingredientsUsed.includes(element[1])) {
+      console.log(ingredientName, pathname, idMeal, ingredientsUsed);
+      const newIngredientsUsed = ingredientsUsed.filter((ingredient) => ingredient
+      !== ingredientName);
+      console.log(newIngredientsUsed);
+      const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (inLocalStorage) {
+        const type = returnType(pathname);
+        inLocalStorage[type][idMeal] = newIngredientsUsed;
+        console.log(newIngredientsUsed);
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inLocalStorage));
+        updateIngredientsUsed();
+      }
+    } else {
+      const newIngredientsUsed = [...ingredientsUsed, ingredientName];
+      const inLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (inLocalStorage) {
+        const type = returnType(pathname);
+        inLocalStorage[type][idMeal] = newIngredientsUsed;
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inLocalStorage));
+        updateIngredientsUsed();
+      }
+    }
+  }
+
   return (
     <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
         className="inputs"
-        onClick={ (ev) => toogleClass(ev) }
+        onChange={ () => {
+          toogleClass();
+          updateUsedIngredients(element[1]);
+        } }
         key={ index }
-        id={ index }
+        checked={ ingredientsUsed.includes(element[1]) }
       />
-      <span
-        id={ index }
-      >
-        {
-          `${element[1]}
+      <span style={ ingredientsUsed.includes(element[1]) ? divStyle1 : divStyle2 }>
+        { `${element[1]}
                 - ${measures[index][1] === null
-      ? 'as you like' : measures[index][1]}`
-        }
+      ? 'as you like' : measures[index][1]}`}
       </span>
     </div>
   );
@@ -105,6 +113,9 @@ IngredientsInProcess.propTypes = {
   index: PropTypes.number.isRequired,
   element: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.array).isRequired,
+  ingredientsUsed: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateIngredientsUsed: PropTypes.func.isRequired,
+  idMeal: PropTypes.string.isRequired,
 };
 
 export default IngredientsInProcess;

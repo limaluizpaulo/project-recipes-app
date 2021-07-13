@@ -44,7 +44,6 @@ body {
   height: 238px;
   margin: 5px;
   max-width: 100%;
-  padding: 5px;
   text-align: center;
   width: 169px;
 }
@@ -96,21 +95,26 @@ body {
 
 .share {
   background-color: inherit;
-  border: inherit;
+  border: none;
+  margin-left: 7px;
+  outline: none;
 }
 
-.share:hover {
-  outline-style: none;
+.share:hover, .share:focus {
+  border: none;
+  outline: none;
 }
 
 .favorite {
   background-color: inherit;
-  border: inherit;
+  border: none;
   margin-left: 7px;
+  outline: none;
 }
 
-.favorite:hover {
-  outline-style: none;
+.favorite:hover, .favorite:focus {
+  border: none;
+  outline: none;
 }
 
 .ingredients {
@@ -161,6 +165,12 @@ body {
   justify-content: space-between;
 }
 
+.homeAndReturnFooter {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .inputs {
   height: 20px;
   margin-right: 6px;
@@ -205,4 +215,96 @@ body {
 
 .noFavoriteWithHeader {
   margin-top: 230px;
+}
+
+.sectionsTitle {
+  margin: auto;
+  text-align: center;
+}
+
+.exploreButtons-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+  min-width: 80vw;
+}
+
+.exploreButtons {
+  background-color: lightgray;
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 250px;
+}
+
+.exitButton {
+  background-color: rgb(224, 20, 20);
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 250px;
+}
+
+.profileTitle {
+  color: black;
+  margin-bottom: 70px;
+  max-width: 95%;
+  text-align: center;
+  word-break: break-all;
+}
+
+.noDone {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 76vh;
+  min-width: 76vw;
+}
+
+.returnIcon {
+  border: none;
+  height: 26px;
+  outline: none;
+  width: 26px;
+}
+
+.returnBtn {
+  background-color: inherit;
+  border: none;
+  margin-left: 4px;
+  outline: none;
+}
+
+.returnBtn:focus {
+  border: none;
+  outline: none;
+}
+
+.homeIcon {
+  height: 45px;
+  width: 45px;
+}
+
+.copyText {
+  width: 95px;
+}
+
+.recipeTitle {
+  width: 180px;
+}
+
+.credits {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 91vh;
+  min-width: 91vw;
+  text-align: center;
+}
+
+.credits-item {
+  margin-bottom: 10px;
 }

@@ -5,20 +5,34 @@ import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
-import { requestMeal } from '../services/api';
+import { requestAreas, requestMeal, requestMealByAreas } from '../services/api';
 
 function FoodByCountry() {
   const { setFirstMeals, firstMeals, area, setArea } = useContext(Context);
+  // const [filterBy, setFilterBy] = useState('All');
   const numOfMeals = 12;
 
   useEffect(() => {
     const fetchMeals = async () => {
       const meals = await requestMeal();
+      const areas = await requestAreas();
       setFirstMeals(meals.slice(0, numOfMeals));
-      setArea(meals);
+      setArea(areas);
     };
     fetchMeals();
   }, [setFirstMeals, setArea]);
+
+  async function handleClick({ target }) {
+    if (target.options[target.selectedIndex].text !== 'All') {
+      const { value } = target;
+      const mealsOfTheArea = await requestMealByAreas(value);
+      setFirstMeals(mealsOfTheArea);
+    }
+    if (target.options[target.selectedIndex].text === 'All') {
+      const meals = await requestMeal();
+      setFirstMeals(meals.slice(0, numOfMeals));
+    }
+  }
 
   return (
     <div>
@@ -27,8 +41,9 @@ function FoodByCountry() {
         <select
           className="selectByCountry"
           data-testid="explore-by-area-dropdown"
+          onChange={ handleClick }
         >
-          <option>All</option>
+          <option data-testid="All-option">All</option>
           {area.map((item, index) => (
             <option
               className="countryOption"
@@ -41,7 +56,7 @@ function FoodByCountry() {
         </select>
       </div>
       <div className="card-container">
-        {firstMeals.map((meal, index) => (
+        {firstMeals.filter((meal, index) => index < numOfMeals).map((meal, index) => (
           <Link
             to={ `/comidas/${meal.idMeal}` }
             key={ meal.strMeal }
