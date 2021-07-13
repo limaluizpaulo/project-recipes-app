@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/RecipesContext';
 import fetchCategory, { FOOD_CATEGORY, DRINK_CATEGORY } from '../services/Categorys';
+import '../styles/CategoryButtons.css';
 
 function CategoryOptions() {
   const [categoryList, setCategoryList] = useState([]);
@@ -21,7 +22,7 @@ function CategoryOptions() {
   const cinco = 5;
 
   return (
-    <div>
+    <div className="category-buttons">
       <button
         type="button"
         data-testid="All-category-filter"
