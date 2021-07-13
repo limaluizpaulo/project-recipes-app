@@ -28,6 +28,9 @@ function ExpoFoodArea(props) {
   }, [foods]);
 
   async function handlechange({ target: { value } }) {
+    /* if (value === 'All') {
+      api.getByDefault()
+    } */
     await infoFoods(value, api.foodsArea);
   }
   return locals.length === 0 ? <Loading /> : (

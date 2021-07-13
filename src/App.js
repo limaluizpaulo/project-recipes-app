@@ -25,6 +25,7 @@ import './styles/foods.css';
 import './styles/Header.css';
 import './styles/profile.css';
 import './styles/font.css';
+import './styles/FavoriteRecipes.css';
 
 import Loading from './Components/Loading';
 

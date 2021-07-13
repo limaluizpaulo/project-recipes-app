@@ -30,3 +30,9 @@
 .card-subtitle:hover {
   opacity: 1;
 }
+
+.black {
+  color: black;
+  display: flex;
+  flex-direction: column;
+}

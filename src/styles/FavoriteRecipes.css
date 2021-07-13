@@ -1,0 +1,18 @@
+.btn-favorites {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border: none;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.menu-favorites {
+  display: flex;
+  justify-content: center;
+}
+
+.btns-f-c {
+  color: black;
+  text-align: center;
+  text-align: center;
+  text-decoration: none;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
+import profileIcon from '../images/logo_size.jpg';
 import searchIcon from '../images/searchIcon.svg';
 
 export default function Header(props) {
@@ -10,7 +10,12 @@ export default function Header(props) {
     <header className="header-principal">
       <div>
         <Link to="/perfil">
-          <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
+          <img
+            className="logo-size"
+            src={ profileIcon }
+            alt="profile"
+            data-testid="profile-top-btn"
+          />
         </Link>
       </div>
       <div>

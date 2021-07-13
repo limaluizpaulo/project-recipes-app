@@ -11,6 +11,12 @@
   z-index: 1;
 }
 
+.logo-size {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 40px;
+}
+
 .searchBar {
   color: #ff3f29;
   padding: 15px;
