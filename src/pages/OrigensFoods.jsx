@@ -18,7 +18,13 @@ function OrigensFoods() {
     console.log(novaArr);
     // eslint-disable-next-line max-len
     // eslint-disable-next-line react/jsx-key
-    return novaArr.map((area) => <option data-testid={ `${area}-option` }>{area}</option>);
+    return novaArr.map((area) => (
+      // eslint-disable-next-line react/jsx-key
+      <option
+        data-testid={ `${area}-option` }
+      >
+        {area}
+      </option>));
     // return data.map((res) => <option>{ res.strArea} </option>)
   };
 
