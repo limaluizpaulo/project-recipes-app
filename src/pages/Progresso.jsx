@@ -74,15 +74,16 @@ class Progresso extends Component {
   onClick(param, element, boolean) {
     const { count, allIngredients } = this.state;
     const { recipesLength } = this.state;
-
     if (allIngredients.includes(param) && boolean === 'checked') {
       element.classList.remove('riscado');
+
       return this.setState({
         allIngredients: allIngredients.filter((el) => el !== param) });
     }
     element.classList.add('riscado');
     this.setState({ ...allIngredients,
       allIngredients: [...allIngredients, param],
+
     });
 
     if (count + 1 === recipesLength) {
@@ -97,8 +98,11 @@ class Progresso extends Component {
 
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recovery.meals[id] !== undefined) {
+      // console.log(recovery.meals[id], 'existo');
+      console.log(recovery.meals[id], 'existo');
       return this.setState({ allIngredients: recovery.meals[id] });
     }
+
     if (recovery.cocktails[id] !== undefined) {
       return this.setState({ allIngredients: recovery.cocktails[id] });
     }
@@ -129,7 +133,6 @@ class Progresso extends Component {
     const currentDate = new Date().toLocaleDateString();
     const currentHour = new Date().toLocaleTimeString();
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
     const recipe = {
       id: details[keyName.Id],
       type: page,
@@ -168,14 +171,12 @@ class Progresso extends Component {
     const { details } = this.props;
     const dictionary = identification(details);
     console.log('funciono', dictionary);
-
     const total = [];
     dictionary.Ingredients.map((ingredient) => {
       if (details[ingredient[0]] !== null && details[ingredient[0]] !== '') {
         total.push(details[ingredient[0]]);
         console.log(details[ingredient[0]]);
       }
-
       return this.setState({
         recipesLength: total.length,
       });
@@ -184,14 +185,13 @@ class Progresso extends Component {
 
   render() {
     const { details, match: { params: { page, id } } } = this.props;
-
     const { isDisable, allIngredients } = this.state;
+
     return (
       <section>
         { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
-        <SharedFavorites id={ id } page={ page } />
-
+       <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>
