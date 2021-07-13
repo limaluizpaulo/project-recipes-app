@@ -20,6 +20,7 @@ function DrinkInProgress({ match }) {
       Object.keys(data.drinks[0]).forEach((key) => {
         if (key.match('strIngredient')) keysIngredients.push(key);
       });
+      console.log(keysIngredients);
       return keysIngredients;
     }
   }
