@@ -7,11 +7,32 @@ import Footer from './Footer';
 import ContextRecipes from '../context/contextRecipes';
 
 function ExploreDrinks({ history }) {
-  const { goSearch, setTitle } = useContext(ContextRecipes);
+  const { goSearch, setTitle, randomDrink, setRandomDrink } = useContext(ContextRecipes);
+
+  const fetchRandomDrink = () => {
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    fetch(endpoint)
+      .then((response) => response.json())
+      .then((results) => console.log(results)
+      || setRandomDrink(results.drinks) || results.drinks[0].idDrink)
+      // .then((idMeal) => history.push(`/explorar/comidas/${idMeal}`))
+      .catch((error) => console.log('Deu ruim no fetch das bebidas', error));
+  };
+
+  const handleClick = () => {
+    fetchRandomDrink();
+  };
 
   useEffect(() => {
     setTitle('Explorar Bebidas');
   }, [setTitle]);
+
+  useEffect(() => {
+    if (randomDrink[0]) {
+      const { idDrink } = randomDrink[0];
+      history.push(`/bebidas/${idDrink}`);
+    }
+  }, [randomDrink]);
 
   return (
     <div>
@@ -23,11 +44,13 @@ function ExploreDrinks({ history }) {
           Por Ingredientes
         </button>
       </Link>
-      <Link to="/explorar/bebidas/:id">
-        <button type="button" data-testid="explore-surprise">
-          Me Surpreenda!
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ handleClick }
+      >
+        Me Surpreenda!
+      </button>
       <Footer history={ history } />
     </div>
   );
