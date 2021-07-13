@@ -1,23 +1,30 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import renderExporeBtn from '../components/ExploreBtn';
+import Context from '../context/Context';
 
 function ExploreFoods() {
-  const exploreObj = {
-    "by-ingredient": "Por Ingredientes",
-    "by-area": "Por Local de Origem",
-    surprise: "Me Surpreenda!",
+  const [redirectTo, setRedirectTo] = useState();
+  const { updateEndPoint, randomRecipe } = useContext(Context);
+
+  useEffect(() => {
+    updateEndPoint('food');
+  }, []);
+
+  const handleRedirect = async (url) => {
+    if (url === 'rand') {
+      setRedirectTo(`/comidas/${await randomRecipe()}`);
+    } else setRedirectTo(`/explorar/comidas/${url}`);
   };
-  const exploreBtn = (term, word) => (
-    <button type="button" data-testid={`explore-${term}`}>{word}</button>
-  )
-  return (
+
+  return redirectTo ? <Redirect to={ redirectTo } /> : (
     <>
       <div>Tela de explorar comidas</div>
       <Header title="Explorar Comidas" />
-      {Object.entries(exploreObj).map((key) => (
-        exploreBtn(key[0], key[0])
-      ))}
+      {renderExporeBtn(handleRedirect)}
       <Footer />
     </>
   );
