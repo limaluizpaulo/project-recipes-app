@@ -12,13 +12,17 @@ function DetailsButton(props) {
     setInProgress,
   } } = props;
 
+  function handleclick() {
+    saveInProgress({ recipe, url, food, setInProgress });
+  }
+
   if (!inProgress) {
     return (
       <button
         className="start"
         data-testid="start-recipe-btn"
         type="button"
-        onClick={ saveInProgress({ recipe, url, food, setInProgress }) }
+        onClick={ handleclick }
       >
         <a href={ `${url}/in-progress` }>Iniciar Receita</a>
       </button>

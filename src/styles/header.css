@@ -1,7 +1,6 @@
 .header-bar {
   align-items: center;
   background-color: #2a9d8f;
-  border: 1px black solid;
   display: flex;
   height: 50px;
   justify-content: space-between;
