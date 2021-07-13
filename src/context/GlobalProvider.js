@@ -93,6 +93,13 @@ function GlobalProvider({ children }) {
     } else setBaseEndPoint(foodsEndPoint);
   };
 
+  const randomRecipe = async () => {
+    const response = await fetchAPI(baseEndPoint, 'random.php', '');
+    if (response.meals) {
+      return response.meals[0].idMeal;
+    } return response.drinks[0].idDrink;
+  };
+
   const asyncSetState = async () => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
@@ -166,6 +173,7 @@ function GlobalProvider({ children }) {
     filterCategory,
     handleToggle,
     setRefresh,
+    randomRecipe,
   };
 
   return (
