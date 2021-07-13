@@ -9,65 +9,65 @@ export function getUserEmail() {
   return JSON.parse(user);
 }
 
-// function objFavoritMeal({ idMeal, strArea, strCategory, strMeal, strMealThumb }) {
-//   return [{ id: idMeal,
-//     type: 'comida',
-//     area: strArea,
-//     category: strCategory,
-//     alcoholicOrNot: '',
-//     name: strMeal,
-//     image: strMealThumb,
-//   }];
-// }
+function objFavoritMeal({ idMeal, strArea, strCategory, strMeal, strMealThumb }) {
+  return [{ id: idMeal,
+    type: 'comida',
+    area: strArea,
+    category: strCategory,
+    alcoholicOrNot: '',
+    name: strMeal,
+    image: strMealThumb,
+  }];
+}
 
-// function objfavoritDrink({ idDrink, strCategory, strDrink, strMealThumb, strAlcoholic }) {
-//   return [{ id: idDrink,
-//     type: 'bebida',
-//     area: '',
-//     category: strCategory,
-//     alcoholicOrNot: strAlcoholic,
-//     name: strDrink,
-//     image: strMealThumb,
-//   }];
-// }
+function objfavoritDrink({ idDrink, strCategory, strDrink, strMealThumb, strAlcoholic }) {
+  return [{ id: idDrink,
+    type: 'bebida',
+    area: '',
+    category: strCategory,
+    alcoholicOrNot: strAlcoholic,
+    name: strDrink,
+    image: strMealThumb,
+  }];
+}
 
-// export function saveFavoritRecipes(content, path, favoritStatus) {
-//   const type = path.includes('comidas') ? 'comida' : 'bebida';
-//   const FAVORIT_MEAL = type && favoritStatus;
-//   const FAVORIT_DRINK = type && favoritStatus;
-//   const DESFAVORIT_MEAL = type && !favoritStatus;
-//   const DESFAVORIT_DRINK = type && !favoritStatus;
-//   if (localStorage.getItem('favoriteRecipes')) {
-//     const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+export function saveFavoritRecipes(content, path, favoritStatus) {
+  const type = path.includes('comidas') ? 'comida' : 'bebida';
+  const FAVORIT_MEAL = type && favoritStatus;
+  const FAVORIT_DRINK = type && favoritStatus;
+  const DESFAVORIT_MEAL = type && !favoritStatus;
+  const DESFAVORIT_DRINK = type && !favoritStatus;
+  if (localStorage.getItem('favoriteRecipes')) {
+    const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-//     switch (true) {
-//     case FAVORIT_MEAL:
-//       return localStorage
-//         .setItem('favoriteRecipes',
-//           JSON.stringify(arrayFavorites.concat(objFavoritMeal(content))));
-//     case FAVORIT_DRINK:
-//       return localStorage
-//         .setItem('favoriteRecipes',
-//           JSON.stringify(arrayFavorites.concat(objfavoritDrink(content))));
+    switch (true) {
+    case FAVORIT_MEAL:
+      return localStorage
+        .setItem('favoriteRecipes',
+          JSON.stringify(arrayFavorites.concat(objFavoritMeal(content))));
+    case FAVORIT_DRINK:
+      return localStorage
+        .setItem('favoriteRecipes',
+          JSON.stringify(arrayFavorites.concat(objfavoritDrink(content))));
 
-//     case DESFAVORIT_MEAL:
-//       return localStorage
-//         .setItem('favoriteRecipes',
-//           JSON.stringify(arrayFavorites.filter((el) => el)));
-//       break;
+    case DESFAVORIT_MEAL:
+      // return localStorage
+      //   .setItem('favoriteRecipes',
+      //     JSON.stringify(arrayFavorites.filter((el) => el)));
+      break;
 
-//     case DESFAVORIT_DRINK:
-//       return localStorage
-//         .setItem('favoriteRecipes',
-//           JSON.stringify(arrayFavorites.filter((el) => el)));
-//       break;
+    case DESFAVORIT_DRINK:
+      // return localStorage
+      //   .setItem('favoriteRecipes',
+      //     JSON.stringify(arrayFavorites.filter((el) => el)));
+      break;
 
-//     default:
-//       return localStorage
-//         .setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
-//     }
-//   }
-// }
+    default:
+      return localStorage
+        .setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
+    }
+  }
+}
 
 export const saveFavoriteRecipe = (path, obj) => {
   const [id, name, image, type, area, alcoholicOrNot] = path.includes('comidas')

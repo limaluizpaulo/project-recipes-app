@@ -27,49 +27,38 @@ export default function MainPage() {
     ingredientsResults,
   } = useContext(RecipesContext);
 
-  const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [renderer, setRenderer] = useState([]);
   const [toggle, setToggle] = useState({ status: false, category: '' });
 
   useEffect(() => {
-    async function getInitialStatePopulated() {
+    if (ingredientsResults.length === 0) {
       getRandomData(domain)
         .then((res) => {
           setDataResult(res[firstKey]);
           setRenderer(res[firstKey].filter((_e, index) => index < limit));
         });
-      setLoader(false);
     }
-    if (ingredientsResults.length === 0) { getInitialStatePopulated(); }
 
-    async function getListPopulated() {
-      getCategoriesList(domain)
-        .then((res) => {
-          setCategoriesList(res[firstKey].filter((_e, index) => index < FIVE));
-        });
-      setLoader(false);
-    }
-    getListPopulated();
+    getCategoriesList(domain)
+      .then((res) => {
+        setCategoriesList(res[firstKey].filter((_e, index) => index < FIVE));
+      });
   }, [limit, firstKey, domain, ingredientsResults]);
 
   useEffect(() => {
-    function renderSearch() {
+    if (searchResult && searchResult.length > 1) {
       setRenderer(searchResult.filter((_e, index) => index < limit));
-      setLoader(false);
     }
-    if (searchResult && searchResult.length > 1) { renderSearch(); }
   }, [searchResult, limit]);
 
   useEffect(() => {
-    async function fetchApiData() {
-      console.log(ingredientsResults.replace('_', ' '));
+    if (ingredientsResults.length) {
       getDataIngredients(domain, ingredientsResults).then((res) => {
         setRenderer(res[firstKey].filter((_e, index) => index < limit));
       });
     }
-    if (ingredientsResults.length) { fetchApiData(); }
   }, [ingredientsResults, domain, firstKey, limit]);
 
   async function handleCategoryFilter(category) {
@@ -105,12 +94,10 @@ export default function MainPage() {
           {category.strCategory}
         </Button>))}
       <Button data-testid="All-category-filter" onClick={ handleAllClick }>All</Button>
-      {isLoading
-        ? <p>Loading...</p>
-        : renderer.map((item, i) => (
-          <Link key={ item[searchId] } to={ `${path}/${item[searchId]}` }>
-            <Card mealOrDrink={ item } index={ i } testId="recipe" />
-          </Link>))}
+      {renderer.map((item, i) => (
+        <Link key={ item[searchId] } to={ `${path}/${item[searchId]}` }>
+          <Card mealOrDrink={ item } index={ i } testId="recipe" />
+        </Link>))}
       <button type="button" onClick={ handleMoreCards }>More Recipes</button>
       <Footer />
     </>

@@ -22,11 +22,8 @@ function ExploreFoods() {
   }, [path]);
 
   useEffect(() => {
-    async function getDataRandom() {
-      getRandomRecipe(domain)
-        .then((result) => setIdRandom(result[firstKey][0][secondKey]));
-    }
-    getDataRandom();
+    getRandomRecipe(domain)
+      .then((result) => setIdRandom(result[firstKey][0][secondKey]));
   }, [firstKey, secondKey, domain]);
 
   const ingridientPath = path.includes('comidas')

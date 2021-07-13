@@ -14,26 +14,21 @@ function ExploreArea() {
   const [renderer, setRenderer] = useState([]);
 
   useEffect(() => {
-    async function getDataArea() {
-      getAreasList().then(({ meals }) => setAreaList([{ strArea: 'All' }].concat(meals)));
-    }
-    getDataArea();
+    getAreasList().then(({ meals }) => setAreaList([{ strArea: 'All' }].concat(meals)));
   }, []);
 
   useEffect(() => {
-    async function getFilteredArea() {
+    if (selectedArea !== 'All') {
       getRecipeByArea(selectedArea)
         .then(({ meals }) => setRenderer(meals.filter((_e, index) => index < limit)));
     }
-    if (selectedArea !== 'All') getFilteredArea();
   }, [limit, selectedArea]);
 
   useEffect(() => {
-    async function getDataAll() {
+    if (selectedArea === 'All') {
       getRandomData('themealdb')
         .then(({ meals }) => setRenderer(meals.filter((_e, index) => index < limit)));
     }
-    if (selectedArea === 'All') getDataAll();
   }, [limit, selectedArea]);
 
   function handleAreaSelect({ target: { value } }) {
@@ -65,6 +60,5 @@ function ExploreArea() {
     </>
   );
 }
-// concerta caquinha no github
 
 export default ExploreArea;

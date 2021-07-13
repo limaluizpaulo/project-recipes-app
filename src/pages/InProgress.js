@@ -24,27 +24,23 @@ export default function InProgress() {
     : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink'];
 
   useEffect(() => {
-    async function getApiData() {
-      getDataById(domain, id).then((res) => {
-        setRenderer(res[firstKey]);
+    getDataById(domain, id).then((res) => {
+      setRenderer(res[firstKey]);
 
-        const list = Object.entries(res[firstKey][0]).filter((el) => (
-          (el[0].includes('Ingredient')
+      const list = Object.entries(res[firstKey][0]).filter((el) => (
+        (el[0].includes('Ingredient')
           || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
 
-        setIngridientsList(list);
-      });
-    }
-    getApiData();
+      setIngridientsList(list);
+    });
   }, [id, domain, firstKey]);
 
   function handleIngredientsData() {
-    const ingredientFormated = ingredientsList.map((el, i, arr) => (
+    return ingredientsList.map((el, i, arr) => (
       (el[0].includes('Ingredient')) && ([`${el[1]
         + arr.filter((elt) => elt[0] === (`strMeasure${i + 1}`))
           .map((result) => (` - ${result[1]}`))}`,
       ]))).filter((fil) => fil);
-    return ingredientFormated;
   }
 
   const listFormated = handleIngredientsData();
@@ -80,56 +76,53 @@ export default function InProgress() {
     history.push('/receitas-feitas');
   }
   if (!renderer[0]) return <h1>Loading...</h1>;
-  if (renderer[0]) {
-    const { strCategory, strInstructions } = renderer[0];
-    return (
-      <>
-        <img
-          data-testid="recipe-photo"
-          src={ renderer[0][imgSrc] }
-          alt={ renderer[0][title] }
-        />
+  return (
+    <>
+      <img
+        data-testid="recipe-photo"
+        src={ renderer[0][imgSrc] }
+        alt={ renderer[0][title] }
+      />
 
-        <p data-testid="recipe-title">{renderer[0][title]}</p>
+      <p data-testid="recipe-title">{renderer[0][title]}</p>
 
-        <Button onClick={ handleShare }>
-          <img data-testid="share-btn" src={ shareIcon } alt="" />
-        </Button>
+      <Button onClick={ handleShare }>
+        <img data-testid="share-btn" src={ shareIcon } alt="" />
+      </Button>
 
-        <Button>
-          <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
-        </Button>
+      <Button>
+        <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
+      </Button>
 
-        <p data-testid="recipe-category">{ strCategory }</p>
+      <p data-testid="recipe-category">{ renderer[0].strCategory }</p>
 
-        {handleIngredientsData().map((item, i) => (
-          <label key={ item } htmlFor={ `${i}-ingredient-step` }>
-            <p
-              data-testid={ `${i}-ingredient-step` }
-            >
-              <input
-                id={ `${i}-ingredient-step` }
-                name={ `step-${i + 1}` }
-                type="checkbox"
-                value={ false }
-                className=""
-                onChange={ handleCheckBox }
-              />
-              {` ${item}`}
-            </p>
-          </label>
-        ))}
+      {handleIngredientsData().map((item, i) => (
+        <label key={ item } htmlFor={ `${i}-ingredient-step` }>
+          <p
+            data-testid={ `${i}-ingredient-step` }
+          >
+            <input
+              id={ `${i}-ingredient-step` }
+              name={ `step-${i + 1}` }
+              type="checkbox"
+              value={ false }
+              className=""
+              onChange={ handleCheckBox }
+            />
+            {` ${item}`}
+          </p>
+        </label>
+      ))}
 
-        <p data-testid="instructions">{ strInstructions }</p>
+      <p data-testid="instructions">{ renderer[0].strInstructions }</p>
 
-        <Button
-          data-testid="finish-recipe-btn"
-          onClick={ handleFinished }
-          disabled={ isDisabled }
-        >
-          Finalizar Receita
-        </Button>
-      </>
-    );
-  }
+      <Button
+        data-testid="finish-recipe-btn"
+        onClick={ handleFinished }
+        disabled={ isDisabled }
+      >
+        Finalizar Receita
+      </Button>
+    </>
+  );
 }
