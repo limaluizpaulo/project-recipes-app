@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import store, { addLogin } from '../../context/store';
 import { setStorage } from '../../functions';
+// ajustando GIT
 
 export default function Login() {
   const [disabledBtn, setDisabledBtn] = useState(true);
