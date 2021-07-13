@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { fetchDrinkCategori, fetchTypeCategoryFilter,
   fetchAllDrinks } from '../Service/drinkApi';
 import RecipesContext from '../Context/RecipesContext';
@@ -36,7 +37,8 @@ export default function CategoryDrinks() {
   return (
     <div>
       {categoryDrink.map(({ strCategory }, index) => (
-        <button
+        <Button
+          variant="light"
           type="button"
           value={ strCategory }
           key={ index }
@@ -44,14 +46,15 @@ export default function CategoryDrinks() {
           onClick={ handleClick }
         >
           {strCategory}
-        </button>))}
-      <button
+        </Button>))}
+      <Button
+        variant="danger"
         type="button"
         onClick={ handleAll }
         data-testid="All-category-filter"
       >
         All
-      </button>
+      </Button>
 
     </div>
   );

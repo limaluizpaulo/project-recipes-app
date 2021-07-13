@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect, Link, useLocation } from 'react-router-dom';
-
+import { Card } from 'react-bootstrap';
 import RecipesContext from '../Context/RecipesContext';
 import CategoryMeals from './CategoryMeals';
 
@@ -26,19 +26,30 @@ export default function CardMeal() {
   return (
     <main>
       { !pathname.includes('explorar') && <CategoryMeals />}
-      <ul>
+      <ul className="ulCard">
         {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <Link to={ `/comidas/${idMeal}` } key={ index }>
-            <li key={ idMeal } data-testid={ `${index}-recipe-card` }>
-              <img
-                width="80px"
-                src={ strMealThumb }
-                alt="imagem receita"
-                data-testid={ `${index}-card-img` }
-              />
-              <div data-testid={ `${index}-card-name` }>{ strMeal }</div>
-            </li>
-          </Link>
+          <div className="card" key={ idMeal }>
+            <Link to={ `/comidas/${idMeal}` } key={ index }>
+              <Card style={ { width: '10rem' } }>
+                <Card.Img
+                  variant="top"
+                  src={ strMealThumb }
+                  alt="imagem receita"
+                  data-testid={ `${index}-card-img` }
+                />
+                <Card.Body>
+                  <Card.Title
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { strMeal }
+
+                  </Card.Title>
+
+                </Card.Body>
+              </Card>
+
+            </Link>
+          </div>
         ))}
       </ul>
 

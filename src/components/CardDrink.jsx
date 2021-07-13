@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 
 import RecipesContext from '../Context/RecipesContext';
 
@@ -25,21 +26,29 @@ export default function CardDrink() {
   return (
     <main>
       <CategoryDrinks />
-      <ul>
+      <ul className="ulCard">
         {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-          <Link to={ `/bebidas/${idDrink}` } key={ index }>
-            <div key={ idDrink } data-testid={ `${String(index)}-recipe-card` }>
-              <li>
-                <img
-                  width="80px"
+          <div className="card" key={ idDrink }>
+            <Link to={ `/bebidas/${idDrink}` }>
+              <Card style={ { width: '10rem' } }>
+                <Card.Img
+                  variant="top"
                   src={ strDrinkThumb }
-                  alt="imagem da bebida"
+                  alt="imagem receita"
                   data-testid={ `${index}-card-img` }
                 />
-                <div data-testid={ `${index}-card-name` }>{ strDrink }</div>
-              </li>
-            </div>
-          </Link>
+                <Card.Body>
+                  <Card.Title
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { strDrink }
+
+                  </Card.Title>
+
+                </Card.Body>
+              </Card>
+            </Link>
+          </div>
         ))}
       </ul>
     </main>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import RecipesContext from '../Context/RecipesContext';
 
 function Home() {
@@ -49,37 +50,41 @@ function Home() {
   const { checkPassword, checkEmail } = checkLogin;
   return (
     <main>
-      <label htmlFor="input-Email">
-        <input
-          types="text"
-          placeholder="Email"
-          id="input-Email"
-          data-testid="email-input"
-          name="email"
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="input-Password">
-        <input
-          type="password"
-          placeholder="Password"
-          id="input-Password"
-          data-testid="password-input"
-          name="password"
-          onChange={ handleChange }
-        />
-      </label>
-      <Link to="/comidas">
-        <button
-          type="button"
-          disabled={ !(checkPassword && checkEmail) }
-          onClick={ handleClick }
-          data-testid="login-submit-btn"
-
-        >
-          Entrar
-        </button>
-      </Link>
+      <section className="sectionForm">
+        <Form>
+          <Form.Group className="mb-3" controlId="formGroupEmail">
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              id="input-Email"
+              data-testid="email-input"
+              name="email"
+              onChange={ handleChange }
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formGroupPassword">
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              id="input-Password"
+              data-testid="password-input"
+              name="password"
+              onChange={ handleChange }
+            />
+          </Form.Group>
+        </Form>
+        <Link to="/comidas">
+          <Button
+            variant="outline-danger"
+            type="button"
+            disabled={ !(checkPassword && checkEmail) }
+            onClick={ handleClick }
+            data-testid="login-submit-btn"
+          >
+            Entrar
+          </Button>
+        </Link>
+      </section>
     </main>
   );
 }

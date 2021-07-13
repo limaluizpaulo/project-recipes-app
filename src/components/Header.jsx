@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Lupa from './Lupa';
@@ -58,16 +59,24 @@ function Header() {
   return (
     <>
       <header>
-        <button
-          type="button"
-          onClick={ () => {
-            history.push('/perfil');
-          } }
-        >
-          <img src={ profileIcon } alt="ícone de perfil" data-testid="profile-top-btn" />
-        </button>
-        <h1 data-testid="page-title">{ condicionRenderingTitle() }</h1>
-        { condicionRenderSearchBar() }
+        <Navbar>
+          <button
+            type="button"
+            onClick={ () => {
+              history.push('/perfil');
+            } }
+          >
+            <img
+              src={ profileIcon }
+              alt="ícone de perfil"
+              data-testid="profile-top-btn"
+            />
+          </button>
+          <Navbar.Collapse className="justify-content-end">
+            <h1 data-testid="page-title">{ condicionRenderingTitle() }</h1>
+            { condicionRenderSearchBar() }
+          </Navbar.Collapse>
+        </Navbar>
       </header>
       { toggleSearch && <Lupa /> }
     </>
@@ -75,3 +84,9 @@ function Header() {
 }
 
 export default Header;
+
+// <Navbar.Collapse className="justify-content-end">
+//     <Navbar.Text>
+//       Signed in as: <a href="#login">Mark Otto</a>
+//     </Navbar.Text>
+//   </Navbar.Collapse>
