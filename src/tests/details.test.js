@@ -1,83 +1,67 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 
 import renderWithRouterAndRedux from '../helpers/renderWithRouterAndRedux';
 import RecipeDetails from '../components/RecipeDetails';
 
+import {
+  recipeDetails, recipes, pathname, bebidaId, btnVisible, btnMessage, drinksById,
+} from '../mocks/detailsMocks';
+
 describe('Details page', () => {
-  it('Recipe details item', () => {
-    const recipeDetails = [
-      {
-        idDrink: '16134',
-        strDrink: 'Absolutly Screwed Up',
-        strDrinkAlternate: null,
-        strTags: null,
-        strVideo: null,
-        strCategory: 'Cocktail',
-        strAlcoholic: 'Alcoholic',
-        strInstructions: 'Shake it up it tasts better that way...',
-        strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/yvxrwv1472669728.jpg',
-        strIngredient1: 'Absolut Citron',
-        strIngredient2: 'Orange juice',
-        strIngredient3: 'Triple sec',
-        strIngredient4: 'Ginger ale',
-        strMeasure1: '1 shot',
-        strMeasure2: '1 shot ',
-        strMeasure3: '1 shot ',
-        strMeasure4: 'Fill to top',
-      },
-    ];
-
-    const recipes = [
-      {
-        idMeal: '52977',
-        strMeal: 'Corba',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-      },
-      {
-        idMeal: '52978',
-        strMeal: 'Kumpir',
-        strMealThumb: 'http://www.turkeysforlife.com/2013/10/firinda-kumpir-turkish-street-food.html',
-      },
-      {
-        idMeal: '53026',
-        strMeal: 'Tamiya',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg',
-      },
-      {
-        idMeal: '52785',
-        strMeal: 'Dal fry',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
-      },
-      {
-        idMeal: '52804',
-        strMeal: 'Poutine',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg',
-      },
-      {
-        idMeal: '52844',
-        strMeal: 'Lasagne',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg',
-      },
-    ];
-
+  it('Recipe details item', async () => {
     renderWithRouterAndRedux(
       <RecipeDetails
         recipeDetails={ recipeDetails }
         title="Bebidas"
         recipes={ recipes }
-        // link={ pathname }
-        // id={ bebidaId }
-        // btnVisible={ btnVisible }
-        // btnMessage={ btnMessage }
+        link={ pathname }
+        id={ bebidaId }
+        btnVisible={ btnVisible }
+        btnMessage={ btnMessage }
+        drinksById={ drinksById }
       />,
       {
         initialEntries: ['/bebidas'],
       },
     );
 
+    // navigator.clipboard = {
+    //   writeText: jest.fn(),
+    // };
+
     const drinkImage = screen.getByAltText(/Absolutly Screwed Up/i);
     expect(drinkImage.src).toContain('https://www.thecocktaildb.com/images/media/drink/yvxrwv1472669728.jpg');
+
+    const title = screen.getByText(/Absolutly Screwed Up/i);
+    expect(title).toBeInTheDocument();
+
+    const shareButton = screen.getByTestId('share-btn');
+    expect(shareButton).toBeInTheDocument();
+    // https://cursos.alura.com.br/forum/topico-como-testar-o-que-tem-na-area-de-transferencia-e-um-select-multiplo-150788
+    // userEvent.click(shareButton);
+    // expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
+    // const copiedLinkSpan = screen.getByText(/Link copiado/i);
+    // await waitFor(() => expect(copiedLinkSpan).toBeInTheDocument());
+
+    const likeButton = screen.getByTestId('favorite-btn');
+    expect(likeButton.src).toContain('http://localhost/whiteHeartIcon.svg');
+    userEvent.click(likeButton);
+    expect(likeButton.src).toContain('http://localhost/blackHeartIcon.svg');
+
+    const alcoholic = screen.getByText('Alcoholic');
+    const categoria = screen.getByText('Cocktail');
+    expect(alcoholic).toBeInTheDocument();
+    expect(categoria).toBeInTheDocument();
+
+    const ingredientes = screen.getAllByTestId(/ingredient-name-and-measure/i);
+    const ingredientesLength = 4;
+    expect(ingredientes.length).toBe(ingredientesLength);
+
+    const startButton = screen.getByTestId('start-recipe-btn');
+    expect(startButton).toBeInTheDocument();
+    // userEvent.click(startButton);
+    // expect(history.location.pathname).toBe('/bebidas/16134/in-progress');
   });
 });
