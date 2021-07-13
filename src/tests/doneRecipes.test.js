@@ -52,4 +52,22 @@ describe('Teste da página doneRecipes', () => {
     expect(shareBtn.src).toContain('http://localhost/shareIcon.svg');
     // userEvent.click(shareBtn);
   });
+
+  // it('testa o copyLink', async () => {
+  //   renderWithRouterAndRedux(
+  //     <DoneRecipesCard
+  //       recipe={ doneRecipes[0] }
+  //       index={ 0 }
+  //     />,
+  //   );
+
+  //   navigator.clipboard = {
+  //     writeText: jest.fn(),
+  //   };
+
+  //   const shareBtn = screen.getByAltText('shareIcon');
+  //   expect(shareBtn.src).toContain('http://localhost/shareIcon.svg');
+  //   userEvent.click(shareBtn);
+  //   expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
+  // });
 });
