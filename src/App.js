@@ -12,15 +12,32 @@ import DetailsFoodPage from './components/DetailsFoodPage';
 import DetailsDrinkPage from './components/DetailsDrinkPage';
 import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
-import ExpIngredients from './components/ExpIngredients';
+import ExpFoodIngredients from './components/ExpFoodIngredients';
 import ExpArea from './components/ExpArea';
 import ExpSurprise from './components/ExpSurprise';
+import ExpDrinkIngredients from './components/ExpDrinkIngredients';
 
 function App() {
   return (
     <ProviderRecipes>
       {/* <div className="meals"> */}
       <Switch>
+        <Route
+          path="/explorar/comidas/ingredientes"
+          render={ (props) => <ExpFoodIngredients { ...props } /> }
+        />
+        <Route
+          path="/explorar/comidas/area"
+          render={ (props) => <ExpArea { ...props } /> }
+        />
+        <Route
+          path="/explorar/comidas/:id"
+          render={ (props) => <DetailsFoodPage { ...props } /> }
+        />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          render={ (props) => <ExpDrinkIngredients { ...props } /> }
+        />
         <Route
           exact
           path="/comidas/:id"
@@ -31,31 +48,9 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <DetailsDrinkPage { ...props } /> }
         />
-        <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
-        <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
-        <Route
-          path="/explorar/comidas/ingredientes"
-          render={ (props) => <ExpIngredients { ...props } /> }
-        />
-        <Route
-          path="/explorar/comidas/area"
-          render={ (props) => <ExpArea { ...props } /> }
-        />
-        <Route
-          path="/explorar/comidas/:id"
-          render={ (props) => <ExpSurprise { ...props } /> }
-        />
         <Route
           path="/explorar/comidas"
           render={ (props) => <ExploreFoods { ...props } /> }
-        />
-        <Route
-          path="/explorar/bebidas/ingredientes"
-          render={ (props) => <ExpIngredients { ...props } /> }
-        />
-        <Route
-          path="/explorar/bebidas/:id"
-          render={ (props) => <ExpSurprise { ...props } /> }
         />
         <Route
           path="/explorar/bebidas"
@@ -63,6 +58,8 @@ function App() {
         />
         <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
+        <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
       {/* </div> */}
