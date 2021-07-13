@@ -32,14 +32,14 @@ class DoneRecipes extends Component {
   }
 
   handleFilterFoods() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes.filter((elem) => elem.type === 'comida'),
     });
   }
 
   handleFilterDrinks() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes.filter((elem) => elem.type === 'bebida'),
     });
@@ -124,14 +124,15 @@ class DoneRecipes extends Component {
                 <Card.Text data-testid={ `${index}-horizontal-done-date` }>
                   {doneDate}
                 </Card.Text>
-                {tags.map((el) => (
-                  <Card.Text
-                    key={ el }
-                    data-testid={ `data-testid=${index}-${el}-horizontal-tag` }
-                  >
-                    {el}
-                  </Card.Text>))}
-
+                {
+                  tags !== '' && tags.map((el) => (
+                    <Card.Text
+                      key={ el }
+                      data-testid={ `${index}-${el}-horizontal-tag` }
+                    >
+                      {el}
+                    </Card.Text>))
+                }
               </Card.Body>
             </Card>
           ))

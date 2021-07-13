@@ -96,7 +96,7 @@ class Progresso extends Component {
     const { match: { params: { id } } } = this.props;
     this.setState({ should: true, id });
 
-    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
     if (recovery.meals[id] !== undefined) {
       return this.setState({ allIngredients: recovery.meals[id] });
     }
@@ -129,8 +129,6 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
-    const tags = details[keyName.Tags].split(',') || [];
-    console.log(tags);
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],
@@ -141,7 +139,7 @@ class Progresso extends Component {
       name: details[keyName.Name],
       image: details[keyName.Thumb],
       doneDate: `${currentDate}`,
-      tags: details[keyName.Tags] ? tags : '',
+      tags: details[keyName.Tags] ? details[keyName.Tags].split(',') : '',
     };
 
     doneRecipes.push(recipe);
@@ -151,7 +149,7 @@ class Progresso extends Component {
   finishRecipe() {
     const { match: { params: { id, page } } } = this.props;
     if (localStorage.inProgressRecipes) {
-      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
 
       if (page === 'comidas') {
         delete inProgress.meals[id];
