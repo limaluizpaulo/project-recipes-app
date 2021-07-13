@@ -7,16 +7,18 @@ import Header from '../components/Header';
 import { getRandomRecipe } from '../services/apiRequest';
 
 function ExploreFoods() {
-  const [verifyPath, setVerifyPath] = useState(true);
-  const [idRandom, setIdRandom] = useState('');
   const { path } = useRouteMatch();
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const secondKey = path.includes('/comidas') ? 'idMeal' : 'idDrink';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
   const history = useHistory();
 
+  const [verifyPath, setVerifyPath] = useState(true);
+  const [idRandom, setIdRandom] = useState('');
+
+  const [domain, firstKey, secondKey] = path.includes('comidas')
+    ? ['themealdb', 'meals', 'idMeal']
+    : ['thecocktaildb', 'drinks', 'idDrink'];
+
   useEffect(() => {
-    setVerifyPath(path.includes('/comidas'));
+    setVerifyPath(path.includes('comidas'));
   }, [path]);
 
   useEffect(() => {
@@ -27,12 +29,12 @@ function ExploreFoods() {
     getDataRandom();
   }, [firstKey, secondKey, domain]);
 
-  const ingridientPath = path.includes('/comidas')
+  const ingridientPath = path.includes('comidas')
     ? '/explorar/comidas/ingredientes'
     : '/explorar/bebidas/ingredientes';
 
   function handleSurpriseMe() {
-    const randomPath = path.includes('/comidas')
+    const randomPath = path.includes('comidas')
       ? `/comidas/${idRandom}`
       : `/bebidas/${idRandom}`;
     history.push(randomPath);

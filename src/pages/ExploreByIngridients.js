@@ -6,14 +6,16 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { getDataIngredientsList } from '../services/apiRequest';
 
-function ExploreFoodsByIngredients() {
-  const [ingredientsList, setIngredientsList] = useState([]);
+export default function ExploreByIngridients() {
   const { limit, setIngredientsResults } = useContext(RecipesContext);
+
+  const [ingredientsList, setIngredientsList] = useState([]);
+
   const { path } = useRouteMatch();
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
-  const secondKey = path.includes('/comidas') ? 'strIngredient' : 'strIngredient1';
-  const homePath = path.includes('/comidas') ? '/comidas' : '/bebidas';
+
+  const [domain, firstKey, secondKey, homePath] = path.includes('comidas')
+    ? ['themealdb', 'meals', 'strIngredient', '/comidas']
+    : ['thecocktaildb', 'drinks', 'strIngredient1', '/bebidas'];
 
   useEffect(() => {
     getDataIngredientsList(domain).then((result) => {
@@ -22,7 +24,6 @@ function ExploreFoodsByIngredients() {
   }, [domain, firstKey, limit]);
 
   const handleClick = (ingredient) => {
-    console.log(ingredient.replace('_', ' '));
     setIngredientsResults(ingredient.replace('_', ' '));
   };
 
@@ -33,7 +34,7 @@ function ExploreFoodsByIngredients() {
         <Link
           data-testid={ `${i}-ingredient-card` }
           onClick={ () => handleClick(item[secondKey]) }
-          to={ `${homePath}` }
+          to={ homePath }
           key={ i }
         >
           <section>
@@ -53,5 +54,3 @@ function ExploreFoodsByIngredients() {
     </>
   );
 }
-
-export default ExploreFoodsByIngredients;

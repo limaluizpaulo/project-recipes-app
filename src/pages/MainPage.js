@@ -15,9 +15,10 @@ const TWELVE = 12;
 const FIVE = 5;
 export default function MainPage() {
   const { path } = useRouteMatch();
-  const searchId = path === '/comidas' ? 'idMeal' : 'idDrink';
-  const firstKey = path.includes('/comidas') ? 'meals' : 'drinks';
-  const domain = path.includes('/comidas') ? 'themealdb' : 'thecocktaildb';
+
+  const [searchId, firstKey, domain] = path.includes('comidas')
+    ? ['idMeal', 'meals', 'themealdb']
+    : ['idDrink', 'drinks', 'thecocktaildb'];
 
   const {
     searchResult,
@@ -25,16 +26,12 @@ export default function MainPage() {
     setLimit,
     ingredientsResults,
   } = useContext(RecipesContext);
+
   const [isLoading, setLoader] = useState(true);
   const [dataResult, setDataResult] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [searchByCategory, setSearchByCategory] = useState([]);
   const [renderer, setRenderer] = useState([]);
   const [toggle, setToggle] = useState({ status: false, category: '' });
-
-  const lintChato = searchByCategory
-    ? console.log('yayyy... Vamo usar ela depois')
-    : console.log('Droga de lint');
 
   useEffect(() => {
     async function getInitialStatePopulated() {
@@ -65,28 +62,6 @@ export default function MainPage() {
     if (searchResult && searchResult.length > 1) { renderSearch(); }
   }, [searchResult, limit]);
 
-  async function handleCategoryFilter(category) {
-    if (toggle.category === category) {
-      setToggle({ status: false, category: '' });
-      setRenderer(dataResult.filter((_e, index) => index < limit));
-    } else {
-      getDataByCategory(domain, category)
-        .then((res) => {
-          setSearchByCategory(res[firstKey]);
-          setRenderer(res[firstKey].filter((_e, index) => index < limit));
-        });
-      setToggle({ status: true, category });
-    }
-  }
-
-  function handleMoreCards() {
-    setLimit(limit + TWELVE);
-  }
-
-  function handleAllClick() {
-    setRenderer(dataResult.filter((_e, index) => index < limit));
-  }
-
   useEffect(() => {
     async function fetchApiData() {
       console.log(ingredientsResults.replace('_', ' '));
@@ -94,12 +69,32 @@ export default function MainPage() {
         setRenderer(res[firstKey].filter((_e, index) => index < limit));
       });
     }
-    if (ingredientsResults.length !== 0) { fetchApiData(); }
+    if (ingredientsResults.length) { fetchApiData(); }
   }, [ingredientsResults, domain, firstKey, limit]);
+
+  async function handleCategoryFilter(category) {
+    if (toggle.category === category) {
+      setToggle({ status: false, category: '' });
+      setRenderer(dataResult.filter((_e, index) => index < limit));
+    } else {
+      getDataByCategory(domain, category)
+        .then((res) => {
+          setRenderer(res[firstKey].filter((_e, index) => index < limit));
+        });
+      setToggle({ status: true, category });
+    }
+  }
+
+  function handleAllClick() {
+    setRenderer(dataResult.filter((_e, index) => index < limit));
+  }
+
+  function handleMoreCards() {
+    setLimit(limit + TWELVE);
+  }
 
   return (
     <>
-      {lintChato}
       <Header />
       {categoriesList.map((category) => (
         <Button

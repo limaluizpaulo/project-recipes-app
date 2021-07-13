@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import CardRecipesDone from '../components/CardRecipesDone';
 import Header from '../components/Header';
-import CardFavorit from '../components/CardFavorit';
 
-export default function FavoritesRecipes() {
+export default function DoneRecipes() {
   const [renderer, setRenderer] = useState([]);
-  const [allFavorit, setAllFavorit] = useState([]);
+  const [allDone, setAllDone] = useState([]);
 
   useEffect(() => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setAllFavorit(favoriteRecipes);
-    setRenderer(favoriteRecipes);
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    setAllDone(doneRecipes);
+    setRenderer(doneRecipes);
   }, []);
 
   function handleAllBtn() {
-    setRenderer(allFavorit);
+    setRenderer(allDone);
   }
 
   function handleFoodBtn() {
-    const foodsRecipes = allFavorit.filter((recipes) => recipes.type === 'comida');
+    const foodsRecipes = allDone.filter((recipes) => recipes.type === 'comida');
     setRenderer(foodsRecipes);
   }
 
   function handleDrinksBtn() {
-    const drinksRecipes = allFavorit.filter((recipes) => recipes.type === 'bebida');
+    const drinksRecipes = allDone.filter((recipes) => recipes.type === 'bebida');
     setRenderer(drinksRecipes);
   }
 
@@ -39,7 +39,7 @@ export default function FavoritesRecipes() {
         Drinks
       </Button>
       { renderer && renderer.map((item, i) => (
-        <CardFavorit key={ i } mealOrDrink={ item } index={ i } />
+        <CardRecipesDone key={ i } mealOrDrink={ item } index={ i } />
       ))}
     </>
   );

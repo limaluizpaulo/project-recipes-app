@@ -1,3 +1,13 @@
+export async function fetchAPI(URL) {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
 // Source: https://medium.com/swlh/promises-async-await-and-fetch-network-requests-in-modern-javascript-fd0b2b384f3e
 
 export async function getRandomData(domain) {
@@ -33,13 +43,6 @@ export async function getDataByCategory(domain, category) {
   }
 }
 
-export async function fetchAPI(URL) {
-  const response = await fetch(URL);
-  const data = await response.json();
-
-  return data;
-}
-
 export async function getDataIngredientsList(domain) {
   try {
     const URL_DATA_INGREDIENTS_LIST = `https://www.${domain}.com/api/json/v1/1/list.php?i=list`;
@@ -66,6 +69,39 @@ export async function getRandomRecipe(domain) {
   try {
     const URL_RANDOM = `https://www.${domain}.com/api/json/v1/1/random.php`;
     const res = await fetch(URL_RANDOM);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
+export async function getAreasList() {
+  try {
+    const URL_AREA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+    const res = await fetch(URL_AREA);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
+export async function getRecipeByArea(area) {
+  try {
+    const URL_DATA_AREA = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+    const res = await fetch(URL_DATA_AREA);
+    const jsonRes = await res.json();
+    return jsonRes;
+  } catch (e) {
+    console.log(e.toString());
+  }
+}
+
+export async function getDataById(domain, id) {
+  try {
+    const URL_DETAILS = `https://www.${domain}.com/api/json/v1/1/lookup.php?i=${id}`;
+    const res = await fetch(URL_DETAILS);
     const jsonRes = await res.json();
     return jsonRes;
   } catch (e) {
