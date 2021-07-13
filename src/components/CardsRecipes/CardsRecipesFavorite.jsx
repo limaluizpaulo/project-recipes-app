@@ -18,7 +18,10 @@ function remove(Id, filterFavorites, setFilterFavorites) {
   localStorage.favoriteRecipes = JSON.stringify(newArray);
 }
 
-function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites }) {
+function CardsRecipesFavorite({ aux, index,
+  filterFavorites, setFilterFavorites, pathname }) {
+  const favorite = pathname.includes('favoritas');
+  console.log(favorite);
   const [copied, setCopied] = useState(false);
   const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
@@ -46,16 +49,18 @@ function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites 
         />
       </button>
       { copied ? <p>Link copiado!</p> : ' '}
-      <button
-        type="button"
-        onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
-      >
-        <img
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          src={ imgBtnFavorite }
-          alt="btn"
-        />
-      </button>
+      {favorite && (
+        <button
+          type="button"
+          onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
+        >
+          <img
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ imgBtnFavorite }
+            alt="btn"
+          />
+        </button>
+      )}
       <Link to={ `/${type}s/${id}` }>
         <img
           className="img-tam"
@@ -73,7 +78,8 @@ CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
   filterFavorites: PropTypes.func.isRequired,
-  setFilterFavorites: PropTypes.func.isRequired,
+  setFilterFavorites: PropTypes.objectOf.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default CardsRecipesFavorite;
