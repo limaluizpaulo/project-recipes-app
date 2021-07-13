@@ -136,6 +136,14 @@
   font-size: small;
 }
 
+.noDetailClass {
+  text-decoration: none;
+}
+
+.detailClass {
+  text-decoration: line-through;
+}
+
 @keyframes shake {
 
   0% {

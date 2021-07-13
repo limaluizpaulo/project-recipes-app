@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 import copy from 'clipboard-copy';
-import progress, { copyLink, favoriteClick, help } from '../helper/functions';
+import { redirectPage, copyLink, favoriteClick, help } from '../helper/functions';
 import useRecipeDetail from '../helper/useRecipeDetail';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -12,7 +12,6 @@ import { fetchRecipeAllDrink,
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
 
 function RecipeDetail({ idRecipe, typeRecipe }) {
-  const location = useLocation();
   const [list, setList] = useState([]);
   const [leng, setLeng] = useState([]);
   const [reco, setReco] = useState([]);
@@ -61,7 +60,7 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
       <img
         style={ { padding: '20px' } }
         role="presentation"
-        onClick={ () => copyLink(copy, setShow, location) }
+        onClick={ () => copyLink(copy, setShow, typeRecipe, idRecipe) }
         type="button"
         data-testid="share-btn"
         src={ shareIcon }
@@ -129,13 +128,7 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
           </div>))}
       </div>
       <button
-        onClick={ () => progress({
-          objectStart,
-          leng,
-          typeRecipe,
-          idRecipe,
-          history,
-          list }) }
+        onClick={ () => redirectPage(history, idRecipe, typeRecipe) }
         className="start-recipe"
         type="button"
         value={ button }
