@@ -3,7 +3,6 @@ import { requestFoodById } from '../../helpers/requests';
 
 function FoodInProgress({ match }) {
   const [data, setData] = useState([]);
-  console.log(data);
   const { params: { id } } = match;
   useEffect(() => {
     (async function request() {

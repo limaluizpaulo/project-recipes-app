@@ -10,7 +10,8 @@ function DrinkInProgress({ match }) {
       const resolve = await requestDrinkById(id);
       setData(resolve);
     }());
-    localStorage.setItem('cocktails', 'bruno');
+    const getStorage = localStorage.getItem('cocktails')
+    if(!getStorage) localStorage.setItem('cocktails', JSON.stringify([]));
   }, [id]);
 
   function ingredients() {
@@ -24,8 +25,8 @@ function DrinkInProgress({ match }) {
   }
 
   function handleChange({ target: { name } }) {
-    const pessoa = [name];
-    console.log(pessoa);
+    let getStorage = JSON.parse(localStorage.getItem('cocktails'));
+    localStorage.setItem('cocktails', JSON.stringify([...getStorage,  name]));
   }
 
   return (
@@ -58,10 +59,10 @@ function DrinkInProgress({ match }) {
                         type="checkbox"
                         id={ index }
                         name={ data.drinks[0][key] }
+                        checked={JSON.parse(localStorage.getItem('cocktails')).find((item)=> item == data.drinks[0][key] )}
                         onClick={ handleChange }
                       />
                       { data.drinks[0][key] }
-                      checked=
                       {}
                     </label>
                   </li>
