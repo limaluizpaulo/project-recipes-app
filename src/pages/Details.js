@@ -11,6 +11,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { getDataById, getRandomData } from '../services/apiRequest';
+import Loading from '../components/Loading';
 
 const SIX = 6;
 
@@ -79,7 +80,7 @@ export default function Details() {
     getInitialFavorits();
   }, [id]);
 
-  if (!singleContent[0]) return <h1>Loading...</h1>;
+  if (!singleContent[0]) return <Loading />;
   return (
     <>
       <img
