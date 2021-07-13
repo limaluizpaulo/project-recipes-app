@@ -35,9 +35,9 @@ class Ingredients extends Component {
   }
 
   render() {
-    const ingredients = [
-      { checked: false, ingredient: 'Potatoes', measure: '2 larges' },
-    ];
+   // const ingredients = [
+   //   { checked: false, ingredient: 'Potatoes', measure: '2 larges' },
+   // ];
     const { data, isStart } = this.props;
     const dictionary = identification(data);
     return (
