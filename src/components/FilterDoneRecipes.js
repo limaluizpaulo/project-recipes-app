@@ -6,8 +6,8 @@ import ShareBtn from './ShareBtn';
 
 export default function FilterDoneRecipes() {
   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
-  const { push } = useHistory();
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const { push } = useHistory();
   const [fil, setFil] = useState('');
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function FilterDoneRecipes() {
     return result;
   }
 
-  function disable() {
-    if (storage.lentgh === 0) {
-      return true;
-    }
-    return false;
-  }
+  // function disable() {
+  //   if (storage.lentgh === 0) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   function clickCard(type, id) {
     console.log(type);
@@ -43,21 +43,21 @@ export default function FilterDoneRecipes() {
     <div>
       <div>
         <Button
-          disabled={ disable }
+          // disabled={ disable }
           data-testid="filter-by-all-btn"
-          onClick={ () => setFil('') }
+          onClick={ () => setFil() }
         >
           All
         </Button>
         <Button
-          disabled={ disable }
+          // disabled={ disable }
           data-testid="filter-by-food-btn"
           onClick={ () => setFil('comida') }
         >
           Food
         </Button>
         <Button
-          disabled={ disable }
+          // disabled={ disable }
           data-testid="filter-by-drink-btn"
           onClick={ () => setFil('bebida') }
         >
@@ -65,7 +65,7 @@ export default function FilterDoneRecipes() {
         </Button>
       </div>
       <div className="card-container">
-        { filter(fil) === null ? <p>Não há receitas feitas</p>
+        { !filter(fil) ? <p>Não há receitas feitas</p>
           : filter(fil).map((el, i) => (
             <div className="recipe-card" key={ el.id }>
               <button
