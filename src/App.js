@@ -10,11 +10,10 @@ import Explorar from './pages/telaDeExplorar';
 import ExplorarIngredientes from './pages/explorarIngredientes';
 import explorarArea from './pages/explorarArea';
 import Progresso from './pages/Progresso';
-import Feitas from './pages/telaReceitasFeitas';
 import Favoritas from './pages/telaReceitasFavoritas';
 import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ReceitasFeitas from './pages/ReceitasFeitas';
+import Receitas from './pages/ReceitasFeitas';
 
 class App extends Component {
   render() {
@@ -35,7 +34,7 @@ class App extends Component {
           <Route path="/explorar/bebidas" component={ Explorarcomidas } />
           <Route path="/:page/:id/in-progress" component={ Progresso } />
           <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />
-          <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route path="/receitas-feitas" component={ Receitas } />
           <Route path="/receitas-favoritas" component={ Favoritas } />
           <Route path="/explorar" component={ Explorar } />
           <Route path="/perfil" component={ Perfil } />

@@ -129,17 +129,19 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
+    const tags = details[keyName.Tags].split(',') || [];
+    console.log(tags);
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],
-      type: page,
+      type: page === 'comidas' ? 'comida' : 'bebida',
       area: details[keyName.Area] ? details[keyName.Area] : '',
       category: details[keyName.Category] ? details[keyName.Category] : '',
       alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
       name: details[keyName.Name],
       image: details[keyName.Thumb],
       doneDate: `${currentDate}`,
-      tags: details[keyName.Tags] ? details[keyName.Tags] : '',
+      tags: details[keyName.Tags] ? tags : '',
     };
 
     doneRecipes.push(recipe);
@@ -155,7 +157,6 @@ class Progresso extends Component {
         delete inProgress.meals[id];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
       }
-
       if (page === 'bebidas') {
         delete inProgress.cocktails[id];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
