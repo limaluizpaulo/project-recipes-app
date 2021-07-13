@@ -6,7 +6,7 @@ import Header from './Header';
 import SBElements from './SBElements';
 
 function ExpDrinkIngredients({ history }) {
-  const { goSearch, setTitle } = useContext(ContextRecipes);
+  const { goSearch, setTitle, setDrinks } = useContext(ContextRecipes);
   const [drinkIngredients, setdrinkIngredients] = useState([]);
 
   const maxLength = 11;
@@ -18,24 +18,37 @@ function ExpDrinkIngredients({ history }) {
         .then((results) => setdrinkIngredients(results.drinks)));
   };
 
+  const fetchRecipeByIngredient = (strIngredient) => {
+    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${strIngredient}`;
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setDrinks(results.drinks)));
+  };
+
   useEffect(() => {
     fetchDrnkIngredients();
     setTitle('Explorar Ingredientes');
   }, [setTitle]);
 
+  const handleClick = (strIngredient) => {
+    fetchRecipeByIngredient(strIngredient);
+    history.push('/bebidas');
+  };
+
   return (
     <div>
-      {console.log(drinkIngredients)}
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <h1>Explorar Ingredientes</h1>
       <section>
         {drinkIngredients && drinkIngredients
           .map(({ strIngredient1 }, index) => index <= maxLength && (
-            <article key={ index } data-testid={ `${index}-ingredient-card` }>
-              <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
-              <img src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` } alt="ingredientImg" data-testid={ `${index}-card-img` } />
-            </article>))}
+            <button type="button" onClick={ () => handleClick(strIngredient1) }>
+              <article key={ index } data-testid={ `${index}-ingredient-card` }>
+                <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
+                <img src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` } alt="ingredientImg" data-testid={ `${index}-card-img` } />
+              </article>
+            </button>))}
       </section>
       <Footer history={ history } />
     </div>

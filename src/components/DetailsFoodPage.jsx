@@ -15,7 +15,7 @@ function DetailsFoodPage({ match: { params } }) {
     };
     getRecipes();
   }, [setRecipes, id]);
-  console.log(id, recipes);
+  // console.log(id, recipes);
 
   return (
     <div>
