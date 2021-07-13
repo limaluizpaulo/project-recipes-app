@@ -141,8 +141,6 @@ function ReceitaEmProgresso({ match }) {
     return (<h4 className="loading">Carregando...</h4>);
   }
 
-  console.log(recipe);
-
   ingredientsStep();
   checkFavorite(checkFavoriteParams);
   checkInProgress(checkInProgressParams);

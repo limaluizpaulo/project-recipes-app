@@ -25,10 +25,13 @@ export default function LoginProvider({ children }) {
     return today;
   }
 
-  const done = localStorage.getItem('doneRecipes');
+  // const done = localStorage.getItem('doneRecipes');
+  // const [dones, setDones] = useState();
 
-  function seila(recipe) {
-    console.log(done);
+  function doneRecipes(recipe) {
+    const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log('doneRecipes recipe', recipe);
+    console.log('doneRecipes done', done);
     if (recipe.strAlcoholic === undefined) {
       localStorage.setItem('doneRecipes', JSON.stringify([...done, {
         id: recipe.idMeal,
@@ -39,10 +42,42 @@ export default function LoginProvider({ children }) {
         name: recipe.strMeal,
         image: recipe.strMealThumb,
         doneDate: doneDate(),
-        tags: recipe.strTags !== null ? recipe.strTags.split(',') : null,
+        tags: recipe.strTags ? recipe.strTags.split(',') : null,
       }]));
     } else {
       localStorage.setItem('doneRecipes', JSON.stringify([...done, {
+        id: recipe.idDrink,
+        type: 'bebida',
+        area: null,
+        category: recipe.strCategory,
+        alcoholicOrNot: recipe.strAlcoholic,
+        name: recipe.strDrink,
+        image: recipe.strDrinkThumb,
+        doneDate: doneDate(),
+        tags: recipe.strTags ? recipe.strTags.split(',') : null,
+      }]));
+    }
+  }
+
+  function doneDefault(recipe) {
+    const done = localStorage.getItem('doneRecipes');
+    // console.log('doneDefault', typeof recipe);
+    if (done) {
+      doneRecipes(recipe);
+    } else if (recipe.strAlcoholic === undefined) {
+      localStorage.setItem('doneRecipes', JSON.stringify([{
+        id: recipe.idMeal,
+        type: 'comida',
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: null,
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+        doneDate: doneDate(),
+        tags: recipe.strTags ? recipe.strTags.split(',') : null,
+      }]));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([{
         id: recipe.idDrink,
         type: 'bebida',
         area: null,
@@ -56,28 +91,11 @@ export default function LoginProvider({ children }) {
     }
   }
 
-  function doneRecipes(recipe) {
-    const dale = done === null
-      ? localStorage.setItem('doneRecipes', JSON.stringify([{
-        id: recipe.idMeal,
-        type: 'comida',
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: null,
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-        doneDate: doneDate(),
-        tags: recipe.strTags !== null ? recipe.strTags.split(',') : null,
-      }])) : seila(recipe);
-    return dale;
-  }
-  //
-
   const context = {
     email,
     password,
     successLogin,
-    doneRecipes,
+    doneDefault,
   };
 
   return (

@@ -7,7 +7,7 @@ function InProgressButton(props) {
   const { value: { ingredientsQuantity, checked, recipe } } = props;
   const { push } = useHistory();
   const [disabled, setDisabled] = useState(true);
-  const { doneRecipes } = useContext(LoginContext);
+  const { doneDefault } = useContext(LoginContext);
 
   if (ingredientsQuantity === checked && disabled === true) {
     setDisabled(false);
@@ -19,7 +19,7 @@ function InProgressButton(props) {
       data-testid="finish-recipe-btn"
       disabled={ disabled }
       onClick={ () => {
-        doneRecipes(recipe);
+        doneDefault(recipe);
         push('/receitas-feitas');
       } }
     >
