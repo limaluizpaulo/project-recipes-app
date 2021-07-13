@@ -6,7 +6,6 @@ import mealIcon from '../images/mealIcon.svg';
 
 export default function Footer() {
   const { pathname } = useLocation();
-  console.log(pathname);
   return (
     <footer
       className={ `footer ${pathname.slice(1, pathname.length)}` }

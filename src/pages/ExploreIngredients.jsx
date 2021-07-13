@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { getMealsIngredients, getRecipesByIng } from '../helpers/MealsAPI';
+import { getMealsIngredients } from '../helpers/MealsAPI';
 import logo from '../images/mustachef.svg';
 import RecipesContext from '../contexts/RecipesContext';
 
 export default function ExploreIngredients() {
-  const { setData, type } = useContext(RecipesContext);
+  const { type, setIngredient, ingredient } = useContext(RecipesContext);
   const [dataIngredients, setDataIngredients] = useState();
   const [isFetching, setIsFetching] = useState(true);
   const maxCards = 12;
@@ -15,20 +15,31 @@ export default function ExploreIngredients() {
   const { pathname } = useLocation();
   const ingredientPathname = pathname.includes('comidas') ? '/comidas' : '/bebidas';
 
-  const fetchRecipesByIngredient = async (ingredient, paramType) => {
-    const recipes = await getRecipesByIng(ingredient, paramType);
-    setData(recipes);
-  };
+  // const fetchRecipesByIngredient = async (ingredient, paramType) => {
+  //   const recipes = await getRecipesByIng(ingredient, paramType);
+  //   setData(recipes);
+  // };
 
   useEffect(() => {
     const ingredients = async () => {
       setIsFetching(true);
+      // console.log(type);
       const result = await getMealsIngredients(type);
       setDataIngredients(result.filter((item, index) => index < maxCards));
       setIsFetching(false);
     };
     ingredients();
   }, []);
+
+  // const title = {
+  //   meals: strIngredient,
+  //   drinks: strIngredient1,
+  // };
+  useEffect(() => {
+    if (ingredient !== '') {
+      history.push(ingredientPathname);
+    }
+  }, [ingredient]);
 
   return isFetching ? (
     <div className="loading transparent">
@@ -44,20 +55,24 @@ export default function ExploreIngredients() {
             type="button"
             data-testid={ `${index}-ingredient-card` }
             onClick={ () => {
-              fetchRecipesByIngredient(ingrediente.strIngredient, type);
-              history.push(ingredientPathname);
+              setIngredient(ingrediente.strIngredient || ingrediente.strIngredient1);
+              // history.push(ingredientPathname);
             } }
           >
             <img
               data-testid={ `${index}-card-img` }
               width="100"
-              alt={ ingrediente.strIngredient }
-              src={ `https://www.themealdb.com/images/ingredients/${ingrediente.strIngredient}.png` }
+              alt={ ingrediente.strIngredient || ingrediente.strIngredient1 }
+              src={
+                type === 'meals'
+                  ? `https://www.themealdb.com/images/ingredients/${ingrediente.strIngredient}-Small.png`
+                  : `https://www.thecocktaildb.com/images/ingredients/${ingrediente.strIngredient1}-Small.png`
+              }
             />
             <span
               data-testid={ `${index}-card-name` }
             >
-              { ingrediente.strIngredient }
+              { ingrediente.strIngredient || ingrediente.strIngredient1 }
             </span>
           </button>
         )) }
