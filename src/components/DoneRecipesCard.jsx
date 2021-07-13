@@ -36,12 +36,14 @@ function DoneRecipesCard() {
               >
                 {recipe.name}
               </span>
-              <img
-                className="food__card__img"
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <div className="food__card__img">
+                <img
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </div>
+
             </Link>
 
             <p
