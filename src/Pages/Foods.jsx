@@ -8,6 +8,7 @@ import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
 import { setList12 } from '../services/services';
+import Loading from '../Components/Loading';
 
 function Foods(props) {
   const { getByDefault, getByCategory } = MealsAPI;
@@ -34,7 +35,7 @@ function Foods(props) {
     }
   }, [foods]);
 
-  return loading ? <div>Loading...</div> : (
+  return loading ? <Loading /> : (
     <div className="tela-food">
       <HeadBar title="Comidas" />
       <CategoryButtons

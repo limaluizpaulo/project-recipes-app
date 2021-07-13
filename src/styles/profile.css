@@ -1,0 +1,31 @@
+.tela-profile {
+  background-color: #f7f2f7;
+  height: 100%;
+  width: 100%;
+}
+
+.menu-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateY(70px);
+}
+
+.btn-menu {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border: none;
+  border-radius: 25px;
+  color: #f7f2f7;
+  cursor: pointer;
+  display: flex;
+  font-family: Montserrat , sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import comida from '../images/comida.jpg';
-import logo from '../images/receita.png';
+import logo from '../images/logo_size_invert.jpg';
 import drink from '../images/cockitel.png';
 
 const Login = () => {

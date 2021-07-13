@@ -91,3 +91,8 @@ body {
   text-align: center;
   width: 80%;
 }
+
+.form-login input:focus {
+  box-shadow: none;
+  outline: none;
+}

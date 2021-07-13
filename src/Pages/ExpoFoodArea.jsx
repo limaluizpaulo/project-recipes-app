@@ -9,6 +9,7 @@ import { setArea, getAreas } from '../redux/actions';
 import fetchByArea from '../services/fetchByArea';
 import api from '../services/MealRecipesAPI';
 import Footer from '../Components/Footer';
+import Loading from '../Components/Loading';
 
 function ExpoFoodArea(props) {
   const { localsReceived, locals = [], infoFoods, foods } = props;
@@ -29,7 +30,7 @@ function ExpoFoodArea(props) {
   async function handlechange({ target: { value } }) {
     await infoFoods(value, api.foodsArea);
   }
-  return locals.length === 0 ? <div> loading... </div> : (
+  return locals.length === 0 ? <Loading /> : (
     <div className="tela-explore">
       <Header title="Explorar Origem" />
       <div className="div-select">

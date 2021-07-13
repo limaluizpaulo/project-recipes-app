@@ -23,12 +23,17 @@ import './App.css';
 import './styles/login.css';
 import './styles/foods.css';
 import './styles/Header.css';
+import './styles/profile.css';
+import './styles/font.css';
+
+import Loading from './Components/Loading';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
         <Route exact path="/explorar/comidas/ingredientes" component={ ExpoFoodsIng } />
+        <Route exact path="/loading" component={ Loading } />
         <Route exact path="/explorar/comidas/area" component={ ExpoFoodArea } />
         <Route exact path="/comidas/:id" component={ FoodDetails } />
         <Route exact path="/comidas/:id/in-progress" component={ Progress } />

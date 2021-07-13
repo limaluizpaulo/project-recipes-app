@@ -12,25 +12,42 @@ const Profile = () => {
   const email = JSON.parse(localStorage.getItem('user'))
     ? JSON.parse(localStorage.getItem('user')).email
     : '';
-  console.log(email);
   return (
-    <div>
+    <div className="tela-profile">
       <Header title="Perfil" />
-      <h3 data-testid="profile-email">{email}</h3>
-      <Link to="/receitas-feitas">
-        <Button data-testid="profile-done-btn">Receitas Feitas</Button>
-      </Link>
-      <Link to="/receitas-favoritas">
-        <Button data-testid="profile-favorite-btn">Receitas Favoritas</Button>
-      </Link>
-      <Link to="/">
-        <Button
-          data-testid="profile-logout-btn"
-          onClick={ () => clickLogout() }
-        >
-          Sair
-        </Button>
-      </Link>
+      <div className="menu-profile">
+        <h3 data-testid="profile-email">{email}</h3>
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+            className="btn-menu"
+          >
+            Receitas Feitas
+
+          </button>
+        </Link>
+        <Link to="/receitas-favoritas">
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+            className="btn-menu"
+          >
+            Receitas Favoritas
+
+          </button>
+        </Link>
+        <Link to="/">
+          <button
+            type="button"
+            className="btn-menu"
+            data-testid="profile-logout-btn"
+            onClick={ () => clickLogout() }
+          >
+            Sair
+          </button>
+        </Link>
+      </div>
       <Footer />
     </div>
   );

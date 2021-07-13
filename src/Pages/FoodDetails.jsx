@@ -11,6 +11,7 @@ import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 
 import '../styles/Buttons.css';
+import Loading from '../Components/Loading';
 
 const FoodDetails = (props) => {
   const { match: { params: { id } } } = props;
@@ -37,7 +38,7 @@ const FoodDetails = (props) => {
     }
   }, []);
 
-  return !redirect ? <h3>Loading</h3>
+  return !redirect ? <Loading />
     : (
       <div className="card-details">
         { food.map((foodItem, index) => (

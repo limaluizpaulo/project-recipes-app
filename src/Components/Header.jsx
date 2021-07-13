@@ -14,10 +14,14 @@ export default function Header(props) {
         </Link>
       </div>
       <div>
-        <h1 data-testid="page-title">{title}</h1>
+        <h1 className="titulos" data-testid="page-title">{title}</h1>
       </div>
       <div>
-        <button type="button" onClick={ () => { setSearchBar(!searchBar); } }>
+        <button
+          className="btn-search"
+          type="button"
+          onClick={ () => { setSearchBar(!searchBar); } }
+        >
           <img src={ searchIcon } alt="search" data-testid="search-top-btn" />
         </button>
       </div>

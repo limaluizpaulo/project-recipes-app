@@ -9,8 +9,7 @@ import MealRecipes from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreFoods(props) {
-  const { surpriseFood, shouldRedirect, food, margato } = props;
-  console.log(margato);
+  const { surpriseFood, shouldRedirect, food } = props;
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
     <div className="tela-explore">

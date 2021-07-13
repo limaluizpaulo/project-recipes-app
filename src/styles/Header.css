@@ -17,6 +17,16 @@
   text-align: center;
 }
 
+.btn-search {
+  background: none;
+  border: none;
+}
+
+.btn-search:focus {
+  box-shadow: none;
+  outline: none;
+}
+
 .barra-pesquisar {
   margin-bottom: 5px;
 }

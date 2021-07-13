@@ -21,7 +21,7 @@ export default function Card(props) {
           height="30px"
         />
         <div
-          className="card-subtitle"
+          className="card-subtitle titulos"
           data-testid={ `${index}-card-name` }
         >
           {item[`str${dbType}`]}
