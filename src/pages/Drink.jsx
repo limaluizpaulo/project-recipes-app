@@ -19,8 +19,8 @@ export default function Drink() {
     const endpointMeals = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const twelve = 12;
     const result = await fetch(endpointMeals).then((data) => data.json())
-      .then((object) => object.drinks.filter((item, index) => item && index < twelve))
-      .catch((error) => error);
+      .then((object) => object.drinks.filter((item, index) => item && index < twelve));
+      // .catch((error) => error);
     setFoodAndDrinkList(result);
   };
 
@@ -34,8 +34,8 @@ export default function Drink() {
       const five = 5;
       const result = await fetch(endpointCategory).then((data) => data.json())
         .then((object) => object.drinks
-          .filter((item, index) => item.strCategory && index < five))
-        .catch((error) => error);
+          .filter((item, index) => item.strCategory && index < five));
+        // .catch((error) => error);
       setFiltersByCategory(result);
     };
     getFiltersByCategory();
@@ -46,9 +46,8 @@ export default function Drink() {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
       const twelve = 12;
       const result = await fetch(endpoint).then((data) => data.json())
-        .then((object) => object.drinks.filter((item, index) => item && index < twelve))
-        .catch((error) => console.log(error));
-      console.log(category);
+        .then((object) => object.drinks.filter((item, index) => item && index < twelve));
+        // .catch((error) => error);
       setFoodAndDrinkList(result);
       setCheckCategory(category);
     } else {

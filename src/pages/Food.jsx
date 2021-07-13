@@ -19,8 +19,8 @@ export default function Food() {
     const endpointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const twelve = 12;
     const result = await fetch(endpointMeals).then((data) => data.json())
-      .then((object) => object.meals.filter((item, index) => item && index < twelve))
-      .catch((error) => error);
+      .then((object) => object.meals.filter((item, index) => item && index < twelve));
+      // .catch((error) => error);
     setFoodAndDrinkList(result);
   };
 
@@ -34,8 +34,8 @@ export default function Food() {
       const five = 5;
       const result = await fetch(endpointCategory).then((data) => data.json())
         .then((object) => object.meals
-          .filter((item, index) => item.strCategory && index < five))
-        .catch((error) => error);
+          .filter((item, index) => item.strCategory && index < five));
+        // .catch((error) => error);
       setFiltersByCategory(result);
     };
     getFiltersByCategory();
@@ -46,8 +46,8 @@ export default function Food() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
       const twelve = 12;
       const result = await fetch(endpoint).then((data) => data.json())
-        .then((object) => object.meals.filter((item, index) => item && index < twelve))
-        .catch((error) => console.log(error));
+        .then((object) => object.meals.filter((item, index) => item && index < twelve));
+        // .catch((error) => error);
       setFoodAndDrinkList(result);
       setCheckCategory(category);
     } else {
