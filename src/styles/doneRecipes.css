@@ -1,10 +1,10 @@
-.foodPage {
+.foodPagee {
   background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
   min-height: calc(100vh - 19vh);
   padding-bottom: 65px;
 }
 
-.food__category__button {
+.food__category__buttonn {
   background: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 5px;
@@ -25,7 +25,7 @@
   justify-content: center;
 }
 
-.food__card__done {
+.food__card__donee {
   align-items: center;
   background-color: #f1ecea;
   border-radius: 10px;
@@ -45,7 +45,7 @@
   transform: scale(1.02);
 }
 
-.food__card_text {
+.food__card_textt {
   background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
@@ -54,7 +54,7 @@
   width: 100%;
 }
 
-.food__card p {
+.food__cardd p {
   font-family: rancho , sans-serif;
   font-size: 1.5em;
   margin: 0;
@@ -62,7 +62,7 @@
   z-index: 1;
 }
 
-.food__card span {
+.food__card__donee span {
   background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
@@ -73,14 +73,12 @@
   width: 100%;
 }
 
-.food__card__img {
-  height: 90%;
-  max-width: 100%;
+.food__card__imgg {
+  width: 100%;
 }
 
-.food__card img {
+.food__cardd img {
   border-radius: 10px;
-  height: 100%;
   object-fit: cover;
   width: 100%;
 }
