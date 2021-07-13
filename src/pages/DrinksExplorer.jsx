@@ -36,22 +36,24 @@ class DrinksExplorer extends Component {
     return (
       <div>
         <Header header="Explorar Bebidas" explorer={ false } />
-        <Link to="/explorar/bebidas/ingredientes">
+        <div className="box-button">
+          <Link to="/explorar/bebidas/ingredientes">
+            <button
+              type="button"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
+
           <button
             type="button"
-            data-testid="explore-by-ingredient"
+            data-testid="explore-surprise"
+            onClick={ this.redirect }
           >
-            Por Ingredientes
+            Me Surpreenda!
           </button>
-        </Link>
-
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          onClick={ this.redirect }
-        >
-          Me Surpreenda!
-        </button>
+        </div>
         <DownMenu />
       </div>
     );

@@ -1,0 +1,12 @@
+.page-explorer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-explorer button {
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+}

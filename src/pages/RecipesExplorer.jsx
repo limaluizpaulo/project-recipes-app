@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
+import '../Style/RecipesExplorer.css';
 
 class RecipesExplorer extends Component {
   constructor(props) {
@@ -39,32 +40,33 @@ class RecipesExplorer extends Component {
           header="Explorar Comidas"
           explorer={ false }
         />
-        <Link to="/explorar/comidas/ingredientes">
+        <div className="box-button">
+          <Link to="/explorar/comidas/ingredientes">
+            <button
+              type="button"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
+
+          <Link to="/explorar/comidas/area">
+            <button
+              type="button"
+              data-testid="explore-by-area"
+            >
+              Por Local de Origem
+            </button>
+          </Link>
+
           <button
             type="button"
-            data-testid="explore-by-ingredient"
+            data-testid="explore-surprise"
+            onClick={ this.redirect }
           >
-            Por Ingredientes
+            Me Surpreenda!
           </button>
-        </Link>
-
-        <Link to="/explorar/comidas/area">
-          <button
-            type="button"
-            data-testid="explore-by-area"
-          >
-            Por Local de Origem
-          </button>
-        </Link>
-
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          onClick={ this.redirect }
-        >
-          Me Surpreenda!
-        </button>
-
+        </div>
         <DownMenu />
       </div>
     );
