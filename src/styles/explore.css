@@ -1,6 +1,6 @@
 .explorePage {
   align-items: center;
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  background-color: #eff0f3;
   display: flex;
   flex-wrap: wrap;
   height: 81vh;
@@ -8,7 +8,7 @@
 }
 
 .explore__button {
-  background: rgba(255, 255, 255, 0.8);
+  background: #ff8e3c;
   border: none;
   border-radius: 5px;
   height: 25%;

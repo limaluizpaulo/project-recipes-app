@@ -1,6 +1,6 @@
 .login {
   align-items: center;
-  background: #de7f04;
+  background: var(--loginbg-color);
   display: flex;
   flex-direction: column;
   height: 100vh;

@@ -1,5 +1,5 @@
 .foodInProgress, .foodInProgress__loading {
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  background: #eff0f3;
   min-height: 100vh;
   min-width: 100vw;
 }

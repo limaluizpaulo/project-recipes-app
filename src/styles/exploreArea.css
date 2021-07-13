@@ -1,6 +1,6 @@
 .exploreArea {
   align-items: center;
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  background-color: #eff0f3;
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 11vh;

@@ -1,5 +1,5 @@
 .exploreIngredientsPage, .exploreIngredientsPage__loading {
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
+  background-color: #eff0f3;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -45,7 +45,7 @@
 
 .ingredients__card_text {
   align-items: center;
-  background-color: #ffeeb4;
+  background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
   display: flex;

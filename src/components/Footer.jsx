@@ -14,22 +14,35 @@ function Footer() {
   }
   return (
     <div className="footerContainer" data-testid="footer">
-      <Link to="/bebidas">
-        <button type="button" className="none-button" onClick={ handleOnClick }>
+      <Link to="/bebidas" className="footer__link">
+        <button
+          type="button"
+          className="none-button footer__button"
+          onClick={ handleOnClick }
+        >
           <img src={ drinkIcon } alt="Drinks" data-testid="drinks-bottom-btn" />
         </button>
+        <div className="animationRound" />
       </Link>
-      <Link to="/explorar">
-        <button type="button" className="none-button" onClick={ handleOnClick }>
+      <Link to="/explorar" className="footer__link">
+        <button
+          type="button"
+          className="none-button footer__button"
+          onClick={ handleOnClick }
+        >
           <img src={ exploreIcon } alt="Explore" data-testid="explore-bottom-btn" />
         </button>
+        <div className="animationRound" />
       </Link>
-      <Link to="/comidas" className="test2">
-        <div className="test">
-          <button type="button" className="none-button" onClick={ handleOnClick }>
-            <img src={ mealIcon } alt="Meals" data-testid="food-bottom-btn" />
-          </button>
-        </div>
+      <Link to="/comidas" className="footer__link">
+        <button
+          type="button"
+          className="none-button footer__button"
+          onClick={ handleOnClick }
+        >
+          <img src={ mealIcon } alt="Meals" data-testid="food-bottom-btn" />
+        </button>
+        <div className="animationRound" />
       </Link>
     </div>
   );

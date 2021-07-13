@@ -30,9 +30,9 @@
 }
 
 .header__form {
-  background-color: var(--light-yellow-color);
+  background-color: #ff8e3c;
   border-radius: 5px;
-  bottom: -150px;
+  bottom: -145px;
   overflow: hidden;
   padding: 0 5px;
   position: absolute;

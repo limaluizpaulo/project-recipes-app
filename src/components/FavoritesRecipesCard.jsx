@@ -71,17 +71,15 @@ export default function FavoriteRecipesCard() {
             >
               { recipe.name }
             </span>
-          </Link>
-          <div className="class-image">
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+
+            <div className="food__card__img">
               <img
-                className="food__card__img"
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
               />
-            </Link>
-          </div>
+            </div>
+          </Link>
           <div
             className="class-items"
             id={ `${index}-div-buttons` }

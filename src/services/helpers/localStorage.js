@@ -59,12 +59,15 @@ export const setRecipeInProgressLocalStorage = (type, id, value = []) => {
 
 // função provisória para desenvolvimento da tela de receitas feitas
 export const getRecipesDone = (recipe) => {
+  if (!recipe) {
+    const doneRecipesParsed = JSON.parse(localStorage.getItem('doneRecipes'));
+    return doneRecipesParsed;
+  }
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (doneRecipes) {
+  if (doneRecipes && recipe) {
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipe]));
   } else {
     localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
-    console.log(recipe);
   }
 
   /*  const test = [
@@ -93,32 +96,10 @@ export const getRecipesDone = (recipe) => {
     localStorage.setItem('doneRecipes', JSON.stringify(test));
     const doneRecipesReceived = localStorage.getItem('doneRecipes');
     const doneRecipesParsed = JSON.parse(doneRecipesReceived); */
-  return doneRecipes;
 };
 
 // função provisória para desenvolvimento da tela de receitas favoritas
 export const getRecipesFavorites = () => {
-  const otherTest = [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    },
-  ];
-  localStorage.setItem('favoriteRecipes', JSON.stringify(otherTest));
   const favoriteRecipesReceived = localStorage.getItem('favoriteRecipes');
   const favoriteRecipesParsed = JSON.parse(favoriteRecipesReceived);
   return favoriteRecipesParsed;

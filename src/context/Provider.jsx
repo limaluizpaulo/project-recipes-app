@@ -71,8 +71,12 @@ const RecipeProvider = ({ children }) => {
       strDrink,
       strDrinkThumb,
       strMealThumb,
+      strTags,
     } = selectedFood;
-
+    let readyTags = [];
+    if (strTags) {
+      readyTags = strTags.split(',');
+    }
     return ({
       id: idMeal || idDrink,
       type: idMeal ? 'comida' : 'bebida',
@@ -81,6 +85,7 @@ const RecipeProvider = ({ children }) => {
       alcoholicOrNot: strAlcoholic || '',
       name: strMeal || strDrink,
       image: strDrinkThumb || strMealThumb,
+      tags: readyTags,
     });
   };
 
