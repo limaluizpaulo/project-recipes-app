@@ -25,17 +25,19 @@
 
 * {
   box-sizing: border-box;
-  font-family: Lemon Tuesday , Arial , sans-serif;
+  font-family: Arial , sans-serif;
   padding: 2px;
   text-align: center;
 }
 
 body {
+  background-color: #ccc;
   overflow-x: hidden;
+
 }
 
 .hero-container {
-  background-color: #6a8b41;
+  background-color: rgb(17, 165, 153);
 }
 
 .hero-container > h1 {
@@ -45,6 +47,7 @@ body {
 
 .cards {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 415px;
   margin: 5px;
   transition: 0.3s;
   width: 350px;
@@ -59,7 +62,14 @@ body {
 }
 
 .container {
+  font-size: 20px;
   padding: 2px 16px;
+}
+
+.container p {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .footer {
@@ -79,7 +89,6 @@ body {
 
 .meals {
   align-items: center;
-  background: #0fa36b;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -89,10 +98,10 @@ body {
   width: 100%;
 }
 
-.rocksGlass {
+/* .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
-}
+ }  */
 
 /*
 #iceLeft {
@@ -108,9 +117,7 @@ body {
 */
 
 .meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  color: rgb(17, 165, 153);
   font-size: 3em;
   font-weight: 900;
 }
@@ -183,6 +190,11 @@ Ajuda Alessandra
   text-shadow: -2px -2px 6px rgba(99, 97, 97, 0.54);
 }
 
+.instructions {
+  margin: 0 20px;
+  text-align: justify;
+}
+
 .ingredient img {
   height: auto;
   opacity: 0.3;
@@ -204,4 +216,49 @@ Ajuda Alessandra
   background: #46d69f2c;
   font-family: Cookie , cursive;
   font-size: x-large;
+}
+
+/* Button login */
+.buttons-cattegory {
+  background: rgb(17, 165, 153);
+  border: 10px solid white;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
+}
+
+button {
+  background: rgb(17, 165, 153);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
+}
+
+.loginButton {
+  background: rgb(17, 165, 153);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
+}
+
+.divLogin {
+  background-image: url('./images/905800396912a2d.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sharedFavoriteButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.sharedFavoriteButton button {
+  border-radius: 8px;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { setToken } from '../services/localStorage';
-import rockGlass from '../images/rockGlass.svg';
+// import rockGlass from '../images/rockGlass.svg';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -10,13 +10,13 @@ const Login = ({ history }) => {
   const maxLength = 6;
   const isValid = email.match(/((\w+)@(\w+)\.(\w+))/i) && password.length > maxLength;
   return (
-    <div>
+    <div className="divLogin">
       <div className="meals">
-        <span className="logo">TRYBE</span>
+        <span className="logo">JUST EAT</span>
         <object
           className="rocksGlass"
           type="image/svg+xml"
-          data={ rockGlass }
+          // data={ rockGlass }
         >
           Glass
         </object>
@@ -40,6 +40,7 @@ const Login = ({ history }) => {
           />
         </label>
         <button
+          className="loginButton"
           type="button"
           data-testid="login-submit-btn"
           disabled={ !isValid }
