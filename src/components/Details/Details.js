@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 import ShareFavIcons from '../ShareFavIcons/ShareFavIcons';
-
+import FoodCard from '../FoodCard/FoodCard';
 /*
 ---Refactoring---
 TODO:
@@ -14,10 +14,9 @@ TODO:
   - Split conditional logic;
   - Keep common logic.
 */
-function Details({ id, recipe, recommendations }) {
+function Details({ id, recipe, recommendations, recommType }) {
   // CONSTANTS
   const RECIPE_MAIN_KEY = recipe.typeMainKey;
-  const RECOMM_KEY = recommendations.typeMainKey;
   // CONTEXT
   const {
     favoritedRecipes,
@@ -70,28 +69,33 @@ function Details({ id, recipe, recommendations }) {
   );
 
   const renderRecommendation = () => {
-    const recommKeyThumb = `${RECOMM_KEY}Thumb`;
+    const name = recommType === 'comidas' ? 'strMeal' : 'strDrink';
     return (
-      <Carousel itemsToShow={ 2 } pagination={ false } disableArrowsOnEnd={ false }>
+      <Carousel
+        itemsToShow={ 2 }
+        pagination={ false }
+        disableArrowsOnEnd={ false }
+        itemsToScroll={ 2 }
+      >
         {
           recommendations
-          && recommendations.recipes.map((
-            { [RECOMM_KEY]: title, [recommKeyThumb]: thumb },
-            index,
-          ) => (
-            <img
-              key={ title }
-              src={ thumb }
-              alt={ title }
-              style={ { width: 200 } }
-              data-testid={ `${index}-recomendation-card` }
-            />
-          ))
+          && recommendations.recipes.map((recomm, index) => {
+            console.log(recomm, name);
+            return (
+              <div key={ recomm[name] } data-testid={ `${index}-recomendation-card` }>
+                <FoodCard
+                  recipes={ recomm }
+                  order={ index }
+                  type={ recommType }
+                  isRecomm
+                />
+              </div>
+            );
+          })
         }
       </Carousel>
     );
   };
-
   const renderYoutubeVideo = () => (
     recipe.strYoutube
     && (
@@ -171,6 +175,7 @@ Details.propTypes = {
     recipes: PropTypes.arrayOf(PropTypes.object),
     typeMainKey: PropTypes.string,
   }).isRequired,
+  recommType: PropTypes.string.isRequired,
 };
 
 // Details.propTypes = {

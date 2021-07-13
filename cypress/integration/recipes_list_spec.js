@@ -18,7 +18,6 @@ const drinkCategoriesMock = require('../mocks/drinkCategories');
 
 const checkFirstTwelveRecipes = (recipes, meal = true) => {
   const recipeType = meal ? 'Meal' : 'Drink';
-
   recipes.slice(0, 12).forEach((recipe, index) => {
     cy.get(`[data-testid="${index}-recipe-card"]`);
 

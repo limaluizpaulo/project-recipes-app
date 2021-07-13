@@ -69,6 +69,7 @@ function MealsDetails({ match: { params: { id } } }) {
             id={ id }
             recipe={ recipe }
             recommendations={ recommendations }
+            recommType="bebidas"
           />
           <ConditionButton
             data-testid="start-recipe-btn"
