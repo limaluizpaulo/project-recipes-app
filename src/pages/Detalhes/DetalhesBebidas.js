@@ -32,7 +32,7 @@ function DetalhesBebidas({ match }) {
     const DrinkToFav = data.drinks[0];
     const favoriteRecipes = {
       id: DrinkToFav.idDrink,
-      type: 'bebida',
+      type: 'bebidas',
       area: '',
       category: DrinkToFav.strCategory,
       alcoholicOrNot: DrinkToFav.strAlcoholic,
@@ -50,6 +50,7 @@ function DetalhesBebidas({ match }) {
         <ButtonFavorite
           id={ item.idDrink }
           favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
         />
       </>
     );

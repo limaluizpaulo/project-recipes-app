@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-function ButtonFavorite({ id, favoriteRecipes }) {
+function ButtonFavorite({ id, favoriteRecipes, dataTest }) {
   const [heartIcon, setHeartIcon] = useState(whiteHeartIcon);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -49,7 +49,7 @@ function ButtonFavorite({ id, favoriteRecipes }) {
       onClick={ () => (isFavorite ? removeFavorite() : addFavorite()) }
     >
       <img
-        data-testid="favorite-btn"
+        data-testid={ dataTest }
         src={ heartIcon }
         alt="favorite icon"
       />
@@ -60,6 +60,7 @@ function ButtonFavorite({ id, favoriteRecipes }) {
 ButtonFavorite.propTypes = {
   id: PropTypes.string.isRequired,
   favoriteRecipes: PropTypes.shape(Object).isRequired,
+  dataTest: PropTypes.string.isRequired,
 };
 
 export default ButtonFavorite;

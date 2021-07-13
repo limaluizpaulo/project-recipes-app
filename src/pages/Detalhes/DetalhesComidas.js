@@ -31,7 +31,7 @@ function DetalhesComidas({ match }) {
     const mealToFav = data.meals[0];
     const favoriteRecipes = {
       id: mealToFav.idMeal,
-      type: 'comida',
+      type: 'comidas',
       area: mealToFav.strArea,
       category: mealToFav.strCategory,
       alcoholicOrNot: '',
@@ -49,6 +49,7 @@ function DetalhesComidas({ match }) {
         <ButtonFavorite
           id={ item.idMeal }
           favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
         />
       </>
     );
