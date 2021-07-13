@@ -1,36 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import CardsRecipes from '../components/CardsRecipes/CardsRecipes';
+import FilterButtons from '../components/FilterButtons';
+import CardsRecipes from '../components/CardsRecipes/CardsRecipesFavorite';
 
 function RecipesMade({ location: { pathname } }) {
-  console.log(pathname);
+  let salve;
+  const initialFavorites = Object.keys(
+    JSON.parse(localStorage.getItem('inProgressRecipes')),
+  );
+  const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
+  console.log(filterFavorites);
+
+  function remove(Id) {
+    const newArray = filterFavorites.filter(
+      (recipe) => recipe.id !== Id,
+    );
+    setFilterFavorites(newArray);
+    localStorage.favoriteRecipes = JSON.stringify(newArray);
+  }
+
+  if (initialFavorites !== null) {
+    salve = false;
+  } else {
+    salve = true;
+  }
+
   return (
-    <div className="d-flex flex-column">
-      <div className="d-flex justify-content-around">
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filter-by-all-btn"
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filter-by-food-btn"
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          data-testid="filfter-by-drink-btn"
-        >
-          Drinks
-        </button>
-      </div>
+    <div>
+      <FilterButtons
+        initialFavorites={ initialFavorites }
+        setFilterFavorites={ setFilterFavorites }
+      />
       <div>
-        <CardsRecipes />
+        {salve ? 'Sem Feitos' : filterFavorites.map((aux, index) => (
+          <CardsRecipes
+            key={ aux.id }
+            aux={ aux }
+            index={ index }
+            remove={ remove }
+            pathname={ pathname }
+          />
+        ))}
       </div>
     </div>
   );

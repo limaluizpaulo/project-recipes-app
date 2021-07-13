@@ -8,11 +8,21 @@ function RecipesFavorite({ location: { pathname } }) {
   let salve;
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
+
+  function remove(Id) {
+    const newArray = filterFavorites.filter(
+      (recipe) => recipe.id !== Id,
+    );
+    setFilterFavorites(newArray);
+    localStorage.favoriteRecipes = JSON.stringify(newArray);
+  }
+
   if (initialFavorites !== null) {
     salve = false;
   } else {
     salve = true;
   }
+
   return (
     <div>
       <Header />
@@ -26,8 +36,7 @@ function RecipesFavorite({ location: { pathname } }) {
             key={ aux.id }
             aux={ aux }
             index={ index }
-            filterFavorites={ filterFavorites }
-            setFilterFavorites={ setFilterFavorites }
+            remove={ remove }
             pathname={ pathname }
           />
         ))}

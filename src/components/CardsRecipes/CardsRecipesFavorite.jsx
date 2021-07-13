@@ -10,20 +10,11 @@ function copyUrl(setCopied, type, id) {
   copy(`http://localhost:3000/${type}s/${id}`).then(() => setCopied(true));
 }
 
-function remove(Id, filterFavorites, setFilterFavorites) {
-  const newArray = filterFavorites.filter(
-    (recipe) => recipe.id !== Id,
-  );
-  setFilterFavorites(newArray);
-  localStorage.favoriteRecipes = JSON.stringify(newArray);
-}
-
-function CardsRecipesFavorite({ aux, index,
-  filterFavorites, setFilterFavorites, pathname }) {
+function CardsRecipesFavorite({ aux: {
+  area, image, name, category, alcoholicOrNot, type, id }, index, pathname, remove }) {
   const favorite = pathname.includes('favoritas');
   console.log(favorite);
   const [copied, setCopied] = useState(false);
-  const { area, image, name, category, alcoholicOrNot, type, id } = aux;
   let alcohol = false;
   if (alcoholicOrNot === 'Alcoholic') {
     alcohol = true;
@@ -52,7 +43,7 @@ function CardsRecipesFavorite({ aux, index,
       {favorite && (
         <button
           type="button"
-          onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
+          onClick={ () => remove(id) }
         >
           <img
             data-testid={ `${index}-horizontal-favorite-btn` }
@@ -77,8 +68,7 @@ function CardsRecipesFavorite({ aux, index,
 CardsRecipesFavorite.propTypes = {
   aux: PropTypes.objectOf.isRequired,
   index: PropTypes.number.isRequired,
-  filterFavorites: PropTypes.func.isRequired,
-  setFilterFavorites: PropTypes.objectOf.isRequired,
+  remove: PropTypes.func.isRequired,
   pathname: PropTypes.string.isRequired,
 };
 
