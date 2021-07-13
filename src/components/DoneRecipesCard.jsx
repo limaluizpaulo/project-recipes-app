@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
@@ -36,8 +36,6 @@ function DoneRecipesCard() {
               >
                 {recipe.name}
               </span>
-            </Link>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <img
                 className="food__card__img"
                 src={ recipe.image }

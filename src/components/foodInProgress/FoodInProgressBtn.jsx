@@ -26,7 +26,13 @@ const FoodInProgressBtn = () => {
   }, [ingredients]);
 
   const handleFinishRecipe = () => {
-    getRecipesDone(createObjectFromFood());
+    const dataToBeStored = createObjectFromFood();
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    dataToBeStored.doneDate = `${day}/${month}/${year}`;
+    getRecipesDone(dataToBeStored);
     history.push('/receitas-feitas');
   };
 
