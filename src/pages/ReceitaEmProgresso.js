@@ -32,7 +32,7 @@ function ReceitaEmProgresso({ match }) {
 
   useEffect(() => {
     fetchRecipe(url, food, id)
-      .then((result) => setRecipe(result));
+      .then((response) => setRecipe(response));
   }, []);
 
   function saveToFavorites() {
