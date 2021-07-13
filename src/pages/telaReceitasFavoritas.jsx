@@ -45,11 +45,6 @@ class TelaReceitasFavoritas extends Component {
     this.setState({ favoriteList: filterFavorite });
   }
 
-  func() {
-    const { link } = this.state;
-    return copy(`http://localhost:3000/`).then(() => this.setState({ link: !link }));
-  }
-
   render() {
     const { location } = this.props;
     const { favIconColor, link, favoriteList } = this.state;
@@ -121,7 +116,8 @@ class TelaReceitasFavoritas extends Component {
                     <button
                       type="button"
                       className="favorite-btn-share"
-                      onClick={ () => this.func() }
+                      onClick={ () => copy(`http://localhost:3000/${type}s/${id}`)
+                        .then(() => this.setState({ link: !link })) }
                     >
                       <img
                         data-testid={ `${index}-horizontal-share-btn` }

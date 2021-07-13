@@ -83,11 +83,10 @@ class SharedFavorites extends Component {
         <button
           className="details-btn-share"
           type="button"
-          data-testid="share-btn"
           onClick={ () => copy(`http://localhost:3000/${page}/${id}`)
             .then(() => this.setState({ link: true })) }
         >
-          <img src={ shareIcon } alt={ shareIcon } />
+          <img data-testid="share-btn" src={ shareIcon } alt={ shareIcon } />
         </button>
         {link && <p>Link copiado!</p>}
         <button

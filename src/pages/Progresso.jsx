@@ -96,7 +96,7 @@ class Progresso extends Component {
     const { match: { params: { id } } } = this.props;
     this.setState({ should: true, id });
 
-    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const recovery = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
     if (recovery.meals[id] !== undefined) {
       return this.setState({ allIngredients: recovery.meals[id] });
     }
@@ -129,21 +129,20 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
+    // const tags = details[keyName.Tags].split(',');
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],
-      type: page,
+      type: page === 'comidas' ? 'comida' : 'bebida',
       area: details[keyName.Area] ? details[keyName.Area] : '',
       category: details[keyName.Category] ? details[keyName.Category] : '',
       alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
       name: details[keyName.Name],
       image: details[keyName.Thumb],
       doneDate: `${currentDate}`,
-      tags: details[keyName.Tags] ? '1' : '',
+      tags: details[keyName.Tags] ? details[keyName.Tags].split(',') : '',
     };
 
-    // const arr = '1';
-    console.log(details[keyName.Tags].split(','));
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
@@ -151,13 +150,12 @@ class Progresso extends Component {
   finishRecipe() {
     const { match: { params: { id, page } } } = this.props;
     if (localStorage.inProgressRecipes) {
-      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
 
       if (page === 'comidas') {
         delete inProgress.meals[id];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
       }
-
       if (page === 'bebidas') {
         delete inProgress.cocktails[id];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));

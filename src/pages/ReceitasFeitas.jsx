@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-//import { Link } from 'react-router-dom';
 import Header from '../components/header';
-import Footer from '../components/footer';
 import { getSearchBarResponse } from '../action/index';
 import DoneRecipes from '../components/DoneRecipes';
 
@@ -21,7 +19,6 @@ export class ReceitasFeitas extends Component {
       <div>
         <Header location={ location } />
         <DoneRecipes />
-        <Footer />
       </div>
     );
   }
