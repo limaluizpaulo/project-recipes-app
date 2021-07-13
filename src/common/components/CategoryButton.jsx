@@ -5,9 +5,12 @@ import store from '../../context/store';
 
 const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
 
-export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, path }) { // Desestruturação de props
+export default function CategoryButton({ clickCategory, foodOrDrink, setState,
+  clickAll, path }) { // Desestruturação de props
   const { recipes: { foods, categoriesMeals,
     categoriesDrinks, categoriesLimit } } = useContext(store);
+
+  console.log(path);
 
   const renderButtons = () => {
     let newCategories;
@@ -28,7 +31,7 @@ export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, p
               ? `filter-by-${category.strCategory.toLowerCase()}-btn`
               : `${category.strCategory}-category-filter` }
             onClick={ path
-              ? (() => foodOrDrink(category.strCategory))
+              ? (() => foodOrDrink(category.strCategory, path, setState))
               : (() => clickCategory(category)) }
           >
             {category.strCategory}
@@ -53,13 +56,16 @@ export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, p
 }
 
 CategoryButton.propTypes = {
-  clickCategory: PropTypes.func.isRequired,
+  clickCategory: PropTypes.func,
   clickAll: PropTypes.func.isRequired,
   foodOrDrink: PropTypes.func,
-  path: PropTypes.bool,
+  setState: PropTypes.func,
+  path: PropTypes.string,
 };
 
 CategoryButton.defaultProps = {
+  clickCategory: undefined,
   foodOrDrink: () => console.log('nothing to do!'),
-  path: false,
+  setState: () => console.log('no state to set'),
+  path: '',
 };
