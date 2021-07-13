@@ -13,7 +13,7 @@ function RecipesFavorites() {
     const filted = doneFavorites
       .filter(({ type }) => type === filter || filter === 'all');
 
-    return filted.map(({ image, category, name, area, doneDate, type, id }, index) => (
+    return filted.map(({ image, category, name, area, alcoholicOrNot, type, id }, index) => (
       <div className="card-favorite" key={ index }>
         <Link to={ `/${type}/${id}` } className="link-img">
           <img
@@ -33,13 +33,12 @@ function RecipesFavorites() {
             <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
           </Link>
 
-          <h6 data-testid={ `${index}-horizontal-done-date` }>
-            {`Feita em: ${doneDate}`}
+          <h6 data-testid="1-horizontal-top-text">
+            {alcoholicOrNot}
           </h6>
 
           <ButtonFavorite
             id={ id }
-            favoriteRecipes={ {} }
             dataTest={ `${index}-horizontal-favorite-btn` }
           />
 
@@ -81,7 +80,7 @@ function RecipesFavorites() {
         </button>
       </div>
 
-      {cardsFavorites()}
+      {localStorage.getItem('favoriteRecipes') && cardsFavorites()}
 
       <div className="cards-recipes-done" />
     </div>
