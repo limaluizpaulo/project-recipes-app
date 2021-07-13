@@ -1,9 +1,10 @@
 import React from 'react';
 import HomeAndReturn from '../components/HomeAndReturn';
+import '../styles/Credits(page).css';
 
 function Credits() {
   return (
-    <div className="credits">
+    <div className="credits-container">
       <div className="credits-item">
         <h3>App foi desenvolvido por:</h3>
       </div>
@@ -19,7 +20,7 @@ function Credits() {
       <div className="credits-item">
         <h4><strong>Renan Antunes</strong></h4>
       </div>
-      <footer className="footer">
+      <footer className="credits-footer">
         Copyrigth© 2021 - Todos os direitos reservados
       </footer>
       <HomeAndReturn />

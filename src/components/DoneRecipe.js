@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import '../styles/global.css';
+import '../styles/DoneRecipe.css';
 
 function DoneRecipe({ recipe: {
   id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }, index }) {
@@ -19,20 +19,20 @@ function DoneRecipe({ recipe: {
   useEffect(() => {}, [copiedLink]);
 
   return (
-    <div className="favorite-recipes">
-      <div className="card-favorite">
+    <div className="done-recipes">
+      <div className="done-card">
         <div>
           <Link to={ `/${type}s/${id}` }>
             <img
               src={ image }
-              className="favorite-img"
+              className="done-img"
               alt="recipe representation"
               data-testid={ `${index}-horizontal-image` }
               style={ imgStyle }
             />
           </Link>
         </div>
-        <Card.Body className="favorite-body">
+        <Card.Body className="done-body">
           <p data-testid={ `${index}-horizontal-top-text` }>
             {
               type === 'comida' ? `${area} - ${category}`
@@ -41,7 +41,7 @@ function DoneRecipe({ recipe: {
           </p>
           <Link to={ `/${type}s/${id}` }>
             <Card.Title
-              className="cardTitle"
+              className="done-card-title"
               data-testid={ `${index}-horizontal-name` }
             >
               {name}
@@ -55,11 +55,11 @@ function DoneRecipe({ recipe: {
             >
               {tag}
             </p>))}
-          <button type="button" className="share" onClick={ shareBtn }>
+          <button type="button" className="done-share-btn" onClick={ shareBtn }>
             {copiedLink
               ? (
                 <p
-                  className="copyText"
+                  className="done-copyText"
                   data-testid={ `${index}-horizontal-share-btn` }
                 >
                   Link copiado!

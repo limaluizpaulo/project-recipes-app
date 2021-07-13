@@ -6,7 +6,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import home from '../images/home.png';
 import return0 from '../images/return0.png';
-import '../styles/global.css';
+import '../styles/Icons.css';
 import { Context } from '../context/ContextForm';
 
 function favoriteStructure(item) {
@@ -113,7 +113,7 @@ function Icons(item) {
     return (
       <Overlay target={ target.current } show={ changeCopy } placement="bottom">
         {(props) => (
-          <Tooltip className="copyText" id="overlay" { ...props }>
+          <Tooltip className="icons-copyText" id="overlay" { ...props }>
             Link copiado!
           </Tooltip>
         )}
@@ -123,11 +123,11 @@ function Icons(item) {
 
   return (
     <div>
-      <div className="shareAndLike">
+      <div className="icons-shareAndFavorite-container">
         <button
           ref={ target }
           type="button"
-          className="share"
+          className="icons-share-btn"
           onClick={ () => {
             copyClipboard(); speakCopy();
           } }
@@ -147,24 +147,24 @@ function Icons(item) {
                 <div>
                   <Link to="/comidas">
                     <img
-                      className="homeIcon"
+                      className="home-icon"
                       src={ home }
                       alt="home icon"
                     />
                   </Link>
                   <button
                     type="button"
-                    className="returnBtn"
+                    className="icons-return-btn"
                     onClick={ () => window.history.back() }
                   >
                     <img
-                      className="returnIcon"
+                      className="return-icon"
                       src={ return0 }
                       alt="return icon"
                     />
                   </button>
                   <img
-                    className="share"
+                    className="icons-share-btn"
                     src={ shareIcon }
                     alt="share icon"
                     data-testid={ shareData(item, pathname) }
@@ -175,7 +175,7 @@ function Icons(item) {
         </button>
         <button
           type="button"
-          className="favorite"
+          className="favorite-icon"
           onClick={ () => { favorite(); setChangeIcon(!changeIcon); } }
         >
           <img

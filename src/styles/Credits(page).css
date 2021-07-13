@@ -1,0 +1,18 @@
+.credits-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 91vh;
+  min-width: 91vw;
+  text-align: center;
+}
+
+.credits-item {
+  margin-bottom: 10px;
+}
+
+.credits-footer {
+  display: flex;
+  justify-content: space-between;
+}

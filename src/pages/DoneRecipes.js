@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DoneRecipe from '../components/DoneRecipe';
 import Header from '../components/Header';
 import HomeAndReturn from '../components/HomeAndReturn';
-import '../styles/global.css';
+import '../styles/DoneRecipes(page).css';
 
 function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
@@ -21,7 +21,7 @@ function DoneRecipes() {
       <div>
         <button
           type="button"
-          className="category-btn"
+          className="done-category-btn"
           data-testid="filter-by-all-btn"
           onClick={ () => setfilterBy('nenhum') }
         >
@@ -29,7 +29,7 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
-          className="category-btn"
+          className="done-category-btn"
           data-testid="filter-by-food-btn"
           onClick={ () => setfilterBy('comida') }
         >
@@ -37,14 +37,15 @@ function DoneRecipes() {
         </button>
         <button
           type="button"
-          className="category-btn"
+          className="done-category-btn"
           data-testid="filter-by-drink-btn"
           onClick={ () => setfilterBy('bebida') }
         >
           Drinks
         </button>
       </div>
-      {recipesToMap.length === 0 && <h4 className="noDone">Não há receitas feitas</h4>}
+      {recipesToMap.length === 0
+      && <h4 className="no-done-text">Não há receitas feitas</h4>}
       {recipesToMap.map((recipe, index) => (
         <DoneRecipe
           key={ index }

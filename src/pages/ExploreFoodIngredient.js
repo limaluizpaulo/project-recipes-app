@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { exploreIngredientsFood } from '../services/api';
 import { foodByIngredient } from '../services/searchApi';
-import '../styles/global.css';
+import '../styles/ExploreDrinkAndFoodIngredient(page).css';
 import { Context } from '../context/ContextForm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -33,7 +33,7 @@ function ExploreFoodIngredient() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      <div className="card-container">
+      <div className="ingredient-container">
         {firstFoodIngredients.map((ingredient, index) => (
           <Link
             to="/comidas"
@@ -51,7 +51,7 @@ function ExploreFoodIngredient() {
               />
               <Card.Body>
                 <Card.Title
-                  className="cardTitle"
+                  className="ingredientCard-title"
                   data-testid={ `${index}-card-name` }
                 >
                   {ingredient.strIngredient}

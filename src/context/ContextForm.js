@@ -19,6 +19,7 @@ function Provider({ children }) {
   const [changeDrink, setChangeDrink] = useState(false);
   const [search, setSearch] = useState([]);
   const [historyPage, sethistoryPage] = useState([]);
+  const [flags, setFlags] = useState([]);
 
   const object = {
     email,
@@ -51,6 +52,8 @@ function Provider({ children }) {
     setSearch,
     historyPage,
     sethistoryPage,
+    flags,
+    setFlags,
   };
 
   useEffect(() => {

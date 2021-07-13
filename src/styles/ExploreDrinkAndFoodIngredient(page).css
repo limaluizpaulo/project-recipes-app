@@ -1,0 +1,22 @@
+.ingredient-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  height: 238px;
+  margin: 5px;
+  max-width: 100%;
+  text-align: center;
+  width: 169px;
+}
+
+.ingredientCard-title {
+  display: inline-block;
+  max-height: 2.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}

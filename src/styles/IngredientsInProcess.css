@@ -1,0 +1,13 @@
+.checked-item {
+  text-decoration: line-through;
+}
+
+.not-checked-item {
+  text-decoration: none;
+}
+
+.ingredientProgress-input {
+  height: 20px;
+  margin-right: 6px;
+  width: 20px;
+}

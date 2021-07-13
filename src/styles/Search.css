@@ -1,0 +1,34 @@
+.first-letter {
+  margin-left: 3px;
+}
+
+.ingredients {
+  margin-left: 3px;
+}
+
+.name {
+  margin-left: 3px;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-input {
+  margin-top: 18px;
+  max-width: 100%;
+  width: 330px;
+}
+
+.search-radios-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-btn {
+  background-color: lightgray;
+  margin-bottom: 18px;
+  max-width: 100%;
+  width: 330px;
+}

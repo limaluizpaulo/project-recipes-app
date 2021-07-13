@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../styles/global.css';
+import '../styles/IngredientsInProcess.css';
 
 function returnType(pathname) {
   const type = pathname.includes('comidas') ? 'meals' : 'cocktails';
@@ -13,13 +13,6 @@ function IngredientsInProcess({ index, element, measures,
   const [checked, setchecked] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
-  const divStyle1 = {
-    textDecoration: 'line-through',
-  };
-
-  const divStyle2 = {
-    textDecoration: 'none',
-  };
 
   function toogleClass() {
     setchecked(!checked);
@@ -55,7 +48,7 @@ function IngredientsInProcess({ index, element, measures,
     <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
-        className="inputs"
+        className="ingredientProgress-input"
         onChange={ () => {
           toogleClass();
           updateUsedIngredients(element[1]);
@@ -63,7 +56,10 @@ function IngredientsInProcess({ index, element, measures,
         key={ index }
         checked={ ingredientsUsed.includes(element[1]) }
       />
-      <span style={ ingredientsUsed.includes(element[1]) ? divStyle1 : divStyle2 }>
+      <span
+        className={ ingredientsUsed.includes(element[1])
+          ? 'checked-item' : 'not-checked-item' }
+      >
         { `${element[1]}
                 - ${measures[index][1] === null
       ? 'as you like' : measures[index][1]}` }
