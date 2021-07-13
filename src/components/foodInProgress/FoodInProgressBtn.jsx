@@ -101,8 +101,8 @@ const FoodInProgressBtn = () => {
         }
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={ !finished }
-        onClick={ handleFinishRecipe }
+        disabled={!finished}
+        onClick={handleFinishRecipe}
       >
         Finalizar
       </button>
