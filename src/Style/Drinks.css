@@ -1,8 +1,4 @@
-.button {
-  margin-top: 30px;
-}
-
-.page-comidas {
+.page-bebidas {
   margin-top: 730px;
 }
 
@@ -16,8 +12,8 @@
 .box-btns button {
   border-radius: 5px;
   margin: 5px;
-  padding: 2px;
-  width: 100px;
+  padding: 4px;
+  width: auto;
 }
 
 .container-recipes {
@@ -54,3 +50,4 @@
   color: black;
   padding-top: 10px;
 }
+

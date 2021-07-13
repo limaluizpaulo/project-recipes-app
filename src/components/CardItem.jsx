@@ -7,15 +7,15 @@ class CardItem extends Component {
     return (
       <div
         data-testid={ `${index}-recipe-card` }
-        // onClick={ this.redirect }
+        className="card-item"
       >
-        <h5 data-testid={ `${index}-card-name` }>{name}</h5>
         <img
           data-testid={ `${index}-card-img` }
           src={ image }
           alt={ name }
-          width="30px"
+          width="130px"
         />
+        <h5 data-testid={ `${index}-card-name` }>{name}</h5>
       </div>
     );
   }

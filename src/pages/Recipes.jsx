@@ -68,35 +68,34 @@ class Recipes extends Component {
     return (
       <>
         <Header header="Comidas" explorer />
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => this.setState({ filter: false }) }
-        >
-          All
-        </button>
-        {listCategories.map(({ strCategory }, index) => (
-          <button
-            key={ index }
-            type="button"
-            data-testid={ `${strCategory}-category-filter` }
-            name={ strCategory }
-            onClick={ () => this.fetchRecipesCategory(strCategory) }
-          >
-            {strCategory}
-          </button>
-        ))}
-        {filter
-          ? listByCategory.map((element, index) => this.mapearLista(element, index))
-          : listRecipes.map((element, index) => this.mapearLista(element, index))}
-        {console.log(listRecipes)}
+        <div className="page-comidas">
+          <div className="box-btns">
+            <button
+              type="button"
+              data-testid="All-category-filter"
+              onClick={ () => this.setState({ filter: false }) }
+            >
+              All
+            </button>
+            {listCategories.map(({ strCategory }, index) => (
+              <button
+                key={ index }
+                type="button"
+                data-testid={ `${strCategory}-category-filter` }
+                name={ strCategory }
+                onClick={ () => this.fetchRecipesCategory(strCategory) }
+              >
+                {strCategory}
+              </button>
+            ))}
+          </div>
+          <div className="container-recipes">
+            {filter
+              ? listByCategory.map((element, index) => this.mapearLista(element, index))
+              : listRecipes.map((element, index) => this.mapearLista(element, index))}
+            {console.log(listRecipes)}
+          </div>
+        </div>
         <DownMenu />
       </>
     );

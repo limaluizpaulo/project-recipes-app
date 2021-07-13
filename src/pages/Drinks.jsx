@@ -7,7 +7,7 @@ import DownMenu from '../components/DownMenu';
 import { actionCategoriesDrinks, actionDrinks,
   actionDrinksByCategories } from '../actions';
 import CardItem from '../components/CardItem';
-// import '../Style/Recipes.css';
+import '../Style/Drinks.css';
 
 class Drinks extends Component {
   constructor(props) {
@@ -68,36 +68,35 @@ class Drinks extends Component {
     return (
       <>
         <Header header="Bebidas" explorer />
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <h1>Recipes</h1>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => this.setState({ filter: false }) }
-        >
-          All
-        </button>
-        {listCategories
-          ? listCategories.map(({ strCategory }, index) => (
+        <div className="page-bebidas">
+          <div className="box-btns">
             <button
-              key={ index }
               type="button"
-              data-testid={ `${strCategory}-category-filter` }
-              name={ strCategory }
-              onClick={ () => this.fetchDrinksCategory(strCategory) }
+              data-testid="All-category-filter"
+              onClick={ () => this.setState({ filter: false }) }
             >
-              {strCategory}
+              All
             </button>
-          ))
-          : <h3>Loading...</h3> }
-        {filter
-          ? listByCategory.map((element, index) => this.mapearLista(element, index))
-          : listDrinks.map((element, index) => this.mapearLista(element, index))}
+            {listCategories
+              ? listCategories.map(({ strCategory }, index) => (
+                <button
+                  key={ index }
+                  type="button"
+                  data-testid={ `${strCategory}-category-filter` }
+                  name={ strCategory }
+                  onClick={ () => this.fetchDrinksCategory(strCategory) }
+                >
+                  {strCategory}
+                </button>
+              ))
+              : <h3>Loading...</h3> }
+          </div>
+          <div className="container-recipes">
+            {filter
+              ? listByCategory.map((element, index) => this.mapearLista(element, index))
+              : listDrinks.map((element, index) => this.mapearLista(element, index))}
+          </div>
+        </div>
         <DownMenu />
       </>
     );
