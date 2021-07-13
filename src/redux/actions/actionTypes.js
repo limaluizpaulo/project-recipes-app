@@ -1,3 +1,3 @@
-const FETCH_API = 'FETCH_API';
-
-export default FETCH_API;
+export const FETCH_API = 'FETCH_API';
+export const FOOD_INGREDIENT = 'FOOD_INGREDIENT';
+export const DRINK_INGREDIENT = 'DRINK_INGREDIENT';

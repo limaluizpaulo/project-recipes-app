@@ -1,13 +1,11 @@
-import FETCH_API from '../actions/actionTypes';
-
-const ADD_INGREDIENT = 'ADD_INGREDIENT';
-// const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
+import { FETCH_API, FOOD_INGREDIENT, DRINK_INGREDIENT } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   resultAPI: {
     drinks: [],
     meals: [],
-    nameIngredient: null,
+    foodIngredient: null,
+    drinkIngredient: null,
   },
 };
 
@@ -21,12 +19,20 @@ function fetchApiReducer(state = INITIAL_STATE, action) {
         ...action.payload,
       },
     };
-  case ADD_INGREDIENT:
+  case FOOD_INGREDIENT:
     return {
       ...state,
       resultAPI: {
         ...state.resultAPI,
-        nameIngredient: action.payload,
+        foodIngredient: action.payload,
+      },
+    };
+  case DRINK_INGREDIENT:
+    return {
+      ...state,
+      resultAPI: {
+        ...state.resultAPI,
+        drinkIngredient: action.payload,
       },
     };
   default:

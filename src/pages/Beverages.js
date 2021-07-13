@@ -53,9 +53,10 @@ class Beverages extends React.Component {
   }
 
   async fetchBeverages() {
-    const { SendApiToState } = this.props;
+    const { SendApiToState, drinkIngredientRedux } = this.props;
     const { apiEndPoint } = this.state;
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/${apiEndPoint}`;
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/${apiEndPoint}`;
+    if (drinkIngredientRedux !== null) url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkIngredientRedux}`;
     const responseAPI = await fetchAPI(url);
     SendApiToState(responseAPI);
   }
@@ -132,6 +133,7 @@ class Beverages extends React.Component {
 
 const mapStateToProps = (state) => ({
   resultsApi: state.data.resultAPI,
+  drinkIngredientRedux: state.data.resultAPI.drinkIngredient,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -143,6 +145,7 @@ Beverages.propTypes = {
     drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   SendApiToState: PropTypes.func.isRequired,
+  drinkIngredientRedux: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Beverages);

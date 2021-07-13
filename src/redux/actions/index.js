@@ -1,13 +1,16 @@
-import FETCH_API from './actionTypes';
-
-const ADD_INGREDIENT = 'ADD_INGREDIENT';
+import { FETCH_API, FOOD_INGREDIENT, DRINK_INGREDIENT } from './actionTypes';
 
 export const fetchApiAction = (payload) => ({
   type: FETCH_API,
   payload,
 });
 
-export const addIngredients = (payload) => ({
-  type: ADD_INGREDIENT,
+export const foodIngredients = (payload) => ({
+  type: FOOD_INGREDIENT,
+  payload,
+});
+
+export const drinkIngredients = (payload) => ({
+  type: DRINK_INGREDIENT,
   payload,
 });

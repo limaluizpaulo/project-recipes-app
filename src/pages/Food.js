@@ -53,10 +53,10 @@ class Food extends React.Component {
   }
 
   async fetchFood() {
-    const { SendApiToState, nameIngredientRedux } = this.props;
+    const { SendApiToState, foodIngredientRedux } = this.props;
     const { apiEndPoint } = this.state;
     let url = `https://www.themealdb.com/api/json/v1/1/${apiEndPoint}`;
-    if (nameIngredientRedux !== null) url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${nameIngredientRedux}`;
+    if (foodIngredientRedux !== null) url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${foodIngredientRedux}`;
     const responseAPI = await fetchAPI(url);
     SendApiToState(responseAPI);
   }
@@ -131,7 +131,7 @@ class Food extends React.Component {
 
 const mapStateToProps = (state) => ({
   resultsApi: state.data.resultAPI,
-  nameIngredientRedux: state.data.resultAPI.nameIngredient,
+  foodIngredientRedux: state.data.resultAPI.foodIngredient,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -143,7 +143,7 @@ Food.propTypes = {
     meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   SendApiToState: PropTypes.func.isRequired,
-  nameIngredientRedux: PropTypes.func.isRequired,
+  foodIngredientRedux: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Food);

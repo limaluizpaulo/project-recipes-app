@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { addIngredients, fetchApiAction } from '../redux/actions';
+import { foodIngredients, fetchApiAction } from '../redux/actions';
 import fetchAPI from '../services/fetchApi';
 
 class FoodIngredients extends React.Component {
@@ -30,7 +30,6 @@ class FoodIngredients extends React.Component {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     const responseAPI = await fetchAPI(url);
     SendApiToState(responseAPI);
-    console.log(responseAPI);
   }
 
   renderCards() {
@@ -79,7 +78,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   SendApiToState: (payload) => dispatch(fetchApiAction(payload)),
-  addIngredientsRedux: (payload) => dispatch(addIngredients(payload)),
+  addIngredientsRedux: (payload) => dispatch(foodIngredients(payload)),
 });
 
 FoodIngredients.propTypes = {
