@@ -92,6 +92,7 @@ export default function DrinkDetails() {
         data-testid="recipe-photo"
         src={ recipeDetails.strDrinkThumb }
         alt={ recipeDetails.strDrink }
+        width="100px"
       />
       <p data-testid="recipe-title">{ recipeDetails.strDrink }</p>
       <button

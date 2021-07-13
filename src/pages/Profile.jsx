@@ -16,7 +16,7 @@ export default function Profile() {
   return (
     <div>
       <HeaderSearch title="Perfil" />
-      <h2 data-testid="page-title">Perfil</h2>
+      {/* <h2 data-testid="page-title">Perfil</h2> */}
       <p data-testid="profile-email">{ userEmail }</p>
 
       <button

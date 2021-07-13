@@ -36,6 +36,7 @@ export default function FoodIngredients() {
             data-testid={ `${index}-card-img` }
             alt="ingredient"
             src={ `https://www.themealdb.com/images/ingredients/${i.strIngredient}-Small.png` }
+            width="100px"
           />
           <p data-testid={ `${index}-card-name` }>{i.strIngredient}</p>
         </button>

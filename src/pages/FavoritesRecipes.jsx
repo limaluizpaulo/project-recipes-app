@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+// import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -45,6 +46,7 @@ export default function FavoritesRecipes() {
   if (favorite.length === 0) {
     return (
       <div>
+        <HeaderSearch title="Receitas Favoritas" />
         <p>Você não tem receitas favoritas</p>
         <button
           type="button"

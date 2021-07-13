@@ -80,6 +80,7 @@ export default function FoodOrigin() {
               data-testid={ `${i}-card-img` }
               alt="ingredient"
               src={ selected.strMealThumb }
+              width="100px"
             />
             <p data-testid={ `${i}-card-name` }>{selected.strMeal}</p>
           </button>
