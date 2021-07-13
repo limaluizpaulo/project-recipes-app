@@ -3,6 +3,7 @@ import { requestDrinkById } from '../../helpers/requests';
 
 function DrinkInProgress({ match }) {
   const [data, setData] = useState([]);
+  const [clicked, setClicked] = useState(false);
   const { params: { id } } = match;
   useEffect(() => {
     (async function request() {
@@ -20,6 +21,11 @@ function DrinkInProgress({ match }) {
       return keysIngredients;
     }
   }
+
+  function handleChange({ target: { name } }) {
+    console.log(name);
+  }
+
   return (
     <div>
       {
@@ -38,7 +44,6 @@ function DrinkInProgress({ match }) {
               <p data-testid="recipe-category">
                 Category:
                 {data.drinks[0].strCategory}
-
               </p>
               <p>
                 Ingredients:
@@ -47,7 +52,12 @@ function DrinkInProgress({ match }) {
                 { ingredients().map((key, index) => data.drinks[0][key] !== '' && data.drinks[0][key] !== null && (
                   <li data-testid={ `${index}-ingredient-step` } key={ index }>
                     <label htmlFor={ index }>
-                      <input type="checkbox" id={ index } />
+                      <input
+                        type="checkbox"
+                        id={ index }
+                        name={ data.drinks[0][key] }
+                        onClick={ handleChange }
+                      />
                       { data.drinks[0][key] }
                     </label>
                   </li>
