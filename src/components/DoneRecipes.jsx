@@ -97,7 +97,7 @@ class DoneRecipes extends Component {
                   </Card.Text>
                   <Link to={ `/${elem.type}/${elem.id}` }>
                   <Card.Title
-                    data-testid={`${index}-horizontal-name`}
+                    data-testid={ `${index}-horizontal-name` }
                   >
                     { elem.name }
                   </Card.Title>
