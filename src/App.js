@@ -11,6 +11,7 @@ import ExplorarIngredientes from './pages/explorarIngredientes';
 import explorarArea from './pages/explorarArea';
 import Progresso from './pages/Progresso';
 import NotFound from './pages/notFound';
+import TelaDeFavoritas from './pages/TelaDeFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -33,7 +34,7 @@ class App extends Component {
           <Route path="/:page/:id/in-progress" component={ Progresso } />
           <Route path="/:page/:id" render={ (props) => <Detalhes { ...props } /> } />
           <Route path="/receitas-feitas" />
-          <Route path="/receitas-favoritas" />
+          <Route path="/receitas-favoritas" component={ TelaDeFavoritas } />
           <Route path="/explorar" component={ Explorar } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/bebidas" component={ Bebidas } />

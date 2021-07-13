@@ -65,6 +65,9 @@ class Header extends Component {
       title = 'Explorar/Bebidas';
       console.log('entrei');
     }
+    if (title.includes('Receitas-favoritas')) {
+      title = 'Receitas Favoritas';
+    }
 
     return (
       <div>
@@ -84,7 +87,7 @@ class Header extends Component {
   render() {
     const { isSearchBar } = this.state;
     const { location, searchBarOn } = this.props;
-    console.log(location);
+    // console.log(location);
 
     return (
       <div>

@@ -1,0 +1,27 @@
+.favorite-card {
+  display: flex;
+  flex-direction: row;
+  height: 8.93rem;
+  margin-top: 1.2rem;
+  width: 20.62rem;
+}
+
+.favorite-card-body {
+  padding: 0.5rem;
+}
+
+.favorite-card-img {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  min-height: 8.93rem;
+  width: 10.31rem;
+}
+
+.favorite-card-subtitle {
+  color: darkgrey;
+  font-size: 1rem;
+}
+
+.favorite-card-title {
+  font-size: 1.31rem;
+}
