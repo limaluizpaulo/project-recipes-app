@@ -10,17 +10,6 @@ import fetchDrink,
 import { CATEGORY_FILTER_FOOD, CATEGORY_FILTER_DRINK } from '../services/Categorys';
 
 function RecipesProvider({ children }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassowd] = useState('');
-
-  const successLogin = (emailText, passwordText) => {
-    setEmail(emailText);
-    setPassowd(passwordText);
-
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-  };
-
   // searchBar
   const [searchInput, setSearchInput] = useState('');
   const [endpoint, setEndpoint] = useState();
@@ -45,24 +34,6 @@ function RecipesProvider({ children }) {
   }
   //
 
-  // Receitas Feitas
-  function doneRecipes(recipe) {
-    console.log(recipe);
-    const done = JSON.parse(localStorage.getItem('doneRecipes'));
-    localStorage.setItem('doneRecipes', JSON.stringify([...done, {
-      id: recipe.idMeal,
-      type: recipe.strCategory,
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNot: null,
-      name: recipe.strMeal,
-      image: recipe.strMealThumb,
-      doneDate: null,
-      tags: recipe.strTags,
-    }]));
-  }
-  //
-
   // CategoryOptions
 
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -70,9 +41,6 @@ function RecipesProvider({ children }) {
   // CategoryOptions
 
   const context = {
-    email,
-    password,
-    successLogin,
     foodOrDrink,
     handleSingleReturn,
     type,
@@ -83,7 +51,7 @@ function RecipesProvider({ children }) {
     setEndpoint,
     results,
     setResults,
-    doneRecipes,
+    // doneRecipes,
     categoryFilter,
     setCategoryFilter,
   };
