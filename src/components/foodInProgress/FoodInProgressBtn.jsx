@@ -76,9 +76,8 @@ const FoodInProgressBtn = () => {
         image: drinks[0].strDrinkThumb,
         doneDate: getDate(),
         tags,
-      }
+      };
       setTest(drinkObject);
-
     }
   };
 
@@ -90,7 +89,7 @@ const FoodInProgressBtn = () => {
   }, []);
 
   const handleFinishRecipe = () => {
-    getRecipesDone(test)
+    getRecipesDone(test);
     history.push('/receitas-feitas');
   };
 
@@ -102,8 +101,8 @@ const FoodInProgressBtn = () => {
         }
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={!finished}
-        onClick={handleFinishRecipe}
+        disabled={ !finished }
+        onClick={ handleFinishRecipe }
       >
         Finalizar
       </button>

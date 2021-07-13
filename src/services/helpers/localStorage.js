@@ -61,10 +61,10 @@ export const setRecipeInProgressLocalStorage = (type, id, value = []) => {
 export const getRecipesDone = (recipe) => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (doneRecipes) {
-    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipe]))
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, recipe]));
   } else {
     localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
-    console.log(recipe)
+    console.log(recipe);
   }
 
   /*  const test = [

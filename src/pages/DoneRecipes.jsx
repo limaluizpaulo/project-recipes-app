@@ -15,13 +15,13 @@ export default function DoneRecipes({ history }) {
 
   return (
     <div className="foodPagee">
-      <Header history={history} title="Receitas Feitas" />
+      <Header history={ history } title="Receitas Feitas" />
       <section className="food__category__container">
         <button
           type="button"
           className="food__category__buttonn"
           data-testid="filter-by-all-btn"
-          onClick={() => setFilterRecipesDone('all')}
+          onClick={ () => setFilterRecipesDone('all') }
         >
           All
         </button>
@@ -29,7 +29,7 @@ export default function DoneRecipes({ history }) {
           type="button"
           className="food__category__buttonn"
           data-testid="filter-by-food-btn"
-          onClick={() => setFilterRecipesDone('bebida')}
+          onClick={ () => setFilterRecipesDone('bebida') }
         >
           Foods
         </button>
@@ -37,7 +37,7 @@ export default function DoneRecipes({ history }) {
           type="button"
           className="food__category__buttonn"
           data-testid="filter-by-drink-btn"
-          onClick={() => setFilterRecipesDone('comida')}
+          onClick={ () => setFilterRecipesDone('comida') }
         >
           Drinks
         </button>
