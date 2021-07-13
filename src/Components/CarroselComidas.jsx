@@ -9,7 +9,7 @@ function CarroselComidas(props) {
   // console.log(recomendations);
   const itemsRecomendations = setList6(recomendations);
   return (
-    <div className="container">
+    <div className="carousel">
       <Carousel>
         {itemsRecomendations.map((item, index) => (
           <div

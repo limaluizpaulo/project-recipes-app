@@ -1,11 +1,12 @@
 body {
-  background-color: #f7ecf7;
-  color: #f7ecf7;
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  color: #f7f2f7;
   margin: 0;
   padding: 0;
 }
 
 .tela-login {
+  background: white;
   height: 100vh;
   width: 100vw;
 }
@@ -24,6 +25,20 @@ body {
 .background-top img {
   object-fit: cover;
   opacity: 0.3;
+}
+
+.background-bottom {
+  border-radius: 50%;
+  bottom: 0;
+  position: absolute;
+  right: 10px;
+  transform: rotate(-25deg);
+}
+
+.background-bottom img {
+  height: 100px;
+  object-fit: cover;
+  width: 100px;
 }
 
 .form-login {
@@ -50,7 +65,7 @@ body {
 }
 
 .form-login button {
-  background-color: #ff5444;
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
   border: none;
   border-radius: 25px;
   color: #f7ecf7;

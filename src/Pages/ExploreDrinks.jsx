@@ -18,25 +18,28 @@ function ExploreDrinks(props) {
   }, [ingredientsCatcher, shouldRedirect]);
 
   return shouldRedirect ? <Redirect to={ `/bebidas/${drink[0].idDrink}` } /> : (
-    <>
+    <div className="tela-explore">
       <HeadBar title="Explorar" />
-      <Link
-        to="/explorar/bebidas/ingredientes"
-        data-testid="explore-by-ingredient"
-        className="btn-explore"
-      >
-        Por Ingredientes
-      </Link>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        className="btn-explore"
-        onClick={ surpriseDrink }
-      >
-        Me Surpreenda!
-      </button>
+      <div className="foodScreen">
+
+        <Link
+          to="/explorar/bebidas/ingredientes"
+          data-testid="explore-by-ingredient"
+          className="btn-explore"
+        >
+          Por Ingredientes
+        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          className="btn-explore"
+          onClick={ surpriseDrink }
+        >
+          Me Surpreenda!
+        </button>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

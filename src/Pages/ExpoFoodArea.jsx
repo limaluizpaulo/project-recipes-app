@@ -30,15 +30,17 @@ function ExpoFoodArea(props) {
     await infoFoods(value, api.foodsArea);
   }
   return locals.length === 0 ? <div> loading... </div> : (
-    <div>
+    <div className="tela-explore">
       <Header title="Explorar Origem" />
-      <select
-        data-testid="explore-by-area-dropdown"
-        onChange={ handlechange }
-      >
-        <option data-testid="All-option">All</option>
+      <div className="div-select">
+        <select
+          data-testid="explore-by-area-dropdown"
+          onChange={ handlechange }
+          className="select-area"
+        >
+          <option data-testid="All-option">All</option>
 
-        {locals.length !== 0
+          {locals.length !== 0
         && locals.map((local) => (
           <option
             key={ local.strArea }
@@ -48,7 +50,8 @@ function ExpoFoodArea(props) {
             {local.strArea}
           </option>
         ))}
-      </select>
+        </select>
+      </div>
       <div className="items-list">
         {setList12(listFood).map((food, index) => (
           <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />

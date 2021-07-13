@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import comida from '../images/comida.jpg';
 import logo from '../images/receita.png';
+import drink from '../images/cockitel.png';
 
 const Login = () => {
   const [user, setUser] = React.useState(
@@ -40,10 +41,10 @@ const Login = () => {
   return isRedirect ? <Redirect to="/comidas" /> : (
     <div className="tela-login">
       <div className="background-top">
-        <img src={ comida } alt="" />
+        <img src={ comida } alt="comida" />
       </div>
       <form className="form-login">
-        <img src={ logo } alt="" />
+        <img src={ logo } alt="logo" />
         <label htmlFor="email">
         &nbsp;
           <input
@@ -75,7 +76,9 @@ const Login = () => {
           Log In
         </button>
       </form>
-      <div className="background-bottom" />
+      <div className="background-bottom">
+        <img src={ drink } alt="drink" />
+      </div>
     </div>
   );
 };

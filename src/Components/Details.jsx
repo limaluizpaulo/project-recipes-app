@@ -19,15 +19,15 @@ export default function Details(props) {
     console.log(clipboard.info);
     setIsCopy(true);
   }
-  console.log(item);
   return (
     <div className="tela-details">
-      <img
-        className="img-principal"
-        data-testid="recipe-photo"
-        src={ item[`str${type}Thumb`] }
-        alt="some"
-      />
+      <div className="img-principal">
+        <img
+          data-testid="recipe-photo"
+          src={ item[`str${type}Thumb`] }
+          alt="some"
+        />
+      </div>
       <button
         type="button"
         data-testid="share-btn"
@@ -69,7 +69,7 @@ export default function Details(props) {
         </ul>
         <p data-testid="instructions">{item.strInstructions}</p>
       </div>
-      <span data-testid="video">video</span>
+      <div data-testid="video" />
 
       {/* <embed
               width="560"

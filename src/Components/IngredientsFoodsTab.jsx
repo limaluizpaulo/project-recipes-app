@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { getFoods } from '../redux/actions';
 import API from '../services/MealRecipesAPI';
-import '../styles/Explore.css';
 
 function IngredientsFoodsTab(props) {
   const { getSelectedIng, ingredients } = props;
@@ -16,28 +15,28 @@ function IngredientsFoodsTab(props) {
   };
 
   return shouldRedirect ? <Redirect to="/comidas" /> : (
-    <div className="ingredientTab">
+    <div className="items-list">
       {ingredients.map((ingredient, index) => {
         if (index < maxTwelve) {
           return (
-            <div
-              key={ index }
-              className="ingredientScreen"
-              data-testid={ `${index}-ingredient-card` }
-              onClickCapture={ () => itemCatcher(ingredient.strIngredient) }
-            >
-              <img
-                data-testid={ `${index}-card-img` }
-                className="ingredientImage"
-                width="100px"
-                alt={ ingredient.strIngredient }
-                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-              />
+            <div className="card">
               <div
-                data-testid={ `${index}-card-name` }
-                className="ingredientName"
+                key={ index }
+                className="card-body"
+                data-testid={ `${index}-ingredient-card` }
+                onClickCapture={ () => itemCatcher(ingredient.strIngredient) }
               >
-                {ingredient.strIngredient}
+                <img
+                  data-testid={ `${index}-card-img` }
+                  alt={ ingredient.strIngredient }
+                  src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                />
+                <div
+                  data-testid={ `${index}-card-name` }
+                  className="card-subtitle"
+                >
+                  {ingredient.strIngredient}
+                </div>
               </div>
             </div>
           );

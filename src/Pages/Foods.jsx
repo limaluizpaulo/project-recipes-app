@@ -42,11 +42,18 @@ function Foods(props) {
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
-
-      <div className="items-list">
-        {mainFoods.map((food, index) => (
-          <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />
-        ))}
+      <div className="tela-cards">
+        <div className="items-list">
+          {mainFoods.map((food, index) => (
+            <Card
+              title="comidas"
+              key={ index }
+              index={ index }
+              item={ food }
+              type="meal"
+            />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

@@ -20,9 +20,11 @@ function ExpoFoodsIng(props) {
   }, [ingredientsCatcher, setLoading, loading]);
 
   return loading ? <h3>Loading...</h3> : (
-    <div>
+    <div className="tela-explore">
       <HeadBar title="Ingredientes" />
-      <IngredientsFoodsTab ingredients={ ingredients } />
+      <div className="tela-cards">
+        <IngredientsFoodsTab ingredients={ ingredients } />
+      </div>
       <Footer />
     </div>
   );

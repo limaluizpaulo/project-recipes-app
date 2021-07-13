@@ -1,12 +1,23 @@
+.card-details {
+
+  /* background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29); */
+  height: 100%;
+}
+
 .tela-details {
-  background-color: #ffbca8;
-  color: #f7ecf7;
+  color: black;
 }
 
 .img-principal {
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
+  margin: 10px auto;
+  max-width: 90%;
+  overflow: hidden;
+}
+
+.img-principal img {
   max-width: 100%;
-  object-fit: cover;
-  padding: 10px;
 }
 
 .btn-img {
@@ -17,9 +28,11 @@
 }
 
 .receita-details {
-  border: 1px solid #f7ecf7;
-  border-radius: 5px;
+  background-color: #f7f2f7;
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
   margin: 0 10px;
+  margin-bottom: 10px;
   padding: 10px;
 }
 
@@ -27,7 +40,6 @@
   text-align: center;
 }
 
-video {
-  padding: 10px;
-  width: 100%;
+.carousel {
+  border-radius: 25px;
 }

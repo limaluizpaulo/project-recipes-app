@@ -1,9 +1,12 @@
 .card {
+  border-radius: 25px;
+  box-shadow: 0 0.5px 2px 0.5px #ff5444;
   margin-top: 10px;
+  overflow: hidden;
 }
 
 .card-body {
-  border: 2px solid #a5502d;
+  border-radius: 25px solid #ff5444;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -16,12 +19,12 @@
 }
 
 .card-subtitle {
-  background-color: #a5502d;
+  background-color: #ff5444;
   bottom: 0;
   color: #f7ecf7;
   opacity: 0.7;
   position: absolute;
-  width: 98%;
+  width: 100%;
 }
 
 .card-subtitle:hover {
