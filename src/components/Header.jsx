@@ -9,7 +9,7 @@ import ContextRecipes from '../context/contextRecipes';
 function Header({ history }) {
   const { goSearch, setGoSearch, title } = useContext(ContextRecipes);
   const goProfile = () => (
-    history.push('/profile')
+    history.push('/perfil')
   );
 
   // const { location: { pathname } } = history;
