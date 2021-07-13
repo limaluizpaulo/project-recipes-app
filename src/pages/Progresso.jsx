@@ -129,7 +129,6 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
-    // const tags = details[keyName.Tags].split(',');
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],

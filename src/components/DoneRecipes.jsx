@@ -49,12 +49,6 @@ class DoneRecipes extends Component {
     this.setState({ ids: id });
   }
 
-  // checkTags(tags) {
-  //   return (
-
-  //   );
-  // }
-
   render() {
     const { doneRecipes, ids } = this.state;
     return (
