@@ -20,14 +20,14 @@ function RecomendationsDrink() {
 
   return (
     <div>
-      <Carousel fade interval={ null } controls className="carousel">
+      <Carousel fade interval={ null } controls indicators={ false } className="carousel">
         <Carousel.Item>
           <div className="recomendations-card-container">
             {recomendationsDrink.slice(0, 2).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index}-recomendation-card` }
-                  className="recomendations-card"
+                  className="card"
                 >
                   <img
                     data-testid={ `${index}-card-img` }
@@ -53,7 +53,7 @@ function RecomendationsDrink() {
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index + 2}-recomendation-card` }
-                  className="recomendations-card"
+                  className="card"
                 >
                   <img
                     data-testid={ `${index + 2}-card-img` }
@@ -79,7 +79,7 @@ function RecomendationsDrink() {
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <div
                   data-testid={ `${index + four}-recomendation-card` }
-                  className="recomendations-card"
+                  className="card"
                 >
                   <img
                     data-testid={ `${index + four}-card-img` }

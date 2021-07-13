@@ -5,7 +5,7 @@ import { Context } from '../context/ContextForm';
 import HomeAndReturn from '../components/HomeAndReturn';
 import Header from '../components/Header';
 import Icons from '../components/Icons';
-import '../styles/global.css';
+import '../styles/StarRecipes(page).css';
 
 function StarRecipes() {
   const favorite = JSON.parse(window.localStorage.getItem('favoriteRecipes'));
@@ -35,7 +35,7 @@ function StarRecipes() {
       <div>
         <Header title="Receitas Favoritas" />
         <div>
-          <h4 className="noFavorite">Não há receitas favoritadas</h4>
+          <h4 className="noStar">Não há receitas favoritadas</h4>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ function StarRecipes() {
           <button
             type="button"
             onClick={ () => All() }
-            className="category-btn"
+            className="star-categoryBtn"
             data-testid="filter-by-all-btn"
           >
             All
@@ -56,7 +56,7 @@ function StarRecipes() {
           <button
             type="button"
             onClick={ () => Food() }
-            className="category-btn"
+            className="star-categoryBtn"
             data-testid="filter-by-food-btn"
           >
             Food
@@ -64,17 +64,17 @@ function StarRecipes() {
           <button
             type="button"
             onClick={ () => Drink() }
-            className="category-btn"
+            className="star-categoryBtn"
             data-testid="filter-by-drink-btn"
           >
             Drinks
           </button>
         </div>
-        <div className="favorite-recipes">
+        <div className="star-recipes-container">
           {favorite.length === 0
-            ? <h4 className="noFavoriteWithHeader">Não há receitas favoritadas</h4>
+            ? <h4 className="noStar-with-header">Não há receitas favoritadas</h4>
             : search.map((recipe, index) => (
-              <div key={ recipe.id } className="card-favorite">
+              <div key={ recipe.id } className="star-card">
                 <Link
                   to={ `/${recipe
                     .type === 'comida' ? 'comidas' : 'bebidas'}/${recipe.id}` }
@@ -83,18 +83,18 @@ function StarRecipes() {
                     data-testid={ `${index}-recipe-card` }
                   >
                     <img
-                      className="favorite-img"
+                      className="star-img"
                       data-testid={ `${index}-horizontal-image` }
                       src={ recipe.image }
                       alt={ recipe.image }
                     />
-                    <Card.Body className="favorite-body">
+                    <Card.Body className="star-cardBody">
                       <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
                         {recipe.type === 'comida'
                           ? `${recipe.area} - ${recipe.category}` : recipe.alcoholicOrNot}
                       </Card.Subtitle>
                       <Card.Title
-                        className="cardTitle"
+                        className="star-cardTitle"
                         data-testid={ `${index}-horizontal-name` }
                       >
                         {recipe.name}

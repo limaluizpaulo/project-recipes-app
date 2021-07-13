@@ -20,7 +20,7 @@ function Header({ title }) {
       <Link to="/perfil">
         <img src={ profileIcon } data-testid="profile-top-btn" alt="Profile Avatar" />
       </Link>
-      <h2 data-testid="page-title" className="header-title">{title}</h2>
+      <h3 data-testid="page-title" className="header-title">{title}</h3>
       { !showExplore && !showRecipes
         ? (
           <img

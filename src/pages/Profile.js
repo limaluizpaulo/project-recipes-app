@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Context } from '../context/ContextForm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../styles/Profile(page).css';
 
 function Profile() {
   const { changeFood,
@@ -24,18 +25,18 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <div className="exploreButtons-container">
+      <div className="profile-container">
         <h3><strong>Usuário:</strong></h3>
         <h4
-          className="profileTitle"
+          className="profile-title"
           data-testid="profile-email"
         >
-          {getUser ? getUser.email : 'usuario@usuario.com'}
+          {getUser ? getUser.email : 'usuario@provedor.com'}
         </h4>
         <Link to="/receitas-feitas">
           <button
             type="button"
-            className="exploreButtons"
+            className="profile-btn"
             data-testid="profile-done-btn"
           >
             Receitas Feitas
@@ -43,7 +44,7 @@ function Profile() {
         </Link>
         <Link to="/receitas-favoritas">
           <button
-            className="exploreButtons"
+            className="profile-btn"
             type="button"
             data-testid="profile-favorite-btn"
           >
@@ -52,7 +53,7 @@ function Profile() {
         </Link>
         <Link to="/credits">
           <button
-            className="exploreButtons"
+            className="profile-btn"
             type="button"
           >
             Credits
@@ -60,7 +61,7 @@ function Profile() {
         </Link>
         <Link to="/">
           <button
-            className="exitButton"
+            className="profile-exitBtn"
             type="button"
             onClick={ () => { localStorage.clear(); handleFinish(); } }
             data-testid="profile-logout-btn"

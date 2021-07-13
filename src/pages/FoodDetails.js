@@ -4,7 +4,7 @@ import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
-import '../styles/global.css';
+import '../styles/DrinkAndFoodDetails(page).css';
 
 function FoodDetails() {
   const params = useParams();
@@ -54,14 +54,19 @@ function FoodDetails() {
           <div key={ index }>
             <img
               src={ strMealThumb }
-              className="detailImg"
+              className="details-img"
               alt={ strMeal }
               data-testid="recipe-photo"
             />
-            <div className="alignDetailsItens">
+            <div className="details-align">
               <section className="detailsTitle-container">
                 <div>
-                  <h1 className="recipeTitle" data-testid="recipe-title">{ strMeal }</h1>
+                  <h1
+                    className="details-title"
+                    data-testid="recipe-title"
+                  >
+                    { strMeal }
+                  </h1>
                   <span data-testid="recipe-category">{ strCategory }</span>
                 </div>
                 <Icons code={ item[0] } />
@@ -69,14 +74,14 @@ function FoodDetails() {
               <List array={ array } />
               <h2>Instructions</h2>
               <p
-                className="instructions"
+                className="details-instructions"
                 data-testid="instructions"
               >
                 { strInstructions }
               </p>
               <h2>Video</h2>
               <iframe
-                className="detailVideo"
+                className="details-video"
                 data-testid="video"
                 width="420"
                 height="315"
@@ -88,18 +93,16 @@ function FoodDetails() {
               <h2>Recomendations</h2>
             </div>
             <RecomendationsDrink />
-            <div className="recipeBtn">
-              <Link to={ `/comidas/${idMeal}/in-progress` }>
-                <button
-                  type="button"
-                  className="startRecipeBtn"
-                  data-testid="start-recipe-btn"
-                  onClick={ start }
-                >
-                  {progress}
-                </button>
-              </Link>
-            </div>
+            <Link to={ `/comidas/${idMeal}/in-progress` }>
+              <button
+                type="button"
+                className="details-startRecipeBtn"
+                data-testid="start-recipe-btn"
+                onClick={ start }
+              >
+                {progress}
+              </button>
+            </Link>
           </div>
         );
       }))

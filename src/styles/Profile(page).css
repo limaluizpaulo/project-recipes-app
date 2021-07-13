@@ -1,0 +1,32 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+  min-width: 80vw;
+}
+
+.profile-title {
+  color: black;
+  margin-bottom: 70px;
+  max-width: 95%;
+  text-align: center;
+  word-break: break-all;
+}
+
+.profile-btn {
+  background-color: lightgray;
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 250px;
+}
+
+.profile-exitBtn {
+  background-color: rgb(224, 20, 20);
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+  width: 250px;
+}

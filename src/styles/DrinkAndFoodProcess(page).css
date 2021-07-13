@@ -1,0 +1,32 @@
+.progress-img {
+  width: 100%;
+}
+
+.progress-align {
+  margin: auto;
+  width: 95%;
+}
+
+.progressTitle-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-title {
+  width: 180px;
+}
+
+.progress-instructions {
+  background-color: lightgray;
+  padding: 15px;
+}
+
+.progress-startRecipeBtn {
+  background-color: lightgray;
+  bottom: 0;
+  display: block;
+  font-size: 1.2rem;
+  padding: 9px;
+  position: fixed;
+  width: 100%;
+}

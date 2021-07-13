@@ -1,0 +1,45 @@
+.explore-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 73vh;
+  min-width: 73vw;
+}
+
+.explore-videoAndBtn {
+  height: 258px;
+  position: relative;
+}
+
+.video {
+  position: relative;
+  width: 100%;
+}
+
+.explore-food-container {
+  -moz-transform:translate3d(-50%, -50%, 0);
+  -webkit-transform:translate3d(-50%, -50%, 0);
+  left:50%;
+  position:absolute;
+  top:80%;
+  transform:translate3d(-50%, -50%, 0);
+}
+
+.explore-drink-container {
+  -moz-transform:translate3d(-50%, -50%, 0);
+  -webkit-transform:translate3d(-50%, -50%, 0);
+  left:50%;
+  position:absolute;
+  top:25%;
+  transform:translate3d(-50%, -50%, 0);
+}
+
+.explore-btn {
+  background-color: lightgray;
+  font-size: 19px;
+  margin-bottom: 25px;
+  padding: 5px;
+  text-align: center;
+  width: 165px;
+}

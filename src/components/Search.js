@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/ContextForm';
-import '../styles/global.css';
+import '../styles/Search.css';
 import searchByNameFood,
 { searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
   searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';
@@ -88,21 +88,21 @@ function Search() {
   }
 
   return (
-    <form onSubmit={ submit } className="search">
+    <form onSubmit={ submit } className="search-container">
       <div>
         <label htmlFor="search">
           <input
             type="text"
             id="search"
             placeholder="Digite aqui o que procura..."
-            className="searchInput"
+            className="search-input"
             value={ inputSearch }
             onChange={ ({ target }) => setInputSearch(target.value) }
             data-testid="search-input"
           />
         </label>
       </div>
-      <div className="radioSearch">
+      <div className="search-radios-container">
         <label htmlFor="ingredients">
           Ingrediente
           <input
@@ -138,7 +138,7 @@ function Search() {
         </label>
       </div>
       <div>
-        <button type="submit" className="searchBtn" data-testid="exec-search-btn">
+        <button type="submit" className="search-btn" data-testid="exec-search-btn">
           Buscar
         </button>
       </div>
