@@ -1,0 +1,65 @@
+#exploreContainer {
+  height: 497px;
+  background-color: black;
+}
+
+#exploreContainer section {
+  height: 50%;
+}
+
+#exploreMeals div {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCjX26qJHqULh94zUL3bX21QLS7mg-tREc-Q&usqp=CAU);
+
+}
+
+#exploreDrinks div {
+  background-image: url(https://churrascariameinhaus.com.br/blog/wp-content/uploads/2020/04/cinco-drinks-que-casam-perfeitamente-com-churrasco.jpg);
+}
+
+#exploreDrinks div, #exploreMeals div {
+  background-size: contain;
+  height: 100%;
+  opacity: 0.7;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+  transition: 0.4s all ease-in-out;
+}
+
+#exploreDrinks p, #exploreMeals p {
+  z-index: 1;
+  position: fixed;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 105px;
+  transition: 0.4s all ease-in-out;
+}
+
+#exploreDrinks p {
+  top: 430px;
+}
+
+#exploreMeals p {
+  top: 175px;
+}
+
+#exploreDrinks div:hover, #exploreDrinks div:active {
+  opacity: 0.8;
+  -webkit-filter: blur(0);
+  -moz-filter: blur(0);
+  -o-filter: blur(0);
+  -ms-filter: blur(0);
+  filter: blur(0);
+}
+
+#exploreMeals div:hover, #exploreMeals div:active {
+  opacity: 0.8;
+  -webkit-filter: blur(0);
+  -moz-filter: blur(0);
+  -o-filter: blur(0);
+  -ms-filter: blur(0);
+  filter: blur(0);
+}

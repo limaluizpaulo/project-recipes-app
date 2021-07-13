@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRecipeSearch } from '../services';
-import './searchbar.css';
+import './css/searchbar.css';
 
 function SearchBar({ title, newRecipes }) {
   const [selectedRadio, setSelectedRadio] = useState('/filter.php?i=');

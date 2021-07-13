@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Batata';
-  src: local('Batata'), url(../fonts/Poppins-ExtraLight.ttf);
+  src: local('Batata'), url(../../fonts/Poppins-ExtraLight.ttf);
 }
 
 body {
@@ -18,7 +18,6 @@ body {
   flex-flow: column;
   height: 100vh;
   justify-content: center;
-  /* padding: 20px; */
   width: 100vw;
 }
 
@@ -31,7 +30,7 @@ body {
 .form-login input {
   border: none;
   border-radius: 5px;
-  box-shadow: 10px 12px 27px -4px rgba(61, 61, 61, 0.6);
+  box-shadow: 9px 9px 9px -5px rgba(47, 47, 47, 0.6);
   font-size: 1em;
   outline: none;
   padding: 12px;
@@ -54,7 +53,7 @@ body {
 
 .form-login button:enabled {
   background-color: white;
-  box-shadow: 10px 12px 27px -4px rgba(61, 61, 61, 0.6);
+  box-shadow: 9px 9px 9px -5px rgba(61, 61, 61, 0.6);
   color: #fb9400;
   opacity: 1;
 }

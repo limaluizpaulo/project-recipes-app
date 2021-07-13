@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './recipescards.css';
+import './css/recipescards.css';
 
 function RecipeCards({ history, recipes }) {
   const { pathname } = history.location;

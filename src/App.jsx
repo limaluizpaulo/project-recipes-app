@@ -14,7 +14,6 @@ import {
   FavoriteRecipes,
 } from './pages';
 import { NotFound } from './components';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

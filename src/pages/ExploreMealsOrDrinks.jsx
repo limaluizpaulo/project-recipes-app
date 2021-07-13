@@ -12,16 +12,22 @@ function ExploreMealsOrDrinks({ history }) {
   // };
   const renderExploreMeals = () => (
     <>
-      <Link to="/explorar/comidas/ingredientes">
-        <p data-testid="explore-by-ingredient">
-          Por Ingredientes
-        </p>
-      </Link>
+      <section>
+        <Link to="/explorar/comidas/ingredientes">
+          <p data-testid="explore-by-ingredient">
+            Por Ingredientes
+          </p>
+          <div />
+        </Link>
+      </section>
 
       <Link to="/explorar/comidas/area">
-        <p data-testid="explore-by-area">
-          Por Local de Origem
-        </p>
+        <section>
+          <p data-testid="explore-by-area">
+            Por Local de Origem
+          </p>
+          <div />
+        </section>
       </Link>
 
       <Link to="/comidas/52771">

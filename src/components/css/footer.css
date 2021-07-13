@@ -1,0 +1,22 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100vw;
+  background-color: #F59600;
+}
+
+footer a {
+  background-color: transparent;
+}
+
+footer a button {
+  outline: none;
+  font-size: 2rem;
+  color: white;
+  background-color: transparent;
+  border: none;
+  padding: 10px 0 10px 0px;
+  overflow: scroll;
+}

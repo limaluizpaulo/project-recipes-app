@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import logo from '../images/logo.png';
 
-import './login.css';
+import './css/login.css';
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState({

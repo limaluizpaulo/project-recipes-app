@@ -9,7 +9,7 @@ import {
   getDrinkByCategory,
 } from '../services';
 
-import './mainpage.css';
+import './css/mainpage.css';
 import '../main.css';
 import { RecipeCards, Footer, Header } from '../components';
 

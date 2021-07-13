@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getDrinkRecipes } from '../services';
-import './RecDrinks.css';
+import './css/RecDrinks.css';
 
 const SIX = 6;
 

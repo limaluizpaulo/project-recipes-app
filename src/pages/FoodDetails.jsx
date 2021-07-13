@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetails, getDrinkDetails } from '../services';
 import { checkDoneRecipes, checkProgress } from '../services/localStorageManager';
-import './FoodDetails.css';
+import './css/FoodDetails.css';
 import {
   RecDrinks,
   RecMeals,

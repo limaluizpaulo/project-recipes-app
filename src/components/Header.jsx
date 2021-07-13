@@ -6,7 +6,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import arrangeTitle from '../services/getPageTitle';
-import './header.css';
+import './css/header.css';
 
 function Header({ pathname, newRecipes }) {
   const [shouldShearchBar, setShouldSearchBar] = useState(false);

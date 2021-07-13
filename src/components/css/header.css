@@ -7,13 +7,12 @@ header main{
   justify-content: space-around;
   justify-items: center;
   width: 100vw;
-  padding-top: 10px;
 }
 
 header main a {
   align-self: center;
   display: flex;
-  font-size: 50px;
+  font-size: 35px;
   color: rgb(255, 255, 255);
 }
 

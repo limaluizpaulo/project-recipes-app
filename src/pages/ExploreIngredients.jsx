@@ -42,7 +42,7 @@ function ExploreIngredients({ history, shouldRenderFiltered, updateFiltered }) {
       }
     };
     filterByIngredientMeal();
-  }, [choiceIngredMeal]);
+  }, [choiceIngredMeal, filteredBy, pathname, shouldRenderFiltered, updateFiltered]);
 
   const ingredientImgMeal = (name) => (
     `https://www.themealdb.com/images/ingredients/${name}-Small.png`);
