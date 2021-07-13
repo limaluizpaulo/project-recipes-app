@@ -110,6 +110,7 @@ function Search() {
             type="radio"
             value="Ingrediente"
             id="ingredients"
+            className="ingredients"
             onChange={ ({ target }) => setRadio(target.value) }
             data-testid="ingredient-search-radio"
           />
@@ -121,6 +122,7 @@ function Search() {
             type="radio"
             value="Nome"
             id="name"
+            className="name"
             onChange={ ({ target }) => setRadio(target.value) }
             data-testid="name-search-radio"
           />
@@ -132,6 +134,7 @@ function Search() {
             type="radio"
             value="Primeira letra"
             id="first-letter"
+            className="first-letter"
             onChange={ ({ target }) => setRadio(target.value) }
             data-testid="first-letter-search-radio"
           />

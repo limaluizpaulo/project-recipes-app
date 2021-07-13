@@ -18,20 +18,16 @@
 }
 
 .explore-food-container {
-  -moz-transform:translate3d(-50%, -50%, 0);
-  -webkit-transform:translate3d(-50%, -50%, 0);
-  left:50%;
-  position:absolute;
-  top:80%;
+  left: 50%;
+  position: absolute;
+  top: 80%;
   transform:translate3d(-50%, -50%, 0);
 }
 
 .explore-drink-container {
-  -moz-transform:translate3d(-50%, -50%, 0);
-  -webkit-transform:translate3d(-50%, -50%, 0);
-  left:50%;
-  position:absolute;
-  top:25%;
+  left: 50%;
+  position: absolute;
+  top: 25%;
   transform:translate3d(-50%, -50%, 0);
 }
 

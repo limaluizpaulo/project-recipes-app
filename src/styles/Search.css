@@ -1,12 +1,12 @@
-#first-letter {
+.first-letter {
   margin-left: 3px;
 }
 
-#ingredients {
+.ingredients {
   margin-left: 3px;
 }
 
-#name {
+.name {
   margin-left: 3px;
 }
 
