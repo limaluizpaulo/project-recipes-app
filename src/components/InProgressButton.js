@@ -1,15 +1,13 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
-import RecipesContext from '../context/RecipesContext';
+import LoginContext from '../context/LoginContext';
 
 function InProgressButton(props) {
   const { value: { ingredientsQuantity, checked, recipe } } = props;
-
   const { push } = useHistory();
   const [disabled, setDisabled] = useState(true);
-
-  const { doneRecipes } = useContext(RecipesContext);
+  const { doneRecipes } = useContext(LoginContext);
 
   if (ingredientsQuantity === checked && disabled === true) {
     setDisabled(false);

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router';
-import RecipesContext from '../context/RecipesContext';
+import LoginContext from '../context/LoginContext';
 import logo from '../images/logo.svg';
 import '../styles/Login.css';
 
@@ -11,7 +11,7 @@ import '../styles/Login.css';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassowd] = useState('');
-  const { successLogin } = useContext(RecipesContext);
+  const { successLogin } = useContext(LoginContext);
 
   const history = useHistory();
 
