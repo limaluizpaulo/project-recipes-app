@@ -15,7 +15,10 @@ import ExploreDrinks from './components/ExploreDrinks';
 import ExpFoodIngredients from './components/ExpFoodIngredients';
 import ExpArea from './components/ExpArea';
 // import ExpSurprise from './components/ExpSurprise';
+import NotFoundPage from './components/NotFoundPage';
 import ExpDrinkIngredients from './components/ExpDrinkIngredients';
+import DoneRecipes from './components/DoneRecipes';
+import FavRecipes from './components/FavRecipes';
 
 function App() {
   return (
@@ -39,6 +42,10 @@ function App() {
           render={ (props) => <ExpDrinkIngredients { ...props } /> }
         />
         <Route
+          path="/explorar/bebidas/area"
+          render={ (props) => <NotFoundPage { ...props } /> }
+        />
+        <Route
           exact
           path="/comidas/:id"
           render={ (props) => <DetailsFoodPage { ...props } /> }
@@ -57,9 +64,17 @@ function App() {
           render={ (props) => <ExploreDrinks { ...props } /> }
         />
         <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
-        <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/perfil" render={ (props) => <Profile { ...props } /> } />
         <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
+        <Route
+          path="/receitas-feitas"
+          render={ (props) => <DoneRecipes { ...props } /> }
+        />
+        <Route
+          path="/receitas-favoritas"
+          render={ (props) => <FavRecipes { ...props } /> }
+        />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
       {/* </div> */}
