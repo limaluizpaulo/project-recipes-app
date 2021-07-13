@@ -124,9 +124,14 @@ class DoneRecipes extends Component {
                 <Card.Text data-testid={ `${index}-horizontal-done-date` }>
                   {doneDate}
                 </Card.Text>
-                <Card.Text data-testid={ `data-testid=${index}-${tags}-horizontal-tag` }>
-                  {tags}
-                </Card.Text>
+                {tags.map((el) => (
+                  <Card.Text
+                    key={ el }
+                    data-testid={ `data-testid=${index}-${el}-horizontal-tag` }
+                  >
+                    {el}
+                  </Card.Text>))}
+
               </Card.Body>
             </Card>
           ))
