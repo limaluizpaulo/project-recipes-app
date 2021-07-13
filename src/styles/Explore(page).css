@@ -21,14 +21,14 @@
   left: 50%;
   position: absolute;
   top: 80%;
-  transform:translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .explore-drink-container {
   left: 50%;
   position: absolute;
   top: 25%;
-  transform:translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .explore-btn {
