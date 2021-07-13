@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
@@ -6,8 +6,10 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import RecommendedCard from '../components/RecommendedCard';
 import ShareFavoriteBtm from '../components/ShareFavoriteBtm';
+import FetchContext from '../context/FetchContext';
 
 function DetailsPage({ match: { path, params, url } }) {
+  const { setTypeFunc } = useContext(FetchContext);
   const [details, setDetails] = useState('');
   const [recommendation, setRecommendation] = useState('');
   const history = useHistory();
@@ -24,6 +26,7 @@ function DetailsPage({ match: { path, params, url } }) {
 
   const fetchDetails = async () => {
     if (pageFoods) {
+      setTypeFunc('meals');
       const response = await fetch(urlFoods);
       const dataResponse = await response.json();
       const food = dataResponse.meals[0];
@@ -32,6 +35,7 @@ function DetailsPage({ match: { path, params, url } }) {
       const dataRecommendation = await responseRecommendation.json();
       setRecommendation(dataRecommendation);
     } if (pageDrinks) {
+      setTypeFunc('drinks');
       const response = await fetch(urlDrinks);
       const dataResponse = await response.json();
       const drink = dataResponse.drinks[0];
@@ -114,7 +118,13 @@ function DetailsPage({ match: { path, params, url } }) {
           {details.strAlcoholic}
         </p>
       </div>
-      <ShareFavoriteBtm url={ url } />
+      <ShareFavoriteBtm
+        url={ url }
+        pageFoods={ pageFoods }
+        id={ id }
+        data={ details }
+        pageDrinks={ pageDrinks }
+      />
       <div>
         <h3>
           Ingredientes
