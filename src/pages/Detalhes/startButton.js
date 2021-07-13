@@ -35,7 +35,7 @@ function startButton(page, item, history) {
     const redirection = () => {
       history.push(`/bebidas/${item.idDrink}/in-progress`);
       const inProgressRecipes = {
-        drinks: {
+        cocktails: {
           [item.idDrink]: [],
         },
       };
