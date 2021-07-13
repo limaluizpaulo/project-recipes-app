@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import { useLocation } from 'react-router';
-import { copyLink, favoriteClick, help } from '../helper/functions';
+import { useHistory } from 'react-router';
+import { changeList, copyLink, favoriteClick, help } from '../helper/functions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -11,14 +11,19 @@ import {
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
 
 export default function RecipeProgress({ idRecipe, typeRecipe }) {
-  const location = useLocation();
   const [list, setList] = useState([]);
   const [leng, setLeng] = useState([]);
+  const [status, setStatus] = useState(true);
+  const [detail, setDetail] = useState({});
   const [show, setShow] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [arrayFavorite] = useState(help(JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   ), []));
+  const [objectStart] = useState(help(JSON.parse(
+    localStorage.getItem('inProgressRecipes'),
+  ), { cocktails: {}, meals: {} }));
+  const history = useHistory();
   useRecipeProgress({
     idRecipe,
     typeRecipe,
@@ -28,7 +33,11 @@ export default function RecipeProgress({ idRecipe, typeRecipe }) {
     setList,
     arrayFavorite,
     setFavorite,
+    setDetail,
+    detail,
+    objectStart,
   });
+
   return (
     <div>
       <img
@@ -47,7 +56,7 @@ export default function RecipeProgress({ idRecipe, typeRecipe }) {
       <img
         style={ { padding: '40px' } }
         role="presentation"
-        onClick={ () => copyLink(copy, setShow, location) }
+        onClick={ () => copyLink(copy, setShow, typeRecipe, idRecipe) }
         type="button"
         data-testid="share-btn"
         src={ shareIcon }
@@ -73,18 +82,33 @@ export default function RecipeProgress({ idRecipe, typeRecipe }) {
           <li
             className="instruction-progress"
             key={ index }
-            data-testid={ `data-testid=${index}-ingredient-step ` }
+            data-testid={ `${index}-ingredient-step` }
           >
-            {list[ing]}
-            -
-            {list[`strMeasure${index + 1}`]}
+            <input
+              onChange={ ({ target }) => changeList({ target },
+                { typeRecipe, objectStart, idRecipe, setDetail, detail, setStatus }) }
+              type="checkbox"
+              checked={ detail[ing] === 'detailClass' }
+              value={ ing }
+            />
+            <label
+              htmlFor={ list[ing] }
+              className={ detail[ing] }
+            >
+              {' '}
+              {list[ing]}
+              -
+              {list[`strMeasure${index + 1}`]}
+            </label>
           </li>))}
       </ul>
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ status }
+        onClick={ () => history.push('/receitas-feitas') }
       >
-        Terminar Receita
+        Finalizar Receita
       </button>
     </div>
   );
