@@ -6,9 +6,9 @@ function FilterButtons({ initialFavorites, setFilterFavorites }) {
     if (filter === 'All') {
       setFilterFavorites(initialFavorites);
     } else if (filter === 'Food') {
-      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'comida'));
+      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'comidas'));
     } else {
-      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'bebida'));
+      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'bebidas'));
     }
   };
 
