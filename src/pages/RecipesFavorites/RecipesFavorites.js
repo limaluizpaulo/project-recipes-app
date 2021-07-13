@@ -10,12 +10,10 @@ function RecipesFavorites() {
 
   const cardsFavorites = () => {
     const doneFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(doneFavorites);
     const filted = doneFavorites
       .filter(({ type }) => type === filter || filter === 'all');
 
-    console.log(filted);
-    return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
+    return filted.map(({ image, category, name, area, doneDate, type, id }, index) => (
       <div className="card-favorite" key={ index }>
         <Link to={ `/${type}/${id}` } className="link-img">
           <img
@@ -26,7 +24,11 @@ function RecipesFavorites() {
         </Link>
 
         <div className="detaisl-recipedone">
-          <h6 data-testid={ `${index}-horizontal-top-text` }>{category}</h6>
+          <h6
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${area} - ${category}`}
+          </h6>
           <Link to={ `/${type}/${id}` }>
             <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
           </Link>
