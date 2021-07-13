@@ -113,4 +113,11 @@ export async function requestAllMealIngredients() {
   return resolve;
 }
 
+export async function requestAllDrinkIngredients() {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const request = await fetch(url);
+  const resolve = await request.json();
+  return resolve;
+}
+
 export default requestMeal;

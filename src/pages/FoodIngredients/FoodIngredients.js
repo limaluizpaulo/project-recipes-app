@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { requestAllMealIngredients } from '../../helpers/requests';
@@ -16,18 +17,28 @@ function FoodIngredients() {
   }, []);
 
   function mapData(param) {
+    const magicNumber = 12;
     const { meals } = param;
     return meals
+      .filter((_, index) => index < magicNumber)
       .map((item, index) => (
-        <div key={ index }>
-          {console.log(item)}
+        <div className="card" key={ index } data-testid={ `${index}-ingredient-card` }>
+          {/* <Link to={}> */}
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
+            className="card-img-top"
+            alt={ `imagem de ${item.strIngredient}` }
+          />
+          <h5
+            data-testid={ `${index}-card-name` }
+          >
+            {item.strIngredient}
+          </h5>
+          {/* </Link> */}
         </div>
-      ),
-        // return null;
-      );
+      ));
   }
-
-  // console.log(data);
 
   return (
     <div>
