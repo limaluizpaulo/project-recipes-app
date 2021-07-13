@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import '../Style/Login.css';
 import { connect } from 'react-redux';
 import { actionSaveUser, actionRecipes } from '../actions/index';
+import logo from '../images/logo.png';
 
 class Login extends Component {
   constructor(props) {
@@ -57,7 +58,8 @@ class Login extends Component {
     if (redirect) return <Redirect to="/comidas" />;
     return (
       <div className="container-login">
-        <h2>Login</h2>
+        <img src={ logo } alt="logo" className="logo" />
+        <h5>Login</h5>
         <label htmlFor="email">
           <input
             onChange={ this.handleEmail }

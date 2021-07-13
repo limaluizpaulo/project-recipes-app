@@ -1,6 +1,12 @@
 .container-login {
   align-items: center;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+
+.logo {
+  width: 250px;
 }
