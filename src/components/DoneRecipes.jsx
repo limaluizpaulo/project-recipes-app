@@ -12,11 +12,12 @@ class DoneRecipes extends Component {
 
     this.state = {
       doneRecipes: [],
-      link: false,
+      ids: [],
     };
     this.handleFilterFoods = this.handleFilterFoods.bind(this);
     this.handleFilterDrinks = this.handleFilterDrinks.bind(this);
     this.handleFilterAll = this.handleFilterAll.bind(this);
+    this.renderMsg = this.renderMsg.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +25,7 @@ class DoneRecipes extends Component {
   }
 
   handleFilterAll() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes,
     });
@@ -33,19 +34,23 @@ class DoneRecipes extends Component {
   handleFilterFoods() {
     const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     this.setState({
-      doneRecipes: allRecipes.filter((elem) => elem.type === 'comidas'),
+      doneRecipes: allRecipes.filter((elem) => elem.type === 'comida'),
     });
   }
 
   handleFilterDrinks() {
     const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     this.setState({
-      doneRecipes: allRecipes.filter((elem) => elem.type === 'bebidas'),
+      doneRecipes: allRecipes.filter((elem) => elem.type === 'bebida'),
     });
   }
 
+  renderMsg(id) {
+    this.setState({ ids: id });
+  }
+
   render() {
-    const { doneRecipes, link } = this.state;
+    const { doneRecipes, ids } = this.state;
     return (
       <section>
         <section>
@@ -73,10 +78,10 @@ class DoneRecipes extends Component {
         </section>
         {
           doneRecipes.map(({
-            type, name, id, image, area, category, alcoholicOrNot,
+            type, name, id, image, area, category, alcoholicOrNot, doneDate, tags,
           }, index) => (
             <Card key={ name } className="favorite-card">
-              <Link to={ `${type}/${id}` }>
+              <Link to={ `${type}s/${id}` }>
                 <Card.Img
                   className="favorite-card-img"
                   data-testid={ `${index}-horizontal-image` }
@@ -105,8 +110,8 @@ class DoneRecipes extends Component {
                   <button
                     type="button"
                     className="favorite-btn-share"
-                    onClick={ () => copy(`http://localhost:3000/${type}/${id}`)
-                      .then(() => this.setState({ link: !link })) }
+                    onClick={ () => copy(`http://localhost:3000/${type}s/${id}`)
+                      .then(() => this.renderMsg(id)) }
                   >
                     <img
                       data-testid={ `${index}-horizontal-share-btn` }
@@ -114,8 +119,14 @@ class DoneRecipes extends Component {
                       alt={ shareIcon }
                     />
                   </button>
-                  {link && <p>Link copiado!</p>}
+                  {ids.includes(id) && <p>Link copiado!</p>}
                 </section>
+                <Card.Text data-testid={ `${index}-horizontal-done-date` }>
+                  {doneDate}
+                </Card.Text>
+                <Card.Text data-testid={ `data-testid=${index}-${tags}-horizontal-tag` }>
+                  {tags}
+                </Card.Text>
               </Card.Body>
             </Card>
           ))

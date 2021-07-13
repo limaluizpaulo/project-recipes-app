@@ -129,10 +129,11 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
+    // console.log(currentDate);
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],
-      type: page,
+      type: page === 'comidas' ? 'comida' : 'bebida',
       area: details[keyName.Area] ? details[keyName.Area] : '',
       category: details[keyName.Category] ? details[keyName.Category] : '',
       alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
