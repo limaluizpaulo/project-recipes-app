@@ -32,7 +32,7 @@ function ExploreFoods({ history }) {
       const { idMeal } = randomFood[0];
       history.push(`/comidas/${idMeal}`);
     }
-  }, [randomFood]);
+  }, [history, randomFood]);
 
   return (
     <div>
