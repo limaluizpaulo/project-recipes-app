@@ -10,8 +10,8 @@ function RecipesMade() {
     {
       id: 52771,
       type: 'comidas',
-      area: '',
-      category: 'Italian - Vegetarian',
+      area: 'Italian',
+      category: 'Vegetarian',
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
@@ -36,41 +36,47 @@ function RecipesMade() {
 
     const filted = doneRecipes.filter(({ type }) => type === filter || filter === 'all');
 
-    return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
-      <div className="card-recipedone" key={ index }>
-        <Link to={ `/${type}/${id}` } className="link-img">
-          <img
-            src={ image }
-            data-testid={ `${index}-horizontal-image` }
-            alt="card recipe done"
-          />
-        </Link>
-
-        <div className="detaisl-recipedone">
-          <h6 data-testid={ `${index}-horizontal-top-text` }>{category}</h6>
-          <Link to={ `/${type}/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+    return filted
+      .map(({ image, category, name, doneDate, area, tags, type, id }, index) => (
+        <div className="card-recipedone" key={ index }>
+          <Link to={ `/${type}/${id}` } className="link-img">
+            <img
+              src={ image }
+              data-testid={ `${index}-horizontal-image` }
+              alt="card recipe done"
+            />
           </Link>
 
-          <h6 data-testid={ `${index}-horizontal-done-date` }>
-            {`Feita em: ${doneDate}`}
-          </h6>
-          {tags.map((tag) => (
-            <span
-              key={ tag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
+          <div className="detaisl-recipedone">
+            <h6
+              data-testid={ `${index}-horizontal-top-text` }
             >
-              {tag}
-            </span>
-          ))}
+              {`${area} - ${category}`}
+            </h6>
 
-          <ButtonShare
-            path={ `http://localhost:3000/${type}/${id}` }
-            dataTest={ `${index}-horizontal-share-btn` }
-          />
+            <Link to={ `/${type}/${id}` }>
+              <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+            </Link>
+
+            <h6 data-testid={ `${index}-horizontal-done-date` }>
+              {`Feita em: ${doneDate}`}
+            </h6>
+            {tags.map((tag) => (
+              <span
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            ))}
+
+            <ButtonShare
+              path={ `http://localhost:3000/${type}/${id}` }
+              dataTest={ `${index}-horizontal-share-btn` }
+            />
+          </div>
         </div>
-      </div>
-    ));
+      ));
   };
 
   return (
