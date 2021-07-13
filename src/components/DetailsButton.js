@@ -14,24 +14,6 @@ function DetailsButton(props) {
     setInProgress,
   } } = props;
 
-  function defaultDone() {
-    const storage = localStorage.getItem('doneRecipes');
-    if (storage.length <= 1) {
-      localStorage.setItem('doneRecipes', JSON.stringify([{
-        id: '',
-        type: '',
-        area: '',
-        category: '',
-        alcoholicOrNot: null,
-        name: '',
-        image: '',
-        doneDate: null,
-        tags: '',
-      }]));
-    }
-    push(`${url}/in-progress`);
-  }
-
   if (!inProgress) {
     return (
       <button
@@ -49,7 +31,10 @@ function DetailsButton(props) {
       className="start"
       data-testid="start-recipe-btn"
       type="button"
-      onClick={ () => defaultDone() }
+      onClick={ () => {
+        // localStorage.setItem('doneRecipes', null);
+        push(`${url}/in-progress`);
+      } }
     >
       Continuar Receita
       {/* <a href={ `${url}/in-progress` }>Continuar Receita</a> */}
