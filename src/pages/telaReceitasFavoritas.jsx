@@ -2,53 +2,92 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/header';
 import { getSearchBarResponse } from '../action/index';
 
 import '../css/TelaDeFavoritas.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class TelaReceitasFavoritas extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favIconColor: blackHeartIcon,
+      link: false,
+      favoriteList: [],
+    };
+
+    this.isFavorite = this.isFavorite.bind(this);
+    this.getFavoriteRecipes = this.getFavoriteRecipes.bind(this);
+  }
+
   componentDidMount() {
     const { hasSearchBar } = this.props;
 
+    this.getFavoriteRecipes();
     hasSearchBar(false);
+  }
+
+  getFavoriteRecipes() {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    this.setState({ favoriteList: favoriteRecipes });
+  }
+
+  isFavorite(id) {
+    const { favoriteList } = this.state;
+    const filterFavorite = favoriteList.filter((recipe) => recipe.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filterFavorite));
+
+    this.setState({ favoriteList: filterFavorite });
   }
 
   render() {
     const { location } = this.props;
-    const favoriteRecipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      },
-    ];
+    const { favIconColor, link, favoriteList } = this.state;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     return (
       <section>
         <Header location={ location } />
-        <section>AQUI FICARÁ OS FILTROS!!!</section>
+        <section>
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => this.setState({ favoriteList: favoriteRecipes }) }
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => {
+              this.setState({ favoriteList: favoriteRecipes
+                .filter((recipe) => recipe.type === 'comida') });
+            } }
+          >
+            Food
+          </button>
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => {
+              this.setState({ favoriteList: favoriteRecipes
+                .filter((recipe) => recipe.type === 'bebida') });
+            } }
+          >
+            Drinks
+          </button>
+        </section>
         <section>
           {
-            favoriteRecipes.map(({
+            favoriteList.map(({
               type, name, id, image, area, category, alcoholicOrNot,
             }, index) => (
               <Card key={ name } className="favorite-card">
-                <Link to={ type === 'comida' ? `comidas/${id}` : `bebidas/${id}` }>
+                <Link to={ `${type}s/${id}` }>
                   <Card.Img
                     className="favorite-card-img"
                     data-testid={ `${index}-horizontal-image` }
@@ -56,7 +95,7 @@ class TelaReceitasFavoritas extends Component {
                   />
                 </Link>
                 <Card.Body className="favorite-card-body">
-                  <Link to={ type === 'comida' ? `comidas/${id}` : `bebidas/${id}` }>
+                  <Link to={ `${type}s/${id}` }>
                     <Card.Subtitle
                       data-testid={ `${index}-horizontal-top-text` }
                       className="favorite-card-subtitle"
@@ -73,6 +112,32 @@ class TelaReceitasFavoritas extends Component {
                       { name }
                     </Card.Title>
                   </Link>
+                  <section className="favorite-buttons">
+                    <button
+                      type="button"
+                      className="favorite-btn-share"
+                      onClick={ () => copy(`http://localhost:3000/${type}s/${id}`)
+                        .then(() => this.setState({ link: !link })) }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt={ shareIcon }
+                      />
+                    </button>
+                    {link && <p>Link copiado!</p>}
+                    <button
+                      type="button"
+                      className="favorite-btn"
+                      onClick={ () => this.isFavorite(id) }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        src={ favIconColor }
+                        alt={ favIconColor }
+                      />
+                    </button>
+                  </section>
                 </Card.Body>
               </Card>
             ))

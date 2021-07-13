@@ -25,3 +25,26 @@
 .favorite-card-title {
   font-size: 1.31rem;
 }
+
+.favorite-buttons {
+  display: flex;
+}
+
+.favorite-btn-share {
+  background-color: transparent;
+  margin-right: 2.25rem;
+}
+
+.favorite-btn-share img {
+  height: 1.87rem;
+  width: 1.87rem;
+}
+
+.favorite-btn {
+  background-color: transparent;
+}
+
+.favorite-btn img {
+  height: 1.87rem;
+  width: 1.87rem;
+}

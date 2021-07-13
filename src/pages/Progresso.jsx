@@ -32,6 +32,7 @@ class Progresso extends Component {
     this.onClick = this.onClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.saveDoneRecipes = this.saveDoneRecipes.bind(this);
+    this.finishRecipe = this.finishRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -193,7 +194,6 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
-    const currentHour = new Date().toLocaleTimeString();
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
     const recipe = {
@@ -204,13 +204,32 @@ class Progresso extends Component {
       alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
       name: details[keyName.Name],
       image: details[keyName.Thumb],
-      doneDate: `${currentDate}, ${currentHour}`,
+      doneDate: `${currentDate}`,
       tags: details[keyName.Tags] ? details[keyName.Tags] : '',
     };
 
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
+
+  finishRecipe() {
+    const { match: { params: { id, page } } } = this.props;
+    if (localStorage.inProgressRecipes) {
+      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+      if (page === 'comidas') {
+        delete inProgress.meals[id];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      }
+
+      if (page === 'bebidas') {
+        delete inProgress.cocktails[id];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      }
+    }
+    this.saveDoneRecipes();
+  }
+
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
@@ -260,7 +279,7 @@ class Progresso extends Component {
             data-testid="finish-recipe-btn"
             onClick={ () => {
               this.handleClick();
-              this.saveDoneRecipes();
+              this.finishRecipe();
             } }
             disabled={ isDisable }
           >

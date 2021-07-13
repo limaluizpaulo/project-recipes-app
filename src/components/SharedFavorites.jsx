@@ -27,7 +27,7 @@ class SharedFavorites extends Component {
   handleFavClick() {
     const { favIcon } = this.state;
     const { details, id, page } = this.props;
-    console.log(details, 'shared');
+    const numberSlice = -1;
     const keyName = identification(details);
     const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (!favIcon) {
@@ -37,7 +37,7 @@ class SharedFavorites extends Component {
       });
       const recipe = {
         id: details[keyName.Id],
-        type: page,
+        type: page.slice(0, numberSlice),
         area: details[keyName.Area] ? details[keyName.Area] : '',
         category: details[keyName.Category] ? details[keyName.Category] : '',
         alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
