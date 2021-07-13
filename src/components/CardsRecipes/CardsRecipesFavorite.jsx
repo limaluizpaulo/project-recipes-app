@@ -27,44 +27,44 @@ function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites 
   }
   return (
     <div className="border">
-      <Link to={`/${type}s/${id}`}>
+      <Link to={ `/${type}s/${id}` }>
         <h5
-          data-testid={`${index}-horizontal-name`}
+          data-testid={ `${index}-horizontal-name` }
         >
-          {name}
+          { name }
         </h5>
       </Link>
-      <p data-testid={`${index}-horizontal-top-text`}>
-        {`${area} - ${category}`}
+      <p data-testid={ `${index}-horizontal-top-text` }>
+        { `${area} - ${category}` }
       </p>
-      {alcohol ? <p data-testid={`${index}-horizontal-top-text`}>Alcoholic</p> : ''}
-      <button type="button" onClick={() => copyUrl(setCopied, type, id)}>
+      {alcohol ? <p data-testid={ `${index}-horizontal-top-text` }>Alcoholic</p> : ''}
+      <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
         <img
-          data-testid={`${index}-horizontal-share-btn`}
-          src={imgIcon}
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ imgIcon }
           alt="share-btn"
         />
       </button>
-      {copied ? <p>Link copiado!</p> : ' '}
+      { copied ? <p>Link copiado!</p> : ' '}
       <button
         type="button"
-        onClick={() => remove(id, filterFavorites, setFilterFavorites)}
+        onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
       >
         <img
-          data-testid={`${index}-horizontal-favorite-btn`}
-          src={imgBtnFavorite}
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          src={ imgBtnFavorite }
           alt="btn"
         />
       </button>
-      <Link to={`/${type}s/${id}`}>
+      <Link to={ `/${type}s/${id}` }>
         <img
           className="img-tam"
-          src={image}
-          data-testid={`${index}-horizontal-image`}
+          src={ image }
+          data-testid={ `${index}-horizontal-image` }
           alt="..."
         />
       </Link>
-      <p>{`/${type}s/${id}`}</p>
+      <p>{ `/${type}s/${id}` }</p>
     </div>
   );
 }
