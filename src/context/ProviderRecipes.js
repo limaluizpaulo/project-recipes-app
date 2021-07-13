@@ -12,12 +12,38 @@ function ProviderRecipes({ children }) {
   const [foodCategoryName, setFoodCategoryName] = useState([]);
   const [drinkCategory, setDrinkCategory] = useState([]);
   const [drinkCategoryName, setDrinkCategoryName] = useState([]);
+  const [areas, setAreas] = useState(['']);
+  const [foodByArea, setFoodByArea] = useState([]);
+  const [drinkByArea, setDrinkByArea] = useState([]);
   const [searchInput, setsearchInput] = useState({
     // name: '',
   });
   const [toggleFood, setToggleFood] = useState(false);
   const [randomFood, setRandomFood] = useState([]);
   const [randomDrink, setRandomDrink] = useState([]);
+
+  const fetchFoodRecipes = () => {
+    const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setRecipes(results.meals)));
+  };
+
+  const fetchDrinkRecipes = () => {
+    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    fetch(endpoint)
+      .then((response) => response.json()
+        .then((results) => setDrinks(results.drinks)));
+  };
+
+  useEffect(() => {
+    fetchFoodRecipes();
+    // fetchDrinkRecipes();
+  }, []);
+
+  useEffect(() => {
+    fetchDrinkRecipes();
+  }, []);
 
   const obj = {
     goSearch,
@@ -46,30 +72,13 @@ function ProviderRecipes({ children }) {
     setRandomFood,
     randomDrink,
     setRandomDrink,
+    areas,
+    setAreas,
+    foodByArea,
+    setFoodByArea,
+    drinkByArea,
+    setDrinkByArea,
   };
-
-  const fetchFoodRecipes = () => {
-    const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    fetch(endpoint)
-      .then((response) => response.json()
-        .then((results) => setRecipes(results.meals)));
-  };
-
-  const fetchDrinkRecipes = () => {
-    const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    fetch(endpoint)
-      .then((response) => response.json()
-        .then((results) => setDrinks(results.drinks)));
-  };
-
-  useEffect(() => {
-    fetchFoodRecipes();
-    // fetchDrinkRecipes();
-  }, []);
-
-  useEffect(() => {
-    fetchDrinkRecipes();
-  }, []);
 
   return (
     <ContextRecipes.Provider value={ { ...obj } }>
