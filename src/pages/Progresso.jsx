@@ -98,8 +98,6 @@ class Progresso extends Component {
 
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recovery.meals[id] !== undefined) {
-      // console.log(recovery.meals[id], 'existo');
-      console.log(recovery.meals[id], 'existo');
       return this.setState({ allIngredients: recovery.meals[id] });
     }
 
@@ -131,7 +129,6 @@ class Progresso extends Component {
     const { details, match: { params: { page } } } = this.props;
     const keyName = identification(details);
     const currentDate = new Date().toLocaleDateString();
-    const currentHour = new Date().toLocaleTimeString();
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const recipe = {
       id: details[keyName.Id],
@@ -141,7 +138,7 @@ class Progresso extends Component {
       alcoholicOrNot: details[keyName.Alcoholic] ? details[keyName.Alcoholic] : '',
       name: details[keyName.Name],
       image: details[keyName.Thumb],
-      doneDate: `${currentDate}, ${currentHour}`,
+      doneDate: `${currentDate}`,
       tags: details[keyName.Tags] ? details[keyName.Tags] : '',
     };
 
@@ -184,13 +181,17 @@ class Progresso extends Component {
   }
 
   render() {
-    const { details, match: { params: { page, id } } } = this.props;
+    const { details, match: { params: { page, id } }, history } = this.props;
     const { isDisable, allIngredients } = this.state;
 
     return (
       <section>
         { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
+<<<<<<< HEAD
+=======
+        <button type="button" onClick={ () => history.goBack() }>voltar</button>
+>>>>>>> 52f4c3578ec8f5448c95ca6c845a0a4c0faed311
         <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
@@ -244,6 +245,7 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+  history: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);

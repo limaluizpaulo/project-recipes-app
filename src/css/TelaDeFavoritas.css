@@ -1,0 +1,50 @@
+.favorite-card {
+  display: flex;
+  flex-direction: row;
+  height: 8.93rem;
+  margin-top: 1.2rem;
+  width: 20.62rem;
+}
+
+.favorite-card-body {
+  padding: 0.5rem;
+}
+
+.favorite-card-img {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  min-height: 8.93rem;
+  width: 10.31rem;
+}
+
+.favorite-card-subtitle {
+  color: darkgrey;
+  font-size: 1rem;
+}
+
+.favorite-card-title {
+  font-size: 1.31rem;
+}
+
+.favorite-buttons {
+  display: flex;
+}
+
+.favorite-btn-share {
+  background-color: transparent;
+  margin-right: 2.25rem;
+}
+
+.favorite-btn-share img {
+  height: 1.87rem;
+  width: 1.87rem;
+}
+
+.favorite-btn {
+  background-color: transparent;
+}
+
+.favorite-btn img {
+  height: 1.87rem;
+  width: 1.87rem;
+}
