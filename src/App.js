@@ -12,8 +12,10 @@ import DetailsFoodPage from './components/DetailsFoodPage';
 import DetailsDrinkPage from './components/DetailsDrinkPage';
 import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
-import ExpIngredients from './components/ExpIngredients';
+import ExpFoodIngredients from './components/ExpFoodIngredients';
 import ExpArea from './components/ExpArea';
+import ExpSurprise from './components/ExpSurprise';
+import ExpDrinkIngredients from './components/ExpDrinkIngredients';
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
       <Switch>
         <Route
           path="/explorar/comidas/ingredientes"
-          render={ (props) => <ExpIngredients { ...props } /> }
+          render={ (props) => <ExpFoodIngredients { ...props } /> }
         />
         <Route
           path="/explorar/comidas/area"
@@ -34,7 +36,7 @@ function App() {
         />
         <Route
           path="/explorar/bebidas/ingredientes"
-          render={ (props) => <ExpIngredients { ...props } /> }
+          render={ (props) => <ExpDrinkIngredients { ...props } /> }
         />
         <Route
           exact
