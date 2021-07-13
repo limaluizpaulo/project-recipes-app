@@ -65,7 +65,7 @@ function RecipesMade() {
           ))}
 
           <ButtonShare
-            path={ `/${type}/${id}` }
+            path={ `http://localhost:3000/${type}/${id}` }
             dataTest={ `${index}-horizontal-share-btn` }
           />
         </div>
