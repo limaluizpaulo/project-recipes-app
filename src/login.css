@@ -22,9 +22,6 @@
 
 .login-page img {
   background-size: cover;
-  /* bottom: 1px; */
-  /* min-height: 100%; */
-  /* min-width: 1024px; */
   bottom: 220px;
   position: fixed;
   z-index: 0;
