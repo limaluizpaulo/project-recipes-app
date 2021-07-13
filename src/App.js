@@ -14,6 +14,7 @@ import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
 import ExpIngredients from './components/ExpIngredients';
 import ExpArea from './components/ExpArea';
+import NotFoundPage from './components/NotFoundPage';
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
         <Route
           path="/explorar/bebidas/ingredientes"
           render={ (props) => <ExpIngredients { ...props } /> }
+        />
+        <Route
+          path="/explorar/bebidas/area"
+          render={ (props) => <NotFoundPage { ...props } /> }
         />
         <Route
           exact
