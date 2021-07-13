@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-import shareIcon from '../../images/shareIcon.svg';
 import './RecipesMade.css';
+import ButtonShare from '../../components/ButtonShare/ButtonShare';
 
 function RecipesMade() {
   const [filter, setFilter] = useState('all');
@@ -38,7 +37,7 @@ function RecipesMade() {
     const filted = doneRecipes.filter(({ type }) => type === filter || filter === 'all');
 
     return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
-      <div className="card" key={ index }>
+      <div className="card-recipedone" key={ index }>
         <Link to={ `/${type}/${id}` } className="link-img">
           <img
             src={ image }
@@ -47,34 +46,29 @@ function RecipesMade() {
           />
         </Link>
 
-        <h6 data-testid={ `${index}-horizontal-top-text` }>{category}</h6>
-        <Link to={ `/${type}/${id}` }>
-          <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
-        </Link>
+        <div className="detaisl-recipedone">
+          <h6 data-testid={ `${index}-horizontal-top-text` }>{category}</h6>
+          <Link to={ `/${type}/${id}` }>
+            <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+          </Link>
 
-        <h5 data-testid={ `${index}-horizontal-done-date` }>
-          {`Data de preparo: ${doneDate}`}
-        </h5>
-        {tags.map((tag) => (
-          <span
-            key={ tag }
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-          >
-            {tag}
-          </span>
-        ))}
-        <button
-          type="button"
-          onClick={ () => {
-            copy(`/${type}/${id}`);
-          } }
-        >
-          <img
-            src={ shareIcon }
-            alt="share"
-            data-testid={ `${index}-horizontal-share-btn` }
+          <h6 data-testid={ `${index}-horizontal-done-date` }>
+            {`Feita em: ${doneDate}`}
+          </h6>
+          {tags.map((tag) => (
+            <span
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {tag}
+            </span>
+          ))}
+
+          <ButtonShare
+            path={ `/${type}/${id}` }
+            dataTest={ `${index}-horizontal-share-btn` }
           />
-        </button>
+        </div>
       </div>
     ));
   };
