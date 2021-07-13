@@ -14,7 +14,6 @@ function FilterButtons({ initialFavorites, setFilterFavorites }) {
 
   return (
     <div>
-      {/* <p>{ initialFavorites }</p> */}
       <div>
         <div>
           <button
@@ -42,9 +41,6 @@ function FilterButtons({ initialFavorites, setFilterFavorites }) {
             Drinks
           </button>
         </div>
-        {/* <div>
-            <CardRecipesFavorite />
-          </div> */}
       </div>
     </div>
   );
