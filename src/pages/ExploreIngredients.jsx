@@ -2,23 +2,18 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { getMealsIngredients, getRecipesByIng } from '../helpers/MealsAPI';
+import { getMealsIngredients } from '../helpers/MealsAPI';
 import logo from '../images/mustachef.svg';
 import RecipesContext from '../contexts/RecipesContext';
 
 export default function ExploreIngredients() {
-  const { setData, type } = useContext(RecipesContext);
+  const { setData, type, setIngredient } = useContext(RecipesContext);
   const [dataIngredients, setDataIngredients] = useState();
   const [isFetching, setIsFetching] = useState(true);
   const maxCards = 12;
   const history = useHistory();
   const { pathname } = useLocation();
   const ingredientPathname = pathname.includes('comidas') ? '/comidas' : '/bebidas';
-
-  const fetchRecipesByIngredient = async (ingredient, paramType) => {
-    const recipes = await getRecipesByIng(ingredient, paramType);
-    setData(recipes);
-  };
 
   useEffect(() => {
     const ingredients = async () => {
@@ -44,7 +39,7 @@ export default function ExploreIngredients() {
             type="button"
             data-testid={ `${index}-ingredient-card` }
             onClick={ () => {
-              fetchRecipesByIngredient(ingrediente.strIngredient, type);
+              setIngredient(ingrediente.strIngredient);
               history.push(ingredientPathname);
             } }
           >

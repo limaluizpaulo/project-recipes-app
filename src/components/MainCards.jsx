@@ -1,13 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import Card from './Card';
 import Categories from './Categories';
-import RecipesContext from '../contexts/RecipesContext';
 // import pathTreament from '../helpers/HelperFunctions';
 
 export default function MainCards(props) {
-  const { maxCards } = useContext(RecipesContext);
+  const maxCards = 12;
   const {
     data,
     thumbnail,
