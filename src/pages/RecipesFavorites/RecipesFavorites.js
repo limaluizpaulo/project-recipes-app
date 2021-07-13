@@ -39,6 +39,7 @@ function RecipesFavorites() {
             </h6>
 
             <ButtonFavorite
+              reload
               id={ id }
               dataTest={ `${index}-horizontal-favorite-btn` }
             />
