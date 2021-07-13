@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import IngredientsInProcess from './IngredientsInProcess';
 import IngredientsDetails from './IngredientsDetails';
+import '../styles/List.css';
 
 export default function List({ array, drinks, ingredientsUsed,
   updateIngredientsUsed, idMeal }) {
@@ -46,7 +47,7 @@ export default function List({ array, drinks, ingredientsUsed,
   return (
     <>
       <h2>Ingredients</h2>
-      <ul className="ingredients">
+      <ul className="list-ingredients">
         { array ? filterIngredients(array) : filterIngredients(drinks) }
       </ul>
     </>

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import { requestByDetailsDrink } from '../services/api';
 import Icons from '../components/Icons';
-import '../styles/global.css';
+import '../styles/DrinkAndFoodProcess(page).css';
 
 const returnArrayOfIngredients = (object) => {
   const maxIngredients = 15;
@@ -94,14 +94,19 @@ function DrinkProcess() {
           <div key={ index }>
             <img
               src={ strDrinkThumb }
-              className="detailImg"
+              className="progress-img"
               alt={ strDrink }
               data-testid="recipe-photo"
             />
-            <div className="alignDetailsItens">
-              <section className="detailsTitle-container">
+            <div className="progress-align">
+              <section className="progressTitle-container">
                 <div>
-                  <h1 className="recipeTitle" data-testid="recipe-title">{ strDrink }</h1>
+                  <h1
+                    className="progress-title"
+                    data-testid="recipe-title"
+                  >
+                    { strDrink }
+                  </h1>
                   <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
                 <Icons code={ drink[0] } />
@@ -114,7 +119,7 @@ function DrinkProcess() {
               />
               <h2>Instructions</h2>
               <p
-                className="instructions"
+                className="progress-instructions"
                 data-testid="instructions"
               >
                 { strInstructions }
@@ -124,7 +129,7 @@ function DrinkProcess() {
               <button
                 type="button"
                 onClick={ processDone }
-                className="startRecipeBtn"
+                className="progress-startRecipeBtn"
                 data-testid="finish-recipe-btn"
                 disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >

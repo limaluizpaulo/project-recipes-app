@@ -1,0 +1,53 @@
+.noStar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.star-categoryBtn {
+  background-color: lightgray;
+  margin: 3px;
+  width: 114px;
+}
+
+.star-recipes-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.noStar-with-header {
+  margin-top: 230px;
+}
+
+.star-card {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  margin: 15px 0;
+  max-width: 100%;
+  padding: 5px;
+  text-align: center;
+  width: 330px;
+}
+
+.star-img {
+  width: 50%;
+}
+
+.star-cardBody {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.star-cardTitle {
+  display: inline-block;
+  max-height: 2.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}

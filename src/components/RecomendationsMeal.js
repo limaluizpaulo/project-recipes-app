@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { requestMeal } from '../services/api';
-import '../styles/global.css';
+import '../styles/Recomendations.css';
 
 function RecomendationsMeal() {
   const [recomendationsMeal, setRecomendationsMeal] = useState([]);
@@ -20,9 +20,9 @@ function RecomendationsMeal() {
 
   return (
     <div>
-      <Carousel fade interval={ null } controls className="carousel">
+      <Carousel fade interval={ null } controls indicators={ false } className="carousel">
         <Carousel.Item>
-          <div className="card-recomendations">
+          <div className="recomendations-card-container">
             {recomendationsMeal.slice(0, 2).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
                 <div
@@ -47,7 +47,7 @@ function RecomendationsMeal() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="card-container">
+          <div className="recomendations-card-container">
             {recomendationsMeal.slice(2, four).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
                 <div
@@ -72,7 +72,7 @@ function RecomendationsMeal() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="card-container">
+          <div className="recomendations-card-container">
             {recomendationsMeal.slice(four, six).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
                 <div
@@ -99,4 +99,4 @@ function RecomendationsMeal() {
   );
 }
 
-export default RecomendationsMeal;
+export default React.memo(RecomendationsMeal);

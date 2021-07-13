@@ -1,0 +1,35 @@
+.country-container {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0;
+  overflow: hidden;
+}
+
+.country-select {
+  font-size: 26px;
+  max-width: 100%;
+  width: 170px;
+}
+
+.country-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  height: 238px;
+  margin: 5px;
+  max-width: 100%;
+  text-align: center;
+  width: 169px;
+}
+
+.countryCard-title {
+  display: inline-block;
+  max-height: 2.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}

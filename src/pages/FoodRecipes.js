@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/global.css';
+import '../styles/DrinkAndFoodRecipes(page).css';
 import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -17,7 +17,7 @@ function FoodRecipes() {
   const [firstCategories, setFirstCategories] = useState([]);
   const numOfMeals = 12;
   const numOfCategories = 5;
-  const btnClass = 'category-btn-dbl';
+  const btnClass = 'recipes-categoryBtnAlternative';
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -38,7 +38,7 @@ function FoodRecipes() {
 
   async function handleClick({ target }) {
     if (target.innerText === 'All' || target.className === btnClass) {
-      target.className = 'category-btn';
+      target.className = 'recipes-categoryBtn';
       const meals = await requestMeal();
       return setFirstMeals(meals.slice(0, numOfMeals));
     }
@@ -49,7 +49,7 @@ function FoodRecipes() {
 
   async function handleClick1({ target }) {
     if (target.innerText === 'All' || target.className === btnClass) {
-      target.className = 'category-btn';
+      target.className = 'recipes-categoryBtn';
       const meals = await requestMeal();
       return setFoodPerIngredient(meals.slice(0, numOfMeals));
     }
@@ -61,9 +61,9 @@ function FoodRecipes() {
   return (
     <div>
       <Header title="Comidas" />
-      <div className="btn-container">
+      <div className="recipesBtn-container">
         <button
-          className="category-btn"
+          className="recipes-categoryBtn"
           data-testid="All-category-filter"
           onClick={ changeFood ? handleClick1 : handleClick }
           type="button"
@@ -72,7 +72,7 @@ function FoodRecipes() {
         </button>
         {firstCategories.map((category, index) => (
           <button
-            className="category-btn"
+            className="recipes-categoryBtn"
             onClick={ changeFood ? handleClick1 : handleClick }
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
@@ -82,7 +82,7 @@ function FoodRecipes() {
           </button>
         ))}
       </div>
-      <div className="card-container">
+      <div className="recipesCard-container">
         {(changeFood ? foodPerIngredient : firstMeals).map((meal, index) => (
           <Link
             to={ `/comidas/${meal.idMeal}` }
@@ -100,7 +100,7 @@ function FoodRecipes() {
               />
               <Card.Body>
                 <Card.Title
-                  className="cardTitle"
+                  className="recipesCard-title"
                   data-testid={ `${index}-card-name` }
                 >
                   {meal.strMeal}

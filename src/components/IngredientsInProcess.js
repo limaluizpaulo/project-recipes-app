@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import progressRecipeStorage from '../hooks/progressAddStorage';
-import '../styles/global.css';
-import { Context } from '../context/ContextForm';
-import desrenderNull from '../helper/Condition';
-import start, { request } from '../helper/addIdStorage';
-import { requestByDetailsDrink, requestByDetailsMeal } from '../services/api';
+import '../styles/IngredientsInProcess.css';
 
 function returnType(pathname) {
   const type = pathname.includes('comidas') ? 'meals' : 'cocktails';
@@ -16,51 +10,8 @@ function returnType(pathname) {
 
 function IngredientsInProcess({ index, element, measures,
   ingredientsUsed, updateIngredientsUsed, idMeal }) {
-  const [checked, setchecked] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
-  const divStyle1 = {
-    textDecoration: 'line-through',
-  };
-
-  async function renderProgress() {
-    const objectItems = await JSON.parse(localStorage.getItem('inProgressRecipes'));
-    desrenderNull(objectItems);
-    const inputs = document.querySelectorAll('input');
-    const array = [...inputs];
-    renderChecks(array, objectItems);
-  }
-
-  useEffect(() => {
-    renderProgress();
-  }, []);
-
-  function conditional(ingredient, text) {
-    let object = {};
-    object = document.URL.includes('bebidas')
-      ? ingredient.cocktails[param] : ingredient.meals[param];
-    const indexForRemove = object.findIndex((item) => item === text[1].innerText);
-    object.splice(indexForRemove, 1);
-    const progress = document.URL.includes('bebidas')
-      ? { ...ingredient, cocktails: { [param]: object } }
-      : { ...ingredient, meals: { [param]: object } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
-  }
-
-  function toogleClass({ target }) {
-    const text = target.parentNode.children;
-    const ingredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (target.checked === false) {
-      const span = target.parentNode.children;
-      span[1].classList.remove('marcado');
-      conditional(ingredient, text);
-    }
-    if (target.checked === true) {
-      const span = target.parentNode.children;
-      span[1].classList.add('marcado');
-      progressRecipeStorage(text, param);
-    }
-  }
 
   function updateUsedIngredients(ingredientName) {
     if (ingredientsUsed.includes(element[1])) {
@@ -92,7 +43,7 @@ function IngredientsInProcess({ index, element, measures,
     <div data-testid={ `${index}-ingredient-step` }>
       <input
         type="checkbox"
-        className="inputs"
+        className="ingredientProgress-input"
         onChange={ () => {
           toogleClass();
           updateUsedIngredients(element[1]);
@@ -100,7 +51,10 @@ function IngredientsInProcess({ index, element, measures,
         key={ index }
         checked={ ingredientsUsed.includes(element[1]) }
       />
-      <span style={ ingredientsUsed.includes(element[1]) ? divStyle1 : divStyle2 }>
+      <span
+        className={ ingredientsUsed.includes(element[1])
+          ? 'checked-item' : 'not-checked-item' }
+      >
         { `${element[1]}
                 - ${measures[index][1] === null
       ? 'as you like' : measures[index][1]}`}

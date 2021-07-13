@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
-import '../styles/global.css';
+import '../styles/Form.css';
 
 function Form() {
   const history = useHistory();

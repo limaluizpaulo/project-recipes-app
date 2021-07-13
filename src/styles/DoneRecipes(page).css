@@ -1,0 +1,13 @@
+.done-category-btn {
+  background-color: lightgray;
+  margin: 3px;
+  width: 114px;
+}
+
+.no-done-text {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 76vh;
+  min-width: 76vw;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../components/Header';
+import '../styles/NotFound(page).css';
 
 function NotFound() {
   return (
-    <Header title="Not Found" />
+    <h4 className="notFound-title">Not Found</h4>
   );
 }
 
