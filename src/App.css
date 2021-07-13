@@ -31,8 +31,8 @@
 }
 
 body {
-  overflow-x: hidden;
   background-color: #ccc;
+  overflow-x: hidden;
 
 }
 
@@ -47,10 +47,10 @@ body {
 
 .cards {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 415px;
   margin: 5px;
   transition: 0.3s;
   width: 350px;
-  height: 415px;
 }
 
 .cards img {
@@ -62,12 +62,13 @@ body {
 }
 
 .container {
-  padding: 2px 16px;
   font-size: 20px;
+  padding: 2px 16px;
 }
+
 .container p {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 }
 
@@ -88,7 +89,6 @@ body {
 
 .meals {
   align-items: center;
-  /* background: #0fa36b; */
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -98,10 +98,10 @@ body {
   width: 100%;
 }
 
-.rocksGlass {
-  /* animation: shake 1s infinite ease;
-  max-height: 80vh; */
-}
+/* .rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
+ }  */
 
 /*
 #iceLeft {
@@ -117,16 +117,14 @@ body {
 */
 
 .meals > .logo {
-  /* animation: shake 1.5s infinite ease; */
   color: rgb(17, 165, 153);
-  /* font-family: Montserrat , sans-serif; */
   font-size: 3em;
   font-weight: 900;
 }
 
 /*
 Ajuda Alessandra
-*/n
+*/
 
 .card-carousel {
   display: flex;
@@ -190,12 +188,11 @@ Ajuda Alessandra
   font-family: Cookie , cursive;
   font-size: x-large;
   text-shadow: -2px -2px 6px rgba(99, 97, 97, 0.54);
-  /* text-align: justify; */
 }
 
 .instructions {
-  text-align: justify;
   margin: 0 20px;
+  text-align: justify;
 }
 
 .ingredient img {
@@ -221,39 +218,37 @@ Ajuda Alessandra
   font-size: x-large;
 }
 
-
 /* Button login */
-
 .buttons-cattegory {
-  cursor: pointer;
   background: rgb(17, 165, 153);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 700;
   border: 10px solid white;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
 }
 
-Button {
-  cursor: pointer;
+button {
   background: rgb(17, 165, 153);
-  color: #fff;
-  padding: 10px 20px;
   border-radius: 4px;
+  color: white;
+  cursor: pointer;
   font-weight: 700;
+  padding: 10px 20px;
 }
 
 .loginButton {
-  cursor: pointer;
   background: rgb(17, 165, 153);
-  /* border:none; */
-  color: #fff;
-  padding: 10px 20px;
   border-radius: 4px;
+  color: white;
+  cursor: pointer;
   font-weight: 700;
+  padding: 10px 20px;
 }
-.divLogin{
-  background-image: url(./images/905800396912a2d.jpeg);
+
+.divLogin {
+  background-image: url('./images/905800396912a2d.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }
