@@ -1,37 +1,32 @@
 import React, { Component } from 'react';
-import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
 import Ingredients from '../components/Ingredients';
 import '../css/Details.css';
 import '../css/progress.css';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Instructions from '../components/Instructions';
 import DetailsHeader from '../components/DetailsHeader';
 import identification from '../helper/dictionaryApi';
+import SharedFavorites from '../components/SharedFavorites';
 
 class Progresso extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favIcon: false,
-      favIconColor: whiteHeartIcon,
       id: [],
       should: false,
-      // recipesLength: [],
+      recipesLength: [],
       count: 0,
-      isDisable: false,
+      isDisable: true,
       allIngredients: [],
-      link: false,
     };
-    this.handleFavClick = this.handleFavClick.bind(this);
     this.updateState = this.updateState.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.saveDoneRecipes = this.saveDoneRecipes.bind(this);
+    this.finishRecipe = this.finishRecipe.bind(this);
+    this.countRecipesAllLength = this.countRecipesAllLength.bind(this);
   }
 
   componentDidMount() {
@@ -76,69 +71,9 @@ class Progresso extends Component {
     isStart(false);
   }
 
-  handleFavClick() {
-    const { favIcon, id } = this.state;
-    const { details, match: { params: { page } } } = this.props;
-    if (!favIcon) {
-
-      const recovery = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const recipe = {
-        id,
-        type: page,
-        area: details.strArea,
-        category: details.strCategory,
-        alcoholicOrNot: details.strDrinkAlternate,
-        name: details.strMeal,
-        image: details.strMealThumb,
-      };
-      // console.log(recovery.push(recipe));
-      console.log(recovery);
-      if (recovery === null) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify([{
-          id,
-          type: page,
-          area: details.strArea,
-          category: details.strCategory,
-          alcoholicOrNot: details.strDrinkAlternate,
-          name: details.strMeal,
-          image: details.strMealThumb,
-        }]));
-      }
-      localStorage.setItem('favoriteRecipes', JSON.stringify({
-        ...recovery,
-        id,
-        type: page,
-        area: details.strArea,
-        category: details.strCategory,
-        alcoholicOrNot: details.strDrinkAlternate,
-        name: details.strMeal,
-        image: details.strMealThumb,
-      }));
-      console.log(recipe);
-
-      // const recovery = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      this.setState({
-        favIconColor: blackHeartIcon,
-        favIcon: true,
-      });
-    }
-    if (favIcon) {
-      this.setState({
-        favIconColor: whiteHeartIcon,
-        favIcon: false,
-      });
-    }
-  }
-
-  handleClick() {
-    const { isStart } = this.props;
-    isStart(false);
-  }
-
   onClick(param, element, boolean) {
     const { count, allIngredients } = this.state;
-    // const {recipesLength, id, } = this.state  para fazer a lógica do disable funcionar vai ser necessário trocar ele no estado para true e descomentar parte do on click func
-
+    const { recipesLength } = this.state;
     if (allIngredients.includes(param) && boolean === 'checked') {
       element.classList.remove('riscado');
 
@@ -151,9 +86,9 @@ class Progresso extends Component {
 
     });
 
-    // if (count + 1 === recipesLength) {
-    //   this.setState({ isDisable: false });
-    // }
+    if (count + 1 === recipesLength) {
+      this.setState({ isDisable: false });
+    }
     this.setState({ count: count + 1 });
   }
 
@@ -179,13 +114,16 @@ class Progresso extends Component {
 
     if (should === true) {
       if (page === 'comidas') {
+        this.countRecipesAllLength();
         return this.setState({
-          // recipesLength: total.length,
-          id: details.idMeal, should: false });
+          id: details.idMeal,
+          should: false });
       }
+      this.countRecipesAllLength();
+
       return this.setState({
-        // recipesLength: total.length,
-        id, should: false });
+        id,
+        should: false });
     }
   }
 
@@ -195,7 +133,6 @@ class Progresso extends Component {
     const currentDate = new Date().toLocaleDateString();
     const currentHour = new Date().toLocaleTimeString();
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-
     const recipe = {
       id: details[keyName.Id],
       type: page,
@@ -211,32 +148,50 @@ class Progresso extends Component {
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
+
+  finishRecipe() {
+    const { match: { params: { id, page } } } = this.props;
+    if (localStorage.inProgressRecipes) {
+      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+      if (page === 'comidas') {
+        delete inProgress.meals[id];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      }
+
+      if (page === 'bebidas') {
+        delete inProgress.cocktails[id];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+      }
+    }
+    this.saveDoneRecipes();
+  }
+
+  countRecipesAllLength() {
+    const { details } = this.props;
+    const dictionary = identification(details);
+    console.log('funciono', dictionary);
+    const total = [];
+    dictionary.Ingredients.map((ingredient) => {
+      if (details[ingredient[0]] !== null && details[ingredient[0]] !== '') {
+        total.push(details[ingredient[0]]);
+        console.log(details[ingredient[0]]);
+      }
+      return this.setState({
+        recipesLength: total.length,
+      });
+    });
+  }
+
   render() {
     const { details, match: { params: { page, id } } } = this.props;
-    console.log(page);
-    const { favIconColor, isDisable, allIngredients, link } = this.state;
+    const { isDisable, allIngredients } = this.state;
+
     return (
       <section>
-        { details.idMeal !== undefined && this.test()}
+        { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
-        <button
-          className="details-btn-share"
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => copy(`http://localhost:3000/${page}/${id}`)
-            .then(() => this.setState({ link: true })) }
-        >
-          <img src={ shareIcon } alt={ shareIcon } />
-        </button>
-        {link && <p>Link copiado!</p>}
-        <button
-          className="details-btn-favorite"
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ this.handleFavClick }
-        >
-          <img src={ favIconColor } alt={ favIconColor } />
-        </button>
+       <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>
@@ -254,18 +209,19 @@ class Progresso extends Component {
               <Instructions data={ details } />
             </span>
           </section>
-          <button
-            className="details-btn-startRecipe"
-            type="button"
-            data-testid="finish-recipe-btn"
-            onClick={ () => {
-              this.handleClick();
-              this.saveDoneRecipes();
-            } }
-            disabled={ isDisable }
-          >
-            Finalizar Receita
-          </button>
+          <Link to="/receitas-feitas">
+            <button
+              className="details-btn-startRecipe"
+              type="button"
+              data-testid="finish-recipe-btn"
+              onClick={ () => {
+                this.finishRecipe();
+              } }
+              disabled={ isDisable }
+            >
+              Finalizar Receita
+            </button>
+          </Link>
         </section>
       </section>
     );
@@ -288,7 +244,6 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
-//   location: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);
