@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
-// comentário somente pra fazer um push que vai ajustar erros de Git.
 
 export default function DoneRecipeCard({ recipe, index }) { // Desestruturação de props
   const {
