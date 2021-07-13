@@ -8,7 +8,9 @@ export const USER = {
 };
 
 export const RECIPES = {
-  loading: true,
+  fetchOn: true,
+  loading: undefined,
+  done: undefined,
   foods: null,
   categoriesLimit: 5,
   cardsLimit: 12,
@@ -43,9 +45,14 @@ export const addLogin = ({ target: { name, value } }) => ({ // ACTION-CREATOR ->
 
 // RECIPES
 
-export const UPDATE_LOADING = 'UPDATE_LOADING';
-export const setLoading = (loading) => ({
-  type: UPDATE_LOADING, payload: { loading },
+export const SET_FETCHON_DONE = 'SET_FETCHON_DONE';
+export const setFetchOnDone = (fetchOn, done) => ({
+  type: SET_FETCHON_DONE, payload: { fetchOn, done },
+});
+
+export const SET_DONE_LOADING = 'SET_DONE_LOADING'; // Add Loading, Done
+export const setDoneLoading = (done, loading) => ({
+  type: SET_DONE_LOADING, payload: { done, loading },
 });
 
 export const ADD_RECIPES = 'ADD_RECIPES';
@@ -60,9 +67,9 @@ export const directPage = (foods) => ({
 
 // DETAILS
 
-export const ADD_RECIPE_DETAIL = 'ADD_RECIPE_DETAIL';
-export const addRecDetail = (recipeDetail) => ({
-  type: ADD_RECIPE_DETAIL, payload: { recipeDetail },
+export const ADD_RD_LOADING = 'ADD_RD_LOADING'; // Add RecipeDetail, Loading
+export const addRecipesDLoading = (recipeDetail, loading) => ({
+  type: ADD_RD_LOADING, payload: { recipeDetail, loading },
 });
 
 export const ADD_RD_RR_LOADING = 'ADD_RD_RR_LOADING'; // Add RecipeDetail, RecommendedRecipes, Loading

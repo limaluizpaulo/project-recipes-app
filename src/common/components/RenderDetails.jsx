@@ -1,18 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 import RecipeIngredients from './RecipeIngredients';
 import LikeButton from './LikeButton';
 import ShareButton from './ShareButton';
 import RecommendedRecipes from './RecommendedRecipes';
-import store from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 import { getStorage, setStorage } from '../../functions';
 
 export default function RenderDetails({ btnFinish, id }) {
   const [inProgress] = useState(() => getStorage('inProgressRecipes'));
-  const { recipes: { foods, recipeDetail } } = useContext(store);
+  const { recipes: { foods, recipeDetail }, setRecipes } = useContext(store);
 
   const setRecipeInLS = () => {
+    setRecipes(setFetchOnDone(true));
     const inProgressInLS = getStorage('inProgressRecipes');
 
     const checkinProgress = inProgressInLS[id];
@@ -24,46 +27,51 @@ export default function RenderDetails({ btnFinish, id }) {
   };
 
   const renderRecipe = () => (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
-        alt="recipe-img"
-        width="350px"
-      />
-      <div>
-        <div className="titleButtons">
-          <h1 data-testid="recipe-title">
-            { recipeDetail.strMeal || recipeDetail.strDrink }
-          </h1>
+    <div data-aos="fade-up" className="recipeDetails">
+      {/* -------------------------------------------------------------------------- */}
+      <div className="box topDetails">
+        <div className="titleDetails">
+          <div className="titleCategory">
+            <h1 data-testid="recipe-title">
+              { recipeDetail.strMeal || recipeDetail.strDrink }
+            </h1>
+            <h5 data-testid="recipe-category">
+              Categoria:
+              { (foods) ? recipeDetail.strCategory : (
+                recipeDetail.strAlcoholic
+              ) }
+            </h5>
+          </div>
+          <div className="ingredients">
+            <h3>Ingredientes</h3>
+            <RecipeIngredients Details />
+          </div>
+        </div>
+        <div className="imageButtons">
+          <img
+            data-testid="recipe-photo"
+            src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
+            alt="recipe-img"
+            className="recipeImage"
+          />
           <span className="likeShareBtns">
             <ShareButton />
             <LikeButton recipe={ recipeDetail } />
           </span>
         </div>
-        <h5 data-testid="recipe-category">
-          Categoria:
-          { (foods) ? recipeDetail.strCategory : (
-            recipeDetail.strAlcoholic
-          ) }
-        </h5>
       </div>
-      <div>
-        <h3>Ingredientes</h3>
-        <RecipeIngredients Details />
-      </div>
-      <div>
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="fade-up" className="box instrDetails">
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
       </div>
+      {/* -------------------------------------------------------------------------- */}
       {(foods) ? (
-        <div>
+        <div data-aos="fade-up" className="box videoDetails">
           <h3>Vídeo</h3>
           <iframe
             title="recipeVideo"
             data-testid="video"
-            width="560"
-            height="315"
             frameBorder="0"
             allowFullScreen
             allow="autoplay; encrypted-media"
@@ -71,26 +79,37 @@ export default function RenderDetails({ btnFinish, id }) {
           />
         </div>
       ) : ('')}
-      <div className="recommendedRecipes">
-        <h3>Receitas Recomendadas</h3>
-        <RecommendedRecipes />
-      </div>
-      <Link
-        to={ (foods) ? (
-          `/comidas/${recipeDetail.idMeal}/in-progress`) : (
-          `/bebidas/${recipeDetail.idDrink}/in-progress`) }
-      >
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
-          onClick={ setRecipeInLS }
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="zoom-out-down" className="box bottomDetails">
+        <div className="recommendedRecipes">
+          <h3>Receitas Recomendadas</h3>
+          <RecommendedRecipes />
+        </div>
+        <Link
+          to={ (foods) ? (
+            `/comidas/${recipeDetail.idMeal}/in-progress`) : (
+            `/bebidas/${recipeDetail.idDrink}/in-progress`) }
         >
-          {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
-        </button>
-      </Link>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className={ (btnFinish === null) ? 'btnFinishNone' : 'btnFinish' }
+            onClick={ setRecipeInLS }
+          >
+            {(btnFinish) ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        </Link>
+      </div>
+      {/* -------------------------------------------------------------------------- */}
     </div>
   );
+
+  // ---------------------------------------------------------------------------------------------
+  // CICLOS DE VIDA
+
+  useEffect(() => { Aos.init({ duration: 2000 }); }, []);
+
+  // ---------------------------------------------------------------------------------------------
 
   return (
     renderRecipe()

@@ -1,26 +1,37 @@
 import React, { useContext, useEffect, useState } from 'react';
-import store, { addRecipes, setLoading } from '../../context/store';
+import store, { addRecipes, setFetchOnDone, setDoneLoading } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
+import Loading from '../components/Loading';
 
 export default function Recipes() {
   const [categoryOn, setCategoryOn] = useState(undefined);
-  const { recipes: { loading, foods, meals, drinks, categoriesMeals, categoriesDrinks },
+  const {
+    recipes: { fetchOn, loading, done, foods, meals,
+      drinks, categoriesMeals, categoriesDrinks },
     setRecipes } = useContext(store);
 
   const getRecipes = async () => {
+    const LOADING_TIME = 2500;
+    const DONE_TIME = 1500;
     const Meals = await fetchAPI(MEALS);
     const catMeals = await fetchAPI(CATEG_MEALS);
     const Drinks = await fetchAPI(DRINKS);
     const catDrinks = await fetchAPI(CATEG_DRINKS);
-    setRecipes(
-      addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
-    );
-    setRecipes(setLoading(false));
+    setTimeout(() => {
+      setRecipes(
+        addRecipes(Meals.meals, Drinks.drinks, catMeals.meals, catDrinks.drinks),
+      );
+      setRecipes(setDoneLoading(undefined, true));
+      setTimeout(() => {
+        setRecipes(setDoneLoading(true));
+      }, DONE_TIME);
+    }, LOADING_TIME);
+    setRecipes(setFetchOnDone(false, undefined));
     setCategoryOn(undefined);
   };
 
@@ -48,21 +59,23 @@ export default function Recipes() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) getRecipes(); });
+  useEffect(() => { if (fetchOn) getRecipes(); });
 
   // ---------------------------------------------------------------------------------------------
 
-  if (loading) return (<h5>Loading...</h5>);
+  if (!done) { return (<Loading loading={ loading } />); }
   return (
     <main>
       <Header pageName={ (foods) ? 'Comidas' : 'Bebidas' } />
-      <CategoryButton
-        clickCategory={ handleClickCategory }
-        clickAll={ getRecipes }
-      />
-      <div className="Cards">
-        <RecipeCard />
-      </div>
+      <section className="mainContent">
+        <CategoryButton
+          clickCategory={ handleClickCategory }
+          clickAll={ getRecipes }
+        />
+        <div className="cards">
+          <RecipeCard />
+        </div>
+      </section>
       <Footer />
     </main>
   );

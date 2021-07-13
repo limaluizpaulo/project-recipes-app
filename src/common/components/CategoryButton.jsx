@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+// import RenderButtons from './RenderButtons';
 
 import store from '../../context/store';
 

@@ -1,20 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import store, { addRecDetail, setLoading } from '../../context/store';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
+import store, { addRecipesDLoading,
+  setDoneLoading, setFetchOnDone } from '../../context/store';
 import { getStorage, newDoneRecipe, setStorage } from '../../functions';
 import { fetchAPI, FETCH_ID_D, FETCH_ID_M } from '../../services';
 import RecipeIngredients from '../components/RecipeIngredients';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
+import Loading from '../components/Loading';
 
 export default function RecipeInProgress() {
   const { id } = useParams();
   const [disabledBtn, setDisabledBtn] = useState(true);
-  const [doneRecipes] = useState(() => getStorage('doneRecipes'));
+  const [doneRecipes] = useState(getStorage('doneRecipes'));
   const [ingrLS, setIngrLS] = useState(() => (
     getStorage('inProgressRecipes')[id] || [])); // LS = LocalStorage
 
-  const { recipes: { loading, recipeDetail, foods }, setRecipes } = useContext(store);
+  const {
+    recipes: { fetchOn, loading, done, recipeDetail, foods },
+    setRecipes } = useContext(store);
 
   const validationButton = () => {
     const ingredients = Object.keys(recipeDetail)
@@ -40,77 +47,99 @@ export default function RecipeInProgress() {
   };
 
   const renderRecipe = () => (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
-        alt="recipe-img"
-        width="350px"
-      />
-      <div>
-        <div className="titleButtons">
-          <h1 data-testid="recipe-title">
-            { recipeDetail.strMeal || recipeDetail.strDrink }
-          </h1>
+    <div data-aos="fade-up" className="recipeInProgress">
+      {/* -------------------------------------------------------------------------- */}
+      <div className="boxInProg topInProgress">
+        <div className="titleInProgress">
+          <div className="titleCategory">
+            <h1 data-testid="recipe-title">
+              { recipeDetail.strMeal || recipeDetail.strDrink }
+            </h1>
+            <h5 data-testid="recipe-category">
+              Categoria:
+              { (foods) ? recipeDetail.strCategory : (
+                recipeDetail.strAlcoholic
+              ) }
+            </h5>
+          </div>
+          <div className="ingredients">
+            <h3>Ingredientes</h3>
+            <RecipeIngredients
+              inProg
+              setIngrLS={ setIngrLS }
+              ingrLS={ ingrLS }
+            />
+          </div>
+        </div>
+        <div className="imageButtons">
+          <img
+            data-testid="recipe-photo"
+            src={ recipeDetail.strMealThumb || recipeDetail.strDrinkThumb }
+            alt="recipe-img"
+            className="recipeImage"
+          />
           <span className="likeShareBtns">
             <ShareButton />
             <LikeButton recipe={ recipeDetail } />
           </span>
         </div>
-        <h5 data-testid="recipe-category">
-          Categoria:
-          { recipeDetail.strCategory }
-        </h5>
       </div>
-      <div>
-        <h3>Ingredientes</h3>
-        <RecipeIngredients
-          inProg
-          setIngrLS={ setIngrLS }
-          ingrLS={ ingrLS }
-        />
-      </div>
-      <div>
+      {/* -------------------------------------------------------------------------- */}
+      <div data-aos="fade-up" className="boxInProg bottomInProgress">
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipeDetail.strInstructions }</p>
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            disabled={ disabledBtn }
+            onClick={ addDoneRecipe }
+            style={ { cursor: 'pointer' } }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
-      <Link to="/receitas-feitas">
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          disabled={ disabledBtn }
-          onClick={ addDoneRecipe }
-          style={ { cursor: 'pointer' } }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
+      {/* -------------------------------------------------------------------------- */}
     </div>
   );
 
   const getRecipeDetailByID = async () => {
+    const LOADING_TIME = 2500;
+    const DONE_TIME = 1500;
     if (foods === null) {
-      setRecipes(setLoading(true));
+      setRecipes(setFetchOnDone(true));
     } else if (foods) {
       const mealsDetails = await fetchAPI(`${FETCH_ID_M}${id}`);
-      setRecipes(addRecDetail(mealsDetails.meals[0]));
-      setRecipes(setLoading(false));
+      setTimeout(() => {
+        setRecipes(addRecipesDLoading(mealsDetails.meals[0], true));
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     } else {
       const drinksDetails = await fetchAPI(`${FETCH_ID_D}${id}`);
-      setRecipes(addRecDetail(drinksDetails.drinks[0]));
-      setRecipes(setLoading(false));
+      setTimeout(() => {
+        setRecipes(addRecipesDLoading(drinksDetails.drinks[0]), true);
+        setTimeout(() => {
+          setRecipes(setDoneLoading(true));
+        }, DONE_TIME);
+      }, LOADING_TIME);
+      setRecipes(setFetchOnDone(false));
     }
   };
 
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) getRecipeDetailByID(); });
+  useEffect(() => { if (fetchOn) getRecipeDetailByID(); });
   useEffect(validationButton, [ingrLS, recipeDetail]);
+  useEffect(() => { Aos.init({ duration: 2000 }); }, []);
 
   // ---------------------------------------------------------------------------------------------
 
-  if (loading) return (<h5>Loading...</h5>);
+  if (!done) { return (<Loading loading={ loading } />); }
   return (
     renderRecipe()
   );

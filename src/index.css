@@ -7,9 +7,10 @@
 :root {
   /*========== COLORS =========================================================================================================*/
   --first-color: #9D4BFF;
-  /* --first-color: #4D49BF; */
+  --second-color: #4D49BF;
   --first-color-dark: #314279;
-  /* --dark-color-lighten: #F2F5FF; */
+  --first-color-light: #A49EAC;
+  --first-color-lighten: #F2F2F2;
   --title-color: #F2A20C;
 
   /*========== FONT / TYPOGRAPHY ===========================================================================================*/
@@ -20,25 +21,253 @@
   --small-font-size: .75rem;
 }
 
-body, button {
+/*===== BASE =====*/
+*,::before,::after {
+  box-sizing: border-box;
+}
+
+body {
   margin: 0;
   padding: 0;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
 }
 
- /* RECIPES PAGE ===========================================================================================================*/
-.Cards {
+h1, h5 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  border: none;
+  background: inherit;
+  border-radius: inherit;
+}
+
+/* CONFIGURAÇÕES DE TELA DE 0px até 576px */
+/* LOGIN PAGE ===========================================================================================================*/
+/* https://www.origamid.com/projetos/css-grid-layout-guia-completo/ */
+.login {
+  display: grid;
+  height: 100vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.loginImg {
+  justify-self: center;
+}
+
+.loginImg img {
+  width: 310px;
+  margin-top: 1.5rem;
+}
+
+.loginForms {
+  position: relative;
+  height: 368px;
+}
+
+.loginRegister, .loginCreate {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  background-color: var(--first-color-lighten);
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35,0,77,.2);
+  animation-duration: .4s;
+  animation-name: animate-login;
+}
+
+@keyframes animate-login {
+  0%{
+    transform: scale(1,1);
+  }
+  50%{
+    transform: scale(1.1,1.1);
+  }
+  100%{
+    transform: scale(1,1);
+  }
+}
+
+.loginTitle {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  margin-bottom: 2rem;
+}
+
+/* https://www.treinaweb.com.br/blog/css-grid-um-guia-interativo-parte-1-containers */
+.loginBox {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: .5rem;
+  padding: 1.125rem 1rem;
+  background-color: #FFF;
+  margin-top: 1rem;
+  border-radius: .5rem;
+}
+
+.loginIcon {
+  font-size: 1.5rem;
+  color: var(--first-color);
+}
+
+.loginInput {
+  border: none;
+  outline: none;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  font-weight: 700;
+  color: var(--first-color-dark);
+}
+
+.loginInput::placeholder {
+  font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+  color: var(--first-color-light);
+}
+
+.loginForgot {
+  display: block;
+  width: max-content;
+  margin-left: auto;
+  margin-top: .5rem;
+  font-size: var(--small-font-size);
+  font-weight: 600;
+  color: var(--first-color-light);
+}
+
+.loginButton:disabled {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin: 2rem 0;
+  background-color: var(--first-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.loginButton:enabled {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin: 2rem 0;
+  background-color: var(--first-color);
+  color: #FFFF;
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  background-color: var(--first-color-dark);
+}
+
+.loginAccount, .loginSignin, .loginSignup {
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+
+.loginAccount {
+  color: var(--first-color-dark);
+}
+
+.loginSignin, .loginSignup {
+  color: var(--first-color);
+  cursor: pointer;
+}
+
+.loginSocial {
+  margin-top: 2rem;
+}
+
+.loginSocial-icon {
+  font-size: 1.5rem;
+  color: var(--first-color-dark);
+  margin: 0 1.5rem;
+}
+
+/* Mostrar a tela de registro / login */
+.block {
+  display: block;
+}
+
+/* Esconder a tela de registro / login */
+.none {
+  display: none;
+}
+
+/*  =========================================================================================================================*/
+
+/* RECIPES PAGE ===========================================================================================================*/
+.mainContent {
+display: grid;
+justify-items: center;
+}
+
+.containerBtns {
+  background-color: var(--first-color-dark);
+  margin-top: 1rem;
+  padding: 10px 0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
+}
+
+.categoriesBtns {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+}
+
+.categoriesBtns div {
+  border-right: 1px solid rgba(235, 232, 232, 0.2);
+}
+
+.categoriesBtns div button {
+  display: grid;
+  justify-items: center;
+  color: var(--title-color);
+  font-size: var(--h1-font-size);
+  width: 13rem;
+  height: max-content;
+  padding: 3px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.categoriesBtns div button:hover {
+  color: #FFFF;
+  box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, .3);
+  padding: 7px;
+}
+
+.categoriesBtns div:last-child {
+  border-right: none;
+}
+
+.cards {
+  display: grid;
+  margin-top: 3rem;
 }
 
 .recipes {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-left: 10px;
 }
 
 .recipe {
@@ -48,11 +277,11 @@ body, button {
   border-radius: 1rem;
   overflow-y: hidden;
   cursor: pointer;
-  margin: 15px 5px 0 5px;
+  margin: 20px 5px 0 5px;
 }
 
 .recipe:hover {
-  box-shadow: 1px 2px 8px 2px #4D49BF;
+  box-shadow: 1px 2px 8px 2px var(--second-color);
 }
 
 .recipe img {
@@ -79,6 +308,10 @@ body, button {
   transition: .5s;
 }
 
+.recipe:hover .recipeTitle {
+  color: #FFFF;
+}
+
 .recipe:hover .recipeImg {
   transform: translateY(-4.5rem);
 }
@@ -87,13 +320,241 @@ body, button {
   transform: translateY(4.8rem);
 }
 
-.categoriesBtns {
-  display: flex;
+/*  ====================================================================================================================================*/
+
+/* RECIPE DETAILS PAGE  ====================================================================================================================*/
+.recipeDetails {
+  display: grid;
+  justify-content: center;
 }
 
-.categoriesBtns button {
+.box {
+  margin: 20px 20px 15px 20px;
+  height: max-content;
+  width: 100vw;
+  box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  max-width: 70rem;
+}
+
+.topDetails {
+  display: grid;
+  height: max-content;
+  overflow: hidden;
+  padding-bottom: 25px;
+}
+
+.titleDetails {
+  margin: 25px;
+  justify-self: center;
+  z-index: 1;
+  width: 90vw;
+  background-color: var(--first-color-lighten);
+  padding: 2rem 1rem;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35,0,77,.2);
+  animation-duration: .4s;
+  animation-name: animate-login;
+}
+
+@keyframes animate-login {
+  0%{
+    transform: scale(1,1);
+  }
+  50%{
+    transform: scale(1.1,1.1);
+  }
+  100%{
+    transform: scale(1,1);
+  }
+}
+
+.ingredients {
+  font-size: var(--h3-font-size);
+}
+
+.titleDetails .titleCategory, .ingredients h3 {
+  font-size: var(--h1-font-size);
+  color: var(--first-color-dark);
+}
+
+.imageButtons {
+  justify-self: center;
+  margin-top: -3rem;
+}
+
+.imageButtons .recipeImage {
+  width: 86vw;
+  border-radius: 0 0 40px 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  margin-bottom: 1.5rem;
+}
+
+.imageButtons .likeShareBtns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 10px;
+  border-radius: 40px;
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+}
+
+.imageButtons .likeShareBtns:hover {
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, .3);
+}
+
+.instrDetails {
+  padding: 25px;
+  font-size: var(--h3-font-size);
+}
+
+.instrDetails h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+.videoDetails {
+  display: grid;
+  justify-content: center;
+  padding: 25px 25px 40px 25px;
+}
+
+.videoDetails h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+.videoDetails iframe {
+  width: 400px;
+  height: 250px;
+}
+
+.bottomDetails .recommendedRecipes {
+  display: grid;
+  justify-content: center;
+}
+
+.bottomDetails .recommendedRecipes h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+.bottomDetails a button {
+  width: 80%;
+  padding: 1rem;
+  margin-left: 3rem;
+  margin-bottom: 5px;
+  background-color: var(--first-color);
+  color: var(--title-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
   cursor: pointer;
 }
+
+.bottomDetails a button:hover {
+  background-color: var(--first-color-dark);
+  color: #FFFF;
+}
+
+.btnFinishNone {
+  display: none;
+  cursor: pointer;
+}
+
+.btnFinish {
+  position: fixed;
+  bottom: 0px;
+  cursor: pointer;
+}
+
+
+/*  ====================================================================================================================================*/
+/* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
+
+.recommendedRecipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 850px;
+}
+
+.recommendedImg {
+  width: 150px;
+  margin: 15px 0;
+  border-radius: 10px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+}
+
+.recommendedTitle {
+  margin-top: -2px;
+  font-family: var(--body-font);
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+}
+
+.left-arrow {
+  position: absolute;
+  top: 16%;
+  left: 13.5rem;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 16%;
+  right: 13.5rem;
+  font-size: 3rem;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+}
+
+.imgTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  display: none;
+  /* opacity: 0; */
+  transition: all 1.5s ease;
+}
+
+.active {
+  display: block;
+  /* opacity: 1; */
+  height: 380px;
+  border-radius: 10px;
+  transform: scale(1.08);
+  transition: all 1.5s ease;
+}
+
+
+/*  ====================================================================================================================================*/
 
 /* RECIPES IN PROGRESS PAGE ===========================================================================================================*/
 .completedRecipe {
@@ -101,7 +562,127 @@ body, button {
   color:pink;
 }
 
-.titleButtons {
+.recipeInProgress {
+  display: grid;
+  justify-content: center;
+}
+
+.boxInProg {
+  margin: 20px 20px 15px 20px;
+  height: max-content;
+  width: 100vw;
+  box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  max-width: 70rem;
+}
+
+.topInProgress {
+  display: grid;
+  height: max-content;
+  overflow: hidden;
+  padding-bottom: 25px;
+}
+
+.titleInProgress {
+  margin: 25px;
+  justify-self: center;
+  z-index: 1;
+  width: 90vw;
+  background-color: var(--first-color-lighten);
+  padding: 2rem 1rem;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35,0,77,.2);
+  animation-duration: .4s;
+  animation-name: animate-login;
+}
+
+@keyframes animate-login {
+  0%{
+    transform: scale(1,1);
+  }
+  50%{
+    transform: scale(1.1,1.1);
+  }
+  100%{
+    transform: scale(1,1);
+  }
+}
+
+.titleInProgress .ingredients {
+  display: grid;
+  justify-content: center;
+  font-size: var(--h3-font-size);
+  text-align: justify;
+  margin-left: 7rem;
+}
+
+.titleInProgress .titleCategory, .ingredients h3 {
+  font-size: var(--h1-font-size);
+  color: var(--first-color-dark);
+}
+
+.topInProgress .imageButtons {
+  justify-self: center;
+  margin-top: -3rem;
+}
+
+.topInProgress .imageButtons .recipeImage {
+  width: 86vw;
+  border-radius: 0 0 40px 40px;
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  margin-bottom: 1.5rem;
+}
+
+.topInProgress .imageButtons .likeShareBtns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 10px;
+  border-radius: 40px;
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+}
+
+.topInProgress .imageButtons .likeShareBtns:hover {
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, .3);
+}
+
+.bottomInProgress {
+  padding: 25px;
+  font-size: var(--h3-font-size);
+}
+
+.bottomInProgress h3 {
+  color: var(--first-color-dark);
+  font-size: var(--h1-font-size);
+  text-align: center;
+}
+
+.bottomInProgress a button {
+  width: 80%;
+  padding: 1rem;
+  margin-left: 3rem;
+  margin-bottom: 5px;
+  background-color: var(--first-color);
+  color: var(--title-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+  border-radius: .5rem;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.bottomInProgress a button:hover {
+  background-color: var(--first-color-dark);
+  color: #FFFF;
+}
+
+
+
+/* .titleButtons {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -119,7 +700,7 @@ body, button {
 .likeShareBtns {
   display: flex;
   justify-content: space-around;
-}
+} */
 
 /*  ====================================================================================================================================*/
 
@@ -154,12 +735,236 @@ body, button {
 } */
 
 /* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
+/* PROFILE PAGE ===========================================================================================================*/
+
+.buttonsInProfile {
+  display: grid;
+}
+
+.buttonsInProfile button {
+  cursor: pointer;
+}
+/*  ====================================================================================================================================*/
+/* ===== MEDIA QUERIES ================================================================================*/
+@media screen and (min-width: 576px){
+  /* LOGIN PAGE */
+  .login {
+    justify-items: center;
+  }
+
+  .loginForms {
+    width: 348px;
+    justify-self: center;
+  }
+
+  /* RECIPES PAGE */
+  .categoriesBtns {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+  }
+
+  /* RECIPE DETAIL */
+  /* RECOMMENDED RECIPES COMPONENT */
+  .recommendedImg {
+    width: 200px;
+    margin: 15px;
+    border-radius: 20px;
+    filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  }
+
+  .left-arrow {
+    top: 24%;
+    left: 9.5rem;
+  }
+  
+  .right-arrow {
+    top: 24%;
+    right: 9.5rem;
+  }
+
+  .bottomDetails a button {
+    margin-left: 4rem;
+  }
+}
+
+/* =========================================================================== */
+@media screen and (min-width: 768px) {
+  /* LOGIN PAGE */
+  :root {
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+  }
+  
+  /* RECIPES PAGE */
+  .categoriesBtns {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+  }
+
+  /* RECIPE DETAIL */
+  .videoDetails iframe {
+    width: 560px;
+    height: 315px;
+  }
+  /* RECOMMENDED RECIPES COMPONENT */
+  .bottomDetails a button {
+    width: 200px;
+    padding: 10px;
+    margin-left: 3rem;
+  }
+}
+
+/* ============================================================================== */
+@media screen and (min-width: 1024px){
+  /* LOGIN PAGE */
+  .login {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    margin-left: 10rem;
+  }
+
+  .loginImg {
+    display: flex;
+    width: 600px;
+    height: 588px;
+    background-color: var(--first-color-lighten);
+    border-radius: 1rem;
+    padding-left: 1rem;
+  }
+
+  .loginImg img {
+    width: 390px;
+    margin-top: 0;
+  }
+
+  .loginRegister, .loginCreate{
+    left: -11rem;
+  }
+
+  .loginRegister {
+    bottom: -2rem;
+  }
+
+  .loginCreate {
+    bottom: -5.5rem;
+  }
+
+  /* RECIPES PAGE */
+  .containerBtns {
+    background-color: var(--first-color-dark);
+    margin-top: 1rem;
+    padding: 10px 0;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
+  }
+  
+  .categoriesBtns {
+    display: flex;
+  }
+  
+  .categoriesBtns div {
+    border-right: 1px solid rgba(235, 232, 232, 0.2);
+  }
+  
+  .categoriesBtns div button {
+    display: grid;
+    justify-items: center;
+    color: var(--title-color);
+    font-size: var(--h1-font-size);
+    width: 13rem;
+    height: max-content;
+    padding: 3px;
+    cursor: pointer;
+    transition: .3s;
+  }
+  
+  .categoriesBtns div button:hover {
+    color: #FFFF;
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, .3);
+    padding: 7px;
+  }
+  
+  .categoriesBtns div:last-child {
+    border-right: none;
+  }
+  
+  .cards {
+    display: grid;
+    margin-top: 3rem;
+  }
+  
+  .recipes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* RECIPE DETAILS */
+  .topDetails {
+    display: grid;
+    height: max-content;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 25px;
+  }
+
+  .titleDetails {
+    margin-right: -9rem;
+    min-height: 450px;
+    width: 300px;
+  }
+
+  .titleDetails .titleCategory {
+    font-size: var(--h3-font-size);
+  }
+
+  .ingredients {
+    font-size: var(--normal-font-size);
+  }
+
+  .imageButtons {
+    display: grid;
+    border-radius: 40px;
+    margin-top: 0;
+    padding-left: 1rem;
+    padding-right: 3rem;
+  }
+
+  .imageButtons .recipeImage {
+    justify-self: center;
+    width: 430px;
+    margin-left: 6rem;
+    margin-top: 2rem;
+    border-radius: 40px;
+    filter: drop-shadow(2px 2px 15px rgba(8,9,13,.4));
+  }
+
+  .imageButtons .likeShareBtns {
+    margin: -1rem 2.0rem 0.5rem 9.0rem;
+  }
+
+  .instrDetails {
+    font-size: var(--normal-font-size);
+  }
+
+  .videoDetails iframe {
+    width: 600px;
+    height: 415px;
+  }
+
+  /* RECOMMENDED RECIPES COMPONENENT */
 
 .recommendedRecipes {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  margin-bottom: 5rem;
 }
 
 .slider {
@@ -172,12 +977,13 @@ body, button {
 
 .recommendedImg {
   width: 300px;
-  margin: 30px 30px -10px 30px;
+  margin: 30px;
   border-radius: 40px;
   filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
 }
 
 .recommendedTitle {
+  margin-top: -10px;
   font-family: var(--body-font);
   font-size: var(--h3-font-size);
   color: var(--title-color);
@@ -253,3 +1059,4 @@ body, button {
   cursor: pointer;
 }
 /*  ====================================================================================================================================*/
+}
