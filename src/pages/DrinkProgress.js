@@ -58,16 +58,16 @@ const DrinkProgress = ({ match }) => {
       <label
         className={ findSelecteds(key) && 'checked' }
         data-testid={ `${idx}-ingredient-step` }
-        htmlFor="ingredient"
+        htmlFor={ `ingredient-${idx}` }
         key={ `${key} - ${ingredient}` }
       >
-        {ingredient}
         <input
           onClick={ () => handleSelect(key) }
           defaultChecked={ findSelecteds(key) }
           type="checkbox"
-          id="ingredient"
+          id={ `ingredient-${idx}` }
         />
+        {ingredient}
       </label>
     ));
   };
