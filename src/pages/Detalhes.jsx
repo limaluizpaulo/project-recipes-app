@@ -77,9 +77,11 @@ class Detalhes extends Component {
     if (localStorage.doneRecipes) {
       const checkDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
-      if (checkDoneRecipes.some((item) => item.id === id)) {
-        this.setState({ finishedRecipe: !finishedRecipe });
-      }
+      checkDoneRecipes.forEach((recipe) => {
+        if (recipe.id === id) {
+          this.setState({ finishedRecipe: !finishedRecipe });
+        }
+      });
     }
 
     if (localStorage.inProgressRecipes) {
@@ -135,11 +137,12 @@ class Detalhes extends Component {
 
   render() {
     const { startedRecipe, finishedRecipe } = this.state;
-    const { details, isDrink } = this.props;
+    const { details, isDrink, match: { params: { page, id } }, history } = this.props;
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
-        <SharedFavorites />
+        <button type="button" onClick={ () => history.goBack() }>voltar</button>
+        <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>

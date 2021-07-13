@@ -32,7 +32,6 @@ class Progresso extends Component {
     this.onClick = this.onClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.saveDoneRecipes = this.saveDoneRecipes.bind(this);
-    this.finishRecipe = this.finishRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -212,25 +211,6 @@ class Progresso extends Component {
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
-
-  finishRecipe() {
-    const { match: { params: { id, page } } } = this.props;
-    if (localStorage.inProgressRecipes) {
-      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-      if (page === 'comidas') {
-        delete inProgress.meals[id];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-      }
-
-      if (page === 'bebidas') {
-        delete inProgress.cocktails[id];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-      }
-    }
-    this.saveDoneRecipes();
-  }
-
   render() {
     const { details, match: { params: { page, id } } } = this.props;
     console.log(page);
@@ -280,7 +260,7 @@ class Progresso extends Component {
             data-testid="finish-recipe-btn"
             onClick={ () => {
               this.handleClick();
-              this.finishRecipe();
+              this.saveDoneRecipes();
             } }
             disabled={ isDisable }
           >
@@ -308,6 +288,7 @@ Progresso.propTypes = {
   foodDetails: PropTypes.func.isRequired,
   details: PropTypes.shape.isRequired,
   match: PropTypes.shape.isRequired,
+//   location: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progresso);

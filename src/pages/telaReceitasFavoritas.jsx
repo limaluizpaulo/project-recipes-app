@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Header from '../components/header';
+import { getSearchBarResponse } from '../action/index';
 
 import '../css/TelaDeFavoritas.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class TelaDeFavoritas extends Component {
+class TelaReceitasFavoritas extends Component {
+  componentDidMount() {
+    const { hasSearchBar } = this.props;
+
+    hasSearchBar(false);
+  }
+
   render() {
+    const { location } = this.props;
     const favoriteRecipes = [
       {
         id: '52771',
@@ -29,8 +38,6 @@ class TelaDeFavoritas extends Component {
         image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
       },
     ];
-
-    const { location } = this.props;
     return (
       <section>
         <Header location={ location } />
@@ -75,9 +82,13 @@ class TelaDeFavoritas extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  hasSearchBar: (e) => dispatch(getSearchBarResponse(e)),
+});
 
-TelaDeFavoritas.propTypes = {
-  location: PropTypes.shape.isRequired,
-};
+TelaReceitasFavoritas.propTypes = {
+  hasSearchBar: PropTypes.func.isRequired,
+  location: PropTypes.shape,
+}.isRequired;
 
-export default TelaDeFavoritas;
+export default connect(null, mapDispatchToProps)(TelaReceitasFavoritas);
