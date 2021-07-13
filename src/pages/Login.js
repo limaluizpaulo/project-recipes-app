@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import logo from '../images/logo.png';
 
 class Login extends React.Component {
   constructor(props) {
@@ -50,10 +51,10 @@ class Login extends React.Component {
     const { disabled } = this.state;
     return (
       <div className="login-background">
-        <h1> Recipes App</h1>
+        <img className="logo-img" src={ logo } alt="Logo Ta na Mesa" />
         <Form>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label className="label-login">Email</Form.Label>
             <Form.Control
               name="email"
               type="email"
@@ -64,7 +65,7 @@ class Login extends React.Component {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Senha</Form.Label>
+            <Form.Label className="label-login">Senha</Form.Label>
             <Form.Control
               name="password"
               type="password"
@@ -73,15 +74,16 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </Form.Group>
-          <Button
+          <button
             variant="primary"
+            className="buttonLogin"
             type="button"
             data-testid="login-submit-btn"
             disabled={ disabled }
             onClick={ this.onClickSubmit }
           >
             Entrar
-          </Button>
+          </button>
         </Form>
       </div>
     );
