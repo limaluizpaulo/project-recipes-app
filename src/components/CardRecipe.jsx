@@ -7,7 +7,8 @@ import ShareBtn from './ShareBtn';
 import RenderIngredients from './RenderIngredients';
 
 function CardRecipe({ id }) {
-  const { data, imgRecipes, nameRecipes, ingredient } = useContext(FetchContext);
+  const {
+    data, imgRecipes, nameRecipes, ingredient, typeFunc } = useContext(FetchContext);
 
   const progressObject = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const recipesFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -25,6 +26,38 @@ function CardRecipe({ id }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }
 
+  const handleLocalStorage = () => {
+    const currentDate = new Date();
+    const currentDay = currentDate.getDate();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const doneRecipesObj = {
+      id,
+      type: (typeFunc === 'meals' ? 'comida' : 'bebida'),
+      area: (typeFunc === 'meals' ? data[0].strArea : ''),
+      category: data[0].strCategory,
+      alcoholicOrNot: (typeFunc === 'meals' ? '' : data[0].strAlcoholic),
+      name: data[0][nameRecipes],
+      image: data[0][imgRecipes],
+      doneDate: `${currentDay}/${currentMonth + 1}/${currentYear}`,
+      tags: (data[0].strTags !== null ? data[0].strTags.split(',') : ''),
+    };
+    const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (recipesDone === null) {
+      const doneRecipes = [
+        doneRecipesObj,
+      ];
+      return localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    }
+
+    const doneRecipes = [
+      ...recipesDone,
+      doneRecipesObj,
+    ];
+
+    return localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  };
+
   return (
     <div>
       {
@@ -36,7 +69,6 @@ function CardRecipe({ id }) {
             <FavoriteBtn id={ id } />
             <h4 data-testid="recipe-category">{ recipe.strCategory }</h4>
             <ul>
-              {/* { renderCheckbox() } */}
               <RenderIngredients id={ id } />
             </ul>
             <h2>Instructions</h2>
@@ -46,6 +78,7 @@ function CardRecipe({ id }) {
                 type="button"
                 data-testid="finish-recipe-btn"
                 disabled={ ingredient.filter((res) => res).length !== ingredient.length }
+                onClick={ handleLocalStorage }
               >
                 Finalizar Receita
               </button>
