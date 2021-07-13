@@ -14,14 +14,12 @@ class Ingredients extends Component {
     const element = document.getElementById(`input-${index}`);
     if (ourState.includes(param)) {
       return (
-        // <label htmlFor={ `checkbox-${index}` }>
         <input
           checked
           id={ `checkbox-${index}` }
           onChange={ () => func(param, element, 'checked') }
           type="checkbox"
         />
-        // </label>
       );
     }
     return (
