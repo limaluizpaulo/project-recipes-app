@@ -132,6 +132,10 @@
 
 }
 
+.instruction-progress {
+  font-size: small;
+}
+
 @keyframes shake {
 
   0% {

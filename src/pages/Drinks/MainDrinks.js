@@ -26,7 +26,7 @@ function MainDrinks(match) {
     };
 
     func();
-  }, []);
+  }, [match.location.ingredient]);
 
   return (
     <div>

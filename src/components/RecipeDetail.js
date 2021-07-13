@@ -113,6 +113,13 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
           </button>))}
       </div>
       <button
+        onClick={ () => progress({
+          objectStart,
+          leng,
+          typeRecipe,
+          idRecipe,
+          history,
+          list }) }
         className="start-recipe"
         type="button"
         data-testid="start-recipe-btn"

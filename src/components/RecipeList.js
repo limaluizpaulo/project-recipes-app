@@ -7,7 +7,6 @@ function RecipeList({ list, listAll, filterList }) {
   const [object, setObject] = useState(listAll);
   // const [show, setShow] = useState(false);
   const history = useHistory();
-  console.log(list, listAll);
 
   useEffect(() => {
     if (Object.keys(list).length > 0) {
@@ -30,7 +29,7 @@ function RecipeList({ list, listAll, filterList }) {
 
   const type = Object.keys(object)[0];
   const NUMBER = 12;
-  console.log(object);
+  // console.log(object);
   return (
     <div>
       { Object.keys(object).length !== 0 && (

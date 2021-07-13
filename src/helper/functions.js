@@ -1,4 +1,4 @@
-function progress({ objectStart, leng, typeRecipe, idRecipe, history }) {
+function progress({ objectStart, leng, typeRecipe, idRecipe, history, list }) {
   if (typeRecipe !== 'food') {
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       cocktails: {
@@ -22,9 +22,10 @@ function progress({ objectStart, leng, typeRecipe, idRecipe, history }) {
       },
     }));
   }
-
-  return typeRecipe === 'food' ? history.push(`/comidas/${idRecipe}/in-progress`)
-    : history.push(`/bebidas/${idRecipe}/in-progress`);
+  console.log(list);
+  return typeRecipe === 'food'
+    ? history.push({ pathname: `/comidas/${idRecipe}/in-progress`, recipe: list })
+    : history.push({ pathname: `/bebidas/${idRecipe}/in-progress`, recipe: list });
 }
 
 export function copyLink(copy, setShow, location) {
@@ -37,7 +38,7 @@ function alcoholicCheck(list) {
 }
 
 export function help(value, secondValue) {
-  console.log(secondValue);
+  // console.log(secondValue);
   return value !== null ? value : secondValue;
 }
 
@@ -45,6 +46,8 @@ export function favoriteClick({
   arrayFavorite, list, favorite, typeRecipe, idRecipe, setFavorite }) {
   if (favorite) {
     setFavorite(false);
+    const filt = arrayFavorite.filter((item) => item.id !== idRecipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filt));
   } else {
     setFavorite(true);
     localStorage.setItem('favoriteRecipes', JSON.stringify(
