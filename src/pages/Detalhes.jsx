@@ -137,10 +137,11 @@ class Detalhes extends Component {
 
   render() {
     const { startedRecipe, finishedRecipe } = this.state;
-    const { details, isDrink, match: { params: { page, id } } } = this.props;
+    const { details, isDrink, match: { params: { page, id } }, history } = this.props;
     return (
       <section className="page-details">
         <DetailsHeader data={ details } />
+        <button type="button" onClick={ () => history.goBack() }>voltar</button>
         <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>

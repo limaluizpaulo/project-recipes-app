@@ -27,7 +27,6 @@ class SharedFavorites extends Component {
   handleFavClick() {
     const { favIcon } = this.state;
     const { details, id, page } = this.props;
-    console.log(details, 'shared');
     const keyName = identification(details);
     const recovery = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (!favIcon) {
