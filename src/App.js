@@ -61,7 +61,7 @@ function App() {
           render={ (props) => <ExploreDrinks { ...props } /> }
         />
         <Route path="/explorar" render={ (props) => <ExplorePage { ...props } /> } />
-        <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/perfil" render={ (props) => <Profile { ...props } /> } />
         <Route path="/comidas" render={ (props) => <FoodPage { ...props } /> } />
         <Route path="/bebidas" render={ (props) => <DrinkPage { ...props } /> } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
