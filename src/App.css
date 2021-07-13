@@ -26,6 +26,8 @@
 
 @import './styles/ExploreByArea.css' ;
 
+@import './styles/NotFound.css' ;
+
 @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Qahiri&display=swap') ;
 
 * {

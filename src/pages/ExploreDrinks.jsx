@@ -18,6 +18,7 @@ export default function ExploreDrinks() {
           <button
             type="button"
             data-testid="explore-by-ingredient"
+            className="btn btn-success"
           >
             Por Ingredientes
           </button>
@@ -26,6 +27,7 @@ export default function ExploreDrinks() {
           <button
             type="button"
             data-testid="explore-surprise"
+            className="btn btn-success"
           >
             Me Surpreenda!
           </button>
