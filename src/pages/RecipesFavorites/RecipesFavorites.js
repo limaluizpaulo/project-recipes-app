@@ -13,43 +13,44 @@ function RecipesFavorites() {
     const filted = doneFavorites
       .filter(({ type }) => type === filter || filter === 'all');
 
-    return filted.map(({ image, category, name, area, alcoholicOrNot, type, id }, index) => (
-      <div className="card-favorite" key={ index }>
-        <Link to={ `/${type}/${id}` } className="link-img">
-          <img
-            src={ image }
-            data-testid={ `${index}-horizontal-image` }
-            alt="card recipe done"
-          />
-        </Link>
-
-        <div className="detaisl-recipedone">
-          <h6
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${area} - ${category}`}
-          </h6>
-          <Link to={ `/${type}/${id}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+    return filted
+      .map(({ image, category, name, area, alcoholicOrNot, type, id }, index) => (
+        <div className="card-favorite" key={ index }>
+          <Link to={ `/${type}/${id}` } className="link-img">
+            <img
+              src={ image }
+              data-testid={ `${index}-horizontal-image` }
+              alt="card recipe done"
+            />
           </Link>
 
-          <h6 data-testid="1-horizontal-top-text">
-            {alcoholicOrNot}
-          </h6>
+          <div className="detaisl-recipedone">
+            <h6
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${area} - ${category}`}
+            </h6>
+            <Link to={ `/${type}/${id}` }>
+              <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+            </Link>
 
-          <ButtonFavorite
-            id={ id }
-            dataTest={ `${index}-horizontal-favorite-btn` }
-          />
+            <h6 data-testid="1-horizontal-top-text">
+              {alcoholicOrNot}
+            </h6>
 
-          <ButtonShare
-            path={ `http://localhost:3000/${type}/${id}` }
-            dataTest={ `${index}-horizontal-share-btn` }
-          />
+            <ButtonFavorite
+              id={ id }
+              dataTest={ `${index}-horizontal-favorite-btn` }
+            />
+
+            <ButtonShare
+              path={ `http://localhost:3000/${type}/${id}` }
+              dataTest={ `${index}-horizontal-share-btn` }
+            />
+          </div>
+
         </div>
-
-      </div>
-    ));
+      ));
   };
 
   return (
