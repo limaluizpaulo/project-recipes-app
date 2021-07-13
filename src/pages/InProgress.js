@@ -24,7 +24,7 @@ export default function InProgress() {
     : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink'];
 
   useEffect(() => {
-    async function getApiData() {
+    function getApiData() {
       getDataById(domain, id).then((res) => {
         setRenderer(res[firstKey]);
 

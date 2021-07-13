@@ -22,7 +22,7 @@ function ExploreFoods() {
   }, [path]);
 
   useEffect(() => {
-    async function getDataRandom() {
+    function getDataRandom() {
       getRandomRecipe(domain)
         .then((result) => setIdRandom(result[firstKey][0][secondKey]));
     }

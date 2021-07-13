@@ -14,14 +14,14 @@ function ExploreArea() {
   const [renderer, setRenderer] = useState([]);
 
   useEffect(() => {
-    async function getDataArea() {
+    function getDataArea() {
       getAreasList().then(({ meals }) => setAreaList([{ strArea: 'All' }].concat(meals)));
     }
     getDataArea();
   }, []);
 
   useEffect(() => {
-    async function getFilteredArea() {
+    function getFilteredArea() {
       getRecipeByArea(selectedArea)
         .then(({ meals }) => setRenderer(meals.filter((_e, index) => index < limit)));
     }
@@ -29,7 +29,7 @@ function ExploreArea() {
   }, [limit, selectedArea]);
 
   useEffect(() => {
-    async function getDataAll() {
+    function getDataAll() {
       getRandomData('themealdb')
         .then(({ meals }) => setRenderer(meals.filter((_e, index) => index < limit)));
     }

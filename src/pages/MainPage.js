@@ -34,7 +34,7 @@ export default function MainPage() {
   const [toggle, setToggle] = useState({ status: false, category: '' });
 
   useEffect(() => {
-    async function getInitialStatePopulated() {
+    function getInitialStatePopulated() {
       getRandomData(domain)
         .then((res) => {
           setDataResult(res[firstKey]);
@@ -44,7 +44,7 @@ export default function MainPage() {
     }
     if (ingredientsResults.length === 0) { getInitialStatePopulated(); }
 
-    async function getListPopulated() {
+    function getListPopulated() {
       getCategoriesList(domain)
         .then((res) => {
           setCategoriesList(res[firstKey].filter((_e, index) => index < FIVE));
@@ -63,7 +63,7 @@ export default function MainPage() {
   }, [searchResult, limit]);
 
   useEffect(() => {
-    async function fetchApiData() {
+    function fetchApiData() {
       console.log(ingredientsResults.replace('_', ' '));
       getDataIngredients(domain, ingredientsResults).then((res) => {
         setRenderer(res[firstKey].filter((_e, index) => index < limit));
@@ -72,7 +72,7 @@ export default function MainPage() {
     if (ingredientsResults.length) { fetchApiData(); }
   }, [ingredientsResults, domain, firstKey, limit]);
 
-  async function handleCategoryFilter(category) {
+  function handleCategoryFilter(category) {
     if (toggle.category === category) {
       setToggle({ status: false, category: '' });
       setRenderer(dataResult.filter((_e, index) => index < limit));
