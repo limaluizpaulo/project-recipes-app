@@ -24,9 +24,9 @@ class Recipes extends Component {
 
     for (let i = 1; i < meals.length; i += 1) {
       const locations = +meals[i].strArea;
-      return locations;
+      console.log(locations);
     }
-    console.log(meals[i].strArea);
+    // console.log(meals[i].strArea);
 
     // console.log(final);
     // this.setState( locations: {something} );

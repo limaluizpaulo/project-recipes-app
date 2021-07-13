@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
@@ -22,8 +23,6 @@ class Perfil extends Component {
 
   getEmail() {
     const { email } = this.props;
-    console.log(email);
-    console.log(email);
     this.setState({
       email,
     });
