@@ -28,4 +28,4 @@ function HomeAndReturn() {
   );
 }
 
-export default HomeAndReturn;
+export default React.memo(HomeAndReturn);

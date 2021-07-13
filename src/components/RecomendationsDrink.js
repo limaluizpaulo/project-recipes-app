@@ -102,4 +102,4 @@ function RecomendationsDrink() {
   );
 }
 
-export default RecomendationsDrink;
+export default React.memo(RecomendationsDrink);

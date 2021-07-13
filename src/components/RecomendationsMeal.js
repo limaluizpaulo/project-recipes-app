@@ -99,4 +99,4 @@ function RecomendationsMeal() {
   );
 }
 
-export default RecomendationsMeal;
+export default React.memo(RecomendationsMeal);
