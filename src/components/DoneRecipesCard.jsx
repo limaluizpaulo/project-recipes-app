@@ -4,7 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { getRecipesDone } from '../services/helpers/localStorage';
 import shareRecipe from '../images/shareIcon.svg';
 
 function DoneRecipesCard() {
@@ -14,16 +13,13 @@ function DoneRecipesCard() {
     await navigator.clipboard.writeText(data);
   };
 
-  useEffect(() => {
-
-  }, []);
 
   function handleOnClick({ target }) {
     copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
     toast.success('Link copiado!');
   }
 
-  const recipesIsDone = [];
+  const recipesIsDone = JSON.parse(localStorage.getItem('doneRecipes'));
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
@@ -32,10 +28,10 @@ function DoneRecipesCard() {
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div key={index}>
-          <div className="food__card__done">
+          <div className="food__card__donee">
             <Link to={`/${recipe.type}s/${recipe.id}`}>
               <span
-                className="food__card_text"
+                className="food__card_textt"
                 data-testid={`${index}-horizontal-name`}
               >
                 {recipe.name}
@@ -43,7 +39,7 @@ function DoneRecipesCard() {
             </Link>
             <Link to={`/${recipe.type}s/${recipe.id}`}>
               <img
-                className="food__card__img"
+                className="food__card__imgg"
                 src={recipe.image}
                 alt={recipe.name}
                 data-testid={`${index}-horizontal-image`}

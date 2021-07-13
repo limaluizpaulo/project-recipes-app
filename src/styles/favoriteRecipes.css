@@ -62,7 +62,7 @@
   z-index: 1;
 }
 
-.food__card span {
+.food__card__favorites span {
   background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
@@ -74,8 +74,7 @@
 }
 
 .food__card__img {
-  height: 90%;
-  max-width: 100%;
+  width: 100%;
 }
 
 .food__card img {
