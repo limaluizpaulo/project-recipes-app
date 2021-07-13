@@ -41,8 +41,16 @@ class Comidas extends Component {
   }
 
   componentDidUpdate() {
+    // const { meals } = this.props;
+    // console.log(meals.idMeal);
+    // const check = meals.some((el) => el.idMeal);
+    // console.log(check);
+    // if (meals.length === 1 && !check) {
+    //   this.updateState();
+    // }
     const { meals } = this.props;
-    if (meals.length === 1) {
+    const check = meals.some((el) => el.idMeal === '52968');
+    if (meals.length === 1 && !check) {
       this.updateState();
     }
   }
