@@ -76,7 +76,7 @@ class Login extends React.Component {
           </Form.Group>
           <button
             variant="primary"
-            className="buttonLogin"
+            className="button-login"
             type="button"
             data-testid="login-submit-btn"
             disabled={ disabled }
