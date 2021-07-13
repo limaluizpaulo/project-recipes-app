@@ -1,5 +1,7 @@
 .recipeImg {
-  width: 300px;
+  margin-bottom: 15px;
+  padding-left: 10%;
+  width: 320px;
 }
 
 .icons {
@@ -10,8 +12,11 @@
   display: flex;
   flex-flow: row nowrap;
   margin: 10px 0 30px;
-  max-width: 300px;
+  margin-top: 30px;
+  max-width: 320px;
   overflow-x: scroll;
+  padding-left: 20px;
+
 }
 
 .card-drink {
@@ -22,32 +27,57 @@
   width: 40vw;
 }
 
-/* .card-drink > span {
-  overflow: hidden;
-  padding-bottom: 15px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.card-drink span {
+  align-self: center;
 }
-
-.card-drink > img {
-  border-radius: 0.6rem;
-  height: 250px;
-  object-fit: fill;
-  overflow: hidden;
-  width: 40vw;
-} */
 
 .video {
   width: 200px;
 }
 
 .button {
+  background-color: white;
+  border-radius: 5px;
   bottom: 0;
   margin-left: 0;
+  padding: 5px;
   position: fixed;
   right: 0;
 }
 
 .page-details {
+  background-color: #0fa36b;
   height: 100%;
+  margin-top: 50px;
+}
+
+.page-details h1 {
+  padding-left: 20px;
+  text-shadow: 5px 5px 10px white;
+
+
+}
+
+.page-details h2 {
+  background-color: white;
+  border-radius: 0 5px 3px 0;
+  box-shadow: 1px 1px 5px white;
+  margin: 15px 0;
+  width: 250px;
+
+}
+
+.favorite-btn {
+  background-color: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 6px;
+}
+
+.share-btn {
+  background-color: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 6px;
+
 }

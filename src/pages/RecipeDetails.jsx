@@ -121,8 +121,7 @@ class RecipeDetails extends Component {
     } else {
       this.setState({ heart: whiteHeartIcon });
     }
-    console.log(recipe);
-    console.log(doneRecipes);
+
     const testDone = doneRecipes.some((fav) => fav.id === recipe.idMeal);
     console.log(testDone);
     if (testDone) {
@@ -159,10 +158,11 @@ class RecipeDetails extends Component {
           alt={ idMeal }
           data-testid="recipe-photo"
         />
-        <h2 data-testid="recipe-title">{strMeal}</h2>
+        <h1 data-testid="recipe-title">{strMeal}</h1>
         <button
           type="button"
           data-testid="share-btn"
+          className="share-btn"
           onClick={ async () => {
             const { match: { params: { id: idSend } } } = this.props;
 
@@ -176,6 +176,7 @@ class RecipeDetails extends Component {
         <button
           type="button"
           onClick={ this.handleClickFavorite }
+          className="favorite-btn"
         >
           <img
             className="icons"
@@ -186,7 +187,7 @@ class RecipeDetails extends Component {
         </button>
         <h3 data-testid="recipe-category">{strCategory}</h3>
         <Ingredients recipe={ recipe } />
-        <h3>Instructions</h3>
+        <h2>Instructions</h2>
         <p data-testid="instructions">
           {strInstructions}
         </p>
@@ -196,7 +197,7 @@ class RecipeDetails extends Component {
           title="This is a unique title"
         />
 
-        <h3>Receitas Recomendadas</h3>
+        <h2>Receitas Recomendadas</h2>
         <div
           className="recomendation-List"
         >

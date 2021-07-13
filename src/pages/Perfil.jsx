@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
+import '../Style/Perfil.css';
 
 class Perfil extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Perfil extends Component {
 
   getEmail() {
     const { email } = this.props;
+    console.log(email);
     this.setState({
       email,
     });
@@ -32,36 +34,39 @@ class Perfil extends Component {
   }
 
   render() {
-    const { email } = this.state;
+    const { email = 'teste@teste.com' } = this.state;
     return (
       <div>
         <Header header="Perfil" />
-        <h1 data-testid="profile-email">{email}</h1>
-        <Link to="/receitas-feitas">
-          <button
-            type="button"
-            data-testid="profile-done-btn"
-          >
-            Receitas Feitas
-          </button>
-        </Link>
-        <Link to="/receitas-favoritas">
-          <button
-            type="button"
-            data-testid="profile-favorite-btn"
-          >
-            Receitas Favoritas
-          </button>
-        </Link>
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="profile-logout-btn"
-            onClick={ this.clearLocalStorage }
-          >
-            Sair
-          </button>
-        </Link>
+        <div className="page-perfil">
+          <h5>Você está logado como: </h5>
+          <p data-testid="profile-email">{email}</p>
+          <Link to="/receitas-feitas">
+            <button
+              type="button"
+              data-testid="profile-done-btn"
+            >
+              Receitas Feitas
+            </button>
+          </Link>
+          <Link to="/receitas-favoritas">
+            <button
+              type="button"
+              data-testid="profile-favorite-btn"
+            >
+              Receitas Favoritas
+            </button>
+          </Link>
+          <Link to="/">
+            <button
+              type="button"
+              data-testid="profile-logout-btn"
+              onClick={ this.clearLocalStorage }
+            >
+              Sair
+            </button>
+          </Link>
+        </div>
         <DownMenu />
       </div>
     );

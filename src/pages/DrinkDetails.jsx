@@ -146,17 +146,18 @@ class DrinkDetails extends Component {
       strAlcoholic,
       strInstructions } = drink;
     return (
-      <div>
+      <div className="page-details">
         <img
           className="recipeImg"
           src={ strDrinkThumb }
           alt={ idDrink }
           data-testid="recipe-photo"
         />
-        <h2 data-testid="recipe-title">{strDrink}</h2>
+        <h1 data-testid="recipe-title">{strDrink}</h1>
         <button
           type="button"
           data-testid="share-btn"
+          className="share-btn"
           onClick={ async () => {
             const { location: { pathname } } = this.props;
             await copy(`http://localhost:3000${pathname}`);
@@ -169,6 +170,7 @@ class DrinkDetails extends Component {
         <button
           type="button"
           onClick={ this.handleClickFavorite }
+          className="favorite-btn"
         >
           <img
             className="icons"
@@ -179,11 +181,11 @@ class DrinkDetails extends Component {
         </button>
         <h3 data-testid="recipe-category">{strAlcoholic}</h3>
         <Ingredients recipe={ drink } />
-        <h3>Instructions</h3>
+        <h2>Instructions</h2>
         <p data-testid="instructions">
           {strInstructions}
         </p>
-        <h3>Receitas Recomendadas</h3>
+        <h2>Receitas Recomendadas</h2>
         <div
           className="recomendation-List"
         >

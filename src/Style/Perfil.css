@@ -1,13 +1,16 @@
-.page-explorer {
+.page-perfil {
   align-items: center;
+  background-color: #51a56c;
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+  width: 100vw;
 }
 
-.page-explorer button {
+.page-perfil button {
+  background-color: white;
   border-radius: 5px;
   margin: 5px;
-  padding: 10px;
+  padding: 5px 10px;
 }
