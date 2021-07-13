@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import shareIcon from '../../images/shareIcon.svg';
+import './RecipesMade.css';
 
 function RecipesMade() {
-  const location = useLocation();
   const [filter, setFilter] = useState('all');
   localStorage.setItem('doneRecipes', JSON.stringify([
     {
-      id: 1,
-      type: 'comida',
+      id: 52771,
+      type: 'comidas',
       area: '',
       category: 'Italian - Vegetarian',
       alcoholicOrNot: '',
@@ -20,8 +20,8 @@ function RecipesMade() {
       tags: ['Pasta', 'Curry'],
     },
     {
-      id: 1,
-      type: 'bebida',
+      id: 178319,
+      type: 'bebidas',
       area: '',
       category: 'Alcoholic',
       alcoholicOrNot: 'alcoholic',
@@ -37,27 +37,21 @@ function RecipesMade() {
 
     const filted = doneRecipes.filter(({ type }) => type === filter || filter === 'all');
 
-    return filted.map(({ image, category, name, doneDate, tags }, index) => (
+    return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
       <div className="card" key={ index }>
-        <img
-          src={ image }
-          data-testid={ `${index}-horizontal-image` }
-          alt="card recipe done"
-        />
-
-        <button
-          type="button"
-          onClick={ () => copy(location.pathname) }
-        >
+        <Link to={ `/${type}/${id}` } className="link-img">
           <img
-            src={ shareIcon }
-            alt="share"
-            data-testid={ `${index}-horizontal-share-btn` }
+            src={ image }
+            data-testid={ `${index}-horizontal-image` }
+            alt="card recipe done"
           />
-        </button>
+        </Link>
 
         <h6 data-testid={ `${index}-horizontal-top-text` }>{category}</h6>
-        <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+        <Link to={ `/${type}/${id}` }>
+          <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+        </Link>
+
         <h5 data-testid={ `${index}-horizontal-done-date` }>
           {`Data de preparo: ${doneDate}`}
         </h5>
@@ -69,6 +63,18 @@ function RecipesMade() {
             {tag}
           </span>
         ))}
+        <button
+          type="button"
+          onClick={ () => {
+            copy(`/${type}/${id}`);
+          } }
+        >
+          <img
+            src={ shareIcon }
+            alt="share"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+        </button>
       </div>
     ));
   };
@@ -89,14 +95,14 @@ function RecipesMade() {
           <button
             type="button"
             data-testid="filter-by-food-btn"
-            onClick={ () => setFilter('comida') }
+            onClick={ () => setFilter('comidas') }
           >
             Food
           </button>
           <button
             type="button"
             data-testid="filter-by-drink-btn"
-            onClick={ () => setFilter('bebida') }
+            onClick={ () => setFilter('bebidas') }
           >
             Drinks
           </button>
