@@ -191,7 +191,7 @@ class Progresso extends Component {
       <section>
         { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
-       <SharedFavorites id={ id } page={ page } />
+        <SharedFavorites id={ id } page={ page } />
         <section className="details-content">
           <section>
             <h3>Ingredients</h3>
