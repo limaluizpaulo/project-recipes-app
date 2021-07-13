@@ -1,43 +1,81 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaCamera } from 'react-icons/fa';
+
 import { getStorage } from '../../functions';
+import profileImg from '../../images/profile.jpg';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 
 export default function Profile() {
+  const [showImg, setShowImg] = useState(false);
   const [{ email }] = useState(() => getStorage('user'));
+
+  const renderBtnsProfile = () => (
+    <div className="buttonsInProfile">
+      <Link to="/receitas-feitas">
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          className="buttonsRecipes"
+        >
+          Receitas Feitas
+        </button>
+      </Link>
+      <Link to="/receitas-favoritas">
+        <button
+          data-testid="profile-favorite-btn"
+          type="button"
+          className="buttonsRecipes"
+        >
+          Receitas Favoritas
+        </button>
+      </Link>
+      <Link to="/">
+        <button
+          data-testid="profile-logout-btn"
+          type="button"
+          className="buttonExit"
+          onClick={ () => localStorage.clear() }
+        >
+          Sair
+        </button>
+      </Link>
+    </div>
+  );
+
   return (
-    <div>
+    <main>
       <Header pageName="Perfil" />
-      <h1 data-testid="profile-email">{ email }</h1>
-      <div className="buttonsInProfile">
-        <Link to="/receitas-feitas">
-          <button
-            data-testid="profile-done-btn"
-            type="button"
-          >
-            Receitas Feitas
-          </button>
-        </Link>
-        <Link to="/receitas-favoritas">
-          <button
-            data-testid="profile-favorite-btn"
-            type="button"
-          >
-            Receitas Favoritas
-          </button>
-        </Link>
-        <Link to="/">
-          <button
-            data-testid="profile-logout-btn"
-            type="button"
-            onClick={ () => localStorage.clear() }
-          >
-            Sair
-          </button>
-        </Link>
+      <div className={ (showImg) ? 'bigImgProfile showImage' : 'bigImgProfile' }>
+        <img src={ profileImg } alt="img-profile" />
+        <button
+          type="button"
+          className="close"
+          onClick={ () => setShowImg(!showImg) }
+        >
+          <div />
+        </button>
+      </div>
+      <div className="container">
+        <div className="card">
+          <div className="mainContent">
+            <div className="imageProfile">
+              <button
+                type="button"
+                className="bgCamera"
+                onClick={ () => setShowImg(!showImg) }
+              >
+                {/* eslint-disable-next-line react/jsx-max-depth */}
+                <FaCamera className="cameraIcon" />
+              </button>
+            </div>
+            <h3 data-testid="profile-email" className="email">{ email }</h3>
+          </div>
+          {renderBtnsProfile()}
+        </div>
       </div>
       <Footer />
-    </div>
+    </main>
   );
 }
