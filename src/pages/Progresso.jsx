@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDrinkDetails, fetchFoodDetails, startRecipe } from '../action';
@@ -14,19 +15,18 @@ class Progresso extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       id: [],
       should: false,
-      // recipesLength: [],
+      recipesLength: [],
       count: 0,
-      isDisable: false,
+      isDisable: true,
       allIngredients: [],
     };
     this.updateState = this.updateState.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.saveDoneRecipes = this.saveDoneRecipes.bind(this);
     this.finishRecipe = this.finishRecipe.bind(this);
+    this.countRecipesAllLength = this.countRecipesAllLength.bind(this);
   }
 
   componentDidMount() {
@@ -71,14 +71,9 @@ class Progresso extends Component {
     isStart(false);
   }
 
-  handleClick() {
-    const { isStart } = this.props;
-    isStart(false);
-  }
-
   onClick(param, element, boolean) {
     const { count, allIngredients } = this.state;
-    // const {recipesLength, id, } = this.state  para fazer a lógica do disable funcionar vai ser necessário trocar ele no estado para true e descomentar parte do on click func
+    const { recipesLength } = this.state;
 
     if (allIngredients.includes(param) && boolean === 'checked') {
       element.classList.remove('riscado');
@@ -90,9 +85,9 @@ class Progresso extends Component {
       allIngredients: [...allIngredients, param],
     });
 
-    // if (count + 1 === recipesLength) {
-    //   this.setState({ isDisable: false });
-    // }
+    if (count + 1 === recipesLength) {
+      this.setState({ isDisable: false });
+    }
     this.setState({ count: count + 1 });
   }
 
@@ -115,13 +110,16 @@ class Progresso extends Component {
 
     if (should === true) {
       if (page === 'comidas') {
+        this.countRecipesAllLength();
         return this.setState({
-          // recipesLength: total.length,
-          id: details.idMeal, should: false });
+          id: details.idMeal,
+          should: false });
       }
+      this.countRecipesAllLength();
+
       return this.setState({
-        // recipesLength: total.length,
-        id, should: false });
+        id,
+        should: false });
     }
   }
 
@@ -166,14 +164,31 @@ class Progresso extends Component {
     this.saveDoneRecipes();
   }
 
+  countRecipesAllLength() {
+    const { details } = this.props;
+    const dictionary = identification(details);
+    console.log('funciono', dictionary);
+
+    const total = [];
+    dictionary.Ingredients.map((ingredient) => {
+      if (details[ingredient[0]] !== null && details[ingredient[0]] !== '') {
+        total.push(details[ingredient[0]]);
+        console.log(details[ingredient[0]]);
+      }
+
+      return this.setState({
+        recipesLength: total.length,
+      });
+    });
+  }
+
   render() {
     const { details, match: { params: { page, id } } } = this.props;
-    console.log(page);
 
     const { isDisable, allIngredients } = this.state;
     return (
       <section>
-        { details.idMeal !== undefined && this.test()}
+        { details.strIngredient1 !== undefined && this.test() }
         <DetailsHeader data={ details } />
         <SharedFavorites id={ id } page={ page } />
 
@@ -194,18 +209,19 @@ class Progresso extends Component {
               <Instructions data={ details } />
             </span>
           </section>
-          <button
-            className="details-btn-startRecipe"
-            type="button"
-            data-testid="finish-recipe-btn"
-            onClick={ () => {
-              this.handleClick();
-              this.finishRecipe();
-            } }
-            disabled={ isDisable }
-          >
-            Finalizar Receita
-          </button>
+          <Link to="/receitas-feitas">
+            <button
+              className="details-btn-startRecipe"
+              type="button"
+              data-testid="finish-recipe-btn"
+              onClick={ () => {
+                this.finishRecipe();
+              } }
+              disabled={ isDisable }
+            >
+              Finalizar Receita
+            </button>
+          </Link>
         </section>
       </section>
     );
