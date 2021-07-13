@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import RecommendedCard from '../components/RecommendedCard';
 import ShareFavoriteBtm from '../components/ShareFavoriteBtm';
-import '../DetailsPageCss.css';
 
 function DetailsPage({ match: { path, params, url } }) {
   const [details, setDetails] = useState('');
@@ -17,6 +16,11 @@ function DetailsPage({ match: { path, params, url } }) {
   const { id } = params;
   const urlFoods = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const urlDrinks = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const buttonStyle = {
+    position: 'fixed',
+    right: 30,
+    bottom: 0,
+  };
 
   const fetchDetails = async () => {
     if (pageFoods) {
@@ -139,6 +143,7 @@ function DetailsPage({ match: { path, params, url } }) {
       <div>
         <Button
           variant="success"
+          style={ buttonStyle }
           className="start-recipe"
           data-testid="start-recipe-btn"
           onClick={ () => handleStartRecipeClick() }
