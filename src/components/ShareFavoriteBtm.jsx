@@ -1,15 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHearticon from '../images/whiteHeartIcon.svg';
-import blackHearticon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function ShareFavoriteBtm({ url }) {
+function ShareFavoriteBtm({ url, pageFoods, id, data, pageDrinks }) {
   const [share, setShare] = useState(false);
-  const [favorite, setFavorite] = useState(true);
+  const [favorite, setFavorite] = useState(false);
+
+  const recipesFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  useEffect(() => {
+    if (recipesFavorite !== null) {
+      recipesFavorite.map((recipe) => recipe.id === id && setFavorite(true));
+    }
+  }, [recipesFavorite, id]);
 
   const headleFavorite = () => {
     setFavorite(!favorite);
+
+    if (favorite) {
+      recipesFavorite
+        .map((res, ind) => res.id === id && recipesFavorite.splice(ind, 1));
+
+      return localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFavorite));
+    }
+
+    let newFavorite = [];
+    if (pageFoods) {
+      newFavorite = [
+        ...recipesFavorite,
+        {
+          id: data.idMeal,
+          type: 'comida',
+          area: data.strArea,
+          category: data.strCategory,
+          alcoholicOrNot: '',
+          name: data.strMeal,
+          image: data.strMealThumb,
+        },
+      ];
+    } if (pageDrinks) {
+      newFavorite = [
+        ...recipesFavorite,
+        {
+          id: data.idDrink,
+          type: 'bebida',
+          area: '',
+          category: data.strCategory,
+          alcoholicOrNot: data.strAlcoholic,
+          name: data.strDrink,
+          image: data.strDrinkThumb,
+        },
+      ];
+    }
+
+    return localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
   };
 
   return (
@@ -25,14 +71,12 @@ function ShareFavoriteBtm({ url }) {
         />
       </button>
       {share ? <p>Link copiado!</p> : null}
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ headleFavorite }
-      >
+      <button type="button" onClick={ headleFavorite }>
         <img
-          src={ favorite ? whiteHearticon : blackHearticon }
-          alt="Favoritar"
+          data-testid="favorite-btn"
+          type="button"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="botão de favoritar"
         />
       </button>
     </div>

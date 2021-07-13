@@ -114,7 +114,13 @@ function DetailsPage({ match: { path, params, url } }) {
           {details.strAlcoholic}
         </p>
       </div>
-      <ShareFavoriteBtm url={ url } />
+      <ShareFavoriteBtm
+        url={ url }
+        pageFoods={ pageFoods }
+        id={ id }
+        data={ details }
+        pageDrinks={ pageDrinks }
+      />
       <div>
         <h3>
           Ingredientes
