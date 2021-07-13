@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Carousel } from 'react-bootstrap';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
-import CardRecomendation from '../components/CardRecomendation';
+import Card from '../components/Card';
 import VideoPlayer from '../components/VideoPlayer';
 import { saveFavoriteRecipe } from '../storage/localStorage';
 import '../styles/details.css';
@@ -126,7 +126,7 @@ export default function Details() {
               className="recomendations-container"
               key={ i }
             >
-              <CardRecomendation
+              <Card
                 mealOrDrink={ item }
                 index={ i }
                 testId="recomendation"
