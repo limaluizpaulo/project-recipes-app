@@ -17,7 +17,6 @@ function DrinkDetails() {
   }
 
   useEffect(() => {
-    setParam(params.id);
     const request = async () => {
       await requestByDetailsDrink(id)
         .then((response) => { setDrinkOnState(response.drinks); });

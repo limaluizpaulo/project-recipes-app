@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/IngredientsInProcess.css';
@@ -10,8 +10,13 @@ function returnType(pathname) {
 
 function IngredientsInProcess({ index, element, measures,
   ingredientsUsed, updateIngredientsUsed, idMeal }) {
+  const [checked, setchecked] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
+
+  function toogleClass() {
+    setchecked(!checked);
+  }
 
   function updateUsedIngredients(ingredientName) {
     if (ingredientsUsed.includes(element[1])) {
@@ -57,7 +62,7 @@ function IngredientsInProcess({ index, element, measures,
       >
         { `${element[1]}
                 - ${measures[index][1] === null
-      ? 'as you like' : measures[index][1]}`}
+      ? 'as you like' : measures[index][1]}` }
       </span>
     </div>
   );

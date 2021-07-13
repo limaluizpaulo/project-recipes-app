@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
@@ -8,13 +8,11 @@ import '../styles/DrinkAndFoodDetails(page).css';
 
 function FoodDetails() {
   const params = useParams();
-  const { setParam } = useContext(Context);
   const [item, setItem] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
 
   useEffect(() => {
-    setParam(params.id);
     const request = async () => {
       const result = await requestByDetailsMeal(params.id);
       setItem(result.meals);
