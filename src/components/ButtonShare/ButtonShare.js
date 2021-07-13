@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import clipboardCopy from 'clipboard-copy';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 
@@ -22,7 +22,7 @@ function ButtonShare({ path, dataTest }) {
         type="button"
         onClick={ () => {
           exibeText();
-          clipboardCopy(path);
+          copy(path);
         } }
       >
         <img
