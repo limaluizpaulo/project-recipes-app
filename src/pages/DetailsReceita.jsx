@@ -9,6 +9,7 @@ import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
 import CarouselElement from './detailsElements/CarouselElement';
 import ButtonCompartilhar from '../components/ButtonCompartilhar';
+import { isDone, isInProgress } from '../services/localStorage';
 
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
@@ -64,6 +65,22 @@ function DetailsReceita(props) {
     }
   }
 
+  const botaoIniciarReceita = () => {
+    const itsDone = isDone(id);
+    const inProgress = isInProgress(apelidoAPI, id);
+    return !itsDone && (
+      <Link to={ `/${apelidoAPI}/${id}/in-progress` }>
+        <button
+          type="button"
+          className="iniciarbtn footer"
+          data-testid="start-recipe-btn"
+        >
+          { inProgress ? 'Continuar Receita' : 'iniciar receita' }
+        </button>
+      </Link>
+    );
+  };
+
   let type = ['Meal', 'Category', 'Area', 'Drink'];
   if (apelidoAPI === 'bebidas') {
     type = ['Drink', 'Alcoholic', 'Category', 'Meal'];
@@ -84,13 +101,8 @@ function DetailsReceita(props) {
 
       <CarouselElement sugest={ [sugestoes, type] } />
 
-      <Link
-        className="footer"
-        data-testid="start-recipe-btn"
-        to={ `/${apelidoAPI}/${id}/in-progress` }
-      >
-        <p className="iniciarbtn">iniciar receita</p>
-      </Link>
+      { botaoIniciarReceita() }
+
       <div className="salvarcompartilhar">
         <Link className="favoritebtn" to="/">
           <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />

@@ -114,3 +114,24 @@ export function addDoneRecipes(recipe) {
     setItemLocalStorage('doneRecipes', [...doneRecipes, recipe]);
   }
 }
+
+export function isDone(idRecipe) {
+  const doneRecipes = getItemLocalStorage('doneRecipes');
+  if (!doneRecipes) {
+    setItemLocalStorage('doneRecipes', []);
+    return false;
+  }
+  return doneRecipes.some((doneRecipe) => doneRecipe.id === idRecipe);
+}
+
+export function isInProgress(typeRecipe, idRecipe) {
+  const inProgressRecipes = getItemLocalStorage('inProgressRecipes');
+  const mealsOrCocktails = ((typeRecipe === 'comidas') ? 'meals' : 'cocktails');
+  if (!inProgressRecipes) {
+    return false;
+  }
+
+  if (inProgressRecipes[mealsOrCocktails][idRecipe]) {
+    return true;
+  }
+}
