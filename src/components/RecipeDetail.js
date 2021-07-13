@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import progress from '../helper/functions';
 import { fetchRecipeAllDrink,
   fetchRecipeAllFood,
   fetchRecipeIDFood, fetchRecipeIDrinks } from '../services/recipeAPI';
@@ -114,11 +115,9 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
       </div>
       <button
         onClick={ () => progress({
-          objectStart,
           leng,
           typeRecipe,
           idRecipe,
-          history,
           list }) }
         className="start-recipe"
         type="button"
