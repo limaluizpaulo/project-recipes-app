@@ -33,7 +33,7 @@ function ReceitaEmProgresso({ match }) {
   useEffect(() => {
     fetchRecipe(url, food, id)
       .then((response) => setRecipe(response));
-  });
+  }, []);
 
   function saveToFavorites() {
     const favorites = localStorage.getItem('favoriteRecipes');

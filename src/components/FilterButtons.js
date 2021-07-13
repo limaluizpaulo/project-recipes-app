@@ -15,8 +15,8 @@ function FilterButtons({ initialFavorites, setFilterFavorites }) {
   return (
     <div>
       {/* <p>{ initialFavorites }</p> */}
-      <div className="d-flex flex-column">
-        <div className="d-flex justify-content-around">
+      <div>
+        <div>
           <button
             type="button"
             className="btn btn-secondary"

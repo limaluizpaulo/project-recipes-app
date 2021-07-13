@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './CardsRecipes.css';
+import '../../styles/CardsRecipes.css';
 import imagem from '../../images/shareIcon.svg';
 
 export default class CardsRecipes extends Component {

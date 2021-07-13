@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './CardsRecipes.css';
+import '../../styles/CardsRecipes.css';
 import copy from 'clipboard-copy';
 import imgIcon from '../../images/shareIcon.svg';
 import imgBtnFavorite from '../../images/blackHeartIcon.svg';
@@ -27,50 +27,44 @@ function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites 
   }
   return (
     <div className="border">
-      <div>
-        <Link to={ `/${type}s/${id}` }>
-          <img
-            className="img-tam"
-            src={ image }
-            data-testid={ `${index}-horizontal-image` }
-            alt="..."
-          />
-        </Link>
-      </div>
+      <Link to={ `/${type}s/${id}` }>
+        <h5
+          data-testid={ `${index}-horizontal-name` }
+        >
+          { name }
+        </h5>
+      </Link>
+      <p data-testid={ `${index}-horizontal-top-text` }>
+        { `${area} - ${category}` }
+      </p>
+      {alcohol ? <p data-testid={ `${index}-horizontal-top-text` }>Alcoholic</p> : ''}
+      <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
+        <img
+          data-testid={ `${index}-horizontal-share-btn` }
+          src={ imgIcon }
+          alt="share-btn"
+        />
+      </button>
+      { copied ? <p>Link copiado!</p> : ' '}
+      <button
+        type="button"
+        onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
+      >
+        <img
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          src={ imgBtnFavorite }
+          alt="btn"
+        />
+      </button>
+      <Link to={ `/${type}s/${id}` }>
+        <img
+          className="img-tam"
+          src={ image }
+          data-testid={ `${index}-horizontal-image` }
+          alt="..."
+        />
+      </Link>
       <p>{ `/${type}s/${id}` }</p>
-      <div>
-        <div>
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            { `${area} - ${category}` }
-          </p>
-          {alcohol ? <p data-testid={ `${index}-horizontal-top-text` }>Alcoholic</p> : ''}
-          <Link to={ `/${type}s/${id}` }>
-            <h5
-              data-testid={ `${index}-horizontal-name` }
-            >
-              { name }
-            </h5>
-          </Link>
-          <button type="button" onClick={ () => copyUrl(setCopied, type, id) }>
-            <img
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ imgIcon }
-              alt="share-btn"
-            />
-          </button>
-          { copied ? <p>Link copiado!</p> : ' '}
-          <button
-            type="button"
-            onClick={ () => remove(id, filterFavorites, setFilterFavorites) }
-          >
-            <img
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src={ imgBtnFavorite }
-              alt="btn"
-            />
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
