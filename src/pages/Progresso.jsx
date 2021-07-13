@@ -139,9 +139,11 @@ class Progresso extends Component {
       name: details[keyName.Name],
       image: details[keyName.Thumb],
       doneDate: `${currentDate}`,
-      tags: details[keyName.Tags] ? details[keyName.Tags] : '',
+      tags: details[keyName.Tags] ? '1' : '',
     };
 
+    // const arr = '1';
+    console.log(details[keyName.Tags].split(','));
     doneRecipes.push(recipe);
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }

@@ -21,21 +21,21 @@ class DoneRecipes extends Component {
   }
 
   handleFilterAll() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes,
     });
   }
 
   handleFilterFoods() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes.filter((elem) => elem.type === 'comidas'),
     });
   }
 
   handleFilterDrinks() {
-    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const allRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     this.setState({
       doneRecipes: allRecipes.filter((elem) => elem.type === 'bebidas'),
     });
