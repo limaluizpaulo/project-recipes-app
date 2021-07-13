@@ -32,18 +32,19 @@ const FoodInProgressBtn = () => {
     return [];
   };
 
-  const fetchRecipes = async((type, recipeID) => {
-    const DOIS = 2;
-    const getDate = () => {
-      const date = new Date();
-      const day = date.getDate().toString().padStart(DOIS, '0');
-      const month = (date.getMonth() + 1).toString().padStart(DOIS, '0');
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    };
+  const DOIS = 2;
+  const getDate = () => {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(DOIS, '0');
+    const month = (date.getMonth() + 1).toString().padStart(DOIS, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const fetchRecipes = async (type, recipeID) => {
     if (type === 'comidas') {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
-      (async () => {
+      const createFoodObject = async () => {
         const request = await fetch(endpoint);
         const { meals } = await request.json();
         const tag = meals[0].strTags;
@@ -60,10 +61,11 @@ const FoodInProgressBtn = () => {
           tags,
         };
         setTest(foodObject);
-      })();
+      };
+      createFoodObject();
     } else {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
-      (async () => {
+      const createDrinkObject = async () => {
         const request = await fetch(endpoint);
         const { drinks } = await request.json();
         const tag = drinks[0].strTags;
@@ -80,9 +82,10 @@ const FoodInProgressBtn = () => {
           tags,
         };
         setTest(drinkObject);
-      })();
+      };
+      createDrinkObject();
     }
-  });
+  };
 
   useEffect(() => {
     const array = history.location.pathname.split('/');
@@ -104,8 +107,8 @@ const FoodInProgressBtn = () => {
         }
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={!finished}
-        onClick={handleFinishRecipe}
+        disabled={ !finished }
+        onClick={ handleFinishRecipe }
       >
         Finalizar
       </button>
