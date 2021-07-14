@@ -1,15 +1,13 @@
 .loader {
-  animation: spin 2s linear infinite;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-radius: 50%;
-  border-top: 16px solid #3498db; /* Blue */
-  height: 120px;
-  width: 120px;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }
 
-@keyframes spin {
-
-  0% { transform: rotate(0deg); }
-
-  100% { transform: rotate(360deg); }
+.loader img {
+  height: 100%;
+  padding: 10px;
+  width: 100%;
 }
+
