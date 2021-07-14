@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import NotFound from './components/NotFound';
 import Login from './components/Login';
 import FoodPage from './components/FoodPage';
 import DrinkPage from './components/DrinkPage';
@@ -15,9 +14,6 @@ import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
 import ExpFoodIngredients from './components/ExpFoodIngredients';
 import ExpAreaFood from './components/ExpAreaFood';
-// import ExpSurprise from './components/ExpSurprise';
-import ExpArea from './components/ExpArea';
-// import ExpSurprise from './components/ExpSurprise';
 import NotFoundPage from './components/NotFoundPage';
 import ExpDrinkIngredients from './components/ExpDrinkIngredients';
 import DoneRecipes from './components/DoneRecipes';
@@ -35,10 +31,6 @@ function App() {
         <Route
           path="/explorar/comidas/area"
           render={ (props) => <ExpAreaFood { ...props } /> }
-        />
-        <Route
-          path="/explorar/bebidas/area"
-          component={ NotFound }
         />
         <Route
           path="/explorar/comidas/:id"
@@ -83,7 +75,6 @@ function App() {
           render={ (props) => <FavRecipes { ...props } /> }
         />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
-        <Route default component={ NotFound } />
       </Switch>
       {/* </div> */}
     </ProviderRecipes>

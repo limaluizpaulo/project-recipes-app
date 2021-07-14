@@ -21,6 +21,7 @@ function ExpAreaFood({ history }) {
     fetch(endpoint)
       .then((response) => response.json()
         .then((results) => setAreas(results.meals)));
+    console.log('loop');
   };
 
   useEffect(() => {
