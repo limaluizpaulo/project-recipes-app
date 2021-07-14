@@ -21,13 +21,18 @@ class Profile extends React.Component {
     history.push('/');
   }
 
+  renderEmail() {
+    const userEmail = JSON.parse(localStorage.getItem('user'));
+    if (userEmail) return userEmail.email;
+    return null;
+  }
+
   render() {
-    console.log(JSON.parse(localStorage.getItem('email')));
     return (
       <section>
         <Header title="Perfil" />
         <p data-testid="profile-email">
-          {JSON.parse(localStorage.getItem('user')).email}
+          { this.renderEmail() }
         </p>
         <Link to="/receitas-feitas">
           <button data-testid="profile-done-btn" type="button">

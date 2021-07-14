@@ -25,7 +25,7 @@ class Header extends React.Component {
     const { title } = this.props;
     if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
       return (
-        <button type="button" onClick={ this.onClickSearchBtn }>
+        <button type="button" onClick={ this.onClickSearchBtn } className="header-icon">
           <img
             src={ searchIcon }
             alt="search"
@@ -41,18 +41,17 @@ class Header extends React.Component {
     const { title } = this.props;
     const { searchBar } = this.state;
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <h1 data-testid="page-title">{ title }</h1>
-          <Link to="/perfil">
-            <img
-              src={ profileIcon }
-              alt="profile"
-              data-testid="profile-top-btn"
-            />
-          </Link>
-          { this.renderSearchButton() }
-        </div>
+      <nav className="header">
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            alt="profile"
+            data-testid="profile-top-btn"
+            className="header-icon"
+          />
+        </Link>
+        <h1 data-testid="page-title">{ title }</h1>
+        { this.renderSearchButton() }
         { searchBar ? <SearchBar title={ title } /> : null }
       </nav>
     );

@@ -9,6 +9,7 @@ class DoneRecipes extends React.Component {
   constructor() {
     super();
     this.state = {
+      allRecipes: [],
       doneRecipes: [],
       copyLink: false,
     };
@@ -34,6 +35,7 @@ class DoneRecipes extends React.Component {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       return this.setState({
+        allRecipes: doneRecipes,
         doneRecipes,
       });
     }
@@ -89,8 +91,8 @@ class DoneRecipes extends React.Component {
   }
 
   renderFilterDoneRecipe(type) {
-    const { doneRecipes } = this.state;
-    const filter = doneRecipes.filter((recipe) => recipe.type === type);
+    const { allRecipes } = this.state;
+    const filter = allRecipes.filter((recipe) => recipe.type === type);
     this.setState({
       doneRecipes: filter,
     });

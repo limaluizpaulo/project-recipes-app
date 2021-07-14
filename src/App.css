@@ -55,3 +55,164 @@
   font-weight: 200;
   font-size: 14px;
 }
+
+/* COMPONENTE HEADER */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  margin: 32px 0 16px;
+}
+
+.header h1 {
+  color: #3F3E3E;
+  font-size: 32px;
+  font-family: "Poppins";
+  font-weight: 700;
+  margin: 0;
+}
+
+.header-icon {
+  color: #A6A29F;
+  width: 25px;
+  border: none;
+  background-color: white;
+}
+
+.header-icon img {
+  width: 25px;
+}
+
+/* TELA DE RECEITAS PRINCIPAL */
+
+.main-btn {
+  background-color: #A02331;
+  border: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #F5F0EB;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  font-size: 16px;
+  font-family: "Poppins";
+  font-weight: 700;
+  height: 30px;
+  margin: 8px 7px;
+  margin-bottom: 16px;
+  margin-right: 14px;
+  width: 90px;
+}
+
+.main-btn-section {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.main-cards-section {
+  height: 380px;
+  overflow-y: scroll;
+}
+
+.main-cards-div {
+  width: 328px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: end;
+  position: relative;
+  margin-bottom: 16px;
+  background-color: black;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.main-cards-div img {
+  height: 150px;
+  opacity: 0.5;
+}
+
+.main-cards-div h3 {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  color: #F7F7F7;
+  font-family: "Poppins";
+  font-weight: 200;
+  font-size: 22px;
+}
+
+/* COMPONENTE FOOTER */
+
+.footer-navBar {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  height: 48px;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-icon {
+  width: 40px;
+}
+
+/* COMPONENTE SEARCHBAR */
+.searchBar-form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  width: 328px;
+  margin-top: 16px;
+  align-items: space-between;
+}
+
+.searchBar-radio-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 0px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Poppins";
+  color: #333333;
+}
+
+.searchBar-radio-div input {
+  margin-right: 10px;
+  background-color: #A02331;
+}
+
+.searchBar-input {
+  border-radius: 10px;
+  border: none;
+  background-color: #F5F0EB;
+  color: #717171;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Poppins";
+  height: 45px;
+  margin-right: 30px;
+  text-align: center;
+  width: 180px;
+}
+
+.searchBar-form button {
+  border: none;
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  background-color: #EA1D2C;
+  color: #F5F0EB;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Poppins";
+  height: 45px;
+  width: 117px;
+}

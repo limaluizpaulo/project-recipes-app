@@ -10,6 +10,7 @@ class FavoriteRecipes extends React.Component {
   constructor() {
     super();
     this.state = {
+      allRecipes: [],
       favoriteRecipes: [],
       copyLink: false,
     };
@@ -43,6 +44,7 @@ class FavoriteRecipes extends React.Component {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipes) {
       return this.setState({
+        allRecipes: favoriteRecipes,
         favoriteRecipes,
       });
     }
@@ -94,8 +96,8 @@ class FavoriteRecipes extends React.Component {
   }
 
   renderFilterFavoriteRecipe(type) {
-    const { favoriteRecipes } = this.state;
-    const filter = favoriteRecipes.filter((recipe) => recipe.type === type);
+    const { allRecipes } = this.state;
+    const filter = allRecipes.filter((recipe) => recipe.type === type);
     this.setState({
       favoriteRecipes: filter,
     });

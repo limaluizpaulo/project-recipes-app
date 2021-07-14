@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -102,57 +101,63 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <Form className="search-form">
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Buscar receita"
-              data-testid="search-input"
-              onChange={ (event) => this.onChangeInput(event, 'input') }
-            />
-          </Form.Label>
-        </Form.Group>
-        {['radio'].map((type) => (
-          <div key={ `inline-${type}` } className="mb-3">
-            <Form.Check
-              inline
-              label="Ingrediente"
-              name="radio"
-              value="Ingrediente"
-              type={ type }
-              data-testid="ingredient-search-radio"
-              onChange={ (event) => this.onChangeInput(event, 'filter') }
-            />
-            <Form.Check
-              inline
-              label="Nome"
-              name="radio"
-              value="Nome"
-              type={ type }
-              data-testid="name-search-radio"
-              onChange={ (event) => this.onChangeInput(event, 'filter') }
-            />
-            <Form.Check
-              inline
-              label="Primeira Letra"
-              name="radio"
-              value="Primeira Letra"
-              type={ type }
-              data-testid="first-letter-search-radio"
-              onChange={ (event) => this.onChangeInput(event, 'filter') }
-            />
-          </div>
-        ))}
-        <Button
+      <form className="searchBar-form">
+        <label htmlFor="search">
+          <input
+            className="searchBar-input"
+            type="text"
+            placeholder="Buscar receita"
+            data-testid="search-input"
+            onChange={ (event) => this.onChangeInput(event, 'input') }
+            id="search"
+          />
+        </label>
+        <button
           variant="primary"
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => this.OnClickSearch() }
         >
           Buscar
-        </Button>
-      </Form>
+        </button>
+        {['radio'].map((type) => (
+          <div key={ `inline-${type}` } className="searchBar-radio-div">
+            <label htmlFor="Ingrediente">
+              <input
+                id="Ingrediente"
+                name="radio"
+                value="Ingrediente"
+                type={ type }
+                data-testid="ingredient-search-radio"
+                onChange={ (event) => this.onChangeInput(event, 'filter') }
+              />
+              Ingrediente
+            </label>
+            <label htmlFor="Nome">
+              <input
+                id="Nome"
+                name="radio"
+                value="Nome"
+                type={ type }
+                data-testid="name-search-radio"
+                onChange={ (event) => this.onChangeInput(event, 'filter') }
+              />
+              Nome
+            </label>
+            <label htmlFor="Primeira Letra">
+              <input
+                id="Primeira Letra"
+                name="radio"
+                value="Primeira Letra"
+                type={ type }
+                data-testid="first-letter-search-radio"
+                onChange={ (event) => this.onChangeInput(event, 'filter') }
+              />
+              Primeira Letra
+            </label>
+          </div>
+        ))}
+      </form>
     );
   }
 }
