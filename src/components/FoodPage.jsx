@@ -20,7 +20,7 @@ function FoodPage({ history }) {
 
   return (
     <main>
-      <Header history={ history } />
+      <Header history={ history } show />
       { goSearch && <SBElements history={ history } /> }
       <FoodCategoryButtons history={ history } />
       <section>
