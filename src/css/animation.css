@@ -1,0 +1,9 @@
+.transition-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.transition-enter .transition-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}

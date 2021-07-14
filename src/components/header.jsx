@@ -41,29 +41,22 @@ class Header extends Component {
   }
 
   header(title = 'Comidas', searchBar = true) {
-    console.log(title.replace('/', ' ').replace('/', ' '));
-    console.log(title.includes('Explorar'));
     if (title.includes('area')) {
       title = 'Explorar/Origem';
     }
 
     if (title.includes('ingredientes') && title.includes('comidas')) {
       title = 'Explorar/Ingredientes';
-      console.log('entrei');
     }
 
     if (title.includes('Explorar') && title.includes('comidas')) {
       title = 'Explorar/Comidas';
-      // console.log(title.replace('/', ' '));
-      // console.log('entrei');
     }
     if (title.includes('ingredientes') && title.includes('bebidas')) {
       title = 'Explorar/Ingredientes';
-      console.log('entrei');
     }
     if (title.includes('Explorar') && title.includes('bebidas')) {
       title = 'Explorar/Bebidas';
-      console.log('entrei');
     }
     if (title.includes('feita')) {
       title = 'Receitas/Feitas';
@@ -73,7 +66,7 @@ class Header extends Component {
     }
 
     return (
-      <div>
+      <section className="header-main">
         <header className="header">
           <Link to="/perfil">
             <img data-testid="profile-top-btn" src={ profileIcon } alt="profileImagem" />
@@ -83,7 +76,7 @@ class Header extends Component {
           {searchBar === true && this.searchBarTrue()}
 
         </header>
-      </div>
+      </section>
     );
   }
 

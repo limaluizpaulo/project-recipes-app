@@ -14,6 +14,7 @@ import Favoritas from './pages/telaReceitasFavoritas';
 import NotFound from './pages/notFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Receitas from './pages/ReceitasFeitas';
+import './css/animation.css';
 
 class App extends Component {
   render() {

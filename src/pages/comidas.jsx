@@ -75,10 +75,6 @@ class Comidas extends Component {
     this.setState({ isRedirect: true });
   }
 
-  // redirect(id) {
-  //   return <Redirect to="/comidas/512456" />;
-  // }
-
   render() {
     const { isRedirect } = this.state;
     const {
@@ -90,9 +86,9 @@ class Comidas extends Component {
       match,
     } = this.props;
     return (
-      <div>
+      <section>
         <Header location={ location } />
-        <main>
+        <main className="food-main">
           <ButtonCategories
             btnClass="btn-filterMeasls-cards"
             getCategories={ getFoodCategories }
@@ -115,9 +111,8 @@ class Comidas extends Component {
           </section>
         </main>
         { isRedirect === true && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
-        {/* { this.categories() }  */}
         <Footer />
-      </div>
+      </section>
     );
   }
 }
