@@ -1,9 +1,9 @@
 .login {
   align-items: center;
   background-blend-mode: multiply;
+  background-color: #575757;
   background-image: url('../images/login-picture.jpg');
   background-size: cover;
-  background-color: #575757;
   color: white;
   display: flex;
   flex-direction: column;
