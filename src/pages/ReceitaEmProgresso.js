@@ -32,7 +32,8 @@ function ReceitaEmProgresso({ match }) {
 
   useEffect(() => {
     fetchRecipe(url, food, id)
-      .then((result) => setRecipe(result));
+      .then((response) => setRecipe(response));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function saveToFavorites() {
@@ -140,8 +141,6 @@ function ReceitaEmProgresso({ match }) {
     return (<h4 className="loading">Carregando...</h4>);
   }
 
-  console.log(recipe);
-
   ingredientsStep();
   checkFavorite(checkFavoriteParams);
   checkInProgress(checkInProgressParams);
@@ -180,7 +179,7 @@ function ReceitaEmProgresso({ match }) {
       <Title value={ titleParams } />
       <IngredientsStep value={ ingredientsStepProps } />
       <Instructions value={ recipe } />
-      <InProgressButton value={ { ingredientsQuantity, checked } } />
+      <InProgressButton value={ { ingredientsQuantity, checked, recipe } } />
     </main>
   );
 }

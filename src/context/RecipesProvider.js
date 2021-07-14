@@ -10,18 +10,6 @@ import fetchDrink,
 import { CATEGORY_FILTER_FOOD, CATEGORY_FILTER_DRINK } from '../services/Categorys';
 
 function RecipesProvider({ children }) {
-  // const [state, newState] = useState();
-  const [email, setEmail] = useState('');
-  const [password, setPassowd] = useState('');
-
-  const successLogin = (emailText, passwordText) => {
-    setEmail(emailText);
-    setPassowd(passwordText);
-
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-  };
-
   // searchBar
   const [searchInput, setSearchInput] = useState('');
   const [endpoint, setEndpoint] = useState();
@@ -44,7 +32,7 @@ function RecipesProvider({ children }) {
     const link = `${type}/${recipe[`id${foodOrDrink.idRecipe}`]}`;
     history.push(link);
   }
-  // searchBar
+  //
 
   // CategoryOptions
 
@@ -53,9 +41,6 @@ function RecipesProvider({ children }) {
   // CategoryOptions
 
   const context = {
-    email,
-    password,
-    successLogin,
     foodOrDrink,
     handleSingleReturn,
     type,
@@ -66,6 +51,7 @@ function RecipesProvider({ children }) {
     setEndpoint,
     results,
     setResults,
+    // doneRecipes,
     categoryFilter,
     setCategoryFilter,
   };
