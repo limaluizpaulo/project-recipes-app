@@ -45,11 +45,13 @@ function ExploreDrinkIngredient() {
               data-testid={ `${index}-ingredient-card` }
               className="card"
             >
-              <Card.Img
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-                alt={ ingredient.strIngredient1 }
-              />
+              <div className="background-card">
+                <Card.Img
+                  data-testid={ `${index}-card-img` }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+                  alt={ ingredient.strIngredient1 }
+                />
+              </div>
               <Card.Body>
                 <Card.Title
                   className="ingredientCard-title"

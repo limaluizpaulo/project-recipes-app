@@ -17,6 +17,7 @@
 .ingredientCard-title {
   color: black;
   display: inline-block;
+  font-weight: 600;
   max-height: 2.3em;
   overflow: hidden;
   text-overflow: ellipsis;
