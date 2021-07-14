@@ -35,7 +35,7 @@ export default function Explorar() {
   switch (pathname) {
   case '/explorar':
     return (
-      <>
+      <div className="explore">
         { headerNFooter }
         <Link to={ EXPLORE_FOOD }>
           <Button
@@ -57,12 +57,12 @@ export default function Explorar() {
 
           </Button>
         </Link>
-      </>
+      </div>
     );
   case EXPLORE_DRINK:
   case EXPLORE_FOOD:
     return (
-      <>
+      <div className="explore">
         { headerNFooter }
         <Link to={ `${pathname}/ingredientes` }>
           <Button
@@ -95,12 +95,12 @@ export default function Explorar() {
             Me Surpreenda!
           </Button>
         </Link>
-      </>
+      </div>
     );
   case '/explorar/bebidas/ingredientes':
   case '/explorar/comidas/ingredientes':
     return (
-      <SearchIngredients pathname={ pathname } />
+      <SearchIngredients />
     );
   case '/explorar/comidas/area':
     return (

@@ -57,7 +57,7 @@ export default function CardIngredient() {
   }
   if (finalArray) {
     return (
-      <main>
+      <main className="explore">
         <ul>
           {finalArray.map((obj, index) => (
             <button
