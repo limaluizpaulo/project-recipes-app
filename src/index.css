@@ -957,8 +957,8 @@ justify-items: center;
 .searchBar:before {
   content: '';
   position: absolute;
-  top: 62px;
-  right: 15%;
+  top: -14px;
+  right: 10px;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-bottom: 14px solid var(--first-color-dark);

@@ -1,5 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 import store, { addRecipes } from '../../context/store';
 import {
@@ -91,8 +93,15 @@ export default function SearchBar() {
     if (rate === 'firstLetter') { setFirstLetter(); }
   };
 
+  // ---------------------------------------------------------------------------------------------
+  // CICLOS DE VIDA
+
+  useEffect(() => { Aos.init({ duration: 2000 }); }, []);
+
+  // ---------------------------------------------------------------------------------------------
+
   return (
-    <div className="mainContentSearchBar">
+    <div data-aos="fade-down" className="mainContentSearchBar">
       <div className="searchBar">
         <div className="searchBarBox">
           <FaSearch className="searchBarIcon" />
