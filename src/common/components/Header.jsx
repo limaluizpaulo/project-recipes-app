@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import SearchBar from '../SearchBar';
+import SearchBar from './SearchBar';
 
-import profileIcon from '../../../images/profileIcon.svg';
-import searchIcon from '../../../images/searchIcon.svg';
-import './header.css';
+import profileIcon from '../../images/profileIcon.svg';
+import searchIcon from '../../images/searchIcon.svg';
 
 export default function Header({ pageName }) { // Desestruturação de props
   const [isRedirect, setIsRedirect] = useState(false); // Redirect Perfil
@@ -15,7 +14,7 @@ export default function Header({ pageName }) { // Desestruturação de props
 
   return (
     <>
-      <header>
+      <header className="header">
         <input
           type="image"
           onClick={ () => setIsRedirect(true) }

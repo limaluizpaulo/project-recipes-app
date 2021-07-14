@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
 import CategoryButton from '../components/CategoryButton';
 import { getStorage } from '../../functions';
 import DoneRecipeCard from '../components/DoneRecipeCard';

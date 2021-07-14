@@ -5,7 +5,7 @@ import { FaCamera, FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
 import { getStorage } from '../../functions';
 import profileImg from '../../images/profile.jpg';
 import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
 
 export default function Profile() {
   const [showImg, setShowImg] = useState(false);

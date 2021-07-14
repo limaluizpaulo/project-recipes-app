@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
 import LikeButton from '../components/LikeButton';
 import ShareButton from '../components/ShareButton';
 import CategoryButton from '../components/CategoryButton';
