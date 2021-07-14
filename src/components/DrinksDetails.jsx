@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Button } from 'react-bootstrap';
 import { useLocation, Link } from 'react-router-dom';
 import { fetchIdDrink } from '../Service/drinkApi';
 import { fetchAllMeals } from '../Service/foodApi';
@@ -81,18 +81,19 @@ export default function DrinksDetails() {
         src={ strDrinkThumb }
         alt="imagem da bebida"
         data-testid="recipe-photo"
-        width="100px"
+        width="250px"
       />
       <h1 data-testid="recipe-title">{strDrink}</h1>
-
-      <ShareButton />
-      <FavoriteButton
-        stateChangeHeart={ stateChangeHeart }
-        setStateChangeHeart={ setStateChangeHeart }
-        removeFavorited={ removeFavorited }
-      />
-      <p data-testid="recipe-category">{strAlcoholic}</p>
-      <h2>Ingredientes</h2>
+      <div className="favorite-share">
+        <ShareButton />
+        <FavoriteButton
+          stateChangeHeart={ stateChangeHeart }
+          setStateChangeHeart={ setStateChangeHeart }
+          removeFavorited={ removeFavorited }
+        />
+      </div>
+      <h5 data-testid="recipe-category">{strAlcoholic}</h5>
+      <h3>Ingredientes</h3>
       <ul>
         {ingredients.map((ingredient, index) => (
           <li
@@ -105,12 +106,12 @@ export default function DrinksDetails() {
           </li>
         ))}
       </ul>
-      <h2>Instruções</h2>
-      <p data-testid="instructions">{strInstructions}</p>
+      <h3>Instruções</h3>
+      <p data-testid="instructions" className="instrucoesP">{strInstructions}</p>
       <Carousel>
         {mealsAll.map((meals, index) => (
           <Carousel.Item
-            interval={ 1000 }
+            interval={ 850 }
             key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
@@ -118,7 +119,6 @@ export default function DrinksDetails() {
               className="d-block w-60"
               src={ meals.strMealThumb }
               alt="slide"
-              width="100px"
             />
             <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
               <h3>{meals.strMeal}</h3>
@@ -127,15 +127,14 @@ export default function DrinksDetails() {
         ))}
       </Carousel>
       <Link to={ `/bebidas/${idDrink}/in-progress` }>
-
-        <button
+        <Button
           type="button"
           data-testid="start-recipe-btn"
-          clad
           className="iniciarReceita"
+          variant="danger"
         >
           {checkButtonstate ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
+        </Button>
         )
       </Link>
     </div>
