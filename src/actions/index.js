@@ -14,6 +14,8 @@ export const actionSaveUser = (email) => ({
   },
 });
 
+export const clearData = () => ({ type: 'CLEAR_DATA' });
+
 export const actionGetUser = (email) => ({
   type: 'GET_USER',
   payload: {

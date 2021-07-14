@@ -29,7 +29,8 @@ class Recipes extends Component {
   async fetchs() {
     const { categories, listRecipes, recipes } = this.props;
     categories();
-    if (listRecipes.length === 0) recipes();
+    if (!listRecipes) return (<h3>Loading...</h3>);
+    if (listRecipes.length === 0) return recipes();
   }
 
   async fetchRecipesCategory(category) {

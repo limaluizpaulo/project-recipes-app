@@ -18,6 +18,8 @@ const recipes = (state = INTIAL_STATE, action) => {
     return { ...state, byCategories: action.payload.data };
   case 'INGREDIENTS_RECIPES':
     return { ...state, ingredients: action.payload.data };
+  case 'CLEAR_DATA':
+    return INTIAL_STATE;
   default:
     return state;
   }

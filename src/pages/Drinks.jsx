@@ -29,7 +29,7 @@ class Drinks extends Component {
   fetchs() {
     const { categories, listDrinks, drinks } = this.props;
     categories();
-    if (listDrinks.length === 0) return drinks();
+    if (listDrinks.length === 0) drinks();
   }
 
   async fetchDrinksCategory(category) {
@@ -47,10 +47,9 @@ class Drinks extends Component {
 
   mapearLista({ strDrinkThumb, strDrink, idDrink }, index) {
     return (
-      <Link to={ `/bebidas/${idDrink}` }>
+      <Link to={ `/bebidas/${idDrink}` } key={ index }>
         <CardItem
           className="list"
-          key={ index }
           index={ index }
           name={ strDrink }
           image={ strDrinkThumb }
