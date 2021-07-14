@@ -12,21 +12,36 @@ function Footer() {
           <a
             href="/bebidas"
           >
-            <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />
+            <img
+              className="drink-icon"
+              data-testid="drinks-bottom-btn"
+              src={ drinkIcon }
+              alt="drink icon"
+            />
           </a>
         </div>
         <div>
           <a
             href="/explorar"
           >
-            <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="drink icon" />
+            <img
+              className="explore-icon"
+              data-testid="explore-bottom-btn"
+              src={ exploreIcon }
+              alt="drink icon"
+            />
           </a>
         </div>
         <div>
           <a
             href="/comidas"
           >
-            <img data-testid="food-bottom-btn" src={ mealIcon } alt="drink icon" />
+            <img
+              className="food-icon"
+              data-testid="food-bottom-btn"
+              src={ mealIcon }
+              alt="drink icon"
+            />
           </a>
         </div>
       </div>

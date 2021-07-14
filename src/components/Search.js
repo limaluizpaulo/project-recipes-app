@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
 import '../styles/Search.css';
 import searchByNameFood,
@@ -141,9 +142,14 @@ function Search() {
         </label>
       </div>
       <div>
-        <button type="submit" className="search-btn" data-testid="exec-search-btn">
+        <Button
+          variant="outline-dark"
+          type="submit"
+          className="search-btn"
+          data-testid="exec-search-btn"
+        >
           Buscar
-        </button>
+        </Button>
       </div>
     </form>
   );

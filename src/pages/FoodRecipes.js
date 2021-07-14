@@ -63,6 +63,7 @@ function FoodRecipes() {
       <Header title="Comidas" />
       <div className="recipesBtn-container">
         <button
+          variant="outline-dark"
           className="recipes-categoryBtn"
           data-testid="All-category-filter"
           onClick={ changeFood ? handleClick1 : handleClick }
@@ -72,6 +73,7 @@ function FoodRecipes() {
         </button>
         {firstCategories.map((category, index) => (
           <button
+            variant="outline-dark"
             className="recipes-categoryBtn"
             onClick={ changeFood ? handleClick1 : handleClick }
             data-testid={ `${category.strCategory}-category-filter` }
@@ -85,15 +87,18 @@ function FoodRecipes() {
       <div className="recipesCard-container">
         {(changeFood ? foodPerIngredient : firstMeals).map((meal, index) => (
           <Link
+            className="container-card"
             to={ `/comidas/${meal.idMeal}` }
             key={ meal.strMeal }
           >
             <Card
+              bg="info"
               data-testid={ `${index}-recipe-card` }
               className="card"
             >
               <Card.Img
                 data-testid={ `${index}-card-img` }
+                className="cardImg"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />

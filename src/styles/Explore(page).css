@@ -33,9 +33,11 @@
 }
 
 .explore-btn {
-  background-color: lightgray;
+  border: none;
+  color: black;
   font-size: 19px;
   margin-bottom: 25px;
+  opacity: 0.75;
   padding: 5px;
   text-align: center;
   width: 165px;
