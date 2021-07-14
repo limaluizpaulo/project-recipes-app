@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, CardColumns } from 'react-bootstrap';
 import Context from '../context/Context';
 import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
@@ -49,9 +49,9 @@ function Foods() {
         </Button>
         {categoryList()}
       </div>
-      <div className="recipe-list">
+      <CardColumns>
         {foodList()}
-      </div>
+      </CardColumns>
     </div>
   );
 

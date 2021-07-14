@@ -10,10 +10,11 @@ export default function RecipeCard(recipe, index) {
     <Link
       key={ index }
       data-testid={ `${index}-recipe-card` }
-      style={ { color: 'inherit', textDecoration: 'inherit' } }
+      style={ { color: 'inherit',
+        textDecoration: 'inherit' } }
       to={ recipeID }
     >
-      <Card style={ { width: '208px' } }>
+      <Card>
         <Card.Img
           variant="top"
           src={ recipe[`str${recipeType}Thumb`] }
@@ -21,9 +22,9 @@ export default function RecipeCard(recipe, index) {
           data-testid={ `${index}-card-img` }
         />
         <Card.Body>
-          <Card.Text data-testid={ [`${index}-card-name`] }>
+          <Card.Title data-testid={ [`${index}-card-name`] }>
             {recipe[`str${recipeType}`]}
-          </Card.Text>
+          </Card.Title>
         </Card.Body>
       </Card>
     </Link>

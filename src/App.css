@@ -125,6 +125,10 @@
   justify-content: space-evenly;
 }
 
-.header-image-text {
+.card-columns {
+  padding: 20px;
+}
+
+.card-title, .header-image-text {
   text-align: center;
 }
