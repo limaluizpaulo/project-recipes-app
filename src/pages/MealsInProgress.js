@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { fetchRecipesById } from '../services/recipesAPI';
 
 import shareIcon from '../images/shareIcon.svg';
@@ -22,6 +23,7 @@ function MealsInProgress({ match: { params: { id } } }) {
     const nameIngredients = keysIngredients
       .map((key) => ({ name: recipeObj[key], checked: false }));
     setIngredients(nameIngredients);
+    console.log(recipeKeys);
     console.log(nameIngredients);
   };
 
@@ -32,7 +34,7 @@ function MealsInProgress({ match: { params: { id } } }) {
   const getDetailsRecipes = async () => {
     const request = await fetchRecipesById(id, 'meals');
     setRecipe(request);
-    console.log(request);
+    // console.log(request);
     getIngredients(request);
   };
 
@@ -83,6 +85,12 @@ function MealsInProgress({ match: { params: { id } } }) {
       addFavorite();
     }
   }
+
+  // const buttonDisable = (ingredients) => {
+  //   const ingr = ingredients.length;
+  //   if (igr !== recip)
+  //   const favoriteRecipes = !local ? [] : local;
+  // };
 
   const shareClick = () => {
     copy(`http://localhost:3000/comidas/${id}`);
@@ -150,7 +158,6 @@ function MealsInProgress({ match: { params: { id } } }) {
               key={ name }
               data-testid={ `${index}-ingredient-step` }
             >
-
               <input
                 type="checkbox"
                 id={ name }
@@ -161,15 +168,24 @@ function MealsInProgress({ match: { params: { id } } }) {
                 htmlFor={ name }
               >
                 {name}
-
               </label>
-
             </ul>
           ))}
         </li>
         <h1>Intruções</h1>
         <p data-testid="instructions">{recipe.strInstructions}</p>
-        <button type="button" data-testid="finish-recipe-btn">finalizar</button>
+
+        <button
+          label="Finalizar a Receita"
+          type="button"
+          data-testid="finish-recipe-btn"
+          // disabled={ buttonDisable(true) }
+
+          // onClick={ () => disableOrEnable() }
+        >
+          finalizar
+        </button>
+        {/* {login ? <Redirect to="/carteira" /> : ''} */}
       </div>
     )
   );
