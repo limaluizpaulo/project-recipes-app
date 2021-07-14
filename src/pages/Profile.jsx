@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { HiOutlinePencil } from 'react-icons/hi';
 import { Footer, Header } from '../components';
+import profileImage from './css/images/profile-image.jpg';
 import './css/profile.css';
 
 function Profile() {
@@ -16,9 +18,18 @@ function Profile() {
   };
 
   return (
-    <main>
+    <main id="profile-main">
       <Header />
-      <p data-testid="profile-email">{email}</p>
+      <div id="profileImgContainer">
+        <img id="profileImg" src={ profileImage } alt="profile frame" />
+      </div>
+      <p
+        data-testid="profile-email"
+        id="profile-email"
+      >
+        {email}
+        <span id="emailPencil"><HiOutlinePencil /></span>
+      </p>
       <section>
         <button
           type="button"

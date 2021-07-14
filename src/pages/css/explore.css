@@ -1,5 +1,5 @@
 #exploreContainer {
-  height: 497px;
+  height: 507.51px;
   background-color: black;
 }
 
@@ -8,12 +8,11 @@
 }
 
 #exploreMeals div {
-  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCjX26qJHqULh94zUL3bX21QLS7mg-tREc-Q&usqp=CAU);
-
+  background-image: url('./images/mealsExplore.jpeg');
 }
 
 #exploreDrinks div {
-  background-image: url(https://churrascariameinhaus.com.br/blog/wp-content/uploads/2020/04/cinco-drinks-que-casam-perfeitamente-com-churrasco.jpg);
+  background-image: url('./images/drinksExplore.jpg');
 }
 
 #exploreDrinks div, #exploreMeals div {
