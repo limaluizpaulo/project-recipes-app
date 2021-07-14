@@ -354,13 +354,13 @@ describe('32 - Redirecione a pessoa usuária, ao clicar no card, para a tela de 
 
   it('Caso as receitas sejam de bebida a rota deve mudar para a tela de detalhes da receita', () => {
     cy.visit('http://localhost:3000/bebidas', {
-      onBeforeLoad(win) {
-        win.fetch = fetchMock;
-      },
+    onBeforeLoad(win) {
+    win.fetch = fetchMock;
+    },
     });
-
+    
     cy.get('[data-testid="0-recipe-card"]').click();
-
+    
     cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/15997'));
-  });
+    }); 
 });

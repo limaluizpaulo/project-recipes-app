@@ -28,7 +28,10 @@ function FoodPage({ history }) {
           // https://stackoverflow.com/questions/42374873/limit-items-in-a-map-loop/42374933
           .map(({ idMeal, strMeal, strMealThumb }, index) => index <= maxLength && (
             <Link to={ `/comidas/${idMeal}` }>
-              <article key={ index } data-testid={ `${index}-recipe-card` }>
+              <article
+                key={ `${index}-${strMeal}` }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   src={ strMealThumb }
                   alt={ strMeal }
