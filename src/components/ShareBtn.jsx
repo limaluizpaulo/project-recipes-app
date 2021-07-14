@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
 import { FiCopy } from 'react-icons/fi';
 
 function ShareBtn({ showCopiedMsg, testId, type, id, route }) {

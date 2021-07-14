@@ -38,6 +38,18 @@ function FoodDetails({ match, history }) {
     setDoneRecipe(checkDoneRecipes(id));
   }, [pathname, id]);
 
+  useEffect(() => {
+    const counting = () => {
+      if (wasCopied !== false) {
+        const TWO_SECONDS = 2000;
+        setTimeout(() => {
+          setWasCopied(false);
+        }, TWO_SECONDS);
+      }
+    };
+    counting();
+  }, [wasCopied]);
+
   const startRecipe = () => {
     history.push(`${pathname}/in-progress`);
   };
@@ -52,8 +64,23 @@ function FoodDetails({ match, history }) {
     strMealThumb,
     strDrinkThumb } = details[0];
 
+  const textCopy = () => <span>Link copiado!</span>;
+
   return (
     <main id="foodDetails">
+      <button
+        className="start-btn"
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ startRecipe }
+        style={ { visibility: donerecipe ? 'hidden' : 'visible' } }
+      >
+        {
+          isStarted
+            ? 'Continuar Receita'
+            : 'Iniciar Receita'
+        }
+      </button>
       <div id="foodButtons">
         <img
           id=""
@@ -71,16 +98,16 @@ function FoodDetails({ match, history }) {
           />
           <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
         </section>
-        {wasCopied && <span>Link copiado!</span>}
+        {wasCopied && textCopy() }
       </div>
       <div id="foodInstructions">
         {
           strAlcoholic
-            ? <h4 data-testid="recipe-category">Alcoholic</h4>
-            : <h4 data-testid="recipe-category">{strCategory}</h4>
+            ? <h4 data-testid="recipe-category">Category: Alcoholic</h4>
+            : <h4 data-testid="recipe-category">Category: {strCategory}</h4>
         }
-        <p data-testid="instructions">{strInstructions}</p>
         <IngList details={ details[0] } />
+        <p data-testid="instructions">{strInstructions}</p>
         <div>
           <MealClip strYoutube={ strYoutube } />
         </div>
@@ -90,19 +117,6 @@ function FoodDetails({ match, history }) {
           ? <RecDrinks id={ id } />
           : <RecMeals id={ id } />
       }
-      <button
-        className="start-btn"
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ startRecipe }
-        style={ { visibility: donerecipe ? 'hidden' : 'visible' } }
-      >
-        {
-          isStarted
-            ? 'Continuar Receita'
-            : 'Iniciar Receita'
-        }
-      </button>
     </main>
   );
 }

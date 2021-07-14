@@ -31,25 +31,19 @@ function IngList({ details }) {
 
   return (
     <section>
-      Lista de ingredientes
-      {
-        ingredientsList.map((item, idx) => (
-          <div key={ idx }>
-            <div
+      Lista de ingredientes :
+      <ul>
+        {
+          ingredientsList.map((item, idx) => (
+            <li
+              key={ idx }
               data-testid={ `${idx}-ingredient-name-and-measure` }
             >
-              {
-                item
-              }
-              <div>
-                {
-                  measuresList[idx]
-                }
-              </div>
-            </div>
-          </div>
-        ))
-      }
+              { `${measuresList[idx]} of ${item}`}
+            </li>
+          ))
+        }
+      </ul>
     </section>
   );
 }

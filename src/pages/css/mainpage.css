@@ -16,6 +16,7 @@ body {
   border: 1px solid #fb9400;
   border-radius: 20px;
   color: #fb9400;
+  outline: none;
   min-width: 20%;
   font-weight: 800;
   font-size: 1.1em;

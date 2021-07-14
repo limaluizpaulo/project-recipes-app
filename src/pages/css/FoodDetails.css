@@ -1,9 +1,14 @@
 .start-btn {
-  top: 10px;
-  position: fixed;
+  margin: 30px;
+  text-transform: uppercase;
   padding: 5px 15px;
   border-radius: 10px;
+  border: none;
   outline: none;
+  background-color: #f59600;
+  color: white;
+  font-weight: 900;
+  font-size: 17px;
 }
 
 #foodDetails {
@@ -20,15 +25,48 @@
 }
 
 #foodButtons {
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 0 6px 5px #cbcbcb;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 53px;
-  width: 50%;
+  padding: 30px;
+  width: 60%;
+}
+
+#foodButtons img {
+  width: 100%;
+  border-radius: 10px;
 }
 
 #foodButtons section {
   display: flex;
+  border-radius: 50px;
+  padding: 10px 2px;
+  box-shadow:0 0 15px 8px #cbcbcb ;
   width: 70%;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+#foodButtons section button {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  font-size: 20px;
+  padding: 4px;
+  transition: .4s all ease-in-out;
+}
+
+/* ----start food instructions ---- */
+
+#foodInstructions {
+  box-sizing: border-box;
+  width: 80%;
+  display: block;
+  margin: 20px auto;
 }
