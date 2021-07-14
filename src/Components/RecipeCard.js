@@ -78,6 +78,7 @@ class RecipeCard extends React.Component {
   renderRecipes(recipes) {
     const { recipeType, history } = this.props;
     const numeroMaximoDeReceitas = 12;
+    console.log(recipes);
     return recipes
       .map((recipe, index) => {
         if (index < numeroMaximoDeReceitas) {
@@ -110,7 +111,24 @@ class RecipeCard extends React.Component {
 
   render() {
     const { recipes, isFetching, categories, recipesByIngredients } = this.props;
-    const { selectedCategory, setCategory } = this.props;
+    const { selectedCategory, setCategory,
+      searchBarFirstLetter, searchBarName, searchBarIngredient } = this.props;
+    let isSearchBar = null;
+    if (searchBarFirstLetter) {
+      console.log(searchBarFirstLetter);
+      isSearchBar = searchBarFirstLetter;
+    } if (searchBarName) {
+      isSearchBar = searchBarName;
+    } if (searchBarIngredient) {
+      isSearchBar = searchBarIngredient;
+    }
+    console.log(isSearchBar);
+    const receitas = recipes.length && !isFetching
+      ? this.renderRecipes(selectedCategory === 'All'
+        ? recipes : recipesByIngredients)
+      : <h1>Loading...</h1>;
+
+    const evaluator = isSearchBar ? this.renderRecipes(isSearchBar) : receitas;
 
     return (
       <main>
@@ -124,10 +142,9 @@ class RecipeCard extends React.Component {
         >
           All
         </button>
-        {recipes.length && !isFetching
-          ? this.renderRecipes(selectedCategory === 'All'
-            ? recipes : recipesByIngredients)
-          : <h1>Loading...</h1>}
+        {
+          evaluator
+        }
       </main>
     );
   }
@@ -168,6 +185,9 @@ RecipeCard.propTypes = {
   }).isRequired,
   selectedCategory: PropTypes.string.isRequired,
   setCategory: PropTypes.func.isRequired,
+  searchBarFirstLetter: PropTypes.shape({}).isRequired,
+  searchBarName: PropTypes.shape({}).isRequired,
+  searchBarIngredient: PropTypes.shape({}).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeCard);

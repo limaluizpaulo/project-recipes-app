@@ -10,17 +10,23 @@ class Perfil extends Component {
   pegaEmail() {
     const stringUser = localStorage.getItem('user');
     const objUser = JSON.parse(stringUser);
-    const { email } = objUser;
-    if (email === null) {
-      return null;
+    if (objUser) {
+      const { email } = objUser;
+      if (email === null) {
+        return null;
+      }
+      return email;
     }
-    return email;
+    return null;
   }
 
   render() {
     return (
       <div>
         <div>
+          <span data-testid="page-title">
+            Perfil
+          </span>
           <span
             data-testid="profile-email"
           >
