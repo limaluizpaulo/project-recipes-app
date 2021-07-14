@@ -22,7 +22,7 @@ function Drinks({ location: { ingredients } }) {
     (async function resolved() {
       resolve(setDataDrink, setCategory, setLoading, ingredients);
     }());
-  }, [setDataDrink]);
+  }, [setDataDrink, ingredients]);
 
   async function onClick({ target: { name } }) {
     if (name && name !== '') {

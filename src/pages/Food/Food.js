@@ -21,7 +21,7 @@ function Food({ location: { ingredients } }) {
     (async function resolved() {
       resolve(setDataFood, setCategory, setLoading, ingredients);
     }());
-  }, [setDataFood]);
+  }, [setDataFood, ingredients]);
 
   async function onClick({ target: { name } }) {
     if (name) {
