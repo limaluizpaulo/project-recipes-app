@@ -21,7 +21,7 @@ function MainDrinks(match) {
       }
       const category = await fetchCategoryDrinks();
 
-      setCategoryList(category);
+      setCategoryList(category || {});
       setList(fun);
     };
 

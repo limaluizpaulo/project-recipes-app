@@ -12,8 +12,8 @@ export default function FavoriteRecipes() {
   const [show, setShow] = useState(false);
   const [newFavoriteRecipies, setNewFavoriteRecipies] = useState(favoriteRecepies);
 
-  function handleClickClipBoard(type, id) {
-    copy(`http://localhost:3000/${type}s/${id}`);
+  async function handleClickClipBoard(type, id) {
+    await copy(`http://localhost:3000/${type}s/${id}`);
     setShow(true);
   }
 

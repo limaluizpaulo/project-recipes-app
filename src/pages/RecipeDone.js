@@ -11,8 +11,9 @@ export default function RecipeDone() {
   const [show, setShow] = useState(false);
   const [newDoneRecipies, setNewDoneRecipies] = useState(doneRecepies);
 
-  function handleClickClipBoard(type, id) {
-    copy(`http://localhost:3000/${type}s/${id}`);
+  async function handleClickClipBoard(type, id) {
+    console.log(type, id);
+    await copy(`http://localhost:3000/${type}s/${id}`);
     setShow(true);
   }
   function filterDoneRecepies(filterType) {

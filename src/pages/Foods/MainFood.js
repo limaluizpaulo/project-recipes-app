@@ -22,12 +22,12 @@ export default function MainFood(match) {
       const category = await fetchCategoryFood();
 
       setList(fun);
-      setCategoryList(category);
+      console.log('category-Mainfood', category);
+      setCategoryList(category || {});
     };
 
     func();
   }, [match.location.ingredient]);
-
   return (
     <div
       className="main-food-class"

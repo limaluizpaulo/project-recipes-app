@@ -4,7 +4,7 @@ import RecipeProgress from '../../components/RecipeProgress';
 
 function RecipeProgressFood({ match: { params: { id },
 } }) {
-  console.log(id);
+  // console.log(id);
   return (
     <div>
       <RecipeProgress idRecipe={ id } typeRecipe="food" />

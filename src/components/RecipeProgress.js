@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router';
-import { changeList, copyLink, favoriteClick, help } from '../helper/functions';
+import { changeList,
+  copyLink, doneClick, favoriteClick, help } from '../helper/functions';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -23,6 +24,9 @@ export default function RecipeProgress({ idRecipe, typeRecipe }) {
   const [objectStart] = useState(help(JSON.parse(
     localStorage.getItem('inProgressRecipes'),
   ), { cocktails: {}, meals: {} }));
+  const [arrayDone] = useState(help(JSON.parse(
+    localStorage.getItem('doneRecipes'),
+  ), []));
   const history = useHistory();
   useRecipeProgress({
     idRecipe,
@@ -106,7 +110,7 @@ export default function RecipeProgress({ idRecipe, typeRecipe }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ status }
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ () => doneClick({ arrayDone, list, typeRecipe, idRecipe, history }) }
       >
         Finalizar Receita
       </button>

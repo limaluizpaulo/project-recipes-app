@@ -13,7 +13,7 @@ function SearchFood({ recipe, dispRecipeList }) {
     const func = await fun();
     // .log(func);
     if (func === undefined || func.meals === null || func.drinks === null) {
-      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipe === 'Comidas') {
       if (func.meals.length === 1) {
         history.push(`/comidas/${func.meals[0].idMeal}`);

@@ -23,6 +23,9 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
   const [arrayFavorite] = useState(help(JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   ), []));
+  const [arrayDone] = useState(help(JSON.parse(
+    localStorage.getItem('doneRecipes'),
+  ), []));
   const [button, setButton] = useState('Iniciar Receita');
   const history = useHistory();
   useRecipeDetail({
@@ -41,6 +44,8 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
     setFavorite,
   });
 
+  const arrayButton = arrayDone.filter((element) => element.id === idRecipe);
+  console.log(arrayButton);
   return (
     <div>
 
@@ -127,15 +132,17 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
             </p>
           </div>))}
       </div>
-      <button
-        onClick={ () => redirectPage(history, idRecipe, typeRecipe) }
-        className="start-recipe"
-        type="button"
-        value={ button }
-        data-testid="start-recipe-btn"
-      >
-        {button}
-      </button>
+      { arrayButton.length === 0
+      && (
+        <button
+          onClick={ () => redirectPage(history, idRecipe, typeRecipe) }
+          className="start-recipe"
+          type="button"
+          value={ button }
+          data-testid="start-recipe-btn"
+        >
+          {button}
+        </button>)}
 
     </div>
 
