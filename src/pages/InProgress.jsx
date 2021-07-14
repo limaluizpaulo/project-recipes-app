@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
@@ -51,10 +51,10 @@ function InProgress() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
-
+  const { pathname } = useLocation();
   const recipeDone = () => {
     const itemList = getItem('doneRecipes');
-    itemList.push(createDoneRecipe(id, type, detailsData));
+    itemList.push(createDoneRecipe(id, type, detailsData, pathname));
 
     setItem('doneRecipes', itemList);
   };
