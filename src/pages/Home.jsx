@@ -55,7 +55,7 @@ function Home() {
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Email"
               id="input-Email"
               data-testid="email-input"
               name="email"
@@ -73,7 +73,7 @@ function Home() {
             />
           </Form.Group>
         </Form>
-        <Link to="/comidas">
+        <Link to="/comidas" className="buttonLogin">
           <Button
             variant="outline-danger"
             type="button"

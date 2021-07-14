@@ -57,29 +57,27 @@ function Header() {
   };
 
   return (
-    <>
-      <header>
-        <Navbar>
-          <button
-            type="button"
-            onClick={ () => {
-              history.push('/perfil');
-            } }
-          >
-            <img
-              src={ profileIcon }
-              alt="ícone de perfil"
-              data-testid="profile-top-btn"
-            />
-          </button>
-          <Navbar.Collapse className="justify-content-end">
-            <h1 data-testid="page-title">{ condicionRenderingTitle() }</h1>
-            { condicionRenderSearchBar() }
-          </Navbar.Collapse>
-        </Navbar>
-      </header>
-      { toggleSearch && <Lupa /> }
-    </>
+    <header>
+      <Navbar>
+        <button
+          type="button"
+          onClick={ () => {
+            history.push('/perfil');
+          } }
+        >
+          <img
+            src={ profileIcon }
+            alt="ícone de perfil"
+            data-testid="profile-top-btn"
+          />
+        </button>
+        <Navbar.Collapse className="justify-content-center">
+          <h2 data-testid="page-title">{ condicionRenderingTitle() }</h2>
+          { condicionRenderSearchBar() }
+        </Navbar.Collapse>
+        { toggleSearch && <Lupa className="d-flex justify-content-space-between" /> }
+      </Navbar>
+    </header>
   );
 }
 
