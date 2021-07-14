@@ -6,6 +6,12 @@ import Footer from '../../components/Footer/Footer';
 function Profile() {
   const userInfos = JSON.parse(localStorage.user);
   const history = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    history.push('/');
+  };
+
   return (
     <div id="page-drinks">
       <div>
@@ -28,6 +34,7 @@ function Profile() {
         <button
           type="button"
           data-testid="profile-logout-btn"
+          onClick={ logout }
         >
           Sair
         </button>
