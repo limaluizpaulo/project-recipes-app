@@ -144,6 +144,12 @@
   text-decoration: line-through;
 }
 
+.doneRecipes {
+  display: flex;
+  font-size: 4px;
+}
+
+
 @keyframes shake {
 
   0% {

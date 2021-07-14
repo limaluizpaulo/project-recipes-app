@@ -31,7 +31,7 @@ export function redirectPage(history, idRecipe, typeRecipe) {
 }
 
 export async function copyLink(copy, setShow, typeRecipe, idRecipe) {
-  await copy(`http://localhost:3000/${typeRecipe === 'food' ? 'comidas' : 'bebidas'}/${idRecipe}`);
+  await copy(`http://localhost:3000/${typeRecipe === 'food' || typeRecipe === 'comida' ? 'comidas' : 'bebidas'}/${idRecipe}`);
   setShow(true);
 }
 

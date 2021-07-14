@@ -1,21 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import { copyLink } from '../helper/functions';
 
 export default function RecipeDone() {
   const history = useHistory();
   const doneRecepies = JSON.parse(localStorage
     .getItem('doneRecipes')) || [];
   const [show, setShow] = useState(false);
+  const [object, setObject] = useState({});
   const [newDoneRecipies, setNewDoneRecipies] = useState(doneRecepies);
 
-  async function handleClickClipBoard(type, id) {
-    console.log(type, id);
-    await copy(`http://localhost:3000/${type}s/${id}`);
-    setShow(true);
+  useEffect(() => {
+    const newObject = {};
+    doneRecepies.forEach((item) => { newObject[item.id] = false; });
+    setObject(newObject);
+  }, []);
+
+  function showLink(id, recipe) {
+    const newObject = object;
+    // console.log(newObject);
+    if (newObject[id]) {
+      newObject[id] = false;
+      setObject({ ...newObject });
+    } else {
+      newObject[id] = true;
+      setObject({ ...newObject });
+    }
+    copyLink(copy, setShow, recipe.type, recipe.id);
   }
+
   function filterDoneRecepies(filterType) {
     if (filterType === 'all') {
       setNewDoneRecipies(doneRecepies);
@@ -55,7 +71,12 @@ export default function RecipeDone() {
       </button>
 
       { newDoneRecipies.map((recipe, index) => (
-        <div key={ recipe.id } style={ { border: 'solid black 2px' } }>
+        <div
+          className="doneRecipes"
+          key={ recipe.id }
+          style={ { border: 'solid black 2px' } }
+        >
+
           <img
             role="presentation"
             data-testid={ `${index}-horizontal-image` }
@@ -79,23 +100,25 @@ export default function RecipeDone() {
           <p data-testid={ `${index}-horizontal-done-date` }>
             { recipe.doneDate }
           </p>
-          <img
-            style={ { padding: '20px' } }
-            role="presentation"
-            src={ shareIcon }
-            alt="Ícone para compartilhar"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ () => handleClickClipBoard(recipe.type, recipe.id) }
-          />
+
+          <button
+            type="button"
+            onClick={ () => showLink(recipe.id, recipe) }
+          >
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="Share Icon"
+            />
+          </button>
+
+          {object[recipe.id] && <p>Link copiado!</p>}
 
           { recipe.type === 'comida' && recipe.tags.slice(0, 2).map((tag, tagIndex) => (
             <p key={ tagIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
           ))}
         </div>
       ))}
-      {show && (
-        <p>Link copiado!</p>
-      )}
     </div>
   );
 }

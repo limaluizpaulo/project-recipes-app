@@ -63,7 +63,7 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
 
       </p>
       <img
-        style={ { padding: '20px' } }
+        style={ { padding: '10px' } }
         role="presentation"
         onClick={ () => copyLink(copy, setShow, typeRecipe, idRecipe) }
         type="button"
