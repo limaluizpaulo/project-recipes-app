@@ -51,8 +51,7 @@ function ReceitasFeitas() {
         >
           Drinks
         </button>
-        { newRecipes !== null && (
-          <CardsRecipesDones recipesFilter={ newRecipes } />)}
+        <CardsRecipesDones recipesFilter={ newRecipes } />
       </section>
     </div>
   );

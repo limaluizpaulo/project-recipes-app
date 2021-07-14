@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import FavoriteBtn from './FavoriteBtn';
 
-function CardsRecipesDones({ recipesFilter }) {
+function CardsRecipesFavorites({ recipesFilter }) {
   const [msg, setMsg] = useState(false);
 
   const shareLink = (type, id) => {
@@ -51,7 +52,6 @@ function CardsRecipesDones({ recipesFilter }) {
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
         </Link>
-        <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
         { msg && <div>Link copiado!</div> }
         <button type="button" onClick={ () => shareLink(recipe.type, recipe.id) }>
           <img
@@ -60,18 +60,10 @@ function CardsRecipesDones({ recipesFilter }) {
             alt="Botão de compartilhar"
           />
         </button>
-        { recipe.tags !== '' && (
-          recipe.tags.map((tag) => (
-            <span
-              key={ tag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              { tag }
-            </span>))
-        )}
+        <FavoriteBtn  id={ recipe.id } />
       </div>
     ))
   );
 }
 
-export default CardsRecipesDones;
+export default CardsRecipesFavorites;
