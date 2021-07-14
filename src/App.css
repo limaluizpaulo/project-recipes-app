@@ -1,7 +1,7 @@
 * {
   border: 0;
   box-sizing: border-box;
-  font-family: 'Ubuntu';
+  font-family: "Ubuntu";
   font-size: 100%;
   margin: 0;
   padding: 0;
@@ -35,8 +35,15 @@ main {
 
 .sectionForm {
   background-color: #0d0d0d;
-  margin-top: 50%;
+  margin-top: 30%;
   text-align: center;
+}
+
+.sectionForm img {
+  background-color: white;
+  box-shadow: 0 0 45px rgb(235, 22, 22);
+  margin-bottom: 15%;
+  width: 80%;
 }
 
 .buttonLogin:hover {
