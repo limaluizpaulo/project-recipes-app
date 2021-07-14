@@ -28,7 +28,7 @@ export default function ExploreByIngridients() {
   };
 
   return (
-    ingredientsList ? <h1>Loading...</h1>
+    !ingredientsList ? <h1>Loading...</h1>
       : (
         <>
           <Header />
