@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { Button, Form } from 'react-bootstrap';
+import rockGlass from '../images/rockGlass.svg';
+import '../App.css';
 
 const initialState = {
   email: '',
@@ -28,24 +30,36 @@ export default function Login() {
     setIsRedirect(true);
   };
 
-  return isRedirect ? <Redirect to="/comidas" /> : (
-    <form>
-      <input
-        data-testid="email-input"
-        type="text"
-        onChange={
-          ({ target: { value } }) => setLoginState({ ...loginState, email: value })
-        }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        onChange={
-          ({ target: { value } }) => setLoginState({ ...loginState, password: value })
-        }
-      />
+  return isRedirect ? (
+    <Redirect to="/comidas" />
+  ) : (
+    <div className="meals">
+      <span className="logo">Nome do App</span>
+      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
+        Glass
+      </object>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          data-testid="email-input"
+          onChange={
+            ({ target: { value } }) => setLoginState({ ...loginState, email: value })
+          }
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          data-testid="password-input"
+          onChange={
+            ({ target: { value } }) => setLoginState({ ...loginState, password: value })
+          }
+        />
+      </Form.Group>
       <Button
-        variant={ isDisabled ? 'danger' : 'success' }
+        variant={ isDisabled ? 'danger' : 'primary' }
         data-testid="login-submit-btn"
         type="button"
         disabled={ isDisabled }
@@ -53,6 +67,6 @@ export default function Login() {
       >
         Entrar
       </Button>
-    </form>
+    </div>
   );
 }
