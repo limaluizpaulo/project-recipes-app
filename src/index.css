@@ -792,8 +792,13 @@ justify-items: center;
 
 .share-done {
   position: absolute;
-  margin-left: -35px;
   margin-top: 10px;
+  margin-left: 300px;
+
+  /* top: 0px;
+  right: 0px; */
+  /* margin-right: 0; */
+  /* margin-left: 0; */
 }
 
 /* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
