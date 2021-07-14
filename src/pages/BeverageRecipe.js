@@ -17,7 +17,6 @@ class BeverageRecipe extends React.Component {
     };
 
     this.fetchDetails = this.fetchDetails.bind(this);
-    this.renderVideo = this.renderVideo.bind(this);
     this.onClickShare = this.onClickShare.bind(this);
     this.onClickFavoriteIcon = this.onClickFavoriteIcon.bind(this);
     this.renderHeartIcon = this.renderHeartIcon.bind(this);
@@ -78,13 +77,6 @@ class BeverageRecipe extends React.Component {
     this.setState({
       detailsRecipe: drinks,
     });
-  }
-
-  renderVideo() {
-    const { detailsRecipe } = this.state;
-    const url = detailsRecipe[0].strYoutube;
-    const split = url.split('watch');
-    return `${split[0]}embed${split[1]}`;
   }
 
   renderIngredients() {
@@ -192,32 +184,39 @@ class BeverageRecipe extends React.Component {
       return <div>Carregando</div>;
     }
     return (
-      <section>
-        <h1 data-testid="recipe-title">
-          {detailsRecipe[0].strDrink}
-        </h1>
+      <section className="detail-main-section">
         <img
           src={ detailsRecipe[0].strDrinkThumb }
           alt={ detailsRecipe[0].strDrink }
           data-testid="recipe-photo"
           width="150px"
+          className="detail-img"
         />
-        <p>{copyLink ? 'Link copiado!' : null}</p>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ this.onClickShare }
-        >
-          <img src={ shareIcon } alt="Compartilhar" />
-        </button>
-        <button type="button" onClick={ this.onClickFavoriteIcon }>
-          {this.renderFavorite()}
-        </button>
-        <p data-testid="recipe-category">
-          {`${detailsRecipe[0].strCategory} ${detailsRecipe[0].strAlcoholic}`}
-        </p>
+        <div className="header-detail-section">
+          <h1 data-testid="recipe-title">
+            {detailsRecipe[0].strDrink}
+          </h1>
+          <p data-testid="recipe-category">
+            {`${detailsRecipe[0].strCategory} ${detailsRecipe[0].strAlcoholic}`}
+          </p>
+          <p>{copyLink ? 'Link copiado!' : null}</p>
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ this.onClickShare }
+          >
+            <img src={ shareIcon } alt="Compartilhar" />
+          </button>
+          <button type="button" onClick={ this.onClickFavoriteIcon }>
+            {this.renderFavorite()}
+          </button>
+        </div>
+        <h2>Ingredientes</h2>
         <ul>{this.renderIngredients()}</ul>
-        <p data-testid="instructions">{detailsRecipe[0].strInstructions}</p>
+        <div className="hr" />
+        <p data-testid="instructions" className="instructions">
+          {detailsRecipe[0].strInstructions}
+        </p>
         <Recommendations api="meal" />
         {this.renderRecipeBtn()}
       </section>

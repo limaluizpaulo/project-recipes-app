@@ -73,6 +73,7 @@ class Beverages extends React.Component {
             type="button"
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ this.onClickCategoryBtn }
+            className="main-btn drinks-btn"
           >
             { category.strCategory }
           </button>
@@ -90,15 +91,17 @@ class Beverages extends React.Component {
         if (index <= maxNumberOfCards) {
           return (
             <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <div key={ index } data-testid={ `${index}-recipe-card` } className="main-cards-div">
                 <h3 data-testid={ `${index}-card-name` }>
                   { drink.strDrink }
                 </h3>
+                <div className="main-card-background" />
                 <img
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }
                   data-testid={ `${index}-card-img` }
                   width="150px"
+                  className="drinks-img"
                 />
               </div>
             </Link>
@@ -113,18 +116,21 @@ class Beverages extends React.Component {
     return (
       <div>
         <Header title="Bebidas" />
-        <section>
+        <section className="main-btn-section drinks-section">
           <button
             name="all"
             type="button"
             data-testid="All-category-filter"
             onClick={ this.onClickCategoryBtn }
+            className="main-btn drinks-btn"
           >
             All
           </button>
           { this.renderCategories() }
         </section>
-        { this.renderCards() }
+        <section className="main-cards-section drink-cards-section">
+          { this.renderCards() }
+        </section>
         <Footer />
       </div>
     );

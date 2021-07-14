@@ -92,6 +92,7 @@ class Food extends React.Component {
           return (
             <Link key={ index } to={ `/comidas/${food.idMeal}` }>
               <div data-testid={ `${index}-recipe-card` } className="main-cards-div">
+                <div className="main-card-background" />
                 <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
                 <img
                   src={ food.strMealThumb }

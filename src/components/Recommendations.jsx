@@ -99,7 +99,8 @@ class Recommendations extends React.Component {
       return <div>Carregando</div>;
     }
     return (
-      <section>
+      <section className="recommended-main-section">
+        <h2 className="recommended-cards-title">Recomendações</h2>
         <section className="recommended-cards-section">
           { this.renderRecommended() }
         </section>

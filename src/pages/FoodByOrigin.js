@@ -63,6 +63,7 @@ class FoodByOrigin extends React.Component {
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ (target) => this.onChangeSelect(target) }
+        className="searchBar-input select-By-Area"
       >
         <option data-testid="All-option"> All </option>
         {respArea.map(({ strArea }, index) => (
@@ -82,7 +83,8 @@ class FoodByOrigin extends React.Component {
         if (index <= maxNumberOfCards) {
           return (
             <Link key={ index } to={ `/comidas/${food.idMeal}` }>
-              <div data-testid={ `${index}-recipe-card` }>
+              <div data-testid={ `${index}-recipe-card` } className="main-cards-div">
+                <div className="main-card-background" />
                 <h3 data-testid={ `${index}-card-name` }>{ food.strMeal }</h3>
                 <img
                   src={ food.strMealThumb }
@@ -101,7 +103,7 @@ class FoodByOrigin extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="food-By-Area-section">
         <Header title="Explorar Origem" />
         { this.renderSelect() }
         { this.renderCards() }

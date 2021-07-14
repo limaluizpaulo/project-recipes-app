@@ -194,40 +194,40 @@ class FoodRecipe extends React.Component {
       return <div>Carregando</div>;
     }
     return (
-      <section>
-        <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
+      <section className="detail-main-section">
         <img
           src={ detailsRecipe[0].strMealThumb }
           alt={ detailsRecipe[0].strMeal }
           data-testid="recipe-photo"
           width="150px"
+          className="detail-img"
         />
-        <p>{copyLink ? 'Link copiado!' : null}</p>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ this.onClickShare }
-        >
-          <img src={ shareIcon } alt="Compartilhar" />
-        </button>
-        <button type="button" onClick={ this.onClickFavoriteIcon }>
-          {this.renderFavorite()}
-        </button>
-        <p data-testid="recipe-category">{detailsRecipe[0].strCategory}</p>
+        <div className="header-detail-section">
+          <h1 data-testid="recipe-title">{detailsRecipe[0].strMeal}</h1>
+          <p data-testid="recipe-category">{detailsRecipe[0].strCategory}</p>
+          <p>{copyLink ? 'Link copiado!' : null}</p>
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ this.onClickShare }
+          >
+            <img src={ shareIcon } alt="Compartilhar" />
+          </button>
+          <button type="button" onClick={ this.onClickFavoriteIcon }>
+            {this.renderFavorite()}
+          </button>
+        </div>
+        <h2>Ingredientes</h2>
         <ul>{this.renderIngredients()}</ul>
-        <p data-testid="instructions">
-          {' '}
+        <div className="hr" />
+        <p data-testid="instructions" className="instructions">
           {detailsRecipe[0].strInstructions}
-          {' '}
         </p>
-        <div data-testid="video">
+        <div data-testid="video" className="video">
           <Iframe width="280" height="150" url={ this.renderVideo() } />
         </div>
-        <section>
-          <h2>Recomendações</h2>
-          <Recommendations api="drinks" />
-          {this.renderRecipeBtn()}
-        </section>
+        <Recommendations api="drinks" />
+        {this.renderRecipeBtn()}
       </section>
     );
   }

@@ -46,12 +46,14 @@ class BeverageIngredients extends React.Component {
                 key={ index }
                 data-testid={ `${index}-ingredient-card` }
                 onClick={ this.handleIngredientName }
+                className="main-cards-div drinks-ingredient-btn"
               >
                 <h3 data-testid={ `${index}-card-name` }>
                   { drink.strIngredient1 }
                 </h3>
+                <div className="main-card-background" />
                 <img
-                  src={ `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}-Small.png` }
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}.png` }
                   alt={ drink.strIngredient1 }
                   data-testid={ `${index}-card-img` }
                   width="150px"
@@ -68,8 +70,10 @@ class BeverageIngredients extends React.Component {
   render() {
     return (
       <section>
-        <Header title="Explorar Ingredientes" />
-        {this.renderCards()}
+        <Header title="Ingredientes" />
+        <div className="ingredients-card-div">
+          {this.renderCards()}
+        </div>
         <Footer />
       </section>
     );

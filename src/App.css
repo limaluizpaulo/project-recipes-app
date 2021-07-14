@@ -1,15 +1,3 @@
-.start-recipe-btn {
-  bottom: 0;
-  position: fixed;
-}
-
-.recommended-cards-section {
-  display: flex;
-  overflow-x: scroll;
-  text-align: center;
-  width: 80%;
-}
-
 .checked {
   text-decoration: line-through;
 }
@@ -99,8 +87,6 @@
   font-weight: 700;
   height: 30px;
   margin: 8px 7px;
-  margin-bottom: 16px;
-  margin-right: 14px;
   width: 90px;
 }
 
@@ -126,13 +112,22 @@
   text-align: end;
   position: relative;
   margin-bottom: 16px;
-  background-color: black;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  overflow: hidden;
 }
 
 .main-cards-div img {
+  position: relative;
+  width: 100%;
+  bottom: 70px;
+}
+
+.main-card-background {
+  background: linear-gradient(0deg, rgba(0,0,0,0.8239670868347339) 0%, rgba(0,0,0,0.6446953781512605) 26%, rgba(0,0,0,0) 100%); 
+  position: absolute;
+  width: 328px;
   height: 150px;
-  opacity: 0.5;
+  z-index: 2;
 }
 
 .main-cards-div h3 {
@@ -143,6 +138,7 @@
   font-family: "Poppins";
   font-weight: 200;
   font-size: 22px;
+  z-index: 3;
 }
 
 /* COMPONENTE FOOTER */
@@ -155,6 +151,7 @@
   justify-content: space-around;
   position: fixed;
   width: 100%;
+  background-color: #F5F0EB;
 }
 
 .footer-icon {
@@ -215,4 +212,188 @@
   font-family: "Poppins";
   height: 45px;
   width: 117px;
+}
+
+/* BEVERAGES */
+.drinks-btn {
+  overflow: hidden;
+  min-width: 90px;
+  margin: 8px;
+  white-space:nowrap;
+  width: 15.5ch
+}
+
+.drink-cards-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 340px;
+}
+
+.drinks-img {
+  bottom: 0;
+}
+
+/* detail */
+.detail-img {
+ width: 100%;
+ border-radius: 0 0 50px 0;
+ filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.header-detail-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.detail-main-section h1 {
+  color: #3F3E3E;
+  font-size: 32px;
+  font-weight: 400;
+  font-family: "Poppins";
+  text-align: start;
+  margin: 12px;
+}
+
+.detail-main-section p {
+  color: #A6A29F;
+  font-family: "Poppins";
+  font-size: 16px;
+  align-self: flex-end;
+  margin: 12px;
+  letter-spacing: -0.17px;
+}
+
+.detail-main-section p:first-child {
+  font-weight: 300;
+}
+
+.detail-main-section h2 {
+  color: #3F3E3E ;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: "Poppins";
+  text-align: start;
+  margin: 12px;
+}
+
+.detail-main-section button {
+  border: none;
+  background-color: white;
+  margin-left: 12px;
+}
+
+.detail-main-section ul {
+  list-style: none;
+  color: #A6A29F;
+  font-family: "Poppins";
+  font-weight: 300;
+  font-size: 16px;
+  text-align: start;
+  padding: 12px;
+}
+
+.instructions {
+  color: #A6A29F;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 16px;
+  align-self: flex-end;
+  margin: 12px;
+  letter-spacing: -0.17px;
+}
+
+.hr {
+  width: 14px;
+  height: 0;
+  background-color: #A02331;
+  border: 2px solid #A02331;
+  margin-left: 12px;
+}
+
+.video{
+  width: max-content;
+  margin: auto;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+  border: none;
+  border-radius: 5px;
+  background-color: #EA1D2C !important;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  color: #F5F0EB;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Poppins";
+  height: 45px;
+  width: 328px;
+}
+
+/* COMPONENTE RECOMMENDED */
+
+.recommended-main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recommended-cards-title {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  color: #717171;
+}
+
+.recommended-cards-section {
+  display: flex;
+  overflow-x: scroll;
+  text-align: center;
+  width: 80%;
+}
+
+/* FOOD BY ORIGIN */
+.select-By-Area {
+  color: #F7F7F7;
+  background-color: #A02331;
+  width: 328px;
+  margin: 16px;
+}
+
+.food-By-Area-section h1 {
+  font-size: 25px;
+}
+
+/* INGREDIENTES */
+
+.ingredient-btn {
+  border: none;
+  padding: 0;
+  font-size: 25px;
+}
+
+.drinks-ingredient-btn {
+  width: 150px;
+  border: none;
+  padding: 0;
+  font-size: 25px;
+}
+
+.drinks-ingredient-btn div {
+  width: 150px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7875525210084033) 0%, rgba(0,0,0,0.5270483193277311) 15%, rgba(0,0,0,0.26094187675070024) 30%, rgba(0,0,0,0) 100%);
+}
+
+.drinks-ingredient-btn img {
+  bottom: 0;
+}
+
+.ingredients-card-div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 328px;
+  margin: auto;
+  justify-content: space-between;
 }

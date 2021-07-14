@@ -44,10 +44,12 @@ class FoodIngredients extends React.Component {
                 type="button"
                 data-testid={ `${index}-ingredient-card` }
                 onClick={ this.handleIngredientName }
+                className="main-cards-div ingredient-btn"
               >
                 <h3 data-testid={ `${index}-card-name` }>{ food.strIngredient }</h3>
+                <div className="main-card-background" />
                 <img
-                  src={ `https://www.themealdb.com/images/ingredients/${food.strIngredient}-Small.png` }
+                  src={ `https://www.themealdb.com/images/ingredients/${food.strIngredient}.png` }
                   alt={ food.strIngredient }
                   data-testid={ `${index}-card-img` }
                   width="150px"
@@ -64,7 +66,7 @@ class FoodIngredients extends React.Component {
   render() {
     return (
       <section>
-        <Header title="Explorar Ingredientes" />
+        <Header title="Ingredientes" />
         {this.renderCards()}
         <Footer />
       </section>
