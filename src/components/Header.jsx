@@ -15,7 +15,6 @@ function Header({ title }) {
       </Link>
       <h3 data-testid="page-title">{title}</h3>
     </header>
-    // lógica de componentização do header baseado na lógica do próprio arquivo de teste da trybe
   );
 }
 

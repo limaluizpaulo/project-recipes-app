@@ -126,9 +126,15 @@
 }
 
 .card-columns {
+  margin-bottom: 40px;
   padding: 20px;
 }
 
 .card-title, .header-image-text {
+  text-align: center;
+  padding: 10px;
+}
+
+.container {
   text-align: center;
 }

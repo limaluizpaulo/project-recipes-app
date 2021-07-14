@@ -22,6 +22,7 @@ function HeaderSearchBar() {
 
   return (
     <Form>
+      <br />
       <Container fluid="sm">
         <InputGroup className="mb-2" htmlFor="search">
           <FormControl
