@@ -26,7 +26,6 @@ function ReceitasFavoritas() {
     setNewRecipes(recipesFavorite.filter((recipe) => recipe.type === 'bebida'));
   };
 
-
   return (
     <div>
       <Header title={ ReceitasFavoritas.displayName } />

@@ -60,7 +60,7 @@ function CardsRecipesFavorites({ recipesFilter }) {
             alt="Botão de compartilhar"
           />
         </button>
-        <FavoriteBtn  id={ recipe.id } />
+        <FavoriteBtn id={ recipe.id } />
       </div>
     ))
   );
