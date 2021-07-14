@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ContextRecipe from '../provider/ContextRecipe';
+import '../css/comidaBebida.css';
 
 function Bebidas() {
   const {
@@ -14,6 +16,7 @@ function Bebidas() {
   } = useContext(ContextRecipe);
   const history = useHistory();
   const [drinkCategory, setDrinkCategory] = useState([]);
+  const [select, setSelect] = useState(false);
 
   useEffect(() => {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${itemDigitado}`)
@@ -26,23 +29,48 @@ function Bebidas() {
   }, [itemDigitado, setDrinkCategory]);
 
   async function handleClick({ value }) {
-    console.log(value);
-    console.log(itemDigitado);
-    console.log(value);
-    console.log(itemDigitado);
-    setItemDigitado(value);
+    if (value === itemDigitado) {
+      console.log(`true${itemDigitado}`);
+      setSelect(false);
+      setItemDigitado('');
+    }
+    if (value !== itemDigitado) {
+      setItemDigitado(value);
+    }
+    if (select === false) {
+      setSelect(true);
+      console.log(`value 2${value}`);
+      console.log(`false${itemDigitado}`);
+      setItemDigitado(value);
+    }
   }
 
+  useEffect(() => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then(({ drinks }) => {
+        const limite = 12;
+        const result = drinks.slice(0, limite);
+        setApiDataDrink(result);
+      }).catch(() => setApiDataDrink(null));
+  }, [setApiDataDrink, itemDigitado]);
+
+  function handleAllButton() {
+    setItemDigitado('');
+  }
   const renderItens = () => {
     if (drinkCategory === null) {
       return (
         apiDataDrink.map((iten, index) => (
           <li
-            data-testid={ `${index}-recipe-card` }
+            className="liPrincipal"
             key={ index }
           >
             <div>
-              <Link to={ `/bebidas/${iten.idDrink}` }>
+              <Link
+                to={ `/bebidas/${iten.idDrink}` }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ iten.strDrinkThumb }
@@ -58,6 +86,7 @@ function Bebidas() {
     return (
       drinkCategory.map((item, index) => (
         <li
+          className="liPrincipal"
           data-testid={ `${index}-recipe-card` }
           key={ index }
         >
@@ -91,11 +120,12 @@ function Bebidas() {
   };
 
   return (
-    <>
+    <div className="backimgbebida">
       <Header />
-      <div>
+      <div className="divButao">
         { categoryBtn.map((category) => (
-          <button
+          <Button
+            variant="outline-success"
             data-testid={ `${category.strCategory}-category-filter` }
             key={ category.strCategory }
             type="button"
@@ -105,25 +135,27 @@ function Bebidas() {
 
           >
             { category.strCategory }
-          </button>
+          </Button>
         )) }
-        <button
+        <Button
+          variant="outline-success"
           data-testid="All-category-filter"
           key="all"
           type="button"
           name="all"
           value="all"
-          onClick={ ({ target }) => handleClick(target) }
+          onClick={ () => handleAllButton() }
         >
           All
-        </button>
+        </Button>
       </div>
       <ol>
         {apiDataDrink === null ? alarm() : renderItens()}
         {direcionar()}
       </ol>
+      <div className="espaco" />
       <Footer />
-    </>
+    </div>
   );
 }
 

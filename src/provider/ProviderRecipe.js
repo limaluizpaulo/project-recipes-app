@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import ContextRecipe from './ContextRecipe';
-import { Comidas, Bebidas } from './ApiFunctions';
+import { Comidas, Bebidas, ChangeColorHeart } from './ApiFunctions';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeProvider({ children }) {
+  const [heartColor, setHeartColor] = useState(whiteHeartIcon);
+  const [ApiIdDetalhe, setApiIdDetalhe] = useState({});
   const location = useLocation();
   const [login, setLogin] = useState({
     email: '',
@@ -16,6 +20,9 @@ function RecipeProvider({ children }) {
   const [itemDigitado, setItemDigitado] = useState('');
   const [categoryBtn, setCategoryBtn] = useState([]);
   const [resultApiID, setResultApiID] = useState({});
+  const [array, setArray] = useState([]);
+  const [idHeart, setIdHeart] = useState('');
+
 
   useEffect(() => {
     // botôes de categoria comida
@@ -35,6 +42,7 @@ function RecipeProvider({ children }) {
         .then(({ drinks }) => {
           const limite = 5;
           const result = drinks.slice(0, limite);
+          const categories = [...result, result[3] = {strCategory: "Other / Unknown"}];
           setCategoryBtn(result);
         });
     }
@@ -63,6 +71,15 @@ function RecipeProvider({ children }) {
     }
   };
 
+  const heart = {
+    heartColor,
+    setHeartColor,
+  };
+
+  const funcHeartColor = (ApiIdDetalhe, id) => {
+    ChangeColorHeart(heart, ApiIdDetalhe, id, location.pathname);
+  };
+
   const values = {
     login,
     setLogin,
@@ -79,6 +96,15 @@ function RecipeProvider({ children }) {
     setResultApiID,
     setApiDataFood,
     setApiDataDrink,
+    heartColor,
+    setHeartColor,
+    ApiIdDetalhe,
+    setApiIdDetalhe,
+    funcHeartColor,
+    array, 
+    setArray,
+    idHeart,
+    setIdHeart,
   };
 
   return (

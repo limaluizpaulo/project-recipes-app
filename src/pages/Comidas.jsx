@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ContextRecipe from '../provider/ContextRecipe';
+import '../css/comidaBebida.css';
 
 function Comidas() {
   const {
@@ -14,6 +16,7 @@ function Comidas() {
   } = useContext(ContextRecipe);
   const history = useHistory();
   const [dataCategory, setDataCategory] = useState([]);
+  const [select, setSelect] = useState(false);
 
   useEffect(() => {
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${itemDigitado}`)
@@ -23,10 +26,37 @@ function Comidas() {
         const result = meals.slice(0, limite);
         setDataCategory(result);
       }).catch(() => setDataCategory(null));
-  }, [itemDigitado]);
+  }, [itemDigitado, setDataCategory]);
 
   async function handleClick({ value }) {
-    setItemDigitado(value);
+    if (value === itemDigitado) {
+      console.log(`true${itemDigitado}`);
+      setSelect(false);
+      setItemDigitado('');
+    }
+    if (value !== itemDigitado) {
+      setItemDigitado(value);
+    }
+    if (select === false) {
+      setSelect(true);
+      console.log(`value 2${value}`);
+      console.log(`false${itemDigitado}`);
+      setItemDigitado(value);
+    }
+  }
+
+  useEffect(() => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then(({ meals }) => {
+        const limite = 12;
+        const result = meals.slice(0, limite);
+        setApiDataFood(result);
+      }).catch(() => setApiDataFood(null));
+  }, [setApiDataFood, itemDigitado]);
+
+  function handleAllButton() {
+    setItemDigitado('');
   }
 
   const alarm = () => {
@@ -39,6 +69,7 @@ function Comidas() {
       return (
         apiDataFood.map((iten, index) => (
           <li
+            className="liPrincipal"
             data-testid={ `${index}-recipe-card` }
             key={ index }
           >
@@ -47,8 +78,7 @@ function Comidas() {
                 <img
                   data-testid={ `${index}-card-img` }
                   src={ iten.strMealThumb }
-                  width="50px"
-                  alt="Food"
+                  alt="food"
                 />
                 <p data-testid={ `${index}-card-name` }>{ iten.strMeal }</p>
               </Link>
@@ -59,16 +89,15 @@ function Comidas() {
     return (
       dataCategory.map((item, index) => (
         <li
-          data-testid={ `${index}-recipe-card` }
+          className="liPrincipal"
           key={ index }
         >
           <div>
-            <Link to={ `/comidas/${item.idMeal}` }>
+            <Link to={ `/comidas/${item.idMeal}` } data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ item.strMealThumb }
-                width="50px"
-                alt="Food"
+                alt="food"
               />
               <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
             </Link>
@@ -87,11 +116,12 @@ function Comidas() {
   };
 
   return (
-    <>
+    <div className="backimgfood">
       <Header dataCategory={ dataCategory } />
-      <div>
+      <div className="divButao">
         { categoryBtn.map((category) => (
-          <button
+          <Button
+            variant="outline-success"
             data-testid={ `${category.strCategory}-category-filter` }
             key={ category.strCategory }
             type="button"
@@ -100,24 +130,27 @@ function Comidas() {
             onClick={ ({ target }) => handleClick(target) }
           >
             { category.strCategory }
-          </button>
+          </Button>
         )) }
-        <button
+        <Button
+          variant="outline-success"
           data-testid="All-category-filter"
           key="all"
           type="button"
           name="all"
           value="all"
+          onClick={ () => handleAllButton() }
         >
           All
-        </button>
+        </Button>
       </div>
       <ol>
         {apiDataFood === null ? alarm() : renderItens()}
         {direcionar()}
       </ol>
+      <div className="espaco" />
       <Footer />
-    </>
+    </div>
   );
 }
 
