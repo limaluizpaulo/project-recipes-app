@@ -6,9 +6,13 @@ function FilterButtons({ initialFavorites, setFilterFavorites }) {
     if (filter === 'All') {
       setFilterFavorites(initialFavorites);
     } else if (filter === 'Food') {
-      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'comidas'));
+      setFilterFavorites(initialFavorites.filter(
+        (aux) => aux.type === 'comidas' || aux.type === 'comida',
+      ));
     } else {
-      setFilterFavorites(initialFavorites.filter((aux) => aux.type === 'bebidas'));
+      setFilterFavorites(initialFavorites.filter(
+        (aux) => aux.type === 'bebida' || aux.type === 'bebidas',
+      ));
     }
   };
 

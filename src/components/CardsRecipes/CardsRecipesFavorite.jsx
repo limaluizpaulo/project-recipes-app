@@ -64,7 +64,6 @@ function CardsRecipesFavorite({ aux, index, filterFavorites, setFilterFavorites 
           alt="..."
         />
       </Link>
-      <p>{ `/${type}s/${id}` }</p>
     </div>
   );
 }

@@ -20,7 +20,7 @@ import '../styles/ReceitaDetalhes.css';
 
 function ReceitaDetalhes({ match }) {
   const { url } = match;
-  const food = /comida/gi;
+  const food = /comidas/gi;
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
   const [favorite, setFavorite] = useState(false);
