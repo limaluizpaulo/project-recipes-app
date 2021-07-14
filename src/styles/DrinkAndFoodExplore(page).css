@@ -8,7 +8,9 @@
 }
 
 .drinkAndFood-exploreButtons {
-  font-size: 30px;
+  color: black;
+  border-radius: 15px;
+  font-size: 25px;
   margin-bottom: 25px;
   text-align: center;
   width: 250px;
