@@ -4,8 +4,8 @@ import { Overlay, Tooltip } from 'react-bootstrap';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import home from '../images/home.png';
-import return0 from '../images/return0.png';
+import home from '../images/house.svg';
+import return0 from '../images/return0.svg';
 import '../styles/Icons.css';
 import { Context } from '../context/ContextForm';
 

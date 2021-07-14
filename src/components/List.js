@@ -46,7 +46,7 @@ export default function List({ array, drinks, ingredientsUsed,
 
   return (
     <>
-      <h2>Ingredients</h2>
+      <h2 className="section-title">Ingredients</h2>
       <ul className="list-ingredients">
         { array ? filterIngredients(array) : filterIngredients(drinks) }
       </ul>

@@ -1,23 +1,41 @@
 .details-img {
+  border-radius: 10px 10px 0 0;
   width: 100%;
 }
 
+.food-details-main-div {
+  background-color: black;
+  padding-bottom: 43px;
+}
+
+.section-title {
+  color: #17a2b8;
+}
+
+
 .details-align {
   margin: auto;
+  margin-top: 0;
+  padding-top: 7px;
   width: 95%;
 }
 
 .detailsTitle-container {
+  background-color: #17a2b8;
+  border-radius: 0 0 10px 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin: auto;
+  width: 100%;
 }
 
 .details-title {
+  color: black;
   width: 180px;
 }
 
 .details-instructions {
-  background-color: lightgray;
+  color: white;
   padding: 15px;
 }
 
@@ -26,11 +44,14 @@
 }
 
 .details-startRecipeBtn {
-  background-color: lightgray;
   bottom: 0;
+  color: black;
   display: block;
   font-size: 1.2rem;
+  margin-bottom: 1px;
+  margin-left: 1.5%;
+  margin-top: 0;
   padding: 9px;
   position: fixed;
-  width: 100%;
+  width: 97%;
 }
