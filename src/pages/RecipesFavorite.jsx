@@ -8,6 +8,7 @@ function RecipesFavorite({ location: { pathname } }) {
   let salve;
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
+  console.log(filterFavorites);
 
   function remove(Id) {
     const newArray = filterFavorites.filter(

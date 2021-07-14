@@ -5,11 +5,10 @@ import CardsRecipes from '../components/CardsRecipes/CardsRecipesFavorite';
 
 function RecipesMade({ location: { pathname } }) {
   let salve;
-  const initialFavorites = Object.keys(
-    JSON.parse(localStorage.getItem('inProgressRecipes')),
-  );
+  const initialFavorites = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(initialFavorites.meals);
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
-  console.log(filterFavorites);
+  console.log(filterFavorites.cocktails);
 
   function remove(Id) {
     const newArray = filterFavorites.filter(

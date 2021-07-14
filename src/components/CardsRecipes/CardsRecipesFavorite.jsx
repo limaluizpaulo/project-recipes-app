@@ -11,9 +11,13 @@ function copyUrl(setCopied, type, id) {
 }
 
 function CardsRecipesFavorite({ aux: {
-  area, image, name, category, alcoholicOrNot, type, id }, index, pathname, remove }) {
+  area, image, name, category, alcoholicOrNot, type, id }, index, pathname, remove }, aux) {
   const favorite = pathname.includes('favoritas');
-  console.log(favorite);
+  console.log(aux.meals);
+  let typeFeita = false;
+  if (type === 'comida') {
+    typeFeita = true;
+  }
   const [copied, setCopied] = useState(false);
   let alcohol = false;
   if (alcoholicOrNot === 'Alcoholic') {
