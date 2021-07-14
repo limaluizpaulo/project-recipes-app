@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
+
 import store, { addRecipes } from '../../context/store';
 import {
   INGREDIENT_MEALS,
@@ -90,57 +92,63 @@ export default function SearchBar() {
   };
 
   return (
-
-    <div className="searchBar">
-      <input
-        type="text"
-        name="input"
-        data-testid="search-input"
-        onChange={ handleChange }
-        placeholder="Buscar Receitas"
-      />
-      <div>
-        <label htmlFor="r1">
+    <div className="mainContentSearchBar">
+      <div className="searchBar">
+        <div className="searchBarBox">
+          <FaSearch className="searchBarIcon" />
           <input
-            type="radio"
+            type="text"
+            name="input"
+            data-testid="search-input"
             onChange={ handleChange }
-            data-testid="ingredient-search-radio"
-            id="r1"
-            name="rate"
-            value="ingredient"
+            placeholder="Buscar Receitas"
+            className="searchBarInput"
           />
-          Ingrediente
-        </label>
-        <label htmlFor="r2">
-          <input
-            type="radio"
-            onChange={ handleChange }
-            data-testid="name-search-radio"
-            id="r2"
-            name="rate"
-            value="name"
-          />
-          Nome
-        </label>
-        <label htmlFor="r3">
-          <input
-            type="radio"
-            onChange={ handleChange }
-            data-testid="first-letter-search-radio"
-            id="r3"
-            name="rate"
-            value="firstLetter"
-          />
-          primeira letra
-        </label>
+        </div>
+        <div>
+          <label htmlFor="r1">
+            <input
+              type="radio"
+              onChange={ handleChange }
+              data-testid="ingredient-search-radio"
+              id="r1"
+              name="rate"
+              value="ingredient"
+            />
+            Ingrediente
+          </label>
+          <label htmlFor="r2">
+            <input
+              type="radio"
+              onChange={ handleChange }
+              data-testid="name-search-radio"
+              id="r2"
+              name="rate"
+              value="name"
+            />
+            Nome
+          </label>
+          <label htmlFor="r3">
+            <input
+              type="radio"
+              onChange={ handleChange }
+              data-testid="first-letter-search-radio"
+              id="r3"
+              name="rate"
+              value="firstLetter"
+            />
+            primeira letra
+          </label>
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+            className="buttonSearch"
+            onClick={ handleClick }
+          >
+            Buscar
+          </button>
+        </div>
       </div>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ handleClick }
-      >
-        Buscar
-      </button>
     </div>
   );
 }
