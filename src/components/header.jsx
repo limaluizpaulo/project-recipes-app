@@ -6,6 +6,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './searchBar';
 import '../css/header.css';
+// import boots
 
 class Header extends Component {
   constructor(props) {
@@ -30,9 +31,8 @@ class Header extends Component {
 
   searchBarTrue() {
     return (
-      <button className="btn-search-bar" type="button" onClick={ this.verify }>
+      <button className="btn-search-bar search-bar" type="button" onClick={ this.verify }>
         <img
-          className="search-bar"
           data-testid="search-top-btn"
           src={ searchIcon }
           alt="search"
@@ -69,12 +69,21 @@ class Header extends Component {
     return (
       <section className="header-main">
         <header className="header">
-          <Link to="/perfil">
-            <img data-testid="profile-top-btn" src={ profileIcon } alt="profileImagem" />
-          </Link>
-          <h1 data-testid="page-title">{ title.replace('/', ' ') }</h1>
-
-          {searchBar === true && this.searchBarTrue()}
+          <div className="profile-div">
+            <Link to="/perfil">
+              <img
+                data-testid="profile-top-btn"
+                src={ profileIcon }
+                alt="profileImagem"
+              />
+            </Link>
+          </div>
+          <div className="page-title-div">
+            <h1 data-testid="page-title">{ title.replace('/', ' ') }</h1>
+          </div>
+          <div className="search-bar">
+            {searchBar === true && this.searchBarTrue()}
+          </div>
 
         </header>
       </section>

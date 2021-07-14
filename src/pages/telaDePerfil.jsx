@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { getSearchBarResponse } from '../action';
+import '../css/telaDePerfil.css';
 
 export class TelaDePerfil extends Component {
   constructor(props) {
@@ -31,11 +32,12 @@ export class TelaDePerfil extends Component {
 
   buttonsRender() {
     return (
-      <>
+      <section>
         <Link to="/receitas-feitas">
           <button
             type="button"
             data-testid="profile-done-btn"
+            className="buttons-perfil"
           >
             Receitas Feitas
           </button>
@@ -44,6 +46,8 @@ export class TelaDePerfil extends Component {
           <button
             type="button"
             data-testid="profile-favorite-btn"
+            className="buttons-perfil"
+
           >
             Receitas Favoritas
           </button>
@@ -53,12 +57,14 @@ export class TelaDePerfil extends Component {
             type="button"
             data-testid="profile-logout-btn"
             onClick={ this.cleanLocalStorage }
+            className="buttons-perfil"
+
           >
             Sair
           </button>
         </Link>
 
-      </>
+      </section>
     );
   }
 
@@ -71,11 +77,14 @@ export class TelaDePerfil extends Component {
     const { email } = this.state;
 
     return (
-      <div>
+      <div className="profile-screen-btn">
         <Header location={ location } />
+        <main>
+          <img className="profile-img" src="https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg" alt="icon" />
 
-        <h1 data-testid="profile-email">{email}</h1>
-        {this.buttonsRender()}
+          <h1 data-testid="profile-email" className="email">{email}</h1>
+          {this.buttonsRender()}
+        </main>
         <Footer />
       </div>
 
