@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
+import { Login, ReceitasFeitas, Recipes, MealDetails, DrinkDetails,
+  MealProgress, DrinkProgress } from './Pages';
+
 import Perfil from './Pages/Perfil';
 import ReceitasFavoritas from './Pages/ReceitasFavoritas';
-
-import GenericComponent from './Components/GenericComponent';
-import { Login, ReceitasFeitas, Recipes, MealDetails, DrinkDetails } from './Pages';
 import Explore from './Pages/Explore';
 import ExploreByType from './Pages/ExploreByType';
 import ExploreIngredientes from './Pages/ExploreIngredientes';
@@ -20,7 +21,8 @@ function App() {
         path="/explorar/:recipeType/ingredientes"
         component={ ExploreIngredientes }
       />
-      <Route path="/:recipeType/:id-receita/in-progress" component={ GenericComponent } />
+      <Route path="/comidas/:idReceita/in-progress" component={ MealProgress } />
+      <Route path="/bebidas/:idReceita/in-progress" component={ DrinkProgress } />
       <Route exact path="/comidas/:idReceita" component={ MealDetails } />
       <Route exact path="/bebidas/:idReceita" component={ DrinkDetails } />
       <Route exact path="/explorar/:recipeType" component={ ExploreByType } />

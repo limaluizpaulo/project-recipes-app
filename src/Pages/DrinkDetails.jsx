@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/ButtonDetails.css';
 
 import { fetchByID, fetchByRecomendation } from '../Services';
+import { recipeProgress } from '../redux/actions';
 import CardsDetails from '../Components/CardsDetails';
 
-export default class DrinkDetails extends React.Component {
+class DrinkDetails extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -18,12 +22,14 @@ export default class DrinkDetails extends React.Component {
       loading: true,
       ingredients: [],
       measures: [],
+      redirect: false,
     };
     this.fetchIdAPI = this.fetchIdAPI.bind(this);
     this.fecthRecomendationAPI = this.fecthRecomendationAPI.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.ingredients = this.ingredients.bind(this);
     this.measures = this.measures.bind(this);
+    this.handleClickStart = this.handleClickStart.bind(this);
     // this.takeURL = this.takeURL.bind(this);
   }
 
@@ -36,6 +42,16 @@ export default class DrinkDetails extends React.Component {
     this.setState((prevState) => ({
       like: !prevState.like,
     }));
+  }
+
+  handleClickStart() {
+    const { saveRecipe } = this.props;
+    const { drinks, ingredients, measures } = this.state;
+
+    saveRecipe({ drinks, ingredients, measures });
+    this.setState({
+      redirect: true,
+    });
   }
 
   measures() {
@@ -80,17 +96,19 @@ export default class DrinkDetails extends React.Component {
 
   async fecthRecomendationAPI() {
     const { meals } = await fetchByRecomendation('bebidas');
-    console.log(meals);
     this.setState({
       recomendation: meals,
     });
   }
 
   render() {
-    const { loading, drinks, like, ingredients, measures, recomendation } = this.state;
+    const { match: { params: { idReceita } } } = this.props;
+    const { loading, drinks, like, ingredients,
+      measures, recomendation, redirect } = this.state;
     const { strDrink, strDrinkThumb, strInstructions, strAlcoholic } = drinks;
 
     if (loading) return <h1> loading </h1>;
+    if (redirect) return <Redirect to={ `/bebidas/${idReceita}/in-progress` } />;
 
     return (
       <main>
@@ -127,6 +145,7 @@ export default class DrinkDetails extends React.Component {
           type="button"
           data-testid="start-recipe-btn"
           className="button-details"
+          onClick={ () => this.handleClickStart() }
         >
           Iniciar Receita
         </button>
@@ -141,4 +160,11 @@ DrinkDetails.propTypes = {
       idReceita: PropTypes.string,
     }),
   }).isRequired,
+  saveRecipe: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  saveRecipe: (recipe) => dispatch(recipeProgress(recipe)),
+});
+
+export default connect(null, mapDispatchToProps)(DrinkDetails);

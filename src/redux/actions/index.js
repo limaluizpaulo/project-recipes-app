@@ -1,6 +1,11 @@
 import fetchComidasEBebidas from '../../Services/Fetch';
 import { fetchRandomRecipe } from '../../Services/FetchRandom';
 
+export const recipeProgress = (recipe) => ({
+  type: 'progress',
+  payload: recipe,
+});
+
 export const clearRecipes = () => ({
   type: 'reset-recipes',
 });

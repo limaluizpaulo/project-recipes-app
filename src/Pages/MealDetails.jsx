@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -7,9 +9,10 @@ import shareIcon from '../images/shareIcon.svg';
 import '../styles/ButtonDetails.css';
 
 import { fetchByID, fetchByRecomendation } from '../Services';
+import { recipeProgress } from '../redux/actions';
 import CardsDetails from '../Components/CardsDetails';
 
-export default class MealDetails extends React.Component {
+class MealDetails extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -19,12 +22,14 @@ export default class MealDetails extends React.Component {
       loading: true,
       ingredients: [],
       measures: [],
+      redirect: false,
     };
     this.fetchIdAPI = this.fetchIdAPI.bind(this);
     this.fecthRecomendationAPI = this.fecthRecomendationAPI.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.ingredients = this.ingredients.bind(this);
     this.measures = this.measures.bind(this);
+    this.handleClickStart = this.handleClickStart.bind(this);
     // this.takeURL = this.takeURL.bind(this);
   }
 
@@ -37,6 +42,16 @@ export default class MealDetails extends React.Component {
     this.setState((prevState) => ({
       like: !prevState.like,
     }));
+  }
+
+  handleClickStart() {
+    const { saveRecipe } = this.props;
+    const { meals, ingredients, measures } = this.state;
+
+    saveRecipe({ meals, ingredients, measures });
+    this.setState({
+      redirect: true,
+    });
   }
 
   measures() {
@@ -87,10 +102,13 @@ export default class MealDetails extends React.Component {
   }
 
   render() {
-    const { loading, meals, like, ingredients, measures, recomendation } = this.state;
+    const { match: { params: { idReceita } } } = this.props;
+    const { loading, meals, like, ingredients,
+      measures, recomendation, redirect } = this.state;
     const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = meals;
 
     if (loading) return <h1> loading </h1>;
+    if (redirect) return <Redirect to={ `/comidas/${idReceita}/in-progress` } />;
 
     return (
       <main>
@@ -144,6 +162,7 @@ export default class MealDetails extends React.Component {
           type="button"
           data-testid="start-recipe-btn"
           className="button-details"
+          onClick={ () => this.handleClickStart() }
         >
           Iniciar Receita
         </button>
@@ -158,4 +177,11 @@ MealDetails.propTypes = {
       idReceita: PropTypes.string,
     }),
   }).isRequired,
+  saveRecipe: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  saveRecipe: (recipe) => dispatch(recipeProgress(recipe)),
+});
+
+export default connect(null, mapDispatchToProps)(MealDetails);
