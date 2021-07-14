@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserProvider';
 import '../styles/RecipesDetails.css';
 
 const DetailsRecipes = ({ newObj }) => {
-  const { isDone, inProgress } = useContext(UserContext);
+  const { isDone, inProgress, addInProgress } = useContext(UserContext);
   const history = useHistory();
 
   const {
@@ -87,8 +87,11 @@ const DetailsRecipes = ({ newObj }) => {
         type="button"
         className={ `button-start
         ${(isDone(id)) && 'hidden-button'}` }
-        onClick={ () => history.push({ pathname: `${url}/in-progress`,
-          state: { newObj } }) }
+        onClick={ () => {
+          history.push({ pathname: `${url}/in-progress`,
+            state: { newObj } });
+          addInProgress(type, id);
+        } }
       >
         {(inProgress(id, type))
           ? 'Continuar Receita'

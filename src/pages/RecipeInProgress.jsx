@@ -7,12 +7,8 @@ const Progress = () => {
   const history = useHistory();
   const location = useLocation();
   // console.log(location.state.newObj);
-  const { addInProgress } = useContext(UserContext);
-  const { type, id } = location.state.newObj;
-
-  useEffect(() => {
-    addInProgress(type, id);
-  }, []);
+  // const { addInProgress } = useContext(UserContext);
+  // const { type, id } = location.state.newObj;
 
   return (
     <div>

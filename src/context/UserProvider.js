@@ -5,7 +5,6 @@ import {
   removeFromLocalStorage,
   setOnLocalStorage,
 } from '../services/helpers/localStorage';
-import Ingredients from '../components/Ingredients.jsx';
 
 const UserContext = createContext();
 
@@ -19,19 +18,17 @@ const UserProvider = ({ children }) => {
   const [done, setDone] = useState([]);
   const [copied, setCopied] = useState(false);
   const [inProgressRecipes, setInProgressRecipes] = useState({
-    cocktails: {
-    },
-    meals: {
-    },
+    cocktails: {},
+    meals: {},
   });
 
   useEffect(() => {
-    if (!getFromLocalStorage('favoriteRecipes')) setOnLocalStorage('favoriteRecipes', []);
-    if (!getFromLocalStorage('doneRecipes')) setOnLocalStorage('doneRecipes', []);
+    if (!getFromLocalStorage('favoriteRecipes')) {
+      setOnLocalStorage('favoriteRecipes', []);
+    }
+    if (!getFromLocalStorage('doneRecipes')) { setOnLocalStorage('doneRecipes', []); }
     if (!getFromLocalStorage('inProgressRecipes')) {
-      setOnLocalStorage(
-        'inProgressRecipes', inProgressRecipes,
-      );
+      setOnLocalStorage('inProgressRecipes', inProgressRecipes);
     }
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
     setDone(getFromLocalStorage('doneRecipes') || []);
@@ -45,7 +42,7 @@ const UserProvider = ({ children }) => {
   };
   const inFavorites = (id) => {
     const favoritesStorage = getFromLocalStorage('favoriteRecipes');
-    return (!!favoritesStorage.find((favorite) => favorite.id === id));
+    return !!favoritesStorage.find((favorite) => favorite.id === id);
   };
 
   const addFavorites = (recipe) => {
@@ -89,32 +86,57 @@ const UserProvider = ({ children }) => {
 
   const isDone = (id) => {
     const doneStorage = getFromLocalStorage('doneRecipes');
-    return (!!doneStorage.find((complete) => complete.id === id));
+    return !!doneStorage.find((complete) => complete.id === id);
   };
 
   const inProgress = (id, type) => {
     const progressStorage = getFromLocalStorage('inProgressRecipes');
     if (type === 'meals') {
-      return (!!progressStorage.find((progression) => progression.meals.id === id));
+      return !!progressStorage.find(
+        (progression) => progression.meals.id === id,
+      );
     }
     if (type === 'cocktails') {
-      return (!!progressStorage.find((progression) => progression.cocktails.id === id));
+      return !!progressStorage.find(
+        (progression) => progression.cocktails.id === id,
+      );
     }
   };
 
   const addInProgress = (type, id) => {
-    const key = (type === 'comida') ? 'meals' : 'cocktails';
+    const key = type === 'comida' ? 'meals' : 'cocktails';
     const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
-    setOnLocalStorage('inProgressRecipes',
-      { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: [] } });
+    setOnLocalStorage('inProgressRecipes', {
+      ...inProgressRecipesList,
+      [key]: { ...inProgressRecipesList[key], [id]: [] },
+    });
     setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
   };
 
   const addIngredientInProgress = (type, id, ingredient) => {
-    const key = (type === 'comida') ? 'meals' : 'cocktails';
+    const key = type === 'comida' ? 'meals' : 'cocktails';
     const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
-    setOnLocalStorage('inProgressRecipes',
-      { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: ingredient !== null ? [...inProgressRecipesList[key][id], ingredient] : [...inProgressRecipesList[key][id]] } });
+    setOnLocalStorage('inProgressRecipes', {
+      ...inProgressRecipesList,
+      [key]: {
+        ...inProgressRecipesList[key],
+        [id]:
+          ingredient !== null
+            ? [...inProgressRecipesList[key][id], ingredient]
+            : [...inProgressRecipesList[key][id]],
+      },
+    });
+    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
+  };
+
+  const removeIngredientInProgress = (type, id, ingredient) => {
+    const key = type === 'comida' ? 'meals' : 'cocktails';
+    const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
+    const index = inProgressRecipesList[key][id].indexOf(ingredient);
+    inProgressRecipesList[key][id].splice(index, 1);
+
+    setOnLocalStorage('inProgressRecipes', inProgressRecipesList);
+    //   { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: ingredient !== null ? [...inProgressRecipesList[key][id], ingredient] : [...inProgressRecipesList[key][id]] } });
     setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
   };
 
@@ -125,6 +147,7 @@ const UserProvider = ({ children }) => {
     inProgressRecipes,
     addInProgress,
     addIngredientInProgress,
+    removeIngredientInProgress,
     verifyLogin,
     inFavorites,
     addFavorites,
