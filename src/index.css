@@ -1,20 +1,21 @@
 
 @font-face {
-  font-family: 'PoetsenOne';
-  src: url('./fonts/PoetsenOne.ttf');
+  font-family: 'Caslon';
+  src: url('./fonts/CaslonGraphique-Opti.otf');
 }
 /*========== VARIABLES CSS ====================================================================================================*/
 :root {
   /*========== COLORS =========================================================================================================*/
-  --first-color: #9D4BFF;
-  --second-color: #4D49BF;
-  --first-color-dark: #314279;
+  --first-color: #D61C1C;
+  --second-color: #1C1C1C;
+  --third-color: #313131;
+  --first-color-dark: #2E5096;
   --first-color-light: #A49EAC;
   --first-color-lighten: #F2F2F2;
-  --title-color: #F2A20C;
+  --title-color: #D61C1C;
 
   /*========== FONT / TYPOGRAPHY ===========================================================================================*/
-  --body-font: 'PoetsenOne', sans-serif;
+  --body-font: 'Caslon', sans-serif;
   --normal-font-size: .938rem;
   --h1-font-size: 1.375rem;
   --h3-font-size: 1.125rem;
@@ -31,6 +32,7 @@ body {
   padding: 0;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
+  background-color: var(--first-color-lighten);
 }
 
 h1, h5 {
@@ -268,9 +270,9 @@ justify-items: center;
 }
 
 .recipe {
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
   width: 200px;
   height: 230px;
-  background-color: var(--first-color-dark);
   border-radius: 1rem;
   overflow-y: hidden;
   cursor: pointer;
@@ -284,7 +286,7 @@ justify-items: center;
 .recipe img {
   position: absolute;
   margin-left: -75px;
-  margin-top: -60px;
+  margin-top: -75px;
   width: 150px;
   border-radius: 40px;
   filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
@@ -294,7 +296,7 @@ justify-items: center;
   font-family: var(--body-font);
   font-size: var(--h1-font-size);
   color: var(--title-color);
-  margin-bottom: .5rem;
+  margin-bottom: -15px;
   transform: translateY(4.0rem);
   text-align: center;
 }
@@ -306,7 +308,7 @@ justify-items: center;
 }
 
 .recipe:hover .recipeTitle {
-  color: #FFFF;
+  color: var(--first-color-dark);
 }
 
 .recipe:hover .recipeImg {
@@ -373,7 +375,11 @@ justify-items: center;
 
 .titleDetails .titleCategory, .ingredients h3 {
   font-size: var(--h1-font-size);
-  color: var(--first-color-dark);
+  color: var(--first-color);
+}
+
+.ingredients p {
+  color: var(--second-color);
 }
 
 .imageButtons {
@@ -406,6 +412,7 @@ justify-items: center;
 .instrDetails {
   padding: 25px;
   font-size: var(--h3-font-size);
+  color: var(--second-color);
 }
 
 .instrDetails h3 {
@@ -448,7 +455,7 @@ justify-items: center;
   margin-left: 3rem;
   margin-bottom: 5px;
   background-color: var(--first-color);
-  color: var(--title-color);
+  color: var(--first-color-lighten);
   font-weight: 600;
   font-size: 1.25rem;
   text-align: center;
@@ -616,7 +623,7 @@ justify-items: center;
 
 .titleInProgress .titleCategory, .ingredients h3 {
   font-size: var(--h1-font-size);
-  color: var(--first-color-dark);
+  color: var(--first-color);
 }
 
 .topInProgress .imageButtons {
@@ -657,13 +664,17 @@ justify-items: center;
   text-align: center;
 }
 
+.bottomInProgress p {
+  color: var(--second-color) ;
+}
+
 .bottomInProgress a button {
   width: 80%;
   padding: 1rem;
   margin-left: 3rem;
   margin-bottom: 5px;
   background-color: var(--first-color);
-  color: var(--title-color);
+  color: var(--first-color-lighten );
   font-weight: 600;
   font-size: 1.25rem;
   text-align: center;
@@ -693,22 +704,73 @@ justify-items: center;
 /*  ====================================================================================================================================*/
 
 /* DONE RECIPE PAGE ===========================================================================================================*/
-.doneCard {
-  border: solid black 1px;
-  /* height: 143px;
-  width: 333px; */
+.done-card {
+  /* border: solid black 1px; */
+  /* background-color: #FFF; */
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  width: 350px;
+  /* height: 400px; */
+  border-radius: 1rem;
+  overflow-y: hidden;
+  cursor: pointer;
+  margin: 20px 5px 0 5px;
+}
+
+.done-card a {
+  display: flex;
+  flex-direction: row;
+  /* width: 300px; */
 }
 
 .doneImg {
-  width: 165px;
-  height: 143px;
+  border-radius: 40px;
+  margin: 10px;
+  width: 150px;
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  filter: drop-shadow(5px 10px 15px rgba(8,9,13,.4));
+  /* height: 143px; */
 }
 
-/* .doneArea, .doneCategory {
-  display: inline-block;
-  /* flex-direction: column;
-} */
+.done-card-text {
+  color: var(--third-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 5px;
+  /* max-width: 150px; */
+}
 
+.done-category {
+  font-size: var(--small-font-size);
+  color: var(--first-color-light);
+}
+
+.done-name {
+  font-size:var(--h1-font-size);
+  color: var(--first-color);
+}
+
+.tags {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tags div {
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  border-radius: 40px;
+  padding: 8px;
+}
+
+.share-done {
+  position: absolute;
+  margin-left: -35px;
+  margin-top: 10px;
+}
+
+/* RECOMMENDED RECIPES COMPONENENT ===========================================================================================================*/
 /* PROFILE PAGE ===========================================================================================================*/
 .container {
   background-color: #EFEFEF;
@@ -1141,7 +1203,8 @@ justify-items: center;
     display: flex;
     width: 600px;
     height: 588px;
-    background-color: var(--first-color-lighten);
+    box-shadow: 0 2px 10px rgba(35,0,77,.2);
+    background-color: white;
     border-radius: 1rem;
     padding-left: 1rem;
   }
@@ -1180,6 +1243,8 @@ justify-items: center;
   }
   
   .categoriesBtns div button {
+    box-shadow: 0 2px 10px rgba(35,0,77,.2);
+    border-radius: 40px;
     display: grid;
     justify-items: center;
     color: var(--title-color);
@@ -1192,7 +1257,7 @@ justify-items: center;
   }
   
   .categoriesBtns div button:hover {
-    color: #FFFF;
+    color: var(--first-color-dark);
     box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, .3);
     padding: 7px;
   }
@@ -1386,4 +1451,11 @@ justify-items: center;
     font-size: var(--normal-font-size);
   }
 
+  .buttonsInProfile {
+    display: grid;
+  }
+
+  .buttonsInProfile button {
+    cursor: pointer;
+  }
 }

@@ -1,15 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import RenderButtons from './RenderButtons';
+// import RenderButtons from './RenderButtons';
 
-export default function CategoryButton({ clickCategory, foodOrDrink, clickAll, path }) { // Desestruturação de props
+import store from '../../context/store';
+
+const foodDrinkButtons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
+
+export default function CategoryButton({ clickCategory, foodOrDrink, setState,
+  clickAll, path }) { // Desestruturação de props
+  const { recipes: { foods, categoriesMeals,
+    categoriesDrinks, categoriesLimit } } = useContext(store);
+
+  console.log(path);
+
+  const renderButtons = () => {
+    let newCategories;
+    if (path) {
+      newCategories = foodDrinkButtons;
+    } else {
+      newCategories = (foods) ? (
+        categoriesMeals.slice(0, categoriesLimit)) : (
+        categoriesDrinks.slice(0, categoriesLimit));
+    }
+
+    return (
+      newCategories.map((category, index) => (
+        <div key={ index } className="categoriesBtns">
+          <button
+            type="button"
+            data-testid={ path
+              ? `filter-by-${category.strCategory.toLowerCase()}-btn`
+              : `${category.strCategory}-category-filter` }
+            onClick={ path
+              ? (() => foodOrDrink(category.strCategory, path, setState))
+              : (() => clickCategory(category)) }
+          >
+            {category.strCategory}
+          </button>
+        </div>
+      ))
+    );
+  };
+
   return (
-    <RenderButtons
-      clickCategory={ clickCategory }
-      foodOrDrink={ foodOrDrink }
-      clickAll={ clickAll }
-      path={ path }
-    />
+    <div className="categoriesBtns">
+      <button
+        type="button"
+        data-testid={ path ? 'filter-by-all-btn' : 'All-category-filter' }
+        onClick={ clickAll }
+      >
+        All
+      </button>
+      {renderButtons()}
+    </div>
   );
 }
 
@@ -17,11 +60,13 @@ CategoryButton.propTypes = {
   clickCategory: PropTypes.func,
   clickAll: PropTypes.func.isRequired,
   foodOrDrink: PropTypes.func,
-  path: PropTypes.bool,
+  setState: PropTypes.func,
+  path: PropTypes.string,
 };
 
 CategoryButton.defaultProps = {
   clickCategory: undefined,
   foodOrDrink: () => console.log('nothing to do!'),
-  path: false,
+  setState: () => console.log('no state to set'),
+  path: '',
 };
