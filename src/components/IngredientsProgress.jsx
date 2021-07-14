@@ -9,54 +9,55 @@ const IngredientsProgress = ({ newObj }) => {
     setInProgressRecipes } = useContext(UserContext);
 
   const handleProgress = () => {
+    const key = (type === 'comida') ? 'meals' : 'cocktails';
     setInProgressRecipes(
       {
         ...inProgressRecipes,
-        [type]: {
-          ...inProgressRecipes[type],
+        [key]: {
+          ...inProgressRecipes[key],
           [id]: [...ingredients],
         },
       },
     );
   };
 
-  const [ingredientsChecked, setIngredientsChecked] = useState(ingredients
-    .reduce((oldState, newIngredient) => {
-      const progressLocal = setOnLocalStorage('inProgressRecipes');
-      handleProgress();
-      if ((progressLocal !== null)
-      && (progressLocal[type] !== undefined)
-      && (progressLocal[type][id] !== undefined)) {
-        oldState = {
-          ...oldState,
-          [newIngredient]: progressLocal[type][id]
-            .some((ingredientChecked) => newIngredient === ingredientChecked),
-        };
-      }
-      return oldState;
-    }, {}));
+  // const [ingredientsChecked, setIngredientsChecked] = useState(ingredients
+  //   .reduce((oldState, newIngredient) => {
+  //     const progressLocal = setOnLocalStorage('inProgressRecipes', {});
+  //     handleProgress();
+  //     if ((progressLocal !== null)
+  //     && (progressLocal[type] !== undefined)
+  //     && (progressLocal[type][id] !== undefined)) {
+  //       oldState = {
+  //         ...oldState,
+  //         [newIngredient]: progressLocal[type][id]
+  //           .some((ingredientChecked) => newIngredient === ingredientChecked),
+  //       };
+  //     }
+  //     return oldState;
+  //   }, {}));
 
-  useEffect(() => {
-    getFromLocalStorage('inProgressRecipes');
-  }, [inProgressRecipes]);
+  // useEffect(() => {
+  //   getFromLocalStorage('inProgressRecipes');
+  // }, [inProgressRecipes]);
 
-  const handleLocalStorage = ({ target: { name } }) => {
-    const storageProgress = getFromLocalStorage('inProgressRecipes');
-    const localProgress = storageProgress[type][id]
-      .some((ingredient) => ingredient === name);
-    setIngredientsChecked((prevState) => ({
-      ...prevState,
-      [name]: !ingredientsChecked[name],
-    }));
-    if (localProgress) {
-      inProgressRecipes[type][id] = inProgressRecipes[type][id]
-        .filter((ingredient) => ingredient !== name);
-      setOnLocalStorage('inProgressRecipes', storageProgress);
-      return;
-    }
-    storageProgress.push(name);
-    setOnLocalStorage('inProgressRecipes', storageProgress);
-  };
+  // const handleLocalStorage = ({ target: { name } }) => {
+  //   const storageProgress = getFromLocalStorage('inProgressRecipes');
+  //   const localProgress = storageProgress[type][id]
+  //     .some((ingredient) => ingredient === name);
+  //   setIngredientsChecked((prevState) => ({
+  //     ...prevState,
+  //     [name]: !ingredientsChecked[name],
+  //   }));
+  //   if (localProgress) {
+  //     inProgressRecipes[type][id] = inProgressRecipes[type][id]
+  //       .filter((ingredient) => ingredient !== name);
+  //     setOnLocalStorage('inProgressRecipes', storageProgress);
+  //     return;
+  //   }
+  //   storageProgress.push(name);
+  //   setOnLocalStorage('inProgressRecipes', storageProgress);
+  // };
 
   return (
     <section>
@@ -70,8 +71,8 @@ const IngredientsProgress = ({ newObj }) => {
             <input
               type="checkbox"
               name={ ingredient }
-              checked={ inProgressRecipes[ingredients] }
-              onChange={ (event) => handleLocalStorage(event) }
+              // checked={ inProgressRecipes[ingredients] }
+              // onChange={ (event) => handleLocalStorage(event) }
             />
             {`- ${ingredient} ${measures[index]}`}
           </li>

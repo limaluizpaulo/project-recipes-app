@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IngredientsProgress, Instructions, HeaderRecipes } from '../components';
+import { UserContext } from '../context/UserProvider';
 
 const Progress = () => {
   const history = useHistory();
   const location = useLocation();
   console.log(location.state.newObj);
+  const { addInProgress } = useContext(UserContext);
+  const { type, id } = location.state.newObj;
+
+  useEffect(() => {
+    addInProgress(type, id);
+  }, []);
+
   return (
     <div>
       <HeaderRecipes newObj={ location.state.newObj } />

@@ -16,12 +16,6 @@ const UserProvider = ({ children }) => {
   const [verifyLogin, setVerifyLogin] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [done, setDone] = useState([]);
-  const [progress, setProgress] = useState({
-    cocktails: {
-    },
-    meals: {
-    },
-  });
   const [copied, setCopied] = useState(false);
   const [inProgressRecipes, setInProgressRecipes] = useState({
     cocktails: {
@@ -35,12 +29,12 @@ const UserProvider = ({ children }) => {
     if (!getFromLocalStorage('doneRecipes')) setOnLocalStorage('doneRecipes', []);
     if (!getFromLocalStorage('inProgressRecipes')) {
       setOnLocalStorage(
-        'inProgressRecipes', {},
+        'inProgressRecipes', inProgressRecipes,
       );
     }
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
     setDone(getFromLocalStorage('doneRecipes') || []);
-    setProgress(getFromLocalStorage('inProgressRecipes') || {});
+    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
   }, []);
 
   const copyToClipboard = () => {
@@ -107,11 +101,20 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const addInProgress = async (type, id) => {
+    const key = (type === 'comida') ? 'meals' : 'cocktails';
+    const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
+    setOnLocalStorage('inProgressRecipes',
+      { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: [] } });
+    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || []);
+  };
+
   const context = {
     favorites,
     done,
     copied,
-    progress,
+    inProgressRecipes,
+    addInProgress,
     verifyLogin,
     inFavorites,
     addFavorites,
