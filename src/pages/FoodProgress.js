@@ -121,10 +121,15 @@ const FoodProgress = ({ match }) => {
   };
 
   return (
-    <div>
+    <div className="recipe recipeProgress">
       <h2 data-testid="recipe-title">{meal.strMeal}</h2>
       <h3 data-testid="recipe-category">{meal.strCategory}</h3>
-      <img data-testid="recipe-photo" src={ meal.strMealThumb } alt={ meal.strMeal } />
+      <img
+        className="recipe-photo"
+        data-testid="recipe-photo"
+        src={ meal.strMealThumb }
+        alt={ meal.strMeal }
+      />
       Ingredientes:
       {renderCheckBox()}
       <p data-testid="video">Video</p>

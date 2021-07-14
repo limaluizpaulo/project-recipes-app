@@ -44,7 +44,7 @@ const Drink = ({ match }) => {
       <FavoriteIcon recipe={ drink } idTest="favorite-btn" />
       {!checkRecypeId(id) && (
         <button
-          className="footer"
+          className="btn-start-recip"
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }

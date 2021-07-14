@@ -81,6 +81,11 @@ body {
   width: 100%;
 }
 
+.btn-start-recip {
+  bottom: 0;
+  position: fixed;
+}
+
 .grade {
   display: flex;
   flex-flow: wrap;
@@ -173,6 +178,16 @@ Ajuda Alessandra
   }
 }
 
+.recipeProgress {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.recipeProgress button {
+  border-radius: 10px;
+  margin: 5px;
+}
 
 .recipe h2 {
   color: #7b3c15;
@@ -222,7 +237,7 @@ Ajuda Alessandra
 .buttons-cattegory {
   background: rgb(17, 165, 153);
   border: 10px solid white;
-  border-radius: 8px;
+  border-radius: 10px;
   color: white;
   cursor: pointer;
   font-weight: 700;
@@ -231,7 +246,7 @@ Ajuda Alessandra
 
 button {
   background: rgb(17, 165, 153);
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
   cursor: pointer;
   font-weight: 700;
@@ -240,7 +255,7 @@ button {
 
 .loginButton {
   background: rgb(17, 165, 153);
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
   cursor: pointer;
   font-weight: 700;
@@ -260,5 +275,5 @@ button {
 }
 
 .sharedFavoriteButton button {
-  border-radius: 8px;
+  border-radius: 10px;
 }

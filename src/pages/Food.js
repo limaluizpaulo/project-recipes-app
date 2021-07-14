@@ -48,7 +48,7 @@ const Food = ({ match }) => {
       </div>
       {!checkRecypeId(id) && (
         <button
-          className="footer"
+          className="btn-start-recip"
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
