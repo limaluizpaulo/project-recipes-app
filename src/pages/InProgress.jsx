@@ -1,23 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
 import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
-import { getItem, setItem, createDoneRecipe } from '../helpers/HelperFunctions';
+import { getItem, setItem, createDoneRecipe, setInitialItem }
+  from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
 function InProgress() {
+  const { type } = useContext(RecipesContext);
+  const typeKey = type === 'drinks' ? 'cocktails' : 'meals';
   const { id } = useParams();
+  setInitialItem('inProgressRecipes', {
+    cocktails: {},
+    meals: {},
+    [typeKey]: { [id]: [] },
+  });
+  setInitialItem('doneRecipes', []);
+  setInitialItem('favoriteRecipes', []);
   const history = useHistory();
-  // const [idDetails, setIdDetails] = useState(id);
-  const { /* isFetching, */ type } = useContext(RecipesContext);
   const [detailsData, setDetailsData] = useState({});
   const [shareCopy, setShareCopy] = useState(false);
+  const ingredientsList = (Object.keys(detailsData).filter(
+    (key) => (key.includes('strIngredient') && detailsData[key]),
+  ));
+  const localStorageIngredients = getItem('inProgressRecipes')[typeKey][id];
+
+  const [ingredientCheck, setIngredientCheck] = useState(localStorageIngredients);
 
   const capitalize = (text) => text.replace(
     /(?:^|\s)\S/g, (first) => first.toUpperCase(),
@@ -29,8 +42,7 @@ function InProgress() {
   const title = `str${singleType}`;
   const category = type === 'meals' ? 'strCategory' : 'strAlcoholic';
   const instructions = 'strInstructions';
-  const { pathname } = useLocation();
-  // console.log(pathname);
+
   useEffect(() => {
     const getData = async () => {
       const result = await getMealById(id, type);
@@ -49,7 +61,10 @@ function InProgress() {
 
   const redirectRecipesDone = () => {
     recipeDone();
-    history.push(`${pathname}/receitas-feitas`);
+    const inProgressRecipes = getItem('inProgressRecipes');
+    delete inProgressRecipes[typeKey][id];
+    setItem('inProgressRecipes', inProgressRecipes);
+    history.push('/receitas-feitas');
   };
 
   const video = () => {
@@ -70,17 +85,18 @@ function InProgress() {
 
   const ingredientsAndMeasures = (ingredient, measure) => (measure !== null
     ? `${ingredient} - ${measure}` : ingredient);
-  // if (type === 'meals') {
-  //   title = 'Comidas';
-  //   strTitle = 'strMeal';
-  //   thumbnail = 'strMealThumb';
-  //   typeId = 'idMeal';
-  // } else {
-  //   title = 'Bebidas';
-  //   strTitle = 'strDrink';
-  //   thumbnail = 'strDrinkThumb';
-  //   typeId = 'idDrink';
-  // }
+
+  const checkOnClick = ({ target }) => {
+    const inProgressRecipes = getItem('inProgressRecipes'); //  refatorar: não buscar do local estorage toda vez, salvar no local storage no final da função
+    if (target.checked) {
+      inProgressRecipes[typeKey][id].push(target.name);
+    } else {
+      inProgressRecipes[typeKey][id] = inProgressRecipes[typeKey][id]
+        .filter((ing) => ing !== target.name);
+    }
+    setIngredientCheck(inProgressRecipes[typeKey][id]);
+    setItem('inProgressRecipes', inProgressRecipes);
+  };
 
   /*
     Material consultado sobre dataset
@@ -132,21 +148,24 @@ function InProgress() {
         <section className="text-content">
           <h3>Ingredients</h3>
           <ul>
-            {/* data-testid="${index}-ingredient-name-and-measure" */
-
-              Object.keys(detailsData).filter(
-                (key) => (key.includes('strIngredient') && detailsData[key]),
-              ).map(
-                (ingredient, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-step` }
+            { ingredientsList.map(
+              (ingredient, index) => (
+                <div data-testid={ `${index}-ingredient-step` } key={ index }>
+                  <input
+                    name={ detailsData[ingredient] }
+                    type="checkbox"
+                    id={ detailsData[ingredient] }
+                    onClick={ checkOnClick }
+                    checked={ ingredientCheck.includes(detailsData[ingredient]) }
+                  />
+                  <label
+                    htmlFor={ detailsData[ingredient] }
                   >
                     { ingredientsAndMeasures(detailsData[ingredient],
                       detailsData[`strMeasure${index + 1}`]) }
-                  </li>),
-              )
-            }
+                  </label>
+                </div>),
+            )}
           </ul>
         </section>
         <section className="text-content">
@@ -164,8 +183,8 @@ function InProgress() {
           className="start-recipe"
           label="Finalizar receita"
           testid="finish-recipe-btn"
+          disabled={ ingredientCheck.length !== ingredientsList.length }
         />
-
       </footer>
     </div>)
   );
