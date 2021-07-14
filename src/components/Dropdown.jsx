@@ -6,11 +6,11 @@ class Dropdown extends Component {
     const { name } = this.props;
     return (
       <option
+        defaultValue=""
         value={ name }
         data-testid={ `${name}-option` }
       >
         {name}
-
       </option>
     );
   }

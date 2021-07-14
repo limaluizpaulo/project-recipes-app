@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 import Dropdown from '../components/Dropdown';
-import { actionRecipes, actionCategoriesRecipes,
-  actionRecipesByCategories } from '../actions';
+import { actionRecipes } from '../actions';
 import CardItem from '../components/CardItem';
 import '../Style/Recipes.css';
 
@@ -14,14 +13,17 @@ class Recipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: [],
+      fMeals: [],
+      locations: [],
+      value: '',
       // filter: false,
       // categories: '',
     };
     this.fetchLocations = this.fetchLocations.bind(this);
     this.mapearLista = this.mapearLista.bind(this);
-    // this.fetchRecipesCategory = this.fetchRecipesCategory.bind(this);
     this.fetchs = this.fetchs.bind(this);
+    this.returnSelected = this.returnSelected.bind(this);
+    this.fetchRecipesByLocations = this.fetchLocations.bind(this);
   }
 
   componentDidMount() {
@@ -29,32 +31,29 @@ class Recipes extends Component {
     this.fetchs();
   }
 
+  async fetchRecipesByLocations() {
+    const { value } = this.state;
+    const location = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${value}`);
+    const { meals } = await location.json();
+    console.log(meals);
+    this.setState({ fMeals: meals });
+  }
+
   async fetchLocations() {
     const location = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
     const { meals } = await location.json();
-    this.setState({ result: meals });
-    // console.log(meals);
-    // // const something = { meals };
-    // console.log(meals[5].strArea);
-    // // let final = [];
-    // console.log(meals.strArea);
-    // reminder of my struggles
+    this.setState({ locations: meals });
   }
 
   async fetchs() {
     const { listRecipes, recipes } = this.props;
-
     if (listRecipes.length === 0) recipes();
   }
 
-  async fetchRecipesCategory() {
-    const { recipes } = this.props;
-    recipes();
-  }
-
-  mapearDropdown({ strArea }) {
+  mapearDropdown({ strArea }, index) {
     return (
       <Dropdown
+        key={ index }
         className="list"
         name={ strArea }
       />
@@ -73,13 +72,23 @@ class Recipes extends Component {
       </Link>);
   }
 
+  async returnSelected() {
+    const e = document.getElementById('DropdowN');
+    if (e !== '') { this.setState({ value: e.value }); }
+    this.fetchRecipesByLocations();
+    // if (e !== null) {
+    //   ;
+    // }
+  }
+
   render() {
-    const { result } = this.state;
+    const { locations, value, fMeals } = this.state;
     const { listRecipes } = this.props;
     if (listRecipes.length === 1) {
       return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;
     }
-
+    console.log(fMeals);
+    console.log(value);
     return (
       <div>
         <Header header="Comidas" explorer />
@@ -90,11 +99,24 @@ class Recipes extends Component {
         <h1>Recipes</h1>
         <h1>Recipes</h1>
         <h1>Recipes</h1>
-        <select data-testid="explore-by-area-dropdown">
-          {result.map((item) => this.mapearDropdown(item))}
+        <select
+          onChange={ this.returnSelected }
+          defaultValue="All"
+          data-testid="explore-by-area-dropdown"
+          id="DropdowN"
+        >
+          <option
+            value="All"
+            data-testid="All-option"
+          >
+            All
+          </option>
+          {locations.map((item, index) => this.mapearDropdown(item, index))}
         </select>
-
-        { listRecipes.map((element, index) => this.mapearLista(element, index))}
+        { fMeals.map((element, index) => this.mapearLista(element, index))}
+        {
+          listRecipes.map((element, index) => this.mapearLista(element, index))
+        }
         <DownMenu />
       </div>
     );
@@ -103,14 +125,10 @@ class Recipes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   recipes: () => dispatch(actionRecipes()),
-  categories: () => dispatch(actionCategoriesRecipes()),
-  recipesByCategory: (category) => dispatch(actionRecipesByCategories(category)),
 });
 
 const mapStateToProps = (state) => ({
   listRecipes: state.recipes.recipes,
-  listCategories: state.categories.categories,
-  listByCategory: state.recipes.byCategories,
 });
 
 Recipes.propTypes = {
