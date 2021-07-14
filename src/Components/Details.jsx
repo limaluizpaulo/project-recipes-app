@@ -6,6 +6,7 @@ import { saveFavorite, isFavoriteIcon } from '../services/services';
 import Share from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
+import Copiado from './Copiado';
 
 export default function Details(props) {
   const { id, item, type } = props;
@@ -35,7 +36,7 @@ export default function Details(props) {
         data-clipboard-text={ window.location.href }
         onClick={ copyLink }
       >
-        {isCopy ? 'Link copiado!' : <img alt="share-btn" src={ Share } />}
+        <img alt="share-btn" src={ Share } />
       </button>
       <button
         type="button"
@@ -46,6 +47,7 @@ export default function Details(props) {
       >
         <img alt="favorite-btn" src={ isFavorite ? blackHeart : whiteHeart } />
       </button>
+      {isCopy ? <Copiado setIsCopy={ setIsCopy } /> : null}
       <div className="receita-details">
         <h3 className="titulos" data-testid="recipe-title">{item[`str${type}`]}</h3>
         <h6 className="font-media" data-testid="recipe-category">
