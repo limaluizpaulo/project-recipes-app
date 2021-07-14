@@ -32,8 +32,8 @@ img {
   z-index: 0;
 }
 
-/* .carousel-control-next-icon, .carousel-control-prev-icon {
+.carousel-control-next-icon, .carousel-control-prev-icon {
   filter: invert(1);
   margin-top: 160px;
   padding: 15px;
-} */
+}

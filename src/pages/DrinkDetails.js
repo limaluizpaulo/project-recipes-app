@@ -4,6 +4,7 @@ import { Badge, Button } from 'react-bootstrap';
 import List from '../components/List';
 import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
+import Loading from '../components/Loading';
 import Icons from '../components/Icons';
 import '../styles/DrinkAndFoodDetails(page).css';
 
@@ -12,15 +13,18 @@ function DrinkDetails() {
   const [drink, setDrink] = useState([]);
   const [first, setFirst] = useState(false);
   const [progress, setProgress] = useState('Iniciar Receita');
+  const [loading, setLoading] = useState(null);
 
   function setDrinkOnState(drink2BeSet) {
     setDrink([...drink2BeSet]);
   }
 
   useEffect(() => {
+    setLoading(true);
     const request = async () => {
       await requestByDetailsDrink(id)
         .then((response) => { setDrinkOnState(response.drinks); });
+      setLoading(false);
     };
     request();
   }, [id]);
@@ -48,6 +52,7 @@ function DrinkDetails() {
     progressFunction();
   }
 
+  if (loading) return <Loading />;
   return (
     drink && drink.length > 0 && (
       drink.map((

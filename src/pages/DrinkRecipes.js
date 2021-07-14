@@ -5,6 +5,7 @@ import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Context } from '../context/ContextForm';
+import Loading from '../components/Loading';
 import { searchByCategoryDrink } from '../services/searchApi';
 import { requestDrink } from '../services/api';
 
@@ -15,14 +16,17 @@ function DrinkRecipes() {
     setDrinkPerIngredient,
     changeDrink } = useContext(Context);
   const [firstCategories, setFirstCategories] = useState([]);
+  const [loading, setLoading] = useState(null);
   const numOfDrinks = 12;
   const numOfCategories = 5;
   const btnClass = 'recipes-categoryBtnAlternative';
 
   useEffect(() => {
+    setLoading(true);
     const fetchDrinks = async () => {
       const drinks = await requestDrink();
       setFirstDrinks(drinks.slice(0, numOfDrinks));
+      setLoading(false);
     };
     fetchDrinks();
   }, [setFirstDrinks]);
@@ -58,6 +62,7 @@ function DrinkRecipes() {
     setDrinkPerIngredient(drinks.splice(0, numOfDrinks));
   }
 
+  if (loading) return <Loading />;
   return (
     <div>
       <Header title="Bebidas" />

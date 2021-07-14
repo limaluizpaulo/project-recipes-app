@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import List from '../components/List';
 import { requestByDetailsMeal } from '../services/api';
+import Loading from '../components/Loading';
 import Icons from '../components/Icons';
 import '../styles/DrinkAndFoodProcess(page).css';
 
@@ -20,6 +21,7 @@ const returnArrayOfIngredients = (object) => {
 function FoodProcess() {
   const params = useParams();
   const [item, setItem] = useState([]);
+  const [loading, setLoading] = useState(null);
   const data = new Date();
   const dia = String(data.getDate()).padStart(2, '0');
   const mes = String(data.getMonth() + 1).padStart(2, '0');
@@ -74,12 +76,16 @@ function FoodProcess() {
   }
 
   useEffect(() => {
+    setLoading(true);
     const request = async () => {
       const result = await requestByDetailsMeal(params.id);
       setItem(result.meals);
+      setLoading(false);
     };
     request();
   }, [params.id]);
+
+  if (loading) return <Loading />;
   return (
     item && (
       item.map((
