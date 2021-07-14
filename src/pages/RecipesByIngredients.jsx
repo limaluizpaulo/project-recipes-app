@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import DownMenu from '../components/DownMenu';
 import { actionIngredientsRecipes, actionRecipesByIngredients } from '../actions';
 import CardIngredients from '../components/CardIngredients';
+import '../Style/RecipesByIngredients.css';
 
 class RecipesByIngredients extends Component {
   constructor(props) {
@@ -43,16 +44,21 @@ class RecipesByIngredients extends Component {
     return (
       <div>
         <Header header="Explorar Ingredientes" />
-        <h2> Recipes By Ingredients</h2>
-        {listIngredients.map(({ strIngredient }, index) => (
-          <button
-            key={ index }
-            type="button"
-            onClick={ () => this.handleClick(strIngredient) }
-          >
-            <CardIngredients type="comida" ingredient={ strIngredient } index={ index } />
-          </button>
-        ))}
+        <div className="page-recipes-by-ingredients">
+          {listIngredients.map(({ strIngredient }, index) => (
+            <button
+              key={ index }
+              type="button"
+              onClick={ () => this.handleClick(strIngredient) }
+            >
+              <CardIngredients
+                type="comida"
+                ingredient={ strIngredient }
+                index={ index }
+              />
+            </button>
+          ))}
+        </div>
         <DownMenu />
       </div>
     );

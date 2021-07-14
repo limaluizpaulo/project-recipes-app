@@ -1,0 +1,15 @@
+.page-recipes-by-ingredients {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 95vh;
+  justify-content: space-around;
+  padding: 55px 5px 0;
+}
+
+.page-recipes-by-ingredients button {
+  background-color: white;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px;
+}
