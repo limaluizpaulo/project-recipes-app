@@ -18,7 +18,12 @@ const RecipeCard = ({ recipes }) => recipes.map((recipe, index) => {
           alt={ strMeal || strDrink }
         />
         <div className="container">
-          <p data-testid={ `${index}-card-name` }>{strMeal || strDrink}</p>
+          <h3
+            className="sub-title"
+            data-testid={ `${index}-card-name` }
+          >
+            {strMeal || strDrink}
+          </h3>
         </div>
       </Link>
     </div>

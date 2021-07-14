@@ -118,15 +118,15 @@ const DrinkProgress = ({ match }) => {
 
   return (
     <div className="recipe recipeProgress">
-      <h2 data-testid="recipe-title">{drink.strDrink}</h2>
-      <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
+      <h2 className="title" data-testid="recipe-title">{drink.strDrink}</h2>
+      <h3 className="sub-title" data-testid="recipe-category">{drink.strAlcoholic}</h3>
       <img
         className="recipe-photo"
         data-testid="recipe-photo"
         src={ drink.strDrinkThumb }
         alt={ drink.strDrink }
       />
-      <p>Ingredientes</p>
+      <h3 className="sub-title">Ingredientes</h3>
       <ul>
         {renderCheckBox()}
       </ul>

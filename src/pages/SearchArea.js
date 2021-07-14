@@ -36,7 +36,7 @@ const SearchArea = () => {
   return (
     <div>
       <Header title="Explorar Origem" search />
-      <h1>Search Area</h1>
+      <h1 className="title">Search Area</h1>
       {dropBox()}
       <button type="button" data-testid="All-option" onClick={ () => setFilter('') }>
         All

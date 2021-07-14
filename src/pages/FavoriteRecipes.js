@@ -33,7 +33,6 @@ const FavoriteRecipes = () => {
                 className="recipe-photo"
                 src={ image }
                 alt={ name }
-
               />
             </button>
           </Link>

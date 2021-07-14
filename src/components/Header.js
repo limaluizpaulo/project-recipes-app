@@ -10,7 +10,7 @@ const Header = ({ search, title, food = false }) => {
 
   return (
     <div className="hero-container">
-      <h1 data-testid="page-title">{title}</h1>
+      <h1 className="title" data-testid="page-title">{title}</h1>
       <Link to="/perfil">
         <img
           src={ iconProfile }

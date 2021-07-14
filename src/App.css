@@ -57,7 +57,7 @@ body {
   height: auto;
   margin: 5px;
   transition: 0.3s;
-  width: auto;
+  width: 50vh;
 }
 
 .cardMade p {
@@ -68,6 +68,7 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 20px;
+  flex-wrap: wrap;
 }
 
 .cards {
@@ -324,4 +325,8 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+
+.navCategories button {
+  flex: 1;
 }

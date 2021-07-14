@@ -25,8 +25,8 @@ const Drink = ({ match }) => {
 
   return (
     <div className="recipe">
-      <h2 data-testid="recipe-title">{drink.strDrink}</h2>
-      <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
+      <h2 className="title" data-testid="recipe-title">{drink.strDrink}</h2>
+      <h3 className="sub-title" data-testid="recipe-category">{drink.strAlcoholic}</h3>
       <img
         className="recipe-photo"
         data-testid="recipe-photo"
@@ -35,7 +35,7 @@ const Drink = ({ match }) => {
       />
       <section className="ingredient">
         <img src={ Rolo } alt="Imagem de um rolo" />
-        <h1>Ingredientes:</h1>
+        <h1 className="sub-title">Ingredientes:</h1>
         <ul>
           {renderIngredients(drink)}
         </ul>

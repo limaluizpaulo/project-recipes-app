@@ -122,15 +122,15 @@ const FoodProgress = ({ match }) => {
 
   return (
     <div className="recipe recipeProgress">
-      <h2 data-testid="recipe-title">{meal.strMeal}</h2>
-      <h3 data-testid="recipe-category">{meal.strCategory}</h3>
+      <h2 className="title" data-testid="recipe-title">{meal.strMeal}</h2>
+      <h3 className="sub-title" data-testid="recipe-category">{meal.strCategory}</h3>
       <img
         className="recipe-photo"
         data-testid="recipe-photo"
         src={ meal.strMealThumb }
         alt={ meal.strMeal }
       />
-      <p>Ingredientes</p>
+      <h3 className="sub-title">Ingredientes</h3>
       <ul>
         {renderCheckBox()}
       </ul>
