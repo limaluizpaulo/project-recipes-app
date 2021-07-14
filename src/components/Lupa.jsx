@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import {
   fetchIngredientesMeal,
   fetchNomeMeal,
@@ -106,13 +107,14 @@ function Lupa() {
           onChange={ handleChange }
         />
       </label>
-      <button
+      <Button
+        variant="danger"
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => getApi() }
       >
         Buscar
-      </button>
+      </Button>
     </form>
   );
 }

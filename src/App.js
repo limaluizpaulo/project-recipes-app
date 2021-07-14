@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import MainPage from './pages/MainPage';
