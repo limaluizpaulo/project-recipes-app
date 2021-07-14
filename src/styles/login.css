@@ -54,6 +54,10 @@
   border-right: 2px solid #8257e6;
 }
 
+.labels {
+  margin: 0;
+}
+
 .inputs:focus {
   border-bottom: 2px solid #8257e6;
   outline: none;
