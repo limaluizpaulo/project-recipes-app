@@ -5,7 +5,7 @@ import { CATEG_DRINKS, CATEG_MEALS,
 import CategoryButton from '../components/CategoryButton';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
-import Footer from '../components/Footer/Footer';
+import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 
 export default function Recipes() {

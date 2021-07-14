@@ -1024,6 +1024,20 @@ justify-items: center;
 /*  ====================================================================================================================================*/
 
 /* FOOTER COMPONENT ===========================================================================================================*/
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 99%;
+  height: 60px;
+  margin-left: 5px;
+  border-radius: 10px;
+  background-color: var(--first-color-dark);
+  color: var(--title-color);
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
+}
 
 /*  ====================================================================================================================================*/
 
