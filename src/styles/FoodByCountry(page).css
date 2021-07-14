@@ -6,8 +6,10 @@
 }
 
 .country-select {
-  font-size: 26px;
+  background: white;
+  font-size: 20px;
   max-width: 100%;
+  padding: 5px;
   width: 170px;
 }
 
@@ -15,10 +17,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 58px;
 }
 
 .card {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  color: black;
   height: 238px;
   margin: 5px;
   max-width: 100%;
@@ -28,6 +32,7 @@
 
 .countryCard-title {
   display: inline-block;
+  font-weight: 600;
   max-height: 2.3em;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -40,22 +40,27 @@ function ExploreFoodIngredient() {
             key={ index }
           >
             <Card
+              bg="info"
               onClick={ handleClick }
               data-testid={ `${index}-ingredient-card` }
               className="card"
             >
-              <Card.Img
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-                alt={ ingredient.strIngredient }
-              />
+              <div className="background-card">
+                <Card.Img
+                  data-testid={ `${index}-card-img` }
+                  src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                  alt={ ingredient.strIngredient }
+                />
+              </div>
               <Card.Body>
-                <Card.Title
-                  className="ingredientCard-title"
-                  data-testid={ `${index}-card-name` }
-                >
-                  {ingredient.strIngredient}
-                </Card.Title>
+                <div className="container-title">
+                  <Card.Title
+                    className="ingredientCard-title"
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {ingredient.strIngredient}
+                  </Card.Title>
+                </div>
               </Card.Body>
             </Card>
           </Link>
