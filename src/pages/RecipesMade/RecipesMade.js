@@ -9,7 +9,7 @@ function RecipesMade() {
   localStorage.setItem('doneRecipes', JSON.stringify([
     {
       id: 52771,
-      type: 'comidas',
+      type: 'comida',
       area: 'Italian',
       category: 'Vegetarian',
       alcoholicOrNot: '',
@@ -20,7 +20,7 @@ function RecipesMade() {
     },
     {
       id: 178319,
-      type: 'bebidas',
+      type: 'bebida',
       area: '',
       category: 'Alcoholic',
       alcoholicOrNot: 'alcoholic',
@@ -39,7 +39,7 @@ function RecipesMade() {
     return filted
       .map(({ image, category, name, doneDate, area, tags, type, id }, index) => (
         <div className="card-recipedone" key={ index }>
-          <Link to={ `/${type}/${id}` } className="link-img">
+          <Link to={ `/${type}s/${id}` } className="link-img">
             <img
               src={ image }
               data-testid={ `${index}-horizontal-image` }
@@ -54,7 +54,7 @@ function RecipesMade() {
               {`${area} - ${category}`}
             </h6>
 
-            <Link to={ `/${type}/${id}` }>
+            <Link to={ `/${type}s/${id}` }>
               <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
             </Link>
 
@@ -95,14 +95,14 @@ function RecipesMade() {
           <button
             type="button"
             data-testid="filter-by-food-btn"
-            onClick={ () => setFilter('comidas') }
+            onClick={ () => setFilter('comida') }
           >
             Food
           </button>
           <button
             type="button"
             data-testid="filter-by-drink-btn"
-            onClick={ () => setFilter('bebidas') }
+            onClick={ () => setFilter('bebida') }
           >
             Drinks
           </button>

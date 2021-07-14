@@ -32,7 +32,7 @@ function DetalhesBebidas({ match }) {
     const DrinkToFav = data.drinks[0];
     const favoriteRecipes = {
       id: DrinkToFav.idDrink,
-      type: 'bebidas',
+      type: 'bebida',
       area: '',
       category: DrinkToFav.strCategory,
       alcoholicOrNot: DrinkToFav.strAlcoholic,
