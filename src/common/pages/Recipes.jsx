@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import store, { addRecipes, setLoading } from '../../context/store';
 import { CATEG_DRINKS, CATEG_MEALS,
   DRINKS, fetchAPI, FETCH_CATEG_D, FETCH_CATEG_M, MEALS } from '../../services';
@@ -8,6 +9,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
 export default function Recipes() {
+  const { state } = useLocation();
   const [categoryOn, setCategoryOn] = useState(undefined);
   const { recipes: { loading, foods, meals, drinks, categoriesMeals, categoriesDrinks },
     setRecipes } = useContext(store);
@@ -48,7 +50,7 @@ export default function Recipes() {
   // ---------------------------------------------------------------------------------------------
   // CICLOS DE VIDA
 
-  useEffect(() => { if (loading) getRecipes(); });
+  useEffect(() => { if (loading && !state) getRecipes(); });
 
   // ---------------------------------------------------------------------------------------------
 

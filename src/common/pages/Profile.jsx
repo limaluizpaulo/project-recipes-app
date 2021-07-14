@@ -8,7 +8,7 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 
 export default function Profile() {
-  const [{ email }] = useState(() => getStorage('user'));
+  const [{ email }] = useState(() => getStorage('user', { email: '' }));
 
   const renderBtnsProfile = () => (
     <div className="buttonsInProfile">

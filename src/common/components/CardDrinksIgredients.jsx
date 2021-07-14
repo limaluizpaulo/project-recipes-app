@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import store, { addRecipes } from '../../context/store';
+import store, { addRecipes, setLoading } from '../../context/store';
 import {
   fetchAPI,
   EXPLORER_ING_DRINKS,
@@ -18,6 +18,7 @@ export default function CardDrinksIgredients() {
 
   function setMeals(response) {
     const { meals, categoriesMeals, categoriesDrinks } = recipes;
+    setRecipes(setLoading(false));
     setRecipes(addRecipes(
       meals, response.drinks, categoriesMeals, categoriesDrinks,
     ));
@@ -25,12 +26,14 @@ export default function CardDrinksIgredients() {
 
   function setIgredient(id) {
     fetchAPI(`${INGREDIENT_DRINKS}${id}`)
-      .then((response) => setMeals(response));
+      .then((response) => {
+        setMeals(response);
+        history.push({ pathname: '/bebidas', state: true });
+      });
   }
 
   const handleClick = ({ target: { id } }) => {
     setIgredient(id);
-    history.push('/bebidas');
   };
   return (
     DataCadsIgredientDrinks

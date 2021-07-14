@@ -3,7 +3,8 @@ import React from 'react';
 export const setStorage = (key, value) => (
   localStorage.setItem(key, JSON.stringify(value)));
 
-export const getStorage = (key) => JSON.parse(localStorage.getItem(key)) || [];
+export const getStorage = (key, value = []) => (
+  JSON.parse(localStorage.getItem(key)) || value);
 
 export const whatDayIsToday = () => {
   const todayIs = new Date();
