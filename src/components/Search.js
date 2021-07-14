@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
 import '../styles/Search.css';
 import searchByNameFood,
 { searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
   searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';
-import { Button } from 'react-bootstrap';
 
 function Search() {
   const { radio,
