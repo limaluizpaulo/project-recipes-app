@@ -62,7 +62,7 @@ function FoodRecipes() {
     <div>
       <Header title="Comidas" />
       <div className="recipesBtn-container">
-        <Button
+        <button
           variant="outline-dark"
           className="recipes-categoryBtn"
           data-testid="All-category-filter"
@@ -70,9 +70,9 @@ function FoodRecipes() {
           type="button"
         >
           All
-        </Button>
+        </button>
         {firstCategories.map((category, index) => (
-          <Button
+          <button
             variant="outline-dark"
             className="recipes-categoryBtn"
             onClick={ changeFood ? handleClick1 : handleClick }
@@ -81,7 +81,7 @@ function FoodRecipes() {
             type="button"
           >
             { category.strCategory }
-          </Button>
+          </button>
         ))}
       </div>
       <div className="recipesCard-container">

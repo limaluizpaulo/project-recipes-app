@@ -24,6 +24,7 @@ function Explore() {
           </video>
           <Link to="/explorar/comidas" className="explore-food-container">
             <Button
+              variant="info"
               type="button"
               data-testid="explore-food"
               className="explore-btn"
@@ -44,6 +45,7 @@ function Explore() {
           </video>
           <Link to="/explorar/bebidas" className="explore-drink-container">
             <Button
+              variant="info"
               type="button"
               data-testid="explore-drinks"
               className="explore-btn"

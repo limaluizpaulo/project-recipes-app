@@ -62,7 +62,7 @@ function DrinkRecipes() {
     <div>
       <Header title="Bebidas" />
       <div className="recipesBtn-container">
-        <Button
+        <button
           variant="outline-dark"
           className="recipes-categoryBtn"
           data-testid="All-category-filter"
@@ -70,9 +70,9 @@ function DrinkRecipes() {
           type="button"
         >
           All
-        </Button>
+        </button>
         {firstCategories.map((category, index) => (
-          <Button
+          <button
             variant="outline-dark"
             className="recipes-categoryBtn"
             data-testid={ `${category.strCategory}-category-filter` }
@@ -81,7 +81,7 @@ function DrinkRecipes() {
             type="button"
           >
             { category.strCategory }
-          </Button>
+          </button>
         ))}
       </div>
       <div className="recipesCard-container">
