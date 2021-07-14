@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { pathTreament } from '../helpers/HelperFunctions';
 
 export default function Card(props) {
-  const { id, thumbnail, title, index, category = '', hidden = false, className } = props;
+  const { id, thumbnail, title, index, category = '',
+    hidden = false, className, change = false } = props;
   const { pathname } = useLocation();
   console.log(pathname);
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
   const dataTestIdTitle = (category) ? `${index}-recomendation-title`
     : `${index}-card-name`;
-  const newPathname = pathTreament(pathname);
+  const newPathname = pathTreament(pathname, change);
   const hide = hidden ? 'hidden' : '';
 
   return (
@@ -35,6 +36,7 @@ export default function Card(props) {
 }
 
 Card.propTypes = {
+  change: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
