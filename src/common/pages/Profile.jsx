@@ -48,7 +48,7 @@ export default function Profile() {
     <main>
       <Header pageName="Perfil" />
       <div className={ (showImg) ? 'bigImgProfile showImage' : 'bigImgProfile' }>
-        <img src={ profileImg } alt="img-profile" />
+        {/* <img src={ profileImg } alt="img-profile" /> */}
         <button
           type="button"
           className="close"
