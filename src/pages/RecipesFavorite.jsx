@@ -7,10 +7,11 @@ function RecipesFavorite() {
   let salve;
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
-  if (initialFavorites !== null) {
-    salve = false;
-  } else {
+  console.log(filterFavorites);
+  if (initialFavorites === null || initialFavorites.length === 0) {
     salve = true;
+  } else {
+    salve = false;
   }
   return (
     <div>
