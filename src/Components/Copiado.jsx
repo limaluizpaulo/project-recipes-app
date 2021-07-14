@@ -9,9 +9,9 @@ export default function Copiado(props) {
     setTimeout(() => setIsCopy(false), twoSeconds);
   }, []);
   return (
-    <div>
+    <p className="copiado">
       Link Copiado!
-    </div>
+    </p>
   );
 }
 

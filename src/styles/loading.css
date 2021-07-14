@@ -1,5 +1,5 @@
 .tela-loading {
-  background-color: #f7f2f7;
+  background: linear-gradient(45deg, white, #f7ecf7, #efe6ef, #e7dae7);
   border-radius: 100px;
   display: flex;
   height: 100%;

@@ -1,0 +1,25 @@
+.tela-found {
+  background: linear-gradient(45deg, white, #f7ecf7, #efe6ef, #e7dae7);
+  border-radius: 100px;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.img-notFound img {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -60%);
+  width: 100%;
+}
+
+.img-notFound h1 {
+  color: black;
+  left: 40%;
+  position: absolute;
+  top: 65%;
+  transform: translate(-30%, -50%);
+}

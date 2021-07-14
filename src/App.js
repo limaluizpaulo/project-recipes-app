@@ -26,6 +26,7 @@ import './styles/Header.css';
 import './styles/profile.css';
 import './styles/font.css';
 import './styles/FavoriteRecipes.css';
+import './styles/notFound.css';
 
 import Loading from './Components/Loading';
 
@@ -42,7 +43,6 @@ function App() {
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/explorar/bebidas/ingredientes" component={ ExpoDrinksIng } />
-        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/bebidas/:id" component={ DrinkDetails } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route exact path="/bebidas" component={ Drinks } />
@@ -51,6 +51,7 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route exact path="/receitas-feitas" component={ RecipesMade } />
         <Route exact path="/" component={ Login } />
+        <Route exact path="*" component={ NotFound } />
       </Switch>
 
     </div>

@@ -47,3 +47,18 @@
 .recomendado {
   text-align: center;
 }
+
+.copiado {
+  background: linear-gradient(45deg, white, #f7ecf7, #efe6ef, #e7dae7);
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
+  color: #ff4763;
+  font-family: Poppins , sans-serif;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transform: translate(10px, -40px);
+  width: 40%;
+}
