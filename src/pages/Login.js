@@ -34,10 +34,10 @@ export default function Login() {
 
   return (
     <section className="container-login">
-      <img src={ Logo } alt="logo" />
+      <img className="logo" src={ Logo } alt="logo" />
       <Form className="login__form">
         <Form.Group className="form-group" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="labels">Email</Form.Label>
           <Form.Control
             className="inputs"
             name="email"
@@ -45,21 +45,23 @@ export default function Login() {
             data-testid="email-input"
             onChange={ handleInputChange }
           />
-          <Form.Text className="text-muted">
+          <Form.Text className="text-label-down">
             {' We\'ll never share your email with anyone else.'}
           </Form.Text>
         </Form.Group>
 
         <Form.Group className="form-group" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="labels">Password</Form.Label>
           <Form.Control
             className="inputs"
             name="password"
             type="password"
             data-testid="password-input"
             onChange={ handleInputChange }
-            placeholder="6 or more characters"
           />
+          <Form.Text className="text-label-down">
+            Six or more digits.
+          </Form.Text>
         </Form.Group>
 
         <Button
