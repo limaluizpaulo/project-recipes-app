@@ -31,7 +31,7 @@ export default function Details(props) {
       <button
         type="button"
         data-testid="share-btn"
-        className="btn-img"
+        className="btn-img btn-search"
         data-clipboard-text={ window.location.href }
         onClick={ copyLink }
       >
@@ -40,20 +40,20 @@ export default function Details(props) {
       <button
         type="button"
         data-testid="favorite-btn"
-        className="btn-img"
+        className="btn-img btn-search"
         onClick={ () => saveFavorite(id, item, tipo, setIsFavorite) }
         src={ isFavorite ? blackHeart : whiteHeart }
       >
         <img alt="favorite-btn" src={ isFavorite ? blackHeart : whiteHeart } />
       </button>
       <div className="receita-details">
-        <h3 data-testid="recipe-title">{item[`str${type}`]}</h3>
-        <h6 data-testid="recipe-category">
+        <h3 className="titulos" data-testid="recipe-title">{item[`str${type}`]}</h3>
+        <h6 className="font-media" data-testid="recipe-category">
           {type === 'Meal'
             ? item.strCategory : item.strAlcoholic}
 
         </h6>
-        <ul>
+        <ul className="textos">
           {
             Object.entries(item).filter((entrie) => {
               const [key, value] = entrie;
@@ -67,7 +67,7 @@ export default function Details(props) {
               </li>))
           }
         </ul>
-        <p data-testid="instructions">{item.strInstructions}</p>
+        <p className="textos" data-testid="instructions">{item.strInstructions}</p>
       </div>
       <div data-testid="video" />
 

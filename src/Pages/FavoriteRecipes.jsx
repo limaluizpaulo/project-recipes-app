@@ -80,7 +80,7 @@ function FavoriteRecipes() {
                   <Link
                     to={ `/${recipe.type}s/${recipe.id}` }
                     data-testid={ `${index}-horizontal-name` }
-                    className="titulos"
+                    className="titulos titulo-favorites"
                   >
                     {recipe.name}
                   </Link>

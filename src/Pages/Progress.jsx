@@ -15,7 +15,7 @@ function Progress(props) {
     ? MealAPI.getFoodById : DrinkApi.getDrinkById;
 
   return (
-    <>
+    <div>
       <DetailsProgress
         id={ id }
         fetchAPI={ API }
@@ -25,12 +25,13 @@ function Progress(props) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        className="btn-finalizar"
         onClick={ () => {} }
         disabled={ disabled }
       >
         Finalizar receita
       </button>
-    </>
+    </div>
   );
 }
 

@@ -5,3 +5,10 @@
 .normal {
   text-decoration: none;
 }
+
+
+.btn-finalizar {
+  margin-left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
+}

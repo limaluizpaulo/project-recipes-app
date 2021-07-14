@@ -44,6 +44,7 @@ const DrinkDetails = (props) => {
         { (drink || []).map((drinkItem, index) => (
           <React.Fragment key={ index }>
             <Details id={ id } item={ drinkItem } type="Drink" />
+            <h1 className="font-media recomendado">Food Recommended</h1>
             <CarroselComidas recomendations={ item.listRecomendations || [] } />
             <Link to={ `/bebidas/${id}/in-progress` }>
               <button
