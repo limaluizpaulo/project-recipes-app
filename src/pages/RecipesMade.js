@@ -22,12 +22,17 @@ function RecipesMade() {
           <p>{tags}</p>
           <Link to={ `${type}s/${id}` }>
             <button
-              data-testid={ `${index}-horizontal-image` }
+              // data-testid={ `${index}-horizontal-image` }
               // src={ image }
               alt="Receita"
               type="button"
             >
-              <img className="recipe-photo" src={ image } alt={ image } />
+              <img
+                data-testid={ `${index}-horizontal-image` }
+                className="recipe-photo"
+                src={ image }
+                alt={ image }
+              />
             </button>
           </Link>
           <div className="containerMade">
