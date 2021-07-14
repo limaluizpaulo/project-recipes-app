@@ -34,8 +34,9 @@
 
 .footer {
   align-items: center;
-  background-color: #169256;
+  background-color: var(--crl-White);
   bottom: 0;
+  box-shadow: 8px 3px 12px 0 rgba(11, 44, 102, 0.12);
   display: flex;
   height: 3.6rem;
   justify-content: space-around;

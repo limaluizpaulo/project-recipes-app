@@ -34,11 +34,12 @@
 
 .header {
   align-items: center;
-  background-color: #169256;
+  background-color: var(--crl-White);
+  box-shadow: 8px 3px 12px 0 rgba(11, 44, 102, 0.12);
   display: flex;
   font-family: Inter , sans-serif;
   height: 3.6rem;
-  justify-content: space-around;
+  justify-content: center;
   position: fixed;
   top: 0;
   width: 100vw;
@@ -46,6 +47,12 @@
 }
 
 .header h1 {
+  color: var(--crl-Main-Text);
   font-size: var(--font-size-h1);
   font-weight: 700;
+}
+
+.btn-search-bar {
+  background-color: transparent;
+  outline: none;
 }
