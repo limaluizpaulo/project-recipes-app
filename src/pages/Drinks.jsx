@@ -11,6 +11,7 @@ import '../App.css';
 function Drinks() {
   const {
     setTypeFunc, data, setData, setNameRecipes, setImgRecipes, setCategories, setIdRecip,
+    filterDrink,
   } = useContext(FetchContext);
 
   Drinks.displayName = 'Bebidas';
@@ -39,7 +40,7 @@ function Drinks() {
     setNameRecipes('strDrink');
     setImgRecipes('strDrinkThumb');
     setIdRecip('idDrink');
-    fetchDrinksList().then((res) => setData(res));
+    if (filterDrink === null) { fetchDrinksList().then((res) => setData(res)); }
   };
 
   return (

@@ -7,10 +7,9 @@ import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
+import DetailsPage from './pages/DetailsPage';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
-import DetalhesComidas from './pages/DetalhesComidas';
-import DetalhesBebidas from './pages/DetalhesBebidas';
 import InProgressFoods from './pages/InProgressFoods';
 import InProgressDrinks from './pages/InProgressDrinks';
 import SearchFoods from './pages/SearchFoods';
@@ -29,8 +28,8 @@ function App() {
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      <Route exact path="/comidas/:id" component={ DetalhesComidas } />
-      <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
+      <Route exact path="/comidas/:id" component={ DetailsPage } />
+      <Route exact path="/bebidas/:id" component={ DetailsPage } />
       <Route
         exact
         path="/comidas/:id/in-progress"
