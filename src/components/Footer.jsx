@@ -8,8 +8,8 @@ import mealIcon from '../images/mealIcon.svg';
 export default function Footer() {
   return (
 
-    <footer data-testid="footer" className="footer">
-      <div className="container">
+    <footer data-testid="footer">
+      <div className="containerFooter footer">
         <Link to="/bebidas">
           <img
             src={ drinkIcon }
