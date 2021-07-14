@@ -1,0 +1,54 @@
+.done-card-container {
+  align-items: center;
+  background-color: rgb(228, 204, 204);
+  border-radius: 10px;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 12px 15px;
+  padding: 20px;
+}
+
+.done-card-container-img img {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.done-card-container-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  max-width: 50%;
+  min-width: 50%;
+}
+
+.done-card-container-text a {
+  align-items: center;
+  text-decoration: none;
+}
+
+.done-card-container-text p {
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.done-card-container-text h6 {
+  color: grey;
+  font-size: 80%;
+}
+
+.done-card-container-text h2 {
+  color: black;
+  font-size: 1.2em;
+}
+
+.button-copy-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-copy-container img {
+  justify-content: center;
+}

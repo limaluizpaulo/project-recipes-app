@@ -4,6 +4,9 @@ import PropTypes, { string } from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
+import '../css/DoneRecipeCard.css';
+import '../css/Buttons.css';
+
 class DoneRecipesCard extends Component {
   constructor() {
     super();
@@ -29,44 +32,53 @@ class DoneRecipesCard extends Component {
       name, area, category, doneDate, tags, image, alcoholicOrNot, type, id } = recipe;
     const { copied } = this.state;
     return (
-      <section>
-        <Link to={ `/${type}s/${id}` }>
-          <div>
+      <section className="done-card-container">
+
+        <div className="done-card-container-img">
+          <Link to={ `/${type}s/${id}` }>
             <img
               src={ image }
               alt={ name }
               data-testid={ `${index}-horizontal-image` }
               width="100px"
             />
-          </div>
-        </Link>
-        <div>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>
+          </Link>
+        </div>
+
+        <div className="done-card-container-text">
+
+          <h6 data-testid={ `${index}-horizontal-top-text` }>
             {`${area} - ${category}`}
-          </h5>
-          <h5 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h5>
+          </h6>
+          <h6 data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</h6>
 
           <Link to={ `/${type}s/${id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
           </Link>
 
           <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-          <button type="button" onClick={ this.copyLink }>
-            {copied ? 'Link copiado!'
-              : (
-                <img
-                  src={ shareIcon }
-                  alt="shareIcon"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />)}
-          </button>
-          {tags ? tags.map((tag, indexTag) => (
-            <span
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
+          <div className="button-copy-container">
+            <button
+              className="like-and-share-page2"
+              type="button"
+              onClick={ this.copyLink }
             >
-              { tag }
-            </span>)) : null}
+              {copied ? 'Link copiado!'
+                : (
+                  <img
+                    src={ shareIcon }
+                    alt="shareIcon"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />)}
+            </button>
+            {tags ? tags.map((tag, indexTag) => (
+              <span
+                key={ indexTag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                { tag }
+              </span>)) : null}
+          </div>
         </div>
       </section>
     );
