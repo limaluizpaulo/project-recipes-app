@@ -22,7 +22,7 @@ const Categories = ({ food }) => {
   };
 
   return (
-    <div>
+    <nav className="navCategories">
       {filter.map(({ strCategory }) => (
         <button
           className="buttons-cattegory"
@@ -42,7 +42,7 @@ const Categories = ({ food }) => {
       >
         All
       </button>
-    </div>
+    </nav>
   );
 };
 

@@ -130,8 +130,10 @@ const FoodProgress = ({ match }) => {
         src={ meal.strMealThumb }
         alt={ meal.strMeal }
       />
-      Ingredientes:
-      {renderCheckBox()}
+      <p>Ingredientes</p>
+      <ul>
+        {renderCheckBox()}
+      </ul>
       <p data-testid="video">Video</p>
       <p data-testid="instructions">{meal.strInstructions}</p>
       <p data-testid="0-recomendation-card">recomendation</p>

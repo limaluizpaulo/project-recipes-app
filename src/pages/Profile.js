@@ -11,28 +11,36 @@ const Profile = () => {
       <Header title="Perfil" />
       {/* <img src={ iconProfile } alt="profile" /> */}
       <p data-testid="profile-email">{emailLS}</p>
-      <Link to="/receitas-feitas">
-        <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
-      </Link>
-      <Link to="/receitas-favoritas">
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-        >
-          Receitas Favoritas
-
-        </button>
-      </Link>
-      <Link to="/">
-        <button
-          onClick={ () => localStorage.clear() }
-          type="button"
-          data-testid="profile-logout-btn"
-        >
-          Sair
-
-        </button>
-      </Link>
+      <nav>
+        <Link to="/receitas-feitas">
+          <button
+            className="buttons-cattegory"
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link to="/receitas-favoritas">
+          <button
+            className="buttons-cattegory"
+            type="button"
+            data-testid="profile-favorite-btn"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link to="/">
+          <button
+            className="buttons-cattegory"
+            onClick={ () => localStorage.clear() }
+            type="button"
+            data-testid="profile-logout-btn"
+          >
+            Sair
+          </button>
+        </Link>
+      </nav>
       <Footer />
     </div>
   );

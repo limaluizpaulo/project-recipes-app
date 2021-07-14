@@ -20,14 +20,16 @@ const FavoriteRecipes = () => {
     .filter(({ type }) => type === filter || !filter).map((item, index) => {
       const { id, category, name, image, area, alcoholicOrNot, type } = item;
       return (
-        <div key={ `${index} - ${name}` }>
+        <div className="cardMade" key={ `${index} - ${name}` }>
           <Link to={ `${type}s/${id}` }>
             <button
               data-testid={ `${index}-horizontal-image` }
-              src={ image }
+              // src={ image }
               alt="Receita"
               type="button"
-            />
+            >
+              <img className="recipe-photo" src={ image } alt={ name } />
+            </button>
           </Link>
           <FavoriteIcon
             update={ update }
@@ -55,29 +57,32 @@ const FavoriteRecipes = () => {
     });
 
   return (
-    <div>
-      <Header title="Receitas Favoritas" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setFilter() }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => setFilter('comida') }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setFilter('bebida') }
-      >
-        Drinks
-      </button>
+    <div className="recipe recipeProgress">
+      <nav>
+
+        <Header title="Receitas Favoritas" />
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter() }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('bebida') }
+        >
+          Drinks
+        </button>
+      </nav>
       {favorites && renderCards()}
     </div>
   );

@@ -126,8 +126,8 @@ const DrinkProgress = ({ match }) => {
         src={ drink.strDrinkThumb }
         alt={ drink.strDrink }
       />
+      <p>Ingredientes</p>
       <ul>
-        Ingredientes:
         {renderCheckBox()}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
