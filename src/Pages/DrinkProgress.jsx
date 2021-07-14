@@ -64,7 +64,7 @@ class DrinkProgress extends React.Component {
               value={ e }
               type="checkbox"
             />
-            <p>{ `${e}  ${measures[i]}` }</p>
+            <span>{ `${e}  ${measures[i]}` }</span>
           </label>
         ))}
 
@@ -76,7 +76,7 @@ class DrinkProgress extends React.Component {
           className="button-details"
           onClick={ this.handleEnd }
         >
-          Finalizar Receita
+          Finalizar receita
         </button>
       </main>
     );
