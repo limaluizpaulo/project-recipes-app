@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { requestRandomDrink } from '../services/api';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -23,25 +24,27 @@ function DrinkExplore() {
       <div className="drinkAndFood-exploreButtons-container">
         <div>
           <Link to="/explorar/bebidas/ingredientes">
-            <button
+            <Button
+              variant="info"
               className="drinkAndFood-exploreButtons"
               type="button"
               data-testid="explore-by-ingredient"
             >
               Por Ingredientes
-            </button>
+            </Button>
           </Link>
         </div>
         <div>
           {item.map((subItem, index) => (
             <Link key={ index } to={ `/bebidas/${subItem.idDrink}` }>
-              <button
+              <Button
+                variant="info"
                 type="button"
                 className="drinkAndFood-exploreButtons"
                 data-testid="explore-surprise"
               >
                 Me Surpreenda!
-              </button>
+              </Button>
             </Link>
           ))}
         </div>
