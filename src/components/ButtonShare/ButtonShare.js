@@ -20,9 +20,9 @@ function ButtonShare({ path, dataTest }) {
       {showMsg && <span>Link copiado!</span>}
       <button
         type="button"
-        onClick={ () => {
+        onClick={ async () => {
           exibeText();
-          copy(path);
+          await copy(path);
         } }
       >
         <img

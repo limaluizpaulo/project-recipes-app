@@ -49,6 +49,7 @@ function DetalhesComidas({ match }) {
         <ButtonFavorite
           id={ item.idMeal }
           favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
         />
       </>
     );

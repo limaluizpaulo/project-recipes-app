@@ -50,6 +50,7 @@ function DetalhesBebidas({ match }) {
         <ButtonFavorite
           id={ item.idDrink }
           favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
         />
       </>
     );
