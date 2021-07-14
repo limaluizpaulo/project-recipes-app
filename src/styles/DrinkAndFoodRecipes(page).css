@@ -66,6 +66,7 @@ body {
 }
 
 .card {
+  border: none;
   border-radius: 15px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   height: 238px;
