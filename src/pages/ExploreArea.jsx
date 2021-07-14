@@ -35,7 +35,7 @@ export default function ExploreArea() {
 
   return isFetching ? <p>Laoding</p> : (
     <>
-      <Header title="Explorar Origem" />
+      <Header title="Explorar Origem" hasSearchBar />
       <section>
         <form>
           <select

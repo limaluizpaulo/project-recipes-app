@@ -4,18 +4,18 @@ import Button from '../helpers/Button';
 import Header from '../components/Header';
 import DoneCard from '../components/DoneCard';
 
-function ReceitasFeitas() {
+function ReceitasFavoritas() {
   const doneRecipesStorage = getItem('doneRecipes');
-  return doneRecipesStorage && (
+  return (
     <>
-      <Header title="Refeitas Feitas" />
+      <Header title="Receitas Favoritas" />
       <section>
         <Button testid="filter-by-all-btn" label="All" />
         <Button testid="filter-by-food-btn" label="Food" />
         <Button testid="filter-by-drink-btn" label="Drinks" />
       </section>
       <section>
-        {doneRecipesStorage.map((recipe, index) => (
+        {doneRecipesStorage && doneRecipesStorage.map((recipe, index) => (
           <DoneCard
             index={ index }
             key={ recipe.id }
@@ -35,4 +35,4 @@ function ReceitasFeitas() {
   );
 }
 
-export default ReceitasFeitas;
+export default ReceitasFavoritas;
