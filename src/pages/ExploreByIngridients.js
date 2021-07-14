@@ -28,29 +28,31 @@ export default function ExploreByIngridients() {
   };
 
   return (
-    <>
-      <Header />
-      {ingredientsList.map((item, i) => (
-        <Link
-          data-testid={ `${i}-ingredient-card` }
-          onClick={ () => handleClick(item[secondKey]) }
-          to={ homePath }
-          key={ i }
-        >
-          <section>
-            <p data-testid={ `${i}-card-name` }>
-              {item[secondKey]}
-            </p>
-            <img
-              width="150px"
-              data-testid={ `${i}-card-img` }
-              src={ `https://www.${domain}.com/images/ingredients/${item[secondKey]}-Small.png` }
-              alt={ item[secondKey] }
-            />
-          </section>
-        </Link>
-      ))}
-      <Footer />
-    </>
+    ingredientsList ? <h1>Loading...</h1>
+      : (
+        <>
+          <Header />
+          {ingredientsList.map((item, i) => (
+            <Link
+              data-testid={ `${i}-ingredient-card` }
+              onClick={ () => handleClick(item[secondKey]) }
+              to={ homePath }
+              key={ i }
+            >
+              <section>
+                <p data-testid={ `${i}-card-name` }>
+                  {item[secondKey]}
+                </p>
+                <img
+                  width="150px"
+                  data-testid={ `${i}-card-img` }
+                  src={ `https://www.${domain}.com/images/ingredients/${item[secondKey]}-Small.png` }
+                  alt={ item[secondKey] }
+                />
+              </section>
+            </Link>
+          ))}
+          <Footer />
+        </>)
   );
 }

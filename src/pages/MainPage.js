@@ -61,7 +61,7 @@ export default function MainPage() {
     }
   }, [ingredientsResults, domain, firstKey, limit]);
 
-  async function handleCategoryFilter(category) {
+  function handleCategoryFilter(category) {
     if (toggle.category === category) {
       setToggle({ status: false, category: '' });
       setRenderer(dataResult.filter((_e, index) => index < limit));

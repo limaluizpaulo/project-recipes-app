@@ -42,8 +42,8 @@ export default function InProgress() {
           .map((result) => (` - ${result[1]}`))}`,
       ]))).filter((fil) => fil);
   }
-
   const listFormated = handleIngredientsData();
+
   useEffect(() => {
     if (validateCheckBox === listFormated.length) {
       setDisabled(false);
@@ -75,54 +75,55 @@ export default function InProgress() {
     saveFinished(renderer[0], path, date);
     history.push('/receitas-feitas');
   }
-  if (!renderer[0]) return <h1>Loading...</h1>;
   return (
-    <>
-      <img
-        data-testid="recipe-photo"
-        src={ renderer[0][imgSrc] }
-        alt={ renderer[0][title] }
-      />
+    !renderer[0] ? (<h1>Loading...</h1>)
+      : (
+        <>
+          <img
+            data-testid="recipe-photo"
+            src={ renderer[0][imgSrc] }
+            alt={ renderer[0][title] }
+          />
 
-      <p data-testid="recipe-title">{renderer[0][title]}</p>
+          <p data-testid="recipe-title">{renderer[0][title]}</p>
 
-      <Button onClick={ handleShare }>
-        <img data-testid="share-btn" src={ shareIcon } alt="" />
-      </Button>
+          <Button onClick={ handleShare }>
+            <img data-testid="share-btn" src={ shareIcon } alt="" />
+          </Button>
 
-      <Button>
-        <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
-      </Button>
+          <Button>
+            <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="" />
+          </Button>
 
-      <p data-testid="recipe-category">{ renderer[0].strCategory }</p>
+          <p data-testid="recipe-category">{ renderer[0].strCategory }</p>
 
-      {handleIngredientsData().map((item, i) => (
-        <label key={ item } htmlFor={ `${i}-ingredient-step` }>
-          <p
-            data-testid={ `${i}-ingredient-step` }
+          {handleIngredientsData().map((item, i) => (
+            <label key={ item } htmlFor={ `${i}-ingredient-step` }>
+              <p
+                data-testid={ `${i}-ingredient-step` }
+              >
+                <input
+                  id={ `${i}-ingredient-step` }
+                  name={ `step-${i + 1}` }
+                  type="checkbox"
+                  value={ false }
+                  className=""
+                  onChange={ handleCheckBox }
+                />
+                {` ${item}`}
+              </p>
+            </label>
+          ))}
+
+          <p data-testid="instructions">{ renderer[0].strInstructions }</p>
+
+          <Button
+            data-testid="finish-recipe-btn"
+            onClick={ handleFinished }
+            disabled={ isDisabled }
           >
-            <input
-              id={ `${i}-ingredient-step` }
-              name={ `step-${i + 1}` }
-              type="checkbox"
-              value={ false }
-              className=""
-              onChange={ handleCheckBox }
-            />
-            {` ${item}`}
-          </p>
-        </label>
-      ))}
-
-      <p data-testid="instructions">{ renderer[0].strInstructions }</p>
-
-      <Button
-        data-testid="finish-recipe-btn"
-        onClick={ handleFinished }
-        disabled={ isDisabled }
-      >
-        Finalizar Receita
-      </Button>
-    </>
+            Finalizar Receita
+          </Button>
+        </>)
   );
 }
