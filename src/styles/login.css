@@ -1,21 +1,32 @@
 .container-login {
+  background-color: white;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 8vh;
-  width: 64%;
+  width: 100vw;
 }
 
 .login__form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+
+.form-group {
+  margin-left: 40px;
+  width: 80%;
 }
 
 .button-submit {
+  background-color: black;
   font-weight: 700;
   margin: 15px auto;
   width: 100px;
+}
+
+.button-submit:disabled {
+  background-color: transparent;
+  border: 1px solid blue;
+  color: blue;
 }
 
 .inputs {

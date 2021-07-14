@@ -36,7 +36,7 @@ export default function Login() {
     <section className="container-login">
       <img src={ Logo } alt="logo" />
       <Form className="login__form">
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group className="form-group" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             className="inputs"
@@ -50,7 +50,7 @@ export default function Login() {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group className="form-group" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             className="inputs"
@@ -64,7 +64,6 @@ export default function Login() {
 
         <Button
           className="button-submit"
-          variant="primary"
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !validation }
