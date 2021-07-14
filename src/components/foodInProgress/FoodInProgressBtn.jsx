@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import RecipeContext from '../../context/Context';
+import { getRecipesDone } from '../../services/helpers/localStorage';
 
 const FoodInProgressBtn = () => {
   const [finished, setFinished] = useState(true);
   const history = useHistory();
-  const { ingredients } = useContext(RecipeContext);
+  const { ingredients, createObjectFromFood } = useContext(RecipeContext);
+
   useEffect(() => {
     const checkIfIsFinished = () => {
       const keys = Object.keys(ingredients);
@@ -24,6 +26,13 @@ const FoodInProgressBtn = () => {
   }, [ingredients]);
 
   const handleFinishRecipe = () => {
+    const dataToBeStored = createObjectFromFood();
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    dataToBeStored.doneDate = `${day}/${month}/${year}`;
+    getRecipesDone(dataToBeStored);
     history.push('/receitas-feitas');
   };
 

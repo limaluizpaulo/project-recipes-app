@@ -1,16 +1,7 @@
-.foodPage {
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
-  min-height: calc(100vh - 19vh);
+.foodPages__favorites {
+  background-color: #eff0f3;
+  min-height: calc(100vh - 10vh);
   padding-bottom: 65px;
-}
-
-.food__category__button {
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
-  padding: 5px;
-  width: 100px;
 }
 
 .food__category__container {
@@ -45,12 +36,14 @@
   transform: scale(1.02);
 }
 
-.food__card_text {
+.fv__food__card_text {
   background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
+  color: black;
+  font-family: rancho , sans-serif;
   min-height: 20%;
-  position: absolute;
+  position: relative;
   width: 100%;
 }
 
@@ -78,7 +71,7 @@
   max-width: 100%;
 }
 
-.food__card img {
+.food__card__img img {
   border-radius: 10px;
   height: 100%;
   object-fit: cover;

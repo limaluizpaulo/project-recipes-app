@@ -16,6 +16,7 @@ const RecipeProvider = ({ children }) => {
   const [recipesByPlace, setRecipesByPlace] = useState([]);
   const [area, setArea] = useState();
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [test, setTest] = useState({});
   // const [selectedIngredient, setSelectedIngredient] = useState('');
   const [previousIsExploreIngredients, setPreviousIsExploreIngredients] = useState(false);
   const [filterDrinksIngredients, setFilterDrinksIngredients] = useState([]);
@@ -70,8 +71,12 @@ const RecipeProvider = ({ children }) => {
       strDrink,
       strDrinkThumb,
       strMealThumb,
+      strTags,
     } = selectedFood;
-
+    let readyTags = [];
+    if (strTags) {
+      readyTags = strTags.split(',');
+    }
     return ({
       id: idMeal || idDrink,
       type: idMeal ? 'comida' : 'bebida',
@@ -80,8 +85,10 @@ const RecipeProvider = ({ children }) => {
       alcoholicOrNot: strAlcoholic || '',
       name: strMeal || strDrink,
       image: strDrinkThumb || strMealThumb,
+      tags: readyTags,
     });
   };
+
   const objContext = {
     selectedFood,
     setSelectedFood,
@@ -109,6 +116,8 @@ const RecipeProvider = ({ children }) => {
     setPreviousIsExploreIngredients,
     filterDrinksIngredients,
     setFilterDrinksIngredients,
+    test,
+    setTest,
   };
   return (
     <RecipeContext.Provider value={ objContext }>

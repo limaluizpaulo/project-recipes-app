@@ -18,10 +18,15 @@ export default function ExploreDrinksIngredients({ history }) {
     const fetchMealsByIngredients = async () => {
       const DOZE = 12;
       const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
-      const request = await fetch(endpoint);
-      const { drinks } = await request.json();
-      const ingredients = drinks.filter((_ingredient, idx) => idx < DOZE);
-      setIngredientsList(ingredients);
+
+      try {
+        const request = await fetch(endpoint);
+        const { drinks } = await request.json();
+        const ingredients = drinks.filter((_ingredient, idx) => idx < DOZE);
+        setIngredientsList(ingredients);
+      } catch (erro) {
+        console.log(erro);
+      }
     };
     fetchMealsByIngredients();
   }, [setIngredientsList]);

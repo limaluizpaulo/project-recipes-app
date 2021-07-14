@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
@@ -14,16 +14,12 @@ function DoneRecipesCard() {
     await navigator.clipboard.writeText(data);
   };
 
-  useEffect(() => {
-    getRecipesDone();
-  }, []);
-
   function handleOnClick({ target }) {
     copyLink(`http://localhost:3000/${target.name}s/${target.id}`);
     toast.success('Link copiado!');
   }
-
-  const recipesIsDone = getRecipesDone();
+  console.log(getRecipesDone());
+  const recipesIsDone = getRecipesDone() || [];
   const filtredRecipesDone = recipesIsDone
     .filter((recipe) => recipe.type !== selectedTypeItem);
   const zero = 0;
@@ -35,34 +31,34 @@ function DoneRecipesCard() {
           <div className="food__card__done">
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <span
-                className="food__card_text"
+                className="dn__food__card_text"
                 data-testid={ `${index}-horizontal-name` }
               >
-                { recipe.name }
+                {recipe.name}
               </span>
-            </Link>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
-              <img
-                className="food__card__img"
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <div className="food__card__img">
+                <img
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </div>
+
             </Link>
 
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
-              { recipe.type === 'comida'
+              {recipe.type === 'comida'
                 ? `${recipe.area} - ${recipe.category}`
-                : recipe.alcoholicOrNot }
+                : recipe.alcoholicOrNot}
             </p>
             <div>
               <span>Receita feita em: </span>
               <span
                 data-testid={ `${index}-horizontal-done-date` }
               >
-                { recipe.doneDate }
+                {recipe.doneDate}
               </span>
             </div>
             <button
@@ -78,21 +74,21 @@ function DoneRecipesCard() {
               />
             </button>
 
-            { recipe.tags.length === zero ? null : (
+            {recipe.tags.length === zero ? null : (
               <div>
                 <button
                   className="food__tag__button"
                   type="button"
                   data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                 >
-                  { recipe.tags[0] }
+                  {recipe.tags[0]}
                 </button>
                 <button
                   className="food__tag__button"
                   type="button"
                   data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
                 >
-                  { recipe.tags[1] }
+                  {recipe.tags[1]}
                 </button>
               </div>
             )}

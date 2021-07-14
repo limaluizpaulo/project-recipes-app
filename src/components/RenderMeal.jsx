@@ -4,7 +4,6 @@ import RecipeContext from '../context/Context';
 import { apiRequestFoods } from '../services/api/getMealsDrink';
 import { apiCategoriesFoods } from '../services/api/getList';
 import { requestCategoriesMael } from '../services/api/getCategories';
-
 // Tela principal de receitas de comidas: /comidas
 function RenderMeal() {
   const { data } = useContext(RecipeContext);

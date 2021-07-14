@@ -42,6 +42,7 @@ const FoodDetails = ({ children }) => {
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
     const parsedFood = createObjectFromFood();
+    delete parsedFood.tags;
     if (!isFavorite === true) {
       updateLocalStorage('favoriteRecipes', parsedFood, true);
     } else {

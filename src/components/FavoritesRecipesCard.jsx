@@ -66,22 +66,20 @@ export default function FavoriteRecipesCard() {
         >
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <span
-              className="food__card_text"
+              className="fv__food__card_text"
               data-testid={ `${index}-horizontal-name` }
             >
-              { recipe.name }
+              {recipe.name}
             </span>
-          </Link>
-          <div className="class-image">
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+
+            <div className="food__card__img">
               <img
-                className="food__card__img"
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
               />
-            </Link>
-          </div>
+            </div>
+          </Link>
           <div
             className="class-items"
             id={ `${index}-div-buttons` }
@@ -90,9 +88,9 @@ export default function FavoriteRecipesCard() {
               <span
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                { recipe.type === 'comida'
+                {recipe.type === 'comida'
                   ? `${recipe.area} - ${recipe.category}`
-                  : recipe.alcoholicOrNot }
+                  : recipe.alcoholicOrNot}
               </span>
             </div>
 

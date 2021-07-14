@@ -1,6 +1,6 @@
 .foodPage {
-  background: linear-gradient(180deg, var(--y-o) 0%, rgba(255, 206, 33, 0.54) 77.6%);
-  min-height: calc(100vh - 19vh);
+  background-color: #eff0f3;
+  min-height: calc(100vh - 64px);
   padding-bottom: 65px;
 }
 
@@ -11,21 +11,28 @@
 }
 
 .food__category__button {
-  background: rgba(255, 255, 255, 0.8);
+  background: #ff8e3c;
   border: none;
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+  transition: color 0.2s  background-color 0.2s;
   width: 100px;
 }
 
 .food__category__button__drink {
-  background: rgba(255, 255, 255, 0.8);
+  background: #ff8e3c;
   border: none;
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+  transition: color 0.2s  background-color 0.2s;
   width: 150px;
+}
+
+.food__category-selected {
+  background-color: black;
+  color: white;
 }
 
 .food__cards__container {

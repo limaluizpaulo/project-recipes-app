@@ -15,38 +15,40 @@ export default function FavoritesRecipes({ history }) {
   };
 
   return (
-    <div className="foodPage">
+    <>
       <Header history={ history } title="Receitas Favoritas" />
-      <section className="food__category__container">
-        <button
-          type="button"
-          className="food__category__button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => setFilterRecipesDone('all') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className="food__category__button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => setFilterRecipesDone('bebida') }
-        >
-          Foods
-        </button>
-        <button
-          type="button"
-          className="food__category__button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => setFilterRecipesDone('comida') }
-        >
-          Drinks
-        </button>
-      </section>
-      <section className="food__cards__container">
-        <FavoriteRecipesCard />
-      </section>
-    </div>
+      <div className="foodPages__favorites">
+        <section className="food__category__container">
+          <button
+            type="button"
+            className="food__category__button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => setFilterRecipesDone('all') }
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className="food__category__button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => setFilterRecipesDone('bebida') }
+          >
+            Foods
+          </button>
+          <button
+            type="button"
+            className="food__category__button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => setFilterRecipesDone('comida') }
+          >
+            Drinks
+          </button>
+        </section>
+        <section className="food__cards__container">
+          <FavoriteRecipesCard />
+        </section>
+      </div>
+    </>
   );
 }
 
