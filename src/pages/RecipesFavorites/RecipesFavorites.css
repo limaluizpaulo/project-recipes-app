@@ -1,0 +1,42 @@
+.link-img {
+  height: 100%;
+  width: 150px;
+}
+
+.link-img img {
+  height: 100%;
+  width: 100%;
+}
+
+.card-favorite {
+  border: 1px solid rgb(155, 143, 111);
+  display: flex;
+  justify-content: end;
+  margin: 10px auto;
+  padding: 5px;
+  width: 90%;
+}
+
+.detaisl-favorite {
+  padding-left: 5px;
+}
+
+.detaisl-favorite h6, .detaisl-favorite h5 {
+  margin: 0;
+}
+
+.detaisl-favorite span {
+  margin-right: 5px;
+}
+
+.detaisl-favorite button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: fantasy;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 30px;
+}
