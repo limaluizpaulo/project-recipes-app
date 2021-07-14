@@ -215,7 +215,7 @@ main {
 .buttonsProfile {
   font-size: x-large;
   margin-bottom: 30%;
-  box-shadow: 0 0 45px rgb(235, 22, 22);
+  box-shadow: 0 0 35px rgb(235, 22, 22);
 }
 
 .headingProfile {
