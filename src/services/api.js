@@ -23,7 +23,7 @@ export const getRecipesByIngredients = async (ingredient) => {
     console.log(meals);
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -33,7 +33,7 @@ export const getRecipesByName = async (name) => {
     const { meals } = await result.json();
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -43,7 +43,7 @@ export const getRecipesByFirstLetter = async (firstLetter) => {
     const { meals } = await result.json();
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -79,7 +79,7 @@ export const getDrinksByIngredients = async (ingredient) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -89,7 +89,7 @@ export const getDrinksByName = async (name) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -99,7 +99,7 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
