@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { pathTreament } from '../helpers/HelperFunctions';
@@ -10,8 +10,8 @@ export default function DoneCard(props) {
     hidden = false, className, doneDate, url, tags } = props;
   // const { pathname } = useLocation();
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
-  const dataTestIdTitle = (category) ? `${index}-recomendation-title`
-    : `${index}-card-name`;
+  // const dataTestIdTitle = (category) ? `${index}-recomendation-title`
+  //   : `${index}-card-name`;
   const newPathname = url && pathTreament(url);
   const hide = hidden ? 'hidden' : '';
   const [shareCopy, setShareCopy] = useState(false);
@@ -72,9 +72,9 @@ export default function DoneCard(props) {
         {doneDate}
       </span>
       <span>
-        {tags.map((tag, index) => (
+        {tags.map((tag, i) => (
           <tag
-            data-testid={ `${index}-${tag}-horizontal-tag` }
+            data-testid={ `${i}-${tag}-horizontal-tag` }
             key={ `${tag}-${id}` }
           >
             {tag}
@@ -85,6 +85,9 @@ export default function DoneCard(props) {
 }
 
 DoneCard.propTypes = {
+  tags: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  doneDate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,

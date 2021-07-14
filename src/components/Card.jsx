@@ -6,6 +6,7 @@ import { pathTreament } from '../helpers/HelperFunctions';
 export default function Card(props) {
   const { id, thumbnail, title, index, category = '', hidden = false, className } = props;
   const { pathname } = useLocation();
+  console.log(pathname);
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
   const dataTestIdTitle = (category) ? `${index}-recomendation-title`
     : `${index}-card-name`;

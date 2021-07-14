@@ -50,3 +50,12 @@ export const createDoneRecipe = (id, type, detailsData, pathname) => {
   };
   return item;
 };
+
+export const createIngredientList = (detailsData) => {
+  if (detailsData) {
+    return (Object.keys(detailsData).filter(
+      (key) => (key.includes('strIngredient') && detailsData[key]),
+    ));
+  }
+  return [];
+};
