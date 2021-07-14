@@ -143,3 +143,20 @@ main {
 .h2 {
   justify-content: space-around;
 }
+
+.instrucoesP {
+  margin-left: 1%;
+  text-align: justify;
+  width: 90%;
+}
+
+.favorite-share {
+  display: inline-flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+
+}
+
+.favortieButton {
+  padding-left: 20px;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Button } from 'react-bootstrap';
 import { fetchIdMeals } from '../Service/foodApi';
 import { fetchAllDrinks } from '../Service/drinkApi';
 
@@ -106,17 +106,19 @@ export default function MealsDetails() {
         src={ strMealThumb }
         alt="foto da comida"
         data-testid="recipe-photo"
-        width="100px"
+        width="250px"
       />
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <ShareButton />
-      <FavoriteButton
-        stateChangeHeart={ stateChangeHeart }
-        setStateChangeHeart={ setStateChangeHeart }
-        removeFavorited={ removeFavorited }
-      />
-      <p data-testid="recipe-category">{strCategory}</p>
-      <h2>Ingredients</h2>
+      <div className="favorite-share">
+        <ShareButton />
+        <FavoriteButton
+          stateChangeHeart={ stateChangeHeart }
+          setStateChangeHeart={ setStateChangeHeart }
+          removeFavorited={ removeFavorited }
+        />
+      </div>
+      <h5 data-testid="recipe-category">{strCategory}</h5>
+      <h3>Ingredients</h3>
       <ul>
         {ingredientsMeals.map((ingredient, index) => (
           <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
@@ -126,8 +128,12 @@ export default function MealsDetails() {
           </li>
         ))}
       </ul>
-      <h2>Instructions</h2>
-      <p data-testid="instructions">{strInstructions}</p>
+      <h3>Instructions</h3>
+      <p data-testid="instructions" className="instrucoesP">
+        {strInstructions}
+        {' '}
+
+      </p>
       <iframe
         data-testid="video"
         width="560"
@@ -141,7 +147,7 @@ export default function MealsDetails() {
       <Carousel>
         {drinksAll.map((drink, index) => (
           <Carousel.Item
-            interval={ 1000 }
+            interval={ 850 }
             key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
@@ -158,13 +164,14 @@ export default function MealsDetails() {
       </Carousel>
       <Link to={ `/comidas/${idMeal}/in-progress` }>
 
-        <button
+        <Button
+          variant="danger"
           type="button"
           data-testid="start-recipe-btn"
           className={ invisibleButton ? 'iniciarReceitaInvisible' : 'iniciarReceita' }
         >
           {checkButtonstate ? 'Continuar Receita' : 'Iniciar Receita' }
-        </button>
+        </Button>
         )
       </Link>
     </div>
