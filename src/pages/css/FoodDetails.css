@@ -1,5 +1,34 @@
 .start-btn {
-  bottom: 0;
+  top: 10px;
   position: fixed;
-  visibility: hidden;
+  padding: 5px 15px;
+  border-radius: 10px;
+  outline: none;
+}
+
+#foodDetails {
+  min-width: 100vw;
+  background-color: #E7E6E6 ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#foodInstructions {
+  max-width: 360px;
+}
+
+#foodButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 53px;
+  width: 50%;
+}
+
+#foodButtons section {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
 }

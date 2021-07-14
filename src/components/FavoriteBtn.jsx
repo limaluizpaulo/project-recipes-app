@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ id, type, currentRecipe, testId, setShouldUpdate, shouldUpdate }) {
+import { MdFavorite } from 'react-icons/md';
+import { GrFavorite } from 'react-icons/gr';
+
+function FavoriteBtn({ id, type, currentRecipe, setShouldUpdate, shouldUpdate }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const typePTBR = type === true ? 'comida' : 'bebida';
 
@@ -59,19 +60,9 @@ function FavoriteBtn({ id, type, currentRecipe, testId, setShouldUpdate, shouldU
     <button type="button" onClick={ saveAsFavorite }>
       {isFavorite
         ? (
-          <img
-            src={ blackHeartIcon }
-            className="small-btn"
-            alt="Ícone de coração"
-            data-testid={ testId }
-          />)
+          <MdFavorite />)
         : (
-          <img
-            src={ whiteHeartIcon }
-            className="small-btn"
-            alt="Ícone de coração"
-            data-testid={ testId }
-          />)}
+          <GrFavorite />)}
     </button>
   );
 }

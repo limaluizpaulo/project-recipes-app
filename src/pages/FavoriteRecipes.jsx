@@ -73,7 +73,6 @@ function FavoriteRecipes() {
                 id={ id }
                 type={ type === 'comida' }
                 currentRecipe={ el }
-                testId={ `${idx}-horizontal-favorite-btn` }
                 setShouldUpdate={ setShouldUpdate }
                 shouldUpdate={ shouldUpdate }
               />

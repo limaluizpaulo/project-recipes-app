@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetails, getDrinkDetails } from '../services';
 import { checkDoneRecipes, checkProgress } from '../services/localStorageManager';
-import './css/FoodDetails.css';
 import {
   RecDrinks,
   RecMeals,
@@ -10,6 +9,7 @@ import {
   IngList,
   FavoriteBtn,
   ShareBtn } from '../components';
+import './css/FoodDetails.css';
 
 function FoodDetails({ match, history }) {
   const { params: { id } } = match;
@@ -53,22 +53,27 @@ function FoodDetails({ match, history }) {
     strDrinkThumb } = details[0];
 
   return (
-    <>
-      <img
-        data-testid="recipe-photo"
-        src={ strMealThumb || strDrinkThumb }
-        alt={ strMeal || strDrink }
-      />
-      <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <FavoriteBtn
-        id={ id }
-        type={ type }
-        currentRecipe={ details[0] }
-        testId="favorite-btn"
-      />
-      <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
-      {wasCopied && <span>Link copiado!</span>}
-      <div>
+    <main id="foodDetails">
+      <div id="foodButtons">
+        <img
+          id=""
+          data-testid="recipe-photo"
+          src={ strMealThumb || strDrinkThumb }
+          alt={ strMeal || strDrink }
+        />
+        <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
+        <section>
+          <FavoriteBtn
+            id={ id }
+            type={ type }
+            currentRecipe={ details[0] }
+            testId="favorite-btn"
+          />
+          <ShareBtn showCopiedMsg={ setWasCopied } testId="share-btn" />
+        </section>
+        {wasCopied && <span>Link copiado!</span>}
+      </div>
+      <div id="foodInstructions">
         {
           strAlcoholic
             ? <h4 data-testid="recipe-category">Alcoholic</h4>
@@ -79,12 +84,12 @@ function FoodDetails({ match, history }) {
         <div>
           <MealClip strYoutube={ strYoutube } />
         </div>
-        {
-          pathname.includes('/comida')
-            ? <RecDrinks id={ id } />
-            : <RecMeals id={ id } />
-        }
       </div>
+      {
+        pathname.includes('/comida')
+          ? <RecDrinks id={ id } />
+          : <RecMeals id={ id } />
+      }
       <button
         className="start-btn"
         data-testid="start-recipe-btn"
@@ -98,7 +103,7 @@ function FoodDetails({ match, history }) {
             : 'Iniciar Receita'
         }
       </button>
-    </>
+    </main>
   );
 }
 
