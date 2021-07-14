@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { fetchMealsCategory, fetchTypeCotegoryMeals,
   fetchAllMeals } from '../Service/foodApi';
 import RecipesContext from '../Context/RecipesContext';
@@ -32,7 +33,8 @@ export default function CategoryMeals() {
   return (
     <>
       {categoryMeals.map(({ strCategory }) => (
-        <button
+        <Button
+          variant="light"
           type="button"
           value={ strCategory }
           key={ strCategory }
@@ -40,14 +42,15 @@ export default function CategoryMeals() {
           onClick={ handleClick }
         >
           {strCategory}
-        </button>))}
-      <button
+        </Button>))}
+      <Button
+        variant="danger"
         type="button"
         onClick={ handleAll }
         data-testid="All-category-filter"
       >
         All
-      </button>
+      </Button>
     </>
   );
 }
