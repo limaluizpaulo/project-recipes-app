@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 import { saveUserEmail } from '../storage/localStorage';
-import Logo from '../images/logo.svg';
+import Logo from '../images/man-chef.svg';
 import '../styles/login.css';
 
 const REGEX_EMAIL = /\S+@\S+\.\S+/;
