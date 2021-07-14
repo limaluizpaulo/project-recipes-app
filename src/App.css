@@ -189,3 +189,20 @@ main {
 .favortieButton {
   padding-left: 20px;
 }
+
+.profile {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20%;
+}
+
+.buttonsProfile {
+  font-size: x-large;
+  margin-bottom: 30%;
+  box-shadow: 0 0 45px rgb(235, 22, 22);
+}
+
+.headingProfile {
+  margin-bottom: 20%;
+}
