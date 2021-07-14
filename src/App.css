@@ -55,6 +55,20 @@ main {
   display: none;
 }
 
+.buttonIconsHeader {
+  background-color: #dc3545;
+}
+
+.explore {
+  background-color: #0d0d0d;
+}
+
+.imgExplore {
+  margin: auto;
+  margin-top: 50px;
+  width: 80%;
+}
+
 .riscado {
   text-decoration: solid;
 }
@@ -68,11 +82,41 @@ main {
   max-height: 80vh;
 }
 
+.containerFooter {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.containerButtons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 15%;
+}
+
 .footer {
+  background-color: #e63825;
   bottom: 0;
+  height: 50px;
   max-width: 360px;
   position: fixed;
   width: 100%;
+}
+
+.header {
+  background-color: #dc3545;
+  display: flex;
+  height: 50px;
+  justify-content: space-around;
+}
+
+.item {
+  align-self: center;
+  margin: 0;
 }
 
 .iniciarReceita {
@@ -140,10 +184,10 @@ main {
 }
 
 .ulCard {
-  display:flex;
-  flex-direction: column;
   align-items: center;
-  background-color:black;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
   margin-top: 15%;
 }
 

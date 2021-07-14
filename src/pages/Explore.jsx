@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { Button } from 'react-bootstrap';
 import { fetchRandomMeal } from '../Service/foodApi';
 import { fetchRandomDrink } from '../Service/drinkApi';
+import explore from '../images/explore.png';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -34,56 +36,78 @@ export default function Explorar() {
   switch (pathname) {
   case '/explorar':
     return (
-      <>
+      <div className="explore">
         { headerNFooter }
-        <Link to={ EXPLORE_FOOD }>
-          <button type="button" data-testid="explore-food">Explorar Comidas</button>
-        </Link>
-        <Link to={ EXPLORE_DRINK }>
-          <button type="button" data-testid="explore-drinks">Explorar Bebidas</button>
-        </Link>
-      </>
+        <img className="imgExplore" src={ explore } alt="explore" />
+        <div className="containerButtons ">
+          <Link to={ EXPLORE_FOOD }>
+            <Button
+              variant="outline-danger"
+              type="button"
+              data-testid="explore-food"
+            >
+              Explorar Comidas
+
+            </Button>
+          </Link>
+          <Link to={ EXPLORE_DRINK }>
+            <Button
+              variant="outline-danger"
+              type="button"
+              data-testid="explore-drinks"
+            >
+              Explorar Bebidas
+
+            </Button>
+          </Link>
+        </div>
+      </div>
     );
   case EXPLORE_DRINK:
   case EXPLORE_FOOD:
     return (
-      <>
-
+      <div className="explore">
         { headerNFooter }
-        <Link to={ `${pathname}/ingredientes` }>
-          <button
-            type="button"
-            data-testid="explore-by-ingredient"
-          >
-            Por Ingredientes
-          </button>
-        </Link>
-        { pathname === EXPLORE_FOOD && (
-          <Link to="/explorar/comidas/area">
-            <button
+        <img className="imgExplore" src={ explore } alt="explore" />
+        <div className="containerButtons">
+          <Link to={ `${pathname}/ingredientes` }>
+            <Button
+              variant="outline-danger"
               type="button"
-              data-testid="explore-by-area"
+              data-testid="explore-by-ingredient"
             >
-              Por Local de Origem
-            </button>
+              Ingredientes
+            </Button>
           </Link>
-        )}
-        <Link
-          to={ `/${pathname.split('/')[2]}/${SELECT_ID}` }
-        >
-          <button
-            type="button"
-            data-testid="explore-surprise"
+          { pathname === EXPLORE_FOOD && (
+            <Link to="/explorar/comidas/area">
+              <Button
+                variant="outline-danger"
+                type="button"
+                data-testid="explore-by-area"
+              >
+                Local
+              </Button>
+            </Link>
+          )}
+          <Link
+            to={ `/${pathname.split('/')[2]}/${SELECT_ID}` }
           >
-            Me Surpreenda!
-          </button>
-        </Link>
-      </>
+            <Button
+              variant="outline-danger"
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </Button>
+          </Link>
+        </div>
+      </div>
     );
   case '/explorar/bebidas/ingredientes':
   case '/explorar/comidas/ingredientes':
     return (
-      <SearchIngredients pathname={ pathname } />
+      <SearchIngredients />
     );
   case '/explorar/comidas/area':
     return (

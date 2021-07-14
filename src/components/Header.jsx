@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Lupa from './Lupa';
@@ -24,11 +23,11 @@ function Header() {
     case '/explorar/bebidas':
       return 'Explorar Bebidas';
     case '/explorar/comidas/ingredientes':
-      return 'Explorar Ingredientes Comidas';
+      return 'Explorar comidas por Ingredientes';
     case '/explorar/bebidas/ingredientes':
-      return 'Explorar Ingredientes Bebidas';
+      return 'Explorar bebidas por ingredientes';
     case '/explorar/comidas/area':
-      return 'Explorar Origem';
+      return 'Explorar por área';
     case '/receitas-feitas':
       return 'Receitas Feitas';
     case '/receitas-favoritas':
@@ -47,7 +46,7 @@ function Header() {
       return (
         <button
           type="button"
-          // className={  }
+          className="buttonIconsHeader"
           onClick={ () => setToggleSearch(!toggleSearch) }
         >
           <img src={ searchIcon } alt="ícone de buscar" data-testid="search-top-btn" />
@@ -57,26 +56,23 @@ function Header() {
   };
 
   return (
-    <header>
-      <Navbar>
-        <button
-          type="button"
-          onClick={ () => {
-            history.push('/perfil');
-          } }
-        >
-          <img
-            src={ profileIcon }
-            alt="ícone de perfil"
-            data-testid="profile-top-btn"
-          />
-        </button>
-        <Navbar.Collapse className="justify-content-center">
-          <h2 data-testid="page-title">{ condicionRenderingTitle() }</h2>
-          { condicionRenderSearchBar() }
-        </Navbar.Collapse>
-        { toggleSearch && <Lupa className="d-flex justify-content-space-between" /> }
-      </Navbar>
+    <header className="header">
+      <button
+        type="button"
+        className="buttonIconsHeader"
+        onClick={ () => {
+          history.push('/perfil');
+        } }
+      >
+        <img
+          src={ profileIcon }
+          alt="ícone de perfil"
+          data-testid="profile-top-btn"
+        />
+      </button>
+      <h3 data-testid="page-title" className="item">{ condicionRenderingTitle() }</h3>
+      { condicionRenderSearchBar() }
+      { toggleSearch && <Lupa /> }
     </header>
   );
 }
