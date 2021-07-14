@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Badge, Button } from 'react-bootstrap';
 import List from '../components/List';
 import RecomendationsMeal from '../components/RecomendationsMeal';
 import { requestByDetailsDrink } from '../services/api';
@@ -56,14 +57,14 @@ function DrinkDetails() {
       ) => {
         const drinks = rest;
         return (
-          <div key={ index }>
-            <img
-              src={ strDrinkThumb }
-              className="details-img"
-              alt={ strDrink }
-              data-testid="recipe-photo"
-            />
+          <div className="food-details-main-div" key={ index }>
             <div className="details-align">
+              <img
+                src={ strDrinkThumb }
+                className="details-img"
+                alt={ strDrink }
+                data-testid="recipe-photo"
+              />
               <section className="detailsTitle-container">
                 <div>
                   <h1
@@ -72,30 +73,31 @@ function DrinkDetails() {
                   >
                     { strDrink }
                   </h1>
-                  <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
                 <Icons code={ drink[0] } />
               </section>
+              <Badge variant="info" data-testid="recipe-category">{strAlcoholic}</Badge>
               <List drinks={ drinks } />
-              <h2>Instructions</h2>
+              <h2 className="section-title">Instructions</h2>
               <p
                 className="details-instructions"
                 data-testid="instructions"
               >
                 { strInstructions }
               </p>
-              <h2>Recomendations</h2>
+              <h2 className="section-title">Recomendations</h2>
             </div>
             <RecomendationsMeal />
             <Link to={ `/bebidas/${idDrink}/in-progress` }>
-              <button
+              <Button
+                variant="info"
                 type="button"
                 className="details-startRecipeBtn"
                 data-testid="start-recipe-btn"
                 onClick={ start }
               >
                 {progress}
-              </button>
+              </Button>
             </Link>
           </div>
         );

@@ -53,6 +53,7 @@ function RecomendationsDrink() {
             {recomendationsDrink.slice(2, four).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <Card
+                  bg="info"
                   data-testid={ `${index + 2}-recomendation-card` }
                 >
                   <img
@@ -79,6 +80,7 @@ function RecomendationsDrink() {
             {recomendationsDrink.slice(four, six).map((drink, index) => (
               <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.strDrink }>
                 <Card
+                  bg="info"
                   data-testid={ `${index + four}-recomendation-card` }
                 >
                   <img
