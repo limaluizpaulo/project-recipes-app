@@ -1,0 +1,47 @@
+.container-card {
+  border-radius: 15px;
+  box-shadow: 0 15px 25px -4px rgb(117, 115, 115);
+  color: #614343;
+  cursor: pointer;
+  margin: 25px 60px;
+  text-align: center;
+}
+
+/* referencia https://willianjusten.com.br/criando-uma-animacao-de-card-com-hover */
+
+/* .container-card:after
+.container-card:before {
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.container-card:after {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  transform: scaleX(0);
+}
+
+.container-card:before {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  transform: scaleY(0);
+}
+
+.container-card:hover:before {
+  transform: scaleY(1);
+}
+
+.container-card:hover:after {
+  transform: scaleX(1);
+} */
+
+.image-card {
+  border-radius: 8px;
+  margin: 20px;
+  width: 180px;
+}

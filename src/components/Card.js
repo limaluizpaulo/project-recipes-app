@@ -2,6 +2,8 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import '../styles/card.css';
+
 export default function Card({ mealOrDrink, index, testId }) {
   const { path } = useRouteMatch();
   const [imgSrcKey, titleKey] = path.includes('comidas')
@@ -13,14 +15,19 @@ export default function Card({ mealOrDrink, index, testId }) {
     : [mealOrDrink.strDrinkThumb, mealOrDrink.strDrink];
 
   return (
-    <section data-testid={ `${index}-${testId}-card` }>
+    <section
+      className="container-card"
+      data-testid={ `${index}-${testId}-card` }
+    >
       <img
+        className="image-card"
         width="150px"
         data-testid={ `${index}-card-img` }
         src={ imgSrcKey || imgSrcRecKey }
         alt={ titleKey || titleRecKey }
       />
       <h3
+        className="title-card"
         data-testid={ (testId === 'recipe') ? `${index}-card-name`
           : `${index}-recomendation-title` }
       >
