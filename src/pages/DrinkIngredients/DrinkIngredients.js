@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { requestAllDrinkIngredients } from '../../helpers/requests';
+import './Style.css';
 
 function DrinkIngredients() {
   const [data, setData] = useState([]);
@@ -32,7 +33,7 @@ function DrinkIngredients() {
             <img
               data-testid={ `${index}-card-img` }
               src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
-              className="card-img-top"
+              className="img"
               alt={ `imagem de ${item.strIngredient1}` }
             />
             <h5
@@ -48,11 +49,13 @@ function DrinkIngredients() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      {
-        loading
-          ? 'Carregando...'
-          : (mapData(data))
-      }
+      <div className="control">
+        {
+          loading
+            ? 'Carregando...'
+            : (mapData(data))
+        }
+      </div>
       <Footer />
     </div>
   );

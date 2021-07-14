@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { requestAllMealIngredients } from '../../helpers/requests';
+import './Style.css';
 
 function FoodIngredients() {
   const [data, setData] = useState([]);
@@ -32,7 +33,7 @@ function FoodIngredients() {
             <img
               data-testid={ `${index}-card-img` }
               src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-              className="card-img-top"
+              className="img"
               alt={ `imagem de ${item.strIngredient}` }
             />
             <h5
@@ -48,11 +49,13 @@ function FoodIngredients() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      {
-        loading
-          ? 'Carregando...'
-          : (mapData(data))
-      }
+      <div className="control">
+        {
+          loading
+            ? 'Carregando...'
+            : (mapData(data))
+        }
+      </div>
       <Footer />
     </div>
   );

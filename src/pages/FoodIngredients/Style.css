@@ -1,0 +1,17 @@
+.card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 50%;
+}
+
+.img {
+  height: 100px;
+  width: 100px;
+}
+
+.control {
+  display: flex;
+  flex-wrap: wrap;
+}
