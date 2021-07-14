@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { Button } from 'react-bootstrap';
 import { fetchRandomMeal } from '../Service/foodApi';
 import { fetchRandomDrink } from '../Service/drinkApi';
 
@@ -37,10 +38,24 @@ export default function Explorar() {
       <>
         { headerNFooter }
         <Link to={ EXPLORE_FOOD }>
-          <button type="button" data-testid="explore-food">Explorar Comidas</button>
+          <Button
+            variant="outline-danger"
+            type="button"
+            data-testid="explore-food"
+          >
+            Explorar Comidas
+
+          </Button>
         </Link>
         <Link to={ EXPLORE_DRINK }>
-          <button type="button" data-testid="explore-drinks">Explorar Bebidas</button>
+          <Button
+            variant="outline-danger"
+            type="button"
+            data-testid="explore-drinks"
+          >
+            Explorar Bebidas
+
+          </Button>
         </Link>
       </>
     );
@@ -48,35 +63,37 @@ export default function Explorar() {
   case EXPLORE_FOOD:
     return (
       <>
-
         { headerNFooter }
         <Link to={ `${pathname}/ingredientes` }>
-          <button
+          <Button
+            variant="outline-danger"
             type="button"
             data-testid="explore-by-ingredient"
           >
             Por Ingredientes
-          </button>
+          </Button>
         </Link>
         { pathname === EXPLORE_FOOD && (
           <Link to="/explorar/comidas/area">
-            <button
+            <Button
+              variant="outline-danger"
               type="button"
               data-testid="explore-by-area"
             >
               Por Local de Origem
-            </button>
+            </Button>
           </Link>
         )}
         <Link
           to={ `/${pathname.split('/')[2]}/${SELECT_ID}` }
         >
-          <button
+          <Button
+            variant="outline-danger"
             type="button"
             data-testid="explore-surprise"
           >
             Me Surpreenda!
-          </button>
+          </Button>
         </Link>
       </>
     );

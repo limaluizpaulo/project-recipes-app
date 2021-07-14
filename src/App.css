@@ -1,7 +1,7 @@
 * {
   border: 0;
   box-sizing: border-box;
-  font-family: 'Ubuntu';
+  font-family: Ubuntu;
   font-size: 100%;
   margin: 0;
   padding: 0;
@@ -60,7 +60,16 @@ main {
   max-height: 80vh;
 }
 
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: space-between;
+}
+
 .footer {
+  background-color: #e63825;
   bottom: 0;
   max-width: 360px;
   position: fixed;
