@@ -27,6 +27,14 @@
   width: 350px;
 }
 
+.recipes-done-container {
+  background-color: #f3ecec;
+  display: flex;
+  flex-direction: column;
+  min-height: 650px;
+  width: 350px;
+}
+
 .email-user {
   font-weight: 800;
   margin-top: 30px;

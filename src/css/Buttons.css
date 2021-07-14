@@ -100,6 +100,22 @@
   width: 30px;
 }
 
+.like-and-share-page {
+  align-items: center;
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  height: 30px;
+  margin: 6px;
+  padding: 0 10px;
+  text-align: center;
+  width: 30px;
+}
+
+.like-and-share-page img {
+  height: 20px;
+  width: 20px;
+}
+
 .button-start-recipe {
   background-color: rgb(228, 204, 204);
   border: rgb(228, 204, 204);

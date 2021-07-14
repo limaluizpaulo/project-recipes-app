@@ -56,18 +56,20 @@ class FavoriteRecipes extends Component {
     const { recipes } = this.state;
     const { location: { pathname } } = this.props;
     return (
-      <section>
-        <Header title="Receitas Favoritas" searchIcon />
-        <FavoriteRecipesButtons statusButton={ this.statusButton } />
-        {recipes ? recipes.map((recipe, index) => (
-          <FavoriteRecipesCard
-            key={ index }
-            recipe={ recipe }
-            index={ index }
-            pathname={ pathname }
-            removeFavoriteRecipe={ this.removeFavoriteRecipe }
-          />)) : null }
-      </section>
+      <div className="page">
+        <div className="recipes-done-container">
+          <Header title="Receitas Favoritas" searchIcon />
+          <FavoriteRecipesButtons statusButton={ this.statusButton } />
+          {recipes ? recipes.map((recipe, index) => (
+            <FavoriteRecipesCard
+              key={ index }
+              recipe={ recipe }
+              index={ index }
+              pathname={ pathname }
+              removeFavoriteRecipe={ this.removeFavoriteRecipe }
+            />)) : null }
+        </div>
+      </div>
     );
   }
 }

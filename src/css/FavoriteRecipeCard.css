@@ -1,5 +1,10 @@
-.card-container {
+.favorite-card-container {
+  background-color: rgb(228, 204, 204);
+  border-radius: 10px;
   display: flex;
+  justify-content: center;
+  margin: 12px 15px;
+  padding: 20px;
 }
 
 .card-container-img img {
@@ -9,13 +14,20 @@
 .card-container-text {
   display: flex;
   flex-direction: column;
-  margin-left: 25px;
+  margin-left: 5px;
+  min-width: 50%;
+}
+
+.card-container-text a {
+  text-decoration: none;
 }
 
 .card-container-text h6 {
   color: grey;
+  font-size: 80%;
 }
 
 .card-container-text h2 {
   color: black;
+  font-size: 100%;
 }

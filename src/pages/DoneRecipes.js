@@ -4,6 +4,9 @@ import Header from '../components/Header';
 import DoneRecipesButtons from '../components/DoneRecipesButtons';
 import DoneRecipesCard from '../components/DoneRecipeCard';
 
+import '../css/Page.css';
+import '../css/Buttons.css';
+
 class DoneRecipes extends Component {
   constructor() {
     super();
@@ -45,16 +48,18 @@ class DoneRecipes extends Component {
   render() {
     const { recipes } = this.state;
     return (
-      <section>
-        <Header title="Receitas Feitas" searchIcon />
-        <DoneRecipesButtons statusButton={ this.statusButton } />
-        {recipes ? recipes.map((recipe, index) => (
-          <DoneRecipesCard
-            key={ index }
-            recipe={ recipe }
-            index={ index }
-          />)) : null }
-      </section>
+      <div className="page">
+        <div className="recipes-done-container">
+          <Header title="Receitas Feitas" searchIcon />
+          <DoneRecipesButtons statusButton={ this.statusButton } />
+          {recipes ? recipes.map((recipe, index) => (
+            <DoneRecipesCard
+              key={ index }
+              recipe={ recipe }
+              index={ index }
+            />)) : null }
+        </div>
+      </div>
     );
   }
 }

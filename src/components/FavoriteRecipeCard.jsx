@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import black from '../images/blackHeartIcon.svg';
 
 import '../css/FavoriteRecipeCard.css';
+import '../css/Buttons.css';
 
 class FavoriteRecipesCard extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class FavoriteRecipesCard extends Component {
     const { name, area, category, image, alcoholicOrNot, type, id } = recipe;
     const { copied } = this.state;
     return (
-      <section className="card-container">
+      <section className="favorite-card-container">
         <Link to={ `/${type}s/${id}` }>
           <div className="card-container-img">
             <img
@@ -52,10 +52,10 @@ class FavoriteRecipesCard extends Component {
             <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
           </Link>
           <div className="card-container-buttons">
-            <Button
+            <button
               type="button"
               onClick={ this.copyLink }
-              className="like-and-share"
+              className="like-and-share-page"
             >
               {copied ? 'Link copiado!'
                 : (
@@ -64,9 +64,9 @@ class FavoriteRecipesCard extends Component {
                     alt="shareIcon"
                     data-testid={ `${index}-horizontal-share-btn` }
                   />)}
-            </Button>
-            <Button
-              className="like-and-share"
+            </button>
+            <button
+              className="like-and-share-page"
               type="button"
               onClick={ () => removeFavoriteRecipe(index) }
             >
@@ -75,7 +75,7 @@ class FavoriteRecipesCard extends Component {
                 src={ black }
                 alt="favoriteIcon"
               />
-            </Button>
+            </button>
           </div>
         </div>
       </section>
