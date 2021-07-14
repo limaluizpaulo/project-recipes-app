@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AREA_SELECTED, fetchAPI, MEALS } from '../../services/index';
-import store, { setLoading } from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 
 export default function CardMealsArea({ datacard }) {
   const [dataOrigin, setDataOrigin] = useState('');
@@ -26,7 +26,7 @@ export default function CardMealsArea({ datacard }) {
   }, [datacard]);
 
   const handleClick = () => {
-    setRecipes(setLoading(true));
+    setRecipes(setFetchOnDone(true));
   };
 
   return (

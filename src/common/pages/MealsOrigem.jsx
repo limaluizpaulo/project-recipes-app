@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import { AREA_MEALS, fetchAPI } from '../../services/index';
-import store, { setLoading } from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 import CardMealsArea from '../components/CardMealsArea';
 
 export default function MealsOrigem() {
@@ -13,7 +13,8 @@ export default function MealsOrigem() {
   useEffect(() => {
     fetchAPI(AREA_MEALS)
       .then((res) => setDataArea(res.meals));
-    setRecipes(setLoading(false));
+    // setRecipes(setLoading(false));
+    setRecipes(setFetchOnDone(false));
   }, []);
 
   const handleChange = ({ target }) => {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import store, { addRecipes, setLoading } from '../../context/store';
+import store, { addRecipes, setFetchOnDone } from '../../context/store';
 import { fetchAPI, EXPLORER_ING_MEALS, INGREDIENT_MEALS } from '../../services';
 
 export default function CardMealsIgredients() {
@@ -15,7 +15,7 @@ export default function CardMealsIgredients() {
 
   function setMeals(response) {
     const { drinks, categoriesMeals, categoriesDrinks } = recipes;
-    setRecipes(setLoading(false));
+    setRecipes(setFetchOnDone(false));
     setRecipes(addRecipes(
       response.meals, drinks, categoriesMeals, categoriesDrinks,
     ));

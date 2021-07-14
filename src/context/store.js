@@ -72,6 +72,11 @@ export const addRecipesDLoading = (recipeDetail, loading) => ({
   type: ADD_RD_LOADING, payload: { recipeDetail, loading },
 });
 
+export const ADD_RD_FETCHON = 'ADD_RD_FETCHON'; // Add RecipeDetail, FetchOn
+export const addRecDetailsFetchOn = (recipeDetail, fetchOn) => ({
+  type: ADD_RD_FETCHON, payload: { recipeDetail, fetchOn },
+});
+
 export const ADD_RD_RR_LOADING = 'ADD_RD_RR_LOADING'; // Add RecipeDetail, RecommendedRecipes, Loading
 export const addRecipesDRLoading = (recipeDetail, recommendedRecipes, loading) => ({
   type: ADD_RD_RR_LOADING, payload: { recipeDetail, recommendedRecipes, loading },

@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import { fetchAPI, SUPRISE_ME_MEALS } from '../../services/index';
-import store, { addRecDetail, setLoading } from '../../context/store';
+import store, { addRecDetailsFetchOn } from '../../context/store';
 
 export default function ExploreMeals() {
   const history = useHistory();
   const { setRecipes } = useContext(store);
   async function handleClic() {
     const mealsDetails = await fetchAPI(SUPRISE_ME_MEALS);
-    setRecipes(addRecDetail(mealsDetails.meals));
-    setRecipes(setLoading(true));
+    setRecipes(addRecDetailsFetchOn(mealsDetails.meals, true));
     history.push(`/comidas/${mealsDetails.meals[0].idMeal}`);
   }
   return (

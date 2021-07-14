@@ -1,7 +1,7 @@
 import React from 'react';
 import CardMealsIgredients from '../components/CardMealsIgredients';
-import Footer from '../components/Footer/Footer';
-import Header from '../components/Header/Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function MealsIngredient() {
   return (

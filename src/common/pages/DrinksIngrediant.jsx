@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import CardDrinksIgredients from '../components/CardDrinksIgredients';
 
 export default function DrinksIngrediant() {
