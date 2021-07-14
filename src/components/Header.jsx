@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Lupa from './Lupa';
@@ -47,7 +46,7 @@ function Header() {
       return (
         <button
           type="button"
-          // className={  }
+          className="buttonIconsHeader"
           onClick={ () => setToggleSearch(!toggleSearch) }
         >
           <img src={ searchIcon } alt="ícone de buscar" data-testid="search-top-btn" />
@@ -57,26 +56,23 @@ function Header() {
   };
 
   return (
-    <header>
-      <Navbar>
-        <button
-          type="button"
-          onClick={ () => {
-            history.push('/perfil');
-          } }
-        >
-          <img
-            src={ profileIcon }
-            alt="ícone de perfil"
-            data-testid="profile-top-btn"
-          />
-        </button>
-        <Navbar.Collapse className="justify-content-center">
-          <h2 data-testid="page-title">{ condicionRenderingTitle() }</h2>
-          { condicionRenderSearchBar() }
-        </Navbar.Collapse>
-        { toggleSearch && <Lupa className="d-flex justify-content-space-between" /> }
-      </Navbar>
+    <header className="header">
+      <button
+        type="button"
+        className="buttonIconsHeader"
+        onClick={ () => {
+          history.push('/perfil');
+        } }
+      >
+        <img
+          src={ profileIcon }
+          alt="ícone de perfil"
+          data-testid="profile-top-btn"
+        />
+      </button>
+      <h2 data-testid="page-title">{ condicionRenderingTitle() }</h2>
+      { condicionRenderSearchBar() }
+      { toggleSearch && <Lupa /> }
     </header>
   );
 }
