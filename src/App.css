@@ -56,7 +56,10 @@ main {
 
 .buttonIconsHeader {
   background-color: #dc3545;
-  /* box-shadow: inset 0 0 5rem rgb(0,0,0);  */
+}
+
+.explore {
+  background-color: #0d0d0d;
 }
 
 .riscado {
@@ -72,7 +75,16 @@ main {
   max-height: 80vh;
 }
 
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: space-between;
+}
+
 .footer {
+  background-color: #e63825;
   bottom: 0;
   max-width: 360px;
   position: fixed;
@@ -82,8 +94,13 @@ main {
 .header {
   background-color: #dc3545;
   display: flex;
+  height: 50px;
   justify-content: space-around;
-  /* box-shadow: inset 0 0 5rem rgb(0,0,0);  */
+}
+
+.item {
+  align-self: center;
+  margin: 0;
 }
 
 .iniciarReceita {
