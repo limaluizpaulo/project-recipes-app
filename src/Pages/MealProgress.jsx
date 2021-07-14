@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -11,8 +12,10 @@ class MealProgress extends React.Component {
     super();
     this.state = {
       like: false,
+      end: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
   }
 
   handleClick() {
@@ -21,11 +24,18 @@ class MealProgress extends React.Component {
     }));
   }
 
+  handleEnd() {
+    this.setState((prevState) => ({
+      end: !prevState.end,
+    }));
+  }
+
   render() {
-    const { like } = this.state;
+    const { like, end } = this.state;
     const { meal: { meals, ingredients, measures } } = this.props;
     const { strMeal, strMealThumb, strCategory, strInstructions } = meals;
 
+    if (end) return <Redirect to="/receitas-feitas" />;
     return (
       <main>
         <img data-testid="recipe-photo" alt="comida" src={ strMealThumb } />
@@ -50,14 +60,11 @@ class MealProgress extends React.Component {
             key={ e }
           >
             <input
-              data-testid={ `${i}-ingredient-name-and-measure` }
               id={ e }
               value={ e }
               type="checkbox"
             />
-            <p data-testid={ `${i}-ingredient-name-and-measure` }>
-              { `${e}  ${measures[i]}` }
-            </p>
+            <p>{ `${e}  ${measures[i]}` }</p>
           </label>
         ))}
 
@@ -67,6 +74,7 @@ class MealProgress extends React.Component {
           type="button"
           data-testid="finish-recipe-btn"
           className="button-details"
+          onClick={ this.handleEnd }
         >
           Finalizar Receita
         </button>
