@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 
 export default function RecipeCard(recipe, index) {
   const recipeID = recipe.idMeal
@@ -7,12 +8,19 @@ export default function RecipeCard(recipe, index) {
   const recipeType = Object.keys(recipe)[0].includes('Meal') ? 'Meal' : 'Drink';
   return (
     <Link key={ index } data-testid={ `${index}-recipe-card` } to={ recipeID }>
-      <img
-        src={ recipe[`str${recipeType}Thumb`] }
-        alt={ recipe[`str${recipeType}`] }
-        data-testid={ `${index}-card-img` }
-      />
-      <p data-testid={ [`${index}-card-name`] }>{recipe[`str${recipeType}`]}</p>
+      <Card style={ { width: '206px' } }>
+        <Card.Img
+          variant="top"
+          src={ recipe[`str${recipeType}Thumb`] }
+          alt={ recipe[`str${recipeType}`] }
+          data-testid={ `${index}-card-img` }
+        />
+        <Card.Body>
+          <Card.Text data-testid={ [`${index}-card-name`] }>
+            {recipe[`str${recipeType}`]}
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </Link>
   );
 }
