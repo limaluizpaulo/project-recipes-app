@@ -34,8 +34,9 @@
 
 .header {
   align-items: center;
-  background-color: #c4c4c4;
+  background-color: #169256;
   display: flex;
+  font-family: Inter , sans-serif;
   height: 3.6rem;
   justify-content: space-around;
   position: fixed;
