@@ -11,7 +11,7 @@ export default function ExploreCountry() {
   const [countrySelected, setCountrySelected] = useState('All');
   const [recepies, setRecepies] = useState([]);
   const NUMBER = 12;
-  console.log(recepies);
+  // (recepies);
 
   useEffect(() => {
     const getCountries = async () => {

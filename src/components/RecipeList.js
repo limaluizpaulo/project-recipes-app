@@ -16,8 +16,9 @@ function RecipeList({ list, listAll, filterList }) {
   }, [list]);
 
   useEffect(() => {
-    console.log(filterList);
+    // console.log(filterList);
     if (Object.keys(filterList).length > 0) {
+      // console.log('aqui');
       if (filterList[Object.keys(filterList)[0]] === null) {
         // setShow(false);
       } else {

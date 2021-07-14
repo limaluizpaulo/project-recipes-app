@@ -23,6 +23,9 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
   const [arrayFavorite] = useState(help(JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   ), []));
+  const [arrayDone] = useState(help(JSON.parse(
+    localStorage.getItem('doneRecipes'),
+  ), []));
   const [button, setButton] = useState('Iniciar Receita');
   const history = useHistory();
   useRecipeDetail({
@@ -41,6 +44,8 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
     setFavorite,
   });
 
+  const arrayButton = arrayDone.filter((element) => element.id === idRecipe);
+  console.log(arrayButton);
   return (
     <div>
 
@@ -57,15 +62,18 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
         { typeRecipe === 'food' ? list.strMeal : list.strDrink }
 
       </p>
-      <img
-        style={ { padding: '20px' } }
-        role="presentation"
+      <button
         onClick={ () => copyLink(copy, setShow, typeRecipe, idRecipe) }
         type="button"
-        data-testid="share-btn"
-        src={ shareIcon }
-        alt="Share Icon"
-      />
+      >
+        <img
+          style={ { padding: '10px' } }
+          data-testid="share-btn"
+          src={ shareIcon }
+          alt="Share Icon"
+        />
+      </button>
+
       <p>{show && 'Link copiado!'}</p>
       <img
         src={ favorite ? blackHeartIcon : whiteHeartIcon }
@@ -127,15 +135,17 @@ function RecipeDetail({ idRecipe, typeRecipe }) {
             </p>
           </div>))}
       </div>
-      <button
-        onClick={ () => redirectPage(history, idRecipe, typeRecipe) }
-        className="start-recipe"
-        type="button"
-        value={ button }
-        data-testid="start-recipe-btn"
-      >
-        {button}
-      </button>
+      { arrayButton.length === 0
+      && (
+        <button
+          onClick={ () => redirectPage(history, idRecipe, typeRecipe) }
+          className="start-recipe"
+          type="button"
+          value={ button }
+          data-testid="start-recipe-btn"
+        >
+          {button}
+        </button>)}
 
     </div>
 

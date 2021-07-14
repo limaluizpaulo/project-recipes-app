@@ -24,7 +24,7 @@ function useRecipeProgress({
       const leng = ingretFinal;
       progress({ objectStart, leng, typeRecipe, idRecipe });
       const mapObject = {};
-      console.log(objectStart);
+      // console.log(objectStart);
       if (typeRecipe === 'food' && objectStart.meals[idRecipe]) {
         const array = objectStart.meals[idRecipe];
         ingretFinal.forEach((item) => {
@@ -41,7 +41,7 @@ function useRecipeProgress({
           mapObject[item] = 'noDetailClass';
         });
       }
-      console.log(mapObject);
+      // console.log(mapObject);
       setDetail(mapObject);
       // console.log(ingretFinal);
       setLeng(ingretFinal);

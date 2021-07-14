@@ -29,7 +29,7 @@ function FilterRecipe({ list, dispRecipeFilter, recipeType }) {
   };
 
   function clickAPI({ target }) {
-    console.log(target.value, save);
+    // console.log(target.value, save);
     setSave(target.value);
 
     if (target.value === 'All') {

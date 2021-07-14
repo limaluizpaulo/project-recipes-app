@@ -30,8 +30,8 @@ export function redirectPage(history, idRecipe, typeRecipe) {
     : history.push(`/bebidas/${idRecipe}/in-progress`);
 }
 
-export function copyLink(copy, setShow, typeRecipe, idRecipe) {
-  copy(`http://localhost:3000/${typeRecipe === 'food' ? 'comidas' : 'bebidas'}/${idRecipe}`);
+export async function copyLink(copy, setShow, typeRecipe, idRecipe) {
+  await copy(`http://localhost:3000/${typeRecipe === 'food' || typeRecipe === 'comida' ? 'comidas' : 'bebidas'}/${idRecipe}`);
   setShow(true);
 }
 
@@ -65,6 +65,35 @@ export function favoriteClick({
         }],
     ));
   }
+}
+// função conseguida através do link: https://pt.stackoverflow.com/questions/6526/como-formatar-data-no-javascript
+function dataAtualFormatada() {
+  const data = new Date();
+  const dia = data.getDate().toString();
+  const diaF = (dia.length === 1) ? `0${dia}` : dia;
+  const mes = (data.getMonth() + 1).toString(); // +1 pois no getMonth Janeiro começa com zero.
+  const mesF = (mes.length === 1) ? `0${mes}` : mes;
+  const anoF = data.getFullYear();
+  return `${diaF}/${mesF}/${anoF}`;
+}
+
+export function doneClick({ arrayDone, list, typeRecipe, idRecipe, history }) {
+  // console.log(list);
+  localStorage.setItem('doneRecipes', JSON.stringify(
+    [...arrayDone,
+      {
+        id: idRecipe,
+        type: typeRecipe === 'food' ? 'comida' : 'bebida',
+        area: typeRecipe === 'food' ? list.strArea : '',
+        category: list.strCategory,
+        alcoholicOrNot: typeRecipe === 'food' ? '' : (alcoholicCheck(list)),
+        name: typeRecipe === 'food' ? list.strMeal : list.strDrink,
+        image: typeRecipe === 'food' ? list.strMealThumb : list.strDrinkThumb,
+        doneDate: dataAtualFormatada(),
+        tags: list.strTags === null ? [] : list.strTags.split(','),
+      }],
+  ));
+  history.push('/receitas-feitas');
 }
 
 function pushArray({ valor,
@@ -128,7 +157,7 @@ function removeArray({ valor,
     const array = obj.cocktails[idRecipe];
     const index = array.indexOf(valor);
     array.splice(index, 1);
-    console.log(array);
+    // console.log(array);
     if (array.length === 0) {
       setStatus(false);
     }
