@@ -42,7 +42,7 @@ function ReceitaDetalhes({ match }) {
     } else if (url.match(food) && !favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idMeal,
-        type: 'comida',
+        type: 'comidas',
         area: recipe.strArea,
         category: recipe.strCategory,
         alcoholicOrNot: '',
@@ -53,7 +53,7 @@ function ReceitaDetalhes({ match }) {
     } else if (!favorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([{
         id: recipe.idDrink,
-        type: 'bebida',
+        type: 'bebidas',
         area: '',
         category: recipe.strCategory,
         alcoholicOrNot: recipe.strAlcoholic,
