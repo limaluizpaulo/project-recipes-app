@@ -35,8 +35,9 @@ function RecipeList({ list, listAll, filterList }) {
       { Object.keys(object).length !== 0 && (
         <div className="show-recipe">
           { object[type].slice(0, NUMBER).map((element, index) => (
-            <button
-              type="button"
+            <div
+              style={ { border: 'solid black 2px' } }
+              role="presentation"
               className="papai"
               key={ index }
               data-testid={ `${index}-recipe-card` }
@@ -55,7 +56,7 @@ function RecipeList({ list, listAll, filterList }) {
               <p data-testid={ `${index}-card-name` }>
                 { type === 'meals' ? element.strMeal : element.strDrink }
               </p>
-            </button>
+            </div>
           ))}
         </div>)}
     </div>
