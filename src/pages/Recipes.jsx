@@ -64,7 +64,7 @@ class Recipes extends Component {
     if (listRecipes.length === 1) {
       return <Redirect to={ `/comidas/${listRecipes[0].idMeal}` } />;
     }
-    // mudança2
+    // mudança3
     return (
       <>
         <Header header="Comidas" explorer />
