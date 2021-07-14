@@ -47,7 +47,7 @@ function SearchFood({ recipe, dispRecipeList }) {
     }
     if (choice === 'letter') {
       if (text.length > 1) {
-        global.alert('Sua busca deve conter somente 1 (um) caracter');
+        window.alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
         // console.log('passou')
         return recipe === 'Comidas'

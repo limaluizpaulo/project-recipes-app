@@ -14,6 +14,7 @@ export default function RecipeDone() {
   const [newDoneRecipies, setNewDoneRecipies] = useState(doneRecepies);
 
   useEffect(() => {
+    console.log(show);
     const newObject = {};
     doneRecepies.forEach((item) => { newObject[item.id] = false; });
     setObject(newObject);
