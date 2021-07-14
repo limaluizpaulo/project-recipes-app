@@ -42,3 +42,11 @@ export function statusButton(target) {
   }
   return getDoneRecipes();
 }
+
+export function removeFavoriteRecipe(id) {
+  const favorites = doneRecipes;
+  if (favorites) {
+    const newFavorites = favorites.filter((item, index) => index !== id);
+    return newFavorites;
+  }
+}
