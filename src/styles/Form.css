@@ -1,33 +1,32 @@
 .login {
   align-items: center;
-  background-image: url('../images/login-picture.jpg');
-  background-size:cover;
   background-blend-mode: multiply;
+  background-image: url('../images/login-picture.jpg');
+  background-size: cover;
   background-color: #575757;
   color: white;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   min-height: 100vh;
   min-width: 100vw;
 }
 
 .login-input {
-  width: 100%;
   font-size: 20px;
+  width: 100%;
 }
 
 .login-btn {
   border-radius: 10px;
   font-size: 18px;
-  padding: 5px;
   margin-top: 15px;
+  padding: 5px;
   width: 70%;
 }
 
 .logo {
-  width: 80%;
   margin-bottom: 20px;
+  width: 80%;
 }
 
 .login-inputAndBtn-container {
