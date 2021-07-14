@@ -23,12 +23,18 @@ const FavoriteRecipes = () => {
         <div className="cardMade" key={ `${index} - ${name}` }>
           <Link to={ `${type}s/${id}` }>
             <button
-              data-testid={ `${index}-horizontal-image` }
+              // data-testid={ `${index}-horizontal-image` }
               // src={ image }
               alt="Receita"
               type="button"
             >
-              <img className="recipe-photo" src={ image } alt={ name } />
+              <img
+                data-testid={ `${index}-horizontal-image` }
+                className="recipe-photo"
+                src={ image }
+                alt={ name }
+
+              />
             </button>
           </Link>
           <FavoriteIcon
