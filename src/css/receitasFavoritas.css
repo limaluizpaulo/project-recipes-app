@@ -1,0 +1,25 @@
+* {
+  margin-top: 0px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.favourite-bar {
+  padding-top: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.input-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipes img {
+  margin-top: 0px;
+}
