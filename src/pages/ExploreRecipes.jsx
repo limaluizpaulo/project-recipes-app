@@ -17,11 +17,12 @@ function ExploreRecipes() {
         testid="explore-by-ingredient"
         func={ () => history.push(`/explorar/${food.toLowerCase()}/ingredientes`) }
       />
-      <Button
+      {food === 'Comidas'
+      && <Button
         label="Por Local de Origem"
         testid="explore-by-area"
         func={ () => history.push(`/explorar/${food.toLowerCase()}/area`) }
-      />
+      />}
       <Button
         label="Me Surpreenda!"
         testid="explore-surprise"
