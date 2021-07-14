@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+}
+
 .meals {
   align-items: center;
   background: #616f9c1e;
