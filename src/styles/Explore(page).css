@@ -1,5 +1,6 @@
 .explore-container {
   align-items: center;
+  background: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
