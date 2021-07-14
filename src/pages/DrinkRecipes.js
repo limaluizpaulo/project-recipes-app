@@ -93,6 +93,7 @@ function DrinkRecipes() {
               className="card"
             >
               <Card.Img
+                className="cardImg"
                 data-testid={ `${index}-card-img` }
                 src={ drink.strDrinkThumb }
                 alt={ drink.strDrink }

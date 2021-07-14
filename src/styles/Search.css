@@ -21,8 +21,10 @@
   border: none;
   border-bottom: solid 1px white;
   color: white;
+  font-size: 18px;
   margin-top: 18px;
   max-width: 100%;
+  padding: 5px;
   width: 330px;
 }
 
@@ -37,6 +39,7 @@
 
 .search-btn {
   background-color: rgb(37, 154, 175);
+  border-radius: 10px;
   margin-bottom: 18px;
   max-width: 100%;
   width: 330px;

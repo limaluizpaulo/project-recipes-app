@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import '../styles/Explore(page).css';
@@ -22,13 +23,13 @@ function Explore() {
             <track kind="captions" />
           </video>
           <Link to="/explorar/comidas" className="explore-food-container">
-            <button
+            <Button
               type="button"
               data-testid="explore-food"
               className="explore-btn"
             >
               Explorar Comidas
-            </button>
+            </Button>
           </Link>
         </div>
         <div className="explore-videoAndBtn">
@@ -42,13 +43,13 @@ function Explore() {
             <track kind="captions" />
           </video>
           <Link to="/explorar/bebidas" className="explore-drink-container">
-            <button
+            <Button
               type="button"
               data-testid="explore-drinks"
               className="explore-btn"
             >
               Explorar Bebidas
-            </button>
+            </Button>
           </Link>
         </div>
       </div>
