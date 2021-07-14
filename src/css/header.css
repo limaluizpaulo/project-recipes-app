@@ -44,15 +44,56 @@
   top: 0;
   width: 100vw;
   z-index: 99;
+
 }
 
 .header h1 {
   color: var(--crl-Main-Text);
   font-size: var(--font-size-h1);
   font-weight: 700;
+  position: relative;
+  
 }
 
 .btn-search-bar {
   background-color: transparent;
   outline: none;
+
+}
+.page-title-div {
+
+  text-align: center; 
+
+  justify-content: center;
+   align-items: center;
+  position: fixed;
+
+
+
+  
+} 
+
+.profile-div {
+  position: fixed;
+  left: 30px;
+  top: 10px;
+  text-align: center; 
+  justify-content: center;
+  align-items: center;
+
+
+  /* margin-left: 20px;
+  margin-right: 20px; */
+  /* flex */
+
+} 
+
+.search-bar {
+  position: fixed;
+  right: 30px;
+  top: 10px;
+  text-align: center; 
+  justify-content: center;
+  align-items: center;
+
 }
