@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ContextRecipes from '../context/contextRecipes';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import AllTagsFromDetailsDrinks from './AllTagsFromDetailsDrinks';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import AllTagsFromDetailsDrinks from './AllTagsFromDetailsDrinks';
 
 function DetailsDrinkPage({ match: { params } }) {
   const { drinks, setDrinks, isLoading,
-    setIsLoading, logicFromDetailsDrink } = useContext(ContextRecipes);
+    setIsLoading } = useContext(ContextRecipes);
   const { id } = params;
   useEffect(() => {
     const getRecipes = () => {
@@ -17,7 +17,7 @@ function DetailsDrinkPage({ match: { params } }) {
         .then(() => setIsLoading(false));
     };
     getRecipes();
-  }, [setDrinks, id, setIsLoading, logicFromDetailsDrink]);
+  }, []);
   // console.log(id, drinks);
 
   // let ingredientsFinal = [];
@@ -71,41 +71,7 @@ function DetailsDrinkPage({ match: { params } }) {
 
   return (
     isLoading === true || !drinks || drinks.length === 0 ? <p>Carregando...</p>
-      : (
-        <section>
-          <img
-            src={ drinks[0].strDrinkThumb }
-            alt={ drinks[0].strDrink }
-            width="250px"
-            data-testid="recipe-photo"
-          />
-          <p data-testid="recipe-title">{ drinks[0] && drinks[0].strDrink }</p>
-          <img src={ shareIcon } alt="Share" data-testid="share-btn" />
-          <img src={ whiteHeartIcon } alt="Share" data-testid="favorite-btn" />
-          <p data-testid="recipe-category">{ drinks[0].strAlcoholic }</p>
-          <h3>Ingredientes</h3>
-          {/* <ul>
-            { ingredientsFinal
-              .map((ing, i) => ((
-                <li
-                  data-testid={ `${i}-ingredient-name-and-measure` }
-                  key={ i }
-                >
-                  { ing }
-                  {' '}
-                  -
-                  { ' ' }
-                  { measuresFinal.map((mea, ind) => i === ind && (mea)) }
-                </li>
-              ))) }
-          </ul>
-          <h3>Instruções</h3>
-          {/* <p data-testid="instructions">{ drinks[0].strInstructions }</p> */}
-          <h3>Recomendadas</h3>
-          {' '}
-          */
-          <button type="button" data-testid="start-recipe-btn">Iniciar</button>
-        </section>)
+      : <AllTagsFromDetailsDrinks drinks={ drinks } />
   );
 }
 
