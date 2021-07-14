@@ -11,6 +11,19 @@ import CarouselElement from './detailsElements/CarouselElement';
 import ButtonCompartilhar from '../components/ButtonCompartilhar';
 import { isDone, isInProgress } from '../services/localStorage';
 
+function videoRender(receita, apelidoAPI) {
+  const video = receita.strYoutube;
+  if (apelidoAPI === 'comidas' && video !== undefined) {
+    return (
+      <iframe
+        data-testid="video"
+        title={ receita.strArea }
+        src={ video.replace('watch?v=', 'embed/') }
+      />
+    );
+  }
+}
+
 function DetailsReceita(props) {
   const { match: { params: { id } } } = props;
   const rotaAtual = useLocation().pathname;
@@ -53,18 +66,6 @@ function DetailsReceita(props) {
     return <h4>Ingredientes</h4>;
   }
 
-  function videoRender() {
-    if (apelidoAPI === 'comidas') {
-      return (
-        <iframe
-          data-testid="video"
-          title={ receita.strArea }
-          src={ receita.strYoutube }
-        />
-      );
-    }
-  }
-
   const botaoIniciarReceita = () => {
     const itsDone = isDone(id);
     const inProgress = isInProgress(apelidoAPI, id);
@@ -96,7 +97,7 @@ function DetailsReceita(props) {
       <div className="preparo">
         <p>- Instruçoes de preparo</p>
         <p data-testid="instructions">{receita.strInstructions}</p>
-        {videoRender()}
+        {videoRender(receita, apelidoAPI)}
       </div>
 
       <CarouselElement sugest={ [sugestoes, type] } />
