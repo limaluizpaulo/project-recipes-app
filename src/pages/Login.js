@@ -1,10 +1,10 @@
 import React from 'react';
-import Form from '../components/Form';
+import Forms from '../components/Forms';
 
 export default function Login() {
   return (
     <section>
-      <Form />
+      <Forms />
     </section>
   );
 }

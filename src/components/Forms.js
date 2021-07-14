@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
+import cook from '../images/cook.png';
 import '../styles/Form.css';
 
-function Form() {
+function Forms() {
   const history = useHistory();
   const { email, setEmail, pass, setPass } = useContext(Context);
+  const nameLength = 6;
 
   function submit(ev) {
     ev.preventDefault();
@@ -36,44 +38,49 @@ function Form() {
     history.push('/comidas');
   }
 
-  const nameLength = 6;
   return (
     <form className="login" onSubmit={ submit }>
-      <label htmlFor="email">
-        <h5>Email</h5>
-        <input
-          value={ email }
-          placeholder="Digite seu email"
-          onChange={ ({ target }) => setEmail(target.value) }
-          type="email"
-          id="email"
-          data-testid="email-input"
-        />
-      </label>
-      <label htmlFor="password">
-        <h5>Senha</h5>
-        <input
-          value={ pass }
-          placeholder="Digite sua senha"
-          onChange={ ({ target }) => setPass(target.value) }
-          type="password"
-          id="password"
-          data-testid="password-input"
-        />
-      </label>
-      <Button
-        type="submit"
-        variant="success"
-        data-testid="login-submit-btn"
-        disabled={
-          !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)
+      <div className="login-inputAndBtn-container">
+        <img src={ cook } alt="cook hat" className="logo" />
+        <label htmlFor="email">
+          <h5>Email</h5>
+          <input
+            value={ email }
+            className="login-input"
+            placeholder="Digite seu email"
+            onChange={ ({ target }) => setEmail(target.value) }
+            type="email"
+            id="email"
+            data-testid="email-input"
+          />
+        </label>
+        <label htmlFor="password">
+          <h5>Senha</h5>
+          <input
+            value={ pass }
+            className="login-input"
+            placeholder="Digite sua senha"
+            onChange={ ({ target }) => setPass(target.value) }
+            type="password"
+            id="password"
+            data-testid="password-input"
+          />
+        </label>
+        <Button
+          className="login-btn"
+          type="submit"
+          variant="info"
+          data-testid="login-submit-btn"
+          disabled={
+            !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email)
           || pass.length <= nameLength
-        }
-      >
-        Entrar
-      </Button>
+          }
+        >
+          Entrar
+        </Button>
+      </div>
     </form>
   );
 }
 
-export default Form;
+export default Forms;
