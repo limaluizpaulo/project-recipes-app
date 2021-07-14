@@ -1,0 +1,19 @@
+.container-mainPaige {
+  background-color: #fbfaf2;
+}
+
+.container-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.category-buttons {
+  background-color: #614343;
+  border: #614343;
+  height: 30px;
+  margin-top: 10px;
+  width: 100px;
+}
+
