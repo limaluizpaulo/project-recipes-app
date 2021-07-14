@@ -51,6 +51,7 @@ class FavoriteButton extends Component {
     const { recipeDetails } = this.props;
     return (
       <button
+        className="like-and-share"
         type="button"
         onClick={ () => this.verifyFavorite(recipeDetails) }
       >

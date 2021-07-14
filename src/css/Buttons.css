@@ -123,3 +123,14 @@
   outline: none;
 }
 
+.button-end-recipe {
+  background-color: rgb(228, 204, 204);
+  border: rgb(228, 204, 204);
+  border-radius: 8px;
+  color: black;
+  height: 65px;
+  line-height: 1em;
+  margin: 0;
+  width: 310px;
+}
+

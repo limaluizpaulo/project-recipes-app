@@ -5,7 +5,8 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
 import { setDoneRecipes } from '../components/RecipeDetailsFunc';
-import '../css/RecipeDetails.css';
+
+import '../css/RecipeDetails.css'; import '../css/Page.css'; import '../css/Buttons.css';
 
 class RecipeInProgress extends React.Component {
   constructor(props) {
@@ -181,58 +182,60 @@ class RecipeInProgress extends React.Component {
     if (redireciona) return <Redirect to="/receitas-feitas" />;
     return (
       recipeDetails[0] ? (
-        <section>
-          <div>
-            <img
-              data-testid="recipe-photo"
-              src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
-              alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-              width="250px"
-            />
-            <h1 data-testid="recipe-title">
-              { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
-            </h1>
-            <div>
+        <div className="page">
+          <div className="perfil-container">
+            <div className="recipe-container">
+              <img
+                className="recipe-img"
+                data-testid="recipe-photo"
+                src={ recipeDetails[0].strMealThumb || recipeDetails[0].strDrinkThumb }
+                alt={ recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+                width="250px"
+              />
+              <h1 data-testid="recipe-title">
+                { recipeDetails[0].strMeal || recipeDetails[0].strDrink }
+              </h1>
               <span data-testid="recipe-category">
                 { recipeDetails[0].strAlcoholic }
               </span>
+              <button
+                className="like-and-share"
+                data-testid="share-btn"
+                type="button"
+                onClick={ this.copyLink }
+              >
+                {copied ? 'Link copiado!'
+                  : <img src={ shareIcon } alt="shareIcon" />}
+              </button>
+              <FavoriteButton
+                className="like-and-share"
+                recipeDetails={ recipeDetails[0] }
+                id={ id }
+                pathname={ pathname }
+              />
+              {copied ? <span>Link copiado!</span> : null}
+
+              <span data-testid="recipe-category">
+                { recipeDetails[0].strCategory }
+              </span>
+              <div className="recipe-details-ingredients">
+                <h4>Ingredientes</h4>
+                <ul>{this.getIngredients()}</ul>
+              </div>
+              <h4>Instruções</h4>
+              <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
+              <button
+                type="button"
+                className="button-end-recipe"
+                data-testid="finish-recipe-btn"
+                disabled={ !finaliza }
+                onClick={ () => this.redireciona(recipeDetails[0], pathname) }
+              >
+                Finalizar Receita
+              </button>
             </div>
-            <button
-              data-testid="share-btn"
-              type="button"
-              onClick={ this.copyLink }
-            >
-              {copied ? 'Link copiado!'
-                : <img src={ shareIcon } alt="shareIcon" />}
-            </button>
-            <FavoriteButton
-              recipeDetails={ recipeDetails[0] }
-              id={ id }
-              pathname={ pathname }
-            />
-            {copied ? <span>Link copiado!</span> : null}
-            <div>
-              <span data-testid="recipe-category">{ recipeDetails[0].strCategory }</span>
-            </div>
           </div>
-          <div>
-            <h4>Ingredientes</h4>
-            {this.getIngredients()}
-            <ul />
-          </div>
-          <div>
-            <h4>Instruções</h4>
-            <p data-testid="instructions">{ recipeDetails[0].strInstructions }</p>
-          </div>
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled={ !finaliza }
-            onClick={ () => this.redireciona(recipeDetails[0], pathname) }
-          >
-            Finalizar Receita
-          </button>
-        </section>
+        </div>
       ) : null
     );
   }
