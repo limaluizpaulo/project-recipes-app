@@ -1,5 +1,6 @@
 .container-header {
-  background-color: rgb(149, 149, 247);
+  background-color: #ab444b;
+  color: #614343;
   height: 10vh;
   width: 100vw;
 }
@@ -15,4 +16,9 @@
 
 .title-header {
   font-size: 40px;
+}
+
+.container-header-search {
+  background-color: #ab444b;
+  width: 100vw;
 }

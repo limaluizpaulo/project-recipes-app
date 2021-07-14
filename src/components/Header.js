@@ -38,28 +38,34 @@ export default function Header() {
     case '/bebidas':
     case '/explorar/comidas/area':
       return (
-        <Navbar className="container-header">
-          <Container>
-            <Link to="/perfil">
-              <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
-            </Link>
-            <Navbar.Brand href="/">
-              <h1 class-name="title-header" data-testid="page-title">{ getTitle() }</h1>
-            </Navbar.Brand>
-            <button
-              type="button"
-              onClick={ () => setHidden(!(isHidden)) }
-              className="button-search-icon"
-            >
-              <img
-                data-testid="search-top-btn"
-                src={ searchIcon }
-                alt="search-icon"
-              />
-            </button>
-            {!isHidden && (<SearchBar />)}
-          </Container>
-        </Navbar>);
+        <section className="container-header-search">
+          <Navbar className="container-header">
+            <Container>
+              <Link to="/perfil">
+                <img
+                  data-testid="profile-top-btn"
+                  src={ profileIcon }
+                  alt="profile-icon"
+                />
+              </Link>
+              <Navbar.Brand href="/">
+                <h1 class-name="title-header" data-testid="page-title">{ getTitle() }</h1>
+              </Navbar.Brand>
+              <button
+                type="button"
+                onClick={ () => setHidden(!(isHidden)) }
+                className="button-search-icon"
+              >
+                <img
+                  data-testid="search-top-btn"
+                  src={ searchIcon }
+                  alt="search-icon"
+                />
+              </button>
+            </Container>
+          </Navbar>
+          {!isHidden && (<SearchBar />)}
+        </section>);
     case '/explorar':
     case '/explorar/comidas':
     case '/explorar/comidas/ingredientes':
