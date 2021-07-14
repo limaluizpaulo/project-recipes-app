@@ -45,7 +45,7 @@ function RecipesFavorites() {
             />
 
             <ButtonShare
-              path={ `http://localhost:3000/${type}/${id}` }
+              path={ `http://localhost:3000/${type}s/${id}` }
               dataTest={ `${index}-horizontal-share-btn` }
             />
           </div>
