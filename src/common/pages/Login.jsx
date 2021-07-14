@@ -6,6 +6,7 @@ import { FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
 import imgLogin from '../../images/fine-chefs-logo.svg';
 import store, { addLogin } from '../../context/store';
 import { setStorage } from '../../functions';
+// ajustando GIT
 
 export default function Login() {
   const [signUp, setSignUp] = useState(false);

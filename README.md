@@ -2,7 +2,7 @@
 
 Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.
 
----
+-----
 
 # Boas vindas ao repositório do projeto de Receitas!
 
@@ -1085,7 +1085,7 @@ As categorias disponíveis devem ser obtidas através da API de [comidas](https:
   - Caso as receitas sejam de bebida e a categoria seja "Other/Unknown", deve-se carregar as 12 primeiras receitas de "Other/Unknown"
   - Caso as receitas sejam de bebida e a categoria seja "Cocoa", deve-se carregar as 12 primeiras receitas de "Cocoa"
   ```
-  
+
 **Atenção:** Caso a categoria retorne apenas um resultado, **NÃO** deve redirecionar para a página de detalhes.
 
 ### 29 - Implemente o filtro como um toggle, que se for selecionado de novo, o app deve retornar as receitas sem nenhum filtro
@@ -1671,14 +1671,14 @@ A rota `/explorar/bebidas/area` não deve estar disponível, retornando um erro 
     * O botão com as "Receitas Feitas" deve possuir o atributo `data-testid="profile-done-btn"`;
     * O botão com as "Receitas Favoritas" deve possuir o atributo `data-testid="profile-favorite-btn"`;
     * O botão de sair deve possuir o atributo `data-testid="profile-logout-btn"`.
-  
+
   O que será verificado:
   ```
   - Todos o data-testid do email e de todos os botões.
   ```
 
 ### 83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível
-  
+
   O que será verificado:
   ```
   - O e-mail armazenado em localStorage está visível.
