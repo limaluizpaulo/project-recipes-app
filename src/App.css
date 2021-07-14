@@ -91,7 +91,9 @@
 }
 
 .footer-generic {
+  background-color: white;
   bottom: 0;
+  padding: 10px;
   position: fixed;
   text-align: center;
   width: 100%;
