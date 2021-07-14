@@ -179,9 +179,23 @@ Ajuda Alessandra
 }
 
 .recipeProgress {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
+}
+
+.recipeProgress ul {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background: rgb(17, 165, 153);
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
 }
 
 .recipeProgress button {
@@ -237,15 +251,6 @@ Ajuda Alessandra
 .buttons-cattegory {
   background: rgb(17, 165, 153);
   border: 10px solid white;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  font-weight: 700;
-  padding: 10px 20px;
-}
-
-button {
-  background: rgb(17, 165, 153);
   border-radius: 10px;
   color: white;
   cursor: pointer;

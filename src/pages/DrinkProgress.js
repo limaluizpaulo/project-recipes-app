@@ -117,10 +117,11 @@ const DrinkProgress = ({ match }) => {
   };
 
   return (
-    <div>
+    <div className="recipe recipeProgress">
       <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       <h3 data-testid="recipe-category">{drink.strAlcoholic}</h3>
       <img
+        className="recipe-photo"
         data-testid="recipe-photo"
         src={ drink.strDrinkThumb }
         alt={ drink.strDrink }
