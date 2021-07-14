@@ -17,7 +17,6 @@ export default function Explore() {
 
   return redirect ? <Redirect to={ redirect } /> : (
     <>
-      <div>Tela de explorar</div>
       <Header title="Explorar" />
       {exploreBtn('food')}
       {exploreBtn()}

@@ -34,7 +34,7 @@ export default function Login() {
     <Redirect to="/comidas" />
   ) : (
     <div className="meals">
-      <span className="logo">Nome do App</span>
+      <span className="logo">New Market</span>
       <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>

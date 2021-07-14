@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { Button } from 'react-bootstrap';
 import DecentFooter from '../components/DecentFooter';
 import Header from '../components/Header';
 import BodyRecipesDone from '../components/BodyRecipesDone';
@@ -37,27 +38,30 @@ export default function RecipesDone({ history }) {
   return (
     <article>
       <Header title="Receitas Feitas" />
-      <button
+      <Button
+        variant="outline-dark"
         data-testid="filter-by-all-btn"
         onClick={ () => attStateFilter(0) }
         type="button"
       >
         Todas
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="outline-dark"
         data-testid="filter-by-food-btn"
         onClick={ () => attStateFilter(1) }
         type="button"
       >
         Comidas
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="outline-dark"
         data-testid="filter-by-drink-btn"
         onClick={ () => attStateFilter(2) }
         type="button"
       >
         Bebidas
-      </button>
+      </Button>
       {destructuredStorage ? renderFilteredList() : null}
       <DecentFooter />
     </article>

@@ -102,6 +102,7 @@
 .recipe-list {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 
 .recipe-list img {
@@ -122,4 +123,8 @@
 .decent-footer {
   display: flex;
   justify-content: space-evenly;
+}
+
+.header-image-text {
+  text-align: center;
 }

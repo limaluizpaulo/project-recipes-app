@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import Context from '../context/Context';
 import Header from '../components/Header';
 import HeaderSearchButton from '../components/HeaderSearchButton';
@@ -35,7 +36,8 @@ function Drinks() {
   const renderList = (
     <div>
       <div>
-        <button
+        <Button
+          variant="outline-dark"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => {
@@ -44,7 +46,7 @@ function Drinks() {
           } }
         >
           All
-        </button>
+        </Button>
         {categoryList()}
       </div>
       <div className="recipe-list">
@@ -55,7 +57,6 @@ function Drinks() {
 
   return (
     <>
-      <div>Tela de Bebidas</div>
       <Header title="Bebidas" />
       <HeaderSearchButton />
       {render ? manageRenderDrink(renderList) : <div>Loading...</div>}
