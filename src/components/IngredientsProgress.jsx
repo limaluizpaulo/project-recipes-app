@@ -6,20 +6,9 @@ import { UserContext } from '../context/UserProvider';
 const IngredientsProgress = ({ newObj }) => {
   const { type, ingredients, measures, id } = newObj;
   const { inProgressRecipes,
-    setInProgressRecipes } = useContext(UserContext);
+    setInProgressRecipes, addIngredientInProgress } = useContext(UserContext);
 
-  const handleProgress = () => {
-    const key = (type === 'comida') ? 'meals' : 'cocktails';
-    setInProgressRecipes(
-      {
-        ...inProgressRecipes,
-        [key]: {
-          ...inProgressRecipes[key],
-          [id]: [...ingredients],
-        },
-      },
-    );
-  };
+  const key = (type === 'comida') ? 'meals' : 'cocktails';
 
   // const [ingredientsChecked, setIngredientsChecked] = useState(ingredients
   //   .reduce((oldState, newIngredient) => {
@@ -41,23 +30,26 @@ const IngredientsProgress = ({ newObj }) => {
   //   getFromLocalStorage('inProgressRecipes');
   // }, [inProgressRecipes]);
 
-  // const handleLocalStorage = ({ target: { name } }) => {
-  //   const storageProgress = getFromLocalStorage('inProgressRecipes');
-  //   const localProgress = storageProgress[type][id]
-  //     .some((ingredient) => ingredient === name);
-  //   setIngredientsChecked((prevState) => ({
-  //     ...prevState,
-  //     [name]: !ingredientsChecked[name],
-  //   }));
-  //   if (localProgress) {
-  //     inProgressRecipes[type][id] = inProgressRecipes[type][id]
-  //       .filter((ingredient) => ingredient !== name);
-  //     setOnLocalStorage('inProgressRecipes', storageProgress);
-  //     return;
-  //   }
-  //   storageProgress.push(name);
-  //   setOnLocalStorage('inProgressRecipes', storageProgress);
-  // };
+  const handleLocalStorage = ({ target }) => {
+    // const storageProgress = getFromLocalStorage('inProgressRecipes');
+    // const localProgress = storageProgress[key][id];
+    // console.log(target.checked);
+    addIngredientInProgress(type, id, target.name);
+
+    //   .some((ingredient) => ingredient === name);
+    // setIngredientsChecked((prevState) => ({
+    //   ...prevState,
+    //   [name]: !ingredientsChecked[name],
+    // }));
+    // if (localProgress) {
+    //   inProgressRecipes[type][id] = inProgressRecipes[type][id]
+    //     .filter((ingredient) => ingredient !== name);
+    //   setOnLocalStorage('inProgressRecipes', storageProgress);
+    //   return;
+    // }
+    // storageProgress.push(name);
+    // setOnLocalStorage('inProgressRecipes', storageProgress);
+  };
 
   return (
     <section>
@@ -71,8 +63,8 @@ const IngredientsProgress = ({ newObj }) => {
             <input
               type="checkbox"
               name={ ingredient }
-              // checked={ inProgressRecipes[ingredients] }
-              // onChange={ (event) => handleLocalStorage(event) }
+              checked={ inProgressRecipes[key][id] && !!inProgressRecipes[key][id].includes(ingredient) }
+              onChange={ ({ target: { name } }) => addIngredientInProgress(type, id, name) }
             />
             {`- ${ingredient} ${measures[index]}`}
           </li>

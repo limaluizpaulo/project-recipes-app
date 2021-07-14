@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserProvider';
 const Progress = () => {
   const history = useHistory();
   const location = useLocation();
-  console.log(location.state.newObj);
+  // console.log(location.state.newObj);
   const { addInProgress } = useContext(UserContext);
   const { type, id } = location.state.newObj;
 

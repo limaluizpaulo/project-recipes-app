@@ -5,6 +5,7 @@ import {
   removeFromLocalStorage,
   setOnLocalStorage,
 } from '../services/helpers/localStorage';
+import Ingredients from '../components/Ingredients.jsx';
 
 const UserContext = createContext();
 
@@ -47,7 +48,7 @@ const UserProvider = ({ children }) => {
     return (!!favoritesStorage.find((favorite) => favorite.id === id));
   };
 
-  const addFavorites = async (recipe) => {
+  const addFavorites = (recipe) => {
     const favoritesList = getFromLocalStorage('favoriteRecipes');
     setOnLocalStorage('favoriteRecipes', [...favoritesList, recipe]);
     setFavorites(getFromLocalStorage('favoriteRecipes') || []);
@@ -101,12 +102,20 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const addInProgress = async (type, id) => {
+  const addInProgress = (type, id) => {
     const key = (type === 'comida') ? 'meals' : 'cocktails';
     const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
     setOnLocalStorage('inProgressRecipes',
       { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: [] } });
-    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || []);
+    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
+  };
+
+  const addIngredientInProgress = (type, id, ingredient) => {
+    const key = (type === 'comida') ? 'meals' : 'cocktails';
+    const inProgressRecipesList = getFromLocalStorage('inProgressRecipes');
+    setOnLocalStorage('inProgressRecipes',
+      { ...inProgressRecipesList, [key]: { ...inProgressRecipesList[key], [id]: ingredient !== null ? [...inProgressRecipesList[key][id], ingredient] : [...inProgressRecipesList[key][id]] } });
+    setInProgressRecipes(getFromLocalStorage('inProgressRecipes') || {});
   };
 
   const context = {
@@ -115,6 +124,7 @@ const UserProvider = ({ children }) => {
     copied,
     inProgressRecipes,
     addInProgress,
+    addIngredientInProgress,
     verifyLogin,
     inFavorites,
     addFavorites,
