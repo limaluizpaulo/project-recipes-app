@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FetchContext from './FetchContext';
+import { fetchAreaOrigens } from '../services/Api';
 
 function FetchProvider({ children }) {
   const [typeFunc, setTypeFunc] = useState('');
@@ -13,6 +14,14 @@ function FetchProvider({ children }) {
   const [ingredient, setIngredient] = useState([]);
   const [filterMeals, setFilterMeals] = useState(null);
   const [filterDrink, setFilterDrink] = useState(null);
+  const [areasFood, setAreasFood] = useState([]);
+
+  useEffect(() => {
+    const renderRecipes = () => {
+      fetchAreaOrigens().then((res) => setAreasFood(res));
+    };
+    renderRecipes();
+  }, []);
 
   const handleFoods = (radioButton, searchText) => {
     setNameRecipes('strMeal');
@@ -97,6 +106,7 @@ function FetchProvider({ children }) {
     filterMeals,
     setFilterDrink,
     filterDrink,
+    areasFood,
   };
 
   return (
