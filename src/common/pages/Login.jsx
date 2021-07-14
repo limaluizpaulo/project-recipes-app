@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLockAlt, BiUser } from 'react-icons/bi';
 import { FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
-import imgLogin from '../../images/img-login.svg';
+// import imgLogin from '../../images/img-login.svg';
+import imgLogin from '../../images/fine-chefs-logo.svg';
 import store, { addLogin } from '../../context/store';
 import { setStorage } from '../../functions';
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 import LikeButton from './LikeButton';
-import store, { setLoading } from '../../context/store';
+import store, { setFetchOnDone } from '../../context/store';
 
 import { mealInfo, drinkInfo } from '../../functions';
 
@@ -25,7 +25,7 @@ export default function FavoriteRecipeCard({ recipe, index,
     <div>
       <Link
         to={ `/${type}s/${id}` }
-        onClick={ () => setRecipes(setLoading(true)) }
+        onClick={ () => setRecipes(setFetchOnDone(true)) }
       >
         <img
           data-testid={ `${index}-horizontal-image` }
