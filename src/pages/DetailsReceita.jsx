@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useLocation, Link } from 'react-router-dom';
 import { buscaReceita, receitasApi } from '../services/servicesApi';
 
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Titulo from './detailsElements/Titulo';
 import IngredientsList from './detailsElements/IngredientsList';
 import CarouselElement from './detailsElements/CarouselElement';
 import ButtonCompartilhar from '../components/ButtonCompartilhar';
+import BotaoFavorito from '../components/ReceitaEmProgresso/BotaoFavorito';
 import { isDone, isInProgress } from '../services/localStorage';
 
 function videoRender(receita, apelidoAPI) {
@@ -32,16 +32,50 @@ function DetailsReceita(props) {
   const [receita, setReceita] = useState({});
   const [sugestoes, setSugestoes] = useState({});
   const ingredientes = [];
+  // console.log('receita', receita);
+  console.log('util', receita.idDrink);
+  const [info, setinfo] = useState({});
+
+  useEffect(() => {
+    setinfo({
+      id: receita.idMeal,
+      type: 'comida',
+      area: receita.strArea,
+      category: receita.strCategory,
+      alcoholicOrNot: receita.strAlcoholic,
+      name: receita.strMeal,
+      image: receita.strMealThumb,
+      tags: receita.strTags,
+      instructions: receita.strInstructions,
+    });
+    if (apelidoAPI === 'bebidas') {
+      setinfo({
+        ...info,
+        id: receita.idDrink,
+        image: receita.strDrinkThumb,
+        type: 'bebida',
+        name: receita.strDrink,
+      });
+    }
+  }, [receita]);
 
   useEffect(() => {
     const didMount = async () => {
       const respostaApi = await buscaReceita(receitas);
       setReceita(respostaApi);
     };
+
     const sugestoesfunv = async () => {
       let apelido = 'comidas';
       if (apelidoAPI === 'comidas') {
         apelido = 'bebidas';
+        setinfo({
+          ...info,
+          id: receita.idDrink,
+          image: receita.strDrinkThumb,
+          type: 'bebida',
+          name: receita.strDrink,
+        });
       }
       const respostaApi2 = await receitasApi({
         apelidoAPI: apelido,
@@ -105,9 +139,9 @@ function DetailsReceita(props) {
       { botaoIniciarReceita() }
 
       <div className="salvarcompartilhar">
-        <Link className="favoritebtn" to="/">
-          <img data-testid="favorite-btn" src={ blackHeartIcon } alt="" />
-        </Link>
+
+        <BotaoFavorito receita={ info } dataTestId="favorite-btn" onClick={ () => {} } />
+        {console.log(info)}
         <ButtonCompartilhar
           parametrosURL={ { id, type: apelidoAPI } }
           dataTestId="share-btn"

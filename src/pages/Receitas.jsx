@@ -40,7 +40,7 @@ function Receitas() {
   }, [parametrosBusca]);
 
   if (receitas.length === 1) {
-    const type = Object.keys(receitas[0])[2];
+    const type = Object.keys(receitas[0])[0];
     const redirect = {
       idDrink: `/bebidas/${receitas[0].idDrink}`,
       idMeal: `/comidas/${receitas[0].idMeal}`,
