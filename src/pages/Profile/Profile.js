@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 function Profile() {
   const userInfos = JSON.parse(localStorage.user);
+  const history = useHistory();
   return (
     <div id="page-drinks">
       <div>
@@ -12,12 +14,14 @@ function Profile() {
         <button
           type="button"
           data-testid="profile-done-btn"
+          onClick={ () => history.push('/receitas-feitas') }
         >
           Receitas Feitas
         </button>
         <button
           type="button"
           data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/receitas-favoritas') }
         >
           Receitas Favoritas
         </button>
