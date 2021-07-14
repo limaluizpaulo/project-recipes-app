@@ -30,7 +30,7 @@ export const setInitialItem = (key, value) => {
   }
 };
 
-export const createDoneRecipe = (id, type, detailsData) => {
+export const createDoneRecipe = (id, type, detailsData, pathname) => {
   const minusOne = -1;
   const singleType = capitalize(type.slice(0, minusOne));
   const thumbnail = `str${singleType}Thumb`;
@@ -46,6 +46,16 @@ export const createDoneRecipe = (id, type, detailsData) => {
     image: detailsData[thumbnail],
     doneDate: new Date(),
     tags: detailsData.strTags || [],
+    url: pathname,
   };
   return item;
+};
+
+export const createIngredientList = (detailsData) => {
+  if (detailsData) {
+    return (Object.keys(detailsData).filter(
+      (key) => (key.includes('strIngredient') && detailsData[key]),
+    ));
+  }
+  return [];
 };

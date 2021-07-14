@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import copy from 'clipboard-copy';
 import { getMealById } from '../helpers/MealsAPI';
@@ -7,7 +7,7 @@ import RecipesContext from '../contexts/RecipesContext';
 import shareIcon from '../images/shareIcon.svg';
 import Button from '../helpers/Button';
 import Recommended from '../components/Recommended';
-import { getItem, setItem, createDoneRecipe, setInitialItem }
+import { getItem, setItem, createDoneRecipe, setInitialItem, createIngredientList }
   from '../helpers/HelperFunctions';
 import FavoriteButton from '../helpers/FavoriteButton';
 
@@ -25,9 +25,8 @@ function InProgress() {
   const history = useHistory();
   const [detailsData, setDetailsData] = useState({});
   const [shareCopy, setShareCopy] = useState(false);
-  const ingredientsList = (Object.keys(detailsData).filter(
-    (key) => (key.includes('strIngredient') && detailsData[key]),
-  ));
+  const ingredientsList = createIngredientList(detailsData);
+
   const localStorageIngredients = getItem('inProgressRecipes')[typeKey][id];
 
   const [ingredientCheck, setIngredientCheck] = useState(localStorageIngredients);
@@ -51,10 +50,10 @@ function InProgress() {
     getData();
   }, [type, id]);
   const thirtyTwo = 32;
-
+  const { pathname } = useLocation();
   const recipeDone = () => {
     const itemList = getItem('doneRecipes');
-    itemList.push(createDoneRecipe(id, type, detailsData));
+    itemList.push(createDoneRecipe(id, type, detailsData, pathname));
 
     setItem('doneRecipes', itemList);
   };
