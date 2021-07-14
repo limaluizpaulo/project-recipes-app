@@ -13,8 +13,7 @@ import DetailsDrinkPage from './components/DetailsDrinkPage';
 import ExploreFoods from './components/ExploreFoods';
 import ExploreDrinks from './components/ExploreDrinks';
 import ExpFoodIngredients from './components/ExpFoodIngredients';
-import ExpArea from './components/ExpArea';
-// import ExpSurprise from './components/ExpSurprise';
+import ExpAreaFood from './components/ExpAreaFood';
 import NotFoundPage from './components/NotFoundPage';
 import ExpDrinkIngredients from './components/ExpDrinkIngredients';
 import DoneRecipes from './components/DoneRecipes';
@@ -31,7 +30,7 @@ function App() {
         />
         <Route
           path="/explorar/comidas/area"
-          render={ (props) => <ExpArea { ...props } /> }
+          render={ (props) => <ExpAreaFood { ...props } /> }
         />
         <Route
           path="/explorar/comidas/:id"

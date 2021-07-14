@@ -26,31 +26,33 @@ function Footer({ history }) {
 
   return (
     <footer data-testid="footer" className="footer-container">
-      <button
+      <input
         name="Bebidas"
         className="normal-button"
-        type="button"
+        type="image"
         data-testid="drinks-bottom-btn"
         onClick={ goDrinks }
-      >
-        <img src={ drinkIcon } alt="Drinks Icon" />
-      </button>
-      <button
+        src={ drinkIcon }
+        alt="Drinks Icon"
+        width="45"
+      />
+      <input
         className="normal-button"
-        type="button"
+        type="image"
         data-testid="explore-bottom-btn"
         onClick={ goExplore }
-      >
-        <img src={ exploreIcon } alt="Explore Icon" />
-      </button>
-      <button
+        src={ exploreIcon }
+        alt="Explore Icon"
+        width="45"
+      />
+      <input
         className="normal-button"
-        type="button"
+        type="image"
         data-testid="food-bottom-btn"
         onClick={ goFood }
-      >
-        <img src={ mealIcon } alt="Meal Icon" />
-      </button>
+        src={ mealIcon }
+        alt="Meal Icon"
+      />
     </footer>
   );
 }
