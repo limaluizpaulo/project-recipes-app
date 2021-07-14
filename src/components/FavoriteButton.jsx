@@ -74,13 +74,15 @@ function FavoriteButton(props) {
   useEffect(setInlocalStorage, [saveRecipe]);
 
   return (
-    <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
-      <img
-        src={ stateChangeHeart ? whiteHeartIcon : blackHeartIcon }
-        alt="imagem de favoritar"
-        data-testid="favorite-btn"
-      />
-    </button>
+    <div className="favortieButton">
+      <button type="button" onClick={ () => { saveStorage(); changeHeart(); } }>
+        <img
+          src={ stateChangeHeart ? whiteHeartIcon : blackHeartIcon }
+          alt="imagem de favoritar"
+          data-testid="favorite-btn"
+        />
+      </button>
+    </div>
   );
 }
 
