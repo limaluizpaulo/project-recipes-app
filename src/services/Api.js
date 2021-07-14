@@ -13,10 +13,15 @@ export const fetchAreaOrigens = async () => {
 };
 
 export const fetchArea = async (area) => {
-  const countries = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
-  const response = await countries.json();
-  const data = response.meals;
-  return data;
+  if (area !== 'All') {
+    const countries = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+    const response = await countries.json();
+    const data = response.meals;
+    return data;
+  }
+  const foodArea = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const results = await foodArea.json();
+  return results.meals;
 };
 
 export const fetchDrinksList = async () => {

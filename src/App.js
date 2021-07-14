@@ -17,6 +17,7 @@ import SearchDrinks from './pages/SearchDrinks';
 import SearchFoodsIngredients from './pages/SearchFoodsIngredients';
 import SearchDrinksIngredients from './pages/SearchDrinksIngredients';
 import OrigensFoods from './pages/OrigensFoods';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -60,6 +61,10 @@ function App() {
       <Route
         path="/explorar/comidas/area"
         component={ OrigensFoods }
+      />
+      <Route
+        path="/explorar/bebidas/area"
+        component={ NotFound }
       />
     </Switch>
   );

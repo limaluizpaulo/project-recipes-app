@@ -1,45 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+// import Cards from '../components/Cards';
+import DropDownArea from '../components/DropDownArea';
 import Footer from '../components/Footer';
 import HeaderSearch from '../components/Header';
 import FetchContext from '../context/FetchContext';
-import { fetchAreaOrigens /* fetchArea */ } from '../services/Api';
+import { fetchRecipesList } from '../services/Api';
 
 function OrigensFoods() {
-  const { data, setData } = useContext(FetchContext);
   OrigensFoods.displayName = 'Explorar Origem';
-  console.log(data);
-  const renderRecipes = () => {
-    fetchAreaOrigens().then((res) => setData(res));
-  };
-  const renderAreas = () => {
-    const areasArr = data.map((res) => res.strArea);
-    console.log(areasArr);
-    const novaArr = areasArr.filter((el, i) => areasArr.indexOf(el) === i);
-    console.log(novaArr);
-    // eslint-disable-next-line max-len
-    // eslint-disable-next-line react/jsx-key
-    return novaArr.map((area) => (
-      // eslint-disable-next-line react/jsx-key
-      <option
-        data-testid={ `${area}-option` }
-      >
-        {area}
-      </option>));
-    // return data.map((res) => <option>{ res.strArea} </option>)
-  };
+  const { data, setData } = useContext(FetchContext);
+  const TWELVE = 12;
 
-  // const rendercards = () => {
-  //   fetchArea().then((res) => setData(res));
-  // };
+  const areaCards = () => (
+    <div>
+      { data && data.slice(0, TWELVE).map((food, index) => (
+        <Link
+          to={ `/comidas/${food.idMeal}` }
+          key={ food.idMeal }
+        >
+          <div
+            data-testid={ `${index}-recipe-card` }
+            key={ food.idMeal }
+          >
+            <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
+            <img
+              width="150px;"
+              data-testid={ `${index}-card-img` }
+              src={ food.strMealThumb }
+              alt={ food.strMeal }
+            />
+          </div>
+        </Link>
+      ))}
+    </div>);
+
+  const loading = () => (<h1>Loading...</h1>);
+  const renderRecipes = () => {
+    fetchRecipesList().then((res) => setData(res));
+  };
+  useEffect(renderRecipes, []);
 
   return (
     <div>
       <HeaderSearch title={ OrigensFoods.displayName } />
-      { data.length === 0 && renderRecipes()}
-      <select data-testid="explore-by-area-dropdown">
-        {renderAreas()}
-      </select>
-      {/* <Card> */}
+      <DropDownArea data={ data } />
+      { !data ? loading() : areaCards()}
       <Footer />
     </div>
   );
