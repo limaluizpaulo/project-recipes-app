@@ -10,7 +10,7 @@ export default function FavoriteButton(values) {
   const { id } = useParams();
   const food = pathname.includes('bebidas') ? 'bebida' : 'comida';
   const favorited = getItem('favoriteRecipes');
-  const favoritedCheck = favorited.some((i) => i.id === id);
+  const favoritedCheck = favorited && favorited.some((i) => i.id === id);
   const [toggle, setToggle] = useState(favoritedCheck);
   const saveFavorite = (dataParam) => {
     // const favorited = getItem('favoriteRecipes');

@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Button from '../helpers/Button';
-import { getItem } from '../helpers/HelperFunctions';
+import { getItem, setInitialItem } from '../helpers/HelperFunctions';
 
 function Perfil() {
+  setInitialItem('user', { email: '' });
   const { email } = getItem('user');
   const history = useHistory();
 
