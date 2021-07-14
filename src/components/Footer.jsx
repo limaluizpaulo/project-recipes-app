@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-export default function Footer() {
-  const { pathname } = useLocation();
+export default function Footer(props) {
+  const { className } = props;
   return (
     <footer
-      className={ `footer ${pathname.slice(1, pathname.length)}` }
+      className={ `footer ${className}` }
       data-testid="footer"
     >
       <Link to="/bebidas">
@@ -23,3 +24,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+Footer.propTypes = { className: PropTypes.string.isRequired };

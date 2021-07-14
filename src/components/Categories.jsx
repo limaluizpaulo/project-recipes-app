@@ -6,11 +6,6 @@ import {
   getMealsByCategory,
   getMealsCategories,
 } from '../helpers/MealsAPI';
-import {
-  getCocktailsRecipes,
-  getCocktailsByCategory,
-  getCocktailsCategories,
-} from '../helpers/CocktailsAPI';
 
 export default function Categories() {
   const [categoriesData, setCategoriesData] = useState([]);
@@ -22,6 +17,8 @@ export default function Categories() {
   const {
     setData,
     type,
+    ingredient,
+    setIngredient,
   } = useContext(RecipesContext);
 
   const strFilter = (strCategory) => {
@@ -38,8 +35,7 @@ export default function Categories() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const results = (type === 'meals')
-        ? await getMealsCategories() : await getCocktailsCategories();
+      const results = await getMealsCategories(type);
       setCategoriesData(results.filter((item, index) => index < maxCategories));
     };
     getCategories();
@@ -47,27 +43,35 @@ export default function Categories() {
 
   useEffect(() => {
     const filterCategory = async () => {
-      let results;
-      if (selectedCategory === 'All') {
-        results = (type === 'meals')
-          ? await getMealsRecipes() : await getCocktailsRecipes();
-      } else {
-        results = (type === 'meals') ? await getMealsByCategory(selectedCategory)
-          : await getCocktailsByCategory(selectedCategory);
-      }
-      if (results && selectedCategory) {
-        setData(results.filter((item, index) => index < maxCards));
+      try {
+        if (ingredient !== '') return;
+        let results;
+        if (selectedCategory === 'All' && ingredient === '') {
+          results = await getMealsRecipes(type);
+        } else {
+          results = await getMealsByCategory(selectedCategory, type);
+        }
+        if (results && selectedCategory) {
+          setData(results.filter((item, index) => index < maxCards));
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     filterCategory();
   }, [selectedCategory]);
+
+  // useEffect(() => { console.log('select', selectedCategory); }, [selectedCategory]);
 
   return (
     <aside className="categories">
       <Button
         key="All"
         label="All"
-        func={ () => strFilter('All') }
+        func={ () => {
+          setIngredient('');
+          strFilter('All');
+        } }
         testid="All-category-filter"
         className={ `categories-btn ${type}` }
         disabled={ false }

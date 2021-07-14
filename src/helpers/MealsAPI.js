@@ -31,6 +31,9 @@ export const getMealsFirstLetterFilter = (filter, type = 'meals') => getAPI(
 export const getMealsByCategory = (category, type = 'meals') => getAPI(MEALS_API[type],
   'filter.php?c=', type, category);
 
+export const getMealsByArea = (area, type = 'meals') => getAPI(MEALS_API[type],
+  'filter.php?a=', type, area);
+
 export const getMealById = (id, type = 'meals') => getAPI(MEALS_API[type],
   'lookup.php?i=',
   type, id);
@@ -38,3 +41,6 @@ export const getMealById = (id, type = 'meals') => getAPI(MEALS_API[type],
 export const getMealRandom = (type = 'meals') => getAPI(
   MEALS_API[type], 'random.php', type,
 );
+
+export const getRecipesByIng = (ingredient, type = 'meals') => getAPI(MEALS_API[type],
+  'filter.php?i=', type, ingredient);
