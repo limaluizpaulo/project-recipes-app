@@ -5,15 +5,13 @@ import Card from '../components/Card';
 import VideoPlayer from '../components/VideoPlayer';
 import { saveFavoriteRecipe } from '../storage/localStorage';
 import '../styles/details.css';
-
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
 import { getDataById, getRandomData } from '../services/apiRequest';
+import Loading from '../components/Loading';
 
 const SIX = 6;
-
 function handleIngredientsData(Lista) {
   const ingredientFormated = Lista.map((el, i, arr) => (
     (el[0].includes('Ingredient')) && ([`${el[1]
@@ -22,34 +20,30 @@ function handleIngredientsData(Lista) {
     ]))).filter((fil) => fil);
   return ingredientFormated;
 }
-
 function handleRecipeInProgress(history, path, id) {
   history.push(`${path.replace(':id', `${id}`)}/in-progress`);
 }
-
 function handleFavorite(state, setState, path, content) {
   setState((prevState) => ({ status: !state.status,
     imagem: prevState.imagem === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon }));
   saveFavoriteRecipe(path, content);
   // saveFavoritRecipes(path, singleContent[0], favorit.status);
 }
-
 export default function Details() {
   const history = useHistory();
   const { path } = useRouteMatch();
   const { id } = useParams();
-
   const [domain, firstKey, imgSrc, title, recDomain, recFirstKey] = path
     .includes('comidas')
     ? ['themealdb', 'meals', 'strMealThumb', 'strMeal', 'thecocktaildb', 'drinks']
     : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink', 'themealdb', 'meals'];
-
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
   const [favorit, setFavorit] = useState({ status: false, imagem: whiteHeartIcon });
 
   useEffect(() => {
+<<<<<<< HEAD
     getDataById(domain, id).then((res) => {
       setSingleContent(res[firstKey] || []);
 
@@ -61,6 +55,20 @@ export default function Details() {
 
     getRandomData(recDomain).then((res) => setRecomentation(res[recFirstKey]
       .filter((_e, index) => index < SIX)));
+=======
+    function getRecipeDetails() {
+      getDataById(domain, id).then((res) => {
+        setSingleContent(res[firstKey] || []);
+        const list = Object.entries(res[firstKey][0]).filter((el) => (
+          (el[0].includes('Ingredient')
+          || el[0].includes('Measure')) && el[1]) && el[1] !== ' ');
+        setIngridientsList(list);
+      });
+      getRandomData(recDomain).then((res) => setRecomentation(res[recFirstKey]
+        .filter((_e, index) => index < SIX)));
+    }
+    getRecipeDetails();
+>>>>>>> d85ad0ea9753c801025d2aeca7e7c960d4348006
   }, [id, domain, firstKey, recDomain, recFirstKey]);
 
   useEffect(() => {
@@ -74,7 +82,11 @@ export default function Details() {
   }, [id]);
 
   return (
+<<<<<<< HEAD
     !singleContent[0] ? (<h1>Loading...</h1>)
+=======
+    (!singleContent[0]) ? (<Loading />)
+>>>>>>> d85ad0ea9753c801025d2aeca7e7c960d4348006
       : (
         <>
           <img
@@ -144,7 +156,10 @@ export default function Details() {
                   index={ i }
                   testId="recomendation"
                 />
+<<<<<<< HEAD
 
+=======
+>>>>>>> d85ad0ea9753c801025d2aeca7e7c960d4348006
                 {/* <CardRecomendation
                 mealOrDrink={ array[i + 1] || array[0] }
                 index={ i + 1 }
@@ -153,7 +168,10 @@ export default function Details() {
               </Carousel.Item>
             ))}
           </Carousel>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d85ad0ea9753c801025d2aeca7e7c960d4348006
           <Button
             className="start-recipe-btn"
             onClick={ () => handleRecipeInProgress(history, path, id) }
