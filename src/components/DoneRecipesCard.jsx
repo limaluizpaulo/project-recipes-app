@@ -27,27 +27,27 @@ function DoneRecipesCard() {
     <>
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
-        <div key={index}>
+        <div key={ index }>
           <div className="food__card__done">
-            <Link to={`/${recipe.type}s/${recipe.id}`}>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <span
                 className="dn__food__card_text"
-                data-testid={`${index}-horizontal-name`}
+                data-testid={ `${index}-horizontal-name` }
               >
                 {recipe.name}
               </span>
               <div className="food__card__img">
                 <img
-                  src={recipe.image}
-                  alt={recipe.name}
-                  data-testid={`${index}-horizontal-image`}
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
                 />
               </div>
 
             </Link>
 
             <p
-              data-testid={`${index}-horizontal-top-text`}
+              data-testid={ `${index}-horizontal-top-text` }
             >
               {recipe.type === 'comida'
                 ? `${recipe.area} - ${recipe.category}`
@@ -56,21 +56,21 @@ function DoneRecipesCard() {
             <div>
               <span>Receita feita em: </span>
               <span
-                data-testid={`${index}-horizontal-done-date`}
+                data-testid={ `${index}-horizontal-done-date` }
               >
                 {recipe.doneDate}
               </span>
             </div>
             <button
               type="button"
-              onClick={handleOnClick}
+              onClick={ handleOnClick }
             >
               <img
-                name={recipe.type}
-                id={recipe.id}
-                data-testid={`${index}-horizontal-share-btn`}
-                src={shareRecipe}
-                alt={recipe.name}
+                name={ recipe.type }
+                id={ recipe.id }
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareRecipe }
+                alt={ recipe.name }
               />
             </button>
 
@@ -79,14 +79,14 @@ function DoneRecipesCard() {
                 <button
                   className="food__tag__button"
                   type="button"
-                  data-testid={`${index}-${recipe.tags[0]}-horizontal-tag`}
+                  data-testid={ `${index}-${recipe.tags[0]}-horizontal-tag` }
                 >
                   {recipe.tags[0]}
                 </button>
                 <button
                   className="food__tag__button"
                   type="button"
-                  data-testid={`${index}-${recipe.tags[1]}-horizontal-tag`}
+                  data-testid={ `${index}-${recipe.tags[1]}-horizontal-tag` }
                 >
                   {recipe.tags[1]}
                 </button>
