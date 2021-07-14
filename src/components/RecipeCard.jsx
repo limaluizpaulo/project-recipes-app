@@ -10,7 +10,8 @@ export default function RecipeCard(recipe, index) {
     <Link
       key={ index }
       data-testid={ `${index}-recipe-card` }
-      style={ { color: 'inherit', textDecoration: 'inherit' } }
+      style={ { color: 'inherit',
+        textDecoration: 'inherit' } }
       to={ recipeID }
     >
       <Card>
