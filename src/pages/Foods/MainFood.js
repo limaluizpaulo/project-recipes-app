@@ -22,7 +22,7 @@ export default function MainFood(match) {
       const category = await fetchCategoryFood();
 
       setList(fun);
-      setCategoryList(category);
+      setCategoryList(category || {});
     };
 
     func();

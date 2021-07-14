@@ -12,8 +12,8 @@ export default function FavoriteRecipes() {
   const [show, setShow] = useState(false);
   const [newFavoriteRecipies, setNewFavoriteRecipies] = useState(favoriteRecepies);
 
-  function handleClickClipBoard(type, id) {
-    copy(`http://localhost:3000/${type}s/${id}`);
+  async function handleClickClipBoard(type, id) {
+    await copy(`http://localhost:3000/${type}s/${id}`);
     setShow(true);
   }
 
@@ -83,14 +83,28 @@ export default function FavoriteRecipes() {
           >
             {recipe.name}
           </p>
-          <img
+
+          <div
+            role="button"
+            type="button"
+
+          >
+            <img
+              role="button"
+              
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="Share Icon"
+            />
+          </div>
+          {/* <img
             style={ { padding: '20px' } }
             role="presentation"
             src={ shareIcon }
             alt="Ícone para compartilhar"
             data-testid={ `${index}-horizontal-share-btn` }
             onClick={ () => handleClickClipBoard(recipe.type, recipe.id) }
-          />
+          /> */}
 
           <img
             role="presentation"

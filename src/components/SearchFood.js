@@ -13,7 +13,7 @@ function SearchFood({ recipe, dispRecipeList }) {
     const func = await fun();
     // .log(func);
     if (func === undefined || func.meals === null || func.drinks === null) {
-      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else if (recipe === 'Comidas') {
       if (func.meals.length === 1) {
         history.push(`/comidas/${func.meals[0].idMeal}`);
@@ -47,7 +47,7 @@ function SearchFood({ recipe, dispRecipeList }) {
     }
     if (choice === 'letter') {
       if (text.length > 1) {
-        global.alert('Sua busca deve conter somente 1 (um) caracter');
+        window.alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
         // console.log('passou')
         return recipe === 'Comidas'

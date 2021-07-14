@@ -12,7 +12,9 @@ export default function RecipeDone() {
   const [newDoneRecipies, setNewDoneRecipies] = useState(doneRecepies);
 
   function handleClickClipBoard(type, id) {
+    console.log('aaaaa');
     copy(`http://localhost:3000/${type}s/${id}`);
+
     setShow(true);
   }
   function filterDoneRecepies(filterType) {
@@ -79,6 +81,7 @@ export default function RecipeDone() {
             { recipe.doneDate }
           </p>
           <img
+            onFocus
             style={ { padding: '20px' } }
             role="presentation"
             src={ shareIcon }
