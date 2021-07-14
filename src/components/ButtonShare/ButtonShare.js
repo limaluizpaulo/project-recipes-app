@@ -7,7 +7,6 @@ const TREE_SECONDS = 3000;
 
 function ButtonShare({ path, dataTest }) {
   const [showMsg, setShowMsg] = useState(false);
-
   const exibeText = () => {
     setShowMsg(true);
     setTimeout(() => {
