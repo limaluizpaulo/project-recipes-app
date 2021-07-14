@@ -91,61 +91,56 @@ export default function SearchBar() {
 
   return (
 
-    <div>
+    <div className="searchBar">
+      <input
+        type="text"
+        name="input"
+        data-testid="search-input"
+        onChange={ handleChange }
+        placeholder="Buscar Receitas"
+      />
       <div>
-        <input
-          type="text"
-          name="input"
-          // value={ searchbar }
-          data-testid="search-input"
-          onChange={ handleChange }
-          placeholder="Buscar Receitas"
-        />
+        <label htmlFor="r1">
+          <input
+            type="radio"
+            onChange={ handleChange }
+            data-testid="ingredient-search-radio"
+            id="r1"
+            name="rate"
+            value="ingredient"
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="r2">
+          <input
+            type="radio"
+            onChange={ handleChange }
+            data-testid="name-search-radio"
+            id="r2"
+            name="rate"
+            value="name"
+          />
+          Nome
+        </label>
+        <label htmlFor="r3">
+          <input
+            type="radio"
+            onChange={ handleChange }
+            data-testid="first-letter-search-radio"
+            id="r3"
+            name="rate"
+            value="firstLetter"
+          />
+          primeira letra
+        </label>
       </div>
-      <label htmlFor="r1">
-        <input
-          type="radio"
-          onChange={ handleChange }
-          data-testid="ingredient-search-radio"
-          id="r1"
-          name="rate"
-          value="ingredient"
-        />
-        Ingrediente
-      </label>
-      <label htmlFor="r2">
-        <input
-          type="radio"
-          onChange={ handleChange }
-          data-testid="name-search-radio"
-          id="r2"
-          name="rate"
-          value="name"
-        />
-        Nome
-      </label>
-      <label htmlFor="r3">
-        <input
-          type="radio"
-          onChange={ handleChange }
-          data-testid="first-letter-search-radio"
-          id="r3"
-          name="rate"
-          value="firstLetter"
-        />
-        primeira letra
-      </label>
-      <div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ handleClick }
-        >
-          Buscar
-
-        </button>
-      </div>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ handleClick }
+      >
+        Buscar
+      </button>
     </div>
-
   );
 }

@@ -59,7 +59,7 @@ export default function Profile() {
       </div>
       <div className="container">
         <div className="card">
-          <div className="mainContent">
+          <div className="mainContentProfile">
             <div className="imageProfile">
               <button
                 type="button"

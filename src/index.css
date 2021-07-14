@@ -228,7 +228,7 @@ justify-items: center;
 
 .containerBtns {
   background-color: var(--first-color-dark);
-  margin-top: 8rem;
+  margin-top: 1rem;
   padding: 10px 0;
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
@@ -737,7 +737,7 @@ justify-items: center;
   background-image: linear-gradient(to top, #00F2FE, #4FACFE );
 }
 
-.mainContent {
+.mainContentProfile {
   position: absolute;
   top: 2rem;
   width: 100%;
@@ -747,7 +747,7 @@ justify-items: center;
   align-items: center;
 }
 
-.mainContent .imageProfile {
+.mainContentProfile .imageProfile {
   position: relative;
   width: 110px;
   height: 110px;
@@ -773,11 +773,11 @@ justify-items: center;
   cursor: pointer;
 }
 
-.mainContent .imageProfile:hover .bgCamera {
+.mainContentProfile .imageProfile:hover .bgCamera {
   opacity: 1;
 }
 
-.mainContent .userName, .email {
+.mainContentProfile .userName, .email {
   font-size: 1.2rem;
   color: var(--title-color);
   line-height: 1;
@@ -930,6 +930,22 @@ justify-items: center;
   color: var(--title-color);
   box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
 }
+
+/*  ====================================================================================================================================*/
+
+/* SEARCHBAR COMPONENT ===========================================================================================================*/
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  width: 400px;
+  height: 80px;
+  background-color: var(--first-color-lighten);
+  border-radius: 40px;
+  box-shadow: 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
 
 /*  ====================================================================================================================================*/
 
