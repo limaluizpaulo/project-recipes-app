@@ -25,11 +25,13 @@ function MainPage() {
 
   useEffect(getApiAll, []);
   return (
-    <div>
+    <>
       <Header />
-      {pathname.includes('/bebidas') ? <CardDrink /> : <CardMeal /> }
-      <Footer />
-    </div>
+      <div className="main-card">
+        {pathname.includes('/bebidas') ? <CardDrink /> : <CardMeal /> }
+        <Footer />
+      </div>
+    </>
   );
 }
 

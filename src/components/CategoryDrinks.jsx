@@ -35,10 +35,10 @@ export default function CategoryDrinks() {
   };
 
   return (
-    <div>
+    <main className="filter-buttons">
       {categoryDrink.map(({ strCategory }, index) => (
         <Button
-          variant="light"
+          variant="outline-light"
           type="button"
           value={ strCategory }
           key={ index }
@@ -48,7 +48,7 @@ export default function CategoryDrinks() {
           {strCategory}
         </Button>))}
       <Button
-        variant="danger"
+        variant="outline-danger"
         type="button"
         onClick={ handleAll }
         data-testid="All-category-filter"
@@ -56,6 +56,6 @@ export default function CategoryDrinks() {
         All
       </Button>
 
-    </div>
+    </main>
   );
 }

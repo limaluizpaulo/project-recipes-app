@@ -31,10 +31,10 @@ export default function CategoryMeals() {
   };
   useEffect(getApiCategory, []);
   return (
-    <>
+    <main className="filter-buttons">
       {categoryMeals.map(({ strCategory }) => (
         <Button
-          variant="light"
+          variant="outline-light"
           type="button"
           value={ strCategory }
           key={ strCategory }
@@ -44,13 +44,13 @@ export default function CategoryMeals() {
           {strCategory}
         </Button>))}
       <Button
-        variant="danger"
+        variant="outline-danger"
         type="button"
         onClick={ handleAll }
         data-testid="All-category-filter"
       >
         All
       </Button>
-    </>
+    </main>
   );
 }

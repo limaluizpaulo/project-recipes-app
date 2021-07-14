@@ -28,9 +28,15 @@ export default function CardDrink() {
       <CategoryDrinks />
       <ul className="ulCard">
         {arrayDrink.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-          <div className="card" key={ idDrink }>
+          <div className="main-card" key={ idDrink }>
             <Link to={ `/bebidas/${idDrink}` }>
-              <Card style={ { width: '10rem' } }>
+              <Card
+                border="dark"
+                style={ { width: '10rem' } }
+                className="mb-2 shadownCard"
+                bg="dark"
+                text="white"
+              >
                 <Card.Img
                   variant="top"
                   src={ strDrinkThumb }

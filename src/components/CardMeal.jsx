@@ -28,9 +28,15 @@ export default function CardMeal() {
       { !pathname.includes('explorar') && <CategoryMeals />}
       <ul className="ulCard">
         {arrayMeal.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <div className="card" key={ idMeal }>
+          <div className="main-card" key={ idMeal }>
             <Link to={ `/comidas/${idMeal}` } key={ index }>
-              <Card style={ { width: '10rem' } }>
+              <Card
+                border="dark"
+                style={ { width: '10rem' } }
+                className="mb-2 shadownCard"
+                bg="dark"
+                text="white"
+              >
                 <Card.Img
                   variant="top"
                   src={ strMealThumb }
