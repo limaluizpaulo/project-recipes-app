@@ -5,13 +5,15 @@ import Card from '../components/Card';
 import VideoPlayer from '../components/VideoPlayer';
 import { saveFavoriteRecipe } from '../storage/localStorage';
 import '../styles/details.css';
+
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+
 import { getDataById, getRandomData } from '../services/apiRequest';
-import Loading from '../components/Loading';
 
 const SIX = 6;
+
 function handleIngredientsData(Lista) {
   const ingredientFormated = Lista.map((el, i, arr) => (
     (el[0].includes('Ingredient')) && ([`${el[1]
@@ -20,23 +22,28 @@ function handleIngredientsData(Lista) {
     ]))).filter((fil) => fil);
   return ingredientFormated;
 }
+
 function handleRecipeInProgress(history, path, id) {
   history.push(`${path.replace(':id', `${id}`)}/in-progress`);
 }
+
 function handleFavorite(state, setState, path, content) {
   setState((prevState) => ({ status: !state.status,
     imagem: prevState.imagem === whiteHeartIcon ? blackHeartIcon : whiteHeartIcon }));
   saveFavoriteRecipe(path, content);
   // saveFavoritRecipes(path, singleContent[0], favorit.status);
 }
+
 export default function Details() {
   const history = useHistory();
   const { path } = useRouteMatch();
   const { id } = useParams();
+
   const [domain, firstKey, imgSrc, title, recDomain, recFirstKey] = path
     .includes('comidas')
     ? ['themealdb', 'meals', 'strMealThumb', 'strMeal', 'thecocktaildb', 'drinks']
     : ['thecocktaildb', 'drinks', 'strDrinkThumb', 'strDrink', 'themealdb', 'meals'];
+
   const [singleContent, setSingleContent] = useState([]);
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
@@ -67,7 +74,7 @@ export default function Details() {
   }, [id]);
 
   return (
-    !singleContent[0] ? (<Loading />)
+    !singleContent[0] ? (<h1>Loading...</h1>)
       : (
         <>
           <img

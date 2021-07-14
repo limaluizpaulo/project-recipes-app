@@ -77,6 +77,7 @@ export const saveFavoriteRecipe = (path, obj) => {
   if (localStorage.getItem('favoriteRecipes')) {
     const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!arrayFavorites.find((el) => el.id === id)) {
+      console.log('entrei no push');
       arrayFavorites.push({ id,
         type,
         area,
@@ -85,9 +86,17 @@ export const saveFavoriteRecipe = (path, obj) => {
         name,
         image,
       });
+      localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
+    } else {
+      console.log('entrei no filter');
+      console.log(arrayFavorites);
+      arrayFavorites.filter((ele) => console.log(id) || ele.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
   } else {
+    console.log('Criei chave no localStorage');
+
     localStorage.setItem('favoriteRecipes', JSON.stringify(
       [{ id,
         type,

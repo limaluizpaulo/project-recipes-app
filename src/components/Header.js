@@ -8,7 +8,6 @@ import { Navbar, Container } from 'react-bootstrap';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import '../styles/header.css';
 
 export default function Header() {
   const { path } = useRouteMatch();
@@ -38,24 +37,19 @@ export default function Header() {
     case '/bebidas':
     case '/explorar/comidas/area':
       return (
-        <Navbar className="container-header">
+        <Navbar bg="dark" variant="dark">
           <Container>
             <Link to="/perfil">
               <img data-testid="profile-top-btn" src={ profileIcon } alt="profile-icon" />
             </Link>
             <Navbar.Brand href="/">
-              <h1 class-name="title-header" data-testid="page-title">{ getTitle() }</h1>
+              <h1 data-testid="page-title">{ getTitle() }</h1>
             </Navbar.Brand>
             <button
               type="button"
               onClick={ () => setHidden(!(isHidden)) }
-              className="button-search-icon"
             >
-              <img
-                data-testid="search-top-btn"
-                src={ searchIcon }
-                alt="search-icon"
-              />
+              <img data-testid="search-top-btn" src={ searchIcon } alt="search-icon" />
             </button>
             {!isHidden && (<SearchBar />)}
           </Container>
@@ -69,12 +63,12 @@ export default function Header() {
     case '/receitas-favoritas':
     case '/perfil':
       return (
-        <Navbar className="container-header">
+        <Navbar bg="dark" variant="dark">
           <Container>
             <Link to="/perfil">
               <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
             </Link>
-            <h1 className="search-icon" data-testid="page-title">{ getTitle() }</h1>
+            <h1 data-testid="page-title">{ getTitle() }</h1>
           </Container>
         </Navbar>
       );

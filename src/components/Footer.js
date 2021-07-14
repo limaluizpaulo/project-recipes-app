@@ -10,28 +10,13 @@ function Footer() {
   return (
     <footer className="footer-container" data-testid="footer">
       <Link to="/bebidas">
-        <img
-          className="footer-image"
-          data-testid="drinks-bottom-btn"
-          src={ DrinkIcon }
-          alt="drinks"
-        />
+        <img data-testid="drinks-bottom-btn" src={ DrinkIcon } alt="drinks" />
       </Link>
       <Link to="/explorar">
-        <img
-          className="footer-image"
-          data-testid="explore-bottom-btn"
-          src={ ExploreIcon }
-          alt="explorar"
-        />
+        <img data-testid="explore-bottom-btn" src={ ExploreIcon } alt="explorar" />
       </Link>
       <Link to="/comidas">
-        <img
-          className="footer-image"
-          data-testid="food-bottom-btn"
-          src={ MealIcon }
-          alt="comidas"
-        />
+        <img data-testid="food-bottom-btn" src={ MealIcon } alt="comidas" />
       </Link>
     </footer>
   );
