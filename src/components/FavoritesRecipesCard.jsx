@@ -60,37 +60,37 @@ export default function FavoriteRecipesCard() {
       <ToastContainer />
       {filtredRecipesDone.map((recipe, index) => (
         <div
-          key={ index }
+          key={index}
           className="food__card__favorites"
-          id={ `${index}-recipe-div` }
+          id={`${index}-recipe-div`}
         >
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+          <Link to={`/${recipe.type}s/${recipe.id}`}>
             <span
-              className="food__card_text"
-              data-testid={ `${index}-horizontal-name` }
+              className="fv__food__card_text"
+              data-testid={`${index}-horizontal-name`}
             >
-              { recipe.name }
+              {recipe.name}
             </span>
 
             <div className="food__card__img">
               <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
+                src={recipe.image}
+                alt={recipe.name}
+                data-testid={`${index}-horizontal-image`}
               />
             </div>
           </Link>
           <div
             className="class-items"
-            id={ `${index}-div-buttons` }
+            id={`${index}-div-buttons`}
           >
             <div className="card-combined-itens">
               <span
-                data-testid={ `${index}-horizontal-top-text` }
+                data-testid={`${index}-horizontal-top-text`}
               >
-                { recipe.type === 'comida'
+                {recipe.type === 'comida'
                   ? `${recipe.area} - ${recipe.category}`
-                  : recipe.alcoholicOrNot }
+                  : recipe.alcoholicOrNot}
               </span>
             </div>
 
@@ -99,25 +99,25 @@ export default function FavoriteRecipesCard() {
             >
               <button
                 type="button"
-                onClick={ handleOnClick }
+                onClick={handleOnClick}
               >
                 <img
-                  name={ recipe.type }
-                  id={ recipe.id }
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  alt={ recipe.name }
+                  name={recipe.type}
+                  id={recipe.id}
+                  data-testid={`${index}-horizontal-share-btn`}
+                  src={shareIcon}
+                  alt={recipe.name}
                 />
               </button>
               <button
                 type="button"
-                onClick={ (event) => favoriteRecipe(event, recipe) }
+                onClick={(event) => favoriteRecipe(event, recipe)}
               >
                 <img
-                  id={ `${index}-favorite-img` }
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  src={ blackHeartIcon }
-                  alt={ recipe.name }
+                  id={`${index}-favorite-img`}
+                  data-testid={`${index}-horizontal-favorite-btn`}
+                  src={blackHeartIcon}
+                  alt={recipe.name}
                   className="favorited-recipe"
                 />
               </button>

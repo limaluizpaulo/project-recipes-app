@@ -30,12 +30,14 @@
   transform: scale(1.02);
 }
 
-.food__card_text {
+.dn__food__card_text {
   background-color: #f1ecea;
   border-radius: 0 0 5px 5px;
   bottom: 0;
+  color: black;
+  font-family: rancho , sans-serif;
   min-height: 20%;
-  position: absolute;
+  position: relative;
   width: 100%;
 }
 
