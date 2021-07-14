@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCamera, FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaGoogle } from 'react-icons/fa';
 
 import { getStorage } from '../../functions';
-import profileImg from '../../images/profile.jpg';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const [showImg, setShowImg] = useState(false);
   const [{ email }] = useState(() => getStorage('user'));
 
   const renderBtnsProfile = () => (
@@ -47,39 +45,17 @@ export default function Profile() {
   return (
     <main>
       <Header pageName="Perfil" />
-      <div className={ (showImg) ? 'bigImgProfile showImage' : 'bigImgProfile' }>
-        <img src={ profileImg } alt="img-profile" />
-        <button
-          type="button"
-          className="close"
-          onClick={ () => setShowImg(!showImg) }
-        >
-          <div />
-        </button>
-      </div>
       <div className="container">
         <div className="card">
           <div className="mainContentProfile">
-            <div className="imageProfile">
-              <button
-                type="button"
-                className="bgCamera"
-                onClick={ () => setShowImg(!showImg) }
-              >
-                {/* eslint-disable-next-line react/jsx-max-depth */}
-                <FaCamera className="cameraIcon" />
-              </button>
-            </div>
+            <div className="imageProfile" />
             <h3 className="userName">{ `@${email.split('@')[0]}` }</h3>
             <h3 data-testid="profile-email" className="email">{ email }</h3>
-            <div className="loginSocial">
-              {/* eslint-disable-next-line react/jsx-max-depth */}
-              <FaFacebookF className="loginSocial-icon" />
-              {/* eslint-disable-next-line react/jsx-max-depth */}
-              <FaTwitter className="loginSocial-icon" />
-              {/* eslint-disable-next-line react/jsx-max-depth */}
-              <FaGoogle className="loginSocial-icon" />
-            </div>
+          </div>
+          <div className="loginSocial">
+            <FaFacebookF className="loginSocial-icon" />
+            <FaTwitter className="loginSocial-icon" />
+            <FaGoogle className="loginSocial-icon" />
           </div>
           {renderBtnsProfile()}
         </div>
