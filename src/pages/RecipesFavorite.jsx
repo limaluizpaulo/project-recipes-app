@@ -15,6 +15,22 @@ function RecipesFavorite() {
     localStorage.favoriteRecipes = JSON.stringify(newArray);
   };
 
+  function returnFavorites() {
+    if (filterFavorites) {
+      filterFavorites.map((aux, index) => (
+        <CardsRecipesFavorite
+          key={ aux.id }
+          aux={ aux }
+          index={ index }
+          removeFavorites={ removeFavorites }
+          filterFavorites={ filterFavorites }
+          setFilterFavorites={ setFilterFavorites }
+        />
+      ));
+    }
+    return <p>Sem receitas favoritas</p>;
+  }
+
   return (
     <div>
       <Header />
@@ -23,16 +39,7 @@ function RecipesFavorite() {
         setFilterFavorites={ setFilterFavorites }
       />
       <div>
-        {filterFavorites.map((aux, index) => (
-          <CardsRecipesFavorite
-            key={ aux.id }
-            aux={ aux }
-            index={ index }
-            removeFavorites={ removeFavorites }
-            filterFavorites={ filterFavorites }
-            setFilterFavorites={ setFilterFavorites }
-          />
-        ))}
+        { returnFavorites() }
       </div>
     </div>
   );
