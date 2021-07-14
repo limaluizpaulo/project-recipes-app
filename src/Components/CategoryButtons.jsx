@@ -43,7 +43,7 @@ function CategoryButtons(props) {
         type="button"
         itemType={ type }
         data-testid="All-category-filter"
-        className="btn btn-secondary"
+        className="btn-categories"
         onClick={ () => toggleCategory('All') }
       >
         All
@@ -55,7 +55,7 @@ function CategoryButtons(props) {
           data-testid={ `${category}-category-filter` }
           itemType={ type }
           type="button"
-          className="btn btn-secondary"
+          className="btn-categories"
           onClick={ () => toggleCategory(category) }
         >
           {category}

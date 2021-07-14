@@ -7,6 +7,7 @@ import IngredientsDrinksTab from '../Components/IngredientsDrinksTab';
 import BeverageRecipesAPI from '../services/BeverageRecipesAPI';
 import { getIngredient } from '../redux/actions';
 import '../styles/Explore.css';
+import Loading from '../Components/Loading';
 
 function ExpoDrinksIng(props) {
   const { ingredientsCatcher, ingredients } = props;
@@ -19,8 +20,8 @@ function ExpoDrinksIng(props) {
     }
   }, [ingredientsCatcher, setLoading, loading]);
 
-  return loading ? <h3>Loading...</h3> : (
-    <div>
+  return loading ? <Loading /> : (
+    <div className="tela-explore">
       <HeadBar title="Ingredientes" />
       <IngredientsDrinksTab ingredients={ ingredients } />
       <Footer />

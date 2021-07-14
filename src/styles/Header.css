@@ -1,19 +1,58 @@
-.header-container {
+.header-principal {
   align-items: center;
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border-radius: 0 0 25px 25px;
+  color: #f7ecf7;
   display: flex;
-  justify-content: space-between;
-  left: 0;
-  position: absolute;
-  top: 0;
+  justify-content: space-around;
+  padding: 0 10px;
+  text-align: center;
+  width: 100vw;
+  z-index: 1;
 }
 
-.header-container > button {
-  background-color: inherit;
+.logo-size {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 40px;
+}
+
+.searchBar {
+  color: #ff3f29;
+  padding: 15px;
+  text-align: center;
+}
+
+.btn-search {
+  background: none;
   border: none;
 }
 
-.header-container > h1 {
-  max-width: 180px;
+.btn-search:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.barra-pesquisar {
+  margin-bottom: 5px;
+}
+
+.barra-pesquisar input {
+  border: none;
+  border-radius: 25px;
+  margin-right: 5px;
   text-align: center;
+}
+
+.barra-pesquisar button {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border: none;
+  border-radius: 25px;
+  margin: 1px;
+}
+
+.btn-radio {
+  align-items: center;
+  margin-right: 2px;
 }
 

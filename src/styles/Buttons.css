@@ -1,19 +1,7 @@
-.categories {
-  display: inline-block;
-}
-
 .start {
   bottom: 0;
+  left: 50%;
   position: fixed;
+  transform: translateX(-50%);
 }
 
-.fav {
-  position: fixed;
-  top: 50px;
-}
-
-.shr {
-  left: 10px;
-  position: fixed;
-  top: 50px;
-}

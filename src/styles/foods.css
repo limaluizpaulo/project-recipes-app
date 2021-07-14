@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+.tela-food {
+  background-color: #f7f2f7;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.tela-drink {
+  background-color: #f7f2f7;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
+  width: 100vw;
+}
+
+.btn-categories {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border: none;
+  border-radius: 25px;
+  margin: 1px;
+}
+
+.tela-cards {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.items-list {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}

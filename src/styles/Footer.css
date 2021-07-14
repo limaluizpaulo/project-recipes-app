@@ -1,6 +1,15 @@
 .footer {
+  align-items: center;
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border-radius: 25px 25px 0 0;
   bottom: 0;
-  margin-bottom: 25px;
+  color: #f7ecf7;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
   position: fixed;
+  text-align: center;
   width: 100%;
+  z-index: 1;
 }
+

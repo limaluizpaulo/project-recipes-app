@@ -1,0 +1,98 @@
+body {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  color: #f7f2f7;
+  margin: 0;
+  padding: 0;
+}
+
+.tela-login {
+  background: white;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background-top {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border-radius: 50%;
+  height: 410px;
+  overflow: hidden;
+  position: relative;
+  right: 12%;
+  top: -30%;
+  width: 410px;
+}
+
+.background-top img {
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.background-bottom {
+  border-radius: 50%;
+  bottom: 0;
+  position: absolute;
+  right: 10px;
+  transform: rotate(-25deg);
+}
+
+.background-bottom img {
+  height: 100px;
+  object-fit: cover;
+  width: 100px;
+}
+
+.form-login {
+  align-items: center;
+  background-color: #f7f2f7;
+  border: solid 2px;
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
+  color: #f7ecf7;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.form-login img {
+  border-radius: 50%;
+  margin: 10px 0;
+  width: 70%;
+}
+
+.form-login button {
+  background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29);
+  border: none;
+  border-radius: 25px;
+  color: #f7ecf7;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 5px;
+  width: 80%;
+}
+
+.form-login button:hover {
+  background-color: #ff3f29;
+}
+
+.form-login label {
+  text-align: center;
+  width: 100%;
+}
+
+.form-login input {
+  border: none;
+  border-radius: 25px;
+  padding: 5px;
+  text-align: center;
+  width: 80%;
+}
+
+.form-login input:focus {
+  box-shadow: none;
+  outline: none;
+}

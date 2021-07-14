@@ -1,0 +1,49 @@
+.card-details {
+
+  /* background: linear-gradient(45deg, #ff4763, #ff4763, #ff3f29); */
+  height: 100%;
+}
+
+.tela-details {
+  color: black;
+}
+
+.img-principal {
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
+  margin: 10px auto;
+  max-width: 90%;
+  overflow: hidden;
+}
+
+.img-principal img {
+  max-width: 100%;
+}
+
+.btn-img {
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.receita-details {
+  background-color: #f7f2f7;
+  border-radius: 25px;
+  box-shadow: 0.5px 0.5px 2px 0.5px black;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.receita-details p {
+  text-align: center;
+}
+
+.carousel {
+  border-radius: 25px;
+}
+
+.recomendado {
+  text-align: center;
+}

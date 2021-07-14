@@ -8,7 +8,7 @@ import HeadBar from '../Components/HeadBar';
 import CategoryButtons from '../Components/CategoryButtons';
 import MealsAPI from '../services/MealRecipesAPI';
 import { setList12 } from '../services/services';
-import '../styles/Card.css';
+import Loading from '../Components/Loading';
 
 function Foods(props) {
   const { getByDefault, getByCategory } = MealsAPI;
@@ -24,7 +24,6 @@ function Foods(props) {
       .then(() => setLoading(false));
 
     if (!foods.length) {
-      console.log('if');
       getByDefault()
         .then((res) => setMainFoods(setList12(res)));
     }
@@ -36,19 +35,26 @@ function Foods(props) {
     }
   }, [foods]);
 
-  return loading ? <div>Loading...</div> : (
-    <div>
+  return loading ? <Loading /> : (
+    <div className="tela-food">
       <HeadBar title="Comidas" />
       <CategoryButtons
         setMainFoods={ (list) => setMainFoods(setList12(list)) }
         type="meal"
         categories={ categories.map((category) => category.strCategory) }
       />
-
-      <div className="items-list">
-        {mainFoods.map((food, index) => (
-          <Card title="comidas" key={ index } index={ index } item={ food } type="meal" />
-        ))}
+      <div className="tela-cards">
+        <div className="items-list">
+          {mainFoods.map((food, index) => (
+            <Card
+              title="comidas"
+              key={ index }
+              index={ index }
+              item={ food }
+              type="meal"
+            />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

@@ -7,6 +7,7 @@ import IngredientsFoodsTab from '../Components/IngredientsFoodsTab';
 import { getIngredient } from '../redux/actions';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
+import Loading from '../Components/Loading';
 
 function ExpoFoodsIng(props) {
   const { ingredientsCatcher, ingredients } = props;
@@ -19,10 +20,12 @@ function ExpoFoodsIng(props) {
     }
   }, [ingredientsCatcher, setLoading, loading]);
 
-  return loading ? <h3>Loading...</h3> : (
-    <div>
+  return loading ? <Loading /> : (
+    <div className="tela-explore">
       <HeadBar title="Ingredientes" />
-      <IngredientsFoodsTab ingredients={ ingredients } />
+      <div className="tela-cards">
+        <IngredientsFoodsTab ingredients={ ingredients } />
+      </div>
       <Footer />
     </div>
   );

@@ -9,37 +9,38 @@ import MealRecipes from '../services/MealRecipesAPI';
 import '../styles/Explore.css';
 
 function ExploreFoods(props) {
-  const { surpriseFood, shouldRedirect, food, margato } = props;
-  console.log(margato);
+  const { surpriseFood, shouldRedirect, food } = props;
 
   return shouldRedirect ? <Redirect to={ `/comidas/${food[0].idMeal}` } /> : (
-    <>
+    <div className="tela-explore">
       <HeadBar title="Explorar" />
-      <Link
-        to="/explorar/comidas/ingredientes"
-        data-testid="explore-by-ingredient"
-        className="btn-explore"
-      >
-        Por Ingredientes
-      </Link>
-      <Link
-        to="/explorar/comidas/area"
-        data-testid="explore-by-area"
-        className="btn-explore"
-      >
-        Por Local de Origem
-      </Link>
-      <button
-        type="button"
-        to="/explorar/comidas/suprise"
-        data-testid="explore-surprise"
-        className="btn-explore"
-        onClick={ surpriseFood }
-      >
-        Me Surpreenda!
-      </button>
+      <div className="foodScreen">
+        <Link
+          to="/explorar/comidas/ingredientes"
+          data-testid="explore-by-ingredient"
+          className="btn-explore"
+        >
+          Por Ingredientes
+        </Link>
+        <Link
+          to="/explorar/comidas/area"
+          data-testid="explore-by-area"
+          className="btn-explore"
+        >
+          Por Local de Origem
+        </Link>
+        <button
+          type="button"
+          to="/explorar/comidas/suprise"
+          data-testid="explore-surprise"
+          className="btn-explore"
+          onClick={ surpriseFood }
+        >
+          Me Surpreenda!
+        </button>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

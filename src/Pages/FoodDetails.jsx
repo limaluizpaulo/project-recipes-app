@@ -10,8 +10,8 @@ import CarroselBebidas from '../Components/CarroselBebidas';
 import BeverageAPI from '../services/BeverageRecipesAPI';
 import MealRecipesAPI from '../services/MealRecipesAPI';
 
-import '../styles/Card.css';
 import '../styles/Buttons.css';
+import Loading from '../Components/Loading';
 
 const FoodDetails = (props) => {
   const { match: { params: { id } } } = props;
@@ -38,12 +38,13 @@ const FoodDetails = (props) => {
     }
   }, []);
 
-  return !redirect ? <h3>Loading</h3>
+  return !redirect ? <Loading />
     : (
       <div className="card-details">
         { food.map((foodItem, index) => (
           <React.Fragment key={ index }>
             <Details id={ id } item={ foodItem } type="Meal" />
+            <h1 className="font-media recomendado">Drinks Recommended</h1>
             <CarroselBebidas recomendations={ item.listRecomendations || [] } />
             <Link to={ `/comidas/${id}/in-progress` }>
               <button

@@ -9,6 +9,7 @@ import Details from '../Components/Details';
 import CarroselComidas from '../Components/CarroselComidas';
 import DrinkApi from '../services/BeverageRecipesAPI';
 import MealAPI from '../services/MealRecipesAPI';
+import Loading from '../Components/Loading';
 
 const DrinkDetails = (props) => {
   const { match: { params: { id } } } = props;
@@ -36,12 +37,13 @@ const DrinkDetails = (props) => {
     }
   }, []);
 
-  return !redirect ? <h3>Loading</h3>
+  return !redirect ? <Loading />
     : (
       <div className="card-details">
         { (drink || []).map((drinkItem, index) => (
           <React.Fragment key={ index }>
             <Details id={ id } item={ drinkItem } type="Drink" />
+            <h1 className="font-media recomendado">Foods Recommended</h1>
             <CarroselComidas recomendations={ item.listRecomendations || [] } />
             <Link to={ `/bebidas/${id}/in-progress` }>
               <button
