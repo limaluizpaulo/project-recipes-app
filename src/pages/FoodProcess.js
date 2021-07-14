@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Badge, Button } from 'react-bootstrap';
 import List from '../components/List';
 import { requestByDetailsMeal } from '../services/api';
 import Icons from '../components/Icons';
@@ -92,14 +93,14 @@ function FoodProcess() {
         console.log(arrayOfIngredients);
         console.log(ingredientsUsed);
         return (
-          <div key={ index }>
-            <img
-              src={ strMealThumb }
-              className="progress-img"
-              alt={ strMeal }
-              data-testid="recipe-photo"
-            />
+          <div className="food-progress-main-div" key={ index }>
             <div className="progress-align">
+              <img
+                src={ strMealThumb }
+                className="progress-img"
+                alt={ strMeal }
+                data-testid="recipe-photo"
+              />
               <section className="progressTitle-container">
                 <div>
                   <h1
@@ -108,17 +109,17 @@ function FoodProcess() {
                   >
                     { strMeal }
                   </h1>
-                  <span data-testid="recipe-category">{ strCategory }</span>
                 </div>
                 <Icons code={ item[0] } />
               </section>
+              <Badge variant="info" data-testid="recipe-category">{ strCategory }</Badge>
               <List
                 array={ array }
                 ingredientsUsed={ ingredientsUsed }
                 updateIngredientsUsed={ updateIngredientsUsed }
                 idMeal={ id }
               />
-              <h2>Instructions</h2>
+              <h2 className="section-title">Instructions</h2>
               <p
                 className="progress-instructions"
                 data-testid="instructions"
@@ -127,7 +128,8 @@ function FoodProcess() {
               </p>
             </div>
             <Link to="/receitas-feitas">
-              <button
+              <Button
+                variant="info"
                 type="button"
                 onClick={ processDone }
                 className="progress-startRecipeBtn"
@@ -135,7 +137,7 @@ function FoodProcess() {
                 disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >
                 Finalizar Receita
-              </button>
+              </Button>
             </Link>
           </div>
         );
