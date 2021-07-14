@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+
+import { changeFavoritStatus } from '../storage/localStorage';
 
 export default function CardFavorit({ mealOrDrink, index }) {
+  const [favorit, setFavorit] = useState({ status: true, imagem: blackHeartIcon });
   const {
     id,
     type,
@@ -18,6 +21,16 @@ export default function CardFavorit({ mealOrDrink, index }) {
     category,
     doneDate,
     tags } = mealOrDrink;
+
+  function handleFavorite() {
+    setFavorit((prevState) => ({ status: !favorit.status,
+      imagem: prevState.imagem === blackHeartIcon ? whiteHeartIcon : blackHeartIcon }));
+    changeFavoritStatus(mealOrDrink);
+  }
+
+  async function handleShare() {
+    return global.alert('Link copiado!');
+  }
 
   return (
     <div data-testid={ `${index}-horizontal-card` }>
@@ -44,7 +57,7 @@ export default function CardFavorit({ mealOrDrink, index }) {
 
       <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
 
-      <Button>
+      <Button onClick={ handleShare }>
         <img
           data-testid={ `${index}-horizontal-share-btn` }
           src={ shareIcon }
@@ -52,10 +65,10 @@ export default function CardFavorit({ mealOrDrink, index }) {
         />
       </Button>
 
-      <Button>
+      <Button onClick={ handleFavorite }>
         <img
           data-testid={ `${index}-horizontal-favorite-btn` }
-          src={ blackHeartIcon }
+          src={ favorit.imagem }
           alt={ name }
         />
       </Button>

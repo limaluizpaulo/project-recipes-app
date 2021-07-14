@@ -103,6 +103,22 @@ export const saveFavoriteRecipe = (path, obj) => {
     ));
   }
 };
+export const changeFavoritStatus = (obj) => {
+  if (localStorage.getItem('favoriteRecipes')) {
+    const arrayFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!arrayFavorites.find((el) => el.id === obj.id)) {
+      arrayFavorites.push(obj);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(arrayFavorites));
+    } else {
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify(arrayFavorites.filter((ele) => ele.id !== obj.id)));
+    }
+  } else {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(
+      [],
+    ));
+  }
+};
 
 function defaultDoneDrinkObj(recipe, date) {
   const { idDrink, strDrink, strCategory, strAlcoholic, strTags, strDrinkThumb } = recipe;
