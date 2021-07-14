@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { HiOutlineMail, HiOutlineLockClosed } from 'react-icons/hi';
+import { BiCheckCircle } from 'react-icons/bi';
 import { addEmail } from '../action';
+import '../css/login.css';
 
 class login extends Component {
   constructor() {
@@ -9,8 +12,12 @@ class login extends Component {
     this.state = {
       userEmail: '',
       userPassword: '',
-      errors: {},
+      errors: {
+        errorEmail: true,
+        errorPassword: true,
+      },
       btnDisable: true,
+      validate: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,58 +45,87 @@ class login extends Component {
   }
 
   validade(state) {
-    const errors = {};
-    const lengthPassword = 6;
+    const lengthPassword = 5;
 
-    if (!/(\w+[0-9]*)+@\w+\.\w+/.test(state.userEmail)) {
-      errors.errorEmail = 'Por favor, insira um email válido';
-      return this.setState({ btnDisable: true, errors });
+    if (state.userPassword.length > lengthPassword && state.errors.errorEmail === false) {
+      return this.setState({ btnDisable: false,
+        errors: { ...state.errors, errorPassword: false } });
     }
 
-    if (state.userPassword.length < lengthPassword) {
-      errors.errorPassword = 'Por favor, insira uma senha acima 6 caracteres';
-      return this.setState({ btnDisable: true, errors });
+    if (/(\w+[0-9]*)+@\w+\.\w+/.test(state.userEmail)) {
+      return this.setState({ errors: { ...state.errors, errorEmail: false } });
     }
-
-    return this.setState({ btnDisable: false, errors });
   }
 
   render() {
-    const { userEmail, userPassword, btnDisable, errors } = this.state;
+    const { userEmail, userPassword, btnDisable, errors, validate } = this.state;
+    console.log(userPassword.length);
     return (
-      <form>
-        <h1>Login</h1>
-        <label htmlFor="userEmail">
-          Email
-          <input
-            data-testid="email-input"
-            type="email"
-            name="userEmail"
-            value={ userEmail }
-            onChange={ (e) => this.handleChange(e) }
-          />
-          {errors.errorEmail && <span className="error">{errors.errorEmail}</span>}
-        </label>
-        <label htmlFor="userEmail">
-          Senha
-          <input
-            data-testid="password-input"
-            type="password"
-            name="userPassword"
-            value={ userPassword }
-            onChange={ (e) => this.handleChange(e) }
-          />
-          {errors.userPassword && <span className="error">{errors.userPassword}</span>}
-        </label>
-        <button
-          data-testid="login-submit-btn"
-          type="button"
-          disabled={ btnDisable }
-          onClick={ () => this.handleClick() }
-        >
-          Entrar
-        </button>
-      </form>
+      <section className="main-form">
+        <form className="form-login">
+          <h1>Bem Vindo!</h1>
+          <span className="form-subtitle">Por favor insira sua conta aqui</span>
+          <section className="sec-email-password">
+            <HiOutlineMail className="icon" />
+            <input
+              data-testid="email-input"
+              type="email"
+              name="userEmail"
+              placeholder="Email"
+              value={ userEmail }
+              onFocus={ () => this.setState({ validate: true }) }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </section>
+          <section className="sec-email-password">
+            <HiOutlineLockClosed className="icon" />
+            <input
+              data-testid="password-input"
+              type="password"
+              name="userPassword"
+              placeholder="Senha"
+              value={ userPassword }
+              onChange={ (e) => this.handleChange(e) }
+            />
+          </section>
+          {
+            validate && (
+              <section className="form-validate">
+                <span className="validate-title">Validação</span>
+                <div>
+                  <BiCheckCircle
+                    className={ errors.errorEmail ? 'error-check' : 'error-checked' }
+                  />
+                  <span
+                    className={ errors.errorEmail ? 'check-true' : 'check-false' }
+                  >
+                    Insira um email válido
+                  </span>
+                </div>
+                <div>
+                  <BiCheckCircle
+                    className={ errors.errorPassword ? 'error-check' : 'error-checked' }
+                  />
+                  <span
+                    className={ errors.errorPassword ? 'check-true' : 'check-false' }
+                  >
+                    Insira uma senha com mais de 6 caracteres
+                  </span>
+                </div>
+              </section>
+            )
+          }
+          <button
+            className={ btnDisable ? 'form-btn-disable' : 'form-btn-enable' }
+            data-testid="login-submit-btn"
+            type="button"
+            disabled={ btnDisable }
+            onClick={ () => this.handleClick() }
+          >
+            Entrar
+          </button>
+        </form>
+      </section>
     );
   }
 }

@@ -10,7 +10,7 @@ import '../css/footer.css';
 class Footer extends Component {
   render() {
     return (
-      <div>
+      <section className="footer-main">
         <footer data-testid="footer" className="footer">
           <Link to="/bebidas">
             <img src={ drinkIcon } alt="drink icon" data-testid="drinks-bottom-btn" />
@@ -22,7 +22,7 @@ class Footer extends Component {
             <img src={ mealIcon } alt="comidas" data-testid="food-bottom-btn" />
           </Link>
         </footer>
-      </div>
+      </section>
     );
   }
 }
