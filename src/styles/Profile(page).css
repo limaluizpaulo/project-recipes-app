@@ -8,7 +8,7 @@
 }
 
 .profile-title {
-  color: black;
+  color: white;
   margin-bottom: 70px;
   max-width: 95%;
   text-align: center;
@@ -16,17 +16,23 @@
 }
 
 .profile-btn {
-  background-color: lightgray;
-  font-size: 30px;
+  border-radius: 15px;
+  color: black;
+  font-size: 25px;
   margin-bottom: 25px;
   text-align: center;
   width: 250px;
 }
 
 .profile-exitBtn {
-  background-color: rgb(224, 20, 20);
-  font-size: 30px;
+  border-radius: 15px;
+  color: black;
+  font-size: 25px;
   margin-bottom: 25px;
   text-align: center;
   width: 250px;
+}
+
+.user-title {
+  color: white;
 }

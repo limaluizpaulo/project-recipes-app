@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import { Context } from '../context/ContextForm';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -26,7 +27,7 @@ function Profile() {
     <div>
       <Header title="Perfil" />
       <div className="profile-container">
-        <h3><strong>Usuário:</strong></h3>
+        <h3 className="user-title"><strong>Usuário:</strong></h3>
         <h4
           className="profile-title"
           data-testid="profile-email"
@@ -34,40 +35,44 @@ function Profile() {
           {getUser ? getUser.email : 'usuario@provedor.com'}
         </h4>
         <Link to="/receitas-feitas">
-          <button
+          <Button
+            variant="info"
             type="button"
             className="profile-btn"
             data-testid="profile-done-btn"
           >
             Receitas Feitas
-          </button>
+          </Button>
         </Link>
         <Link to="/receitas-favoritas">
-          <button
+          <Button
+            variant="info"
             className="profile-btn"
             type="button"
             data-testid="profile-favorite-btn"
           >
             Receitas Favoritas
-          </button>
+          </Button>
         </Link>
         <Link to="/credits">
-          <button
+          <Button
+            variant="info"
             className="profile-btn"
             type="button"
           >
             Credits
-          </button>
+          </Button>
         </Link>
         <Link to="/">
-          <button
+          <Button
+            variant="danger"
             className="profile-exitBtn"
             type="button"
             onClick={ () => { localStorage.clear(); handleFinish(); } }
             data-testid="profile-logout-btn"
           >
             Sair
-          </button>
+          </Button>
         </Link>
       </div>
       <Footer />
