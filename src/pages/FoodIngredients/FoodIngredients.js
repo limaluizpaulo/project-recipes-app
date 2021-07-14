@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { requestAllMealIngredients } from '../../helpers/requests';
@@ -23,19 +23,24 @@ function FoodIngredients() {
       .filter((_, index) => index < magicNumber)
       .map((item, index) => (
         <div className="card" key={ index } data-testid={ `${index}-ingredient-card` }>
-          {/* <Link to={}> */}
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-            className="card-img-top"
-            alt={ `imagem de ${item.strIngredient}` }
-          />
-          <h5
-            data-testid={ `${index}-card-name` }
+          <Link
+            to={ {
+              pathname: '/comidas',
+              ingredients: item.strIngredient,
+            } }
           >
-            {item.strIngredient}
-          </h5>
-          {/* </Link> */}
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
+              className="card-img-top"
+              alt={ `imagem de ${item.strIngredient}` }
+            />
+            <h5
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strIngredient}
+            </h5>
+          </Link>
         </div>
       ));
   }
