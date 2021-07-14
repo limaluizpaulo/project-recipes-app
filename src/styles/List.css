@@ -1,4 +1,17 @@
 .list-ingredients {
-  background-color: lightgray;
+  color: white;
   padding: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li:before {
+  color: #17a2b8;
+  content: '\2022';
+  display: inline-block;
+  font-weight: 700;
+  margin-left: -1em;
+  width: 1em;
 }

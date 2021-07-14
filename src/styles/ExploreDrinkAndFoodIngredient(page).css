@@ -2,19 +2,22 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 58px;
 }
 
-.card {
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  height: 238px;
-  margin: 5px;
-  max-width: 100%;
-  text-align: center;
-  width: 169px;
+.card-body {
+  padding: 10px;
+}
+
+.background-card {
+  background: white;
+  border-radius: 15px 15px 0 0;
 }
 
 .ingredientCard-title {
+  color: black;
   display: inline-block;
+  font-weight: 600;
   max-height: 2.3em;
   overflow: hidden;
   text-overflow: ellipsis;

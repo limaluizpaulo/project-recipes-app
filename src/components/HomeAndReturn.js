@@ -1,6 +1,6 @@
 import React from 'react';
 import home from '../images/home.png';
-import return0 from '../images/return0.png';
+import return0 from '../images/return0.svg';
 import '../styles/HomeAndReturn.css';
 
 function HomeAndReturn() {

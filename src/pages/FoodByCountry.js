@@ -61,11 +61,13 @@ function FoodByCountry() {
             key={ meal.strMeal }
           >
             <Card
+              bg="info"
               data-testid={ `${index}-recipe-card` }
               className="card"
             >
               <Card.Img
                 data-testid={ `${index}-card-img` }
+                className="cardImg"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />

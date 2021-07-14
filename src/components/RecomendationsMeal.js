@@ -20,14 +20,14 @@ function RecomendationsMeal() {
 
   return (
     <div>
-      <Carousel fade interval={ null } controls indicators={ false } className="carousel">
+      <Carousel fade interval={ null } controls indicators={ false }>
         <Carousel.Item>
           <div className="recomendations-card-container">
             {recomendationsMeal.slice(0, 2).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
-                <div
+                <Card
+                  bg="info"
                   data-testid={ `${index}-recomendation-card` }
-                  className="card"
                 >
                   <img
                     data-testid={ `${index}-card-img` }
@@ -36,12 +36,13 @@ function RecomendationsMeal() {
                   />
                   <Card.Body>
                     <Card.Title
+                      className="recomendation-title"
                       data-testid={ `${index}-recomendation-title` }
                     >
                       {meal.strMeal}
                     </Card.Title>
                   </Card.Body>
-                </div>
+                </Card>
               </Link>
             ))}
           </div>
@@ -50,9 +51,9 @@ function RecomendationsMeal() {
           <div className="recomendations-card-container">
             {recomendationsMeal.slice(2, four).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
-                <div
+                <Card
+                  bg="info"
                   data-testid={ `${index + 2}-recomendation-card` }
-                  className="card"
                 >
                   <img
                     data-testid={ `${index + 2}-card-img` }
@@ -62,11 +63,12 @@ function RecomendationsMeal() {
                   <Card.Body>
                     <Card.Title
                       data-testid={ `${index + 2}-recomendation-title` }
+                      className="recomendation-title"
                     >
                       {meal.strMeal}
                     </Card.Title>
                   </Card.Body>
-                </div>
+                </Card>
               </Link>
             ))}
           </div>
@@ -75,9 +77,9 @@ function RecomendationsMeal() {
           <div className="recomendations-card-container">
             {recomendationsMeal.slice(four, six).map((meal, index) => (
               <Link to={ `/comidas/${meal.idMeal}` } key={ meal.strMeal }>
-                <div
+                <Card
+                  bg="info"
                   data-testid={ `${index + four}-recomendation-card` }
-                  className="card"
                 >
                   <img
                     data-testid={ `${index + four}-card-img` }
@@ -85,11 +87,14 @@ function RecomendationsMeal() {
                     alt={ meal.strMeal }
                   />
                   <Card.Body>
-                    <Card.Title data-testid={ `${index + four}-recomendation-title` }>
+                    <Card.Title
+                      data-testid={ `${index + four}-recomendation-title` }
+                      className="recomendation-title"
+                    >
                       {meal.strMeal}
                     </Card.Title>
                   </Card.Body>
-                </div>
+                </Card>
               </Link>
             ))}
           </div>
