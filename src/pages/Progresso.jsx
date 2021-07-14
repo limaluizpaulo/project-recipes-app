@@ -19,7 +19,6 @@ class Progresso extends Component {
       should: false,
       recipesLength: [],
       count: 0,
-      isDisable: true,
       allIngredients: [],
     };
     this.updateState = this.updateState.bind(this);
@@ -72,24 +71,21 @@ class Progresso extends Component {
   }
 
   onClick(param, element, boolean) {
-    const { count, allIngredients } = this.state;
-    const { recipesLength } = this.state;
+    const { allIngredients } = this.state;
     if (allIngredients.includes(param) && boolean === 'checked') {
+      console.log(element);
       element.classList.remove('riscado');
 
       return this.setState({
-        allIngredients: allIngredients.filter((el) => el !== param) });
+        allIngredients: allIngredients.filter((el) => el !== param),
+        count: allIngredients.length - 1,
+      });
     }
     element.classList.add('riscado');
     this.setState({ ...allIngredients,
       allIngredients: [...allIngredients, param],
-
+      count: allIngredients.length + 1,
     });
-
-    if (count + 1 === recipesLength) {
-      this.setState({ isDisable: false });
-    }
-    this.setState({ count: count + 1 });
   }
 
   updateState() {
@@ -98,11 +94,14 @@ class Progresso extends Component {
 
     const recovery = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
     if (recovery.meals[id] !== undefined) {
-      return this.setState({ allIngredients: recovery.meals[id] });
+      return this.setState({ allIngredients: recovery.meals[id],
+        count: recovery.meals[id].length });
     }
 
     if (recovery.cocktails[id] !== undefined) {
-      return this.setState({ allIngredients: recovery.cocktails[id] });
+      return this.setState({ allIngredients: recovery.cocktails[id],
+        count: recovery.cocktails[id].length,
+      });
     }
   }
 
@@ -181,7 +180,7 @@ class Progresso extends Component {
 
   render() {
     const { details, match: { params: { page, id } }, history } = this.props;
-    const { isDisable, allIngredients } = this.state;
+    const { allIngredients, count, recipesLength } = this.state;
 
     return (
       <section>
@@ -214,7 +213,7 @@ class Progresso extends Component {
               onClick={ () => {
                 this.finishRecipe();
               } }
-              disabled={ isDisable }
+              disabled={ count !== recipesLength }
             >
               Finalizar Receita
             </button>
