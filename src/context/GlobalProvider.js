@@ -16,6 +16,7 @@ function GlobalProvider({ children }) {
   const [requestParams, setRequestParams] = useState(initialParams);
   const [requestResult, setRequestResult] = useState({ drinks: [], meals: [] });
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
+  const [filterList, setFilterList] = useState({});
   const [details, setDetails] = useState({});
   const [recomendationsDrinks, setRecomendationsDrinks] = useState();
   const [recomendationsFoods, setRecomendationsFoods] = useState();
@@ -150,6 +151,11 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getFiltersList = async (url) => {
+    setFilterList({
+      ...await fetchAPI(url, '', 'list') });
+  };
+
   const contextValue = {
     baseEndPoint,
     requestParams,
@@ -161,6 +167,7 @@ function GlobalProvider({ children }) {
     recomendationsFoods,
     toggle,
     refresh,
+    filterList,
     resetParams,
     updateEndPoint,
     handleChange,
@@ -174,6 +181,7 @@ function GlobalProvider({ children }) {
     handleToggle,
     setRefresh,
     randomRecipe,
+    getFiltersList,
   };
 
   return (
