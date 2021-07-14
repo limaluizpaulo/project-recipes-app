@@ -92,17 +92,6 @@ const UserProvider = ({ children }) => {
     validationUser();
   };
 
-  const handleProgress = (type, id, checked) => {
-    setInProgressRecipes(
-      {
-        ...inProgressRecipes,
-        [type]: {
-          [id]: checked,
-        },
-      },
-    );
-  };
-
   const isDone = (id) => {
     const doneStorage = getFromLocalStorage('doneRecipes');
     return (!!doneStorage.find((complete) => complete.id === id));
@@ -133,7 +122,7 @@ const UserProvider = ({ children }) => {
     copyToClipboard,
     isDone,
     inProgress,
-    handleProgress,
+    setInProgressRecipes,
   };
 
   return (

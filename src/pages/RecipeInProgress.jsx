@@ -2,9 +2,8 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IngredientsProgress, Instructions, HeaderRecipes } from '../components';
 
-const Progress = ({ state }) => {
+const Progress = () => {
   const history = useHistory();
-
   const location = useLocation();
   console.log(location.state.newObj);
   return (
@@ -23,5 +22,5 @@ const Progress = ({ state }) => {
 
   );
 };
-// oi
+
 export default Progress;

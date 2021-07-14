@@ -16,7 +16,7 @@ const Meals = () => {
     if (meals.length === 1 && !redirect && selectedCategory === 'All') {
       setRedirect(true);
     }
-  }, [meals]);
+  }, [meals, redirect, selectedCategory]);
 
   if (redirect) return <Redirect to={ `comidas/${meals[0].idMeal}` } />;
   return (

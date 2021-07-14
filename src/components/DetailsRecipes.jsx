@@ -17,6 +17,7 @@ const DetailsRecipes = ({ newObj }) => {
   } = newObj;
 
   const SEIS = 6;
+
   return (
     <div>
 
