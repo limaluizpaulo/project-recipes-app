@@ -12,6 +12,7 @@ import {
   fetchFilterDrinkByCategories,
   getSearchBarResponse,
 } from '../action/index';
+import '../css/bebidas.css';
 
 class Bebidas extends Component {
   constructor(props) {

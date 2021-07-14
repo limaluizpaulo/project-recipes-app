@@ -1,3 +1,44 @@
+:root {
+
+  /* COLOR STYLES */
+
+  --crl-Primary: #1fcc79;
+
+  --crl-Secondary: #ff6464;
+
+  --crl-Main-Text: #2e3e5c;
+
+  --crl-Secondary-Text: #9fa5c0;
+
+  --crl-Outline: #d0dbea;
+
+  --crl-form: #f4f5f7;
+
+  --crl-White: white;
+
+  /* FONT STYLES */
+
+  --font-size-h1: 1.37rem;
+
+  --font-size-h2: 1.06rem;
+
+  --font-size-h3: 0.93rem;
+
+  --font-size-p1: 1.06rem;
+
+  --font-size-p2: 0.93rem;
+
+  --font-size-s: 0.75rem;
+
+}
+
+.btn-list-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
 .food-main {
   display: flex;
   flex-direction: column;
@@ -13,4 +54,17 @@
   justify-content: center;
   padding: 0.5rem;
   width: 100vw;
+}
+
+.btn-filterMeasls-cards {
+  background-color: #169256;
+  border-radius: 25px;
+  color: var(--crl-White);
+  font-family: Inter , sans-serif;
+  font-size: var(--font-size-p2);
+  font-weight: 700;
+  height: 3.5rem;
+  margin-top: 1.5rem;
+  outline: none;
+  width: 10rem;
 }
