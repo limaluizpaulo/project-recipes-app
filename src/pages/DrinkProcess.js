@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Badge, Button } from 'react-bootstrap';
 import List from '../components/List';
 import { requestByDetailsDrink } from '../services/api';
 import Icons from '../components/Icons';
@@ -91,14 +92,14 @@ function DrinkProcess() {
         const drinks = rest;
         const arrayOfIngredients = returnArrayOfIngredients(drinks);
         return (
-          <div key={ index }>
-            <img
-              src={ strDrinkThumb }
-              className="progress-img"
-              alt={ strDrink }
-              data-testid="recipe-photo"
-            />
+          <div className="food-progress-main-div" key={ index }>
             <div className="progress-align">
+              <img
+                src={ strDrinkThumb }
+                className="progress-img"
+                alt={ strDrink }
+                data-testid="recipe-photo"
+              />
               <section className="progressTitle-container">
                 <div>
                   <h1
@@ -107,17 +108,17 @@ function DrinkProcess() {
                   >
                     { strDrink }
                   </h1>
-                  <span data-testid="recipe-category">{strAlcoholic}</span>
                 </div>
                 <Icons code={ drink[0] } />
               </section>
+              <Badge variant="info" data-testid="recipe-category">{strAlcoholic}</Badge>
               <List
                 ingredientsUsed={ ingredientsUsed }
                 updateIngredientsUsed={ updateIngredientsUsed }
                 idMeal={ drinkId }
                 drinks={ drinks }
               />
-              <h2>Instructions</h2>
+              <h2 className="section-title">Instructions</h2>
               <p
                 className="progress-instructions"
                 data-testid="instructions"
@@ -126,7 +127,8 @@ function DrinkProcess() {
               </p>
             </div>
             <Link to="/receitas-feitas">
-              <button
+              <Button
+                variant="info"
                 type="button"
                 onClick={ processDone }
                 className="progress-startRecipeBtn"
@@ -134,7 +136,7 @@ function DrinkProcess() {
                 disabled={ arrayOfIngredients.length !== ingredientsUsed.length }
               >
                 Finalizar Receita
-              </button>
+              </Button>
             </Link>
           </div>
         );
