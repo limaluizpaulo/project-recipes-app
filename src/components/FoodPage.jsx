@@ -19,7 +19,7 @@ function FoodPage({ history }) {
   // console.log(Object.values(recipes)[0]);
 
   return (
-    <main>
+    <main className="main-container">
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
       <FoodCategoryButtons history={ history } />

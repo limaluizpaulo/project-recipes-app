@@ -130,7 +130,7 @@ function SBElements({ history }) {
   };
 
   return (
-    <div>
+    <div className="search-bar">
       <input
         id="searchInput"
         name="name"
