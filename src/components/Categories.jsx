@@ -43,7 +43,6 @@ export default function Categories() {
 
   useEffect(() => {
     const filterCategory = async () => {
-      console.log('select', selectedCategory);
       try {
         if (ingredient !== '') return;
         let results;
@@ -62,7 +61,7 @@ export default function Categories() {
     filterCategory();
   }, [selectedCategory]);
 
-  useEffect(() => { console.log('select', selectedCategory); }, [selectedCategory]);
+  // useEffect(() => { console.log('select', selectedCategory); }, [selectedCategory]);
 
   return (
     <aside className="categories">

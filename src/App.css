@@ -125,6 +125,11 @@ body {
   font-weight: 400;
 }
 
+.center h1 {
+  font-family: Poppins , sans-serif;
+  font-size: 3rem;
+}
+
 .header > div {
   align-items: center;
   display: grid;
@@ -398,6 +403,18 @@ body {
 .video {
   margin-top: 10px;
   width: 100%;
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  height: 85vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.center img {
+  width: 80vw;
 }
 
 /* @keyframes slide-left {

@@ -11,7 +11,6 @@ import { setInitialItem } from '../helpers/HelperFunctions';
 function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [type, setType] = useState('meals');
-  // const [mealsIngredients, setMealsIngredients] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [ingredient, setIngredient] = useState('');
 
@@ -42,13 +41,6 @@ function RecipesProvider({ children }) {
     const recipes = async () => {
       const results = (type === 'meals')
         ? await getMealsRecipes() : await getCocktailsRecipes();
-      /*
-      results.reduce((acc, item) => {
-        if (acc.length < maxCards) {
-          acc.push(item);
-        }
-        return acc;
-      }, []); */
       setData(results.filter((item, index) => index < maxCards)); //  refatorar para stopar ao atingir o maxCards
       setIsFetching(false);
     };
@@ -56,29 +48,19 @@ function RecipesProvider({ children }) {
     const fetchRecipesByIngredient = async () => {
       setIsFetching(true);
       const recipesIngredients = await getRecipesByIng(ingredient, type);
-      console.log(recipesIngredients);
       setData(recipesIngredients);
       setIsFetching(false);
     };
-    // const ingredients = async () => {
-    //   setIsFetching(true);
-    //   const results = await getMealsIngredients();
-    //   setMeals(results.filter((item, index) => index < maxCards));
-    //   setIsFetching(false);
-    // };
 
     if (ingredient === '') {
       recipes();
     } else {
       fetchRecipesByIngredient();
     }
-    // ingredients();
   }, [ingredient, type]);
 
   const context = {
-    // mealsCategories,
     isFetching,
-    // mealsIngredients,
     data,
     type,
     setType,
