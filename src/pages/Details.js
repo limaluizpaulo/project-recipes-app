@@ -11,9 +11,10 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 import { getDataById, getRandomData } from '../services/apiRequest';
+import Loading from '../components/Loading';
 
 const SIX = 6;
-
+const LOADER_TIMER = 3000;
 function handleIngredientsData(Lista) {
   const ingredientFormated = Lista.map((el, i, arr) => (
     (el[0].includes('Ingredient')) && ([`${el[1]
@@ -48,6 +49,7 @@ export default function Details() {
   const [ingredientsList, setIngridientsList] = useState([]);
   const [recomendations, setRecomentation] = useState([]);
   const [favorit, setFavorit] = useState({ status: false, imagem: whiteHeartIcon });
+  const [isLoading, setLoader] = useState(true);
 
   useEffect(() => {
     getDataById(domain, id).then((res) => {
@@ -61,6 +63,10 @@ export default function Details() {
 
     getRandomData(recDomain).then((res) => setRecomentation(res[recFirstKey]
       .filter((_e, index) => index < SIX)));
+
+    setTimeout(() => {
+      setLoader(false);
+    }, LOADER_TIMER);
   }, [id, domain, firstKey, recDomain, recFirstKey]);
 
   useEffect(() => {
@@ -74,7 +80,7 @@ export default function Details() {
   }, [id]);
 
   return (
-    !singleContent[0] ? (<h1>Loading...</h1>)
+    isLoading ? (<Loading />)
       : (
         <>
           <img
