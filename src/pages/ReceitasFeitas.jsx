@@ -8,6 +8,12 @@ function ReceitasFeitas() {
 
   ReceitasFeitas.displayName = 'Receitas Feitas';
 
+  if (recipesDone === null) {
+    const doneRecipes = [];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    setNewRecipes(doneRecipes);
+  }
+
   const btnAll = () => {
     setNewRecipes(recipesDone);
   };
