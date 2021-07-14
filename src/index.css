@@ -228,14 +228,10 @@ justify-items: center;
 
 .containerBtns {
   background-color: var(--first-color-dark);
-  margin-top: 1rem;
+  margin-top: 8rem;
   padding: 10px 0;
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
-}
-
-.categoriesBtns {
-  display: flex;
 }
 
 .categoriesBtns div {
@@ -262,11 +258,6 @@ justify-items: center;
 
 .categoriesBtns div:last-child {
   border-right: none;
-}
-
-.cards {
-  display: grid;
-  margin-top: 3rem;
 }
 
 .recipes {
@@ -926,6 +917,27 @@ justify-items: center;
 }
 
 /*  ====================================================================================================================================*/
+
+/* HEADER COMPONENT ===========================================================================================================*/
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background-color: var(--first-color-dark);
+  color: var(--title-color);
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
+}
+
+/*  ====================================================================================================================================*/
+
+/* FOOTER COMPONENT ===========================================================================================================*/
+
+/*  ====================================================================================================================================*/
+
+
 /* ===== MEDIA QUERIES ================================================================================*/
 @media screen and (min-width: 576px){
   /* LOGIN PAGE */
@@ -1049,7 +1061,6 @@ justify-items: center;
   /* RECIPES PAGE */
   .containerBtns {
     background-color: var(--first-color-dark);
-    margin-top: 1rem;
     padding: 10px 0;
     border-radius: 1rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
@@ -1084,12 +1095,7 @@ justify-items: center;
   .categoriesBtns div:last-child {
     border-right: none;
   }
-  
-  .cards {
-    display: grid;
-    margin-top: 3rem;
-  }
-  
+
   .recipes {
     display: flex;
     justify-content: center;

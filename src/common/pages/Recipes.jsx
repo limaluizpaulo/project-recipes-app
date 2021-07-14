@@ -72,9 +72,7 @@ export default function Recipes() {
           clickCategory={ handleClickCategory }
           clickAll={ getRecipes }
         />
-        <div className="cards">
-          <RecipeCard />
-        </div>
+        <RecipeCard />
       </section>
       <Footer />
     </main>
