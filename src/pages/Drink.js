@@ -24,40 +24,43 @@ const Drink = ({ match }) => {
   const url = `http://localhost:3000${history.location.pathname}`;
 
   return (
-    <div className="recipe">
-      <h2 className="title" data-testid="recipe-title">{drink.strDrink}</h2>
-      <h3 className="sub-title" data-testid="recipe-category">{drink.strAlcoholic}</h3>
-      <img
-        className="recipe-photo"
-        data-testid="recipe-photo"
-        src={ drink.strDrinkThumb }
-        alt={ drink.strDrink }
-      />
-      <section className="ingredient">
-        <img src={ Rolo } alt="Imagem de um rolo" />
-        <h1 className="sub-title">Ingredientes:</h1>
-        <ul>
-          {renderIngredients(drink)}
-        </ul>
-      </section>
-      <p data-testid="instructions">{drink.strInstructions}</p>
-      <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
-      <FavoriteIcon recipe={ drink } idTest="favorite-btn" />
-      {!checkRecypeId(id) && (
-        <button
-          className="btn-start-recip"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
-        >
-          {textProgress}
-        </button>
-      )}
-      <br />
-      <Carousel />
-      <Link to="/bebidas"><button type="button">Voltar</button></Link>
-      <br />
-      <br />
+    <div className="conteiner-main">
+      <div className="recipe">
+        <h2 className="title" data-testid="recipe-title">{drink.strDrink}</h2>
+        <h3 className="sub-title" data-testid="recipe-category">{drink.strAlcoholic}</h3>
+        <img
+          className="recipe-photo"
+          data-testid="recipe-photo"
+          src={ drink.strDrinkThumb }
+          alt={ drink.strDrink }
+        />
+        <section className="ingredient">
+          <img src={ Rolo } alt="Imagem de um rolo" />
+          <h3 className="sub-title">Ingredientes:</h3>
+          <ul>
+            {renderIngredients(drink)}
+          </ul>
+        </section>
+        <p data-testid="instructions" className="instructions">{drink.strInstructions}</p>
+        <div className="sharedFavoriteButton">
+          <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
+          <FavoriteIcon recipe={ drink } idTest="favorite-btn" />
+        </div>
+        <Carousel />
+        <Link to="/bebidas"><button type="button">Voltar</button></Link>
+      </div>
+      <div className="button-iniciar-receita">
+        {!checkRecypeId(id) && (
+          <button
+            className="btn-start-recip"
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/bebidas/${drink.idDrink}/in-progress`) }
+          >
+            {textProgress}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

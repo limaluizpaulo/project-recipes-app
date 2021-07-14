@@ -64,7 +64,6 @@ const FavoriteRecipes = () => {
   return (
     <div className="recipe recipeProgress">
       <nav>
-
         <Header title="Receitas Favoritas" />
         <button
           type="button"

@@ -36,7 +36,6 @@ function RecipesMade() {
             </button>
           </Link>
           <div className="containerMade">
-
             <p data-testid={ `${index}-horizontal-top-text` }>
               {alcoholicOrNot || `${area} - ${category}`}
             </p>

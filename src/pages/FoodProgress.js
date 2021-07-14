@@ -135,7 +135,12 @@ const FoodProgress = ({ match }) => {
         {renderCheckBox()}
       </ul>
       <p data-testid="video">Video</p>
-      <p data-testid="instructions">{meal.strInstructions}</p>
+      <p
+        className="Instructions-progress"
+        data-testid="instructions"
+      >
+        {meal.strInstructions}
+      </p>
       <p data-testid="0-recomendation-card">recomendation</p>
       <button
         onClick={ () => copy(`http://localhost:3000/comidas/${id}`).then(() => {

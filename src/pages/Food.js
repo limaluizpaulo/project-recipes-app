@@ -24,44 +24,46 @@ const Food = ({ match }) => {
   const url = `http://localhost:3000${history.location.pathname}`;
 
   return (
-    <div className="recipe">
-      <h2 className="title" data-testid="recipe-title">{meal.strMeal}</h2>
-      <h3 className="sub-title" data-testid="recipe-category">{meal.strCategory}</h3>
-      <img
-        className="recipe-photo"
-        data-testid="recipe-photo"
-        src={ meal.strMealThumb }
-        alt={ meal.strMeal }
-      />
-      <section className="ingredient">
-        <img src={ Rolo } alt="Imagem de um rolo" />
-        <h3 className="sub-title">Ingredientes:</h3>
-        <ul>
-          {renderIngredients(meal)}
-        </ul>
-      </section>
-      <p data-testid="video">Video</p>
-      <p data-testid="instructions" className="instructions">{meal.strInstructions}</p>
-      <div className="sharedFavoriteButton">
-        <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
-        <FavoriteIcon recipe={ meal } idTest="favorite-btn" />
+    <div className="conteiner-main">
+      <div className="recipe">
+        <h2 className="title" data-testid="recipe-title">{meal.strMeal}</h2>
+        <h3 className="sub-title" data-testid="recipe-category">{meal.strCategory}</h3>
+        <img
+          className="recipe-photo"
+          data-testid="recipe-photo"
+          src={ meal.strMealThumb }
+          alt={ meal.strMeal }
+        />
+        <section className="ingredient">
+          <img src={ Rolo } alt="Imagem de um rolo" />
+          <h3 className="sub-title">Ingredientes:</h3>
+          <ul>
+            {renderIngredients(meal)}
+          </ul>
+        </section>
+        <p data-testid="video">Video</p>
+        <p data-testid="instructions" className="instructions">{meal.strInstructions}</p>
+        <div className="sharedFavoriteButton">
+          <ShareButton url={ url } msgShare="Compartilhar" idTest="share-btn" />
+          <FavoriteIcon recipe={ meal } idTest="favorite-btn" />
+        </div>
+        <Carousel food />
+        <Link to="/comidas"><button type="button">Voltar</button></Link>
+        <br />
+        <br />
       </div>
-      {!checkRecypeId(id) && (
-        <button
-          className="btn-start-recip"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
-        >
-          {textProgress}
-        </button>
-      )}
-      <Carousel food />
-      <br />
-      <Link to="/comidas"><button type="button">Voltar</button></Link>
-      <br />
-      <br />
-      <br />
+      <div className="button-iniciar-receita">
+        {!checkRecypeId(id) && (
+          <button
+            className="btn-start-recip"
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/comidas/${meal.idMeal}/in-progress`) }
+          >
+            {textProgress}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -75,14 +77,3 @@ Food.propTypes = {
 };
 
 export default Food;
-
-// useEffect(() => {
-// const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-// if (favorite) {
-// const isFavorite =favorite.find((favorite) => favorite.id === id);
-// if (isFavorite) setIconFavorite(true);
-// setFavorite({
-// favorites,
-// })
-// }
-// }, []);

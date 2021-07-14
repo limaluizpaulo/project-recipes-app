@@ -130,7 +130,12 @@ const DrinkProgress = ({ match }) => {
       <ul>
         {renderCheckBox()}
       </ul>
-      <p data-testid="instructions">{drink.strInstructions}</p>
+      <p
+        className="Instructions-progress"
+        data-testid="instructions"
+      >
+        {drink.strInstructions}
+      </p>
       <p data-testid="0-recomendation-card">recomendation</p>
       <button
         onClick={ () => copy(`http://localhost:3000/bebidas/${id}`).then(() => {

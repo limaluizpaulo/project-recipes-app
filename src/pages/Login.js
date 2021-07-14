@@ -23,6 +23,7 @@ const Login = ({ history }) => {
         <label htmlFor="email">
           Email:
           <input
+            className="loginInput"
             value={ email }
             type="email"
             data-testid="email-input"
@@ -32,6 +33,7 @@ const Login = ({ history }) => {
         <label htmlFor="password">
           Senha:
           <input
+            className="loginInput"
             id="password"
             value={ password }
             type="password"

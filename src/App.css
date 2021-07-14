@@ -13,7 +13,9 @@
   }
 
   .recipe h2 {
-    background: #6a8b4183;
+    background: rgb(17, 165, 153);
+    color: black;
+    width: 100vh;
   }
 
   .ingredient img {
@@ -57,7 +59,7 @@ body {
   height: auto;
   margin: 5px;
   transition: 0.3s;
-  width: 50vh;
+  width: 250;
 }
 
 .cardMade p {
@@ -66,9 +68,9 @@ body {
 
 .containerMade {
   display: flex;
+  flex-flow: wrap;
   flex-direction: column;
   font-size: 20px;
-  flex-wrap: wrap;
 }
 
 .cards {
@@ -78,7 +80,7 @@ body {
   height: auto;
   margin: 5px;
   transition: 0.3s;
-  width: auto;
+  width: 328px;
 }
 
 .cards img {
@@ -98,6 +100,15 @@ body {
   margin: 0;
 }
 
+button {
+  background: rgb(17, 165, 153);
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 20px;
+}
+
 .footer {
   bottom: 0;
   color: white;
@@ -107,8 +118,15 @@ body {
   width: 100%;
 }
 
+.footer button {
+  background: rgb(17, 165, 153);
+  border-radius: 10px;
+}
+
 .btn-start-recip {
+  border-radius: 10px;
   bottom: 0;
+  display: flex;
   position: fixed;
 }
 
@@ -149,7 +167,7 @@ body {
 
 .meals > .logo {
   color: rgb(17, 165, 153);
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 900;
 }
 
@@ -211,10 +229,12 @@ Ajuda Alessandra
 }
 
 .recipeProgress ul {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   font-family: Cookie , cursive;
   font-size: 20px;
+  justify-content: left;
 }
 
 .recipeProgress label {
@@ -226,23 +246,20 @@ Ajuda Alessandra
   margin-right: 5px;
 }
 
-button {
-  background: rgb(17, 165, 153);
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  font-weight: 700;
-  padding: 10px 20px;
-}
-
 .recipeProgress button {
   border-radius: 10px;
   margin: 5px;
 }
 
+.recipe button {
+  border-radius: 10px;
+  margin: 5px;
+}
+
 .recipe h2 {
-  color: #7b3c15;
-  text-shadow: 1px 4px 12px rgba(0, 0, 0, 0.83);
+  background: rgb(17, 165, 153);
+  color: black;
+  width: 100vh;
 }
 
 .recipe h3 {
@@ -258,7 +275,7 @@ button {
 }
 
 .instructions {
-  margin: 0 20px;
+  padding: 5px;
   text-align: justify;
 }
 
@@ -329,4 +346,48 @@ button {
 
 .navCategories button {
   flex: 1;
+}
+
+.loginInput:focus {
+  outline-color: rgb(17, 165, 153);
+}
+
+.finalizar-receita {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+}
+
+.recipe {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+}
+
+/* .recipe h2 {
+  background: rgb(17, 165, 153);
+  color: black;
+  width: 100vh;
+} */
+
+.conteiner-main {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.button-iniciar-receita {
+  display: flex;
+  justify-content: center;
+}
+
+.Instructions-progress {
+  padding: 10px;
+  text-align: justify;
+}
+
+.favorite-card {
+  display: flex;
 }
