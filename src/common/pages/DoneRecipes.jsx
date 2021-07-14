@@ -21,13 +21,15 @@ export default function DoneRecipes() {
         clickAll={ handleClickAll }
         path={ DONE_RECIPES }
       />
-      { doneRecipes.map((recipe, i) => (
-        <DoneRecipeCard
-          recipe={ recipe }
-          index={ i }
-          key={ i }
-        />
-      )) }
+      <section className="recipes">
+        { doneRecipes.map((recipe, i) => (
+          <DoneRecipeCard
+            recipe={ recipe }
+            index={ i }
+            key={ i }
+          />
+        )) }
+      </section>
     </>
   );
 }

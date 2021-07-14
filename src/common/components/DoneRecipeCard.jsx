@@ -17,46 +17,53 @@ export default function DoneRecipeCard({ recipe, index }) { // Desestruturação
   } = recipe;
 
   const mealInfo = () => (
-    <p
-      className="doneCategory"
+    <div
+      className="done-category"
       data-testid={ `${index}-horizontal-top-text` }
     >
       {`${area} - ${category}`}
-    </p>
+    </div>
   );
 
   const drinkInfo = () => (
-    <p
-      className="doneCategory"
+    <div
+      className="done-category"
       data-testid={ `${index}-horizontal-top-text` }
     >
       {`${alcoholicOrNot}`}
-    </p>
+    </div>
   );
 
   return (
-    <div className="doneCard">
+    <div className="done-card">
       <Link to={ `/${type}s/${id}` }>
-        <div>
-          <img
-            className="doneImg"
-            src={ image }
-            alt={ name }
-            data-testid={ `${index}-horizontal-image` }
-          />
+        <img
+          className="doneImg"
+          src={ image }
+          alt={ name }
+          data-testid={ `${index}-horizontal-image` }
+        />
+        <div className="done-card-text">
           {type === 'bebida' ? drinkInfo() : mealInfo()}
-          <p data-testid={ `${index}-horizontal-name` }>{`Nome: ${name}`}</p>
-          <p data-testid={ `${index}-horizontal-done-date` }>{`Data: ${doneDate}`}</p>
-          { tags.map((tag) => (
-            <div
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-              key={ tag }
-            >
-              {tag}
-            </div>)) }
+          <div
+            className="done-name"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            {name}
+          </div>
+          <div data-testid={ `${index}-horizontal-done-date` }>{doneDate}</div>
+          <section className="tags">
+            { tags.map((tag) => (
+              <div
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+                key={ tag }
+              >
+                {tag}
+              </div>)) }
+          </section>
         </div>
       </Link>
-      <ShareButton id={ id } type={ type } index={ index } path />
+      <ShareButton className="share-done" id={ id } type={ type } index={ index } path />
     </div>
   );
 }
