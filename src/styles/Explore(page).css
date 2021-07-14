@@ -1,10 +1,11 @@
 .explore-container {
   align-items: center;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 73vh;
-  min-width: 73vw;
+  min-height: 84vh;
+  min-width: 84vw;
 }
 
 .explore-videoAndBtn {
@@ -32,9 +33,11 @@
 }
 
 .explore-btn {
-  background-color: lightgray;
+  border: none;
+  color: black;
   font-size: 19px;
   margin-bottom: 25px;
+  opacity: 0.75;
   padding: 5px;
   text-align: center;
   width: 165px;

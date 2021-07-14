@@ -18,12 +18,18 @@ function Header({ title }) {
   return (
     <div className="header-container">
       <Link to="/perfil">
-        <img src={ profileIcon } data-testid="profile-top-btn" alt="Profile Avatar" />
+        <img
+          className="profile"
+          src={ profileIcon }
+          data-testid="profile-top-btn"
+          alt="Profile Avatar"
+        />
       </Link>
       <h3 data-testid="page-title" className="header-title">{title}</h3>
       { !showExplore && !showRecipes
         ? (
           <img
+            className="search"
             role="presentation"
             onClick={ showSearch }
             src={ searchIcon }

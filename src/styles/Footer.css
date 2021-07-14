@@ -4,10 +4,22 @@
 }
 
 .footer-container {
-  background-color: lightgray;
+  background-color: black;
   bottom: 0;
   display: block;
   padding: 7px;
   position: fixed;
   width: 100%;
+}
+
+.food-icon {
+  filter: invert();
+}
+
+.drink-icon {
+  filter: invert();
+}
+
+.explore-icon {
+  filter: invert();
 }
