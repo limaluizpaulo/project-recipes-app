@@ -23,9 +23,9 @@ class RecipesByIngredients extends Component {
     this.fetch();
   }
 
-  handleClick(ingredient) {
+  async handleClick(ingredient) {
     const { recipesByIng } = this.props;
-    recipesByIng(ingredient);
+    await recipesByIng(ingredient);
     this.setState({ redirect: true });
   }
 

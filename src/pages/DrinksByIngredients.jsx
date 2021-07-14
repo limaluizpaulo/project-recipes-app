@@ -23,9 +23,9 @@ class DrinksByIngredients extends Component {
     this.fetch();
   }
 
-  handleClick(ingredient) {
+  async handleClick(ingredient) {
     const { drinksByIng } = this.props;
-    drinksByIng(ingredient);
+    await drinksByIng(ingredient);
     this.setState({ redirect: true });
   }
 
