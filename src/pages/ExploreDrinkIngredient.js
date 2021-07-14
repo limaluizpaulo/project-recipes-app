@@ -40,6 +40,7 @@ function ExploreDrinkIngredient() {
             key={ index }
           >
             <Card
+              bg="info"
               onClick={ handleClick }
               data-testid={ `${index}-ingredient-card` }
               className="card"
