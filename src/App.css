@@ -3,59 +3,58 @@
 }
 
 /*TELA DE LOGIN*/
-
 .button-login {
-  background-color: #EA1D2C;
-  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  background-color: #ea1D2C;
   border: none;
-  width: 225px;
-  height: 45px;
   border-radius: 5px;
-  color: #F5F0EB;
-  margin-top: 20px;
+  color: #f5f0eB;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
   font-family: "Poppis", sans-serif;
   font-weight: bold;
   font-size: 18px;
+  height: 45px;
+  margin-top: 20px;
+  width: 225px;
 }
 
 .login-background {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
 }
 
 .logo-img {
-  width: 200px;
   margin-bottom: 50px;
+  width: 200px;
 }
 
 .label-login {
-  font-family: 'Poppins';
   color: #A6A29F;
+  font-family: 'Poppins';
   font-weight: 700;
 }
 
 ::-webkit-input-placeholder {
-  color: #A6A29F;
+  color: #a6a29f;
   font-family: "Poppins";
-  font-weight: 200;
   font-size: 14px;
+  font-weight: 200;
 }
 
 /* COMPONENTE HEADER */
 .header {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 100%;
-  align-items: center;
   margin: 32px 0 16px;
+  width: 100%;
 }
 
 .header h1 {
-  color: #3F3E3E;
+  color: #3f3e3e;
   font-size: 32px;
   font-family: "Poppins";
   font-weight: 700;
@@ -63,10 +62,10 @@
 }
 
 .header-icon {
-  color: #A6A29F;
-  width: 25px;
-  border: none;
   background-color: white;
+  border: none;
+  color: #a6a29f;
+  width: 25px;
 }
 
 .header-icon img {
@@ -74,16 +73,15 @@
 }
 
 /* TELA DE RECEITAS PRINCIPAL */
-
 .main-btn {
-  background-color: #A02331;
+  background-color: #a02331;
   border: none;
   border-radius: 2px;
   box-sizing: border-box;
   color: #F5F0EB;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
-  font-size: 16px;
   font-family: "Poppins";
+  font-size: 16px;
   font-weight: 700;
   height: 30px;
   margin: 8px 7px;
@@ -104,54 +102,53 @@
 }
 
 .main-cards-div {
-  width: 328px;
-  height: 150px;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  text-align: end;
-  position: relative;
-  margin-bottom: 16px;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  height: 150px;
+  margin-bottom: 16px;
+  margin: auto;
   overflow: hidden;
+  position: relative;
+  text-align: end;
+  width: 328px;
 }
 
 .main-cards-div img {
+  bottom: 70px;
   position: relative;
   width: 100%;
-  bottom: 70px;
 }
 
 .main-card-background {
-  background: linear-gradient(0deg, rgba(0,0,0,0.8239670868347339) 0%, rgba(0,0,0,0.6446953781512605) 26%, rgba(0,0,0,0) 100%); 
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 26%, rgba(0,0,0,0) 100%); 
+  height: 150px;
   position: absolute;
   width: 328px;
-  height: 150px;
   z-index: 2;
 }
 
 .main-cards-div h3 {
-  position: absolute;
-  right: 16px;
   bottom: 0;
-  color: #F7F7F7;
+  color: #f7f7f7;
   font-family: "Poppins";
   font-weight: 200;
   font-size: 22px;
+  position: absolute;
+  right: 16px;
   z-index: 3;
 }
 
 /* COMPONENTE FOOTER */
-
 .footer-navBar {
   align-items: center;
+  background-color: #f5f0eb;
   bottom: 0;
   display: flex;
   height: 48px;
   justify-content: space-around;
   position: fixed;
   width: 100%;
-  background-color: #F5F0EB;
 }
 
 .footer-icon {
@@ -160,37 +157,37 @@
 
 /* COMPONENTE SEARCHBAR */
 .searchBar-form{
+  align-items: space-between;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
-  width: 328px;
   margin-top: 16px;
-  align-items: space-between;
+  width: 328px;
 }
 
 .searchBar-radio-div {
-  display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  margin-top: 16px;
-  margin-bottom: 0px;
-  width: 100%;
+  color: #333;
+  display: flex;
   font-size: 14px;
   font-weight: 400;
   font-family: "Poppins";
-  color: #333333;
+  justify-content: space-evenly;
+  margin-top: 16px;
+  margin-bottom: 0px;
+  width: 100%;
 }
 
 .searchBar-radio-div input {
+  background-color: #a02331;
   margin-right: 10px;
-  background-color: #A02331;
 }
 
 .searchBar-input {
+  background-color: #f5f0eb;
   border-radius: 10px;
   border: none;
-  background-color: #F5F0EB;
   color: #717171;
   font-size: 14px;
   font-weight: 400;
@@ -202,14 +199,14 @@
 }
 
 .searchBar-form button {
+  background-color: #ea1d2c;
   border: none;
   border-radius: 5px;
+  color: #f5f0eb;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
-  background-color: #EA1D2C;
-  color: #F5F0EB;
+  font-family: "Poppins";
   font-size: 16px;
   font-weight: 700;
-  font-family: "Poppins";
   height: 45px;
   width: 117px;
 }
@@ -226,8 +223,8 @@
 .drink-cards-section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   height: 340px;
+  justify-content: space-around;
 }
 
 .drinks-img {
@@ -236,9 +233,9 @@
 
 /* detail */
 .detail-img {
- width: 100%;
- border-radius: 0 0 50px 0;
- filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  border-radius: 0 0 50px 0;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  width: 100%;
 }
 
 .header-detail-section {
@@ -247,21 +244,21 @@
 }
 
 .detail-main-section h1 {
-  color: #3F3E3E;
+  color: #3f3e3e;
   font-size: 32px;
   font-weight: 400;
   font-family: "Poppins";
-  text-align: start;
   margin: 12px;
+  text-align: start;
 }
 
 .detail-main-section p {
-  color: #A6A29F;
+  align-self: flex-end;
+  color: #a6a29f;
   font-family: "Poppins";
   font-size: 16px;
-  align-self: flex-end;
-  margin: 12px;
   letter-spacing: -0.17px;
+  margin: 12px;
 }
 
 .detail-main-section p:first-child {
@@ -273,8 +270,8 @@
   font-size: 32px;
   font-weight: 700;
   font-family: "Poppins";
-  text-align: start;
   margin: 12px;
+  text-align: start;
 }
 
 .detail-main-section button {
@@ -284,67 +281,66 @@
 }
 
 .detail-main-section ul {
-  list-style: none;
-  color: #A6A29F;
+  color: #a6a29f;
   font-family: "Poppins";
   font-weight: 300;
   font-size: 16px;
-  text-align: start;
+  list-style: none;
   padding: 12px;
+  text-align: start;
 }
 
 .instructions {
-  color: #A6A29F;
+  align-self: flex-end;
+  color: #a6a29f;
   font-family: "Poppins";
   font-weight: 400;
   font-size: 16px;
-  align-self: flex-end;
-  margin: 12px;
   letter-spacing: -0.17px;
+  margin: 12px;
 }
 
 .hr {
-  width: 14px;
+  background-color: #a02331;
+  border: 2px solid #a02331;
   height: 0;
-  background-color: #A02331;
-  border: 2px solid #A02331;
   margin-left: 12px;
+  width: 14px;
 }
 
 .video{
-  width: max-content;
   margin: auto;
+  width: max-content;
 }
 
 .start-recipe-btn {
-  bottom: 0;
-  position: fixed;
+  background-color: #ea1d2c !important;
   border: none;
   border-radius: 5px;
-  background-color: #EA1D2C !important;
+  bottom: 0;
+  color: #f5f0eb;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
-  color: #F5F0EB;
+  font-family: "Poppins";
   font-size: 16px;
   font-weight: 700;
-  font-family: "Poppins";
   height: 45px;
+  position: fixed;
   width: 328px;
 }
 
 /* COMPONENTE RECOMMENDED */
-
 .recommended-main-section {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .recommended-cards-title {
-  font-family: "Poppins";
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 48px;
   color: #717171;
+  font-family: "Poppins";
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
 }
 
 .recommended-cards-section {
@@ -356,10 +352,10 @@
 
 /* FOOD BY ORIGIN */
 .select-By-Area {
-  color: #F7F7F7;
-  background-color: #A02331;
-  width: 328px;
+  background-color: #a02331;
+  color: #f7f7f7;
   margin: 16px;
+  width: 328px;
 }
 
 .food-By-Area-section h1 {
@@ -370,20 +366,20 @@
 
 .ingredient-btn {
   border: none;
-  padding: 0;
   font-size: 25px;
+  padding: 0;
 }
 
 .drinks-ingredient-btn {
-  width: 150px;
   border: none;
-  padding: 0;
   font-size: 25px;
+  padding: 0;
+  width: 150px;
 }
 
 .drinks-ingredient-btn div {
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0) 100%);
   width: 150px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.7875525210084033) 0%, rgba(0,0,0,0.5270483193277311) 15%, rgba(0,0,0,0.26094187675070024) 30%, rgba(0,0,0,0) 100%);
 }
 
 .drinks-ingredient-btn img {
@@ -393,7 +389,7 @@
 .ingredients-card-div {
   display: flex;
   flex-wrap: wrap;
-  width: 328px;
-  margin: auto;
   justify-content: space-between;
+  margin: auto;
+  width: 328px;
 }
