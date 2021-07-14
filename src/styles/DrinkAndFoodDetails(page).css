@@ -4,7 +4,8 @@
 }
 
 .food-details-main-div {
-  background-color: rgb(45, 45, 45);
+  background-color: black;
+  padding-bottom: 43px;
 }
 
 .section-title {
@@ -29,6 +30,7 @@
 }
 
 .details-title {
+  color: black;
   width: 180px;
 }
 
@@ -43,10 +45,13 @@
 
 .details-startRecipeBtn {
   bottom: 0;
-  color: white;
+  color: black;
   display: block;
   font-size: 1.2rem;
+  margin-bottom: 1px;
+  margin-left: 1.5%;
+  margin-top: 0;
   padding: 9px;
   position: fixed;
-  width: 100%;
+  width: 97%;
 }

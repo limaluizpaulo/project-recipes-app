@@ -11,7 +11,7 @@ ul li:before {
   color: #17a2b8;
   content: '\2022';
   display: inline-block;
-  font-weight: bold;
+  font-weight: 700;
   margin-left: -1em;
   width: 1em;
 }

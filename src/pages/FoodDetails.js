@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Badge } from 'react-bootstrap';
+import { Badge, Button } from 'react-bootstrap';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
@@ -98,14 +98,15 @@ function FoodDetails() {
             </div>
             <RecomendationsDrink />
             <Link to={ `/comidas/${idMeal}/in-progress` }>
-              <button
+              <Button
                 type="button"
+                variant="info"
                 className="details-startRecipeBtn"
                 data-testid="start-recipe-btn"
                 onClick={ start }
               >
                 {progress}
-              </button>
+              </Button>
             </Link>
           </div>
         );
