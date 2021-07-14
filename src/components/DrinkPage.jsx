@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import SBElements from './SBElements';
 import ContextRecipes from '../context/contextRecipes';
+import DrinkCategoryButtons from './DrinkCategoryButtons';
 
 function DrinkPage({ history }) {
   const { goSearch, setTitle, drinks } = useContext(ContextRecipes);
@@ -20,6 +21,7 @@ function DrinkPage({ history }) {
     <div>
       <Header history={ history } />
       { goSearch && <SBElements history={ history } /> }
+      <DrinkCategoryButtons history={ history } />
       <section>
         {/* { drinks.length === 1
           ? history.push(`/bebidas/${drinks[0].idDrink}`) : null } */}

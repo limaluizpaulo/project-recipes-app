@@ -47,21 +47,23 @@ function DetailsFoodPage({ match: { params } }) {
 
   const measuresFinal = measures.filter((ing) => ing !== ' ');
 
-  const INDEX_NUMBER = 3;
-  const urlVideo = recipes[0].strYoutube.split('/');
-  urlVideo.splice(urlVideo.indexOf(INDEX_NUMBER), 1);
-  // urlVideo.forEach((u) => u.inclued)
-  const urlVideo2 = recipes[0].strYoutube.split('/');
-  const partUrl = urlVideo2[3].split('?');
-  const partUrl2 = partUrl[1].split('=');
-  partUrl2.shift();
-  console.log(partUrl2);
-  let fullUrl = '';
+  // const INDEX_NUMBER = 3;
+  // const urlVideo = recipes[0].strYoutube.split('/');
+  // urlVideo.splice(urlVideo.indexOf(INDEX_NUMBER), 1);
+  // // urlVideo.forEach((u) => u.inclued)
+  // const urlVideo2 = recipes[0].strYoutube.split('/');
+  // const partUrl = urlVideo2[3].split('?');
+  // const partUrl2 = partUrl[1].split('=');
+  // partUrl2.shift();
+  // console.log(partUrl2);
+  // let fullUrl = ''; Teste
 
-  partUrl[0] = 'embed';
-  urlVideo.push(partUrl[0]);
-  urlVideo.push(partUrl2);
-  fullUrl = `${urlVideo[0]}//${urlVideo[2]}/${urlVideo[3]}/${urlVideo[4]}`;
+  // partUrl[0] = 'embed';
+  // urlVideo.push(partUrl[0]);
+  // urlVideo.push(partUrl2);
+  // fullUrl = `${urlVideo[0]}//${urlVideo[2]}/${urlVideo[3]}/${urlVideo[4]}`;
+  // // }, [setRecipes, id]);
+  // // console.log(id, recipes);
 
   return (
     isLoading === true ? <p>Carregando...</p>
@@ -95,13 +97,13 @@ function DetailsFoodPage({ match: { params } }) {
           </ul>
           <h3>Instruções</h3>
           <p data-testid="instructions">{ recipes[0].strInstructions }</p>
-          <iframe
+          {/* <iframe
             width="560"
             height="315"
             src={ fullUrl }
             title="YouTube video player"
             data-testid="video"
-          />
+          /> */}
           <h3>Recomendadas</h3>
           <RecommendedDrinks />
           <button type="button" data-testid="start-recipe-btn">Iniciar</button>

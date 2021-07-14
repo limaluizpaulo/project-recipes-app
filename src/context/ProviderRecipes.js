@@ -8,6 +8,10 @@ function ProviderRecipes({ children }) {
   const [title, setTitle] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [foodCategoryName, setFoodCategoryName] = useState([]);
+  const [drinkCategory, setDrinkCategory] = useState([]);
+  const [drinkCategoryName, setDrinkCategoryName] = useState([]);
   const [searchInput, setsearchInput] = useState({
     // name: '',
   });
@@ -65,6 +69,10 @@ function ProviderRecipes({ children }) {
     fullUrl = `${urlVideo[0]}//${urlVideo[2]}/${urlVideo[3]}/${urlVideo[4]}`;
     setFullUrlDrinks(fullUrl);
   };
+  const [toggleFood, setToggleFood] = useState(false);
+  const [randomFood, setRandomFood] = useState([]);
+  const [randomDrink, setRandomDrink] = useState([]);
+  const [searchByIngredient, setSearchByIngredient] = useState([]);
 
   const obj = {
     goSearch,
@@ -87,6 +95,22 @@ function ProviderRecipes({ children }) {
     measuresDrinks,
     fullUrlDrinks,
     logicFromDetailsDrink,
+    foodCategory,
+    setFoodCategory,
+    foodCategoryName,
+    setFoodCategoryName,
+    drinkCategory,
+    setDrinkCategory,
+    drinkCategoryName,
+    setDrinkCategoryName,
+    toggleFood,
+    setToggleFood,
+    randomFood,
+    setRandomFood,
+    randomDrink,
+    setRandomDrink,
+    searchByIngredient,
+    setSearchByIngredient,
   };
 
   const fetchFoodRecipes = () => {
