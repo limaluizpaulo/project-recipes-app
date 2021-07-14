@@ -21,6 +21,7 @@ const DrinkDetails = (props) => {
     drink,
     redirect,
   } = props;
+
   async function resultDrink() {
     const listRecomendations = await MealAPI.getByDefault();
     await DrinkApi.getDrinkById(id);
@@ -28,8 +29,6 @@ const DrinkDetails = (props) => {
   }
 
   useEffect(() => {
-    // DrinkApi.getDrinkById(id)
-    //   .then((res) => localStorage.setItem('itemDetails', JSON.stringify(res[0])));
     if (loading) {
       setDrinkDetails(id)
         .then(() => resultDrink()
