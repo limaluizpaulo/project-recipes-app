@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function RecipeDone() {
   const history = useHistory();
