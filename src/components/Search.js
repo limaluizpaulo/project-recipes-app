@@ -5,6 +5,7 @@ import '../styles/Search.css';
 import searchByNameFood,
 { searchByFirstLetterFood, searchByIngredientsFood, searchByFirstLetterDrink,
   searchByIngredientsDrink, searchByNameDrink } from '../services/searchApi';
+import { Button } from 'react-bootstrap';
 
 function Search() {
   const { radio,
@@ -141,9 +142,14 @@ function Search() {
         </label>
       </div>
       <div>
-        <button type="submit" className="search-btn" data-testid="exec-search-btn">
+        <Button
+          variant="outline-dark"
+          type="submit"
+          className="search-btn"
+          data-testid="exec-search-btn"
+        >
           Buscar
-        </button>
+        </Button>
       </div>
     </form>
   );
