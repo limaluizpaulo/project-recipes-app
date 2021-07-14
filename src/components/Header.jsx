@@ -50,7 +50,12 @@ class Header extends Component {
             >
               <img src={ profile } alt="profile-icon" />
             </Button>
-            <h2 data-testid="page-title">{title}</h2>
+            <h2
+              className="explore-ingredients"
+              data-testid="page-title"
+            >
+              {title}
+            </h2>
             { !hydeSearch ? (
               <Button
                 variant="light"

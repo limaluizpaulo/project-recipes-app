@@ -27,3 +27,11 @@
   border: none;
   font-size: 0;
 }
+
+.explore-ingredients {
+  align-items: center;
+  display: flex;
+  font-size: 1.5em;
+  margin: 0;
+  margin-bottom: 5px;
+}
