@@ -35,7 +35,7 @@ export default function LoginProvider({ children }) {
     if (recipe.strAlcoholic === undefined) {
       localStorage.setItem('doneRecipes', JSON.stringify([...done, {
         id: recipe.idMeal,
-        type: 'comida',
+        type: 'comidazz',
         area: recipe.strArea,
         category: recipe.strCategory,
         alcoholicOrNot: null,

@@ -4,33 +4,14 @@ import FilterButtons from '../components/FilterButtons';
 import CardsRecipesFavorite from '../components/CardsRecipes/CardsRecipesFavorite';
 
 function RecipesFavorite() {
+  let salve;
   const initialFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filterFavorites, setFilterFavorites] = useState(initialFavorites);
-
-  const removeFavorites = (Id) => {
-    const newArray = filterFavorites.filter(
-      (recipe) => recipe.id !== Id,
-    );
-    setFilterFavorites(newArray);
-    localStorage.favoriteRecipes = JSON.stringify(newArray);
-  };
-
-  function returnFavorites() {
-    if (filterFavorites) {
-      filterFavorites.map((aux, index) => (
-        <CardsRecipesFavorite
-          key={ aux.id }
-          aux={ aux }
-          index={ index }
-          removeFavorites={ removeFavorites }
-          filterFavorites={ filterFavorites }
-          setFilterFavorites={ setFilterFavorites }
-        />
-      ));
-    }
-    return <p>Sem receitas favoritas</p>;
+  if (initialFavorites === null || initialFavorites.length === 0) {
+    salve = true;
+  } else {
+    salve = false;
   }
-
   return (
     <div>
       <Header />
@@ -39,7 +20,15 @@ function RecipesFavorite() {
         setFilterFavorites={ setFilterFavorites }
       />
       <div>
-        { returnFavorites() }
+        {salve ? 'Sem Favorite' : filterFavorites.map((aux, index) => (
+          <CardsRecipesFavorite
+            key={ aux.id }
+            aux={ aux }
+            index={ index }
+            filterFavorites={ filterFavorites }
+            setFilterFavorites={ setFilterFavorites }
+          />
+        ))}
       </div>
     </div>
   );
