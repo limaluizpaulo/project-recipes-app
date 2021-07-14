@@ -60,7 +60,7 @@ function CardsRecipesDones({ recipesFilter }) {
             alt="Botão de compartilhar"
           />
         </button>
-        { recipe.type === 'comida' && (
+        { recipe.tags !== '' && (
           recipe.tags.map((tag) => (
             <span
               key={ tag }

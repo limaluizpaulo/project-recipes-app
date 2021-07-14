@@ -8,6 +8,12 @@ function ReceitasFeitas() {
 
   ReceitasFeitas.displayName = 'Receitas Feitas';
 
+  if (recipesDone === null) {
+    const doneRecipes = [];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    setNewRecipes(doneRecipes);
+  }
+
   const btnAll = () => {
     setNewRecipes(recipesDone);
   };
@@ -45,8 +51,7 @@ function ReceitasFeitas() {
         >
           Drinks
         </button>
-        { newRecipes !== null && (
-          <CardsRecipesDones recipesFilter={ newRecipes } />)}
+        <CardsRecipesDones recipesFilter={ newRecipes } />
       </section>
     </div>
   );
