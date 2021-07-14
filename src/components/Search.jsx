@@ -41,11 +41,11 @@ class Search extends Component {
         return name(search);
       case 'firstLetter':
         if (search.length > 1) {
-          return global.alert('Sua busca deve conter somente 1 (um) caracter');
+          return window.alert('Sua busca deve conter somente 1 (um) caracter');
         }
         return firstName(search);
       default:
-        return global.alert(messageAlert);
+        return window.alert(messageAlert);
       }
     }
     switch (filter) {

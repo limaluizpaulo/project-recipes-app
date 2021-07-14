@@ -22,7 +22,6 @@ class Perfil extends Component {
 
   getEmail() {
     const { email } = this.props;
-    console.log(email);
     this.setState({
       email,
     });
