@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import CardsDeReceitas from '../components/CardsDeReceitas';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -39,12 +39,16 @@ function Receitas() {
     }
   }, [parametrosBusca]);
 
-  // if (receitas.length === 1) {
-  //   const [receitaUnica] = receitas;
-  //   const { location: { pathname } } = history;
-  //   const id = ((pathname.match(/comidas/)) ? receitaUnica.idMeal : receitaUnica.idDrink);
-  //   history.push(`${pathname}/${id}`);
-  // }
+  if (receitas.length === 1) {
+    const type = Object.keys(receitas[0])[2];
+    const redirect = {
+      idDrink: `/bebidas/${receitas[0].idDrink}`,
+      idMeal: `/comidas/${receitas[0].idMeal}`,
+    };
+    if (receitas[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') {
+      return <Redirect to={ `${redirect[type]}` } />;
+    }
+  }
 
   return (
     <section>
