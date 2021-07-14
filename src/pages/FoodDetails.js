@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Badge } from 'react-bootstrap';
 import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
@@ -51,46 +52,49 @@ function FoodDetails() {
       ) => {
         const array = rest;
         return (
-          <div key={ index }>
-            <img
-              src={ strMealThumb }
-              className="details-img"
-              alt={ strMeal }
-              data-testid="recipe-photo"
-            />
+          <div className="food-details-main-div" key={ index }>
             <div className="details-align">
-              <section className="detailsTitle-container">
-                <div>
+              <div>
+                <img
+                  src={ strMealThumb }
+                  className="details-img"
+                  alt={ strMeal }
+                  data-testid="recipe-photo"
+                />
+                <section className="detailsTitle-container">
                   <h1
                     className="details-title"
                     data-testid="recipe-title"
                   >
                     { strMeal }
                   </h1>
-                  <span data-testid="recipe-category">{ strCategory }</span>
-                </div>
-                <Icons code={ item[0] } />
-              </section>
+                  <Icons code={ item[0] } />
+                </section>
+              </div>
+              <Badge
+                variant="info"
+                data-testid="recipe-category"
+              >
+                { strCategory }
+              </Badge>
               <List array={ array } />
-              <h2>Instructions</h2>
+              <h2 className="section-title">Instructions</h2>
               <p
                 className="details-instructions"
                 data-testid="instructions"
               >
                 { strInstructions }
               </p>
-              <h2>Video</h2>
+              <h2 className="section-title">Video</h2>
               <iframe
                 className="details-video"
                 data-testid="video"
-                width="420"
-                height="315"
                 src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
                 frameBorder="0"
                 allowFullScreen
                 title="Embedded youtube"
               />
-              <h2>Recomendations</h2>
+              <h2 className="section-title">Recomendations</h2>
             </div>
             <RecomendationsDrink />
             <Link to={ `/comidas/${idMeal}/in-progress` }>
