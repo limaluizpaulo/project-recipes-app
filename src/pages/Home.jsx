@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import RecipesContext from '../Context/RecipesContext';
+import Logo from '../images/logo.png';
 
 function Home() {
   const { setLogin, login } = useContext(RecipesContext);
@@ -51,6 +52,7 @@ function Home() {
   return (
     <main>
       <section className="sectionForm">
+        <img src={ Logo } alt="Logo" />
         <Form>
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Control
@@ -59,16 +61,22 @@ function Home() {
               id="input-Email"
               data-testid="email-input"
               name="email"
+              variant="primary"
+              size="lg"
+              bg="dark"
               onChange={ handleChange }
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formGroupPassword">
+          <Form.Group className="mb-3 background_imput" controlId="formGroupPassword">
             <Form.Control
               type="password"
               placeholder="Password"
               id="input-Password"
               data-testid="password-input"
               name="password"
+              variant="primary"
+              size="lg"
+              bg="dark"
               onChange={ handleChange }
             />
           </Form.Group>
