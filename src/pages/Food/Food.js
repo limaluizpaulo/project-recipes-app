@@ -90,7 +90,7 @@ function Food() {
       .map((item, index) => (
         <div
           key={ index }
-          className="card-meals-items"
+          className="card"
           data-testid={ `${index}-recipe-card` }
         >
           <Link to={ `/comidas/${item.idMeal}` }>

@@ -31,6 +31,13 @@ export async function requestDrinkById(id) {
   const resolve = await request.json();
   return resolve;
 }
+
+export async function requestAreaMeal(paramer) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=${paramer}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
 export async function requestCategoryDrink() {
   const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const resolve = await request.json();
