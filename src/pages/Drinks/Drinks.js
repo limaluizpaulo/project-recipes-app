@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   requestDrink,
-  requestCategoryDrink,
   requestNameDrink,
-  requestAllDrinkCategory } from '../../helpers/requests';
+  requestAllDrinkCategory,
+} from '../../helpers/requests';
+import resolve from '../../helpers/resolveDrinks';
 import Header from '../../components/Header/Header';
 import './Drinks.css';
 import Footer from '../../components/Footer/Footer';
 import Context from '../../Provider/context';
 
-function Drinks() {
+function Drinks({ location: { ingredients } }) {
   const { dataDrink, setDataDrink } = useContext(Context);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,13 +20,9 @@ function Drinks() {
 
   useEffect(() => {
     (async function resolved() {
-      const resolveDrinks = await requestDrink();
-      const resolveCategory = await requestCategoryDrink();
-      setDataDrink(resolveDrinks);
-      setCategory(resolveCategory);
-      setLoading(false);
+      resolve(setDataDrink, setCategory, setLoading, ingredients);
     }());
-  }, [setDataDrink]);
+  }, [setDataDrink, ingredients]);
 
   async function onClick({ target: { name } }) {
     if (name && name !== '') {
@@ -146,5 +144,11 @@ function Drinks() {
     </>
   );
 }
+
+Drinks.propTypes = {
+  location: Proptypes.shape({
+    ingredients: Proptypes.string.isRequired,
+  }),
+}.isRequired;
 
 export default Drinks;

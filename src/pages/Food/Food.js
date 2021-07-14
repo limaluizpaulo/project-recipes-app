@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import requestMeal, {
-  requestCategoryMeal,
   requestNamemeal,
-  requestAllCategory } from '../../helpers/requests';
+  requestAllCategory,
+} from '../../helpers/requests';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './Food.css';
 import Context from '../../Provider/context';
+import resolve from '../../helpers/resolveMeals';
 
-function Food() {
+function Food({ location: { ingredients } }) {
   const { dataFood, setDataFood } = useContext(Context);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,13 +19,9 @@ function Food() {
 
   useEffect(() => {
     (async function resolved() {
-      const resolveMeal = await requestMeal();
-      const resolveCategory = await requestCategoryMeal();
-      setDataFood(resolveMeal);
-      setCategory(resolveCategory);
-      setLoading(false);
+      resolve(setDataFood, setCategory, setLoading, ingredients);
     }());
-  }, [setDataFood]);
+  }, [setDataFood, ingredients]);
 
   async function onClick({ target: { name } }) {
     if (name) {
@@ -101,7 +99,6 @@ function Food() {
               alt={ `imagem de ${item}` }
               id={ item.idMeal }
             />
-            {/* <p data-testid={ `${index}-card-name` }>{item.strMeal}</p> */}
             <h5
               data-testid={ `${index}-card-name` }
               className="card-title"
@@ -130,5 +127,11 @@ function Food() {
     </>
   );
 }
+
+Food.propTypes = {
+  location: Proptypes.shape({
+    ingredients: Proptypes.string.isRequired,
+  }),
+}.isRequired;
 
 export default Food;
