@@ -44,3 +44,6 @@ export const getMealRandom = (type = 'meals') => getAPI(
 
 export const getRecipesByIng = (ingredient, type = 'meals') => getAPI(MEALS_API[type],
   'filter.php?i=', type, ingredient);
+
+export const getRandomRecipe = (type = 'meals') => getAPI(MEALS_API[type],
+  'random.php', type);

@@ -1,19 +1,24 @@
 import { capitalize } from 'lodash-es';
 
-export const pathTreament = (pathname) => {
+export const pathTreament = (pathname, change = false) => {
   const negativeOne = -1;
   const lastLetter = pathname.slice(negativeOne);
   let newPathname = pathname;
-  // console.log('oi');
   if (lastLetter === '/') {
     const size = pathname.length - 1;
     newPathname = (pathname.slice(0, size));
   }
-  if (newPathname.includes('comidas/')) {
-    return '/bebidas';
+  if (change) {
+    if (newPathname.includes('comidas')) {
+      return '/bebidas';
+    }
+    if (newPathname.includes('bebidas')) {
+      return '/comidas';
+    }
   }
-  if (newPathname.includes('bebidas/')) {
-    return '/comidas';
+  if (newPathname.includes('explorar')) {
+    return newPathname.includes('comida') ? '/comidas' : '/bebidas';
+    //  código alternativo(split): https://www.w3schools.com/jsref/jsref_split.asp
   }
   return newPathname;
 };

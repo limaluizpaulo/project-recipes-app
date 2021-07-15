@@ -7,7 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 export default function DoneCard(props) {
   const { id, thumbnail, title, index, category = '',
-    hidden = false, className, doneDate, url, tags } = props;
+    hidden = false, className, doneDate, url, tags = [] } = props;
   // const { pathname } = useLocation();
   const dataTestId = (category) ? `${index}-recomendation-card` : `${index}-recipe-card`;
   // const dataTestIdTitle = (category) ? `${index}-recomendation-title`
@@ -72,13 +72,21 @@ export default function DoneCard(props) {
         {doneDate}
       </span>
       <span>
-        {tags.map((tag, i) => (
-          <tag
-            data-testid={ `${i}-${tag}-horizontal-tag` }
-            key={ `${tag}-${id}` }
-          >
-            {tag}
-          </tag>))}
+        {typeof (tags) === 'string'
+          ? (
+            <tag
+              data-testid={ `${0}-${tags}-horizontal-tag` }
+              key={ `${tags}-${id}` }
+            >
+              {tags}
+            </tag>)
+          : tags.map((tag, i) => (
+            <tag
+              data-testid={ `${i}-${tag}-horizontal-tag` }
+              key={ `${tag}-${id}` }
+            >
+              {tag}
+            </tag>))}
       </span>
     </Link>
   );
