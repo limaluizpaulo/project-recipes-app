@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { AiOutlineSearch } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import invokeAlert from '../helper/alertMsg';
+
+import '../css/searchBar.css';
 
 import { fetchFoodRecipes, fetchFoodRecipesByIngredients,
   fetchFoodRecipesByfirstLetter, fetchDrinksRecipesByIngredient,
@@ -60,60 +63,69 @@ class SearchBar extends Component {
       if (!inputSearch || inputSearch.length > 1) {
         return invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
       }
-      // console.log(fetchByFirstLetter);
       return fetchByFirstLetter(inputSearch);
     }
   }
 
   render() {
     return (
-      <section>
-        <label htmlFor="search">
-          Buscar:
+      <section className="search-bar-content">
+        <div className="div-search-input">
+          <AiOutlineSearch className="search-icon" />
           <input
+            className="search-input"
             id="search"
             type="text"
             data-testid="search-input"
+            placeholder="Busca"
             onChange={ this.handleChange }
           />
-        </label>
-        <label htmlFor="ingrediente">
-          <input
-            id="ingrediente"
-            type="radio"
-            onChange={ this.handleChange }
-            name="radio-button"
-            data-testid="ingredient-search-radio"
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="nome">
-          <input
-            id="nome"
-            type="radio"
-            onChange={ this.handleChange }
-            name="radio-button"
-            data-testid="name-search-radio"
-          />
-          Nome
-        </label>
-        <label htmlFor="primeira-letra">
-          <input
-            id="primeira-letra"
-            type="radio"
-            onChange={ this.handleChange }
-            data-testid="first-letter-search-radio"
-            name="radio-button"
-          />
-          Primeira-letra
-        </label>
-        <button
-          data-testid="exec-search-btn"
-          type="button"
-          onClick={ this.handleClick }
-        >
-          Buscar
-        </button>
+        </div>
+        <div className="filter-radio">
+          <label className="filter-label" htmlFor="ingrediente">
+            <input
+              className="filter-input"
+              id="ingrediente"
+              type="radio"
+              onChange={ this.handleChange }
+              name="radio-button"
+              data-testid="ingredient-search-radio"
+            />
+            Ingrediente
+          </label>
+          <label className="filter-label" htmlFor="nome">
+            <input
+              className="filter-input"
+              id="nome"
+              type="radio"
+              onChange={ this.handleChange }
+              name="radio-button"
+              data-testid="name-search-radio"
+            />
+            Nome
+          </label>
+          <label className="filter-label" htmlFor="primeira-letra">
+            <input
+              className="filter-input"
+              id="primeira-letra"
+              type="radio"
+              onChange={ this.handleChange }
+              data-testid="first-letter-search-radio"
+              name="radio-button"
+            />
+            Primeira-letra
+          </label>
+        </div>
+        <div className="btn-content">
+          <button
+            className="btn-search"
+            data-testid="exec-search-btn"
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Buscar
+          </button>
+        </div>
       </section>
     );
   }

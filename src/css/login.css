@@ -78,7 +78,7 @@
   position: absolute;
 }
 
-input {
+.login-input {
   border: 1px solid var(--crl-Outline);
   border-radius: 25px;
   color: var(--crl-Main-Text);
@@ -90,11 +90,11 @@ input {
   width: 20.43rem;
 }
 
-input:focus {
+.login-input:focus {
   border: 2px solid var(--crl-Primary);
 }
 
-input::placeholder {
+.login-input::placeholder {
   color: var(--crl-Secondary-Text);
 }
 

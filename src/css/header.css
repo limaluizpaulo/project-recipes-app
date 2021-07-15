@@ -54,5 +54,6 @@
 
 .btn-search-bar {
   background-color: transparent;
+  border: none;
   outline: none;
 }

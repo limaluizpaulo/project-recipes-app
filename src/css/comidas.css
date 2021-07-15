@@ -42,9 +42,10 @@
 .food-main {
   display: flex;
   flex-direction: column;
+  font-family: Inter , sans-serif;
   justify-content: center;
   position: relative;
-  top: 60px;
+  top: 25px;
 }
 
 .cards-content {
@@ -57,10 +58,9 @@
 }
 
 .btn-filterMeasls-cards {
-  background-color: #169256;
+  background-color: var(--crl-Primary);
   border-radius: 25px;
   color: var(--crl-White);
-  font-family: Inter , sans-serif;
   font-size: var(--font-size-p2);
   font-weight: 700;
   height: 3.5rem;

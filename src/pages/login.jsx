@@ -68,6 +68,7 @@ class login extends Component {
           <section className="sec-email-password">
             <HiOutlineMail className="icon" />
             <input
+              className="login-input"
               data-testid="email-input"
               type="email"
               name="userEmail"
@@ -80,6 +81,7 @@ class login extends Component {
           <section className="sec-email-password">
             <HiOutlineLockClosed className="icon" />
             <input
+              className="login-input"
               data-testid="password-input"
               type="password"
               name="userPassword"

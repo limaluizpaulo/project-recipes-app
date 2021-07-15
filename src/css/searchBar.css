@@ -1,0 +1,106 @@
+:root {
+
+  /* COLOR STYLES */
+
+  --crl-Primary: #1fcc79;
+
+  --crl-Secondary: #ff6464;
+
+  --crl-Main-Text: #2e3e5c;
+
+  --crl-Secondary-Text: #9fa5c0;
+
+  --crl-Outline: #d0dbea;
+
+  --crl-form: #f4f5f7;
+
+  --crl-White: white;
+
+  /* FONT STYLES */
+
+  --font-size-h1: 1.37rem;
+
+  --font-size-h2: 1.06rem;
+
+  --font-size-h3: 0.93rem;
+
+  --font-size-p1: 1.06rem;
+
+  --font-size-p2: 0.93rem;
+
+  --font-size-s: 0.75rem;
+
+}
+
+.search-bar-content {
+  display: flex;
+  flex-direction: column;
+  font-family: Inter , sans-serif;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+  top: 90px;
+}
+
+.div-search-input {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+  width: 100vw;
+}
+
+.search-icon {
+  color: var(--crl-Secondary-Text);
+  font-size: 1.5rem;
+  left: 85px;
+  position: absolute;
+}
+
+.search-input {
+  border: 1px solid var(--crl-Outline);
+  border-radius: 25px;
+  color: var(--crl-Main-Text);
+  font-size: var(--font-size-p1);
+  height: 3.5rem;
+  outline: none;
+  padding: 0.5rem 2.5rem;
+}
+
+.search-input::placeholder {
+  color: var(--crl-Secondary-Text);
+  font-size: var(--font-size-p2);
+  font-weight: 500;
+}
+
+.filter-radio {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.filter-label {
+  color: var(--crl-Main-Text);
+  font-size: var(--font-size-p2);
+  font-weight: 500;
+  margin: 0.5rem 1rem;
+}
+
+.filter-input {
+  margin-right: 0.2rem;
+}
+
+.btn-content {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-search {
+  background-color: var(--crl-Primary);
+  border-radius: 25px;
+  color: var(--crl-White);
+  font-size: var(--font-size-p2);
+  font-weight: 700;
+  width: 7.5rem;
+}
