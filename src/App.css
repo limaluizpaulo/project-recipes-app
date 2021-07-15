@@ -131,8 +131,8 @@
 }
 
 .card-title, .header-image-text {
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 
 .container {
@@ -140,5 +140,5 @@
 }
 
 .category, .recomendations {
-  font-weight: bold;
+  font-weight: 600;
 }
