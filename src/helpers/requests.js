@@ -31,6 +31,13 @@ export async function requestDrinkById(id) {
   const resolve = await request.json();
   return resolve;
 }
+
+export async function requestAreaMeal(paramer) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=${paramer}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
 export async function requestCategoryDrink() {
   const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const resolve = await request.json();
@@ -39,6 +46,14 @@ export async function requestCategoryDrink() {
 
 export async function requestNamemeal(name) {
   const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestFilterAreaMeal(name) {
+  const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
   const grup = url + name;
   const request = await fetch(grup);
   const resolve = await request.json();

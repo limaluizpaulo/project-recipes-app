@@ -71,6 +71,11 @@ function SearchBar() {
       }
       break;
 
+    case 'explorar':
+      result = await searchDrink(selectedOptino, inputSearch);
+      haveOneDrink(result);
+      break;
+
     default:
       result = {};
     }
