@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './DetailsPage.css';
 // import 'App.css'
 
 function BtnIniciarReceita({ id }, { history }) {
@@ -36,6 +37,7 @@ function BtnIniciarReceita({ id }, { history }) {
       <button
         type="button"
         id="recipe-btn"
+        className="btn-iniciar-receita"
         data-testid="start-recipe-btn"
         onClick={ startRecipe }
       >
