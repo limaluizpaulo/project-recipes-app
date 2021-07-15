@@ -58,7 +58,6 @@ export class TelaDePerfil extends Component {
             data-testid="profile-logout-btn"
             onClick={ this.cleanLocalStorage }
             className="buttons-perfil"
-
           >
             Sair
           </button>
@@ -79,7 +78,7 @@ export class TelaDePerfil extends Component {
     return (
       <div className="profile-screen-btn">
         <Header location={ location } />
-        <main>
+        <main className="profile-main">
           <img className="profile-img" src="https://i.pinimg.com/736x/64/81/22/6481225432795d8cdf48f0f85800cf66.jpg" alt="icon" />
 
           <h1 data-testid="profile-email" className="email">{email}</h1>

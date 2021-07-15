@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFilterFoodByCategories } from '../action';
+import '../css/buttonCategories.css';
 
 class ButtonCategories extends Component {
   constructor() {
@@ -33,13 +34,13 @@ class ButtonCategories extends Component {
   }
 
   render() {
-    const { getCategories, btnClass } = this.props;
+    const { getCategories } = this.props;
     return (
       <section className="btn-list-cards">
         <button
           data-testid="All-category-filter"
           type="button"
-          className={ btnClass }
+          className="category-filter"
           onClick={ (e) => this.toggle(e, 'All') }
           value="All"
         >
@@ -48,7 +49,7 @@ class ButtonCategories extends Component {
         {
           getCategories.map(({ strCategory }, index) => (
             <button
-              className={ btnClass }
+              className="category-filter"
               data-testid={ `${strCategory}-category-filter` }
               type="button"
               key={ strCategory + index }
@@ -70,7 +71,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ButtonCategories.propTypes = {
   getCategories: PropTypes.objectOf(PropTypes.object).isRequired,
-  btnClass: PropTypes.string.isRequired,
+  // btnClass: PropTypes.string.isRequired,
   filter: PropTypes.func.isRequired,
   filterAll: PropTypes.func.isRequired,
 };

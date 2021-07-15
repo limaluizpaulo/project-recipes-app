@@ -32,22 +32,11 @@
 
 }
 
-.btn-list-cards {
+.drink-main {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 4rem;
-}
-
-.btn-filterDrinks-cards {
-  background-color: #169256;
-  border-radius: 25px;
-  color: var(--crl-White);
+  flex-direction: column;
   font-family: Inter , sans-serif;
-  font-size: var(--font-size-p2);
-  font-weight: 700;
-  height: 3.5rem;
-  margin-top: 1.5rem;
-  outline: none;
-  width: 10rem;
+  justify-content: center;
+  position: relative;
+  top: 80px;
 }

@@ -32,20 +32,21 @@
 
 }
 
-.food-main {
-  display: flex;
-  flex-direction: column;
-  font-family: Inter , sans-serif;
-  justify-content: center;
-  position: relative;
-  top: 80px;
-}
-
-.cards-content {
+.btn-list-cards {
   align-items: center;
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   justify-content: center;
-  padding: 0.5rem;
-  width: 100vw;
+}
+
+.category-filter {
+  background-color: var(--crl-Primary);
+  border-radius: 25px;
+  color: var(--crl-White);
+  font-size: var(--font-size-s);
+  font-weight: 700;
+  height: 2.2rem;
+  margin: 0.3rem;
+  outline: none;
+  width: 7rem;
 }

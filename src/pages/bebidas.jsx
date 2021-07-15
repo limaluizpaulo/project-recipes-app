@@ -61,7 +61,7 @@ class Bebidas extends Component {
     return (
       <div>
         <Header location={ location } />
-        <main>
+        <main className="drink-main">
           <ButtonCategories
             btnClass="btn-filterDrinks-cards"
             getCategories={ drinksCategories }
