@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CardRecipesDone from '../components/CardRecipesDone';
 import Header from '../components/Header';
 import dataRecipesDone from '../dataRecipesDone';
-import '../Style/Recipes.css';
+import '../Style/RecipesDone.css';
 
 class RecipesDone extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class RecipesDone extends Component {
 
   mapList(recipe, index) {
     return (
-      <div key={ index }>
+      <div key={ index } className="cardRecipeDone">
         <CardRecipesDone
           recipe={ recipe }
           index={ index }
@@ -56,36 +56,37 @@ class RecipesDone extends Component {
     return (
       <div>
         <Header header="Receitas Feitas" />
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <h2> Recipes Done</h2>
-        <button
-          type="button"
-          className="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => this.handleClick('') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => this.handleClick('comida') }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => this.handleClick('bebida') }
-        >
-          Drinks
-        </button>
-        {filter
-          ? filtered.map((recipe, index) => this.mapList(recipe, index))
-          : recipesDone.map((recipe, index) => this.mapList(recipe, index)) }
+        <div className="page-recipesDone">
+          <div className="box-buttons">
+            <button
+              type="button"
+              data-testid="filter-by-all-btn"
+              onClick={ () => this.handleClick('') }
+            >
+              All
+            </button>
+            <button
+              type="button"
+              data-testid="filter-by-food-btn"
+              onClick={ () => this.handleClick('comida') }
+            >
+              Food
+            </button>
+            <button
+              type="button"
+              data-testid="filter-by-drink-btn"
+              onClick={ () => this.handleClick('bebida') }
+            >
+              Drinks
+            </button>
+          </div>
+          <div className="container-cards">
+            {filter
+              ? filtered.map((recipe, index) => this.mapList(recipe, index))
+              : recipesDone.map((recipe, index) => this.mapList(recipe, index)) }
+          </div>
+
+        </div>
       </div>
     );
   }

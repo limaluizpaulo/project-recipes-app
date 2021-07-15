@@ -4,11 +4,10 @@
 }
 
 .container-favorite-recipes {
-  padding-top: 390px;
+  padding-top: 5px;
 }
 
-.container-favorite-recipes img {
-  height: 50px;
+.imgPictureRecipe {
   width: 50px;
 }
 

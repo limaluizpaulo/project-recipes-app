@@ -1,0 +1,64 @@
+.page-recipesDone {
+  height: 100%;
+  padding-top: 55px;
+
+}
+
+.box-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+.box-buttons button {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.tags {
+  display: flex;
+  padding-top: 10px;
+}
+
+.container-cards {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardRecipeDone {
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  padding: 10px;
+  width: 110%;
+
+}
+
+.cardRecipeDone a {
+  align-self: center;
+}
+
+.cardRecipeDone a h5 {
+  color: black;
+  padding-top: 5px;
+}
+
+.cardRecipeDone button {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.tags p {
+  background-color: #0fa36b;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 3px;
+}

@@ -36,15 +36,15 @@ class CardRecipesDone extends Component {
     const { id, type, name, category, doneDate, image, tags, area } = recipe;
     // console.log(id);
     return (
-      <div>
+      <>
         <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
           <img
-            width="30px"
+            width="200px"
             src={ image }
             alt={ image }
             data-testid={ `${index}-horizontal-image` }
           />
-          <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+          <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
         </Link>
         <p>{area}</p>
         <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
@@ -53,10 +53,12 @@ class CardRecipesDone extends Component {
           ? this.button(index, id, imagem, 'comidas')
           : this.button(index, id, imagem, 'bebidas')}
         {click ? <p>Link copiado!</p> : null }
-        {tags.map((tag) => (
-          <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-        ))}
-      </div>
+        <div className="tags">
+          {tags.map((tag) => (
+            <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
+          ))}
+        </div>
+      </>
     );
   }
 }

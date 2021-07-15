@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import '../Style/FavoriteRecipes.css';
+// import '../Style/FavoriteRecipes.css';
 import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -103,6 +103,7 @@ class FavoriteRecipes extends Component {
                         src={ recipe.image }
                         alt={ recipe.id }
                         data-testid={ `${index}-horizontal-image` }
+                        className=""
 
                       />
                     </Link>
