@@ -6,47 +6,43 @@ import './header.css';
 import '../App.css';
 import ContextRecipes from '../context/contextRecipes';
 
-function Header({ history }) {
+function Header({ history, show }) {
   const { goSearch, setGoSearch, title } = useContext(ContextRecipes);
   const goProfile = () => (
     history.push('/perfil')
   );
 
-  // const { location: { pathname } } = history;
-  // switch (title) {
-  //   case pathname === title
-
-  //     break;
-
-  //   default:
-  //     break;
-  // }
-
   return (
     <header className="food-header">
-      <button
-        className="normal-button"
-        type="button"
+      <input
+        type="image"
         data-testid="profile-top-btn"
         onClick={ goProfile }
-      >
-        <img src={ profileIcon } alt="Profile Icon" />
-      </button>
+        src={ profileIcon }
+        alt="Profile Icon"
+        width="45"
+      />
       <h2 data-testid="page-title">{ title }</h2>
-      <button
-        className="normal-button"
-        type="button"
+      { show && <input
+        type="image"
+        id="search-top-btn"
         data-testid="search-top-btn"
         onClick={ () => setGoSearch(!goSearch) }
-      >
-        <img src={ searchIcon } alt="Search Icon" />
-      </button>
+        src={ searchIcon }
+        alt="Search Icon"
+        width="45"
+      />}
     </header>
   );
 }
 
 Header.propTypes = {
   history: PropTypes.objectOf(PropTypes.objectOf).isRequired,
+  show: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  show: false,
 };
 
 export default Header;
