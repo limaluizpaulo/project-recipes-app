@@ -94,16 +94,19 @@ export default function RecipesPrincipal() {
           {category && filterCategory(category)}
           <Button variant="outline-secondary" size="sm" type="button" data-testid="All-category-filter" onClick={ () => setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=') }>All</Button>
           {/* https://react-bootstrap.netlify.app/components/cards/ */}
-          <Row xs={ 1 } md={ 2 } className="g-4">
+          <Row xs={ 12 } md={ 4 } className="sm">
             {foodsAPI && foodsAPI.map((info, index) => (
-              <Col className="flex-sm-wrap-reverse" key={ index }>
+              <Col className="" key={ index }>
 
                 <Card
-                  className="card text-white bg-primary mb-3"
-                  style={ { width: '18rem' } }
+                  className="card text-white bg-primary mb-3 "
+                  style={ { width: '8rem' } }
                 >
-
-                  <Card.Title>Card title</Card.Title>
+                  <Card.Title className="text-center">
+                    <p testid={ `${index}-card-name` }>
+                      {info.strMeal}
+                    </p>
+                  </Card.Title>
                   <Link to={ `comidas/${info.idMeal}` }>
                     <li data-testid={ `${index}-recipe-card` }>
                       <img
@@ -112,7 +115,7 @@ export default function RecipesPrincipal() {
                         alt={ info.strMeal }
                         data-testid={ `${index}-card-img` }
                       />
-                      <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
+
                     </li>
                   </Link>
 
