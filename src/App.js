@@ -18,6 +18,7 @@ import ExploreFoodOrigin from './pages/ExploreFoodOrigin/ExploreFoodOrigin';
 import Profile from './pages/Profile/Profile';
 import RecipesMade from './pages/RecipesMade/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites/RecipesFavorites';
+import Page404 from './pages/Page404/Page404';
 
 import './app.css';
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/perfil" exact component={ Profile } />
           <Route path="/receitas-feitas" exact component={ RecipesMade } />
           <Route path="/receitas-favoritas" exact component={ RecipesFavorites } />
+          <Route path="*" exact component={ Page404 } />
         </Switch>
       </Router>
     </Provider>
