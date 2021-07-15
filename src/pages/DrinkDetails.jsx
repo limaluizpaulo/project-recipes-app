@@ -27,14 +27,16 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
     const drinksArray = Object.keys(IngredientsAndMeasures.ingredient);
     return (
       drinksArray.map((_a, index) => (
-        <section key={ `ingredientAndMeasure${index + 1}` }>
-          <div data-testid={ `${index}-ingredient-name-and-measure` }>
-            {IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]}
-          </div>
-          <div data-testid={ `${index}-ingredient-name-and-measure` }>
-            {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
-          </div>
-        </section>
+        <ul key={ `ingredientAndMeasure${index + 1}` }>
+          <li>
+            <span data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${IngredientsAndMeasures.ingredient[`strIngredient${index + 1}`]} - `}
+            </span>
+            <span data-testid={ `${index}-ingredient-name-and-measure` }>
+              {IngredientsAndMeasures.measure[`strMeasure${index + 1}`]}
+            </span>
+          </li>
+        </ul>
       ))
     );
   }
@@ -102,30 +104,32 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
         {/* <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Drink"
         width="200px" /> */}
         {/* <h1 data-testid="recipe-title">{strDrink}</h1> */}
-        <Button
-          variant="outline-warning"
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => setIsCopied(copyLink(match, isCopied)) }
-        >
-          <img src={ shareIcon } alt="Share" />
-        </Button>
-        {isCopied ? <p>Link copiado!</p> : null }
-        <Button
-          variant="outline-danger"
-          type="button"
-          onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
-        >
-          <img
-            alt="Favorite"
-            src={ verifyFavorite(id) }
-            data-testid="favorite-btn"
-          />
-        </Button>
+        <section className="share-and-fav">
+          <Button
+            variant="outline-warning"
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => setIsCopied(copyLink(match, isCopied)) }
+          >
+            <img src={ shareIcon } alt="Share" />
+          </Button>
+          {isCopied ? <p>Link copiado!</p> : null }
+          <Button
+            variant="outline-danger"
+            type="button"
+            onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
+          >
+            <img
+              alt="Favorite"
+              src={ verifyFavorite(id) }
+              data-testid="favorite-btn"
+            />
+          </Button>
+        </section>
         <h3 className="category" data-testid="recipe-category">
           {strAlcoholic}
         </h3>
-        <h5 data-testid="instructions">{strInstructions}</h5>
+        <h5 className="instructions" data-testid="instructions">{strInstructions}</h5>
         {loopIngredientsAndMeasure()}
         <h4 className="recomendations">Recomendações de Comidas</h4>
         {loopRecomendationsFoods()}
