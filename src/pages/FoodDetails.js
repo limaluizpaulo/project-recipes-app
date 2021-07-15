@@ -5,6 +5,7 @@ import List from '../components/List';
 import RecomendationsDrink from '../components/RecomendationsDrink';
 import { requestByDetailsMeal } from '../services/api';
 import Loading from '../components/Loading';
+import return2 from '../images/return2.png';
 import Icons from '../components/Icons';
 import '../styles/DrinkAndFoodDetails(page).css';
 
@@ -59,7 +60,18 @@ function FoodDetails() {
         return (
           <div className="food-details-main-div" key={ index }>
             <div className="details-align">
-              <div>
+              <div className="details-card">
+                <button
+                  type="button"
+                  className="return-icon-detail"
+                  onClick={ () => window.history.back() }
+                >
+                  <img
+                    className="return-icon"
+                    src={ return2 }
+                    alt="return icon"
+                  />
+                </button>
                 <img
                   src={ strMealThumb }
                   className="details-img"
@@ -78,6 +90,7 @@ function FoodDetails() {
               </div>
               <Badge
                 variant="info"
+                className="details-tag"
                 data-testid="recipe-category"
               >
                 { strCategory }

@@ -12,21 +12,15 @@ img {
 
 .recomendation-title {
   color: black;
+}
 
+.recomendation-link {
+  list-style: none;
 }
 
 .black-bg {
   background-color: black;
 }
-
-/* .card {
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  height: 238px;
-  margin: 5px;
-  max-width: 100%;
-  text-align: center;
-  width: 169px;
-} */
 
 .carousel {
   z-index: 0;
