@@ -23,7 +23,7 @@ export const getRecipesByIngredients = async (ingredient) => {
     console.log(meals);
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -33,7 +33,7 @@ export const getRecipesByName = async (name) => {
     const { meals } = await result.json();
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -43,35 +43,25 @@ export const getRecipesByFirstLetter = async (firstLetter) => {
     const { meals } = await result.json();
     return meals.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
 export const getCategoriesRecipes = async () => {
-  try {
-    const result = await fetch(`${URL_SEARCH_MEALS}list.php?c=list`);
-    const { meals } = await result.json();
-    return meals.slice(0, LENGTH_CINCO);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(`${URL_SEARCH_MEALS}list.php?c=list`);
+  const { meals } = await result.json();
+  return meals.slice(0, LENGTH_CINCO);
 };
 
 export const getRecipesByCategories = async (category) => {
-  try {
-    const result = await fetch(`${URL_SEARCH_MEALS}filter.php?c=${category}`);
-    const { meals } = await result.json();
-    console.log(meals);
-    return meals.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(`${URL_SEARCH_MEALS}filter.php?c=${category}`);
+  const { meals } = await result.json();
+  return meals.slice(0, LENGTH_DOZE);
 };
 
 export const getIngredientsRecipes = async () => {
   const result = await fetch(URL_INGREDIENTS_RECIPES);
   const { meals } = await result.json();
-  console.log(meals);
   return meals.slice(0, LENGTH_DOZE);
 };
 
@@ -89,7 +79,7 @@ export const getDrinksByIngredients = async (ingredient) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -99,7 +89,7 @@ export const getDrinksByName = async (name) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
@@ -109,33 +99,24 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
     const { drinks } = await result.json();
     return drinks.slice(0, LENGTH_DOZE);
   } catch (_error) {
-    global.alert(messageAlert);
+    window.alert(messageAlert);
   }
 };
 
 export const getCategoriesDrinks = async () => {
-  try {
-    const result = await fetch(`${URL_SEARCH_DRINKS}list.php?c=list`);
-    const { drinks } = await result.json();
-    return drinks.slice(0, LENGTH_CINCO);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(`${URL_SEARCH_DRINKS}list.php?c=list`);
+  const { drinks } = await result.json();
+  return drinks.slice(0, LENGTH_CINCO);
 };
 
 export const getDrinksByCategories = async (category) => {
-  try {
-    const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?c=${category}`);
-    const { drinks } = await result.json();
-    return drinks.slice(0, LENGTH_DOZE);
-  } catch (_error) {
-    global.alert(messageAlert);
-  }
+  const result = await fetch(`${URL_SEARCH_DRINKS}filter.php?c=${category}`);
+  const { drinks } = await result.json();
+  return drinks.slice(0, LENGTH_DOZE);
 };
 
 export const getIngredientsDrinks = async () => {
   const result = await fetch(URL_INGREDIENTS_DRINKS);
   const { drinks } = await result.json();
-  console.log(drinks);
   return drinks.slice(0, LENGTH_DOZE);
 };

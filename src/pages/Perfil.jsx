@@ -8,23 +8,20 @@ import DownMenu from '../components/DownMenu';
 class Perfil extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-    };
+    // this.state = {
+    //   email: '',
+    // };
 
     this.getEmail = this.getEmail.bind(this);
     this.clearLocalStorage = this.clearLocalStorage.bind(this);
   }
 
-  componentDidMount() {
-    this.getEmail();
-  }
-
   getEmail() {
-    const { email } = this.props;
-    this.setState({
-      email,
-    });
+    const { emailRedux } = this.props;
+    const emailObj = localStorage.getItem('user');
+    if (!emailObj) return emailRedux;
+    const { email } = JSON.parse(emailObj);
+    return email;
   }
 
   clearLocalStorage() {
@@ -32,11 +29,11 @@ class Perfil extends Component {
   }
 
   render() {
-    const { email } = this.state;
+    // const { email } = this.state;
     return (
       <div>
         <Header header="Perfil" />
-        <h1 data-testid="profile-email">{email}</h1>
+        <h1 data-testid="profile-email">{this.getEmail()}</h1>
         <Link to="/receitas-feitas">
           <button
             type="button"
@@ -69,11 +66,11 @@ class Perfil extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  emailRedux: state.user.email,
 });
 
 Perfil.propTypes = {
-  email: PropTypes.func.isRequired,
+  emailRedux: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Perfil);
