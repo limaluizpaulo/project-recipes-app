@@ -1128,7 +1128,7 @@ justify-items: center;
     width: 600px;
     height: 588px;
     box-shadow: 0 2px 10px rgba(35,0,77,.2);
-    background-color: white;
+    /* background-color: #FFF; */
     border-radius: 1rem;
     padding-left: 1rem;
   }
