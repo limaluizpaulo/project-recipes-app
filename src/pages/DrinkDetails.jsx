@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { Button, Card, CardColumns } from 'react-bootstrap';
 import Context from '../context/Context';
 import DecentFooter from '../components/DecentFooter';
 import shareIcon from '../images/shareIcon.svg';
@@ -48,10 +49,25 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
+          <CardColumns>
+            <Card>
+              <Card.Img
+                variant="top"
+                src={ meal.strMealThumb }
+                alt="recommendation meal"
+                width="150px"
+              />
+              <Card.Body>
+                <Card.Title data-testid={ `${index}-recomendation-title` }>
+                  {meal.strMeal}
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </CardColumns>
+          {/* <img src={ meal.strMealThumb } alt="recommendation meal" width="150px" />
           <h3 data-testid={ `${index}-recomendation-title` }>
             {meal.strMeal}
-          </h3>
-          <img src={ meal.strMealThumb } alt="recommendation meal" width="150px" />
+          </h3> */}
         </div>
       ))
     );
@@ -67,17 +83,36 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
 
     return (
       <main>
-        <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Drink" width="200px" />
-        <h1 data-testid="recipe-title">{strDrink}</h1>
-        <button
+        <CardColumns>
+          <Card>
+            <Card.Img
+              variant="top"
+              src={ strDrinkThumb }
+              alt="Drink"
+              width="200px"
+              data-testid="recipe-photo"
+            />
+            <Card.Body>
+              <Card.Title data-testid="recipe-title">
+                {strDrink}
+              </Card.Title>
+            </Card.Body>
+          </Card>
+        </CardColumns>
+        {/* <img data-testid="recipe-photo" src={ strDrinkThumb } alt="Drink"
+        width="200px" /> */}
+        {/* <h1 data-testid="recipe-title">{strDrink}</h1> */}
+        <Button
+          variant="outline-warning"
           type="button"
           data-testid="share-btn"
           onClick={ () => setIsCopied(copyLink(match, isCopied)) }
         >
           <img src={ shareIcon } alt="Share" />
-        </button>
+        </Button>
         {isCopied ? <p>Link copiado!</p> : null }
-        <button
+        <Button
+          variant="outline-danger"
           type="button"
           onClick={ () => setRefresh(settingFavorite(details, id, refresh)) }
         >
@@ -86,14 +121,13 @@ function DrinkDetails({ match, match: { params: { id } }, history }) {
             src={ verifyFavorite(id) }
             data-testid="favorite-btn"
           />
-        </button>
-        <div data-testid="recipe-category">
+        </Button>
+        <h3 className="category" data-testid="recipe-category">
           {strAlcoholic}
-        </div>
-
-        <span data-testid="instructions">{strInstructions}</span>
+        </h3>
+        <h5 data-testid="instructions">{strInstructions}</h5>
         {loopIngredientsAndMeasure()}
-        <h3>Recomendações de Comidas</h3>
+        <h4 className="recomendations">Recomendações de Comidas</h4>
         {loopRecomendationsFoods()}
         <DecentFooter />
         {localStorageVerifier(match, id, history)}
