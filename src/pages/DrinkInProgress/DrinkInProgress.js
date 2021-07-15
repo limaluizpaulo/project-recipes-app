@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { requestDrinkById } from '../../helpers/requests';
 import ButtonShare from '../../components/ButtonShare/ButtonShare';
 import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
+import { Link } from 'react-router-dom';
 
 function DrinkInProgress({ match }) {
   const { url } = match;
@@ -101,7 +102,9 @@ function DrinkInProgress({ match }) {
                 dataTest="favorite-btn"
               />
               <button data-testid="instructions" type="button">Instructions</button>
-              <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+              <button data-testid="finish-recipe-btn" type="button">
+                <Link to="/receitas-feitas">Finalizar</Link>
+              </button>
             </div>
           )
           : <h1>Carregando...</h1>

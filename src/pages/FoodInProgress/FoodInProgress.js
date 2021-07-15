@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { requestFoodById } from '../../helpers/requests';
 import ButtonShare from '../../components/ButtonShare/ButtonShare';
 import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
@@ -6,6 +7,7 @@ import ButtonFavorite from '../../components/ButtonFavorite/ButtonFavorite';
 function FoodInProgress({ match }) {
   const { url } = match;
   const [data, setData] = useState([]);
+  const [atualiza, setAtualiza] = useState(true);
   const [food, setFood] = useState({});
   const { params: { id } } = match;
 
@@ -46,7 +48,6 @@ function FoodInProgress({ match }) {
     const getStorage = JSON.parse(localStorage.getItem('meals'));
     localStorage.setItem('meals', JSON.stringify([...getStorage, name]));
   }
-
   return (
     <div>
       {
@@ -97,7 +98,13 @@ function FoodInProgress({ match }) {
                 dataTest="favorite-btn"
               />
               <button data-testid="instructions" type="button">Instructions</button>
-              <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+              <button
+                data-testid="finish-recipe-btn"
+                type="button"
+              >
+                {/* <Link to="/receitas-feitas">Finalizar</Link> */}
+                Opa
+              </button>
             </div>
           )
           : <h1>Carregando...</h1>
