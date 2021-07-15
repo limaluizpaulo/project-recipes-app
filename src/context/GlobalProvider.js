@@ -156,6 +156,20 @@ function GlobalProvider({ children }) {
       ...await fetchAPI(url, '', 'list') });
   };
 
+  const getByIngredients = async (part, str) => {
+    const result = await fetchAPI(
+      `https://www.the${part}db.com/api/json/v1/1/`,
+      'filter.php?i=',
+      str,
+    );
+    console.log(await result);
+    if (result.meals) {
+      setMeals(result.meals);
+    } else {
+      setDrinks(result.drinks);
+    }
+  };
+
   const contextValue = {
     baseEndPoint,
     requestParams,
@@ -182,6 +196,7 @@ function GlobalProvider({ children }) {
     setRefresh,
     randomRecipe,
     getFiltersList,
+    getByIngredients,
   };
 
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-const IngredientCard = (strIng, urlPart, index) => (
+const IngredientCard = (strIng, urlPart, index, func) => (
   <Card
     key={ index }
     data-testid={ `${index}-ingredient-card` }
     style={ { width: '180px' } }
-    onClick={ () => console.log('clicou!') }
+    onClick={ () => func(strIng) }
   >
     <Card.Img
       variant="top"
