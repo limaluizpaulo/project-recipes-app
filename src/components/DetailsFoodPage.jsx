@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ContextRecipes from '../context/contextRecipes';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -107,13 +108,15 @@ function DetailsFoodPage({ match: { params } }) {
       />
       <h3>Recomendadas</h3>
       <RecommendedDrinks />
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="button"
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `/comidas/${id}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="button"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </section>);
 }
 

@@ -18,12 +18,22 @@ import NotFoundPage from './components/NotFoundPage';
 import ExpDrinkIngredients from './components/ExpDrinkIngredients';
 import DoneRecipes from './components/DoneRecipes';
 import FavRecipes from './components/FavRecipes';
+import InProgressFood from './components/InProgresseFood';
+import InProgressDrink from './components/InProgressDrink';
 
 function App() {
   return (
     <ProviderRecipes>
       {/* <div className="meals"> */}
       <Switch>
+        <Route
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <InProgressDrink { ...props } /> }
+        />
+        <Route
+          path="/comidas/:id/in-progress"
+          render={ (props) => <InProgressFood { ...props } /> }
+        />
         <Route
           path="/explorar/comidas/ingredientes"
           render={ (props) => <ExpFoodIngredients { ...props } /> }
