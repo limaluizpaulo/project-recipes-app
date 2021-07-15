@@ -16,27 +16,26 @@ export default function ExploreMeals() {
   return (
     <div>
       <Header pageName="Explorar comidas" />
-      <Link to="/explorar/comidas/ingredientes">
+      <div className="explorerMealsContent">
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
+        </Link>
         <button
           type="button"
-          data-testid="explore-by-ingredient"
+          data-testid="explore-surprise"
+          onClick={ () => handleClic() }
         >
-          Por Ingredientes
-
+          Me Surpreenda!
         </button>
-      </Link>
-      <br />
-      <Link to="/explorar/comidas/area">
-        <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
-      </Link>
-      <br />
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ () => handleClic() }
-      >
-        Me Surpreenda!
-      </button>
+      </div>
       <Footer />
     </div>
   );

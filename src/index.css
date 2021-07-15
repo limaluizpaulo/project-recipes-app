@@ -1006,6 +1006,81 @@ justify-items: center;
 
 /*  ====================================================================================================================================*/
 
+/* EXPLORER PAGE ===========================================================================================================*/
+.explorerContent {
+  display: grid;
+  justify-content: center;
+}
+
+.explorerContent button {
+  width: 200px;
+  padding: 7px;
+  border-radius: 1rem;
+  margin: 20px 5px 0 5px;
+  color: var(--first-color-dark);
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.explorerContent button:hover {
+  color: var(--third-color);
+  box-shadow: 1px 2px 8px var(--second-color);
+  padding: 10px;
+}
+
+/*  ====================================================================================================================================*/
+
+/* EXPLORER MEALS ===========================================================================================================*/
+.explorerMealsContent {
+  display: grid;
+  justify-content: center;
+}
+
+.explorerMealsContent button {
+  width: 200px;
+  padding: 7px;
+  border-radius: 1rem;
+  margin: 20px 5px 0 5px;
+  color: var(--first-color-dark);
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.explorerMealsContent button:hover {
+  color: var(--third-color);
+  box-shadow: 1px 2px 8px var(--second-color);
+  padding: 10px;
+}
+
+/*  ====================================================================================================================================*/
+
+/* EXPLORER DRINKS ===========================================================================================================*/
+.explorerDrinksContent {
+  display: grid;
+  justify-content: center;
+}
+
+.explorerDrinksContent button {
+  width: 200px;
+  padding: 7px;
+  border-radius: 1rem;
+  margin: 20px 5px 0 5px;
+  color: var(--first-color-dark);
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.explorerDrinksContent button:hover {
+  color: var(--third-color);
+  box-shadow: 1px 2px 8px var(--second-color);
+  padding: 10px;
+}
+
+/*  ====================================================================================================================================*/
+
 
 /* ===== MEDIA QUERIES ================================================================================*/
 @media screen and (min-width: 576px){
@@ -1128,7 +1203,6 @@ justify-items: center;
     width: 600px;
     height: 588px;
     box-shadow: 0 2px 10px rgba(35,0,77,.2);
-    /* background-color: #FFF; */
     border-radius: 1rem;
     padding-left: 1rem;
   }
