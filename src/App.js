@@ -85,6 +85,7 @@ function App() {
           render={ (props) => <FavRecipes { ...props } /> }
         />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+
       </Switch>
       {/* </div> */}
     </ProviderRecipes>
