@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Form,
+  Button, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
 import Context from '../context/Context';
 
 function HeaderSearchBar() {
@@ -19,10 +21,12 @@ function HeaderSearchBar() {
   }, [searchText, chosenFilter]);
 
   return (
-    <form>
-      <fieldset>
-        <label htmlFor="search">
-          <input
+    <Form>
+      <br />
+      <Container fluid="sm">
+        <InputGroup className="mb-2" htmlFor="search">
+          <FormControl
+            aria-label="Pesquisar"
             value={ searchText }
             onChange={ handleChange }
             name="searchText"
@@ -30,54 +34,61 @@ function HeaderSearchBar() {
             type="search"
             data-testid="search-input"
           />
-        </label>
-        <label htmlFor="ingredient">
-          Ingrediente
-          <input
-            value="filter.php?i="
-            onChange={ handleChange }
-            name="chosenFilter"
-            required
-            id="ingredient"
-            type="radio"
-            data-testid="ingredient-search-radio"
-          />
-        </label>
-        <label htmlFor="name">
-          Nome
-          <input
-            value="search.php?s="
-            onChange={ handleChange }
-            name="chosenFilter"
-            required
-            id="name"
-            type="radio"
-            data-testid="name-search-radio"
-          />
-        </label>
-        <label htmlFor="first-letter">
-          Primeira letra
-          <input
-            value="search.php?f="
-            onChange={ handleChange }
-            name="chosenFilter"
-            id="first-letter"
-            required
-            type="radio"
-            data-testid="first-letter-search-radio"
-          />
-        </label>
-        <button
-          onClick={ blockRequest
-            ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
-            : () => asyncSetState() }
-          type="button"
-          data-testid="exec-search-btn"
-        >
-          Pesquisar
-        </button>
-      </fieldset>
-    </form>
+          <Button
+            onClick={ blockRequest
+              ? () => global.alert('Sua busca deve conter somente 1 (um) caracter')
+              : () => asyncSetState() }
+            type="button"
+            data-testid="exec-search-btn"
+          >
+            Pesquisar
+          </Button>
+        </InputGroup>
+      </Container>
+
+      <Container>
+        <Row>
+          <Col>
+            <Form.Check
+              label="Ingrediente"
+              value="filter.php?i="
+              onChange={ handleChange }
+              name="chosenFilter"
+              required
+              id="ingredient"
+              type="radio"
+              data-testid="ingredient-search-radio"
+            />
+          </Col>
+
+          <Col>
+            <Form.Check
+              label="Nome"
+              value="search.php?s="
+              onChange={ handleChange }
+              name="chosenFilter"
+              required
+              id="name"
+              type="radio"
+              data-testid="name-search-radio"
+            />
+          </Col>
+
+          <Col>
+            <Form.Check
+              label="Primeira Letra"
+              value="search.php?f="
+              onChange={ handleChange }
+              name="chosenFilter"
+              id="first-letter"
+              required
+              type="radio"
+              data-testid="first-letter-search-radio"
+            />
+          </Col>
+        </Row>
+      </Container>
+    </Form>
   );
 }
 

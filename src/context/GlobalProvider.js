@@ -16,6 +16,7 @@ function GlobalProvider({ children }) {
   const [requestParams, setRequestParams] = useState(initialParams);
   const [requestResult, setRequestResult] = useState({ drinks: [], meals: [] });
   const [categories, setCategories] = useState({ drinks: [], meals: [] });
+  const [filterList, setFilterList] = useState({});
   const [details, setDetails] = useState({});
   const [recomendationsDrinks, setRecomendationsDrinks] = useState();
   const [recomendationsFoods, setRecomendationsFoods] = useState();
@@ -93,6 +94,13 @@ function GlobalProvider({ children }) {
     } else setBaseEndPoint(foodsEndPoint);
   };
 
+  const randomRecipe = async () => {
+    const response = await fetchAPI(baseEndPoint, 'random.php', '');
+    if (response.meals) {
+      return response.meals[0].idMeal;
+    } return response.drinks[0].idDrink;
+  };
+
   const asyncSetState = async () => {
     const { chosenFilter, searchText } = requestParams;
     const result = await fetchAPI(baseEndPoint, chosenFilter, searchText);
@@ -143,6 +151,25 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getFiltersList = async (url) => {
+    setFilterList({
+      ...await fetchAPI(url, '', 'list') });
+  };
+
+  const getByIngredients = async (part, str) => {
+    const result = await fetchAPI(
+      `https://www.the${part}db.com/api/json/v1/1/`,
+      'filter.php?i=',
+      str,
+    );
+    console.log(await result);
+    if (result.meals) {
+      setMeals(result.meals);
+    } else {
+      setDrinks(result.drinks);
+    }
+  };
+
   const contextValue = {
     baseEndPoint,
     requestParams,
@@ -154,6 +181,7 @@ function GlobalProvider({ children }) {
     recomendationsFoods,
     toggle,
     refresh,
+    filterList,
     resetParams,
     updateEndPoint,
     handleChange,
@@ -166,6 +194,9 @@ function GlobalProvider({ children }) {
     filterCategory,
     handleToggle,
     setRefresh,
+    randomRecipe,
+    getFiltersList,
+    getByIngredients,
   };
 
   return (

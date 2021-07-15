@@ -17,9 +17,7 @@ import DrinkDetails from './pages/DrinkDetails';
 import FoodInProgress from './pages/FoodInProgress';
 import DrinkInProgress from './pages/DrinkInProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import NotFound from './pages/NotFound';
-// import rockGlass from './images/rockGlass.svg';
 
 function App() {
   return (
@@ -58,16 +56,3 @@ function App() {
 }
 
 export default App;
-
-// return (
-//   <div className="meals">
-//     <span className="logo">TRYBE</span>
-//     <object
-//       className="rocksGlass"
-//       type="image/svg+xml"
-//       data={ rockGlass }
-//     >
-//       Glass
-//     </object>
-//   </div>
-// );

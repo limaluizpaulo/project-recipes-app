@@ -8,7 +8,7 @@ import '../App.css';
 
 export default function Footer() {
   return (
-    <footer className="footer-generic " data-testid="footer">
+    <footer className="footer-generic" data-testid="footer">
       <div className="footer-icons">
         <Link to="/bebidas">
           <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />

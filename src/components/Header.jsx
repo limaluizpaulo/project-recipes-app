@@ -5,13 +5,16 @@ import profileIcon from '../images/profileIcon.svg';
 
 function Header({ title }) {
   return (
-    <header>
+    <header className="header-image-text">
       <Link to="/perfil">
-        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+        <img
+          src={ profileIcon }
+          alt="profile icon"
+          data-testid="profile-top-btn"
+        />
       </Link>
       <h3 data-testid="page-title">{title}</h3>
     </header>
-    // lógica de componentização do header baseado na lógica do próprio arquivo de teste da trybe
   );
 }
 

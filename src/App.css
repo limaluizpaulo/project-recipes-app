@@ -91,7 +91,9 @@
 }
 
 .footer-generic {
+  background-color: white;
   bottom: 0;
+  padding: 10px;
   position: fixed;
   text-align: center;
   width: 100%;
@@ -100,6 +102,7 @@
 .recipe-list {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 
 .recipe-list img {
@@ -120,4 +123,22 @@
 .decent-footer {
   display: flex;
   justify-content: space-evenly;
+}
+
+.card-columns {
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.card-title, .header-image-text {
+  padding: 10px;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.category, .recomendations {
+  font-weight: 600;
 }
