@@ -22,7 +22,6 @@ function BtnIniciarReceita({ id }, { history }) {
   //       JSON.stringify([...finishedRecipes, ...receitaFinalizada]));
   // };
 
-  let btnText = 'Iniciar receita';
   const verifyLocalStorage = () => {
     if (startedRecipes.includes(id)) {
       btnText = 'Continuar receita';
@@ -31,16 +30,38 @@ function BtnIniciarReceita({ id }, { history }) {
 
   verifyLocalStorage();
 
+  function UserGreeting(props) {
+    return
+    {let btnText = 'Iniciar receita';
+    <button
+      type="button"
+      id ="recipe-btn"
+      data-testid="start-recipe-btn"
+      onClick={ startRecipe }
+    >
+      { btnText }
+    </button>};
+  };
+  
+  function GuestGreeting(props) {
+    return <h1>Please sign up.</h1>;
+  }
+
+  const btnInvisivel = (props) => {
+  };
+
+  const renderBtn = (props) => {
+    const isRecipeFinished = props.isLoggedIn;
+    if (isRecipeFinished) {
+      return <UserGreeting />;
+    }
+    return <GuestGreeting />;
+  }
+  };
+
   return (
     <div>
-      <button
-        type="button"
-        id="recipe-btn"
-        data-testid="start-recipe-btn"
-        onClick={ startRecipe }
-      >
-        { btnText }
-      </button>
+
       {/* <button
         type="button"
         onClick={ finishRecipe }
