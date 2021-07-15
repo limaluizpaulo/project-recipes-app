@@ -11,8 +11,6 @@ export default function CategoryButton({ clickCategory, foodOrDrink, setState,
   const { recipes: { foods, categoriesMeals,
     categoriesDrinks, categoriesLimit } } = useContext(store);
 
-  console.log(path);
-
   const renderButtons = () => {
     let newCategories;
     if (path) {
@@ -25,19 +23,18 @@ export default function CategoryButton({ clickCategory, foodOrDrink, setState,
 
     return (
       newCategories.map((category, index) => (
-        <div key={ index } className="categoriesBtns">
-          <button
-            type="button"
-            data-testid={ path
-              ? `filter-by-${category.strCategory.toLowerCase()}-btn`
-              : `${category.strCategory}-category-filter` }
-            onClick={ path
-              ? (() => foodOrDrink(category.strCategory, path, setState))
-              : (() => clickCategory(category)) }
-          >
-            {category.strCategory}
-          </button>
-        </div>
+        <button
+          key={ index }
+          type="button"
+          data-testid={ path
+            ? `filter-by-${category.strCategory.toLowerCase()}-btn`
+            : `${category.strCategory}-category-filter` }
+          onClick={ path
+            ? (() => foodOrDrink(category.strCategory, path, setState))
+            : (() => clickCategory(category)) }
+        >
+          {category.strCategory}
+        </button>
       ))
     );
   };
