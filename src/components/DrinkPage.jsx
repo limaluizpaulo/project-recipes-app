@@ -19,7 +19,7 @@ function DrinkPage({ history }) {
 
   return (
     <div>
-      <Header history={ history } />
+      <Header history={ history } show />
       { goSearch && <SBElements history={ history } /> }
       <DrinkCategoryButtons history={ history } />
       <section>

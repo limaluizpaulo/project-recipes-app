@@ -84,4 +84,7 @@ footer {
 
 .invisible {
   display: none;
+
+.checked {
+  text-decoration: line-through;
 }

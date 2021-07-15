@@ -9,7 +9,8 @@ function Profile({ history }) {
   const { goSearch, setTitle } = useContext(ContextRecipes);
 
   // https://blog.logrocket.com/localstorage-javascript-complete-guide/
-  const userEmail = JSON.parse(localStorage.getItem('user'));
+  const userEmail = JSON.parse(localStorage.getItem('user'))
+    || { email: 'exemplo@email.com' };
   const { email } = userEmail;
 
   const goFavorite = () => history.push('/receitas-favoritas');

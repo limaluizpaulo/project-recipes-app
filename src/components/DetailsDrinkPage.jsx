@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ContextRecipes from '../context/contextRecipes';
 // import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import AllTagsFromDetailsDrinks from './AllTagsFromDetailsDrinks';
 
 function DetailsDrinkPage({ match: { params } }) {
-  const { drinks, setDrinks, isLoading,
-    setIsLoading } = useContext(ContextRecipes);
+  const { drinks, setDrinks, setIsLoading } = useContext(ContextRecipes);
   const { id } = params;
   useEffect(() => {
     const getRecipes = () => {
@@ -17,8 +17,11 @@ function DetailsDrinkPage({ match: { params } }) {
         .then(() => setIsLoading(false));
     };
     getRecipes();
-  }, []);
-  // console.log(id, drinks);
+  }, [id, setDrinks, setIsLoading]);
+
+  if (drinks[0] === undefined) return <h1>Carregando...</h1>;
+
+  console.log(id, drinks);
 
   // let ingredientsFinal = [];
   // let measuresFinal = [];
@@ -70,8 +73,23 @@ function DetailsDrinkPage({ match: { params } }) {
   // }
 
   return (
-    isLoading === true || !drinks || drinks.length === 0 ? <p>Carregando...</p>
-      : <AllTagsFromDetailsDrinks drinks={ drinks } />
+    <div>
+      isLoading === true ?
+      {' '}
+      <h1>Carregando...</h1>
+      :
+      {' '}
+      <AllTagsFromDetailsDrinks drinks={ drinks } />
+      <Link to={ `/bebidas/${id}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="button"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
+    </div>
   );
 }
 

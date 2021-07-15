@@ -10,7 +10,7 @@ function ExplorePage({ history }) {
   const { goSearch, setTitle } = useContext(ContextRecipes);
 
   useEffect(() => {
-    setTitle('Explore');
+    setTitle('Explorar');
   }, [setTitle]);
 
   return (

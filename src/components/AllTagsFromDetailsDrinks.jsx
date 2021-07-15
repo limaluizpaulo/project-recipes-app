@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DetailsPage.css';
+import RecommendedFood from './RecommendedFood';
 
 function AllTagsFromDetailsDrinks(drinks) {
-  console.log(drinks);
+  // console.log(drinks);
   const listIngredients = Object.keys(drinks.drinks[0])
     .filter((drink) => drink.includes('Ingredient'));
   const ingredients = [];
@@ -16,7 +18,6 @@ function AllTagsFromDetailsDrinks(drinks) {
       }
     }
   }
-
   const ingredientsFinal = ingredients.filter((ing) => ing !== null);
 
   const listMeasures = Object.keys(drinks.drinks[0])
@@ -30,7 +31,6 @@ function AllTagsFromDetailsDrinks(drinks) {
       }
     }
   }
-
   const measuresFinal = measures.filter((ing) => ing !== ' ');
 
   //   // const INDEX_NUMBER = 3;
@@ -76,16 +76,18 @@ function AllTagsFromDetailsDrinks(drinks) {
           ))) }
       </ul>
       <h3>Instruções</h3>
-      {/* <p data-testid="instructions">{ drinks[0].strInstructions }</p> */}
+      <p data-testid="instructions">{ drinks.drinks[0].strInstructions }</p>
       <h3>Recomendadas</h3>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="button"
-      >
-        Iniciar Receita
-      </button>
+      <RecommendedFood />
     </section>);
 }
+
+AllTagsFromDetailsDrinks.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default AllTagsFromDetailsDrinks;

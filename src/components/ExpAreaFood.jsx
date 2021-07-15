@@ -52,7 +52,7 @@ function ExpAreaFood({ history }) {
 
   return (
     <div>
-      <Header history={ history } />
+      <Header history={ history } show />
       { goSearch && <SBElements history={ history } /> }
       <h1>Explorar Origem</h1>
       <select
