@@ -6,7 +6,7 @@ import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
 import './header.css';
 
-function Header({ title, haveSrc }) {
+function Header({ title, haveSrc = false }) {
   const history = useHistory();
   const [searchField, setSearchField] = useState(false);
 

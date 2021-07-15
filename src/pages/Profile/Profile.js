@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 function Profile() {
-  const userInfos = JSON.parse(localStorage.user);
+  const [userInfos, setUserInfos] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      const getUserInfo = JSON.parse(localStorage.getItem('user'));
+      setUserInfos(getUserInfo.userInfos);
+    } else {
+      setUserInfos('');
+    }
+  }, [userInfos]);
 
   const logout = () => {
     localStorage.clear();
@@ -15,8 +24,10 @@ function Profile() {
   return (
     <div id="page-drinks">
       <div>
-        <Header title="Perfil" />
-        <span data-testid="profile-email">{userInfos.email}</span>
+        <Header title="Perfil" haveSrc={ false } />
+
+        <span data-testid="profile-email">{userInfos}</span>
+
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -24,6 +35,7 @@ function Profile() {
         >
           Receitas Feitas
         </button>
+
         <button
           type="button"
           data-testid="profile-favorite-btn"
@@ -31,6 +43,7 @@ function Profile() {
         >
           Receitas Favoritas
         </button>
+
         <button
           type="button"
           data-testid="profile-logout-btn"
@@ -38,6 +51,7 @@ function Profile() {
         >
           Sair
         </button>
+
         <Footer />
       </div>
     </div>
