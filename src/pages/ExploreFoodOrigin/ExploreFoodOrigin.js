@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
-import requestMeal, { requestAreaMeal } from '../../helpers/requests';
+import requestMeal, {
+  requestAreaMeal, requestFilterAreaMeal } from '../../helpers/requests';
 import Context from '../../Provider/context';
 
 const LIMIT_OF_CARDS = 12;
@@ -28,6 +29,7 @@ function ExploreLocationFood() {
   }, [setDataFood]);
 
   const renderCards = () => {
+    console.log(dataFood);
     if (dataFood.meals) {
       const arryMeal = dataFood.meals.slice(0, LIMIT_OF_CARDS);
       console.log(arryMeal);
@@ -56,13 +58,30 @@ function ExploreLocationFood() {
     return 0;
   };
 
+  const filterFood = async ({ target: { value } }) => {
+    if (value === 'all') {
+      const resolveMeal = await requestMeal();
+      setDataFood(resolveMeal);
+    } else {
+      const areas = await requestFilterAreaMeal(value);
+      setDataFood(areas);
+    }
+  };
+
   return (
     <>
       <Header title="Explorar Origem" haveSrc />
 
-      <select data-testid="explore-by-area-dropdown">
+      <select data-testid="explore-by-area-dropdown" onChange={ filterFood }>
+        <option data-testid="All-option" value="all">All</option>
         {foodAreas.map(({ strArea }, i) => (
-          <option key={ i } data-testid={ `${strArea}-option` }>{strArea}</option>
+          <option
+            key={ i }
+            data-testid={ `${strArea}-option` }
+            value={ strArea }
+          >
+            {strArea}
+          </option>
         ))}
       </select>
 
