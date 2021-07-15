@@ -1,0 +1,70 @@
+.foodInProgress, .foodInProgress__loading {
+  background: #eff0f3;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.foodInProgress__loading {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.foodInProgress__loading img {
+  width: 200px;
+}
+
+
+.inProgress__listItem__container {
+  display: flex;
+
+}
+
+.inProgress__listItem__container input {
+  height: 24px;
+  margin-right: 0.4em;
+}
+
+.inProgress__list__container {
+  list-style: none;
+  margin-left: 10px;
+}
+
+
+.inprogress__finishBtn__container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.inprogress__finishBtn {
+  background-color: #2bb673;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px #999;
+  color: white;
+  font-size: 1.2em;
+  padding: 7px;
+  transition: all 0.2s;
+}
+
+.inprogress__finishBtn:hover {
+  background-color: #17a862;
+  box-shadow: 4px 3px 5px #999;
+  transform: translateY(-5px);
+}
+
+.inprogress__finishBtn-disabled {
+  border: none;
+  border-radius: 10px;
+  color: rgba(16, 16, 16, 0.4);
+  cursor: not-allowed;
+  font-size: 1.2em;
+  padding: 7px;
+  transition: all 0.2s;
+}
+
+.inProgress__listItem__checked {
+  text-decoration: line-through;
+}
+

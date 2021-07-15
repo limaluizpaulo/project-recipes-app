@@ -1,0 +1,43 @@
+.footerContainer {
+  align-items: center;
+  background-color: #ff8e3c;
+  bottom: 0;
+  box-shadow: -1px -3px 5px 0 rgba(0, 0, 0, 0.75);
+  display: flex;
+  height: 9vh;
+  justify-content: space-around;
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
+}
+
+.none-button {
+  background-color: transparent;
+  border: none;
+}
+
+
+.footer__link {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.animationRound {
+  background-color: #ff8e3c;
+  border-radius: 50px;
+  height: 100px;
+  left: -26px;
+  position: absolute;
+  top: 0;
+  transition: all 0.2s;
+  width: 100px;
+}
+
+.footer__button:hover + .animationRound {
+  top: -20px;
+}
+
+.footer__button {
+  z-index: 2;
+}

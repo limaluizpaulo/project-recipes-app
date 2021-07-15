@@ -1,0 +1,79 @@
+.login {
+  align-items: center;
+  background: var(--loginbg-color);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.hidden {
+  display: none;
+}
+
+.login__logo {
+  width: 300px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+}
+
+.login__input__container {
+  margin: 0 0 20px;
+  position: relative;
+}
+
+.login__label {
+  color: black;
+  display: block;
+  font-size: 0.8em;
+  font-weight: 600;
+  left: 0.4em;
+  margin: 0;
+  position: absolute;
+  top: -1.4em;
+  transition: 0.2s;
+}
+
+.login__input:placeholder-shown + .login__label {
+  color: #555;
+  cursor: text;
+  font-size: 0.8em;
+  font-weight: 500;
+  top: 0.3em;
+}
+
+.login__input:focus + .login__label {
+  color: #555;
+  font-size: 0.8em;
+  font-weight: 600;
+  left: 0.4em;
+  top: -1.4em;
+  transition: 0.2s;
+}
+
+.login__input::placeholder {
+  color: transparent;
+}
+
+.login__button {
+  background-color: black;
+  color: white;
+}
+
+.login__button, .login__button:disabled {
+  border: none;
+  border-radius: 5px;
+  margin: 0 auto;
+  transition: all 0.2s;
+  width: 50%;
+}
+
+.login__button:disabled {
+  background-color: rgba(85, 85, 85, 0.3);
+  color: rgba(16, 16, 16, 0.4);
+}

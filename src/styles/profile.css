@@ -1,0 +1,73 @@
+.profilePage {
+  background: #eff0f3;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+}
+
+.button__receitas__feitas {
+  align-items: center;
+  background: #ff8e3c;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: 800;
+  height: 50px;
+  justify-content: center;
+  left: calc(50% - 250px / 2 - 0.5px);
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 - 51px);
+  width: 250px;
+}
+
+
+.button__receitas__favoritas {
+  align-items: center;
+  background: #ff8e3c;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: 800;
+  height: 50px;
+  justify-content: center;
+  left: calc(50% - 250px / 2 - 0.5px);
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 + 65px);
+  width: 250px;
+}
+
+.button__receitas__sair {
+  background: #3a3a3b;
+  border: none;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  font-weight: 800;
+  height: 50px;
+  left: calc(50% - 250px / 2 - 0.5px);
+  line-height: 19px;
+  padding: 8px , 45px;
+  position: absolute;
+  top: calc(50% - 50px / 2 + 181px);
+  width: 250px;
+}
+
+.user__email {
+  color: #3a3a3b;
+  font-family: Rancho , sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  height: 40px;
+  line-height: 37px;
+  position: absolute;
+  text-align: center;
+  top: 150px;
+  width: 100%;
+}

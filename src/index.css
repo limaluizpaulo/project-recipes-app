@@ -1,5 +1,19 @@
-body {
+:root {
+  --bole-color: #7B493E;
+  --loginbg-color: linear-gradient(192.04deg, #de7f04 0%, rgba(222, 127, 4, 0.622) 48.68%, rgba(222, 127, 4, 0) 100%);
+  --light-yellow-color: #FFEEB4;
+  --yellow-color: #F1ECEA;
+  --black-color: #170f0c;
+  --melon-color: #e8af9f;
+  --b-o: rgba(232, 175, 159, 0);
+  --y-o: rgba(255, 206, 33, 0.26)
+}
+
+*{
   margin: 0;
+  padding: 0;
+}
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

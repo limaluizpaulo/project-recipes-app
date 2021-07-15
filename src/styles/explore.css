@@ -1,0 +1,17 @@
+.explorePage {
+  align-items: center;
+  background-color: #eff0f3;
+  display: flex;
+  flex-wrap: wrap;
+  height: 81vh;
+  padding: 20% 0;
+}
+
+.explore__button {
+  background: #ff8e3c;
+  border: none;
+  border-radius: 5px;
+  height: 25%;
+  margin: 5%;
+  width: 90%;
+}
