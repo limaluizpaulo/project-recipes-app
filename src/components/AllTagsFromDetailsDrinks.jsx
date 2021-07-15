@@ -2,6 +2,7 @@ import React from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './DetailsPage.css';
+import RecommendedFood from './RecommendedFood';
 
 function AllTagsFromDetailsDrinks(drinks) {
   console.log(drinks);
@@ -76,8 +77,9 @@ function AllTagsFromDetailsDrinks(drinks) {
           ))) }
       </ul>
       <h3>Instruções</h3>
-      {/* <p data-testid="instructions">{ drinks[0].strInstructions }</p> */}
+      <p data-testid="instructions">{ drinks.drinks[0].strInstructions }</p>
       <h3>Recomendadas</h3>
+      <RecommendedFood />
       <button
         type="button"
         data-testid="start-recipe-btn"

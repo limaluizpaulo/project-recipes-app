@@ -1,0 +1,5 @@
+.scroll {
+  display: flex;
+  overflow-x: scroll;
+  width: 80%;
+}
