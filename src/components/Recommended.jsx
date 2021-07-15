@@ -67,6 +67,7 @@ function Recommended() {
           recommendedData.length && (
             recommendedData.map((recipe, index) => (
               <Card
+                change
                 className={ `recipe-card carousel-card ${recommendedType}` }
                 hidden={ index !== cardLeft && index !== cardRight }
                 key={ recipe[typeId] }

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import Input from '../helpers/Input';
 import Button from '../helpers/Button';
 import {
@@ -16,10 +17,13 @@ const selectedFilter = {
 };
 
 function SearchBar() {
+  const { pathname } = useLocation();
+
+  const history = useHistory();
   const { setData, type } = useContext(RecipesContext);
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
-
+  const typeId = type === 'meals' ? 'idMeal' : 'idDrink';
   const isDisabled = () => {
     if (searchInput === '' || radioInput === '') {
       return true;
@@ -36,6 +40,9 @@ function SearchBar() {
     if (result === null) {
       alertMessage(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (result.length === 1) {
+      history.push(`${pathname}/${result[0][typeId]}`);
     }
     if (result.length) { //  tentei refatorar, a aplicação funcionou normal mas cypress QUEBROU
       setData(result);

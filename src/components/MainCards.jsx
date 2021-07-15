@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Card from './Card';
 import Categories from './Categories';
 import RecipesContext from '../contexts/RecipesContext';
@@ -14,13 +14,12 @@ export default function MainCards(props) {
     title,
     typeId,
   } = props;
-  const history = useHistory();
+  // const history = useHistory();
   const { pathname } = useLocation();
 
-  if (data.length === 1) {
-    // const newPathname = pathTreament(pathname);
-    history.push(`${pathname}/${data[0][typeId]}`);
-  }
+  // if (data.length === 1) {
+  //   history.push(`${pathname}/${data[0][typeId]}`);
+  // }
 
   return (
     <main className="main">
