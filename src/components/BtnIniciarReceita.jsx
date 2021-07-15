@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 function BtnIniciarReceita({ id }, { history }) {
   const startedRecipes = JSON.parse(localStorage.getItem('startedRecipes'));
   const receitaIniciada = [];
-  const finishedRecipes = JSON.parse(localStorage.getItem('finishedRecipes'));
-  const receitaFinalizada = [];
+  // const finishedRecipes = JSON.parse(localStorage.getItem('finishedRecipes'));
+  // const receitaFinalizada = [];
 
   const startRecipe = () => {
     receitaIniciada.push(id);
@@ -15,20 +15,18 @@ function BtnIniciarReceita({ id }, { history }) {
     history.push(`comidas/${id}/in-progress`);
   };
 
-  const finishRecipe = () => {
-    receitaFinalizada.push(id);
-    localStorage
-      .setItem('finishedRecipes',
-        JSON.stringify([...finishedRecipes, ...receitaFinalizada]));
-  };
+  // const finishRecipe = () => {
+  //   receitaFinalizada.push(id);
+  //   localStorage
+  //     .setItem('finishedRecipes',
+  //       JSON.stringify([...finishedRecipes, ...receitaFinalizada]));
+  // };
 
   let btnText = 'Iniciar receita';
   const verifyLocalStorage = () => {
     if (startedRecipes.includes(id)) {
       btnText = 'Continuar receita';
     }
-    // if (finishedRecipes.includes(id)) {
-    // }
   };
 
   verifyLocalStorage();
@@ -43,12 +41,12 @@ function BtnIniciarReceita({ id }, { history }) {
       >
         { btnText }
       </button>
-      <button
+      {/* <button
         type="button"
         onClick={ finishRecipe }
       >
         Finalizar receita
-      </button>
+      </button> */}
     </div>
   );
 }
