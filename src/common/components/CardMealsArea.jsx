@@ -32,28 +32,31 @@ export default function CardMealsArea({ datacard }) {
   return (
     dataOrigin
       ? (
-        <div>
+        <div className="recipes">
           {dataOrigin.slice(0, cardsLimit).map((item, index) => (
             <Link
               to={ `/comidas/${item.idMeal}` }
               key={ item.idMeal }
-              onClick={ handleClick }
             >
-              <div
+              <button
+                type="button"
                 data-testid={ `${index}-recipe-card` }
+                className="recipe"
+                onClick={ handleClick }
               >
-                <div
-                  className="imgContainer"
+                <img
+                  src={ item.strMealThumb }
+                  alt={ item.strMeal }
+                  data-testid={ `${index}-card-img` }
+                  className="recipeImg"
+                />
+                <h4
+                  data-testid={ `${index}-card-name` }
+                  className="recipeTitle"
                 >
-                  <img
-                    src={ item.strMealThumb }
-                    alt={ item.strMeal }
-                    data-testid={ `${index}-card-img` }
-                    width="150px"
-                  />
-                  <span data-testid={ `${index}-card-name` }>{item.strMeal}</span>
-                </div>
-              </div>
+                  {item.strMeal}
+                </h4>
+              </button>
             </Link>
           ))}
         </div>) : <h5>Loading...</h5>

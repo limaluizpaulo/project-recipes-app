@@ -13,7 +13,6 @@ export default function MealsOrigem() {
   useEffect(() => {
     fetchAPI(AREA_MEALS)
       .then((res) => setDataArea(res.meals));
-    // setRecipes(setLoading(false));
     setRecipes(setFetchOnDone(false));
   }, []);
 
@@ -24,33 +23,35 @@ export default function MealsOrigem() {
 
   if (loading) return (<h5>Loading...</h5>);
   return (
-
     <div>
-
       <Header pageName="Por Local de Origem " />
-      <select
-        name="name"
-        data-testid="explore-by-area-dropdown"
-        onChange={ (e) => handleChange(e) }
-      >
-        <option
-          data-testid="All-option"
-          value="All"
-        >
-          All
-
-        </option>
-        { dataArea.map((item) => (
-          <option
-            data-testid={ `${item.strArea}-option` }
-            key={ item.strArea }
-            value={ item.strArea }
+      <section className="mainContent">
+        <label htmlFor="all">
+          Selecione:
+          <select
+            id="all"
+            name="name"
+            data-testid="explore-by-area-dropdown"
+            onChange={ (e) => handleChange(e) }
           >
-            {item.strArea}
-          </option>)) }
-
-      </select>
-      <CardMealsArea datacard={ datacard } />
+            <option
+              data-testid="All-option"
+              value="All"
+            >
+              All
+            </option>
+            { dataArea.map((item) => (
+              <option
+                data-testid={ `${item.strArea}-option` }
+                key={ item.strArea }
+                value={ item.strArea }
+              >
+                {item.strArea}
+              </option>)) }
+          </select>
+        </label>
+        <CardMealsArea datacard={ datacard } />
+      </section>
       <Footer />
     </div>
   );
