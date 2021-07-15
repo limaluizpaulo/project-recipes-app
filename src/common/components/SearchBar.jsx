@@ -111,6 +111,7 @@ export default function SearchBar() {
             data-testid="search-input"
             onChange={ handleChange }
             placeholder="Buscar Receitas"
+            autoComplete="off"
             className="searchBarInput"
           />
         </div>

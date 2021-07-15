@@ -906,7 +906,7 @@ justify-items: center;
 .mainContentSearchBar {
   display: flex;
   justify-content: flex-end;
-  margin-right: 14.5%;
+  margin-right: 0rem;
   margin-top: 16px;
 }
 
@@ -915,7 +915,7 @@ justify-items: center;
   flex-direction: column;
   align-items: center;
   padding: 5px;
-  width: 450px;
+  width: 350px;
   height: 115px;
   background-color: var(--first-color-lighten);
   border-radius: 10px;
@@ -927,7 +927,7 @@ justify-items: center;
   content: '';
   position: absolute;
   top: -14px;
-  right: 10px;
+  right: 35px;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-bottom: 14px solid var(--first-color-dark);
@@ -935,7 +935,7 @@ justify-items: center;
 
 .searchBarBox {
   display: grid;
-  grid-template-columns: max-content 22rem;
+  grid-template-columns: max-content 18rem;
   column-gap: .5rem;
   padding: 4px;
   background-color: #FFF;
@@ -946,7 +946,7 @@ justify-items: center;
 
 .searchBarIcon {
   font-size: 1.5rem;
-  color: var(--first-color-dark);
+  color: var(--first-color);
 }
 
 .searchBarInput {
@@ -954,7 +954,6 @@ justify-items: center;
   outline: none;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  font-weight: 700;
   color: var(--first-color-dark);
 }
 
@@ -969,24 +968,22 @@ justify-items: center;
 }
 
 .buttonSearch {
-  margin: 8px 3px 8px 18px;
-  padding: 5px 0;
-  width: 100px;
-  background: var(--first-color-dark);
+  margin: 3px 0 3px 16rem;
+  padding: 5px 8px;
+  width: max-content;
   color: var(--title-color);
+  box-shadow: 0 2px 10px rgba(35,0,77,.2);
   text-align: center;
   font-size: 1rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
   border-radius: 20px;
   cursor: pointer;
   transition: 0.5s;
 }
 
 .buttonSearch:hover {
-  color: #FFF;
-  background: var(--second-color);
-  box-shadow: 0 8px 10px 2px rgba(0, 0, 0, 0.3);
+  color: var(--first-color-dark);
+  box-shadow: 1px 2px 8px var(--second-color);
 }
 
 
@@ -1055,6 +1052,23 @@ justify-items: center;
   /* RECIPE IN PROGRESS */
   .bottomInProgress a button {
     margin-left: 4rem;
+  }
+
+  /* SEARCHBAR COMPONENT */
+  .mainContentSearchBar {
+    margin-right: 11.5%;
+  }
+
+  .searchBar {
+    width: 460px;
+  }
+
+  .searchBar:before {
+    right: 10px;
+  }
+
+  .buttonSearch {
+    margin: 8px 3px 8px 18px;
   }
 }
 
@@ -1336,5 +1350,10 @@ justify-items: center;
 
   .buttonsInProfile button {
     cursor: pointer;
+  }
+
+  /* SEARCHBAR COMPONENT */
+  .mainContentSearchBar {
+    margin-right: 12.5%;
   }
 }
