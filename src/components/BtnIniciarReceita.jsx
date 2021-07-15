@@ -18,18 +18,17 @@ function BtnIniciarReceita({ id }, { history }) {
   const finishRecipe = () => {
     receitaFinalizada.push(id);
     localStorage
-      .setItem('finishedRecipes', JSON.stringify([...finishedRecipes, ...receitaFinalizada]));
+      .setItem('finishedRecipes',
+        JSON.stringify([...finishedRecipes, ...receitaFinalizada]));
   };
 
   let btnText = 'Iniciar receita';
-  const btn = document.getElementById('recipe-btn');
   const verifyLocalStorage = () => {
     if (startedRecipes.includes(id)) {
       btnText = 'Continuar receita';
     }
-    if (finishedRecipes.includes(id)) {
-      btn.classList.add('invisible');
-    }
+    // if (finishedRecipes.includes(id)) {
+    // }
   };
 
   verifyLocalStorage();
