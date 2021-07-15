@@ -6,6 +6,8 @@
 
   --crl-Secondary: #ff6464;
 
+  --crl-Tertiary: #fec0a0;
+
   --crl-Main-Text: #2e3e5c;
 
   --crl-Secondary-Text: #9fa5c0;
@@ -94,13 +96,15 @@
 .btn-content {
   display: flex;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .btn-search {
-  background-color: var(--crl-Primary);
+  background-color: var(--crl-Tertiary);
   border-radius: 25px;
-  color: var(--crl-White);
+  color: var(--crl-Main-Text);
   font-size: var(--font-size-p2);
   font-weight: 700;
+  height: 2.2rem;
   width: 7.5rem;
 }

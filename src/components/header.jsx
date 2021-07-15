@@ -72,6 +72,7 @@ class Header extends Component {
           <div className="profile-div">
             <Link to="/perfil">
               <img
+                className="profile-icon"
                 data-testid="profile-top-btn"
                 src={ profileIcon }
                 alt="profileImagem"

@@ -47,12 +47,12 @@
 
 }
 
-.header h1 {
-  color: var(--crl-Main-Text);
-  font-size: var(--font-size-h1);
+.page-title-div h1 {
+  color: var(--crl-Secondary);
+  font-family: Damion , cursive;
+  font-size: 2.2rem;
   font-weight: 700;
   position: relative;
-  
 }
 
 .btn-search-bar {
@@ -61,40 +61,36 @@
   outline: none;
 
 }
+
 .page-title-div {
-
-  text-align: center; 
-
+  align-items: center;
   justify-content: center;
-   align-items: center;
   position: fixed;
-
-
-
-  
-} 
+  text-align: center;
+}
 
 .profile-div {
-  position: fixed;
-  left: 30px;
-  top: 10px;
-  text-align: center; 
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  left: 30px;
+  position: fixed;
+  text-align: center;
+  top: 10px;
+}
 
-
-  /* margin-left: 20px;
-  margin-right: 20px; */
-  /* flex */
-
-} 
+.profile-div img {
+  width: 2rem;
+}
 
 .search-bar {
+  align-items: center;
+  justify-content: center;
   position: fixed;
   right: 30px;
+  text-align: center;
   top: 10px;
-  text-align: center; 
-  justify-content: center;
-  align-items: center;
+}
 
+.search-bar img {
+  width: 2rem;
 }

@@ -37,10 +37,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 90vw;
 }
 
 .category-filter {
   background-color: var(--crl-Primary);
+  border: none;
   border-radius: 25px;
   color: var(--crl-White);
   font-size: var(--font-size-s);
@@ -49,4 +51,8 @@
   margin: 0.3rem;
   outline: none;
   width: 7rem;
+}
+
+.category-filter:active {
+  outline: none;
 }

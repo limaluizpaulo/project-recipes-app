@@ -6,6 +6,8 @@
 
   --crl-Secondary: #ff6464;
 
+  --crl-Tertiary: #fec0a0;
+
   --crl-Main-Text: #2e3e5c;
 
   --crl-Secondary-Text: #9fa5c0;
@@ -38,13 +40,52 @@
   bottom: 0;
   box-shadow: 8px -3px 12px 0 rgba(11, 44, 102, 0.12);
   display: flex;
-  height: 3.6rem;
+  height: 4.37rem;
   justify-content: space-around;
   position: fixed;
   width: 100vw;
 }
 
-button {
-  background-color: #c4c4c4;
-  border: 0;
+.footer a {
+  text-decoration: none;
+}
+
+.footer-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 4.3rem;
+  justify-content: space-around;
+}
+
+.footer-icon {
+  width: 2rem;
+}
+
+.footer-span {
+  color: var(--crl-Secondary-Text);
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-span-explorer {
+  bottom: -20px;
+  position: relative;
+}
+
+.btn-explorer {
+  align-items: center;
+  background-color: var(--crl-Secondary);
+  border-radius: 50%;
+  bottom: 30px;
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  position: absolute;
+  width: 3rem;
+}
+
+.btn-explorer img {
+  width: 2rem;
 }

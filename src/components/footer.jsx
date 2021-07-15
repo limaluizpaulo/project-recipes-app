@@ -13,13 +13,37 @@ class Footer extends Component {
       <section className="footer-main">
         <footer data-testid="footer" className="footer">
           <Link to="/bebidas">
-            <img src={ drinkIcon } alt="drink icon" data-testid="drinks-bottom-btn" />
+            <div className="footer-btn">
+              <img
+                className="footer-icon"
+                src={ drinkIcon }
+                alt="drink icon"
+                data-testid="drinks-bottom-btn"
+              />
+              <span className="footer-span">Bebidas</span>
+            </div>
           </Link>
-          <Link to="/explorar">
-            <img src={ exploreIcon } alt="explorar" data-testid="explore-bottom-btn" />
+          <Link className="footer-btn" to="/explorar">
+            <div className="btn-explorer">
+              <img
+                className="footer-icon"
+                src={ exploreIcon }
+                alt="explorar"
+                data-testid="explore-bottom-btn"
+              />
+            </div>
+            <span className="footer-span footer-span-explorer">Explorar</span>
           </Link>
           <Link to="/comidas">
-            <img src={ mealIcon } alt="comidas" data-testid="food-bottom-btn" />
+            <div className="footer-btn">
+              <img
+                className="footer-icon"
+                src={ mealIcon }
+                alt="comidas"
+                data-testid="food-bottom-btn"
+              />
+              <span className="footer-span">Comidas</span>
+            </div>
           </Link>
         </footer>
       </section>
