@@ -15,6 +15,8 @@ A base de dados são 2 APIs distintas, uma para comidas e outra para bebidas.
 
 O layout tem como foco dispositivos móveis.
 
+Demo: https://deliciouseat.herokuapp.com/
+
 ### :nut_and_bolt: Tecnologias
 
 Esse projeto foi desenvolvido com a seguinte técnologias:
